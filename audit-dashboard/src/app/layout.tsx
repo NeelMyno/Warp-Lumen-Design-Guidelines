@@ -44,7 +44,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${satoshi.variable} ${jetbrains.variable} h-full antialiased`}
-      data-mood="default"
+      data-mood="quiet-industrial"
       data-theme="light"
       suppressHydrationWarning
     >

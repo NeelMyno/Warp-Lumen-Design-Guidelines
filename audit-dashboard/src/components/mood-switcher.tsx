@@ -3,20 +3,23 @@
 import { useEffect, useState } from "react";
 import { MOODS, type MoodId } from "@/lib/moods";
 
+const DEFAULT_MOOD: MoodId = "quiet-industrial";
+
 export function MoodSwitcher() {
-  const [mood, setMood] = useState<MoodId>("default");
+  const [mood, setMood] = useState<MoodId>(DEFAULT_MOOD);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = window.localStorage.getItem("lumen-mood") as MoodId | null;
-    const initial = stored && MOODS.find((m) => m.id === stored) ? stored : "default";
+    const initial =
+      stored && MOODS.find((m) => m.id === stored) ? stored : DEFAULT_MOOD;
     setMood(initial);
     document.documentElement.dataset.mood = initial;
     setMounted(true);
   }, []);
 
   if (MOODS.length <= 1) {
-    // Hide selector while only the placeholder mood is registered.
+    // Hide selector while only one mood is registered.
     return null;
   }
 
@@ -32,7 +35,7 @@ export function MoodSwitcher() {
         Mood
       </span>
       <select
-        value={mounted ? mood : "default"}
+        value={mounted ? mood : DEFAULT_MOOD}
         onChange={(e) => select(e.target.value as MoodId)}
         aria-label="Visual mood"
         className="h-9 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 text-[var(--type-14)] text-[var(--text-primary)] focus-visible:border-[var(--border-focus)]"
