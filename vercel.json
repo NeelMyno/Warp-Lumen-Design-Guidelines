@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "installCommand": "cd audit-dashboard && pnpm install --no-frozen-lockfile",
-  "buildCommand":   "cd audit-dashboard && pnpm build",
+  "installCommand": "cd audit-dashboard && npm install --legacy-peer-deps --no-audit --no-fund",
+  "buildCommand":   "cd audit-dashboard && npm run build",
   "outputDirectory": "audit-dashboard/.next"
 }
