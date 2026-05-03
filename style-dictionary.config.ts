@@ -8,9 +8,11 @@
  */
 
 import StyleDictionary from "style-dictionary";
-import { register as registerTokensStudio } from "@tokens-studio/sd-transforms";
 
-registerTokensStudio(StyleDictionary);
+// Style Dictionary v5 has native DTCG (Design Tokens Community Group) support,
+// so the @tokens-studio/sd-transforms preprocessor (which targets SD v4) is not needed.
+// If you later round-trip tokens through Tokens Studio in Figma, add it back and
+// downgrade style-dictionary to v4 OR upgrade sd-transforms to a SD-v5-compatible version.
 
 const sourceGlob = "design-system/01-tokens/**/*.tokens.json";
 
@@ -21,7 +23,6 @@ const lightConfig = {
     "!design-system/01-tokens/semantic/color.hc-light.tokens.json",
     "!design-system/01-tokens/semantic/color.hc-dark.tokens.json",
   ],
-  preprocessors: ["tokens-studio"],
   platforms: {
     css: {
       transformGroup: "css",
@@ -131,7 +132,6 @@ const darkConfig = {
     "design-system/01-tokens/semantic/shadow.tokens.json",
     "design-system/01-tokens/components/**/*.tokens.json",
   ],
-  preprocessors: ["tokens-studio"],
   platforms: {
     css: {
       transformGroup: "css",
