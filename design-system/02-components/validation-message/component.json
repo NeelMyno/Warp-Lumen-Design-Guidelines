@@ -1,0 +1,60 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ValidationMessage",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Inline or summary validation message. Variants: error, warning, success, info. Pairs with Field (inline error/hint) and Form (top-of-form summary). Pulls icon + color + role from one source.",
+  "props": {
+    "variant":   { "type": "enum", "values": ["inline", "summary"], "default": "inline", "optional": true, "description": "Inline lives below a single Field; summary lives at the top of a Form on submit failure." },
+    "tone":      { "type": "enum", "values": ["error", "warning", "success", "info"], "default": "error", "optional": true },
+    "title":     { "type": "string", "optional": true, "description": "Headline for the summary variant (e.g., 'Fix 3 errors before continuing')." },
+    "children":  { "type": "node", "optional": true, "description": "Anchor links for summary variant; inline error string for inline." },
+    "id":        { "type": "string", "optional": true, "description": "Used by aria-describedby on the related Field." },
+    "icon":      { "type": "icon", "optional": true, "description": "Override the default icon. Default is variant-driven." }
+  },
+  "tokens": {
+    "consumed": [
+      "field.error.type", "field.error.color",
+      "field.success.type", "field.success.color",
+      "field.helper.type", "field.helper.color"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — into the summary; anchor links navigate to the offending Field"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.1 Use of Color",
+      "3.3.1 Error Identification",
+      "3.3.3 Error Suggestion",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "tone='error' sets role='alert' (or aria-live='assertive' for the summary variant on submit).",
+      "tone='success' / 'info' / 'warning' sets aria-live='polite'.",
+      "Color is never the only signal — every variant ships with an icon AND text.",
+      "Summary variant focuses itself on submit failure so screen readers announce immediately."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use 'inline' for per-field errors below the Field.",
+      "Use 'summary' at the top of a Form on submit failure with anchor links to each invalid Field.",
+      "Pair the icon + color + text — color alone is never the signal.",
+      "Skip success state by default in operator UI; reserve for explicit post-validation moments (saved, sent)."
+    ],
+    "dont": [
+      "Don't use 'error' tone for warnings — warning tone exists for a reason.",
+      "Don't set aria-live='assertive' for inline messages — only the summary on submit.",
+      "Don't render two ValidationMessages per Field — error and hint are mutually exclusive."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/primitives/feedback.tsx" },
+  "related": ["Field", "Form", "Alert"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial dedicated contract. Was previously a buried atom inside feedback.tsx; promoted because it's a form composition primitive, not a feedback affordance." }
+  ]
+}

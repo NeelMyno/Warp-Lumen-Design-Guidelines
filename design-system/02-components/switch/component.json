@@ -1,0 +1,66 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Switch",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Binary toggle for an immediate-effect setting. Pill track + sliding thumb. Distinct from Toggle (button-style on/off) and Checkbox (form-submission boolean). Built on Radix Switch.",
+  "props": {
+    "checked":         { "type": "boolean", "optional": true },
+    "defaultChecked":  { "type": "boolean", "optional": true },
+    "onCheckedChange": { "type": "handler", "optional": true },
+    "disabled":        { "type": "boolean", "default": false, "optional": true },
+    "label":           { "type": "string", "optional": true },
+    "description":     { "type": "string", "optional": true },
+    "name":            { "type": "string", "optional": true },
+    "value":           { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "switch.track.width", "switch.track.height", "switch.track.radius",
+      "switch.track.background.off", "switch.track.background.on", "switch.track.background.disabled",
+      "switch.track.border.rest", "switch.track.border.error",
+      "switch.thumb.size", "switch.thumb.color.off", "switch.thumb.color.on",
+      "switch.thumb.shadow", "switch.thumb.translateOff", "switch.thumb.translateOn",
+      "switch.label.type", "switch.label.color", "switch.label.gap",
+      "input.ring.focus", "input.ring.error",
+      "input.transition"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Space — toggle",
+      "Tab — focus next control"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Always paired with a visible label.",
+      "Switch state takes effect IMMEDIATELY (no submit). If the action requires confirmation, use a Checkbox + submit instead.",
+      "Touch target extends to the label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Switch for settings that take effect immediately (notifications on/off, dark mode).",
+      "Show a brief confirmation for destructive toggles ('Disabled — emails will stop within 24h').",
+      "Pair with a description when the toggle has non-obvious side effects."
+    ],
+    "dont": [
+      "Don't use Switch for form-submission booleans — use Checkbox.",
+      "Don't use Switch as a 'Save / Cancel' toggle — that's a Button group."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/ui/switch.tsx" },
+  "related": ["Toggle", "Checkbox", "RadioGroup", "Field"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial dedicated contract — Switch was previously conflated with the Toggle component (which is now reserved for the button-style on/off pattern, e.g. left-rail filter toggles)." }
+  ]
+}

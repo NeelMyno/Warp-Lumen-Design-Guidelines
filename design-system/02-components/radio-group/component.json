@@ -1,0 +1,68 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "RadioGroup",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mutually exclusive single choice from 2+ options. Round 16 px ring per option (md). Built on Radix RadioGroup; uses .lumen-radio shell.",
+  "props": {
+    "value":         { "type": "string", "optional": true },
+    "defaultValue":  { "type": "string", "optional": true },
+    "onValueChange": { "type": "handler", "optional": true },
+    "name":          { "type": "string", "optional": true, "description": "Form field name. All radios in the group share it." },
+    "disabled":      { "type": "boolean", "default": false, "optional": true },
+    "size":          { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "orientation":   { "type": "enum", "values": ["vertical", "horizontal"], "default": "vertical", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "radio.size.sm", "radio.size.md", "radio.size.lg",
+      "radio.border.rest", "radio.border.hover", "radio.border.checked", "radio.border.error", "radio.border.disabled",
+      "radio.background.rest", "radio.background.checked", "radio.background.disabled",
+      "radio.indicator.color", "radio.indicator.size",
+      "radio.label.type", "radio.label.color", "radio.label.gap",
+      "radio.groupGap",
+      "input.ring.focus", "input.ring.error",
+      "input.transition"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the group; lands on the checked option (or first option if none checked)",
+      "ArrowDown / ArrowRight — next option",
+      "ArrowUp / ArrowLeft — previous option",
+      "Space — select (when wrapped from auto-select on focus)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Always wrap in a <fieldset> with a visible <legend>.",
+      "All radios share a name — Radix handles this internally; consumer passes name on the Root.",
+      "Touch target extends to the label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use RadioGroup for ≥ 2 mutually exclusive options where all options should be visible at once.",
+      "Always provide a label per option.",
+      "Default to no preselection unless there's a true 'safe default' the user would want."
+    ],
+    "dont": [
+      "Don't use RadioGroup for booleans — use Switch or Checkbox.",
+      "Don't use RadioGroup for ≥ 7 options — use Select or Combobox.",
+      "Don't preselect an option that costs the user money (insurance upsell, paid plan)."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/ui/radio-group.tsx" },
+  "related": ["Checkbox", "Select", "Segmented", "Switch", "Field"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial release. Adopts .lumen-radio shell. Replaces the v0.5 dual implementation drift (DIY radio in inputs.tsx vs unused shadcn Radix radio-group)." }
+  ]
+}

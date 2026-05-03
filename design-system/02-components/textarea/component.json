@@ -1,0 +1,74 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Textarea",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Multi-line text input. Auto-grows up to a cap; resize handle at bottom-right. Inherits the field shell from Input.",
+  "props": {
+    "size":         { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true, "description": "Drives min-height. sm=64 / md=80 / lg=128." },
+    "rows":         { "type": "number", "default": 4, "optional": true, "description": "Initial rows. Auto-grows past this if `field-sizing: content` is supported." },
+    "disabled":     { "type": "boolean", "default": false, "optional": true },
+    "readOnly":     { "type": "boolean", "default": false, "optional": true },
+    "placeholder":  { "type": "string", "optional": true },
+    "value":        { "type": "string", "optional": true },
+    "defaultValue": { "type": "string", "optional": true },
+    "onChange":     { "type": "handler", "optional": true },
+    "maxLength":    { "type": "number", "optional": true, "description": "Pair with a character counter in the trailing slot." },
+    "autoResize":   { "type": "boolean", "default": true, "optional": true, "description": "Use field-sizing: content to auto-grow. Falls back to the user resize handle." }
+  },
+  "tokens": {
+    "consumed": [
+      "textarea.minHeight.sm", "textarea.minHeight.md", "textarea.minHeight.lg",
+      "textarea.maxHeight.default",
+      "textarea.padding.y",
+      "textarea.resize",
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.radius",
+      "input.background.rest", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "type.body.md"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus / move out",
+      "Enter — newline (does not submit)",
+      "Ctrl+Enter / Cmd+Enter — optional submit when used in a Form context"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.4.7 Focus Visible",
+      "3.3.1 Error Identification",
+      "3.3.2 Labels or Instructions",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Always paired with a visible label via Field.",
+      "Character counter (if present) lives in the helper row, not in the trailing slot, so it doesn't compete for shell space.",
+      "Resize handle: vertical-only by default (resize: vertical). Use 'none' for fixed-height textareas; 'both' is discouraged because it breaks page rhythm."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Auto-grow with field-sizing: content when supported; fall back to user resize handle.",
+      "Cap auto-grow with max-height so a runaway textarea doesn't push the rest of the form off-screen.",
+      "Use a character counter for tweet-length / SMS-length / SEO meta-description fields."
+    ],
+    "dont": [
+      "Don't allow horizontal resize on a multi-column form — it breaks the column rhythm.",
+      "Don't make a textarea the entire page — at that scale, use a dedicated editor.",
+      "Don't disable the resize handle without an alternative (e.g. auto-grow). Users need a way to see more text."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/ui/textarea.tsx" },
+  "related": ["Field", "Input", "Form"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial release. Adopts the field shell, removes the v0.5 `text-base md:text-sm` font-size override, adds aria-invalid:focus-visible halo recipe to match Input." }
+  ]
+}

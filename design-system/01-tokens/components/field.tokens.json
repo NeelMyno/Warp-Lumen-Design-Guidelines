@@ -1,0 +1,43 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "field": {
+    "$description": "v0.6 — Layout tokens for the Field composition (label + control + helper + error). The field shell itself uses input.* tokens; this file owns vertical rhythm + label/helper typography roles.",
+    "gap": {
+      "$type": "dimension",
+      "labelToControl": { "$value": "{space.1}", "$description": "Label below stacked over the control." },
+      "controlToHelp":  { "$value": "{space.1}", "$description": "Control above the hint or error message." },
+      "groupToGroup":   { "$value": "{space.5}", "$description": "Vertical rhythm between fields in a form. Modern peer-system convergence: 16-20 px." },
+      "fieldsetToFieldset": { "$value": "{space.8}", "$description": "Vertical rhythm between fieldsets / form sections." }
+    },
+    "label": {
+      "$description": "Field label. Uppercase mono is reserved for system metadata; field labels stay sentence-case sans-medium.",
+      "type":          { "$value": "{type.label.sm}" },
+      "color":         { "$value": "{color.text.secondary}" },
+      "colorDisabled": { "$value": "{color.text.disabled}" }
+    },
+    "optional": {
+      "$description": "The `(optional)` suffix on a label. NN/g preference over the asterisk pattern.",
+      "type":  { "$value": "{type.body.xs}" },
+      "color": { "$value": "{color.text.tertiary}" }
+    },
+    "required": {
+      "$description": "The required asterisk marker.",
+      "color": { "$value": "{color.border.error}" }
+    },
+    "helper": {
+      "$description": "Hint or description shown beneath the control.",
+      "type":          { "$value": "{type.body.xs}" },
+      "color":         { "$value": "{color.text.tertiary}" },
+      "colorDisabled": { "$value": "{color.text.disabled}" }
+    },
+    "error": {
+      "$description": "Error message. role=alert; aria-describedby includes its id.",
+      "type":  { "$value": "{type.body.xs}" },
+      "color": { "$value": "{color.text.error}" }
+    },
+    "success": {
+      "type":  { "$value": "{type.body.xs}" },
+      "color": { "$value": "{color.text.success}" }
+    }
+  }
+}

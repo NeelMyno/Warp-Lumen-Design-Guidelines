@@ -27,7 +27,19 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-[var(--border-default)] bg-[var(--surface-raised)] data-[placeholder]:text-[var(--text-tertiary)] [&_svg:not([class*='text-'])]:text-[var(--text-tertiary)] focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-focus)] aria-invalid:border-[var(--lumen-red-5)] flex w-fit items-center justify-between gap-2 rounded-[var(--radius-md)] border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-10 data-[size=sm]:h-8 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        // v0.6 — adopts field-shell visual contract. Removed `bg-transparent`
+        // that was clobbering the bg color (last-class-wins) in v0.5.
+        "flex w-full items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 py-2 text-body-md text-[var(--text-primary)] whitespace-nowrap outline-none",
+        "data-[placeholder]:text-[var(--text-placeholder)] [&_svg:not([class*='text-'])]:text-[var(--text-tertiary)]",
+        "shadow-[var(--shadow-input-lit-edge)]",
+        "transition-[color,box-shadow,border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
+        "hover:border-[var(--border-strong)]",
+        "focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-input-focus)]",
+        "aria-invalid:border-[var(--border-error)] aria-invalid:focus-visible:shadow-[var(--shadow-input-error)]",
+        "disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[var(--text-disabled)] disabled:border-[var(--border-input-disabled)]",
+        "data-[size=default]:h-10 data-[size=sm]:h-8",
+        "*:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
+        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

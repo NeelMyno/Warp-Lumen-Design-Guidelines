@@ -1,70 +1,86 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Input",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "status": "stable",
   "deprecated": false,
-  "summary": "A single-line text input. The base of every text-entry form control.",
+  "summary": "Single-line text input. The base of every text-entry form control. Renders inside a Field shell that owns the focus surface.",
   "props": {
     "size":         { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
-    "mono":         { "type": "boolean", "default": false, "optional": true, "description": "Render value in JetBrains Mono with tabular numerics. Use for IDs, ZIPs, codes." },
-    "error":        { "type": "boolean", "default": false, "optional": true },
+    "type":         { "type": "enum", "values": ["text", "email", "tel", "url", "search", "password", "number"], "default": "text", "optional": true },
+    "mono":         { "type": "boolean", "default": false, "optional": true, "description": "Render value in JetBrains Mono with tabular numerics. Use for IDs, ZIPs, codes, weights, money." },
     "disabled":     { "type": "boolean", "default": false, "optional": true },
-    "readOnly":     { "type": "boolean", "default": false, "optional": true },
-    "leadingIcon":  { "type": "icon", "optional": true },
-    "trailingIcon": { "type": "icon", "optional": true },
-    "placeholder":  { "type": "string", "optional": true, "description": "Hint, not a substitute for a label." },
+    "readOnly":     { "type": "boolean", "default": false, "optional": true, "description": "Non-editable but focusable, copyable, and in tab order. Distinct from disabled." },
     "value":        { "type": "string", "optional": true },
-    "onChange":     { "type": "handler", "optional": false }
+    "defaultValue": { "type": "string", "optional": true },
+    "placeholder":  { "type": "string", "optional": true, "description": "Hint, not a substitute for a label." },
+    "onChange":     { "type": "handler", "optional": true },
+    "inputMode":    { "type": "enum", "values": ["text", "numeric", "decimal", "tel", "search", "email", "url", "none"], "optional": true, "description": "Hints the on-screen keyboard. Set per type for mobile UX." },
+    "autoComplete": { "type": "string", "optional": true, "description": "Always set for known input types — name, email, current-password, postal-code, etc." }
   },
   "tokens": {
     "consumed": [
       "input.height.sm", "input.height.md", "input.height.lg",
-      "input.padding.x", "input.radius",
-      "input.background.rest", "input.background.disabled",
-      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error",
-      "input.foreground.value", "input.foreground.placeholder",
-      "shadow.focus", "type.body.md", "type.body.sm", "type.label.md",
-      "type.code.inline", "type.data.md",
-      "motion.transition.fast"
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.padding.y.sm", "input.padding.y.md", "input.padding.y.lg",
+      "input.gap.slot",
+      "input.radius",
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled", "input.background.readOnly",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.success", "input.border.disabled", "input.border.readOnly",
+      "input.foreground.value", "input.foreground.valueDisabled", "input.foreground.valueReadOnly", "input.foreground.placeholder", "input.foreground.iconLeading", "input.foreground.iconTrailing", "input.foreground.addon",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "type.body.md", "type.body.sm", "type.body.lg"
     ]
   },
   "a11y": {
     "keyboard": [
-      "Tab - move focus to next control",
-      "Shift+Tab - move focus to previous control"
+      "Tab — move focus to next control",
+      "Shift+Tab — move focus to previous control"
     ],
+    "minTouchTarget": "44x44",
     "wcag": [
       "1.3.1 Info and Relationships",
       "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "1.4.13 Content on Hover or Focus",
       "2.4.6 Headings and Labels",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
       "3.3.1 Error Identification",
       "3.3.2 Labels or Instructions",
+      "3.3.3 Error Suggestion",
       "4.1.2 Name, Role, Value"
     ],
     "rules": [
-      "Always paired with a visible label via Field, or with aria-label.",
+      "Always paired with a visible label via Field, or with aria-label if visually-hidden.",
       "Errors announced via aria-describedby pointing to a helper element with role=alert.",
-      "Required marked via aria-required=true AND a visual indicator.",
-      "Validation fires on blur, not on every keystroke.",
-      "Submit failure moves focus to the first invalid field."
+      "Required marked via aria-required=true AND a visual indicator (asterisk or `(optional)` siblings).",
+      "Validation fires on blur after first interaction; switches to onChange after first error; submits validate everything and focus the first invalid field.",
+      "Submit failure moves focus to the first invalid field via element.focus({ preventScroll: false }).",
+      "Placeholder is never the only label.",
+      "aria-describedby carries BOTH hint and error IDs (space-separated) so AT users hear both."
     ]
   },
   "rules": {
     "do": [
       "Always pair with a visible label.",
-      "Use mono=true for codes, IDs, ZIPs.",
-      "Set inputMode and autoComplete for known input types."
+      "Use mono for IDs, ZIPs, codes, weights, money — anything that benefits from character alignment.",
+      "Set inputMode and autoComplete for known input types.",
+      "Use type=email/tel/url to populate the right mobile keyboard.",
+      "Compose in a Field for label + helper + error orchestration."
     ],
     "dont": [
       "Don't use placeholder as the only label.",
-      "Don't validate on every keystroke.",
-      "Don't suppress browser autofill."
+      "Don't validate on every keystroke before first interaction.",
+      "Don't suppress browser autofill.",
+      "Don't paint a focus ring on the inner <input> when it's wrapped in a Field — the Field owns the ring."
     ]
   },
-  "examples": { "web-react": "./examples/primary.tsx" },
-  "related": ["Field", "Select", "Textarea", "Toggle"],
+  "examples": { "web-react": "../../../audit-dashboard/src/components/ui/input.tsx" },
+  "related": ["Field", "Form", "Textarea", "Select", "ValidationMessage"],
   "changelog": [
-    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+    { "version": "0.1.0", "type": "Added",   "note": "Initial release." },
+    { "version": "0.6.0", "type": "Changed", "note": "Adopts the .lumen-field shell. Inner <input> renders bare; the wrapper paints the single focus ring. Removes text-base md:text-sm font-size override that fought Lumen's 14 px body floor. Adds readOnly distinct from disabled, autofill recipe, success/warning border tokens." }
   ]
 }

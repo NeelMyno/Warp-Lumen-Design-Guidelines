@@ -342,14 +342,27 @@
   --surface-tint-accent: var(--lumen-lime-a14);
   --surface-tint-strong: var(--lumen-lime-a24);
 
+  /* v0.6 — Input field surfaces. Aliased so the field shell can theme
+     independently of card chrome. On dark: rest = raised; disabled = sunken;
+     readOnly stays at rest contrast (only caret + interactivity differ). */
+  --surface-input-rest:     var(--surface-raised);
+  --surface-input-hover:    var(--surface-raised);
+  --surface-input-focus:    var(--surface-raised);
+  --surface-input-readonly: var(--surface-raised);
+  --surface-input-disabled: var(--surface-sunken);
+
   --text-primary:    #f5f5f3;
   --text-secondary:  var(--lumen-obsidian-3);
   --text-tertiary:   var(--lumen-obsidian-3);  /* a11y: WCAG AA 5.4:1 on canvas (was obsidian-4 / 2.7:1 fail) */
+  --text-placeholder: var(--lumen-obsidian-3); /* v0.6 — alias of tertiary; carries its own role for theming */
   --text-disabled:   var(--lumen-obsidian-4);  /* a11y: still feels "dim", but perceptible (was obsidian-5 / 1.5:1) */
   --text-inverse:    #0a0a0c;
   --text-accent:     var(--lumen-accent-3);
   --text-link:       #f5f5f3;
   --text-on-accent:  var(--lumen-accent-fg);
+  --text-error:      #f48a86;                  /* v0.6 — error text on canvas (4.7:1) */
+  --text-success:    var(--lumen-accent-3);    /* v0.6 — lime per single-accent rule */
+  --text-warning:    #f3d8a4;                  /* v0.6 — warning on canvas */
 
   --border-hairline: var(--lumen-paper-a06);
   --border-subtle:   var(--lumen-paper-a08);
@@ -358,6 +371,10 @@
   --border-frame:    var(--lumen-paper-a40);   /* v0.4 — brutalist frame    */
   --border-focus:    var(--lumen-accent-4);
   --border-accent:   var(--lumen-lime-a40);    /* lime-tinted hairline       */
+  --border-error:    var(--lumen-red-5);       /* v0.6 — input error border */
+  --border-success:  var(--lumen-accent-4);    /* v0.6 — input success (post-validation only) */
+  --border-warning:  var(--lumen-amber-5);     /* v0.6 — input warning border */
+  --border-input-disabled: var(--lumen-paper-a06); /* v0.6 — muted: no hover/focus follow-through */
 
   --status-success-bg: rgba(22, 163, 74, 0.16);
   --status-success-fg: var(--lumen-accent-3);
@@ -404,7 +421,15 @@
     inset 0 -1px 0 0 rgba(0,0,0,0.32),
     0 16px 48px -12px rgba(0,0,0,0.56);
   --shadow-inset: inset 0 1px 0 0 var(--lumen-paper-a08);
-  --shadow-focus: 0 0 0 3.5px var(--lumen-lime-a40);
+  /* v0.6 — Reconciled with shadow.focus token (was 3.5px / a40; now 3px / a32 to match JSON SoT). */
+  --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
+  /* v0.6 — Field-shell-scoped shadows. .lumen-field consumes these; the inner
+     <input> never paints a ring. lit-edge composes under focus/error halos
+     via comma-separation to preserve the glass-pane top-reflection effect. */
+  --shadow-input-lit-edge: inset 0 1px 0 0 var(--lumen-paper-a06);
+  --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
+  --shadow-input-error:    0 0 0 3px rgba(239,68,68,0.32);
+  --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
   --shadow-glow-accent: 0 14px 40px -8px var(--lumen-lime-a40);
   --shadow-glow-accent-strong:
     0 0 0 1px var(--lumen-lime-a32),
@@ -479,14 +504,26 @@
   --surface-tint-accent: var(--lumen-lime-a08);
   --surface-tint-strong: var(--lumen-lime-a14);
 
+  /* v0.6 — Input field surfaces (light mode). Sunken cream gives an inset
+     feel against the paper canvas; on focus we pop to paper-white. */
+  --surface-input-rest:     var(--lumen-cream-1);
+  --surface-input-hover:    var(--lumen-cream-1);
+  --surface-input-focus:    #ffffff;
+  --surface-input-readonly: var(--lumen-cream-1);
+  --surface-input-disabled: var(--lumen-cream-0);
+
   --text-primary:    #14110f;
   --text-secondary:  var(--lumen-cream-7);
   --text-tertiary:   var(--lumen-cream-6);
+  --text-placeholder: var(--lumen-cream-5);  /* v0.6 — AA-safe at ≥14px on cream */
   --text-disabled:   var(--lumen-cream-5);   /* a11y: was cream-4 / 2.2:1, now ~3.6:1 perceptible */
   --text-inverse:    var(--lumen-cream-0);
   --text-accent:     var(--lumen-accent-8);  /* a11y: WCAG AA 5.6:1 on cream (was accent-7 / 3.2:1 fail) */
   --text-link:       #14110f;
   --text-on-accent:  var(--lumen-accent-fg);
+  --text-error:      var(--lumen-red-7);     /* v0.6 — deep red for AA on cream */
+  --text-success:    var(--lumen-accent-8);  /* v0.6 — deep accent for AA on cream */
+  --text-warning:    var(--lumen-amber-7);
 
   --border-hairline:  var(--lumen-ink-a06);
   --border-subtle:    var(--lumen-ink-a08);
@@ -495,6 +532,10 @@
   --border-frame:     var(--lumen-ink-a40);
   --border-focus:     var(--lumen-accent-4);
   --border-accent:    var(--lumen-accent-7);
+  --border-error:     var(--lumen-red-5);    /* v0.6 — saturated red for stroke contrast */
+  --border-success:   var(--lumen-accent-5);
+  --border-warning:   var(--lumen-amber-5);
+  --border-input-disabled: var(--lumen-ink-a06);
 
   --status-success-bg: #ecfdf3;
   --status-success-fg: var(--lumen-accent-8);
@@ -539,7 +580,16 @@
     inset 0 -1px 0 0 var(--lumen-ink-a04),
     0 16px 40px -12px var(--lumen-ink-a16);
   --shadow-inset: inset 0 1px 0 0 rgba(255,255,255,0.6);
-  --shadow-focus: 0 0 0 3.5px var(--lumen-lime-a32);
+  /* v0.6 — Reconciled with shadow.focus token. Light mode keeps the same
+     3px / a32 recipe; the lime stroke + halo read clearly on cream. */
+  --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
+  /* v0.6 — Field-shell-scoped shadows. lit-edge is no-op on light mode
+     (cream paper doesn't have a glass top reflection); declared transparent
+     so the comma-stack composes cleanly. */
+  --shadow-input-lit-edge: 0 0 0 0 transparent;
+  --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
+  --shadow-input-error:    0 0 0 3px rgba(239,68,68,0.32);
+  --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
   --shadow-glow-accent: 0 14px 34px -8px var(--lumen-lime-a24);
   --shadow-glow-accent-strong:
     0 0 0 1px var(--lumen-lime-a24),
@@ -739,6 +789,19 @@ html, body {
   border-radius: var(--radius-sm);
 }
 
+/* v0.6 — Critical: form controls nested inside the .lumen-field wrapper do
+   NOT paint their own focus ring. The wrapper observes focus via :has() (or
+   :focus-within fallback) and paints exactly one ring. This rule suppresses
+   the global :focus-visible halo on the inner element so we never get the
+   double-ring bug that plagued v0.5. The wrapper rules live in the FORMS
+   section below. */
+.lumen-field :is(input, textarea, select):focus-visible,
+.lumen-field [data-slot="control"]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0;
+}
+
 a { color: inherit; text-decoration: none; }
 
 /* v0.5 — Plan B Inter swap. Toggle [data-font="inter"] on <html> to flip the
@@ -868,6 +931,520 @@ html[data-font="inter"] {
   border-radius: var(--radius-sm);
   line-height: 1;
   font-feature-settings: "tnum" 1, "calt" 0, "zero" 1;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   v0.6 — FORMS & INPUT FIELDS
+   ----------------------------------------------------------------------------
+   ONE shell, .lumen-field, owns the focus surface for every text-entry control
+   in Lumen — Input, Textarea, Select, Combobox, NumberInput, PasswordInput,
+   OtpInput, TagsInput. The shell paints exactly one focus ring via :has()
+   (with :focus-within fallback). The inner <input> renders bare — no border,
+   no ring, no fill — inheriting from the wrapper. Slots (leading icon,
+   trailing icon, trailing addon) sit as siblings inside the same shell so
+   they're inside the same focus boundary by construction.
+
+   See _meta/decisions/0011-forms-and-inputs-v06.md for the architectural
+   rationale and the bug class this collapses.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* The shell. Single focus surface. Owns border, bg, lit-edge, focus halo. */
+.lumen-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--size-control-md);
+  padding-inline: var(--space-3);
+  background: var(--surface-input-rest);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--type-14);
+  line-height: var(--leading-snug);
+  cursor: text;
+  transition:
+    border-color var(--motion-fast) var(--easing-standard),
+    box-shadow var(--motion-fast) var(--easing-standard),
+    background-color var(--motion-fast) var(--easing-standard);
+  /* Lit top edge — borrowed from glassmorphism, scoped to dark mode (light
+     mode declares it transparent so the comma-stack still composes). */
+  box-shadow: var(--shadow-input-lit-edge);
+}
+
+/* Size variants. md is the default (declared above). */
+.lumen-field[data-size="sm"] {
+  height: var(--size-control-sm);
+  padding-inline: var(--space-2);
+  font-size: var(--type-13);
+  border-radius: var(--radius-md);
+}
+.lumen-field[data-size="lg"] {
+  height: var(--size-control-lg);
+  padding-inline: var(--space-4);
+  font-size: var(--type-15);
+}
+
+/* Density. data-density="compact" on a Form / page region makes every nested
+   field render at sm height. Doesn't override an explicit data-size. */
+[data-density="compact"] .lumen-field:not([data-size]) {
+  height: var(--size-control-sm);
+  padding-inline: var(--space-2);
+  font-size: var(--type-13);
+}
+
+/* Multiline (Textarea). Anchors at top, height auto-grows up to a cap. */
+.lumen-field[data-multiline="true"] {
+  height: auto;
+  min-height: calc(var(--size-control-md) * 2);
+  align-items: flex-start;
+  padding-block: var(--space-2);
+}
+.lumen-field[data-multiline="true"][data-size="sm"] {
+  min-height: calc(var(--size-control-sm) * 2);
+}
+.lumen-field[data-multiline="true"][data-size="lg"] {
+  min-height: calc(var(--size-control-lg) * 2);
+}
+
+/* Hover — only when the field is interactive. */
+.lumen-field:hover:not([data-disabled="true"]):not([aria-readonly="true"]):not([data-invalid="true"]) {
+  border-color: var(--border-strong);
+}
+
+/* Focus — single ring on wrapper. Modern :has(:focus-visible) preferred. */
+@supports selector(:has(:focus-visible)) {
+  .lumen-field:has(:is(input, textarea, select):focus-visible) {
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-input-lit-edge), var(--shadow-input-focus);
+    outline: none;
+  }
+}
+/* Fallback for older browsers — :focus-within fires on mouse focus too,
+   which is slightly chattier, but the visual is identical. */
+@supports not selector(:has(:focus-visible)) {
+  .lumen-field:focus-within {
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-input-lit-edge), var(--shadow-input-focus);
+    outline: none;
+  }
+}
+
+/* Error state. Border swaps; halo flips on focus. */
+.lumen-field[data-invalid="true"] {
+  border-color: var(--border-error);
+}
+@supports selector(:has(:focus-visible)) {
+  .lumen-field[data-invalid="true"]:has(:is(input, textarea, select):focus-visible) {
+    border-color: var(--border-error);
+    box-shadow: var(--shadow-input-lit-edge), var(--shadow-input-error);
+  }
+}
+@supports not selector(:has(:focus-visible)) {
+  .lumen-field[data-invalid="true"]:focus-within {
+    border-color: var(--border-error);
+    box-shadow: var(--shadow-input-lit-edge), var(--shadow-input-error);
+  }
+}
+
+/* Success state. Optional; only after explicit validation passes. */
+.lumen-field[data-valid="true"] {
+  border-color: var(--border-success);
+}
+
+/* Warning state. Use sparingly — most form systems skip warning entirely. */
+.lumen-field[data-warning="true"] {
+  border-color: var(--border-warning);
+}
+
+/* Disabled. Muted bg + dim border + cursor change. NOT just opacity. */
+.lumen-field[data-disabled="true"] {
+  background: var(--surface-input-disabled);
+  border-color: var(--border-input-disabled);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.lumen-field[data-disabled="true"] :is(input, textarea, select),
+.lumen-field[data-disabled="true"] [data-slot="leading"],
+.lumen-field[data-disabled="true"] [data-slot="trailing"],
+.lumen-field[data-disabled="true"] [data-slot="addon"] {
+  cursor: not-allowed;
+  color: inherit;
+}
+
+/* Read-only. Full contrast (it's just non-editable, not non-interactive).
+   No caret, but text is selectable and the field is in tab order. */
+.lumen-field[aria-readonly="true"] {
+  background: var(--surface-input-readonly);
+  cursor: default;
+}
+.lumen-field[aria-readonly="true"] :is(input, textarea, select) {
+  cursor: default;
+}
+
+/* The bare inner control. Inherits everything from the wrapper. */
+.lumen-field :is(input, textarea, select),
+.lumen-field [data-slot="control"] {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.lumen-field :is(input, textarea)::placeholder {
+  color: var(--text-placeholder);
+  opacity: 1; /* Firefox normalizes to 0.54 by default; force full to match Chrome */
+}
+
+/* Slots — bonded under the same focus surface. Decorative by default
+   (pointer-events: none); interactive children opt-in via [data-interactive]. */
+.lumen-field [data-slot="leading"],
+.lumen-field [data-slot="trailing"] {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+.lumen-field [data-slot="leading"] [data-interactive],
+.lumen-field [data-slot="trailing"] [data-interactive] {
+  pointer-events: auto;
+}
+/* Inner focus ring for interactive slot buttons (clear, password reveal,
+   unit toggle). Small, contained — never collides with the wrapper ring. */
+.lumen-field [data-slot="leading"] [data-interactive]:focus-visible,
+.lumen-field [data-slot="trailing"] [data-interactive]:focus-visible {
+  outline: none;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 0 0 2px var(--border-strong);
+}
+
+/* Trailing addon — the "STD" / "lb" / "%" chip. Always mono, uppercase
+   tracked, decorative. Sits inside the focus surface. */
+.lumen-field [data-slot="addon"] {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--type-12);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-cap-mono);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  pointer-events: none;
+  font-feature-settings: "tnum" 1, "calt" 0, "zero" 1, "case" 1;
+}
+
+/* Mono value — opt in via data-mono on the wrapper for IDs / ZIPs / codes. */
+.lumen-field[data-mono="true"] :is(input, textarea) {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1, "calt" 0, "zero" 1;
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+
+/* Autofill — Chrome/Safari paint a yellow bg on saved-credential autofill.
+   Override with our surface color via the inner box-shadow trick (the only
+   way to defeat -webkit-autofill background). */
+.lumen-field input:-webkit-autofill,
+.lumen-field input:-webkit-autofill:hover,
+.lumen-field input:-webkit-autofill:focus,
+.lumen-field input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--text-primary);
+  -webkit-box-shadow: 0 0 0 1000px var(--surface-input-rest) inset !important;
+  caret-color: var(--text-primary);
+  /* Long transition is the Stripe / shadcn / Linear pattern — outlasts the
+     autofill flash so the override never blinks visible. */
+  transition: background-color 5000s ease-in-out 0s;
+  border-radius: 0; /* Don't bleed inset shadow into the wrapper's radius */
+}
+
+/* Number-input quirks: hide native spinners by default; the NumberInput
+   component renders its own ± controls in the trailing slot. */
+.lumen-field input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.lumen-field input[type="number"]::-webkit-inner-spin-button,
+.lumen-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* Search-input quirks: hide the native clear "x" — we render a styled one. */
+.lumen-field input[type="search"]::-webkit-search-decoration,
+.lumen-field input[type="search"]::-webkit-search-cancel-button,
+.lumen-field input[type="search"]::-webkit-search-results-button,
+.lumen-field input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+/* ─────────────────────────  CHECKBOX  ───────────────────────── */
+/* Square 16px shell. Unchecked = hairline ring. Checked = lime fill +
+   accent.fg ink check. Composes inside .lumen-field-row for label binding. */
+.lumen-checkbox {
+  --_size: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--_size);
+  width: var(--_size);
+  border-radius: var(--radius-xs);
+  background: var(--surface-input-rest);
+  border: 1px solid var(--border-default);
+  color: transparent;
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--easing-standard),
+    background-color var(--motion-fast) var(--easing-standard),
+    color var(--motion-fast) var(--easing-standard),
+    box-shadow var(--motion-fast) var(--easing-standard);
+}
+.lumen-checkbox[data-size="sm"] { --_size: var(--space-3); }
+.lumen-checkbox[data-size="lg"] { --_size: var(--space-5); }
+.lumen-checkbox:hover:not([data-disabled="true"]) {
+  border-color: var(--border-strong);
+}
+.lumen-checkbox:focus-visible {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-input-focus);
+}
+.lumen-checkbox[data-state="checked"],
+.lumen-checkbox[aria-checked="true"] {
+  background: var(--lumen-accent-4);
+  border-color: var(--lumen-accent-4);
+  color: var(--text-on-accent);
+}
+.lumen-checkbox[data-invalid="true"],
+.lumen-checkbox[aria-invalid="true"] {
+  border-color: var(--border-error);
+}
+.lumen-checkbox[data-invalid="true"]:focus-visible,
+.lumen-checkbox[aria-invalid="true"]:focus-visible {
+  box-shadow: var(--shadow-input-error);
+}
+.lumen-checkbox[data-disabled="true"],
+.lumen-checkbox:disabled {
+  background: var(--surface-input-disabled);
+  border-color: var(--border-input-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ─────────────────────────  RADIO  ───────────────────────── */
+/* Round 16px ring. Same anatomy as checkbox; indicator is a centered dot. */
+.lumen-radio {
+  --_size: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--_size);
+  width: var(--_size);
+  border-radius: var(--radius-full);
+  background: var(--surface-input-rest);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--easing-standard),
+    box-shadow var(--motion-fast) var(--easing-standard);
+}
+.lumen-radio[data-size="sm"] { --_size: var(--space-3); }
+.lumen-radio[data-size="lg"] { --_size: var(--space-5); }
+.lumen-radio:hover:not([data-disabled="true"]) {
+  border-color: var(--border-strong);
+}
+.lumen-radio:focus-visible {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-input-focus);
+}
+.lumen-radio[data-state="checked"],
+.lumen-radio[aria-checked="true"] {
+  border-color: var(--lumen-accent-4);
+}
+.lumen-radio[data-invalid="true"],
+.lumen-radio[aria-invalid="true"] {
+  border-color: var(--border-error);
+}
+.lumen-radio[data-disabled="true"],
+.lumen-radio:disabled {
+  background: var(--surface-input-disabled);
+  border-color: var(--border-input-disabled);
+  cursor: not-allowed;
+}
+/* The inner dot — composed via ::after so the wrapper stays a single element. */
+.lumen-radio::after {
+  content: "";
+  display: block;
+  height: 50%;
+  width: 50%;
+  border-radius: var(--radius-full);
+  background: var(--lumen-accent-4);
+  transform: scale(0);
+  transition: transform var(--motion-fast) var(--easing-standard);
+}
+.lumen-radio[data-state="checked"]::after,
+.lumen-radio[aria-checked="true"]::after {
+  transform: scale(1);
+}
+
+/* ─────────────────────────  SWITCH  ───────────────────────── */
+/* 36×20 pill track + 16px thumb. Thumb slides 16px on. */
+.lumen-switch {
+  --_w: var(--space-9);
+  --_h: var(--space-5);
+  --_thumb: var(--space-4);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: var(--_h);
+  width: var(--_w);
+  border-radius: var(--radius-full);
+  background: var(--surface-sunken);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) var(--easing-standard),
+    box-shadow var(--motion-fast) var(--easing-standard);
+}
+.lumen-switch:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-input-focus);
+}
+.lumen-switch[data-state="checked"],
+.lumen-switch[aria-checked="true"] {
+  background: var(--lumen-accent-4);
+}
+.lumen-switch[data-invalid="true"],
+.lumen-switch[aria-invalid="true"] {
+  border-color: var(--border-error);
+}
+.lumen-switch[data-invalid="true"]:focus-visible,
+.lumen-switch[aria-invalid="true"]:focus-visible {
+  box-shadow: var(--shadow-input-error);
+}
+.lumen-switch[data-disabled="true"],
+.lumen-switch:disabled {
+  background: var(--surface-input-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+/* Thumb — composed via ::before so consumers can stack labels in markup. */
+.lumen-switch::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  height: var(--_thumb);
+  width: var(--_thumb);
+  border-radius: var(--radius-full);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-xs);
+  transform: translateY(-50%);
+  transition: transform var(--motion-fast) var(--easing-standard),
+              background-color var(--motion-fast) var(--easing-standard);
+}
+.lumen-switch[data-state="checked"]::before,
+.lumen-switch[aria-checked="true"]::before {
+  transform: translate(calc(var(--_w) - var(--_thumb) - 4px), -50%);
+  background: var(--text-on-accent);
+}
+
+/* ─────────────────────────  FIELD COMPOSITION  ───────────────────────── */
+/* Vertical stack: label → control → hint/error. Used by the React Field
+   primitive. data-attribute hooks let CSS-only consumers compose without JS. */
+.lumen-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.lumen-form-field__label {
+  font-family: var(--font-sans);
+  font-size: var(--type-13);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.lumen-form-field__optional {
+  font-weight: var(--weight-regular);
+  color: var(--text-tertiary);
+  font-size: var(--type-12);
+}
+.lumen-form-field__required {
+  color: var(--border-error);
+  font-weight: var(--weight-regular);
+}
+.lumen-form-field__description {
+  font-size: var(--type-12);
+  color: var(--text-tertiary);
+  line-height: var(--leading-snug);
+  margin: 0;
+}
+.lumen-form-field__hint,
+.lumen-form-field__error,
+.lumen-form-field__success {
+  font-size: var(--type-12);
+  line-height: var(--leading-snug);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.lumen-form-field__hint    { color: var(--text-tertiary); }
+.lumen-form-field__error   { color: var(--text-error); }
+.lumen-form-field__success { color: var(--text-success); }
+
+/* Form rhythm — 20px between fields, 32px between fieldsets. */
+.lumen-form-stack > * + * {
+  margin-top: var(--space-5);
+}
+.lumen-form-stack--compact > * + * {
+  margin-top: var(--space-3);
+}
+.lumen-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.lumen-fieldset + .lumen-fieldset {
+  margin-top: var(--space-8);
+}
+.lumen-fieldset__legend {
+  font-family: var(--font-sans);
+  font-size: var(--type-12);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-cap-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 0 0 var(--space-2);
+}
+
+/* Reduced motion — kill field transitions for users who opt out. */
+@media (prefers-reduced-motion: reduce) {
+  .lumen-field,
+  .lumen-checkbox,
+  .lumen-radio,
+  .lumen-switch,
+  .lumen-radio::after,
+  .lumen-switch::before {
+    transition: none;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════════════════

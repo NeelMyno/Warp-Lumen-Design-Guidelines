@@ -12,15 +12,27 @@
       "overlay": { "$value": "rgba(10,10,13,0.86)" },
       "scrim":   { "$value": "rgba(2,2,3,0.72)" },
       "inverse": { "$value": "{color.warm.50}" },
-      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds" }
+      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds" },
+      "input": {
+        "$description": "v0.6 — input field surfaces. Aliased so theming can shift inputs without disturbing card chrome.",
+        "rest":     { "$value": "{color.brand.700}", "$description": "Same as surface.raised; named role for input bg." },
+        "hover":    { "$value": "{color.brand.700}" },
+        "focus":    { "$value": "{color.brand.700}" },
+        "readOnly": { "$value": "{color.brand.700}", "$description": "Read-only keeps full contrast — same bg as rest. Caret hidden, content selectable." },
+        "disabled": { "$value": "{color.brand.900}", "$description": "Sunken bg signals 'not interactive'. Paired with disabled border + text." }
+      }
     },
     "text": {
       "primary":   { "$value": "#f5f5f3", "$description": "Body and titles." },
       "secondary": { "$value": "{color.brand.300}", "$description": "Captions, descriptions." },
       "tertiary":  { "$value": "{color.brand.400}", "$description": "Hints, eyebrow labels." },
+      "placeholder": { "$value": "{color.brand.400}", "$description": "Input placeholder. Alias of tertiary; carries its own role for theming." },
       "disabled":  { "$value": "{color.brand.500}" },
       "inverse":   { "$value": "{color.brand.800}", "$description": "Text on inverse cream surfaces." },
       "accent":    { "$value": "{color.accent.300}", "$description": "Brighter laser-lime works on dark." },
+      "error":     { "$value": "#f48a86", "$description": "v0.6 — error text on the page surface. AA-safe (4.7:1) on canvas. Distinct from status.danger.fg which is the badge text on a danger background." },
+      "success":   { "$value": "{color.accent.300}", "$description": "v0.6 — success text. Reuses accent ramp; lime is action/live/success." },
+      "warning":   { "$value": "#f3d8a4", "$description": "v0.6 — warning text. AA-safe on canvas." },
       "link":      { "$value": "#f5f5f3" }
     },
     "border": {
@@ -30,7 +42,11 @@
       "strong":   { "$value": "rgba(255,255,255,0.24)" },
       "frame":    { "$value": "{color.alpha.paper.40}", "$description": "v0.4 — brutalist hairline frame border, hairline-strong" },
       "accent":   { "$value": "{color.alpha.accent.40}", "$description": "Lime-tinted hairline for accent surfaces" },
-      "focus":    { "$value": "{color.accent.400}" }
+      "focus":    { "$value": "{color.accent.400}" },
+      "error":    { "$value": "{color.status.danger.500}", "$description": "v0.6 — input error border. Saturated red for the hairline stroke." },
+      "success":  { "$value": "{color.accent.400}", "$description": "v0.6 — input success border. Lime; only after explicit validation." },
+      "warning":  { "$value": "{color.status.warning.500}", "$description": "v0.6 — input warning border. Amber." },
+      "disabled": { "$value": "{color.alpha.paper.06}", "$description": "v0.6 — input disabled border. Muted; no hover/focus." }
     },
     "action": {
       "primary": {

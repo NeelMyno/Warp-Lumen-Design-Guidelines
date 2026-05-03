@@ -3,123 +3,113 @@
 import { ReactNode, InputHTMLAttributes, useId } from "react";
 
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 /**
- * Lumen Field — composed form field that bundles shadcn's Label + Input
- * with the Lumen description / hint / error / leading-trailing addon
- * scaffold. Preserves the prior Lumen API; consumer pages keep using
- * `<Field label hint error leadingIcon trailingAddon>` exactly as before.
+ * Lumen Field — composed form field that bundles label + description + control
+ * shell + hint/error in one vertical stack. v0.6 rewrite: the control shell is
+ * now the SINGLE focus surface, painting exactly one ring via :has(:focus-visible).
+ * Leading icon, trailing icon, and trailing addon are siblings inside the shell
+ * — bonded under the same focus boundary by construction.
+ *
+ * The CSS recipes live in globals.css under "v0.6 — FORMS & INPUT FIELDS".
+ * Component contract: design-system/02-components/field/component.{md,json}.
  */
 
 type Size = "sm" | "md" | "lg";
-/* v0.5: Field size ramp uses raw type tokens — input text sizes intentionally don't snap to body presets. */
-const SIZE_INPUT_CLS: Record<Size, string> = {
-  sm: "h-8  text-[var(--type-13)] px-3",
-  md: "h-10 text-[var(--type-14)] px-3",
-  lg: "h-12 text-[var(--type-15)] px-4",
-};
 
 export type FieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "children"> & {
+  /** Visible field label. Always render unless `aria-label` is set on the input. */
   label?: string;
+  /** Description text shown beneath the label, above the control. */
   description?: string;
+  /** Error message shown beneath the control. Sets aria-invalid + role=alert. */
   error?: string;
+  /** Hint message shown beneath the control. Mutually exclusive with `error`. */
   hint?: string;
+  /** Render `(optional)` next to the label. NN/g preferred over the asterisk pattern. */
   optional?: boolean;
+  /** Render the required asterisk + sets aria-required on the input. */
   required?: boolean;
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
+  /** Trailing unit chip (lb / STD / %). Renders mono uppercase. */
   trailingAddon?: ReactNode;
   size?: Size;
+  /** Render value in JetBrains Mono with tabular numerics. For IDs / ZIPs / codes. */
   mono?: boolean;
-  /** Custom control. When present, replaces the built-in <Input> and chrome. */
+  /** Custom control. When present, replaces the built-in <input>. The wrapper still owns focus. */
   children?: ReactNode;
 };
 
 export function Field({
   label, description, error, hint, optional, required,
   leadingIcon, trailingIcon, trailingAddon, size = "md", mono,
-  id, className, children, ...input
+  id, className, disabled, readOnly, children, ...input
 }: FieldProps) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const helpId = error ? `${inputId}-err` : hint ? `${inputId}-hint` : undefined;
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
+    <div className={cn("lumen-form-field", className)}>
       {label && (
-        <Label htmlFor={inputId} className="text-label-sm text-[var(--text-secondary)]">
+        <label htmlFor={inputId} className="lumen-form-field__label">
           {label}
-          {/* v0.5: arbitrary-value type — review for semantic preset (12 plain optional flag) */}
-          {optional && <span className="text-[var(--text-tertiary)] text-[var(--type-12)] font-normal ml-1">(optional)</span>}
-          {required && <span aria-hidden className="text-[var(--lumen-red-5)] ml-0.5">*</span>}
-        </Label>
+          {optional && <span className="lumen-form-field__optional">(optional)</span>}
+          {required && <span aria-hidden className="lumen-form-field__required">*</span>}
+        </label>
       )}
       {description && (
-        /* v0.5: arbitrary-value type — review for semantic preset (12 plain helper) */
-        <p className="text-[var(--type-12)] text-[var(--text-tertiary)] -mt-0.5 leading-snug">
-          {description}
-        </p>
+        <p className="lumen-form-field__description">{description}</p>
       )}
       {children ? (
+        // Custom control replaces the entire shell. Consumer is responsible for
+        // wrapping in .lumen-field if they want the focus shell behavior.
         <div className="min-w-0">{children}</div>
-      ) : leadingIcon || trailingIcon || trailingAddon ? (
-        // Composed shell when icon/addon slots are used. Wraps the shadcn
-        // Input but adds the leading/trailing affordances Lumen ships with.
+      ) : (
         <div
-          className={cn(
-            "relative flex items-center rounded-[var(--radius-md)] bg-[var(--surface-raised)] border transition-[border-color,box-shadow]",
-            error
-              ? "border-[var(--lumen-red-5)] focus-within:shadow-[0_0_0_3.5px_rgba(237,94,94,0.20)]"
-              : "border-[var(--border-default)] hover:border-[var(--border-strong)] focus-within:border-[var(--border-focus)] focus-within:shadow-[var(--shadow-focus)]",
-          )}
+          className="lumen-field"
+          data-size={size === "md" ? undefined : size}
+          data-mono={mono ? "true" : undefined}
+          data-invalid={error ? "true" : undefined}
+          data-disabled={disabled ? "true" : undefined}
+          aria-readonly={readOnly ? "true" : undefined}
+          // Click anywhere on the shell focuses the input — including padding,
+          // slot icons, and the trailing addon. Required because slots are
+          // pointer-events: none so they fall through, but we want clicks on
+          // the addon to behave like clicks on the field.
+          onClick={(e) => {
+            if (e.currentTarget === e.target) {
+              const inp = e.currentTarget.querySelector("input");
+              inp?.focus();
+            }
+          }}
         >
           {leadingIcon && (
-            <span aria-hidden className="pl-3 text-[var(--text-tertiary)] flex items-center">{leadingIcon}</span>
+            <span data-slot="leading" aria-hidden>{leadingIcon}</span>
           )}
           <input
             id={inputId}
-            aria-invalid={!!error || undefined}
-            aria-describedby={helpId}
+            disabled={disabled}
+            readOnly={readOnly}
             required={required}
-            className={cn(
-              "flex-1 min-w-0 bg-transparent outline-none placeholder:text-[var(--text-tertiary)] text-[var(--text-primary)] file:text-[var(--text-primary)]",
-              SIZE_INPUT_CLS[size],
-              mono && "lumen-mono lumen-tnum",
-              leadingIcon && "!pl-2",
-              (trailingIcon || trailingAddon) && "!pr-2",
-            )}
+            aria-required={required ? "true" : undefined}
+            aria-invalid={error ? "true" : undefined}
+            aria-describedby={helpId}
             {...input}
           />
           {trailingIcon && (
-            <span aria-hidden className="pr-3 text-[var(--text-tertiary)] flex items-center">{trailingIcon}</span>
+            <span data-slot="trailing" aria-hidden>{trailingIcon}</span>
           )}
           {trailingAddon && (
-            /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 12) */
-            <span className="pr-2 text-[var(--type-12)] text-[var(--text-tertiary)] lumen-mono">{trailingAddon}</span>
+            <span data-slot="addon">{trailingAddon}</span>
           )}
         </div>
-      ) : (
-        // No icons/addons — use the bare shadcn Input.
-        <Input
-          id={inputId}
-          aria-invalid={!!error || undefined}
-          aria-describedby={helpId}
-          required={required}
-          className={cn(
-            SIZE_INPUT_CLS[size],
-            mono && "lumen-mono lumen-tnum",
-          )}
-          {...input}
-        />
       )}
       {error ? (
-        /* v0.5: arbitrary-value type — review for semantic preset (12 plain error) */
-        <p id={helpId} role="alert" className="text-[var(--type-12)] text-[var(--lumen-red-6)] mt-0.5">{error}</p>
+        <p id={helpId} role="alert" className="lumen-form-field__error">{error}</p>
       ) : hint ? (
-        /* v0.5: arbitrary-value type — review for semantic preset (12 plain hint) */
-        <p id={helpId} className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{hint}</p>
+        <p id={helpId} className="lumen-form-field__hint">{hint}</p>
       ) : null}
     </div>
   );

@@ -1,0 +1,62 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Form",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Semantic form wrapper. Owns submission, blur-validation orchestration, and focus-on-first-error. Pairs with Field for the field-level UI. v0.6 ships the lightweight native pattern; v0.7 will add a react-hook-form binding.",
+  "props": {
+    "onSubmit":      { "type": "handler", "optional": false, "description": "Called with the FormData after validation passes." },
+    "onError":       { "type": "handler", "optional": true, "description": "Called when submit is blocked by validation." },
+    "validate":      { "type": "handler", "optional": true, "description": "(formData) => Record<fieldName, error>. Called on submit; return non-empty record to block." },
+    "density":       { "type": "enum", "values": ["comfortable", "compact"], "default": "comfortable", "optional": true, "description": "Sets data-density on the form root; nested .lumen-field shells respect it." },
+    "children":      { "type": "node", "optional": false, "description": "Field, Fieldset, ValidationMessage, and submit Button." },
+    "method":        { "type": "enum", "values": ["get", "post"], "default": "post", "optional": true },
+    "action":        { "type": "string", "optional": true },
+    "autoComplete":  { "type": "enum", "values": ["on", "off"], "default": "on", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "field.gap.groupToGroup", "field.gap.fieldsetToFieldset"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — move through fields in DOM order",
+      "Enter — submit (when focus is in a single-line input)",
+      "Ctrl+Enter / Cmd+Enter — submit (when focus is in a textarea)"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "2.4.3 Focus Order",
+      "3.3.1 Error Identification",
+      "3.3.4 Error Prevention (Legal, Financial, Data)",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "On submit failure, focus moves to the first invalid field.",
+      "On submit failure, render a ValidationMessage summary at the top of the form with anchor links to each invalid field.",
+      "Submit button disabled state must NEVER be the only signal of validation failure — the user must be able to attempt submit and see what's wrong.",
+      "Live region for server validation errors uses aria-live=polite by default; assertive only for critical errors that need immediate attention."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Validate on blur after first interaction; switch to onChange after first error per field.",
+      "On submit, validate everything — focus the first invalid field, render a summary at top.",
+      "Pair Form with Field — let Field own field-level UI; Form owns flow + submit + summary.",
+      "Set autoComplete='off' only for sensitive forms (one-time passcode entry); default keep on."
+    ],
+    "dont": [
+      "Don't disable the submit button as the only signal of failed validation — the user should be able to submit and see errors.",
+      "Don't validate on every keystroke before first interaction — wait for blur.",
+      "Don't suppress browser autofill for known-safe fields (name, email, address). Autofill is an a11y feature."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/primitives/field.tsx" },
+  "related": ["Field", "Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch", "ValidationMessage", "Button"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial release. Lightweight native FormElement wrapper with onSubmit, validate, focus-on-first-error orchestration, and a density mode hook. v0.7 adds react-hook-form binding." }
+  ]
+}

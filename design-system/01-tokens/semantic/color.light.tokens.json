@@ -12,15 +12,27 @@
       "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome." },
       "scrim":   { "$value": "{color.alpha.ink.40}",   "$description": "Modal backdrop." },
       "inverse": { "$value": "{color.brand.800}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." },
-      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds." }
+      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds." },
+      "input": {
+        "$description": "v0.6 — input field surfaces (light mode). Uses sunken cream so the field reads as inset on the paper canvas.",
+        "rest":     { "$value": "{color.warm.100}", "$description": "Sunken cream — inset feel against paper." },
+        "hover":    { "$value": "{color.warm.100}" },
+        "focus":    { "$value": "#ffffff", "$description": "Pop to paper-white on focus." },
+        "readOnly": { "$value": "{color.warm.100}" },
+        "disabled": { "$value": "{color.warm.50}", "$description": "Even quieter than rest." }
+      }
     },
     "text": {
       "primary":   { "$value": "{color.brand.900}", "$description": "Body and titles. Contrast 14.6:1 on surface.page." },
       "secondary": { "$value": "{color.warm.700}", "$description": "Captions, descriptions." },
       "tertiary":  { "$value": "{color.warm.600}", "$description": "Hints, eyebrow labels." },
+      "placeholder": { "$value": "{color.warm.500}", "$description": "Input placeholder. AA-safe at 14px+. Distinct alias from tertiary so it can theme independently." },
       "disabled":  { "$value": "{color.warm.400}" },
       "inverse":   { "$value": "{color.warm.50}" },
       "accent":    { "$value": "{color.accent.800}","$description": "Accent text on light surfaces. Contrast 4.7:1+." },
+      "error":     { "$value": "{color.status.danger.700}", "$description": "v0.6 — error text on light surface. Deep red for AA." },
+      "success":   { "$value": "{color.status.success.700}", "$description": "v0.6 — success text. Deep green for AA." },
+      "warning":   { "$value": "{color.status.warning.700}", "$description": "v0.6 — warning text. Deep amber for AA." },
       "link":      { "$value": "{color.brand.900}" }
     },
     "border": {
@@ -30,7 +42,11 @@
       "strong":   { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
       "frame":    { "$value": "{color.alpha.ink.40}", "$description": "v0.4 — brutalist hairline frame border" },
       "accent":   { "$value": "{color.accent.700}",   "$description": "Accent hairline (deeper green for AAA on light)" },
-      "focus":    { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with --shadow.focus." }
+      "focus":    { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with --shadow.focus." },
+      "error":    { "$value": "{color.status.danger.500}", "$description": "v0.6 — input error border. Saturated red for AA stroke contrast." },
+      "success":  { "$value": "{color.accent.500}",   "$description": "v0.6 — input success border. Lime; only after explicit validation." },
+      "warning":  { "$value": "{color.status.warning.500}", "$description": "v0.6 — input warning border. Amber." },
+      "disabled": { "$value": "{color.alpha.ink.06}", "$description": "v0.6 — input disabled border. Muted; no hover/focus." }
     },
     "action": {
       "primary": {

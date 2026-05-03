@@ -1,0 +1,88 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Field",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Composition wrapper for a single form control. Stacks label + description + control shell + hint/error in one vertical group. The control shell owns the focus surface; slots (leading icon, trailing icon, addon) bond under that single ring.",
+  "props": {
+    "label":         { "type": "string", "optional": true, "description": "Visible label. Always render unless aria-label is set on the input." },
+    "description":   { "type": "string", "optional": true, "description": "Description shown beneath the label, above the control." },
+    "error":         { "type": "string", "optional": true, "description": "Error message. Sets aria-invalid + role=alert. Mutually exclusive with hint." },
+    "hint":          { "type": "string", "optional": true, "description": "Hint message shown beneath the control." },
+    "optional":      { "type": "boolean", "default": false, "optional": true, "description": "Render `(optional)` next to the label. NN/g preferred over the asterisk pattern." },
+    "required":      { "type": "boolean", "default": false, "optional": true, "description": "Render the required asterisk + sets aria-required on the input." },
+    "leadingIcon":   { "type": "icon", "optional": true },
+    "trailingIcon":  { "type": "icon", "optional": true },
+    "trailingAddon": { "type": "node", "optional": true, "description": "Trailing unit chip (lb / STD / %). Renders mono uppercase tracked." },
+    "size":          { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "mono":          { "type": "boolean", "default": false, "optional": true },
+    "disabled":      { "type": "boolean", "default": false, "optional": true },
+    "readOnly":      { "type": "boolean", "default": false, "optional": true },
+    "children":      { "type": "node", "optional": true, "description": "Custom control. When present, replaces the built-in <input>. Consumer is responsible for the focus shell." }
+  },
+  "tokens": {
+    "consumed": [
+      "field.gap.labelToControl", "field.gap.controlToHelp", "field.gap.groupToGroup", "field.gap.fieldsetToFieldset",
+      "field.label.type", "field.label.color", "field.label.colorDisabled",
+      "field.optional.type", "field.optional.color",
+      "field.required.color",
+      "field.helper.type", "field.helper.color", "field.helper.colorDisabled",
+      "field.error.type", "field.error.color",
+      "field.success.type", "field.success.color",
+      "input.height.sm", "input.height.md", "input.height.lg",
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.gap.slot", "input.radius",
+      "input.background.rest", "input.background.disabled", "input.background.readOnly",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconLeading", "input.foreground.iconTrailing", "input.foreground.addon",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the control",
+      "Click — anywhere on the field shell focuses the inner control"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "1.4.13 Content on Hover or Focus",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.1 Error Identification",
+      "3.3.2 Labels or Instructions",
+      "3.3.3 Error Suggestion",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Label is associated to the control via htmlFor / id pair.",
+      "Hint and error IDs are concatenated into aria-describedby (space-separated) so AT users hear both.",
+      "Error sets role=alert + aria-invalid; announced as a polite live region by default.",
+      "Required adds aria-required + a visible asterisk; mutually exclusive with optional in practice.",
+      "Click anywhere on the shell focuses the inner control."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Field as the default composition for any text-entry control.",
+      "Pass leadingIcon / trailingIcon / trailingAddon for slot bonding — never wrap them in their own div.",
+      "Set hint to teach format (`12345 or 12345-6789`); set error only after submit / blur validation.",
+      "Use mono for codes and IDs."
+    ],
+    "dont": [
+      "Don't render two Fields side-by-side without a label — always stack labels.",
+      "Don't paint borders on the inner control — the wrapper owns them.",
+      "Don't pass both `optional` and `required` — they contradict.",
+      "Don't use placeholder as the only label; placeholder vanishes on input."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/primitives/field.tsx" },
+  "related": ["Input", "Textarea", "Select", "Form", "ValidationMessage"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial release. Single-shell focus pattern with slot bonding via :has(:focus-visible). Replaces the v0.5 split-ring composition that painted two halos." }
+  ]
+}

@@ -1289,8 +1289,8 @@ export function Hero() {
           <SubSection title="Input states">
             <VariantRow label="Default"><div className="w-[240px]"><TextInput placeholder="Default" /></div></VariantRow>
             <VariantRow label="Filled"><div className="w-[240px]"><TextInput defaultValue="Sterling LTL" /></div></VariantRow>
-            <VariantRow label="Focus"><div className="w-[240px]"><TextInput defaultValue="Sterling LTL" className="border-[var(--border-focus)]! shadow-[var(--shadow-focus)]" /></div></VariantRow>
-            <VariantRow label="Error"><div className="w-[240px]"><TextInput defaultValue="invalid email" className="border-[var(--lumen-red-5)]!" /></div></VariantRow>
+            <VariantRow label="Focus"><div className="w-[240px]"><TextInput defaultValue="Sterling LTL" className="border-[var(--border-focus)]! shadow-[var(--shadow-input-focus)]" /></div></VariantRow>
+            <VariantRow label="Error"><div className="w-[240px]"><TextInput defaultValue="invalid email" aria-invalid="true" /></div></VariantRow>
             <VariantRow label="Disabled"><div className="w-[240px]"><TextInput defaultValue="Read-only" disabled /></div></VariantRow>
           </SubSection>
 

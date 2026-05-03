@@ -1,37 +1,32 @@
 "use client";
 
-import { useState, useRef, useEffect, ReactNode, ChangeEvent, KeyboardEvent } from "react";
-import { Search as SearchIcon, ChevronDown, Plus, X, Check } from "./icon";
+import { useState, useRef, useEffect, ReactNode, KeyboardEvent } from "react";
+import { Search as SearchIcon, ChevronDown, Plus, X, Minus } from "./icon";
 
 import { cn } from "@/lib/utils";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import { Textarea as ShadcnTextarea } from "@/components/ui/textarea";
 
-/* INPUT_BASE — Lumen's shared input chrome class. Used by composite controls
- * (SearchInput, NumberInput, Combobox, TagsInput, etc.) that build their own
- * input shell around a custom layout. The bare TextInput / Textarea use the
- * shadcn Input / Textarea directly.
+/* v0.6 — Every text-entry control wraps in .lumen-field. The shell owns focus,
+ * border, bg, lit-edge, error/disabled state. The inner element renders bare
+ * (no chrome). Slots (leading, trailing, addon) are siblings inside the shell.
+ * The previous INPUT_BASE constant + 3-parallel-systems setup is gone.
+ *
+ * For composite controls (NumberInput stepper, Combobox popover, Tags chip-row,
+ * OTP cell-row), the shell still owns focus; the inner pattern just composes
+ * different children inside it.
  */
-const INPUT_BASE = [
-  "h-10 w-full px-3 rounded-[var(--radius-md)]",
-  "bg-[var(--surface-raised)] text-[var(--text-primary)]",
-  "border border-[var(--border-default)]",
-  "text-[var(--type-14)] tracking-[var(--tracking-tight)]",
-  "placeholder:text-[var(--text-tertiary)]",
-  "transition-[border-color,box-shadow,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
-  "hover:border-[var(--border-strong)]",
-  "focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]",
-  "disabled:opacity-50 disabled:cursor-not-allowed",
-].join(" ");
 
-/* ─────────────────────────  TEXT INPUT (shadcn Input)  ───────────────────────── */
+/* ─────────────────────────  TEXT INPUT  ───────────────────────── */
+/* Bare TextInput — used standalone (no Field wrapper). Renders shadcn Input,
+ * which itself adopts .lumen-field shell semantics. */
 export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <ShadcnInput type="text" {...props} className={cn(props.className)} />;
 }
 
-/* ─────────────────────────  TEXTAREA (shadcn Textarea)  ───────────────────────── */
+/* ─────────────────────────  TEXTAREA  ───────────────────────── */
 export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return <ShadcnTextarea rows={4} {...props} className={cn("min-h-[96px]", props.className)} />;
+  return <ShadcnTextarea rows={4} {...props} className={cn(props.className)} />;
 }
 
 /* ─────────────────────────  SEARCH INPUT  ───────────────────────── */
@@ -40,15 +35,20 @@ export function SearchInput({
   value,
   onChange,
   shortcut,
+  size = "md",
 }: {
   placeholder?: string;
   value?: string;
   onChange?: (v: string) => void;
   shortcut?: string;
+  size?: "sm" | "md";
 }) {
   return (
-    <div className="relative w-full">
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] pointer-events-none">
+    <div
+      className="lumen-field"
+      data-size={size === "md" ? undefined : size}
+    >
+      <span data-slot="leading" aria-hidden>
         <SearchIcon size={14} />
       </span>
       <input
@@ -56,16 +56,20 @@ export function SearchInput({
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
-        className={[INPUT_BASE, "pl-9", shortcut ? "pr-14" : ""].join(" ")}
       />
       {shortcut && (
-        <span className="absolute right-2.5 top-1/2 -translate-y-1/2 lumen-kbd">{shortcut}</span>
+        <span data-slot="trailing">
+          <kbd className="lumen-kbd">{shortcut}</kbd>
+        </span>
       )}
     </div>
   );
 }
 
-/* ─────────────────────────  RADIO  ───────────────────────── */
+/* ─────────────────────────  RADIO  ─────────────────────────
+ * Single radio with label + optional description. Composes the .lumen-radio
+ * visual primitive over a real <input type="radio"> (sr-only) so screen
+ * readers get native semantics. */
 export function Radio({
   checked,
   onChange,
@@ -84,33 +88,31 @@ export function Radio({
   value?: string;
 }) {
   return (
-    <label className={["flex items-start gap-2.5 cursor-pointer select-none group", disabled ? "opacity-50 cursor-not-allowed" : ""].join(" ")}>
-      <span className="relative inline-flex items-center justify-center mt-[1px] shrink-0">
-        <input
-          type="radio"
-          checked={checked}
-          onChange={onChange}
-          disabled={disabled}
-          name={name}
-          value={value}
-          className="peer sr-only"
-        />
-        <span
-          className={[
-            "h-[18px] w-[18px] rounded-full",
-            "border-[1.5px] border-[var(--border-default)]",
-            "bg-[var(--surface-raised)]",
-            "transition-[border-color,box-shadow,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
-            "group-hover:border-[var(--border-strong)]",
-            "peer-checked:border-[var(--lumen-accent-5)] peer-checked:bg-[var(--lumen-accent-4)]",
-            "peer-focus-visible:shadow-[var(--shadow-focus)]",
-          ].join(" ")}
-        />
-        <span className={["absolute h-2 w-2 rounded-full bg-white opacity-0 transition-opacity duration-[var(--motion-fast)]", checked ? "opacity-100" : ""].join(" ")} />
-      </span>
-      <span className="min-w-0 leading-[var(--leading-snug)]">
-        <span className="block text-[var(--type-13)] text-[var(--text-primary)]">{label}</span>
-        {description && <span className="block text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{description}</span>}
+    <label className={cn(
+      "flex items-start gap-2.5 cursor-pointer select-none",
+      disabled && "opacity-50 cursor-not-allowed",
+    )}>
+      <input
+        type="radio"
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
+        name={name}
+        value={value}
+        className="peer sr-only"
+        aria-checked={checked}
+      />
+      <span
+        className="lumen-radio mt-[1px]"
+        data-state={checked ? "checked" : "unchecked"}
+        data-disabled={disabled ? "true" : undefined}
+        aria-hidden
+      />
+      <span className="min-w-0 leading-snug">
+        <span className="block text-body-sm text-[var(--text-primary)]">{label}</span>
+        {description && (
+          <span className="block text-caption text-[var(--text-tertiary)] mt-0.5">{description}</span>
+        )}
       </span>
     </label>
   );
@@ -120,7 +122,7 @@ export function RadioGroup({ children }: { children: ReactNode }) {
   return <div role="radiogroup" className="flex flex-col gap-2.5">{children}</div>;
 }
 
-/* ─────────────────────────  SELECT (native style, custom chrome)  ───────────────────────── */
+/* ─────────────────────────  SELECT (native, .lumen-field shell)  ───────────────────────── */
 export function Select({
   value,
   onChange,
@@ -136,25 +138,27 @@ export function Select({
   size?: "sm" | "md";
   disabled?: boolean;
 }) {
-  const heightClass = size === "sm" ? "h-8 text-[var(--type-13)]" : "h-10 text-[var(--type-14)]";
   return (
-    <div className="relative inline-block w-full">
+    <div
+      className="lumen-field"
+      data-size={size === "md" ? undefined : size}
+      data-disabled={disabled ? "true" : undefined}
+      style={{ cursor: "pointer" }}
+    >
       <select
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         disabled={disabled}
-        className={[
-          INPUT_BASE.replace("h-10", "").replace("px-3", "pl-3 pr-9"),
-          heightClass,
-          "appearance-none cursor-pointer",
-        ].join(" ")}
+        className="appearance-none cursor-pointer pr-6"
       >
         {!value && <option value="">{placeholder}</option>}
         {options.map((o) => (
           <option key={o.value} value={o.value}>{o.label}</option>
         ))}
       </select>
-      <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] pointer-events-none" />
+      <span data-slot="trailing" aria-hidden>
+        <ChevronDown size={14} />
+      </span>
     </div>
   );
 }
@@ -201,21 +205,25 @@ export function Combobox({
 
   return (
     <div ref={ref} className="relative w-full">
-      <input
-        value={internal}
-        onChange={(e) => { setInternal(e.target.value); setOpen(true); setHighlight(0); }}
-        onFocus={() => setOpen(true)}
-        onKeyDown={onKey}
-        placeholder={placeholder}
-        className={[INPUT_BASE, "pr-9"].join(" ")}
-      />
-      <ChevronDown
-        size={14}
-        className={[
-          "absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)] pointer-events-none transition-transform",
-          open ? "rotate-180" : "",
-        ].join(" ")}
-      />
+      <div className="lumen-field">
+        <input
+          value={internal}
+          onChange={(e) => { setInternal(e.target.value); setOpen(true); setHighlight(0); }}
+          onFocus={() => setOpen(true)}
+          onKeyDown={onKey}
+          placeholder={placeholder}
+          role="combobox"
+          aria-expanded={open}
+          aria-autocomplete="list"
+        />
+        <span
+          data-slot="trailing"
+          aria-hidden
+          className={cn("transition-transform", open && "rotate-180")}
+        >
+          <ChevronDown size={14} />
+        </span>
+      </div>
       {open && filtered.length > 0 && (
         <div
           className="absolute z-[var(--z-overlay)] left-0 right-0 mt-1 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] overflow-hidden p-1"
@@ -229,10 +237,10 @@ export function Combobox({
               aria-selected={i === highlight}
               onMouseEnter={() => setHighlight(i)}
               onClick={() => pick(o)}
-              className={[
-                "w-full text-left px-2.5 py-1.5 rounded-[var(--radius-sm)] text-[var(--type-13)]",
-                i === highlight ? "bg-[var(--surface-sunken)] text-[var(--text-primary)]" : "text-[var(--text-secondary)]",
-              ].join(" ")}
+              className={cn(
+                "w-full text-left px-2.5 py-1.5 rounded-[var(--radius-sm)] text-body-sm",
+                i === highlight ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)]" : "text-[var(--text-secondary)]",
+              )}
             >
               {o}
             </button>
@@ -244,6 +252,8 @@ export function Combobox({
 }
 
 /* ─────────────────────────  NUMBER INPUT  ───────────────────────── */
+/* Stepper-flanked numeric. Uses .lumen-field shell with custom layout —
+ * minus button, value (mono), plus button + optional unit suffix. */
 export function NumberInput({
   value,
   onChange,
@@ -262,20 +272,37 @@ export function NumberInput({
   const dec = () => onChange(Math.max(min, value - step));
   const inc = () => onChange(Math.min(max, value + step));
   return (
-    <div className="inline-flex items-stretch h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] overflow-hidden">
-      <button type="button" onClick={dec} aria-label="Decrement"
-        className="px-3 text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors text-[16px] leading-none">−</button>
-      <div className="flex items-center px-2 border-x border-[var(--border-hairline)]">
-        <input
-          type="number"
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          className="w-14 bg-transparent text-center lumen-mono text-[var(--type-14)] focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-        />
-        {suffix && <span className="text-[var(--type-12)] text-[var(--text-tertiary)] pr-1">{suffix}</span>}
-      </div>
-      <button type="button" onClick={inc} aria-label="Increment"
-        className="px-3 text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors text-[16px] leading-none">+</button>
+    <div className="lumen-field" data-mono="true" style={{ paddingInline: 0 }}>
+      <button
+        type="button"
+        data-interactive
+        onClick={dec}
+        aria-label="Decrement"
+        className="px-3 h-full text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
+        style={{ pointerEvents: "auto" }}
+      >
+        <Minus size={14} />
+      </button>
+      <input
+        type="number"
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="text-center"
+        min={min}
+        max={max}
+        step={step}
+      />
+      {suffix && <span data-slot="addon">{suffix}</span>}
+      <button
+        type="button"
+        data-interactive
+        onClick={inc}
+        aria-label="Increment"
+        className="px-3 h-full text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
+        style={{ pointerEvents: "auto" }}
+      >
+        <Plus size={14} />
+      </button>
     </div>
   );
 }
@@ -292,23 +319,26 @@ export function PasswordInput({
 }) {
   const [show, setShow] = useState(false);
   return (
-    <div className="relative w-full">
+    <div className="lumen-field" data-mono="true">
       <input
         type={show ? "text" : "password"}
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
-        className={[INPUT_BASE, "pr-12 lumen-mono"].join(" ")}
         autoComplete="current-password"
       />
-      <button
-        type="button"
-        onClick={() => setShow((s) => !s)}
-        className="absolute right-2 top-1/2 -translate-y-1/2 px-2 h-7 rounded-[var(--radius-sm)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors"
-        aria-pressed={show}
-      >
-        {show ? "Hide" : "Show"}
-      </button>
+      <span data-slot="trailing">
+        <button
+          type="button"
+          data-interactive
+          onClick={() => setShow((s) => !s)}
+          aria-pressed={show}
+          aria-label={show ? "Hide password" : "Show password"}
+          className="text-eyebrow-mono px-1.5 py-0.5 rounded-[var(--radius-xs)] text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors"
+        >
+          {show ? "Hide" : "Show"}
+        </button>
+      </span>
     </div>
   );
 }
@@ -329,7 +359,7 @@ export function PasswordStrength({ value }: { value: string }) {
           />
         ))}
       </div>
-      <div className="text-[var(--type-11)] text-[var(--text-tertiary)] tabular-nums">
+      <div className="text-overline text-[var(--text-tertiary)]">
         {value ? labels[Math.max(0, score - 1)] : "Enter a password"}
       </div>
     </div>
@@ -344,7 +374,9 @@ function scorePassword(v: string) {
   return s;
 }
 
-/* ─────────────────────────  OTP INPUT  ───────────────────────── */
+/* ─────────────────────────  OTP INPUT  ─────────────────────────
+ * Cell-row pattern. Each cell is its own .lumen-field shell so each cell
+ * has independent focus, while the row itself stays a flat layout. */
 export function OtpInput({ length = 6, value, onChange }: { length?: number; value?: string; onChange?: (v: string) => void }) {
   const [internal, setInternal] = useState<string[]>(Array(length).fill(""));
   const refs = useRef<(HTMLInputElement | null)[]>([]);
@@ -362,19 +394,26 @@ export function OtpInput({ length = 6, value, onChange }: { length?: number; val
     if (e.key === "Backspace" && !cells[i] && i > 0) refs.current[i - 1]?.focus();
   }
   return (
-    <div className="inline-flex gap-1.5">
+    <div className="inline-flex gap-1.5" role="group" aria-label="One-time passcode">
       {Array.from({ length }).map((_, i) => (
-        <input
+        <div
           key={i}
-          ref={(el) => { refs.current[i] = el; }}
-          inputMode="numeric"
-          maxLength={1}
-          value={cells[i] ?? ""}
-          onChange={(e) => set(i, e.target.value)}
-          onKeyDown={(e) => onKeyDown(i, e)}
-          className="h-12 w-10 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-center text-[var(--type-18)] lumen-mono text-[var(--text-primary)] hover:border-[var(--border-strong)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
-          aria-label={`OTP digit ${i + 1}`}
-        />
+          className="lumen-field"
+          data-mono="true"
+          data-size="lg"
+          style={{ width: 40, padding: 0, justifyContent: "center" }}
+        >
+          <input
+            ref={(el) => { refs.current[i] = el; }}
+            inputMode="numeric"
+            maxLength={1}
+            value={cells[i] ?? ""}
+            onChange={(e) => set(i, e.target.value)}
+            onKeyDown={(e) => onKeyDown(i, e)}
+            className="text-center text-[var(--type-18)]"
+            aria-label={`OTP digit ${i + 1}`}
+          />
+        </div>
       ))}
     </div>
   );
@@ -398,11 +437,23 @@ export function TagsInput({
     setDraft("");
   }
   return (
-    <div className="flex flex-wrap items-center gap-2 min-h-10 px-2 py-1 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] focus-within:border-[var(--border-focus)] focus-within:shadow-[var(--shadow-focus)] transition-[border-color,box-shadow]">
+    <div
+      className="lumen-field"
+      style={{ height: "auto", minHeight: "var(--size-control-md)", flexWrap: "wrap", paddingBlock: "var(--space-1)" }}
+    >
       {value.map((t) => (
-        <span key={t} className="inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--type-12)] text-[var(--text-secondary)]">
+        <span
+          key={t}
+          className="inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-caption text-[var(--text-secondary)]"
+          style={{ pointerEvents: "auto" }}
+        >
           {t}
-          <button type="button" onClick={() => onChange(value.filter((x) => x !== t))} aria-label={`Remove ${t}`} className="opacity-60 hover:opacity-100">
+          <button
+            type="button"
+            onClick={() => onChange(value.filter((x) => x !== t))}
+            aria-label={`Remove ${t}`}
+            className="opacity-60 hover:opacity-100"
+          >
             <X size={10} />
           </button>
         </span>
@@ -416,7 +467,8 @@ export function TagsInput({
         }}
         onBlur={add}
         placeholder={value.length ? "" : placeholder}
-        className="flex-1 min-w-[80px] bg-transparent text-[var(--type-13)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none"
+        className="min-w-[80px]"
+        style={{ width: "auto" }}
       />
     </div>
   );
@@ -434,16 +486,17 @@ export function ColorPicker({
 }) {
   return (
     <div className="inline-flex items-center gap-2">
-      <div className="relative inline-flex items-center gap-2 px-2 h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
-        <span className="block h-5 w-5 rounded-[4px] border border-[var(--border-default)]" style={{ background: value }} />
+      <div className="lumen-field" data-mono="true" style={{ width: "auto", paddingInline: "var(--space-2)" }}>
+        <span className="block h-5 w-5 rounded-[var(--radius-xs)] border border-[var(--border-default)] flex-shrink-0" style={{ background: value }} />
         <input
           type="color"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="absolute inset-0 opacity-0 cursor-pointer"
           aria-label="Pick a color"
+          style={{ width: "100%", height: "100%" }}
         />
-        <span className="lumen-mono text-[var(--type-12)] text-[var(--text-secondary)]">{value.toUpperCase()}</span>
+        <span className="text-caption text-[var(--text-secondary)]" style={{ pointerEvents: "none" }}>{value.toUpperCase()}</span>
       </div>
       <div className="flex items-center gap-1">
         {swatches.map((c) => (
@@ -451,7 +504,10 @@ export function ColorPicker({
             key={c}
             type="button"
             onClick={() => onChange(c)}
-            className={["h-6 w-6 rounded-full border transition-transform", value === c ? "border-[var(--lumen-accent-5)] scale-110" : "border-[var(--border-default)] hover:scale-110"].join(" ")}
+            className={cn(
+              "h-6 w-6 rounded-full border transition-transform",
+              value === c ? "border-[var(--lumen-accent-5)] scale-110" : "border-[var(--border-default)] hover:scale-110",
+            )}
             style={{ background: c }}
             aria-label={`Set color to ${c}`}
           />
@@ -501,7 +557,7 @@ export function RangeSlider({
           className="absolute inset-0 w-full bg-transparent appearance-none pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-[var(--border-strong)] [&::-webkit-slider-thumb]:shadow-[var(--shadow-sm)] [&::-webkit-slider-thumb]:cursor-grab"
         />
       </div>
-      <div className="mt-1 flex justify-between lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
+      <div className="mt-1 flex justify-between text-overline text-[var(--text-tertiary)]">
         <span>{format(value[0])}</span>
         <span>{format(value[1])}</span>
       </div>
@@ -530,13 +586,13 @@ export function FileDropzone({
         setPicked(files);
         onFiles?.(files);
       }}
-      className={[
+      className={cn(
         "block w-full rounded-[var(--radius-lg)] border border-dashed cursor-pointer text-center px-4 py-8",
         "transition-[border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
         over
           ? "border-[var(--lumen-accent-5)] bg-[var(--lumen-accent-a08)]"
           : "border-[var(--border-default)] hover:border-[var(--border-strong)]",
-      ].join(" ")}
+      )}
     >
       <input
         type="file"
@@ -552,17 +608,17 @@ export function FileDropzone({
         <span className="h-10 w-10 rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[var(--text-secondary)]">
           <Plus size={18} />
         </span>
-        <div className="text-[var(--type-13)] font-medium text-[var(--text-primary)]">
+        <div className="text-body-sm font-medium text-[var(--text-primary)]">
           Drop files here or <span className="text-[var(--text-accent)] underline underline-offset-2">browse</span>
         </div>
-        <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{hint}</div>
+        <div className="text-caption text-[var(--text-tertiary)]">{hint}</div>
       </div>
       {picked.length > 0 && (
         <div className="mt-4 text-left flex flex-col gap-1">
           {picked.map((f) => (
             <div key={f.name} className="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)]">
-              <span className="text-[var(--type-12)] text-[var(--text-secondary)] truncate">{f.name}</span>
-              <span className="text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">{(f.size / 1024).toFixed(1)} KB</span>
+              <span className="text-caption text-[var(--text-secondary)] truncate">{f.name}</span>
+              <span className="text-overline text-[var(--text-tertiary)]">{(f.size / 1024).toFixed(1)} KB</span>
             </div>
           ))}
         </div>
@@ -574,11 +630,15 @@ export function FileDropzone({
 /* ─────────────────────────  DATE PICKER (visual)  ───────────────────────── */
 export function DatePicker({ value }: { value?: string }) {
   return (
-    <div className="inline-flex h-10 items-center gap-2 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
-      <CalendarSm />
-      <span className="lumen-mono text-[var(--type-13)] text-[var(--text-primary)]">
-        {value ?? "Select date"}
+    <div className="lumen-field" data-mono="true" style={{ width: "auto" }}>
+      <span data-slot="leading" aria-hidden>
+        <CalendarSm />
       </span>
+      <input
+        readOnly
+        value={value ?? ""}
+        placeholder="Select date"
+      />
     </div>
   );
 }
@@ -589,15 +649,15 @@ export function DatePickerCalendar() {
   return (
     <div className="inline-block rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] p-3 w-[260px]">
       <div className="flex items-center justify-between mb-2 px-1">
-        <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">May 2026</span>
+        <span className="text-body-sm font-semibold tracking-tight">May 2026</span>
         <div className="flex gap-1 text-[var(--text-tertiary)]">
-          <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]">‹</button>
-          <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]">›</button>
+          <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Previous month">‹</button>
+          <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Next month">›</button>
         </div>
       </div>
       <div className="grid grid-cols-7 gap-y-1 mb-1.5">
         {days.map((d) => (
-          <span key={d} className="text-center text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wide)]">{d}</span>
+          <span key={d} className="text-center text-overline text-[var(--text-tertiary)]">{d}</span>
         ))}
       </div>
       <div className="grid grid-cols-7 gap-1">
@@ -609,10 +669,13 @@ export function DatePickerCalendar() {
             <button
               key={i}
               disabled={!day}
-              className={[
-                "h-7 rounded-[var(--radius-sm)] text-[var(--type-12)] lumen-mono transition-colors",
-                !day ? "opacity-0" : isSel ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] font-semibold" : isToday ? "border border-[var(--border-strong)]" : "hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]",
-              ].join(" ")}
+              className={cn(
+                "h-7 rounded-[var(--radius-sm)] text-caption lumen-mono transition-colors",
+                !day && "opacity-0",
+                isSel && "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] font-semibold",
+                isToday && !isSel && "border border-[var(--border-strong)]",
+                !isSel && !isToday && day && "hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]",
+              )}
             >
               {day}
             </button>
@@ -626,23 +689,23 @@ export function DatePickerCalendar() {
 /* ─────────────────────────  TIME PICKER  ───────────────────────── */
 export function TimePicker() {
   return (
-    <div className="inline-flex h-10 items-center gap-1 px-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
+    <div className="lumen-field" data-mono="true" style={{ width: "auto", paddingInline: "var(--space-2)" }}>
       <input
         defaultValue="14"
         maxLength={2}
-        className="w-7 text-center bg-transparent lumen-mono text-[var(--type-14)] focus:outline-none text-[var(--text-primary)]"
+        className="w-7 text-center"
         aria-label="Hours"
       />
-      <span className="text-[var(--text-tertiary)] lumen-mono">:</span>
+      <span className="text-[var(--text-tertiary)]" style={{ pointerEvents: "none" }}>:</span>
       <input
         defaultValue="30"
         maxLength={2}
-        className="w-7 text-center bg-transparent lumen-mono text-[var(--type-14)] focus:outline-none text-[var(--text-primary)]"
+        className="w-7 text-center"
         aria-label="Minutes"
       />
-      <div className="ml-1 inline-flex rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] p-0.5">
-        <button className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] px-1.5 py-0.5 rounded-[var(--radius-xs)] bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]">am</button>
-        <button className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] px-1.5 py-0.5 rounded-[var(--radius-xs)] text-[var(--text-tertiary)]">pm</button>
+      <div className="ml-1 inline-flex rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] p-0.5" style={{ pointerEvents: "auto" }}>
+        <button data-interactive className="text-overline px-1.5 py-0.5 rounded-[var(--radius-xs)] bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]">am</button>
+        <button data-interactive className="text-overline px-1.5 py-0.5 rounded-[var(--radius-xs)] text-[var(--text-tertiary)]">pm</button>
       </div>
     </div>
   );
@@ -659,18 +722,18 @@ export function Segmented({
   options: { label: string; value: string }[];
 }) {
   return (
-    <div className="inline-flex items-center p-0.5 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]">
+    <div className="inline-flex items-center p-0.5 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" role="group">
       {options.map((o) => (
         <button
           key={o.value}
           type="button"
           onClick={() => onChange(o.value)}
-          className={[
-            "h-7 px-3 rounded-[var(--radius-sm)] text-[var(--type-12)] font-medium tracking-[var(--tracking-tight)] transition-[background,color,box-shadow] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
+          className={cn(
+            "h-7 px-3 rounded-[var(--radius-sm)] text-caption font-medium tracking-tight transition-[background,color,box-shadow] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
             value === o.value
               ? "bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]"
               : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
-          ].join(" ")}
+          )}
           aria-pressed={value === o.value}
         >
           {o.label}
@@ -683,7 +746,7 @@ export function Segmented({
 /* small helper */
 function CalendarSm() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-tertiary)]">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <rect x="3" y="5" width="18" height="16" rx="2" />
       <path d="M3 10h18M8 3v4M16 3v4" />
     </svg>

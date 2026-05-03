@@ -1,0 +1,68 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Checkbox",
+  "version": "0.6.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Independent boolean. Square 16 px (md). Unchecked = hairline ring on input bg; checked = lime fill + dark check glyph. Built on Radix Checkbox; uses .lumen-checkbox shell.",
+  "props": {
+    "checked":         { "type": "boolean", "optional": true, "description": "Controlled state." },
+    "defaultChecked":  { "type": "boolean", "optional": true, "description": "Uncontrolled initial state." },
+    "onCheckedChange": { "type": "handler", "optional": true },
+    "size":            { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "disabled":        { "type": "boolean", "default": false, "optional": true },
+    "label":           { "type": "string", "optional": true },
+    "description":     { "type": "string", "optional": true },
+    "name":            { "type": "string", "optional": true },
+    "value":           { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "checkbox.size.sm", "checkbox.size.md", "checkbox.size.lg",
+      "checkbox.radius",
+      "checkbox.border.rest", "checkbox.border.hover", "checkbox.border.checked", "checkbox.border.error", "checkbox.border.disabled",
+      "checkbox.background.rest", "checkbox.background.checked", "checkbox.background.disabled",
+      "checkbox.indicator.color", "checkbox.indicator.stroke",
+      "checkbox.label.type", "checkbox.label.color", "checkbox.label.gap",
+      "input.ring.focus", "input.ring.error",
+      "input.transition"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Space — toggle",
+      "Tab — focus next control"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Always paired with a visible label or aria-label.",
+      "Group multiple related checkboxes inside a fieldset with a visible legend.",
+      "Touch target ≥ 44 × 44 px — extend the clickable area to the label, not just the box."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Checkbox for independent booleans (one or many can be checked).",
+      "Use a label that reads as a complete sentence with the box checked (\"Email me about new features\" not \"Email\").",
+      "Indeterminate state via Radix's `data-state=\"indeterminate\"` for partial selections in a list."
+    ],
+    "dont": [
+      "Don't use Checkbox for mutually exclusive options — use RadioGroup.",
+      "Don't use Checkbox for an immediate action (toggle a setting that takes effect now) — use Switch.",
+      "Don't ship `rounded-[4px]` Tailwind arbitrary values — use --radius-xs."
+    ]
+  },
+  "examples": { "web-react": "../../../audit-dashboard/src/components/ui/checkbox.tsx" },
+  "related": ["RadioGroup", "Switch", "Field", "Form"],
+  "changelog": [
+    { "version": "0.6.0", "type": "Added", "note": "Initial release. Adopts .lumen-checkbox shell. Bug fix: replaced `rounded-[4px]` Tailwind arbitrary value with --radius-xs token." }
+  ]
+}

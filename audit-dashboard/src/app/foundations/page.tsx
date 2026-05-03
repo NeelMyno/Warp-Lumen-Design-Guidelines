@@ -577,12 +577,25 @@ export default function FoundationsPage() {
             </Card>
 
             <Card padding="lg">
-              <CardHeader title="Form fields" description="Field bundles label, hint, error, leading/trailing slots" />
+              <CardHeader title="Form fields" description="v0.6 — single shell, single focus ring, slots bonded" />
               <div className="flex flex-col gap-4">
                 <Field label="Pickup ZIP" placeholder="90045" leadingIcon={<MapPin size={14} />} mono />
                 <Field label="Quote name" defaultValue="Standard LTL" trailingAddon="STD" />
                 <Field label="Email" placeholder="ops@warp.example" type="email" hint="We'll send the booking confirmation here." />
                 <Field label="Weight" defaultValue="abc" trailingAddon="lb" error="Weight must be a positive number." />
+              </div>
+            </Card>
+
+            <Card padding="lg">
+              <CardHeader title="Field states" description="Rest, hover, focus, error, success, disabled, read-only" />
+              <div className="flex flex-col gap-4">
+                <Field label="Rest" placeholder="Type a value" />
+                <Field label="Required" placeholder="ops@warp.example" required type="email" />
+                <Field label="Optional" placeholder="ops@warp.example" optional type="email" />
+                <Field label="With description" description="Describes what the field expects." placeholder="Type a value" />
+                <Field label="Read-only" defaultValue="Carrier ID — WRP-9824" readOnly mono />
+                <Field label="Disabled" defaultValue="Locked field" disabled />
+                <Field label="Mono numeric" defaultValue="$1,243.50" mono trailingAddon="USD" />
               </div>
             </Card>
 

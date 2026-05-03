@@ -49,8 +49,7 @@ export function Switch({
             </Label>
           )}
           {description && (
-            /* v0.5: arbitrary-value type — review for semantic preset (12 plain helper) */
-            <span className="text-[var(--type-12)] text-[var(--text-tertiary)]">
+            <span className="text-caption text-[var(--text-tertiary)]">
               {description}
             </span>
           )}

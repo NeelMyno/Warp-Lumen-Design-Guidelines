@@ -42,13 +42,12 @@ export function Checkbox({
       {(label || description) && (
         <div className="flex flex-col gap-0.5 leading-snug">
           {label && (
-            <Label htmlFor={cbId} className="text-body-sm text-[var(--text-primary)] cursor-pointer font-normal">
+            <Label htmlFor={cbId} className="text-label-md text-[var(--text-primary)] cursor-pointer">
               {label}
             </Label>
           )}
           {description && (
-            /* v0.5: arbitrary-value type — review for semantic preset (12 plain helper) */
-            <span className="text-[var(--type-12)] text-[var(--text-tertiary)]">{description}</span>
+            <span className="text-caption text-[var(--text-tertiary)]">{description}</span>
           )}
         </div>
       )}

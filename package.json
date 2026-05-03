@@ -1,6 +1,6 @@
 {
   "name": "@warp/lumen",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "description": "Lumen — Warp's vertically integrated design system. Tokens (DTCG), components (md + json), platforms (web/RN/iOS/Android/desktop/e-commerce), LLM contract.",
   "homepage": "https://lumen.warp.dev",
@@ -14,9 +14,10 @@
     "registry":           "node scripts/build-registry.mjs",
     "docs:dev":           "cd audit-dashboard && pnpm dev",
     "docs:build":         "cd audit-dashboard && pnpm build",
-    "lint":               "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography",
+    "lint":               "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography && pnpm lint:no-arbitrary-form-values",
     "lint:no-primitives": "node scripts/lint-no-primitives-in-components.mjs",
     "lint:no-arbitrary-typography": "node scripts/lint-no-arbitrary-typography.mjs",
+    "lint:no-arbitrary-form-values": "node scripts/lint-no-arbitrary-form-values.mjs",
     "cls":                "node scripts/measure-cls.mjs",
     "format":             "prettier --write 'design-system/**/*.{md,json}' '*.{md,json,ts}'",
     "release":            "node scripts/release.mjs"

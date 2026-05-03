@@ -14,6 +14,7 @@ import {
   ArrowRight as LArrowRight,
   Check as LCheck,
   Plus as LPlus,
+  Minus as LMinus,
   Search as LSearch,
   Truck as LTruck,
   MapPin as LMapPin,
@@ -45,6 +46,7 @@ const wrap = (Comp: LucideIcon) => {
 export const ArrowRight   = wrap(LArrowRight);
 export const Check        = wrap(LCheck);
 export const Plus         = wrap(LPlus);
+export const Minus        = wrap(LMinus);
 export const Search       = wrap(LSearch);
 export const Truck        = wrap(LTruck);
 export const MapPin       = wrap(LMapPin);

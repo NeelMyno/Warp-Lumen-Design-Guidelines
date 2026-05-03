@@ -20,6 +20,33 @@
     "accent-glow": {
       "$value": "{shadow.accent-glow}",
       "$description": "Optional outer glow under primary CTAs. Warp signature."
+    },
+    "input": {
+      "$description": "v0.6 — input field shell shadows. Composed: lit-edge (rest) + focus/error halo (active state). Apply to .lumen-field wrapper, never to the inner <input>.",
+      "lit-edge": {
+        "$value": [
+          { "color": "rgba(255,255,255,0.06)", "offsetX": "0px", "offsetY": "1px", "blur": "0px", "spread": "0px", "inset": true }
+        ],
+        "$description": "1px lit top edge — steals the glass-pane reflection trick from glassmorphism without committing to full glass. Dark mode only; no-op on light."
+      },
+      "focus": {
+        "$value": [
+          { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+        ],
+        "$description": "v0.6 — focus halo on .lumen-field wrapper. Same recipe as shadow.focus, namespaced for inputs so future theming can diverge."
+      },
+      "error": {
+        "$value": [
+          { "color": "rgba(239,68,68,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+        ],
+        "$description": "v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus."
+      },
+      "success": {
+        "$value": [
+          { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+        ],
+        "$description": "v0.6 — success halo. Reuses the focus recipe; reserved for explicit post-validation success affordances."
+      }
     }
   }
 }

@@ -92,6 +92,17 @@
         "32": { "$value": "rgba(74,222,128,0.32)", "$description": "Focus ring opacity" },
         "40": { "$value": "rgba(74,222,128,0.40)", "$description": "v0.4 — strong glow halo" },
         "64": { "$value": "rgba(74,222,128,0.64)", "$description": "v0.4 — radial aurora hot core" }
+      },
+      "danger": {
+        "$description": "v0.6 — translucent error halos. Used by input error rings + danger overlays.",
+        "12": { "$value": "rgba(239,68,68,0.12)" },
+        "24": { "$value": "rgba(239,68,68,0.24)", "$description": "Error focus-ring opacity" },
+        "32": { "$value": "rgba(239,68,68,0.32)" }
+      },
+      "warning": {
+        "$description": "v0.6 — translucent warning halos.",
+        "12": { "$value": "rgba(245,158,11,0.12)" },
+        "24": { "$value": "rgba(245,158,11,0.24)" }
       }
     }
   }

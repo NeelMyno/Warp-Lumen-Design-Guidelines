@@ -10,6 +10,75 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.6.0] — 2026-05-03 — Forms & input fields rebuild
+
+A user-reported double-focus-ring bug on the foundations Form fields demo triggered a full audit of the forms layer. The audit found the bug was symptomatic of deeper drift: three parallel input chrome systems, two parallel Selects, two parallel Radios, 17 form primitives without contracts, no Form/RHF integration, hardcoded rgba/hex chains. v0.6 collapses the architecture: ONE shell (`.lumen-field`), ONE focus surface, ONE ring. Plus 9 new component contracts, foundation doc, lint script, ADR.
+
+See [ADR 0011](./_meta/decisions/0011-forms-and-inputs-v06.md) for the full rationale and [forms-and-inputs.md](./design-system/00-foundations/forms-and-inputs.md) for the canonical guide.
+
+### Added
+
+- **Single-shell field architecture.** `.lumen-field` is the focusable surface for every text-entry control. Wrapper observes inner focus via `:has(:focus-visible)` (Tailwind v4 `has-focus-visible:`) with `:focus-within` fallback. Inner `<input>`/`<textarea>`/`<select>` renders bare; the global `:focus-visible` rule is explicitly gated for descendants of `.lumen-field` so the double-ring class is impossible.
+- **9 new component contracts:**
+  - **Field** (`02-components/field/`) — composition wrapper. Slot bonding, single focus surface.
+  - **Form** (`02-components/form/`) — semantic `<form>` wrapper; owns blur-validation orchestration, focus-on-first-error, density mode hook.
+  - **Textarea** (`02-components/textarea/`) — multiline input with field-sizing auto-grow.
+  - **Select** (`02-components/select/`) — Radix-based; collapses the v0.5 dual-implementation drift (custom native + unused Radix).
+  - **Checkbox** (`02-components/checkbox/`) — `.lumen-checkbox` shell; `--radius-xs` (replaces `rounded-[4px]` lint violation).
+  - **RadioGroup** (`02-components/radio-group/`) — `.lumen-radio` shell; collapses v0.5 dual-implementation drift.
+  - **Switch** (`02-components/switch/`) — `.lumen-switch` shell; separated from Toggle (Toggle = button-style on/off, Switch = pill toggle).
+  - **ValidationMessage** (`02-components/validation-message/`) — promoted from a buried atom in `feedback.tsx` to a dedicated form-composition primitive.
+  - **Input** (`02-components/input/`) — rewrite for v0.6. Bare element semantic; readOnly distinct from disabled.
+- **Foundation doc** at `design-system/00-foundations/forms-and-inputs.md` — 200-line canonical guide covering anatomy, focus model, sizing scale, density modes, states matrix, slot semantics, validation timing, required vs optional, form layout & rhythm, modern flourishes.
+- **6 new component-token files** at `01-tokens/components/`: `field.tokens.json`, `textarea.tokens.json`, `select.tokens.json`, `checkbox.tokens.json`, `radio.tokens.json`, `switch.tokens.json`.
+- **`input.tokens.json` expanded.** New keys: `padding.x.{sm,md,lg}` and `padding.y.{sm,md,lg}` ramps, `gap.slot`, `background.{rest,hover,focus,readOnly,disabled}`, `border.{rest,hover,focus,error,success,warning,disabled,readOnly}`, `foreground.{value,valueDisabled,valueReadOnly,placeholder,iconLeading,iconTrailing,addon,label,helper,error,success,warning}`, `ring.{focus,error,success,litEdge}`, `transition`.
+- **Semantic color tokens (light + dark):**
+  - `color.text.error`, `color.text.success`, `color.text.warning`, `color.text.placeholder` — explicit roles for form text states (previously product code reached into primitives like `--lumen-red-5`).
+  - `color.border.error`, `color.border.success`, `color.border.warning`, `color.border.disabled`.
+  - `color.surface.input.{rest,hover,focus,readOnly,disabled}` — input-specific surfaces; light mode shifts to sunken-cream for the inset feel.
+- **Primitive alpha tokens:** `color.alpha.danger.{12,24,32}` and `color.alpha.warning.{12,24}` — error/warning halos via `box-shadow`.
+- **Semantic shadow tokens:** `shadow.input.{focus,error,success,lit-edge}`. Lit-edge inset on dark mode steals the glassmorphism "glass-pane reflection" trick.
+- **`v0.6 — FORMS & INPUT FIELDS`** section in `globals.css` — ~350 lines. `.lumen-field` shell with size/density variants, hover/focus/error/success/warning/disabled/readonly states, slot bonding, autofill recipe, native quirks (number spinners, search clear-x). Plus `.lumen-checkbox`, `.lumen-radio`, `.lumen-switch` shells with composed indicators via `::before`/`::after`. Plus `.lumen-form-field`, `.lumen-form-stack`, `.lumen-fieldset` composition helpers.
+- **Density modes.** `<Form density="compact">` sets `data-density="compact"` on the form root; nested `.lumen-field` shells without explicit `data-size` adopt 32 px height + reduced padding. Linear/Plaid/Notion convergence pattern.
+- **Autofill recipe.** `-webkit-box-shadow: inset 0 0 0 1000px var(--surface-input-rest)` defeats Chrome's yellow autofill flash. The 5000 s transition outlasts the flash so the override never blinks visible.
+- **Read-only state.** Distinct from disabled — full contrast, in tab order, copyable, no caret. `aria-readonly="true"` on the shell.
+- **`scripts/lint-no-arbitrary-form-values.mjs`** — flags raw `focus-within:shadow-[...]`, `aria-invalid:focus-visible:shadow-[...]` arbitrary recipes; direct primitive reach for error colors (`bg-[var(--lumen-red-N)]` etc.); hardcoded pixels in form primitives. Wired as third stage of `pnpm lint`.
+- **ADR 0011** — durable record of the v0.6 audit, decisions, consequences, tradeoffs not chosen.
+
+### Changed
+
+- **`Input` contract rewrite (v0.1.0 → v0.6.0).** Adopts the field shell. Drops the v0.5 `text-base md:text-sm` (16 px → 14 px) font-size override that fought Lumen's documented 14 px body floor. The bare `<input>` now renders at `text-body-md` (14 px) consistently.
+- **`primitives/field.tsx` rewrite.** Single shell, slot composition, `data-*` attribute hooks for state. Click anywhere on the shell focuses the input. `description` and `optional` and `required` markers normalized to semantic typography presets (`text-caption`, no more `text-[var(--type-12)]` arbitrary values).
+- **`primitives/inputs.tsx` refactor.** `INPUT_BASE` constant deleted. SearchInput / Combobox / NumberInput / PasswordInput / OtpInput / TagsInput / DatePicker / TimePicker / ColorPicker all adopt `.lumen-field` shell with slot patterns. Eight different transition recipes collapsed to one (the shell's).
+- **shadcn `ui/input.tsx`, `ui/textarea.tsx`, `ui/select.tsx`** refactored. Removed `text-base md:text-sm` font override. Removed `bg-transparent` clobber on Select trigger that was overriding the field-shell bg. Reconciled `aria-invalid:focus-visible:shadow-[...]` recipes — all three now use `var(--shadow-input-error)` semantic token instead of hand-typed near-but-not-identical rgba values.
+- **shadcn `ui/checkbox.tsx`, `ui/radio-group.tsx`, `ui/switch.tsx`** refactored. Adopt `.lumen-checkbox`, `.lumen-radio`, `.lumen-switch` shell classes. Inner indicators composed via CSS `::before`/`::after`.
+- **shadcn `ui/label.tsx`** normalized to `text-label-sm` (Lumen 13 px medium secondary) by default — was `text-sm leading-none font-medium` raw.
+- **`--shadow-focus`** reconciled. Was `0 0 0 3.5px var(--lumen-lime-a40)` in CSS while `shadow.focus` token JSON declared `0 0 0 3px lime-a32`. Both now agree on `0 0 0 3px var(--lumen-lime-a32)`. Style Dictionary will emit consistent values across web/iOS/Android/Liquid.
+- **Light mode `--surface-input-rest`** shifted from `--surface-raised` (paper white) to `--lumen-cream-1` (sunken cream). Inputs now read as inset on the paper canvas, with focus popping to paper-white. Visually noticeable on /landing in light mode.
+- **`pnpm lint`** is now a three-stage composite (`lint:no-primitives && lint:no-arbitrary-typography && lint:no-arbitrary-form-values`).
+
+### Fixed
+
+- **Double-ring focus bug.** v0.5 painted two green focus halos on every Field with a leading icon or trailing addon — one from the wrapper's `focus-within:shadow-[var(--shadow-focus)]`, one from the global `:focus-visible { box-shadow: var(--shadow-focus) }` rule on the inner `<input>`. The leading icon and trailing addon fell outside the inner ring, reading as separate components. v0.6 gates the global rule for inputs nested in `.lumen-field` and the wrapper paints exactly one ring via `:has(:focus-visible)`.
+- **Error+focus stack fight.** v0.5 had two different rgba recipes (`rgba(237,94,94,0.20)` in `field.tsx`, `rgba(226,59,59,0.32)` in `ui/input.tsx`) for the same conceptual error+focus halo. Both replaced with the `--shadow-input-error` semantic token.
+- **Trailing addon outside the focus ring.** The "STD" / "lb" chips rendered as wrapper siblings outside the inner `<input>` focus boundary. v0.6 makes the wrapper itself the focus surface, so all slots are inside by construction.
+- **`bg-transparent` clobber on Select trigger.** `ui/select.tsx` declared `bg-[var(--surface-raised)]` then later `bg-transparent` — Tailwind last-class-wins made every Select transparent (visually different from Input). Removed.
+- **`rounded-[4px]` lint violation on Checkbox.** Replaced with `--radius-xs` token. The `lint-no-primitives` script now passes on `ui/checkbox.tsx`.
+- **`text-base md:text-sm` font-size fight.** Bare shadcn Input/Textarea rendered at 16 px on mobile and 14 px on desktop, fighting Lumen's documented 14 px body floor and creating a different text size than the same Input inside a Field. Removed; now consistent at `text-body-md` (14 px).
+- **Eight different transition recipes** across the four primitives (Input, Textarea, Select, Checkbox, RadioGroup, Switch, INPUT_BASE, Field wrapper). Collapsed to one (`color, box-shadow, border-color, background-color` at `--motion-fast` with `--easing-standard`).
+- **Disabled state** was opacity-50 only across all primitives. v0.6 adds bg + border + cursor changes.
+- **Read-only state** was undocumented and unstyled — now first-class with full contrast, no caret, in tab order.
+- **Autofill yellow flash** painted over `--surface-raised`. Recipe added; bg pinned via inset-shadow trick + 5000 s transition.
+
+### Deferred
+
+- **Per-platform docs** (`03-platforms/{ios-native,android-native,react-native,desktop-mac,desktop-windows,shopify-liquid,bigcommerce-stencil,woo-wordpress}/`) need updates mapping the new field-shell tokens to platform-native input components. Tracked for v0.6.x.
+- **Dedicated component contracts** for Combobox / NumberInput / PasswordInput / OtpInput / TagsInput / FileDropzone / Segmented / RangeSlider / DatePicker / TimePicker — primitives adopt the new shell in v0.6.0 but their `component.json` contracts ship in v0.6.x and v0.7.
+- **react-hook-form binding** — Form primitive in v0.6 is a thin native wrapper. v0.7 adds RHF binding (Zod resolver, `useFormContext`).
+- **Manual visual verification on the Vercel deploy** — Chrome extension was unreachable during the v0.6 build; tracked as deploy-blocked.
+
+---
+
 ## [0.5.1] — 2026-05-02 — Typography verification & lint enforcement
 
 A same-day follow-up to v0.5.0 that closes every "pending" verification item. Satoshi OpenType features verified against the actual woff2 binary; audit-dashboard migrated end-to-end to semantic utility classes; lint and Lighthouse-CLS scripts wired so drift cannot regress.

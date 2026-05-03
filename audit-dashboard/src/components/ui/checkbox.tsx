@@ -6,6 +6,11 @@ import { Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Lumen / shadcn Checkbox. v0.6 — adopts the .lumen-checkbox shell from
+ * globals.css. Radix sets data-state="checked|unchecked"; CSS uses that hook.
+ * No `rounded-[4px]` lint violation; radius comes from --radius-xs.
+ */
 function Checkbox({
   className,
   ...props
@@ -13,15 +18,12 @@ function Checkbox({
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
-      className={cn(
-        "peer border-[var(--border-default)] bg-[var(--surface-raised)] data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus-visible:shadow-[var(--shadow-focus)] focus-visible:outline-none aria-invalid:border-[var(--lumen-red-5)] size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow disabled:cursor-not-allowed disabled:opacity-50",
-        className,
-      )}
+      className={cn("lumen-checkbox", className)}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="flex items-center justify-center text-current transition-none"
+        className="flex items-center justify-center"
       >
         <Check className="size-3" strokeWidth={3} />
       </CheckboxPrimitive.Indicator>

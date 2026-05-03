@@ -1,0 +1,35 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "checkbox": {
+    "$description": "v0.6 — Checkbox shell. Square, 16 px (md). Unchecked = hairline border on input bg. Checked = lime fill + dark check glyph.",
+    "size": {
+      "$type": "dimension",
+      "sm": { "$value": "{dimension.3}", "$description": "12 px box — for tables only" },
+      "md": { "$value": "{dimension.4}", "$description": "16 px box — default" },
+      "lg": { "$value": "{dimension.5}", "$description": "20 px box — touch / marketing" }
+    },
+    "radius": { "$value": "{radius.xs}", "$description": "4 px corner radius. Hairline-square, not pill." },
+    "border": {
+      "rest":     { "$value": "{color.border.default}" },
+      "hover":    { "$value": "{color.border.strong}" },
+      "checked":  { "$value": "{color.accent.500}" },
+      "error":    { "$value": "{color.border.error}" },
+      "disabled": { "$value": "{color.border.disabled}" }
+    },
+    "background": {
+      "rest":     { "$value": "{color.surface.input.rest}" },
+      "checked":  { "$value": "{color.accent.500}" },
+      "disabled": { "$value": "{color.surface.input.disabled}" }
+    },
+    "indicator": {
+      "$description": "The checkmark glyph color when checked. Always the accent.fg ink color (near-black-green) for AA contrast on lime.",
+      "color":  { "$value": "{color.accent.fg}" },
+      "stroke": { "$value": "2px", "$description": "Stroke width for the SVG check. Heavy enough to read at 16px." }
+    },
+    "label": {
+      "type":   { "$value": "{type.body.sm}" },
+      "color":  { "$value": "{color.text.primary}" },
+      "gap":    { "$value": "{space.2}", "$description": "Gap between box and label." }
+    }
+  }
+}
