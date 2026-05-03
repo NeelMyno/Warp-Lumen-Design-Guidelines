@@ -17,6 +17,7 @@
       "card.padding.sm", "card.padding.md", "card.padding.lg",
       "card.shadow.rest", "card.shadow.hover",
       "color.border.focus", "shadow.focus",
+      "type.heading.h4", "type.body.md", "type.eyebrow.mono",
       "motion.transition.fast"
     ]
   },

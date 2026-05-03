@@ -17,7 +17,7 @@
       "color.text.secondary",
       "color.text.tertiary",
       "color.accent.700",
-      "type.code.inline",
+      "type.code.inline", "type.data.md", "type.data.sm", "type.eyebrow.mono",
       "font.family.mono"
     ]
   },

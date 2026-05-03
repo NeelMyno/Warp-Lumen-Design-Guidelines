@@ -65,6 +65,7 @@ export function InlineTabs({
             <span className="inline-flex items-center gap-1.5">
               {it.label}
               {it.badge !== undefined && (
+                /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 11) */
                 <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
                   {it.badge}
                 </span>

@@ -48,6 +48,7 @@ export function Swatch({
         style={{ background: display }}
       >
         {copied && (
+          /* v0.5: arbitrary-value type — review for semantic preset (11 medium toast) */
           <span className="absolute top-1.5 right-1.5 px-1.5 h-[18px] inline-flex items-center rounded-full bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]">
             Copied
           </span>
@@ -55,16 +56,18 @@ export function Swatch({
       </div>
       <div className="px-2.5 py-2 border-t border-[var(--border-hairline)] flex flex-col gap-0.5">
         <div className="flex items-center justify-between gap-2 min-w-0">
-          <span className="text-[var(--type-13)] font-medium text-[var(--text-primary)] truncate">
+          <span className="text-label-sm text-[var(--text-primary)] truncate">
             {name}
           </span>
           {value && (
+            /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 11) */
             <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] shrink-0">
               {value}
             </code>
           )}
         </div>
         {role && (
+          /* v0.5: arbitrary-value type — review for semantic preset (plain regular at 11) */
           <div className="text-[var(--type-11)] text-[var(--text-tertiary)] truncate">
             {role}
           </div>

@@ -3,6 +3,10 @@ import { ReactNode } from "react";
 type Size = "xs" | "sm" | "md" | "lg" | "xl" | "hero";
 type Trend = "up" | "down" | "flat";
 
+// v0.5: Stat composes its own metric ramp here (size + font-bold + lumen-tnum).
+// The type-* references parallel text-metric-{sm,md,lg,xl} but Stat keeps
+// its own scale to support intermediate sizes (sm=25, lg=39) that have no
+// semantic preset. Review for consolidation in a later pass.
 const VALUE_SIZE: Record<Size, string> = {
   xs:   "text-[var(--type-20)]",
   sm:   "text-[var(--type-25)]",
@@ -57,6 +61,7 @@ export function Stat({
           {value}
         </span>
         {unit && (
+          /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 13) */
           <span className="lumen-mono text-[var(--type-13)] text-[var(--text-tertiary)]">
             {unit}
           </span>
@@ -65,6 +70,7 @@ export function Stat({
       {(delta || spark) && (
         <div className="flex items-center gap-3 mt-0.5">
           {delta && trend && (
+            /* v0.5: arbitrary-value type — review for semantic preset (type-11 delta pill) */
             <span
               className={[
                 "inline-flex items-center gap-1 px-1.5 h-[18px] rounded-[var(--radius-full)]",

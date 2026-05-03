@@ -24,7 +24,8 @@
       "input.background.rest", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error",
       "input.foreground.value", "input.foreground.placeholder",
-      "shadow.focus", "type.body.md", "type.code.inline",
+      "shadow.focus", "type.body.md", "type.body.sm", "type.label.md",
+      "type.code.inline", "type.data.md",
       "motion.transition.fast"
     ]
   },

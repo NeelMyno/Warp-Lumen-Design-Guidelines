@@ -23,6 +23,7 @@ export function RateTicker({
     >
       <div className="lumen-ticker-track flex gap-10 whitespace-nowrap py-2.5">
         {repeated.map((r, i) => (
+          /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 13) */
           <div
             key={i}
             className="flex items-center gap-2 lumen-mono lumen-tnum text-[var(--type-13)]"

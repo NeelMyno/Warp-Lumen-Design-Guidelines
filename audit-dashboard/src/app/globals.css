@@ -5,6 +5,27 @@
 @custom-variant dark (&:is([data-theme="dark"] *));
 
 /* ============================================================================
+   LUMEN · v0.5 — METRIC-ALIGNED FONT FALLBACK
+   ----------------------------------------------------------------------------
+   Eliminates layout shift (CLS) on Satoshi-Variable swap-in.
+   While Satoshi is loading, the system falls through to "Satoshi-Fallback"
+   which renders Arial scaled to occupy Satoshi's exact box. When Satoshi
+   finishes loading, the swap is metrics-identical → CLS ≈ 0.
+
+   Numbers tuned for Satoshi v2.000 (UPM 1000, ascent ~980, descent ~220).
+   Verify in Lighthouse on cold load; tune in this block if drift > 0.05 CLS.
+   ============================================================================ */
+@font-face {
+  font-family: "Satoshi-Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("sans-serif");
+  size-adjust: 121%;
+  ascent-override: 81%;
+  descent-override: 18%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+
+/* ============================================================================
    LUMEN · v0.4 — Obsidian Lime
    ----------------------------------------------------------------------------
    A clean break from the navy + lime combo. Anchor references:
@@ -109,70 +130,107 @@
   --lumen-accent-a24: var(--lumen-lime-a24);
   --lumen-accent-a32: var(--lumen-lime-a32);
 
-  /* ───────────────────────  TYPOGRAPHY  ─────────────────────────────────
+  /* ───────────────────────  TYPOGRAPHY · v0.5  ─────────────────────────────
      next/font/local writes --font-satoshi; next/font/google writes --font-jetbrains.
      We compose them into --font-sans / --font-mono with system fallbacks.
      CRITICAL: never write --font-sans referring to itself; CSS resolves a
      self-ref var as invalid and silently drops back to UA serif.
+
+     v0.5 typography rebuild — see /design-system/00-foundations/typography.md
+     and /design-system/01-tokens/{primitives,semantic}/*.tokens.json. Token
+     JSON is the source of truth; the values below MUST match it.
   */
-  --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, -apple-system,
+  --font-sans: var(--font-satoshi), "Satoshi-Fallback", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, "SF Mono",
     Menlo, Consolas, "Liberation Mono", monospace;
-  /* Optional editorial italic slot — falls back to Satoshi italic / system serif */
-  --font-italic-display: var(--font-satoshi), "Source Serif 4", "New York", "Iowan Old Style",
-    Georgia, "Times New Roman", serif;
+  /* Editorial slot — Source Serif 4 with opsz axis. Loaded only on prose routes. */
+  --font-serif: "Source Serif 4", ui-serif, "Iowan Old Style", "New York",
+    Georgia, Cambria, "Times New Roman", serif;
+  /* Plan B sans — wired via [data-font="inter"] override below. */
+  --font-alt-sans: "Inter", "InterVariable", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, sans-serif;
 
-  /* type scale — 1.25 (Major Third) at 16px, with extra steps for precision.
-     v0.4 pushes the display ceiling to mirror the brutalist references. */
-  --type-11: 0.6875rem;
-  --type-12: 0.75rem;
-  --type-13: 0.8125rem;
-  --type-14: 0.875rem;
-  --type-15: 0.9375rem;
-  --type-16: 1rem;
-  --type-17: 1.0625rem;
-  --type-18: 1.125rem;
-  --type-20: 1.25rem;
-  --type-22: 1.375rem;
-  --type-25: 1.5625rem;
-  --type-28: 1.75rem;
-  --type-31: 1.9375rem;
-  --type-36: 2.25rem;
-  --type-39: 2.4375rem;
-  --type-44: 2.75rem;
-  --type-49: 3.0625rem;
-  --type-56: 3.5rem;
-  --type-61: 3.8125rem;
-  --type-72: 4.5rem;
-  --type-76: 4.75rem;
-  --type-84: 5.25rem;          /* v0.4 — brutalist headline                    */
-  --type-96: 6rem;
-  --type-112: 7rem;            /* v0.4 — hero countdown numerals               */
-  --type-128: 8rem;            /* v0.4 — "STOP RE-DESIGNING" scale             */
+  /* type scale — 1.25 (Major Third) at 16px, floor-to-ceiling 11→128px.
+     Mirrors /design-system/01-tokens/primitives/typography.tokens.json. */
+  --type-11:  0.6875rem;   /* 11px — kbd, overline only                       */
+  --type-12:  0.75rem;     /* 12px — eyebrow, micro                           */
+  --type-13:  0.8125rem;   /* 13px — caption, h6, code block                  */
+  --type-14:  0.875rem;    /* 14px — body sm, label md                        */
+  --type-15:  0.9375rem;   /* 15px — h5                                       */
+  --type-16:  1rem;        /* 16px — body md (default)                        */
+  --type-17:  1.0625rem;   /* 17px — h4, lead small                           */
+  --type-18:  1.125rem;    /* 18px — body lg, prose body                      */
+  --type-20:  1.25rem;     /* 20px — h3, lead, data lg                        */
+  --type-22:  1.375rem;    /* 22px — prose lead                               */
+  --type-25:  1.5625rem;   /* 25px — h2, prose subtitle                       */
+  --type-28:  1.75rem;     /* 28px — display sm                               */
+  --type-31:  1.9375rem;   /* 31px — h1, metric md, quote                     */
+  --type-36:  2.25rem;     /* 36px — bridge                                   */
+  --type-39:  2.4375rem;   /* 39px — display md                               */
+  --type-44:  2.75rem;     /* 44px — bridge                                   */
+  --type-49:  3.0625rem;   /* 49px — display lg, metric lg, prose title       */
+  --type-56:  3.5rem;      /* 56px — bridge                                   */
+  --type-61:  3.8125rem;   /* 61px — metric xl                                */
+  --type-72:  4.5rem;      /* 72px — bridge                                   */
+  --type-76:  4.75rem;     /* 76px — display xl                               */
+  --type-84:  5.25rem;     /* 84px — bridge                                   */
+  --type-96:  6rem;        /* 96px — display 2xl, italic accent               */
+  --type-112: 7rem;        /* 112px — hero numerals                           */
+  --type-128: 8rem;        /* 128px — display hero (brutalist ceiling)        */
 
-  --leading-flat:    1.0;
-  --leading-tight:   1.05;     /* tightened for v0.4 brutalist headlines       */
-  --leading-snug:    1.18;
-  --leading-normal:  1.5;
-  --leading-relaxed: 1.65;
+  /* Fluid hero — clamp() for marketing display only. Body and headings stay
+     fixed (operator UI expects predictable line breaks). */
+  --type-fluid-hero: clamp(4rem, 4rem + 4vw, 8rem);     /*  64 → 128 */
+  --type-fluid-2xl:  clamp(3.5rem, 3rem + 3vw, 6rem);    /*  56 →  96 */
+  --type-fluid-xl:   clamp(2.75rem, 2.5rem + 2vw, 4.75rem); /* 44 →  76 */
 
-  --tracking-tightest: -0.045em;
-  --tracking-tighter:  -0.025em;
-  --tracking-tight:    -0.012em;
-  --tracking-normal:   0em;
-  --tracking-wide:     0.012em;
-  --tracking-wider:    0.04em;
-  --tracking-widest:   0.10em;
-  --tracking-mono-cap: 0.16em;     /* v0.4 — uppercase mono labels             */
+  /* Leading curve — size-conditional. Mirrors token JSON. */
+  --leading-flat:              1.00;   /* ≥96px display                       */
+  --leading-tight:             1.05;   /* 49–84px display                     */
+  --leading-snug:              1.12;   /* 39–56px display                     */
+  --leading-compact:           1.16;   /* h1 (31px) — 4-grid aligned at 36    */
+  --leading-comfortable:       1.20;   /* h2 (25px)                           */
+  --leading-snug-body:         1.30;   /* h3 (20px), eyebrow tier             */
+  --leading-tight-table:       1.18;   /* dense table rows                    */
+  --leading-uppercase:         1.30;   /* eyebrow, overline                   */
+  --leading-ui:                1.40;   /* h4–h6, caption, label, micro        */
+  --leading-normal:            1.50;   /* body 16px                           */
+  --leading-body-comfortable:  1.55;   /* body lg/md/sm screen comfort        */
+  --leading-relaxed:           1.65;   /* longform prose                      */
+  --leading-loose:             1.80;   /* reserved                            */
 
-  --weight-light:    300;
-  --weight-regular:  400;
-  --weight-medium:   500;
-  --weight-semibold: 600;
-  --weight-bold:     700;
-  --weight-black:    900;
+  /* Tracking curve — continuous, asymptote at -0.025em.
+     Mirrors token JSON. cap-* are for uppercase runs only. */
+  --tracking-tightest:    -0.025em;   /* display 2xl/hero (96–128)            */
+  --tracking-tighter:     -0.020em;   /* display xl/lg (49–84)                */
+  --tracking-tight:       -0.015em;   /* display sm/md, h1 (28–44)            */
+  --tracking-tight-soft:  -0.010em;   /* h2 (25)                              */
+  --tracking-tight-micro: -0.005em;   /* h3 (20), lead (20)                   */
+  --tracking-tight-body:  -0.002em;   /* body lg (18)                         */
+  --tracking-normal:       0em;        /* body md (16), h4 (17)                */
+  --tracking-wide-micro:   0.005em;   /* body sm (14), label sm               */
+  --tracking-wide:         0.008em;   /* caption (13)                         */
+  --tracking-wider:        0.012em;   /* micro (12)                           */
+  --tracking-cap-overline: 0.05em;    /* 11px UPPER overline                  */
+  --tracking-cap-eyebrow:  0.10em;    /* 12px UPPER sans eyebrow              */
+  --tracking-cap-mono:     0.16em;    /* 12px UPPER mono — system-metadata    */
+
+  /* Legacy aliases — kept for any v0.4 component that references widest. */
+  --tracking-widest: var(--tracking-cap-eyebrow);
+
+  /* Weights — Light (300) deprecated in v0.5. */
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+  --weight-black:     900;
+
+  /* Variable axis — non-integer weights for VF-aware components. */
+  --weight-axis-body:        440;   /* body-emphasis (Linear pattern)         */
+  --weight-axis-body-strong: 510;   /* inline <strong> in body                */
 
   /* ───────────────────────  GEOMETRY · 8pt SOFT GRID  ────────────────────
      Lumen v0.4 keeps the v0.3 8-point soft grid intact — it's the structural
@@ -640,15 +698,38 @@ html, body {
   background: var(--surface-canvas);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "ss02", "cv11";
+  /* v0.5.1 — verified Satoshi GSUB inventory via fontTools (2026-05-02):
+     ss01 → alternate G + alternate single-storey 'a' (17 glyphs incl. accented forms)
+     ss02 → alternate single-storey 'g' (5 glyphs)
+     ss03 → alternate 't' (5 glyphs)
+     ss04 → alternate Q
+     liga, dlig, tnum, pnum, numr, dnom, frac, sinf, subs, sups, ordn, salt, case all present.
+     NOT present: zero (slashed), onum (oldstyle), smcp/c2sc (small caps).
+     Single-storey alternates are a BRAND decision — enabled selectively via
+     `.lumen-display-alt` opt-in utility, never globally. Default body keeps
+     Satoshi's default double-storey for the "operator-confident" voice. */
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures contextual;
+  font-optical-sizing: auto;       /* harmless on Satoshi, beneficial on Source Serif 4 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-synthesis: none;
+  font-synthesis: none;             /* italic VF + full wght axis shipped — never let browser fake */
+}
+
+/* v0.5.1 — Verified Satoshi stylistic-set utilities. Single-storey alternates
+   are a brand-level opt-in. Apply to specific display moments, not globally.
+   Verified 2026-05-02 against Satoshi-Variable.woff2 GSUB. */
+.lumen-display-alt {
+  font-feature-settings: "kern" 1, "liga" 1, "ss01" 1, "ss02" 1, "ss03" 1;
+}
+.lumen-alt-q {
+  font-feature-settings: "kern" 1, "liga" 1, "ss04" 1;  /* alternate Q only */
 }
 
 ::selection {
-  background: var(--lumen-lime-a32);
+  background: var(--lumen-lime-a24);   /* v0.5 — softened from a32 to read as selection, not active state */
   color: var(--text-primary);
 }
 
@@ -659,6 +740,13 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* v0.5 — Plan B Inter swap. Toggle [data-font="inter"] on <html> to flip the
+   whole system to Inter Variable for Cyrillic/Greek market expansion or
+   Windows ClearType fallback. Documented in foundations/typography.md §1. */
+html[data-font="inter"] {
+  --font-sans: var(--font-alt-sans);
+}
 
 /* ─────────────────────────  ATOMS  ──────────────────────────────────────── */
 .lumen-card {
@@ -675,36 +763,86 @@ a { color: inherit; text-decoration: none; }
 .lumen-row-divider > * + * {
   border-top: 1px solid var(--border-hairline);
 }
+/* v0.5 — Mono utility split.
+   .lumen-mono         → DEFAULT mono. IDs, money, ETAs, weights, timestamps.
+                         Programming ligatures OFF (`==` should look like two `=`).
+                         Slashed zero ON. Tabular nums via font-variant-numeric.
+   .lumen-mono-code    → mono inside <code>/<pre> in PROSE. Ligatures ON.
+   .lumen-mono-terminal→ terminal/diff output. Ligatures OFF, tabular ON.
+   The earlier `.lumen-mono { calt 0 }` was clobbering JetBrains Mono's
+   programming ligatures everywhere — bug fix in v0.5.
+*/
 .lumen-mono {
+  /* v0.5.1 — `zero` feature verified absent from next/font/google's JetBrains
+     Mono subset (only calt/ccmp/frac/locl ship). Slashed-zero declaration is
+     a no-op on the served subset, but JetBrains Mono's default `0` glyph is
+     already dotted/disambiguated, so IDs read unambiguously without it.
+     Keep the declaration so self-hosted full-feature switch is zero-edit.    */
   font-family: var(--font-mono);
-  font-feature-settings: "tnum" 1, "calt" 0;
-  font-variant-numeric: tabular-nums;
-}
-.lumen-tnum {
   font-variant-numeric: tabular-nums slashed-zero;
-  font-feature-settings: "tnum" 1, "ss01" 1;
+  font-feature-settings: "calt" 0, "liga" 0, "zero" 1;
 }
-.lumen-eyebrow {
-  font-size: var(--type-11);
-  letter-spacing: var(--tracking-widest);
+.lumen-mono-code {
+  font-family: var(--font-mono);
+  font-feature-settings: "calt" 1, "liga" 1, "zero" 1;
+}
+.lumen-mono-terminal {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-feature-settings: "calt" 0, "liga" 0, "zero" 1, "tnum" 1;
+}
+
+/* v0.5 — Tabular numerics. Use font-variant-numeric only (composes cleanly).
+   Earlier code mixed font-feature-settings AND font-variant-numeric, which
+   silently dropped slashed-zero because feature-settings overrides everything.
+*/
+.lumen-tnum {
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+
+/* v0.5 — Two eyebrow systems, formal. Both at 12px (raised from 11px floor for
+   WCAG comfort). Sans for human-facing section labels; mono for system metadata. */
+.lumen-eyebrow,
+.lumen-eyebrow-sans {
+  font-family: var(--font-sans);
+  font-size: var(--type-12);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-uppercase);
+  letter-spacing: var(--tracking-cap-eyebrow);
   text-transform: uppercase;
   color: var(--text-tertiary);
-  font-weight: var(--weight-semibold);
 }
-/* v0.4 — mono uppercase tracked label, the hallmark "system metadata" voice
+
+/* v0.5 — Mono uppercase tracked label, the hallmark "system metadata" voice
    used in both reference designs ("AI-POWERED INTERFACE GENERATOR",
-   "@ DIGITAL HQ / GLOBAL ACCESS", "INVITES IN:"). */
-.lumen-mono-cap {
+   "@ DIGITAL HQ / GLOBAL ACCESS", "INVITES IN:"). Now a formal token preset. */
+.lumen-mono-cap,
+.lumen-eyebrow-mono {
   font-family: var(--font-mono);
-  font-feature-settings: "tnum" 1;
-  font-size: var(--type-11);
+  font-size: var(--type-12);
   font-weight: var(--weight-medium);
-  letter-spacing: var(--tracking-mono-cap);
+  line-height: var(--leading-uppercase);
+  letter-spacing: var(--tracking-cap-mono);
   text-transform: uppercase;
+  font-feature-settings: "tnum" 1, "calt" 0, "zero" 1, "case" 1;
 }
-.lumen-mono-cap--accent {
+.lumen-mono-cap--accent,
+.lumen-eyebrow-mono--accent {
   color: var(--text-accent);
 }
+
+/* v0.5 — Overline (chart axis, sub-eyebrow secondary). Lighter tracking than
+   eyebrow; renders 11px (kbd/overline tier — the only place 11px is allowed). */
+.lumen-overline {
+  font-family: var(--font-sans);
+  font-size: var(--type-11);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-cap-overline);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
 .lumen-link {
   color: var(--text-link);
   text-decoration: underline;
@@ -729,6 +867,366 @@ a { color: inherit; text-decoration: none; }
   border-bottom-width: 2px;
   border-radius: var(--radius-sm);
   line-height: 1;
+  font-feature-settings: "tnum" 1, "calt" 0, "zero" 1;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   v0.5 — SEMANTIC TYPOGRAPHY UTILITY CLASSES
+   ----------------------------------------------------------------------------
+   These mirror /design-system/01-tokens/semantic/type.tokens.json. Components
+   reach for these instead of writing `text-[var(--type-N)] font-bold tracking-...`.
+   Lint flags raw text-[var(--type-*)] in product code — use these tokens.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* — Display tier (marketing impact, balance applied) — */
+.text-display-hero {
+  font-size: var(--type-128);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-flat);
+  letter-spacing: var(--tracking-tightest);
+  text-wrap: balance;
+}
+.text-display-2xl {
+  font-size: var(--type-96);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tightest);
+  text-wrap: balance;
+}
+.text-display-xl {
+  font-size: var(--type-76);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  text-wrap: balance;
+}
+.text-display-lg {
+  font-size: var(--type-49);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tighter);
+  text-wrap: balance;
+}
+.text-display-md {
+  font-size: var(--type-39);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+.text-display-sm {
+  font-size: var(--type-28);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* — Fluid display variants for hero treatments — */
+.text-display-hero-fluid { font-size: var(--type-fluid-hero); }
+.text-display-2xl-fluid  { font-size: var(--type-fluid-2xl); }
+.text-display-xl-fluid   { font-size: var(--type-fluid-xl); }
+
+/* — Heading tier (app structure, balance on h1/h2/h3) — */
+.text-heading-h1 {
+  font-size: var(--type-31);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+.text-heading-h2 {
+  font-size: var(--type-25);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-comfortable);
+  letter-spacing: var(--tracking-tight-soft);
+  text-wrap: balance;
+}
+.text-heading-h3 {
+  font-size: var(--type-20);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-tight-micro);
+  text-wrap: balance;
+}
+.text-heading-h4 {
+  font-size: var(--type-17);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-normal);
+}
+.text-heading-h5 {
+  font-size: var(--type-15);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-normal);
+}
+.text-heading-h6 {
+  font-size: var(--type-13);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-wide-micro);
+}
+
+/* — Body tier — */
+.text-body-lg {
+  font-size: var(--type-18);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-comfortable);
+  letter-spacing: var(--tracking-tight-body);
+  text-wrap: pretty;
+}
+.text-body-md {
+  font-size: var(--type-16);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-comfortable);
+  letter-spacing: var(--tracking-normal);
+}
+.text-body-sm {
+  font-size: var(--type-14);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-comfortable);
+  letter-spacing: var(--tracking-wide-micro);
+}
+.text-body-xs {
+  font-size: var(--type-13);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-wide);
+}
+.text-body-tabular {
+  font-size: var(--type-16);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-comfortable);
+  letter-spacing: var(--tracking-normal);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+.text-lead {
+  font-size: var(--type-20);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-tight-micro);
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+/* — Label tier (tabs, buttons) — */
+.text-label-lg {
+  font-size: var(--type-16);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-normal);
+}
+.text-label-md {
+  font-size: var(--type-14);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-normal);
+}
+.text-label-sm {
+  font-size: var(--type-13);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-wide-micro);
+}
+
+/* — Eyebrow / overline (uppercase tracked) — */
+.text-eyebrow-sans {
+  font-family: var(--font-sans);
+  font-size: var(--type-12);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-uppercase);
+  letter-spacing: var(--tracking-cap-eyebrow);
+  text-transform: uppercase;
+}
+.text-eyebrow-mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-12);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-uppercase);
+  letter-spacing: var(--tracking-cap-mono);
+  text-transform: uppercase;
+  font-feature-settings: "tnum" 1, "calt" 0, "zero" 1, "case" 1;
+}
+.text-overline {
+  font-family: var(--font-sans);
+  font-size: var(--type-11);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-cap-overline);
+  text-transform: uppercase;
+}
+
+/* — Caption / micro / kbd — */
+.text-caption {
+  font-size: var(--type-13);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-wide);
+}
+.text-micro {
+  font-size: var(--type-12);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-wider);
+}
+
+/* — Tabular data (Lumen signature — KPIs, money, weights) — */
+.text-data-lg {
+  font-family: var(--font-mono);
+  font-size: var(--type-20);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-normal);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+.text-data-md {
+  font-family: var(--font-mono);
+  font-size: var(--type-16);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-normal);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+.text-data-sm {
+  font-family: var(--font-mono);
+  font-size: var(--type-14);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-ui);
+  letter-spacing: var(--tracking-normal);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+
+/* — Metric (Big-number KPI — Stat primitive) — */
+.text-metric-xl {
+  font-family: var(--font-mono);
+  font-size: var(--type-61);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+.text-metric-lg {
+  font-family: var(--font-mono);
+  font-size: var(--type-49);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+.text-metric-md {
+  font-family: var(--font-mono);
+  font-size: var(--type-31);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking-tight);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+.text-metric-sm {
+  font-family: var(--font-mono);
+  font-size: var(--type-20);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug-body);
+  letter-spacing: var(--tracking-tight-micro);
+  font-variant-numeric: tabular-nums lining-nums slashed-zero;
+}
+
+/* — Code (inline 0.9286em ratio for x-height parity with body sans) — */
+.text-code-inline {
+  font-family: var(--font-mono);
+  font-size: 0.9286em;
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  font-feature-settings: "calt" 1, "liga" 1, "zero" 1;
+}
+.text-code-block {
+  font-family: var(--font-mono);
+  font-size: var(--type-13);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  font-feature-settings: "calt" 1, "liga" 1, "zero" 1;
+}
+.text-code-terminal {
+  font-family: var(--font-mono);
+  font-size: var(--type-13);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+  font-feature-settings: "calt" 0, "liga" 0, "zero" 1, "tnum" 1;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* — Editorial prose (Source Serif 4 — only on /blog, /changelog, /press) — */
+.text-prose-body {
+  font-family: var(--font-serif);
+  font-size: var(--type-18);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+  letter-spacing: var(--tracking-normal);
+  text-wrap: pretty;
+}
+.text-prose-lead {
+  font-family: var(--font-serif);
+  font-size: var(--type-22);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body-comfortable);
+  letter-spacing: var(--tracking-tight-micro);
+  text-wrap: pretty;
+  color: var(--text-secondary);
+}
+.text-prose-title {
+  font-family: var(--font-serif);
+  font-size: var(--type-49);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+.text-prose-subtitle {
+  font-family: var(--font-serif);
+  font-size: var(--type-25);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-comfortable);
+  letter-spacing: var(--tracking-tight-soft);
+  text-wrap: balance;
+}
+
+/* — Editorial italic accent — the one-italic-word-per-page moment — */
+.text-display-italic-accent {
+  font-style: italic;
+  font-size: var(--type-96);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tightest);
+  color: var(--text-accent);
+}
+
+/* — Quote (testimonial, customer voice) — */
+.text-quote {
+  font-size: var(--type-31);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-compact);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* — Longform prose container — apply on .prose-lumen wrapper — */
+.prose-lumen {
+  max-width: 65ch;
+  font-family: var(--font-serif);
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;  /* oldstyle figures in editorial */
+  hanging-punctuation: first last;
+  text-wrap: pretty;
+}
+.prose-lumen p          { margin: 0 0 1.25em; }
+.prose-lumen h1, .prose-lumen h2, .prose-lumen h3 { text-wrap: balance; }
+.prose-lumen blockquote {
+  border-left: 2px solid var(--border-accent);
+  padding-left: 1.5em;
+  font-style: italic;
+  color: var(--text-secondary);
 }
 /* v0.4 — pill controls. Used for nav, hero CTA, signal badges. */
 .lumen-pill {

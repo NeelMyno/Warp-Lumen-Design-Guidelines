@@ -15,6 +15,7 @@
     "consumed": [
       "color.surface.raised", "color.surface.scrim",
       "color.text.primary", "color.text.secondary",
+      "type.heading.h2", "type.body.md", "type.body.sm", "type.label.lg",
       "radius.card.hero",
       "shadow.modal",
       "motion.transition.slow",

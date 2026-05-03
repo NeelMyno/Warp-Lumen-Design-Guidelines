@@ -15,14 +15,19 @@
   },
   "tokens": {
     "consumed": [
-      "type.label.eyebrow",
-      "type.display.md", "type.display.lg", "type.display.xl",
-      "type.heading.h1", "type.heading.h2",
-      "type.body.sm", "type.caption",
+      "type.eyebrow.sans",
+      "type.metric.sm", "type.metric.md", "type.metric.lg", "type.metric.xl",
+      "type.data.sm", "type.body.sm", "type.caption",
       "color.text.primary", "color.text.tertiary",
       "color.status.success.fg", "color.status.danger.fg",
       "font.family.mono"
     ]
+  },
+  "sizeMapping": {
+    "sm": { "label": "type.eyebrow.sans", "value": "type.metric.sm",  "unit": "type.data.sm",  "delta": "type.body.sm" },
+    "md": { "label": "type.eyebrow.sans", "value": "type.metric.md",  "unit": "type.data.md",  "delta": "type.body.sm" },
+    "lg": { "label": "type.eyebrow.sans", "value": "type.metric.lg",  "unit": "type.data.md",  "delta": "type.body.md" },
+    "xl": { "label": "type.eyebrow.sans", "value": "type.metric.xl",  "unit": "type.data.lg",  "delta": "type.body.md" }
   },
   "a11y": {
     "keyboard": [],

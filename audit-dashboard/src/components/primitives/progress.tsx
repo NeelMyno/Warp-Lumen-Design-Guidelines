@@ -46,8 +46,9 @@ export function ProgressBar({
     <div className="flex flex-col gap-1.5">
       {(label || showValue) && (
         <div className="flex items-baseline justify-between gap-3">
-          {label && <span className="text-[var(--type-13)] text-[var(--text-secondary)]">{label}</span>}
+          {label && <span className="text-body-xs text-[var(--text-secondary)]">{label}</span>}
           {showValue && (
+            /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 12) */
             <span className="lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-tertiary)]">
               {Math.round(pct)}%
             </span>
@@ -109,7 +110,7 @@ export function ProgressRing({
           }}
         />
       </svg>
-      <span className="absolute inset-0 flex items-center justify-center text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] lumen-tnum">
+      <span className="absolute inset-0 flex items-center justify-center text-heading-h6 lumen-tnum">
         {Math.round(pct)}<span className="text-[var(--text-tertiary)] text-[10px]">%</span>
       </span>
     </div>

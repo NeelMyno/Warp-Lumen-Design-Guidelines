@@ -15,7 +15,8 @@
       "color.surface.raised", "color.surface.sunken",
       "color.border.subtle",
       "color.text.primary", "color.text.secondary", "color.text.tertiary",
-      "type.body.sm", "type.label.eyebrow", "type.code.inline",
+      "type.body.sm", "type.eyebrow.sans", "type.eyebrow.mono",
+      "type.data.sm", "type.data.md", "type.code.inline", "type.heading.h6",
       "space.3", "space.4",
       "motion.transition.fast"
     ]

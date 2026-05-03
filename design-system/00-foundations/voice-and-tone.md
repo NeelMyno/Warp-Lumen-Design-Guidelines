@@ -66,17 +66,30 @@ The voice stays the same. The tone modulates with the moment.
 ## Capitalization
 
 - **Sentence case** for all UI labels, button text, headings, table headers, navigation. ("Save changes", not "Save Changes".)
-- **ALL CAPS** is reserved for eyebrow labels (`OPERATE`, `ACTIVE`) at 12px with widest tracking. Never on regular text.
+- **ALL CAPS** is reserved for eyebrow labels at 12px with tracked spacing. Two cuts:
+  - `eyebrow.sans` — 12px sans, 0.10em tracking. Section eyebrows above titles. `OPERATE`, `NETWORK`, `PRICING`.
+  - `eyebrow.mono` — 12px mono, 0.16em tracking. **System metadata signature.** `[•] SYSTEM V0.5 LIVE`, `@ DIGITAL HQ / GLOBAL ACCESS`, `INVITES IN:`. Reserve for state, version, region, status — never for human-facing copy.
 - **Title Case** is used only for proper nouns and product names (Lumen, Warp, Sterling LTL, Apple HIG).
+
+## Italic — three rules
+
+Satoshi ships true italics (separate Variable file, not slanted oblique). `font-synthesis: none` is set globally so the browser cannot fake italic from upright Regular.
+
+1. **Italic = emphasis.** A single word or short phrase that genuinely shifts meaning. Never for "vibe."
+2. **Italic = citation, foreign terms, ship names.** Book titles, untranslated phrases (`façon de parler`, `ad hoc`), carrier vessels.
+3. **Italic ≠ system text.** Loading states ("Quoting…"), error toasts, status pills, button labels, table headers, eyebrows are all upright. Italic on a system message reads as editorial commentary, not system fact.
+
+The `display.italic.accent` preset enables the brutalist "one italic word per hero" treatment (e.g., italicising _builders_ in "The freight network for builders."). Renders in `text-accent` (lime). At most one per page.
 
 ## Numbers
 
-- Always use tabular monospace for numbers in UI (`font-feature-settings: "tnum"`).
-- Money: `$262`, `$1,243.50`. Currency symbol attached to first digit; no space.
-- Weights: `520 lb`, `2,100 lb`. Unit detached, lowercase.
-- Time: `04:18`, `Today · 9:30 AM`. 24-hour for operator UI; 12-hour for marketing.
-- ETAs: `Today · 04:18`, `Tomorrow · 12:30`, `Wed 10:00`.
-- Percentages: `98.2%`. One decimal for accuracy in operator views; integer in marketing (`98%`).
+- **Always use tabular monospace for numbers in UI.** Reach for the `data.*` or `metric.*` semantic preset, or `body.tabular` for inline figure runs. These bake `font-variant-numeric: tabular-nums lining-nums slashed-zero` into the token. Never manually set `font-feature-settings: "tnum"` — it overrides `font-variant-numeric` and silently drops slashed zero.
+- **Money:** `$262`, `$1,243.50`. Currency symbol attached to first digit; no space.
+- **Weights:** `520 lb`, `2,100 lb`. Unit detached, lowercase.
+- **Time:** `04:18`, `Today · 9:30 AM`. 24-hour for operator UI; 12-hour for marketing.
+- **ETAs:** `Today · 04:18`, `Tomorrow · 12:30`, `Wed 10:00`.
+- **Percentages:** `98.2%`. One decimal for accuracy in operator views; integer in marketing (`98%`).
+- **IDs:** Always mono. Slashed zero mandatory (disambiguates `0` from `O`). Use `data.sm` for ID columns: `WRP-9824`, `DRY-93H7`.
 
 ## Microcopy templates
 

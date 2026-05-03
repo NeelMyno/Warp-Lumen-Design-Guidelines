@@ -50,11 +50,12 @@ export function Slider({
       {(label || showValue) && (
         <div className="flex items-baseline justify-between gap-4">
           {label && (
-            <Label htmlFor={sliderId} className="text-[var(--type-13)] font-medium text-[var(--text-secondary)]">
+            <Label htmlFor={sliderId} className="text-label-sm text-[var(--text-secondary)]">
               {label}
             </Label>
           )}
           {showValue && (
+            /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 13) */
             <span className="lumen-mono lumen-tnum text-[var(--type-13)] text-[var(--text-primary)]">
               {value}{unit ? <span className="text-[var(--text-tertiary)] ml-0.5">{unit}</span> : null}
             </span>

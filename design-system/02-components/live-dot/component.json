@@ -16,7 +16,7 @@
       "color.status.warning.fg",
       "color.status.danger.fg",
       "color.text.secondary",
-      "type.label.eyebrow",
+      "type.eyebrow.mono",
       "motion.duration.slower",
       "motion.easing.decelerate"
     ]

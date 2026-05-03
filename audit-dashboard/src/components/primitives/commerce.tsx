@@ -37,16 +37,16 @@ export function PricingCard({
         </span>
       )}
       <div>
-        <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{name}</div>
+        <div className="text-heading-h5">{name}</div>
         {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>}
       </div>
       <div className="flex items-baseline gap-1">
         <span className="lumen-tnum text-[var(--type-44)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{price}</span>
-        <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">/{period}</span>
+        <span className="text-body-xs text-[var(--text-tertiary)]">/{period}</span>
       </div>
       <ul className="flex flex-col gap-2">
         {features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-[var(--type-13)] text-[var(--text-secondary)]">
+          <li key={f} className="flex items-start gap-2 text-body-xs text-[var(--text-secondary)]">
             <span className="mt-0.5 text-[var(--lumen-accent-6)]"><Check size={13} /></span>
             <span>{f}</span>
           </li>
@@ -142,7 +142,7 @@ export function RatingBlock({ value = 4.6, count = 1284 }: { value?: number; cou
   return (
     <div className="inline-flex items-center gap-2">
       <Stars value={Math.floor(value)} />
-      <span className="lumen-tnum text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{value.toFixed(1)}</span>
+      <span className="lumen-tnum text-heading-h5">{value.toFixed(1)}</span>
       <span className="text-[var(--type-12)] text-[var(--text-tertiary)]">({count.toLocaleString()} reviews)</span>
     </div>
   );
@@ -235,7 +235,7 @@ export function CartDrawer() {
   return (
     <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-raised)] border border-[var(--border-default)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col">
       <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] flex items-center gap-2"><CartIcon size={14} /> Your bag <span className="lumen-mono text-[var(--text-tertiary)]">({items.length})</span></span>
+        <span className="text-heading-h6 flex items-center gap-2"><CartIcon size={14} /> Your bag <span className="lumen-mono text-[var(--text-tertiary)]">({items.length})</span></span>
         <button aria-label="Close cart" className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"><X size={14} /></button>
       </div>
       <div className="p-4 flex flex-col gap-4 overflow-auto">
@@ -267,7 +267,7 @@ export function CartDrawer() {
           <span>Shipping calculated at checkout</span>
         </div>
         <button className="w-full h-12 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-semibold mt-2">Checkout</button>
-        <button className="w-full h-10 rounded-[var(--radius-md)] text-[var(--type-13)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Continue shopping</button>
+        <button className="w-full h-10 rounded-[var(--radius-md)] text-body-xs text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Continue shopping</button>
       </div>
     </div>
   );
@@ -277,7 +277,7 @@ export function CartDrawer() {
 export function OrderSummary() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4">
-      <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] mb-3">Order summary</div>
+      <div className="text-heading-h6 mb-3">Order summary</div>
       <div className="flex flex-col gap-1.5 text-[var(--type-13)]">
         <Row label="Subtotal" value="$256.00" />
         <Row label="Shipping" value="$8.50" />

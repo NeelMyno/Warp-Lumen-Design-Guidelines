@@ -1,68 +1,106 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$description": "Lumen typography primitives. v0.5 — Major Third (1.25) modular scale on a 16px base, extended floor-to-ceiling 11→128px to honor the v0.4 'Obsidian Lime' brutalist intent without forcing arbitrary-value escapes in components. Leading + tracking are size-conditional curves, not single-bucket aliases. See 00-foundations/typography.md for the canonical guide.",
   "font": {
     "family": {
       "$type": "fontFamily",
-      "sans":  {
-        "$value": ["Satoshi", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI Variable", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif"],
-        "$description": "Primary face. Satoshi (ITF-FFL, free for commercial use, self-host woff2). Fallback chain prefers SF Pro on Apple, Segoe UI Variable on Windows 11, Roboto on Android."
+      "sans": {
+        "$value": ["Satoshi", "Satoshi-Fallback", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI Variable", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif"],
+        "$description": "Primary face. Satoshi Variable (ITF-FFL, 300–900 weight axis, true italic VF). 'Satoshi-Fallback' is a metric-aligned Arial alias defined in globals.css to eliminate CLS on font swap. SF Pro on Apple, Segoe UI Variable on Windows 11, Roboto on Android."
       },
-      "mono":  {
+      "mono": {
         "$value": ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"],
-        "$description": "Mono companion. JetBrains Mono (OFL). Used for numerics, code, terminal output."
+        "$description": "Mono companion. JetBrains Mono (OFL). Used for numerics, code, terminal output, IDs, money, ETAs. Slashed zero verified."
       },
       "serif": {
-        "$value": ["Source Serif 4", "ui-serif", "Georgia", "Cambria", "Times New Roman", "serif"],
-        "$description": "Editorial pair. Source Serif 4 (Adobe, OFL, variable with opsz axis). Use only for longform marketing/blog."
+        "$value": ["Source Serif 4", "ui-serif", "Iowan Old Style", "Georgia", "Cambria", "Times New Roman", "serif"],
+        "$description": "Editorial pair. Source Serif 4 (Adobe, OFL, variable wght 200–900 + opsz 8–60). Reserved for longform marketing/blog/legal — never UI chrome."
       },
       "alt-sans": {
-        "$value": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        "$description": "Plan B sans. Inter (OFL). Used as the swap if Satoshi licensing changes, Cyrillic/Greek market expansion, or Windows ClearType QA fails at 12-14px."
+        "$value": ["Inter", "InterVariable", "ui-sans-serif", "system-ui", "sans-serif"],
+        "$description": "Plan B sans. Inter (OFL). Wired via [data-font='inter'] override in globals.css. Used as the swap if (a) ITF licensing changes, (b) Cyrillic/Greek market expansion, (c) Windows ClearType QA fails at 12–14px."
       }
     },
     "weight": {
       "$type": "fontWeight",
-      "light":    { "$value": 300 },
-      "regular":  { "$value": 400 },
-      "medium":   { "$value": 500 },
-      "semibold": { "$value": 600 },
-      "bold":     { "$value": 700 },
-      "black":    { "$value": 900, "$description": "Reserved for hero impact words. Never body or H3+." }
+      "$description": "Five-weight stack. Light (300) deprecated in v0.5 — operator-confident voice does not suit thin. The Satoshi VF wght axis is 300–900; intermediate values (440, 510) are available for variable-aware components.",
+      "regular": { "$value": 400, "$description": "Body, paragraph, default UI text" },
+      "medium": { "$value": 500, "$description": "UI labels, tabs, button text, eyebrows, mono captions" },
+      "semibold": { "$value": 600, "$description": "h2/h3/h4 headings, emphasis, table headers" },
+      "bold": { "$value": 700, "$description": "h1, display, hero impact text" },
+      "extrabold": { "$value": 800, "$description": "Optional. display.2xl/hero only, when extra heft is wanted without going to Black." },
+      "black": { "$value": 900, "$description": "Reserved for display.hero (128px) brutalist treatment. Never body, never sub-display." }
+    },
+    "axis": {
+      "$type": "number",
+      "$description": "Variable-axis weight values for components that compose Satoshi VF directly. Use these for non-integer micro-tunes that don't warrant a static weight token.",
+      "body": { "$value": 440, "$description": "Body-emphasis. Slightly heavier than Regular (400) for dense reading at 14–16px. Linear-pattern: nudges body without committing to Medium." },
+      "body-strong": { "$value": 510, "$description": "Inline-emphasis weight. <strong> in body. Sits between Medium (500) and Semibold (600)." },
+      "ui": { "$value": 500, "$description": "Default UI label weight." },
+      "display": { "$value": 700, "$description": "Default display weight." }
     },
     "size": {
       "$type": "dimension",
-      "$description": "1.25 (Major Third) modular scale on a 16px base.",
-      "12":  { "$value": { "value": 12,  "unit": "px" } },
-      "13":  { "$value": { "value": 13,  "unit": "px" } },
-      "14":  { "$value": { "value": 14,  "unit": "px" } },
-      "15":  { "$value": { "value": 15,  "unit": "px" } },
-      "16":  { "$value": { "value": 16,  "unit": "px" }, "$description": "Base" },
-      "18":  { "$value": { "value": 18,  "unit": "px" } },
-      "20":  { "$value": { "value": 20,  "unit": "px" } },
-      "25":  { "$value": { "value": 25,  "unit": "px" } },
-      "31":  { "$value": { "value": 31,  "unit": "px" } },
-      "39":  { "$value": { "value": 39,  "unit": "px" } },
-      "49":  { "$value": { "value": 49,  "unit": "px" } },
-      "61":  { "$value": { "value": 61,  "unit": "px" } },
-      "76":  { "$value": { "value": 76,  "unit": "px" } }
+      "$description": "Major Third (1.25) modular scale on a 16px base, with intermediate stops added for cross-platform precision. Each step is rendered as rem in the output (16px = 1rem). Display ceiling at 128px honors the v0.4 brutalist intent.",
+      "11": { "$value": { "value": 11, "unit": "px" }, "$description": "kbd glyphs, dense legal lines. WCAG floor — use only on neutral backgrounds with ≥ 4.5:1 contrast." },
+      "12": { "$value": { "value": 12, "unit": "px" }, "$description": "Eyebrow caps, micro labels, chart axis. Lumen UI floor for normal text." },
+      "13": { "$value": { "value": 13, "unit": "px" }, "$description": "Caption, secondary table cells, h6. Code block default." },
+      "14": { "$value": { "value": 14, "unit": "px" }, "$description": "Body small, button label default, tab default." },
+      "15": { "$value": { "value": 15, "unit": "px" }, "$description": "h5. Mid-density UI." },
+      "16": { "$value": { "value": 16, "unit": "px" }, "$description": "Body default. iOS minimum to prevent zoom-on-focus." },
+      "17": { "$value": { "value": 17, "unit": "px" }, "$description": "h4, lead paragraph. Apple HIG body parity." },
+      "18": { "$value": { "value": 18, "unit": "px" }, "$description": "Body large, marketing lead. Butterick lower-bound for screen reading." },
+      "20": { "$value": { "value": 20, "unit": "px" }, "$description": "h3, prose lead. Apple optical-size threshold — at 20px and above, switch to display tracking." },
+      "22": { "$value": { "value": 22, "unit": "px" }, "$description": "Block quote large. Mid-point bridge between h3 and h2." },
+      "25": { "$value": { "value": 25, "unit": "px" }, "$description": "h2, prose quote." },
+      "28": { "$value": { "value": 28, "unit": "px" }, "$description": "display.sm. Bridge between h1 and display.md." },
+      "31": { "$value": { "value": 31, "unit": "px" }, "$description": "h1 (app), metric.md." },
+      "36": { "$value": { "value": 36, "unit": "px" }, "$description": "Mid-display. Pairs with body lead at 18px." },
+      "39": { "$value": { "value": 39, "unit": "px" }, "$description": "display.md (page title — marketing)." },
+      "44": { "$value": { "value": 44, "unit": "px" }, "$description": "Mid-display step. Bridges 39 → 49." },
+      "49": { "$value": { "value": 49, "unit": "px" }, "$description": "display.lg (section opener), metric.lg." },
+      "56": { "$value": { "value": 56, "unit": "px" }, "$description": "Hero CTA control height parity. Bridges 49 → 61." },
+      "61": { "$value": { "value": 61, "unit": "px" }, "$description": "Bridge to display.xl." },
+      "72": { "$value": { "value": 72, "unit": "px" }, "$description": "Hero step." },
+      "76": { "$value": { "value": 76, "unit": "px" }, "$description": "display.xl. Marketing landing hero standard." },
+      "84": { "$value": { "value": 84, "unit": "px" }, "$description": "Bridge to brutalist scale." },
+      "96": { "$value": { "value": 96, "unit": "px" }, "$description": "display.2xl. v0.4 brutalist headline." },
+      "112": { "$value": { "value": 112, "unit": "px" }, "$description": "Hero countdown numerals. Pre-hero step." },
+      "128": { "$value": { "value": 128, "unit": "px" }, "$description": "display.hero. v0.4 'STOP RE-DESIGNING' brutalist ceiling. Reserved for one-word brand statements." }
     },
     "leading": {
       "$type": "number",
-      "tight":    { "$value": 1.10 },
-      "snug":     { "$value": 1.25 },
-      "normal":   { "$value": 1.50 },
-      "relaxed":  { "$value": 1.65 }
+      "$description": "Size-conditional leading curve. Display tightens as size grows; body relaxes for screen comfort. Each value is grid-aligned to the 4px baseline at its target size. Apply via the per-tier semantic preset rather than picking aliases ad-hoc.",
+      "flat": { "$value": 1.0, "$description": "≥96px display. Letters stack tight; brutalist." },
+      "tight": { "$value": 1.05, "$description": "61–84px display. Tight headline rhythm." },
+      "snug": { "$value": 1.12, "$description": "39–56px display." },
+      "compact": { "$value": 1.16, "$description": "h1 (31px) → 36px. 4px-grid-aligned at 31px (= 36px)." },
+      "comfortable": { "$value": 1.20, "$description": "h2 (25px). 30px line, 6× grid quarters." },
+      "snug-body": { "$value": 1.30, "$description": "h3 (20px), eyebrow tier. 26px." },
+      "tight-table": { "$value": 1.18, "$description": "Dense table row. Reserved for compact data UI." },
+      "uppercase": { "$value": 1.30, "$description": "All-caps eyebrow, overline. Caps-only runs need slightly looser leading than mixed-case to avoid stacking." },
+      "ui": { "$value": 1.40, "$description": "h4/h5/h6, caption, label tiers. UI rhythm." },
+      "normal": { "$value": 1.50, "$description": "Body (16px). Peer consensus default for screen body." },
+      "body-comfortable": { "$value": 1.55, "$description": "Body sm/md and body lg. Per-size tuning above 1.50 for comfort." },
+      "relaxed": { "$value": 1.65, "$description": "Longform prose (Source Serif 4 body). Editorial reading." },
+      "loose": { "$value": 1.80, "$description": "Reserved. Not used in current presets." }
     },
     "tracking": {
       "$type": "dimension",
-      "$description": "Letter-spacing. Tighter as size increases, looser as size decreases. Optical compensation for Satoshi.",
-      "tightest": { "$value": { "value": -0.04, "unit": "em" } },
-      "tighter":  { "$value": { "value": -0.02, "unit": "em" } },
-      "tight":    { "$value": { "value": -0.01, "unit": "em" } },
-      "normal":   { "$value": { "value": 0,     "unit": "em" } },
-      "wide":     { "$value": { "value": 0.02,  "unit": "em" } },
-      "wider":    { "$value": { "value": 0.05,  "unit": "em" } },
-      "widest":   { "$value": { "value": 0.10,  "unit": "em" } }
+      "$description": "Continuous letter-spacing curve mapped to size. Asymptote at -0.025em (Inter formula convergence; pushing tighter has no benefit). Below 14px, tracking goes positive for legibility. The `cap-*` tracks are designed for uppercase runs; the `mono-cap` is the system-metadata signature.",
+      "tightest": { "$value": { "value": -0.025, "unit": "em" }, "$description": "display.2xl, display.hero (≥96px). The asymptote." },
+      "tighter": { "$value": { "value": -0.020, "unit": "em" }, "$description": "display.xl/lg (49–84px)." },
+      "tight": { "$value": { "value": -0.015, "unit": "em" }, "$description": "display.md/sm, h1 (31–44px)." },
+      "tight-soft": { "$value": { "value": -0.010, "unit": "em" }, "$description": "h2 (25px)." },
+      "tight-micro": { "$value": { "value": -0.005, "unit": "em" }, "$description": "h3 (20px). Subtle compensation at the optical-size threshold." },
+      "tight-body": { "$value": { "value": -0.002, "unit": "em" }, "$description": "body lg (18px). Whisper-tight." },
+      "normal": { "$value": { "value": 0, "unit": "em" }, "$description": "Body (16px), h4 (17px). Satoshi default." },
+      "wide-micro": { "$value": { "value": 0.005, "unit": "em" }, "$description": "body sm (14px), label sm." },
+      "wide": { "$value": { "value": 0.008, "unit": "em" }, "$description": "caption (13px), micro." },
+      "wider": { "$value": { "value": 0.012, "unit": "em" }, "$description": "micro (12px), eyebrow.sans tier letter-tuning." },
+      "cap-eyebrow": { "$value": { "value": 0.10, "unit": "em" }, "$description": "Sans uppercase eyebrow at 12px. Butterick band 0.05–0.12em compliant." },
+      "cap-overline": { "$value": { "value": 0.05, "unit": "em" }, "$description": "Light all-caps tracking — chart axis labels, secondary uppercase." },
+      "cap-mono": { "$value": { "value": 0.16, "unit": "em" }, "$description": "Mono uppercase tracked. The v0.4 system-metadata signature ('SYSTEM V0.5 LIVE')." }
     }
   }
 }

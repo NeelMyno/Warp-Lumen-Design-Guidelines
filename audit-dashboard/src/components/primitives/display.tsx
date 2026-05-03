@@ -120,7 +120,7 @@ export function Accordion({ items }: { items: { title: string; content: ReactNod
             <AccordionTrigger className="text-[var(--type-13)] font-medium text-[var(--text-primary)] hover:no-underline">
               {it.title}
             </AccordionTrigger>
-            <AccordionContent className="text-[var(--type-13)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+            <AccordionContent className="text-body-xs text-[var(--text-secondary)] leading-[var(--leading-snug)]">
               {it.content}
             </AccordionContent>
           </AccordionItem>
@@ -145,9 +145,9 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center text-center px-6 py-12 rounded-[var(--radius-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface-raised)]">
       <div className="mb-4">{illustration}</div>
-      <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)] text-[var(--text-primary)]">{title}</div>
+      <div className="text-heading-h5 text-[var(--text-primary)]">{title}</div>
       {description && (
-        <p className="mt-1.5 max-w-[42ch] text-[var(--type-13)] text-[var(--text-tertiary)] leading-[var(--leading-snug)]">{description}</p>
+        <p className="mt-1.5 max-w-[42ch] text-body-xs text-[var(--text-tertiary)] leading-[var(--leading-snug)]">{description}</p>
       )}
       {action && <div className="mt-4">{action}</div>}
     </div>
@@ -337,7 +337,7 @@ export function TreeView() {
     return (
       <div>
         <div
-          className={["flex items-center gap-1 h-7 px-2 rounded-[var(--radius-sm)] cursor-pointer hover:bg-[var(--surface-sunken)] text-[var(--type-13)] text-[var(--text-secondary)] lumen-mono"].join(" ")}
+          className={["flex items-center gap-1 h-7 px-2 rounded-[var(--radius-sm)] cursor-pointer hover:bg-[var(--surface-sunken)] text-body-xs text-[var(--text-secondary)] lumen-mono"].join(" ")}
           style={{ paddingLeft: `${8 + depth * 16}px` }}
           onClick={() => hasKids && setOpen((s) => !s)}
         >
@@ -440,7 +440,7 @@ export function Gauge({ value = 72, label = "Capacity" }: { value?: number; labe
         <path d={`M ${startX} ${startY} A ${r} ${r} 0 0 1 ${fx} ${fy}`} fill="none" stroke="var(--lumen-accent-5)" strokeWidth="8" strokeLinecap="round" />
       </svg>
       <div className="text-center -mt-3">
-        <div className="lumen-tnum text-[var(--type-22)] font-semibold tracking-[var(--tracking-tighter)]">{value}<span className="text-[var(--type-13)] text-[var(--text-tertiary)] ml-0.5">%</span></div>
+        <div className="lumen-tnum text-[var(--type-22)] font-semibold tracking-[var(--tracking-tighter)]">{value}<span className="text-body-xs text-[var(--text-tertiary)] ml-0.5">%</span></div>
         <div className="text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
       </div>
     </div>
@@ -518,7 +518,7 @@ export function Presence({ status = "online" }: { status?: "online" | "away" | "
 export function KbdRow({ keys, label }: { keys: string[]; label: string }) {
   return (
     <div className="flex items-center justify-between gap-3 px-3 py-2 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] transition-colors">
-      <span className="text-[var(--type-13)] text-[var(--text-secondary)]">{label}</span>
+      <span className="text-body-xs text-[var(--text-secondary)]">{label}</span>
       <span className="flex items-center gap-1">
         {keys.map((k, i) => (
           <span key={i} className="lumen-kbd">{k}</span>
@@ -550,7 +550,7 @@ export function ComponentSpec({ name, role, children }: { name: string; role?: s
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
       <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-2">
-          <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">{name}</span>
+          <span className="text-heading-h6">{name}</span>
           {role && <span className="text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{role}</span>}
         </div>
       </div>

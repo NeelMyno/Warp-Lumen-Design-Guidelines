@@ -16,6 +16,7 @@ export function MotionDemo({ token, ms }: { token: string; ms: string }) {
           onMouseLeave={() => setActive(false)}
           onClick={() => setActive((a) => !a)}
           aria-label={`Replay ${token}`}
+          /* v0.5: arbitrary-value type — review for semantic preset (12 bold play button) */
           className="absolute top-1 left-1 h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] text-[var(--text-on-accent)] font-bold text-[var(--type-12)] flex items-center justify-center shadow-[var(--shadow-glow-accent)]"
           style={{
             transform: active ? "translateX(calc(100% + 12px))" : "translateX(0)",
@@ -26,9 +27,11 @@ export function MotionDemo({ token, ms }: { token: string; ms: string }) {
         </button>
       </div>
       <div className="flex items-baseline justify-between gap-2">
+        {/* v0.5: arbitrary-value type — review for semantic preset (mono regular at 11) */}
         <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
           motion.{token}
         </code>
+        {/* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 11) */}
         <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-secondary)]">
           {ms}
         </span>

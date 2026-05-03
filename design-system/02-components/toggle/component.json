@@ -19,6 +19,7 @@
       "color.surface.raised",
       "shadow.xs",
       "shadow.focus",
+      "type.label.md",
       "radius.pill",
       "motion.transition.fast"
     ]

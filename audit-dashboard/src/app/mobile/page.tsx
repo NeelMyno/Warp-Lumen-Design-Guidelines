@@ -46,7 +46,7 @@ function DeviceColumn({
     <div className="flex flex-col gap-5 items-center">
       <div className="self-start">
         <div className="lumen-eyebrow mb-1.5">{name}</div>
-        <p className="text-[var(--type-13)] text-[var(--text-tertiary)] leading-snug max-w-[42ch]">{notes}</p>
+        <p className="text-body-xs text-[var(--text-tertiary)] leading-snug max-w-[42ch]">{notes}</p>
       </div>
       <div className="flex justify-center">{children}</div>
     </div>
@@ -66,10 +66,11 @@ function IOSFrame() {
         style={{ height: 720 }}
       >
         {/* Status bar */}
-        <div className="relative flex items-center justify-between px-7 pt-3 pb-1 text-[var(--type-13)] font-semibold lumen-tnum">
+        <div className="relative flex items-center justify-between px-7 pt-3 pb-1 text-heading-h6 lumen-tnum">
           <span>9:41</span>
           {/* Dynamic Island */}
           <div className="absolute left-1/2 top-2 -translate-x-1/2 w-[105px] h-[28px] rounded-full bg-black" />
+          {/* lumen-lint-allow: typography — type-12 mono tabular status bar; no semantic preset for mono+regular at 12 */}
           <div className="flex items-center gap-1.5 lumen-mono lumen-tnum text-[var(--type-12)]">
             <span>5G</span>
             <span>100%</span>
@@ -78,8 +79,8 @@ function IOSFrame() {
 
         {/* Large title */}
         <div className="px-6 pt-4 pb-2">
-          <div className="text-[var(--type-13)] text-[var(--text-tertiary)] tracking-[var(--tracking-tight)]">Today</div>
-          <h2 className="text-[var(--type-31)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]">
+          <div className="text-body-xs text-[var(--text-tertiary)]">Today</div>
+          <h2 className="text-heading-h1">
             Shipments
           </h2>
         </div>
@@ -88,7 +89,7 @@ function IOSFrame() {
         <div className="px-6 mt-2">
           <div className="bg-[var(--surface-sunken)] rounded-[var(--radius-lg)] h-9 flex items-center gap-2 px-3 text-[var(--text-tertiary)]">
             <Search size={14} />
-            <span className="text-[var(--type-14)]">Search lanes…</span>
+            <span className="text-body-sm">Search lanes…</span>
           </div>
         </div>
 
@@ -121,7 +122,8 @@ function IOSFrame() {
               <div className="flex items-center gap-2.5 min-w-0">
                 <Avatar name={s.carrier} size="xs" />
                 <div className="flex flex-col min-w-0">
-                  <span className="text-[var(--type-15)] font-semibold leading-tight">{s.lane}</span>
+                  <span className="text-heading-h5 leading-tight">{s.lane}</span>
+                  {/* lumen-lint-allow: typography — mono regular at 11 shipment id; no semantic preset for 11px mono */}
                   <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{s.id}</code>
                 </div>
               </div>
@@ -151,6 +153,7 @@ function IOSFrame() {
             <button
               key={label}
               className={[
+                // lumen-lint-allow: typography — type-11 plain iOS tab label; no semantic preset for 11px regular non-uppercase
                 "flex flex-col items-center gap-1 text-[var(--type-11)]",
                 active ? "text-[var(--text-primary)]" : "text-[var(--text-tertiary)]",
               ].join(" ")}
@@ -181,7 +184,7 @@ function AndroidFrame() {
         style={{ height: 720 }}
       >
         {/* Status bar */}
-        <div className="flex items-center justify-between px-5 py-2 text-[var(--type-12)] font-medium lumen-tnum">
+        <div className="flex items-center justify-between px-5 py-2 text-micro lumen-tnum">
           <span>9:41</span>
           <div className="flex items-center gap-1.5 lumen-mono">
             <span>5G</span><span>•</span><span>100%</span>
@@ -191,6 +194,7 @@ function AndroidFrame() {
         {/* Top app bar */}
         <div className="px-4 py-3 flex items-center gap-3 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
           <Inbox size={20} />
+          {/* lumen-lint-allow: typography — type-18 semibold app bar title; no preset for 18/semibold (body-lg is regular) */}
           <div className="flex-1 text-[var(--type-18)] font-semibold tracking-[var(--tracking-tight)]">Shipments</div>
           <Search size={18} />
           <span className="relative">
@@ -209,7 +213,7 @@ function AndroidFrame() {
         {/* Section header */}
         <div className="px-4 mt-5 flex items-center justify-between">
           <div className="lumen-eyebrow">Active · 12</div>
-          <button className="text-[var(--type-12)] text-[var(--text-secondary)] flex items-center gap-1 font-medium">
+          <button className="text-micro text-[var(--text-secondary)] flex items-center gap-1">
             All <ArrowRight size={12} />
           </button>
         </div>
@@ -229,7 +233,9 @@ function AndroidFrame() {
             >
               <Avatar name={s.carrier} size="sm" />
               <div className="flex-1 min-w-0">
+                {/* lumen-lint-allow: typography — type-15 medium android list title; intermediate density between 14 and 16 */}
                 <div className="text-[var(--type-15)] font-medium truncate leading-tight">{s.lane}</div>
+                {/* lumen-lint-allow: typography — mono regular at 11 row meta; no semantic preset for 11px mono */}
                 <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
                   {s.id} · {s.eta}
                 </div>
@@ -258,6 +264,7 @@ function AndroidFrame() {
             { I: MapPin, label: "Lanes"  },
             { I: Bell,   label: "Alerts" },
           ].map(({ I, label, active }) => (
+            /* lumen-lint-allow: typography — type-11 plain android tab label; no semantic preset for 11px regular */
             <button key={label} className="flex flex-col items-center gap-0.5 px-3 py-1 text-[var(--type-11)]">
               <span
                 className={[

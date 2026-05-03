@@ -30,17 +30,18 @@ export default function LandingPage() {
               <span>Now in private beta · Spring 2026 · system v0.4 live</span>
             </div>
 
-            <h1 className="text-[var(--type-61)] sm:text-[var(--type-84)] md:text-[var(--type-96)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)] text-[var(--text-primary)]">
+            <h1 className="text-display-xl sm:text-display-2xl md:text-display-2xl text-[var(--text-primary)]">
               The freight network
               <br />
               for{" "}
+              {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
               <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
                 builders
               </em>
               .
             </h1>
 
-            <p className="max-w-[60ch] text-[var(--type-20)] md:text-[var(--type-22)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+            <p className="max-w-[60ch] text-lead">
               One command quotes. One books. JSON out, pipes in. Stop logging into 10 carrier portals every morning &mdash; ship freight from the terminal you already use.
             </p>
 
@@ -53,6 +54,7 @@ export default function LandingPage() {
               </Button>
             </div>
 
+            {/* lumen-lint-allow: typography — type-13 mono CLI prompt mock; no semantic preset for mono+regular at 13 */}
             <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-[var(--type-13)] self-start">
               <span style={{ color: "var(--lumen-accent-4)" }}>$</span>
               npx warp quote --from=LAX --to=SFO
@@ -69,6 +71,7 @@ export default function LandingPage() {
             <div className="lumen-eyebrow">Trusted by operators at</div>
             <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
+                /* lumen-lint-allow: typography — type-18 bold trust-logo wordmark; no preset for 18/bold */
                 <div key={c} className="text-[var(--type-18)] font-bold tracking-[var(--tracking-tight)] hover:text-[var(--text-secondary)] transition-colors cursor-default">
                   {c}
                 </div>
@@ -94,7 +97,7 @@ export default function LandingPage() {
           <div className="max-w-[1100px] mx-auto flex flex-col gap-12">
             <header className="max-w-[640px]">
               <div className="lumen-eyebrow mb-2">What you get</div>
-              <h2 className="text-[var(--type-44)] md:text-[var(--type-49)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]">
+              <h2 className="text-display-md md:text-display-lg">
                 Every layer, no portal sprawl.
               </h2>
             </header>
@@ -114,7 +117,7 @@ export default function LandingPage() {
           <div className="max-w-[1100px] mx-auto flex flex-col gap-10">
             <header className="max-w-[640px]">
               <div className="lumen-eyebrow mb-2">Pricing</div>
-              <h2 className="text-[var(--type-44)] md:text-[var(--type-49)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]">
+              <h2 className="text-display-md md:text-display-lg">
                 Pay for shipments, not seats.
               </h2>
             </header>
@@ -133,14 +136,14 @@ export default function LandingPage() {
         <section className="bg-[var(--surface-sunken)] px-10 py-20 border-t border-[var(--border-hairline)]">
           <div className="max-w-[820px] mx-auto flex flex-col gap-7 text-center">
             <div className="lumen-eyebrow">From an operator</div>
-            <blockquote className="text-[var(--type-31)] md:text-[var(--type-39)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-tight)] text-[var(--text-primary)]">
+            <blockquote className="text-heading-h1 md:text-display-md font-semibold text-[var(--text-primary)]">
               &ldquo;Same routes. Lower cost per pallet. AI keeps it dropping. We've stopped logging into 10 carrier portals every morning.&rdquo;
             </blockquote>
             <div className="flex items-center justify-center gap-3">
               <Avatar name="J Park" size="md" />
               <div className="flex flex-col leading-tight">
-                <span className="text-[var(--type-14)] font-semibold">Jay Park</span>
-                <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">VP Operations · Faherty</span>
+                <span className="text-body-sm font-semibold">Jay Park</span>
+                <span className="text-body-xs text-[var(--text-tertiary)]">VP Operations · Faherty</span>
               </div>
             </div>
           </div>
@@ -151,7 +154,7 @@ export default function LandingPage() {
           <div className="max-w-[820px] mx-auto flex flex-col gap-7">
             <header>
               <div className="lumen-eyebrow mb-2">FAQ</div>
-              <h2 className="text-[var(--type-31)] md:text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)]">
+              <h2 className="text-heading-h1 md:text-display-md">
                 Common questions
               </h2>
             </header>
@@ -162,10 +165,11 @@ export default function LandingPage() {
                 { q: "How long does setup take?", a: "There is no setup. You log in, get rates, book, track." },
               ].map((item) => (
                 <details key={item.q} className="group p-5">
-                  <summary className="flex items-center justify-between cursor-pointer text-[var(--type-16)] font-medium tracking-[var(--tracking-tight)]">
+                  <summary className="flex items-center justify-between cursor-pointer text-label-lg">
                     <span>{item.q}</span>
                     <span className="text-[var(--text-tertiary)] group-open:rotate-180 transition-transform duration-[var(--motion-base)]">▾</span>
                   </summary>
+                  {/* lumen-lint-allow: typography — type-15 FAQ answer; intermediate body density between 14 and 16 */}
                   <p className="mt-3 text-[var(--type-15)] text-[var(--text-secondary)] leading-snug">{item.a}</p>
                 </details>
               ))}
@@ -177,7 +181,7 @@ export default function LandingPage() {
         <section className="bg-[var(--surface-inverse)] px-10 py-20 border-t border-[var(--border-hairline)]">
           <div className="max-w-[1100px] mx-auto flex flex-col items-start gap-7">
             <h2
-              className="text-[var(--type-49)] md:text-[var(--type-72)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)]"
+              className="text-display-lg md:text-display-2xl"
               style={{ color: "var(--text-inverse)" }}
             >
               Ship freight without
@@ -195,9 +199,9 @@ export default function LandingPage() {
           className="bg-[var(--surface-inverse)] px-10 py-12"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
-          <div className="max-w-[1100px] mx-auto grid gap-8 md:grid-cols-[1.5fr_2fr] text-[var(--type-13)]">
+          <div className="max-w-[1100px] mx-auto grid gap-8 md:grid-cols-[1.5fr_2fr] text-body-xs">
             <div className="flex flex-col gap-4" style={{ color: "var(--text-inverse)" }}>
-              <div className="font-semibold text-[var(--type-15)]">Warp</div>
+              <div className="text-heading-h5">Warp</div>
               <p className="opacity-70 max-w-[40ch] leading-snug">
                 The open source freight network. Built by people who&apos;ve lived every layer of freight.
               </p>
@@ -234,7 +238,8 @@ function Feature({ icon, title, copy }: { icon: React.ReactNode; title: string; 
       <div className="h-11 w-11 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-tint-accent)] grid place-items-center text-[var(--text-accent)]">
         {icon}
       </div>
-      <div className="text-[var(--type-20)] font-semibold tracking-[var(--tracking-tight)]">{title}</div>
+      <div className="text-heading-h3">{title}</div>
+      {/* lumen-lint-allow: typography — type-15 feature copy; intermediate body density between 14 and 16 */}
       <p className="text-[var(--type-15)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">{copy}</p>
     </Card>
   );
@@ -255,16 +260,16 @@ function PriceCard({
       ].join(" ")}
     >
       <div className="flex items-center justify-between">
-        <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{name}</div>
+        <div className="text-heading-h5">{name}</div>
         {highlighted && <Badge status="accent" leadingDot>Most popular</Badge>}
       </div>
       <div className="flex items-baseline gap-1.5">
-        <div className="text-[var(--type-49)] font-bold tracking-[var(--tracking-tighter)] lumen-tnum">{price}</div>
-        <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">{period}</div>
+        <div className="text-display-lg lumen-tnum">{price}</div>
+        <div className="text-body-xs text-[var(--text-tertiary)]">{period}</div>
       </div>
       <ul className="flex flex-col gap-2.5">
         {features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-[var(--type-14)] text-[var(--text-secondary)]">
+          <li key={f} className="flex items-start gap-2 text-body-sm text-[var(--text-secondary)]">
             <Check size={14} />
             <span>{f}</span>
           </li>
@@ -286,6 +291,7 @@ function BrowserChrome({ url }: { url: string }) {
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
       </div>
       <div className="flex-1 mx-3 max-w-md">
+        {/* lumen-lint-allow: typography — type-12 mono URL bar mock; no semantic preset for mono+regular at 12 */}
         <div className="bg-[var(--surface-raised)] border border-[var(--border-hairline)] rounded-[var(--radius-md)] px-3 h-7 flex items-center gap-2 text-[var(--type-12)] text-[var(--text-secondary)] lumen-mono">
           <span className="text-[var(--text-accent)]">●</span>
           {url}

@@ -22,7 +22,7 @@
       "color.status.info.bg",    "color.status.info.fg",
       "radius.card.lifted",
       "shadow.toast",
-      "type.body.sm",
+      "type.body.sm", "type.label.md", "type.heading.h6",
       "motion.transition.slow",
       "motion.transition.accelerate"
     ]

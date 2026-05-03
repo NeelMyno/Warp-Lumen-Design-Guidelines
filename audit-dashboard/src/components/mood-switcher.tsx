@@ -31,14 +31,14 @@ export function MoodSwitcher() {
 
   return (
     <div className="hidden md:flex items-center gap-2">
-      <span className="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">
+      <span className="text-eyebrow-sans text-[var(--text-tertiary)]">
         Mood
       </span>
       <select
         value={mounted ? mood : DEFAULT_MOOD}
         onChange={(e) => select(e.target.value as MoodId)}
         aria-label="Visual mood"
-        className="h-9 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 text-[var(--type-14)] text-[var(--text-primary)] focus-visible:border-[var(--border-focus)]"
+        className="h-9 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 text-body-sm text-[var(--text-primary)] focus-visible:border-[var(--border-focus)]"
       >
         {MOODS.map((m) => (
           <option key={m.id} value={m.id}>

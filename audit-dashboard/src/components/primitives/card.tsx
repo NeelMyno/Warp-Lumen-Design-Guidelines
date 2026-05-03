@@ -72,11 +72,11 @@ export function CardHeader({
     <div data-slot="card-header" className="flex items-start justify-between gap-4 mb-4 px-0">
       <div className="flex flex-col gap-0.5 min-w-0">
         {eyebrow && <div className="lumen-eyebrow mb-1">{eyebrow}</div>}
-        <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)] text-[var(--text-primary)]">
+        <div className="text-heading-h5 text-[var(--text-primary)]">
           {title}
         </div>
         {description && (
-          <div className="text-[var(--type-13)] text-[var(--text-tertiary)] leading-[var(--leading-snug)]">
+          <div className="text-body-xs text-[var(--text-tertiary)] leading-[var(--leading-snug)]">
             {description}
           </div>
         )}

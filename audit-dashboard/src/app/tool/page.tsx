@@ -28,9 +28,11 @@ export default function ToolPage() {
         {/* TITLE BAR */}
         <header className="flex items-center justify-between gap-3 px-4 h-12 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
           <div className="flex items-center gap-2.5">
+            {/* lumen-lint-allow: typography — type-11 mono bold app icon mark; no semantic preset for mono+bold at 11 */}
             <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-11)] font-bold">
               W
             </div>
+            {/* lumen-lint-allow: typography — type-14 semibold app title; no preset for 14/semibold */}
             <span className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">
               Quote Builder
             </span>
@@ -59,21 +61,22 @@ export default function ToolPage() {
               <button
                 key={p.name}
                 className={[
-                  "text-left px-2.5 py-1.5 rounded-[var(--radius-md)] text-[var(--type-13)] tracking-[var(--tracking-tight)] transition-colors duration-[var(--motion-fast)]",
+                  "text-left px-2.5 py-1.5 rounded-[var(--radius-md)] text-label-sm transition-colors duration-[var(--motion-fast)]",
                   p.active
                     ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
-                    : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] font-medium",
+                    : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)]",
                 ].join(" ")}
               >
                 {p.name}
               </button>
             ))}
-            <button className="mt-3 flex items-center gap-2 px-2.5 py-1.5 rounded-[var(--radius-md)] text-[var(--text-tertiary)] text-[var(--type-13)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] transition-colors">
+            <button className="mt-3 flex items-center gap-2 px-2.5 py-1.5 rounded-[var(--radius-md)] text-[var(--text-tertiary)] text-body-xs hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] transition-colors">
               <Plus size={13} /> New preset
             </button>
 
             <div className="mt-auto px-2 pt-3 border-t border-[var(--border-hairline)]">
               <div className="lumen-eyebrow mb-2">Templates</div>
+              {/* lumen-lint-allow: typography — type-12 plain templates helper; no semantic preset for 12 regular */}
               <p className="text-[var(--type-12)] text-[var(--text-tertiary)] leading-snug">
                 Saved presets persist across sessions and sync to teammates with the same workspace.
               </p>
@@ -118,6 +121,7 @@ export default function ToolPage() {
             </Card>
 
             <div className="flex items-center justify-between gap-3 pt-2">
+              {/* lumen-lint-allow: typography — type-12 mono regular auto-save status; no semantic preset for mono+regular at 12 */}
               <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] flex items-center gap-2">
                 <LiveDot /> Auto-saving every 4 s
               </div>
@@ -143,7 +147,9 @@ export default function ToolPage() {
                 <div className="flex items-center gap-2">
                   <Avatar name="Sterling LTL" size="xs" />
                   <div>
+                    {/* lumen-lint-allow: typography — type-14 semibold carrier name in highlighted card; no preset for 14/semibold */}
                     <div className="text-[var(--type-14)] font-semibold">Sterling LTL</div>
+                    {/* lumen-lint-allow: typography — mono regular at 11 lane meta; no semantic preset for 11px mono */}
                     <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
                       LAX → SFO · 1d transit
                     </div>
@@ -169,12 +175,14 @@ export default function ToolPage() {
                   <div className="flex items-center gap-2 min-w-0">
                     <Avatar name={q.c} size="xs" />
                     <div className="flex flex-col min-w-0">
-                      <div className="text-[var(--type-13)] font-medium truncate">{q.c}</div>
+                      <div className="text-label-sm truncate">{q.c}</div>
+                      {/* lumen-lint-allow: typography — mono regular at 11 lane meta; no semantic preset for 11px mono */}
                       <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
                         {q.days} · LAX → SFO
                       </div>
                     </div>
                   </div>
+                  {/* lumen-lint-allow: typography — type-15 mono tabular semibold price; intermediate density between 14 and 16 */}
                   <div className="lumen-mono lumen-tnum text-[var(--type-15)] font-semibold">
                     {q.price}
                   </div>
@@ -183,6 +191,7 @@ export default function ToolPage() {
             ))}
 
             <ProgressBar value={6 / 14 * 100} tone="accent" size="sm" />
+            {/* lumen-lint-allow: typography — type-11 plain regular progress meta; no semantic preset for 11px regular */}
             <div className="text-[var(--type-11)] text-[var(--text-tertiary)] -mt-1">
               Showing 6 of 14 carriers · refreshes every 60 s
             </div>
@@ -190,6 +199,7 @@ export default function ToolPage() {
         </div>
 
         {/* FOOTER — keyboard shortcut bar */}
+        {/* lumen-lint-allow: typography — type-11 mono regular keyboard shortcut bar; no semantic preset for 11px mono */}
         <footer className="border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">↵</kbd> Quote</span>
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">S</kbd> Save preset</span>
@@ -214,7 +224,7 @@ function CargoRow({
       <div className="h-8 w-8 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] grid place-items-center text-[var(--text-tertiary)]">
         <Box size={14} />
       </div>
-      <div className="grid grid-cols-3 gap-3 flex-1 text-[var(--type-13)]">
+      <div className="grid grid-cols-3 gap-3 flex-1 text-body-xs">
         <div>
           <div className="lumen-eyebrow">Weight</div>
           <div className="lumen-mono lumen-tnum">{weight}</div>

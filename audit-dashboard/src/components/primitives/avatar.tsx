@@ -15,6 +15,7 @@ import {
 
 type Size = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
+/* v0.5: Avatar size ramp uses raw type tokens — no semantic preset matches the avatar initials sizes. */
 const SIZE_CLS: Record<Size, string> = {
   xs:    "size-5  text-[10px]",
   sm:    "size-6  text-[var(--type-11)]",

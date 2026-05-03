@@ -36,7 +36,7 @@ export function LiveDot({
         />
       </span>
       {label && !hideLabel && (
-        <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-secondary)] font-semibold whitespace-nowrap">
+        <span className="text-overline text-[var(--text-secondary)] font-semibold whitespace-nowrap">
           {label}
         </span>
       )}

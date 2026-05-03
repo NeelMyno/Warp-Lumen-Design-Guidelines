@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
  */
 
 type Size = "sm" | "md" | "lg";
+/* v0.5: Field size ramp uses raw type tokens — input text sizes intentionally don't snap to body presets. */
 const SIZE_INPUT_CLS: Record<Size, string> = {
   sm: "h-8  text-[var(--type-13)] px-3",
   md: "h-10 text-[var(--type-14)] px-3",
@@ -48,13 +49,15 @@ export function Field({
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       {label && (
-        <Label htmlFor={inputId} className="text-[var(--type-13)] font-medium text-[var(--text-secondary)]">
+        <Label htmlFor={inputId} className="text-label-sm text-[var(--text-secondary)]">
           {label}
+          {/* v0.5: arbitrary-value type — review for semantic preset (12 plain optional flag) */}
           {optional && <span className="text-[var(--text-tertiary)] text-[var(--type-12)] font-normal ml-1">(optional)</span>}
           {required && <span aria-hidden className="text-[var(--lumen-red-5)] ml-0.5">*</span>}
         </Label>
       )}
       {description && (
+        /* v0.5: arbitrary-value type — review for semantic preset (12 plain helper) */
         <p className="text-[var(--type-12)] text-[var(--text-tertiary)] -mt-0.5 leading-snug">
           {description}
         </p>
@@ -93,6 +96,7 @@ export function Field({
             <span aria-hidden className="pr-3 text-[var(--text-tertiary)] flex items-center">{trailingIcon}</span>
           )}
           {trailingAddon && (
+            /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 12) */
             <span className="pr-2 text-[var(--type-12)] text-[var(--text-tertiary)] lumen-mono">{trailingAddon}</span>
           )}
         </div>
@@ -111,8 +115,10 @@ export function Field({
         />
       )}
       {error ? (
+        /* v0.5: arbitrary-value type — review for semantic preset (12 plain error) */
         <p id={helpId} role="alert" className="text-[var(--type-12)] text-[var(--lumen-red-6)] mt-0.5">{error}</p>
       ) : hint ? (
+        /* v0.5: arbitrary-value type — review for semantic preset (12 plain hint) */
         <p id={helpId} className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{hint}</p>
       ) : null}
     </div>

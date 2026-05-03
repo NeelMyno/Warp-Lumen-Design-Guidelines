@@ -16,6 +16,7 @@ const buttonVariants = cva(
         ghost: "text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]",
         link: "text-[var(--text-link)] underline-offset-4 hover:underline",
       },
+      /* v0.5: Button size ramp uses raw type tokens (12/13/14/15/16) — finer-grained than text-label-sm/md/lg ramp; review for consolidation. */
       size: {
         default: "h-10 px-4 has-[>svg]:px-3",
         xs: "h-7 rounded-[var(--radius-sm)] gap-1.5 px-2 has-[>svg]:px-1.5 text-[var(--type-12)]",

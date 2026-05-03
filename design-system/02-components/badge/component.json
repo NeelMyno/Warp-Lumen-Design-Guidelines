@@ -19,7 +19,7 @@
       "color.surface.sunken",    "color.text.secondary",
       "color.border.subtle",
       "color.accent.500",        "color.text.accent",
-      "radius.pill", "type.micro"
+      "radius.pill", "type.micro", "type.eyebrow.mono"
     ]
   },
   "a11y": {

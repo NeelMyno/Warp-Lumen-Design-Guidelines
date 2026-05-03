@@ -1,165 +1,497 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$description": "Lumen semantic typography presets — v0.5. Composes primitive tokens into single bundles that components consume. Six role groups: display (marketing impact), heading (app structure), body (paragraph), label (UI controls), data (tabular numerics — Lumen's signature), and editorial (longform prose). Plus the eyebrow / overline / caption / micro / kbd / code / metric utility presets. Read 00-foundations/typography.md for the full vocabulary, italic policy, and per-platform mapping.",
   "type": {
     "$type": "typography",
-    "$description": "Semantic typography presets. Bundles fontFamily + fontSize + fontWeight + lineHeight + letterSpacing into single tokens. Use these in components.",
+
     "display": {
+      "$description": "Marketing impact tier. Brutalist scale; tight leading; tightest tracking. text-wrap: balance is applied via globals.css. Always reach for these at landing-hero and section-opener moments — never at app chrome.",
+      "hero": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.128}",
+          "fontWeight": "{font.weight.black}",
+          "lineHeight": "{font.leading.flat}",
+          "letterSpacing": "{font.tracking.tightest}"
+        },
+        "$description": "v0.4/v0.5 brutalist hero — one-word brand statements ('SHIP FREIGHT', 'BUILT FOR BUILDERS'). Reserved. Use at most once per page. Pair with display.italic.accent for the optional one italic word."
+      },
+      "2xl": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.96}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.tight}",
+          "letterSpacing": "{font.tracking.tightest}"
+        },
+        "$description": "Landing-page hero headline. Pairs with body.lg for the deck."
+      },
       "xl": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.76}",
-          "fontWeight":   "{font.weight.bold}",
-          "lineHeight":   "{font.leading.tight}",
-          "letterSpacing":"{font.tracking.tightest}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.76}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.tight}",
+          "letterSpacing": "{font.tracking.tighter}"
         },
-        "$description": "Hero of marketing landing"
+        "$description": "Marketing landing default hero. Pairs with body.lg deck."
       },
       "lg": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.49}",
-          "fontWeight":   "{font.weight.bold}",
-          "lineHeight":   "{font.leading.tight}",
-          "letterSpacing":"{font.tracking.tighter}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.49}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.snug}",
+          "letterSpacing": "{font.tracking.tighter}"
         },
-        "$description": "Section opener"
+        "$description": "Section opener (marketing). Pairs with body.md."
       },
       "md": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.39}",
-          "fontWeight":   "{font.weight.bold}",
-          "lineHeight":   "{font.leading.tight}",
-          "letterSpacing":"{font.tracking.tighter}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.39}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.snug}",
+          "letterSpacing": "{font.tracking.tight}"
         },
-        "$description": "Page title (marketing)"
+        "$description": "Marketing page title."
+      },
+      "sm": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.28}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.compact}",
+          "letterSpacing": "{font.tracking.tight}"
+        },
+        "$description": "Bridge between heading.h1 and display.md. Card cover, modal hero."
       }
     },
+
     "heading": {
+      "$description": "App structure tier. Mid-weight, looser tracking than display. text-wrap: balance applied at h1/h2/h3.",
       "h1": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.31}",
-          "fontWeight":   "{font.weight.bold}",
-          "lineHeight":   "{font.leading.snug}",
-          "letterSpacing":"{font.tracking.tight}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.31}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.compact}",
+          "letterSpacing": "{font.tracking.tight}"
         },
-        "$description": "Page title (app)"
+        "$description": "Page title (app). 31/36 grid-aligned (1.16)."
       },
       "h2": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.25}",
-          "fontWeight":   "{font.weight.semibold}",
-          "lineHeight":   "{font.leading.snug}",
-          "letterSpacing":"{font.tracking.tight}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.25}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.comfortable}",
+          "letterSpacing": "{font.tracking.tight-soft}"
         },
-        "$description": "Section header"
+        "$description": "Section header. 25/30 (1.20)."
       },
       "h3": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.20}",
-          "fontWeight":   "{font.weight.medium}",
-          "lineHeight":   "{font.leading.snug}",
-          "letterSpacing":"{font.tracking.normal}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.20}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.tight-micro}"
         },
-        "$description": "Subsection"
+        "$description": "Subsection. Apple's optical-size threshold — at 20px and above, switch to display tracking."
+      },
+      "h4": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.17}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.ui}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Card title, list section header. 17/24."
+      },
+      "h5": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.15}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.ui}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Settings group title, dialog section."
+      },
+      "h6": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.13}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.ui}",
+          "letterSpacing": "{font.tracking.wide-micro}"
+        },
+        "$description": "Smallest distinct heading. Form field-group title."
       }
     },
+
     "body": {
+      "$description": "Paragraph and UI prose tier. Size-conditional leading (lg looser, sm slightly tighter). text-wrap: pretty applied to body.lg only.",
       "lg": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.18}",
-          "fontWeight":   "{font.weight.regular}",
-          "lineHeight":   "{font.leading.normal}",
-          "letterSpacing":"{font.tracking.normal}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.18}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.tight-body}"
         },
-        "$description": "Lead paragraph"
+        "$description": "Lead paragraph, marketing deck under display headlines."
       },
       "md": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.16}",
-          "fontWeight":   "{font.weight.regular}",
-          "lineHeight":   "{font.leading.normal}",
-          "letterSpacing":"{font.tracking.normal}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.16}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.normal}"
         },
-        "$description": "Default body"
+        "$description": "Default body. Reading-comfortable 16/25 (1.55)."
       },
       "sm": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.14}",
-          "fontWeight":   "{font.weight.regular}",
-          "lineHeight":   "{font.leading.normal}",
-          "letterSpacing":"{font.tracking.normal}"
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.14}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.wide-micro}"
         },
-        "$description": "Secondary body, table cells"
+        "$description": "Secondary body, helper text, dense table cell prose."
+      },
+      "xs": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.13}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.normal}",
+          "letterSpacing": "{font.tracking.wide}"
+        },
+        "$description": "Smallest body — dense table description column, helper text on small controls."
+      },
+      "tabular": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.16}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1"
+        },
+        "$description": "Body sized but with tabular nums. Use in any paragraph that mixes numbers needing alignment (rate quotes inline in prose, ledger explanations)."
       }
     },
+
+    "lead": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.20}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.snug-body}",
+        "letterSpacing": "{font.tracking.tight-micro}"
+      },
+      "$description": "Hero/section deck — descriptive line under display.* or heading.h1. Renders in text-secondary."
+    },
+
+    "label": {
+      "$description": "UI control tier. Tight leading (≤1.30), tabs/buttons/form labels.",
+      "lg": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.16}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Large button, primary CTA label, large tab."
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.14}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Default button text, default tab. The most-used label."
+      },
+      "sm": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.13}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.wide-micro}"
+        },
+        "$description": "Compact button, dense table action."
+      }
+    },
+
+    "eyebrow": {
+      "$description": "Uppercase tracked label tier. The voice signature of operator UI — short, declarative, system metadata. Two cuts: sans for human-facing section eyebrows, mono for system/state metadata.",
+      "sans": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.12}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.uppercase}",
+          "letterSpacing": "{font.tracking.cap-eyebrow}",
+          "textTransform": "uppercase"
+        },
+        "$description": "Section eyebrow above display/heading. 'OPERATE', 'NETWORK', 'PRICING'. Renders in text-tertiary by default."
+      },
+      "mono": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.12}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.uppercase}",
+          "letterSpacing": "{font.tracking.cap-mono}",
+          "textTransform": "uppercase",
+          "fontFeatureSettings": "'tnum' 1, 'calt' 0, 'zero' 1, 'case' 1"
+        },
+        "$description": "v0.5 system-metadata signature — '[•] SYSTEM V0.5 LIVE', '@ DIGITAL HQ', 'INVITES IN:'. Mono caps tracked at 0.16em. The hallmark of the Obsidian Lime aesthetic."
+      }
+    },
+
+    "overline": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.11}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.leading.snug-body}",
+        "letterSpacing": "{font.tracking.cap-overline}",
+        "textTransform": "uppercase"
+      },
+      "$description": "Chart axis label, sub-eyebrow secondary uppercase. Lighter tracking than eyebrow. Renders in text-tertiary."
+    },
+
     "caption": {
       "$value": {
-        "fontFamily":   "{font.family.sans}",
-        "fontSize":     "{font.size.13}",
-        "fontWeight":   "{font.weight.regular}",
-        "lineHeight":   "{font.leading.normal}",
-        "letterSpacing":"{font.tracking.normal}"
-      }
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.13}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.ui}",
+        "letterSpacing": "{font.tracking.wide}"
+      },
+      "$description": "Photo caption, image alt rendered visible, helper text."
     },
+
     "micro": {
       "$value": {
-        "fontFamily":   "{font.family.sans}",
-        "fontSize":     "{font.size.12}",
-        "fontWeight":   "{font.weight.medium}",
-        "lineHeight":   "{font.leading.normal}",
-        "letterSpacing":"{font.tracking.wide}"
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.12}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.leading.ui}",
+        "letterSpacing": "{font.tracking.wider}"
       },
-      "$description": "Badges, timestamps, hints"
+      "$description": "Badge body, timestamp, hint, tooltip body."
     },
-    "label": {
+
+    "kbd": {
+      "$value": {
+        "fontFamily": "{font.family.mono}",
+        "fontSize": "{font.size.11}",
+        "fontWeight": "{font.weight.medium}",
+        "lineHeight": "{font.leading.flat}",
+        "letterSpacing": "{font.tracking.normal}",
+        "fontFeatureSettings": "'tnum' 1, 'calt' 0, 'zero' 1"
+      },
+      "$description": "Keyboard shortcut glyph. ⌘ K · ⇧ ⌘ S. Always inside a .lumen-kbd container."
+    },
+
+    "data": {
+      "$description": "Tabular numeric tier — Lumen's signature for stats, KPIs, money, weights, ETAs. Mono variant for true tabular alignment in tables; sans variant for inline figure runs that should align without changing family.",
+      "lg": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.20}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Stat secondary metric, prominent table cell value."
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.16}",
+          "fontWeight": "{font.weight.medium}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Default tabular cell — money column, weight, ETA."
+      },
       "sm": {
         "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.14}",
-          "fontWeight":   "{font.weight.medium}",
-          "lineHeight":   "{font.leading.tight}",
-          "letterSpacing":"{font.tracking.normal}"
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.14}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.ui}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
         },
-        "$description": "Button text, tabs"
-      },
-      "eyebrow": {
-        "$value": {
-          "fontFamily":   "{font.family.sans}",
-          "fontSize":     "{font.size.12}",
-          "fontWeight":   "{font.weight.medium}",
-          "lineHeight":   "{font.leading.tight}",
-          "letterSpacing":"{font.tracking.widest}",
-          "textTransform":"uppercase"
-        },
-        "$description": "ALL CAPS eyebrow labels above titles"
+        "$description": "Compact table — DRY-93H7 IDs, inline timestamps, dense ledgers."
       }
     },
+
+    "metric": {
+      "$description": "Big-number KPI tier — the Stat primitive's anatomy. Mono for tabular alignment when stacked; weight bolds the number against label/unit context. Atlassian metric token role adopted into Lumen.",
+      "xl": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.61}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.tight}",
+          "letterSpacing": "{font.tracking.tighter}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Hero KPI — landing-page revenue counter, marquee dashboard."
+      },
+      "lg": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.49}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.snug}",
+          "letterSpacing": "{font.tracking.tight}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Stat primary — page-level KPI block."
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.31}",
+          "fontWeight": "{font.weight.bold}",
+          "lineHeight": "{font.leading.compact}",
+          "letterSpacing": "{font.tracking.tight}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Stat default — card-level KPI."
+      },
+      "sm": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.20}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.snug-body}",
+          "letterSpacing": "{font.tracking.tight-micro}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Stat compact — sidebar KPI, table summary row."
+      }
+    },
+
     "code": {
+      "$description": "Code tier. Inline uses 0.9286em (= 13/14) relative ratio so mono runs visually match the surrounding sans body x-height. Block has tabular nums for column-aligned line numbers; ligatures default ON. Terminal/diff variant disables ligatures so operators read as discrete tokens.",
       "inline": {
         "$value": {
-          "fontFamily":   "{font.family.mono}",
-          "fontSize":     "{font.size.14}",
-          "fontWeight":   "{font.weight.regular}",
-          "lineHeight":   "{font.leading.normal}",
-          "letterSpacing":"{font.tracking.normal}"
-        }
+          "fontFamily": "{font.family.mono}",
+          "fontSize": { "value": 0.9286, "unit": "em" },
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.normal}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'calt' 1, 'liga' 1, 'zero' 1"
+        },
+        "$description": "Inline `code` in body. Relative size (0.9286em) optically matches Satoshi-vs-JetBrains x-height. Programming ligatures ON for prose narration."
       },
       "block": {
         "$value": {
-          "fontFamily":   "{font.family.mono}",
-          "fontSize":     "{font.size.13}",
-          "fontWeight":   "{font.weight.regular}",
-          "lineHeight":   "{font.leading.normal}",
-          "letterSpacing":"{font.tracking.normal}"
-        }
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.13}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.normal}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'calt' 1, 'liga' 1, 'zero' 1"
+        },
+        "$description": "Code block (snippet, sample). Programming ligatures ON."
+      },
+      "terminal": {
+        "$value": {
+          "fontFamily": "{font.family.mono}",
+          "fontSize": "{font.size.13}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.normal}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'calt' 0, 'liga' 0, 'zero' 1, 'tnum' 1"
+        },
+        "$description": "Terminal output, diff view, command-line samples. Ligatures OFF — operators must read as discrete tokens. Tabular for column-aligned output."
       }
+    },
+
+    "prose": {
+      "$description": "Editorial longform tier — Source Serif 4 family, looser leading, wider measure. Reserved for /blog, /changelog, /press, legal copy. Never UI chrome. Apply text-wrap: pretty + hanging punctuation in globals.css.",
+      "body": {
+        "$value": {
+          "fontFamily": "{font.family.serif}",
+          "fontSize": "{font.size.18}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.relaxed}",
+          "letterSpacing": "{font.tracking.normal}"
+        },
+        "$description": "Longform reading body. 60–75ch measure recommended."
+      },
+      "lead": {
+        "$value": {
+          "fontFamily": "{font.family.serif}",
+          "fontSize": "{font.size.22}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.tight-micro}"
+        },
+        "$description": "Longform lead paragraph (under article title)."
+      },
+      "title": {
+        "$value": {
+          "fontFamily": "{font.family.serif}",
+          "fontSize": "{font.size.49}",
+          "fontWeight": "{font.weight.semibold}",
+          "lineHeight": "{font.leading.snug}",
+          "letterSpacing": "{font.tracking.tight}"
+        },
+        "$description": "Article title (blog, press, changelog feature). Source Serif 4 with opsz."
+      },
+      "subtitle": {
+        "$value": {
+          "fontFamily": "{font.family.serif}",
+          "fontSize": "{font.size.25}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.comfortable}",
+          "letterSpacing": "{font.tracking.tight-soft}"
+        },
+        "$description": "Article subtitle, section heading inside prose."
+      }
+    },
+
+    "quote": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.31}",
+        "fontWeight": "{font.weight.semibold}",
+        "lineHeight": "{font.leading.compact}",
+        "letterSpacing": "{font.tracking.tight}"
+      },
+      "$description": "Block quote — testimonial, customer voice. Italic optional via display.italic.accent override."
+    },
+
+    "display-italic-accent": {
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontStyle": "italic",
+        "fontSize": "{font.size.96}",
+        "fontWeight": "{font.weight.bold}",
+        "lineHeight": "{font.leading.tight}",
+        "letterSpacing": "{font.tracking.tightest}"
+      },
+      "$description": "The 'one italic word per hero' moment. Pairs with display.2xl/xl. Renders in text-accent (lime). Reserved — at most one per page."
     }
   }
 }

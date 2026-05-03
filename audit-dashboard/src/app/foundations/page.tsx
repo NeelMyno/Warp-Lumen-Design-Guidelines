@@ -39,14 +39,16 @@ export default function FoundationsPage() {
             <span className="text-[var(--text-accent)]">obsidian-lime · v0.4</span>
           </div>
           <div className="lumen-frame-brutalist">
-            <h1 className="text-[var(--type-56)] sm:text-[var(--type-72)] lg:text-[var(--type-96)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)] text-[var(--text-primary)]">
+            <h1 className="text-display-lg sm:text-display-2xl lg:text-display-2xl text-[var(--text-primary)]">
               Foundations.{" "}
+              {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
               <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
                 Lit.
               </em>
             </h1>
           </div>
-          <p className="mt-8 max-w-[60ch] text-[var(--type-17)] md:text-[var(--type-18)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+          {/* lumen-lint-allow: typography — type-17 mobile lead; intermediate body density between body-md (16) and body-lg (18) */}
+          <p className="mt-8 max-w-[60ch] text-[var(--type-17)] md:text-body-lg text-[var(--text-secondary)] leading-[var(--leading-snug)]">
             Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.4 strips the navy ladder, lifts the lime, and lets the obsidian canvas breathe. One mood — Obsidian Lime — assembled from the same restraint it asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -140,6 +142,9 @@ export default function FoundationsPage() {
         >
           <Card padding="lg">
             <div className="flex flex-col gap-7 lumen-row-divider">
+              {/* lumen-lint-allow-block: typography — TypeRow `cls` strings are intentional documentation
+                  showing the raw recipe each semantic preset expands to. They are demoed as sample text
+                  inside the TypeRow component, not used as component-author API. Do not refactor. */}
               <TypeRow role="display.xxl" sample="Stop re-designing." cls="text-[var(--type-96)] md:text-[var(--type-128)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)]" px="128 / 8rem" weight="700" />
               <TypeRow role="display.xl"  sample="Operations as instruments." cls="text-[var(--type-72)] md:text-[var(--type-84)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]" px="84 / 5.25rem" weight="700" />
               <TypeRow role="display.lg"  sample={<>The freight network for <em className="not-italic text-[var(--text-accent)]">builders</em>.</>} cls="text-[var(--type-49)] md:text-[var(--type-56)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="56 / 3.5rem" weight="700" />
@@ -152,6 +157,7 @@ export default function FoundationsPage() {
               <TypeRow role="body.sm"     sample="Auto-save will retry every 12 seconds while offline." cls="text-[var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
               <TypeRow role="caption"     sample="Updated 4 minutes ago by Sokolovsky" cls="text-[var(--type-13)] text-[var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
               <TypeRow role="mono.cap"    sample="@ DIGITAL HQ · GLOBAL ACCESS · SYSTEM V0.4 LIVE" cls="lumen-mono-cap text-[var(--text-accent)]" px="11 · +0.16em" weight="500" />
+              {/* lumen-lint-allow-end: typography */}
             </div>
           </Card>
 
@@ -160,24 +166,24 @@ export default function FoundationsPage() {
               <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 <div>
                   <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">money</div>
-                  <div className="lumen-mono lumen-tnum text-[var(--type-31)] font-bold text-[var(--text-primary)]">$1,243.50</div>
+                  <div className="text-metric-md text-[var(--text-primary)]">$1,243.50</div>
                 </div>
                 <div>
                   <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">lane code</div>
-                  <div className="lumen-mono text-[var(--type-31)] font-bold text-[var(--text-primary)]">LAX→SFO</div>
+                  <div className="text-metric-md text-[var(--text-primary)]">LAX→SFO</div>
                 </div>
                 <div>
                   <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">countdown</div>
-                  <div className="lumen-mono lumen-tnum text-[var(--type-31)] font-bold text-[var(--text-primary)]">12.02.05</div>
+                  <div className="text-metric-md text-[var(--text-primary)]">12.02.05</div>
                 </div>
                 <div>
                   <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">command</div>
-                  <pre className="lumen-mono text-[var(--type-13)] text-[var(--text-secondary)] whitespace-pre">{`$ warp quote --from=LAX \\
+                  <pre className="text-code-block text-[var(--text-secondary)] whitespace-pre">{`$ warp quote --from=LAX \\
        --to=SFO --weight=520lb`}</pre>
                 </div>
                 <div className="md:col-span-2">
                   <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">payload</div>
-                  <pre className="lumen-mono text-[var(--type-13)] text-[var(--text-secondary)] whitespace-pre">{`{ "lane": "LAX-SFO",
+                  <pre className="text-code-block text-[var(--text-secondary)] whitespace-pre">{`{ "lane": "LAX-SFO",
   "rate": 262,
   "carrier_count": 14,
   "transit_days": 1 }`}</pre>
@@ -220,12 +226,14 @@ export default function FoundationsPage() {
                   { px: 128, tier: "16", role: "hero margin · marketing breathing room" },
                 ].map((s) => (
                   <div key={s.px} className="flex items-center gap-4">
+                    {/* lumen-lint-allow: typography — mono tabular at 12 grid metrics; no semantic preset for mono+regular at 12 */}
                     <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-primary)] w-10 shrink-0 text-right">{s.px}</div>
-                    <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)] w-10 shrink-0">G{s.tier}</div>
+                    <div className="text-eyebrow-mono text-[var(--text-tertiary)] w-10 shrink-0">G{s.tier}</div>
                     <div
                       className="bg-[var(--color-accent)]"
                       style={{ width: s.px, height: 8, borderRadius: 2 }}
                     />
+                    {/* lumen-lint-allow: typography — type-12 plain caption; no semantic preset for 12 regular */}
                     <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{s.role}</div>
                   </div>
                 ))}
@@ -244,9 +252,12 @@ export default function FoundationsPage() {
                   { px: 28, role: "soft control height (xs button, dense rows)" },
                 ].map((s) => (
                   <div key={s.px} className="flex items-center gap-4">
+                    {/* lumen-lint-allow: typography — mono tabular at 12 spacing metric; no preset for mono+regular at 12 */}
                     <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-tertiary)] w-10 shrink-0 text-right">{s.px}</div>
+                    {/* lumen-lint-allow: typography — 10px ornamental marker label with widest tracking; below the semantic scale */}
                     <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)] w-10 shrink-0">soft</div>
                     <div className="bg-[var(--lumen-amber-4)]" style={{ width: s.px, height: 8, borderRadius: 2 }} />
+                    {/* lumen-lint-allow: typography — type-12 plain caption; no semantic preset for 12 regular */}
                     <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{s.role}</div>
                   </div>
                 ))}
@@ -261,7 +272,8 @@ export default function FoundationsPage() {
                   <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-[var(--radius-sm)] bg-[var(--lumen-accent-4)]" />
                     <div className="flex flex-col gap-1">
-                      <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">Card on grid</div>
+                      <div className="text-heading-h5">Card on grid</div>
+                      {/* lumen-lint-allow: typography — type-12 plain caption; no semantic preset for 12 regular */}
                       <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">8 / 16 / 24 / 32 / 40 / 48 — every measurement is a multiple of 8</div>
                     </div>
                   </div>
@@ -307,7 +319,8 @@ export default function FoundationsPage() {
                   style={{ borderRadius: `var(--radius-${name})` }}
                 />
                 <div className="flex flex-col items-center gap-0.5">
-                  <div className="text-[var(--type-13)] font-medium text-[var(--text-primary)]">{name}</div>
+                  <div className="text-label-sm text-[var(--text-primary)]">{name}</div>
+                  {/* lumen-lint-allow: typography — mono tabular at 11 radius value; no semantic preset for 11px tabular */}
                   <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{px}</code>
                 </div>
               </Card>
@@ -329,7 +342,8 @@ export default function FoundationsPage() {
                 className="bg-[var(--surface-raised)] rounded-[var(--radius-xl)] border border-[var(--border-hairline)] p-5 flex flex-col items-center gap-2"
                 style={{ boxShadow: `var(--shadow-${level})` }}
               >
-                <div className="text-[var(--type-13)] font-medium text-[var(--text-primary)]">{level}</div>
+                <div className="text-label-sm text-[var(--text-primary)]">{level}</div>
+                {/* lumen-lint-allow: typography — mono regular at 11 token name; no semantic preset for 11px mono */}
                 <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
                   shadow.{level}
                 </code>
@@ -339,24 +353,24 @@ export default function FoundationsPage() {
           <div className="grid gap-3 grid-cols-1 md:grid-cols-3 mt-4">
             <div className="lumen-glass rounded-[var(--radius-2xl)] p-6 flex flex-col items-start gap-2">
               <span className="lumen-mono-cap text-[var(--text-tertiary)]">shadow.glass</span>
-              <span className="text-[var(--type-15)] font-semibold">Floating shell</span>
-              <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">backdrop-blur 20 · saturate 140 · hairline</span>
+              <span className="text-heading-h5">Floating shell</span>
+              <span className="text-body-xs text-[var(--text-tertiary)]">backdrop-blur 20 · saturate 140 · hairline</span>
             </div>
             <div
               className="rounded-[var(--radius-2xl)] border border-[var(--border-accent)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
               style={{ boxShadow: "var(--shadow-glow-accent-strong)" }}
             >
               <span className="lumen-mono-cap text-[var(--text-accent)]">shadow.glow-accent</span>
-              <span className="text-[var(--type-15)] font-semibold">Hero CTA halo</span>
-              <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">3-layer lime ambient · primary actions only</span>
+              <span className="text-heading-h5">Hero CTA halo</span>
+              <span className="text-body-xs text-[var(--text-tertiary)]">3-layer lime ambient · primary actions only</span>
             </div>
             <div
               className="rounded-[var(--radius-2xl)] border border-[var(--border-default)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
               style={{ boxShadow: "var(--shadow-focus)" }}
             >
               <span className="lumen-mono-cap text-[var(--text-tertiary)]">shadow.focus</span>
-              <span className="text-[var(--type-15)] font-semibold">Focus ring</span>
-              <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">3.5px lime alpha-40 · WCAG-visible on every surface</span>
+              <span className="text-heading-h5">Focus ring</span>
+              <span className="text-body-xs text-[var(--text-tertiary)]">3.5px lime alpha-40 · WCAG-visible on every surface</span>
             </div>
           </div>
         </Section>
@@ -379,15 +393,15 @@ export default function FoundationsPage() {
               <div className="relative grid gap-4 md:grid-cols-2">
                 <div className="lumen-glass rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
                   <div className="lumen-mono-cap text-[var(--text-tertiary)]">surface.glass</div>
-                  <div className="text-[var(--type-20)] font-semibold">Floating shell</div>
-                  <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">
+                  <div className="text-heading-h3">Floating shell</div>
+                  <div className="text-body-xs text-[var(--text-tertiary)]">
                     Hairline border. Soft inner highlight. Sits ON canvas.
                   </div>
                 </div>
                 <div className="lumen-glass-strong rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
                   <div className="lumen-mono-cap text-[var(--text-tertiary)]">surface.glass-strong</div>
-                  <div className="text-[var(--type-20)] font-semibold">Modal / sheet</div>
-                  <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">
+                  <div className="text-heading-h3">Modal / sheet</div>
+                  <div className="text-body-xs text-[var(--text-tertiary)]">
                     blur 28 · saturate 160. For overlays that must read.
                   </div>
                 </div>
@@ -402,10 +416,10 @@ export default function FoundationsPage() {
             >
               <div className="relative h-full p-12 flex flex-col items-center justify-center gap-4 text-center">
                 <span className="lumen-mono-cap text-[var(--text-accent)]">SYSTEM V0.4 · LIVE</span>
-                <h3 className="text-[var(--type-44)] md:text-[var(--type-56)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]">
+                <h3 className="text-display-md md:text-display-lg">
                   Calm and lit from within.
                 </h3>
-                <p className="max-w-[40ch] text-[var(--type-14)] text-[var(--text-tertiary)]">
+                <p className="max-w-[40ch] text-body-sm text-[var(--text-tertiary)]">
                   Surfaces stay flat. Lime carries the energy on its own.
                 </p>
               </div>
@@ -416,25 +430,25 @@ export default function FoundationsPage() {
             <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
               <Card padding="lg" elevation="flat">
                 <CardHeader title="Flat" description="Border only — content blocks" />
-                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                <p className="text-body-xs text-[var(--text-secondary)]">
                   Used for content that sits IN the page, not on top of it.
                 </p>
               </Card>
               <Card padding="lg" elevation="card">
                 <CardHeader title="Card" description="Default · hairline + shadow.sm" />
-                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                <p className="text-body-xs text-[var(--text-secondary)]">
                   Workhorse surface. KPI tiles, list rows, panels.
                 </p>
               </Card>
               <Card padding="lg" elevation="lifted">
                 <CardHeader title="Lifted" description="Hover state on interactive cards" />
-                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                <p className="text-body-xs text-[var(--text-secondary)]">
                   Reach when the card needs to feel like it left the plane.
                 </p>
               </Card>
               <Card padding="lg" elevation="popover">
                 <CardHeader title="Popover" description="Floating menus, dropdowns, tooltips" />
-                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                <p className="text-body-xs text-[var(--text-secondary)]">
                   Multi-layer shadow + border-subtle for off-canvas surfaces.
                 </p>
               </Card>
@@ -498,7 +512,7 @@ export default function FoundationsPage() {
         >
           <SubSection title="Brutalist frame" description="A 1px hairline border at border.frame opacity, generous internal padding, no shadow. Wraps a single statement headline. Reference: 'STOP RE-DESIGNING'.">
             <div className="lumen-frame-brutalist text-center">
-              <h3 className="text-[var(--type-49)] md:text-[var(--type-72)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)] uppercase">
+              <h3 className="text-display-lg md:text-display-2xl uppercase">
                 Stop re-designing.
               </h3>
             </div>
@@ -519,8 +533,9 @@ export default function FoundationsPage() {
 
           <SubSection title="Italic accent" description="One word per hero gets the italic treatment, in lime accent. Used to break the otherwise tight, brutalist sans rhythm. Never two words. Never on body copy.">
             <Card padding="lg">
-              <div className="text-[var(--type-49)] md:text-[var(--type-72)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]">
+              <div className="text-display-lg md:text-display-2xl">
                 Design at the{" "}
+                {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
                 <em className="font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">Speed</em>{" "}
                 of Thought.
               </div>
@@ -620,7 +635,7 @@ export default function FoundationsPage() {
               </div>
               <div className="flex items-center gap-3">
                 <AvatarGroup names={["D Sokolovsky", "J Park", "A Reyes", "K Chen", "M B", "T Q", "R Hu"]} max={4} />
-                <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">+3 collaborators</span>
+                <span className="text-body-xs text-[var(--text-tertiary)]">+3 collaborators</span>
               </div>
             </Card>
 
@@ -748,6 +763,7 @@ export default function FoundationsPage() {
 
       {/* ON-PAGE NAV */}
       <aside className="hidden lg:block">
+        {/* lumen-lint-allow: typography — type-12 sidebar nav links; no semantic preset for 12 regular */}
         <nav className="sticky top-32 flex flex-col gap-1.5 text-[var(--type-12)]">
           <div className="lumen-mono-cap mb-3 text-[var(--text-tertiary)]">On this page</div>
           {[
@@ -786,9 +802,11 @@ function TypeRow({
 }: { role: string; sample: React.ReactNode; cls: string; px: string; weight: string }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-[160px_1fr_120px_56px] items-baseline gap-2 md:gap-6">
-      <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-widest)] font-semibold">{role}</code>
+      <code className="text-eyebrow-mono text-[var(--text-tertiary)] font-semibold">{role}</code>
       <div className={`${cls} text-[var(--text-primary)]`}>{sample}</div>
+      {/* lumen-lint-allow: typography — mono tabular at 11 px value; no semantic preset for 11px tabular */}
       <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{px}</code>
+      {/* lumen-lint-allow: typography — mono tabular at 11 weight value; no semantic preset for 11px tabular */}
       <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">w{weight}</code>
     </div>
   );
@@ -800,12 +818,13 @@ function PairRow({
   return (
     <li className="flex items-baseline gap-4 py-3 px-4 first:pt-4 last:pb-4">
       <div className="flex items-baseline gap-2 w-[200px] shrink-0">
-        <span className="font-semibold text-[var(--text-primary)] text-[var(--type-15)]">{primary}</span>
+        <span className="text-heading-h5 text-[var(--text-primary)]">{primary}</span>
         <span className="text-[var(--text-tertiary)]">+</span>
-        <span className="font-semibold text-[var(--text-primary)] text-[var(--type-15)]">{secondary}</span>
+        <span className="text-heading-h5 text-[var(--text-primary)]">{secondary}</span>
       </div>
-      <div className="flex-1 text-[var(--type-13)] text-[var(--text-secondary)] leading-snug">{use}</div>
+      <div className="flex-1 text-body-xs text-[var(--text-secondary)] leading-snug">{use}</div>
       {note && (
+        /* lumen-lint-allow: typography — type-12 mono pair note; no semantic preset for mono+regular at 12 */
         <div className="hidden md:block text-[var(--type-12)] text-[var(--text-tertiary)] lumen-mono shrink-0">
           {note}
         </div>
@@ -818,7 +837,9 @@ function StatusRamp({ family }: { family: string }) {
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between">
+        {/* lumen-lint-allow: typography — mono regular at 11 token name; no semantic preset for 11px mono */}
         <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{family}</code>
+        {/* lumen-lint-allow: typography — plain regular at 11 caption; no semantic preset for 11px regular */}
         <span className="text-[var(--type-11)] text-[var(--text-tertiary)]">10 stops</span>
       </div>
       <div className="grid grid-cols-10 gap-0 rounded-[var(--radius-md)] overflow-hidden border border-[var(--border-hairline)]">
@@ -840,10 +861,13 @@ function HeightSpec({ h, label, sub, tone = "grid" }: { h: number; label: string
         ].join(" ")}
         style={{ height: h }}
       >
+        {/* lumen-lint-allow: typography — mono semibold at 12 control-height numeral; no semantic preset for mono+semibold */}
         <span className="lumen-mono text-[var(--type-12)] font-semibold">{h}</span>
       </div>
       <div className="flex flex-col items-center">
+        {/* lumen-lint-allow: typography — mono regular at 12 control label; no semantic preset for mono+regular at 12 */}
         <div className="lumen-mono text-[var(--type-12)] text-[var(--text-primary)]">{label}</div>
+        {/* lumen-lint-allow: typography — 10px ornamental sublabel with widest tracking; below the semantic scale */}
         <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">{sub}</div>
       </div>
     </div>

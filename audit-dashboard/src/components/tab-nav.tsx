@@ -26,11 +26,11 @@ export function TabNav() {
                 aria-current={isActive ? "page" : undefined}
                 className={[
                   "inline-flex items-center gap-2 h-9 px-4 rounded-[var(--radius-full)]",
-                  "text-[var(--type-13)] tracking-[var(--tracking-tight)] whitespace-nowrap",
+                  "text-label-sm whitespace-nowrap",
                   "border transition-[color,background-color,border-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
                   isActive
                     ? "text-[var(--text-primary)] font-semibold bg-[var(--surface-tint-accent)] border-[var(--border-accent)]"
-                    : "text-[var(--text-tertiary)] font-medium border-transparent hover:text-[var(--text-primary)] hover:border-[var(--border-subtle)]",
+                    : "text-[var(--text-tertiary)] border-transparent hover:text-[var(--text-primary)] hover:border-[var(--border-subtle)]",
                 ].join(" ")}
               >
                 {isActive && <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[var(--lumen-accent-4)]" />}

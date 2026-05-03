@@ -24,7 +24,7 @@ function Sparkles({ size = 12 }: { size?: number }) {
 /* ─────────────────────────  AI THINKING INDICATOR  ───────────────────────── */
 export function AIThinking() {
   return (
-    <div className="inline-flex items-center gap-2 text-[var(--type-13)] text-[var(--text-tertiary)]">
+    <div className="inline-flex items-center gap-2 text-body-xs text-[var(--text-tertiary)]">
       <span className="relative inline-flex h-4 w-4">
         <Sparkles size={14} />
       </span>
@@ -98,10 +98,10 @@ export function AISuggestion() {
         </div>
         <AIConfidence score={0.86} />
       </div>
-      <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)] mb-2">
+      <div className="text-heading-h5 mb-2">
         Reroute via Albuquerque to save $284
       </div>
-      <p className="text-[var(--type-13)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+      <p className="text-body-xs text-[var(--text-secondary)] leading-[var(--leading-snug)]">
         Saia carries this lane at $0.18/mi vs current $0.24/mi. Adds 38 mi but stays inside SLA.
         Sterling LTL has 4 active loads on the new path so capacity is reliable.
       </p>
@@ -260,7 +260,7 @@ export function NotificationCenter() {
   return (
     <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] overflow-hidden">
       <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] flex items-center gap-2"><Inbox size={14} /> Inbox <span className="lumen-mono text-[var(--text-tertiary)]">3</span></span>
+        <span className="text-heading-h6 flex items-center gap-2"><Inbox size={14} /> Inbox <span className="lumen-mono text-[var(--text-tertiary)]">3</span></span>
         <button className="text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Mark all read</button>
       </div>
       <div className="divide-y divide-[var(--border-hairline)]">
@@ -278,7 +278,7 @@ export function CopilotPanel() {
   return (
     <div className="w-[360px] rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col h-[460px]">
       <div className="h-12 px-3 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <span className="flex items-center gap-2 text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">
+        <span className="flex items-center gap-2 text-heading-h6">
           <span className="text-[var(--text-accent)]"><Sparkles size={13} /></span>
           Lumen Copilot
         </span>
@@ -309,7 +309,7 @@ export function CommentThread() {
             <span className="font-semibold tracking-[var(--tracking-tight)]">Daniel Sokolovsky</span>
             <span className="text-[var(--text-tertiary)] ml-2 text-[var(--type-12)]">14 min ago</span>
           </div>
-          <p className="text-[var(--type-13)] text-[var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
+          <p className="text-body-xs text-[var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
             Can we get a sanity check on the @sterling-ltl numbers? Their fuel surcharge looks 11% high.
           </p>
           <div className="flex items-center gap-3 mt-2 text-[var(--type-11)] text-[var(--text-tertiary)]">
@@ -326,7 +326,7 @@ export function CommentThread() {
             <span className="font-semibold tracking-[var(--tracking-tight)]">Jordan Kim</span>
             <span className="text-[var(--text-tertiary)] ml-2 text-[var(--type-12)]">3 min ago</span>
           </div>
-          <p className="text-[var(--type-13)] text-[var(--text-secondary)] mt-1">Pulled the underlying — they re-baselined yesterday. Numbers check out.</p>
+          <p className="text-body-xs text-[var(--text-secondary)] mt-1">Pulled the underlying — they re-baselined yesterday. Numbers check out.</p>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ export function ErrorPage({
         {code}
       </div>
       <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)] mt-2 text-[var(--text-primary)]">{title}</div>
-      <p className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)] max-w-[36ch] mx-auto">{description}</p>
+      <p className="text-body-xs text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)] max-w-[36ch] mx-auto">{description}</p>
       <div className="flex items-center justify-center gap-2 mt-6">
         <button className="h-10 px-4 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-medium">{primary}</button>
         <button className="h-10 px-4 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-14)] font-medium">{secondary}</button>
@@ -38,7 +38,7 @@ export function LoginCard() {
     <div className="w-[380px] rounded-[var(--radius-xl)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-6 shadow-[var(--shadow-sm)]">
       <div className="lumen-mono text-[var(--type-15)] font-bold tracking-[-0.02em] mb-6">warp.</div>
       <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Sign in</div>
-      <p className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-1">Use your work email to continue.</p>
+      <p className="text-body-xs text-[var(--text-tertiary)] mt-1">Use your work email to continue.</p>
       <div className="mt-5 space-y-3">
         <SocialBtn label="Continue with Google" icon={<GoogleG />} />
         <SocialBtn label="Continue with Microsoft" icon={<MsLogo />} />
@@ -115,8 +115,8 @@ export function FeatureGrid() {
     <div className="grid gap-3 md:grid-cols-3">
       {features.map((f) => (
         <div key={f.title} className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5">
-          <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{f.title}</div>
-          <p className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-1.5 leading-[var(--leading-snug)]">{f.body}</p>
+          <div className="text-heading-h5">{f.title}</div>
+          <p className="text-body-xs text-[var(--text-tertiary)] mt-1.5 leading-[var(--leading-snug)]">{f.body}</p>
         </div>
       ))}
     </div>
@@ -168,7 +168,7 @@ export function MaintenanceCard() {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4L15 12l-3-3 2.7-2.7z" /></svg>
       </div>
       <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Scheduled maintenance</div>
-      <p className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">
+      <p className="text-body-xs text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">
         We're rolling out a database migration. Quoting is paused until 14:00 UTC. Existing shipments continue to track normally.
       </p>
       <div className="mt-6 inline-flex items-center gap-3 text-[var(--type-12)]">

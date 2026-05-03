@@ -17,7 +17,7 @@
     "consumed": [
       "color.text.primary", "color.text.secondary", "color.text.tertiary",
       "color.border.default",
-      "type.heading.h3", "type.body.sm",
+      "type.heading.h3", "type.body.md", "type.body.sm", "type.lead", "type.label.md",
       "space.4", "space.8"
     ]
   },

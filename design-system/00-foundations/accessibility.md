@@ -29,6 +29,11 @@ These are not goals. They are required for any component, page, or template to s
 | Heading hierarchy | One `h1` per page; never skip levels | Page templates enforce; CI lint warns on skip |
 | Language declared | `<html lang>` set | Root layout sets `lang="en"`; localized templates override |
 | Captions / transcripts | Required on any video, audio | Required field on `Video` / `Audio` component schema |
+| Resizable text | UI usable up to 200% zoom (1.4.4) | All sizes in `rem` not `px`; no horizontal scroll at 200% |
+| Text spacing | Override-tolerant — line-height ≥ 1.5×, letter ≥ 0.12×, word ≥ 0.16×, paragraph ≥ 2× (1.4.12) | Tested against Stylebot text-spacing override; semantic presets pass by default |
+| Images of text | Avoid except logo (1.4.5) | No `<img>` with text content in product UI; eyebrow caps render as live text |
+| Minimum readable size | 12px body floor (Lumen-internal, exceeds WCAG) | `body.xs` (13px) is the smallest body preset; 11px reserved for `kbd` and `overline` only |
+| Reflow | Single-column at 320px, no horizontal scroll (1.4.10) | Mobile-first templates; line-length capped at 75ch; `text-wrap: balance` on display |
 
 ## Recommended ceiling — push when possible
 
@@ -111,7 +116,18 @@ Every page in any consumer product must:
 - `<th scope="col">` and `<th scope="row">` are mandatory.
 - Sortable columns expose `aria-sort="ascending" | "descending"`.
 - Row selection exposes `aria-selected`.
-- Tabular numerics use `font-feature-settings: "tnum"` for column alignment but never substitute for actual `<th scope>`.
+- Tabular numerics use the `data.*` semantic preset (`font-variant-numeric: tabular-nums lining-nums slashed-zero`). Never substitute for actual `<th scope>`.
+
+## Typography
+
+In addition to the WCAG bar:
+
+- **Body floor 12px** in Lumen — only `kbd` (keyboard glyphs) and `overline` (chart axis) may go to 11px. `caption` and below render at 13px.
+- **Line-length** — capped at 75ch for editorial body; ~60ch for prose. Long-form pages use `prose-lumen` wrapper which sets `max-width: 65ch`.
+- **`font-synthesis: none`** is set globally. Italic VF and full Bold weight axis are shipped — the browser never fakes either. If a typeface ever loses italic or a weight, ship a true file rather than removing this rule.
+- **Dynamic Type / system font scale** — iOS Satoshi is wrapped in `UIFontMetrics.scaledFont`; Android composes with `MaterialTheme.typography` which respects the Material font scale. No "px-locked" sizes on mobile.
+- **Reduced motion** — type itself never animates in Lumen. Only `LiveDot` pulses; reduced-motion mode holds the pulse static.
+- **Eyebrow caps** must remain at AA contrast on their surface — the smaller the eyebrow, the more critical contrast becomes. The `eyebrow.*` presets render in `text-tertiary` by default; on glass surfaces, use `text-secondary`.
 
 ## Modals and overlays
 

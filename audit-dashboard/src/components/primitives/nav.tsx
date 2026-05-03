@@ -54,7 +54,7 @@ function PageBtn({ children, disabled, onClick }: { children: ReactNode; disable
     <button
       onClick={onClick}
       disabled={disabled}
-      className="h-8 px-2.5 rounded-[var(--radius-sm)] text-[var(--type-13)] text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+      className="h-8 px-2.5 rounded-[var(--radius-sm)] text-body-xs text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
     >
       {children}
     </button>
@@ -182,7 +182,7 @@ export function MegaMenu() {
       <div className="rounded-[var(--radius-md)] bg-[var(--surface-tint-accent)] p-4 flex flex-col justify-between">
         <div>
           <div className="lumen-eyebrow text-[10px] mb-1">New</div>
-          <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">Lane intelligence v3</div>
+          <div className="text-heading-h5">Lane intelligence v3</div>
           <p className="text-[var(--type-12)] text-[var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
             Real-time spot rates from 12,000 carriers — now with confidence scores.
           </p>
@@ -199,7 +199,7 @@ function MegaCol({ title, links }: { title: string; links: string[] }) {
       <ul className="flex flex-col gap-2">
         {links.map((l) => (
           <li key={l}>
-            <a className="block text-[var(--type-13)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">{l}</a>
+            <a className="block text-body-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">{l}</a>
           </li>
         ))}
       </ul>
@@ -256,7 +256,7 @@ export function SidebarDemo() {
     <div className="w-[224px] rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 flex flex-col gap-3">
       <div className="flex items-center gap-2 h-10 px-2">
         <span className="h-6 w-6 rounded-full bg-[var(--lumen-accent-4)]" />
-        <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">Acme Logistics</span>
+        <span className="text-heading-h6">Acme Logistics</span>
       </div>
       <div className="flex flex-col gap-0.5">
         {items.map((i) => (

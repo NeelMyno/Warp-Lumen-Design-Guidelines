@@ -127,7 +127,7 @@ export function Toast({
         <AlertIcon tone={tone} />
       </span>
       <div className="min-w-0 flex-1">
-        <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] text-[var(--text-primary)]">{title}</div>
+        <div className="text-heading-h6 text-[var(--text-primary)]">{title}</div>
         {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{description}</div>}
       </div>
       {action && (
@@ -185,14 +185,14 @@ export function ModalCard({
         <div>
           <div className="text-[var(--type-17)] font-semibold tracking-[var(--tracking-tight)] text-[var(--text-primary)]">{title}</div>
           {description && (
-            <div className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>
+            <div className="text-body-xs text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>
           )}
         </div>
         <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--surface-sunken)]" aria-label="Close">
           <X size={14} />
         </button>
       </div>
-      {children && <div className="px-5 pb-4 pt-2 text-[var(--type-13)] text-[var(--text-secondary)]">{children}</div>}
+      {children && <div className="px-5 pb-4 pt-2 text-body-xs text-[var(--text-secondary)]">{children}</div>}
       {(primary || secondary) && (
         <div className="px-5 py-3.5 border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)]/40 flex items-center justify-end gap-2">
           {secondary && (
@@ -256,7 +256,7 @@ export function Drawer({ title, children }: { title: string; children: ReactNode
   return (
     <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-raised)] border border-[var(--border-default)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col">
       <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">{title}</span>
+        <span className="text-heading-h6">{title}</span>
         <button aria-label="Close drawer" className="h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><X size={14} /></button>
       </div>
       <div className="p-4 flex-1 overflow-auto">{children}</div>
@@ -282,7 +282,7 @@ export function Popover({ children, arrow = true }: { children: ReactNode; arrow
 export function CookieBanner() {
   return (
     <div className="rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-4 max-w-[480px]">
-      <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">We use cookies</div>
+      <div className="text-heading-h6">We use cookies</div>
       <p className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">
         Essential cookies keep this site working. Optional cookies help us understand how it's used.
       </p>

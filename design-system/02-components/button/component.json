@@ -68,7 +68,7 @@
       "size.control.sm",
       "size.control.md",
       "size.control.lg",
-      "type.label.sm",
+      "type.label.sm", "type.label.md", "type.label.lg",
       "motion.transition.fast"
     ]
   },

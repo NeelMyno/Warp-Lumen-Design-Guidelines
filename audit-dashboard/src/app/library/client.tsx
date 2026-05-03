@@ -140,7 +140,8 @@ export function LibraryClient() {
                 className="group rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3.5 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] transition-[border-color,box-shadow]"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] text-[var(--text-primary)]">{s.label}</span>
+                  <span className="text-heading-h6 text-[var(--text-primary)]">{s.label}</span>
+                  {/* lumen-lint-allow: typography — mono regular at 11 section index; no semantic preset for 11px mono */}
                   <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{String(i + 1).padStart(2, "0")}</span>
                 </div>
               </a>
@@ -199,8 +200,10 @@ export function LibraryClient() {
 
           <SubSection title="Sticky elements">
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
+              {/* lumen-lint-allow: typography — type-12 plain sticky header bar; no semantic preset for 12 regular */}
               <div className="h-9 px-3 flex items-center justify-between bg-[var(--surface-sunken)] border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky header</span><Plus size={12} /></div>
               <div className="h-32 lumen-stripe-grid" />
+              {/* lumen-lint-allow: typography — type-12 plain sticky footer bar; no semantic preset for 12 regular */}
               <div className="h-9 px-3 flex items-center justify-end bg-[var(--surface-sunken)] border-t border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky action bar</span></div>
             </div>
           </SubSection>
@@ -331,7 +334,7 @@ export function LibraryClient() {
           <SubSection title="Split button & link button">
             <div className="flex items-center gap-3">
               <SplitButton />
-              <a className="lumen-link text-[var(--type-13)]">View documentation</a>
+              <a className="lumen-link text-body-xs">View documentation</a>
             </div>
           </SubSection>
 
@@ -344,16 +347,20 @@ export function LibraryClient() {
                   <VerticalDivider height="22px" />
                   <Button size="sm" intent="tertiary">Sort</Button>
                   <Button size="sm" intent="tertiary">Group</Button>
+                  {/* lumen-lint-allow: typography — type-11 mono row count; no semantic preset for 11px mono */}
                   <span className="ml-auto inline-flex items-center gap-1.5 text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">42 rows</span>
                   <Button size="sm" intent="tertiary">⋯</Button>
                 </div>
               </Showcase>
               <Showcase label="Bulk action bar">
                 <div className="flex items-center gap-3 w-full bg-[var(--surface-inverse)] text-[var(--text-inverse)] px-3 h-10 rounded-[var(--radius-md)]">
-                  <span className="text-[var(--type-12)] font-medium">7 selected</span>
+                  <span className="text-micro">7 selected</span>
                   <VerticalDivider height="20px" />
+                  {/* lumen-lint-allow: typography — type-12 plain bulk action button; no semantic preset for 12 regular */}
                   <button className="text-[var(--type-12)]">Mark resolved</button>
+                  {/* lumen-lint-allow: typography — type-12 plain bulk action button; no semantic preset for 12 regular */}
                   <button className="text-[var(--type-12)]">Assign</button>
+                  {/* lumen-lint-allow: typography — type-12 plain bulk action button; no semantic preset for 12 regular */}
                   <button className="text-[var(--type-12)]">Export</button>
                   <span className="ml-auto"><X size={13} /></span>
                 </div>
@@ -409,7 +416,8 @@ export function LibraryClient() {
 
           <SubSection title="Form group · validation">
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5 max-w-[560px]">
-              <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)] mb-1">Carrier contact</div>
+              <div className="text-heading-h5 mb-1">Carrier contact</div>
+              {/* lumen-lint-allow: typography — type-12 plain form helper; no semantic preset for 12 regular */}
               <p className="text-[var(--type-12)] text-[var(--text-tertiary)] mb-4">For dispatch coordination only — never used for marketing.</p>
               <div className="grid gap-3 md:grid-cols-2">
                 <Field label="First name"><TextInput defaultValue="Jordan" /></Field>
@@ -513,7 +521,7 @@ export function LibraryClient() {
           <div className="grid gap-3 md:grid-cols-2">
             <FileDropzone />
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4">
-              <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] mb-3">Upload progress</div>
+              <div className="text-heading-h6 mb-3">Upload progress</div>
               <div className="flex flex-col gap-2.5">
                 <UploadRow name="bol-2026-04-29.pdf" pct={100} />
                 <UploadRow name="rate-confirmation.pdf" pct={62} />
@@ -592,7 +600,8 @@ export function LibraryClient() {
                 <Button size="sm" intent="secondary">Hover me</Button>
               </Tooltip>
               <Popover>
-                <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] mb-1">About this rate</div>
+                <div className="text-heading-h6 mb-1">About this rate</div>
+                {/* lumen-lint-allow: typography — type-12 plain popover helper; no semantic preset for 12 regular */}
                 <p className="text-[var(--type-12)] text-[var(--text-tertiary)]">Spot rates refresh every 90 seconds and reflect the live market on a confidence-weighted basis.</p>
               </Popover>
             </div>
@@ -828,7 +837,8 @@ export function LibraryClient() {
               <Showcase label="Heatmap (activity)"><Heatmap rows={7} cols={20} label="Booking activity · last 20 weeks" /></Showcase>
               <Showcase label="Cohort retention"><Cohort /></Showcase>
               <Showcase label="Sparkline (inline)">
-                <div className="flex items-center gap-3 w-full"><span className="text-[var(--type-13)] text-[var(--text-secondary)]">Volume</span><MiniSparkline data={[12,14,11,16,13,18,21,19,23,28,24,30]} /><span className="lumen-mono text-[var(--type-13)]">+34%</span></div>
+                {/* lumen-lint-allow: typography — type-13 mono regular sparkline delta; no semantic preset for mono+regular at 13 */}
+                <div className="flex items-center gap-3 w-full"><span className="text-body-xs text-[var(--text-secondary)]">Volume</span><MiniSparkline data={[12,14,11,16,13,18,21,19,23,28,24,30]} /><span className="lumen-mono text-[var(--type-13)]">+34%</span></div>
               </Showcase>
               <Showcase label="Gauge"><div className="w-full flex items-center justify-around"><Gauge value={72} label="Capacity" /><Gauge value={94} label="OTD" /><Gauge value={48} label="Risk" /></div></Showcase>
             </div>
@@ -858,9 +868,9 @@ export function LibraryClient() {
               <Stat label="OTD" value="94.2" unit="%" delta="+0.6%" trend="up" />
             </StatGrid>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 text-[var(--type-13)]"><LiveDot /> Live ingest</span>
-              <span className="inline-flex items-center gap-2 text-[var(--type-13)]"><LiveDot color="var(--lumen-amber-5)" /> Lagging</span>
-              <span className="inline-flex items-center gap-2 text-[var(--type-13)]"><LiveDot color="var(--lumen-red-5)" /> Stalled</span>
+              <span className="inline-flex items-center gap-2 text-body-xs"><LiveDot /> Live ingest</span>
+              <span className="inline-flex items-center gap-2 text-body-xs"><LiveDot color="var(--lumen-amber-5)" /> Lagging</span>
+              <span className="inline-flex items-center gap-2 text-body-xs"><LiveDot color="var(--lumen-red-5)" /> Stalled</span>
             </div>
           </SubSection>
 
@@ -949,7 +959,8 @@ export function LibraryClient() {
                 </div>
               </Drawer></div>
               <div className="pt-12"><Popover>
-                <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] mb-1">Why is this rate higher?</div>
+                <div className="text-heading-h6 mb-1">Why is this rate higher?</div>
+                {/* lumen-lint-allow: typography — type-12 plain popover helper; no semantic preset for 12 regular */}
                 <p className="text-[var(--type-12)] text-[var(--text-tertiary)]">Saia raised their fuel surcharge by 11% on Wednesday. The base rate is unchanged.</p>
               </Popover></div>
               <div><CookieBanner /></div>
@@ -969,6 +980,7 @@ export function LibraryClient() {
               <PhoneFrame os="ios" height={520}>
                 <StatusBar />
                 <div className="px-4 py-2 flex items-center justify-between">
+                  {/* lumen-lint-allow: typography — type-22 mobile screen title; intermediate between heading-h3 (20) and heading-h2 (25) */}
                   <span className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Inbox</span>
                   <button className="h-9 w-9 rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[var(--text-secondary)]"><SearchIcon size={16} /></button>
                 </div>
@@ -1020,6 +1032,7 @@ export function LibraryClient() {
               <PhoneFrame os="ios" height={520}>
                 <StatusBar />
                 <div className="px-4 py-3">
+                  {/* lumen-lint-allow: typography — type-22 mobile screen title; intermediate between heading-h3 (20) and heading-h2 (25) */}
                   <span className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">New quote</span>
                 </div>
                 <div className="px-4 flex flex-col gap-3 flex-1">
@@ -1077,10 +1090,10 @@ export function LibraryClient() {
               <ProductGallery count={5} />
               <div className="flex flex-col gap-3">
                 <span className="lumen-eyebrow text-[10px]">Aero Co.</span>
-                <h3 className="text-[var(--type-28)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-tight)]">Aero Trail Runner v2</h3>
+                <h3 className="text-display-sm font-semibold">Aero Trail Runner v2</h3>
                 <RatingBlock />
                 <div className="flex items-baseline gap-3">
-                  <span className="lumen-tnum text-[var(--type-25)] font-semibold tracking-[var(--tracking-tight)]">$168.00</span>
+                  <span className="text-heading-h2 lumen-tnum">$168.00</span>
                   <span className="line-through lumen-tnum text-[var(--text-tertiary)]">$220.00</span>
                   <Tag tone="accent">−24%</Tag>
                 </div>
@@ -1169,6 +1182,7 @@ export function LibraryClient() {
                 <div className="flex flex-col gap-3 w-full">
                   <AIThinking />
                   <AIBadge />
+                  {/* lumen-lint-allow: typography — type-12 plain shimmer label; no semantic preset for 12 regular */}
                   <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mb-1">Loading shimmer</div>
                   <AIShimmer />
                 </div>
@@ -1213,7 +1227,7 @@ export function LibraryClient() {
           <div className="grid gap-4 lg:grid-cols-2 items-start">
             <NotificationCenter />
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5">
-              <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)] mb-3">Notification preferences</div>
+              <div className="text-heading-h5 mb-3">Notification preferences</div>
               <div className="flex flex-col gap-2.5">
                 <SwitchRow label="Email · daily digest" defaultChecked />
                 <SwitchRow label="Email · instant on rate accepted" defaultChecked />
@@ -1391,6 +1405,7 @@ export function Hero() {
           </SubSection>
         </Section>
 
+        {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
         <div className="mt-20 text-center text-[var(--type-12)] text-[var(--text-tertiary)]">
           End of library — last refreshed v0.4.0
         </div>
@@ -1400,6 +1415,7 @@ export function Hero() {
       <aside className="hidden lg:block">
         <nav className="sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-auto pr-2">
           <div className="lumen-eyebrow text-[10px] mb-2">On this page</div>
+          {/* lumen-lint-allow: typography — type-12 plain right-rail nav; no semantic preset for 12 regular */}
           <ul className="flex flex-col gap-0.5 text-[var(--type-12)]">
             {SECTIONS.map((s) => (
               <li key={s.id}>
@@ -1455,7 +1471,7 @@ function SwitchRow({ label, defaultChecked, disabled }: { label: string; default
   return (
     <label className="flex items-center gap-2 cursor-pointer">
       <Switch checked={c} onCheckedChange={setC} disabled={disabled} />
-      <span className="text-[var(--type-13)] text-[var(--text-secondary)]">{label}</span>
+      <span className="text-body-xs text-[var(--text-secondary)]">{label}</span>
     </label>
   );
 }
@@ -1502,7 +1518,8 @@ function UploadRow({ name, pct }: { name: string; pct: number }) {
       </span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-3">
-          <span className="text-[var(--type-13)] text-[var(--text-primary)] truncate">{name}</span>
+          <span className="text-body-xs text-[var(--text-primary)] truncate">{name}</span>
+          {/* lumen-lint-allow: typography — mono regular at 11 progress percent; no semantic preset for 11px mono */}
           <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{pct}%</span>
         </div>
         <div className="h-1 mt-1 rounded-full bg-[var(--surface-sunken)] overflow-hidden">

@@ -80,7 +80,7 @@ export function BottomSheet({
       <div className="pt-2 pb-2 flex justify-center"><span className="h-1 w-10 rounded-full bg-[var(--border-strong)]" /></div>
       {title && (
         <div className="px-4 pb-2 text-center">
-          <span className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{title}</span>
+          <span className="text-heading-h5">{title}</span>
         </div>
       )}
       <div className="px-4 pb-6 overflow-y-auto flex-1">{children}</div>
@@ -131,8 +131,8 @@ export function PermissionPrompt({
     <div className="absolute inset-0 bg-black/30 flex items-center justify-center px-6">
       <div className="w-full max-w-[280px] rounded-[14px] bg-[var(--surface-popover)] overflow-hidden">
         <div className="px-5 pt-5 pb-4 text-center">
-          <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">Allow "{appName}" to {permission}?</div>
-          <div className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-1.5 leading-[var(--leading-snug)]">{description}</div>
+          <div className="text-heading-h5">Allow "{appName}" to {permission}?</div>
+          <div className="text-body-xs text-[var(--text-tertiary)] mt-1.5 leading-[var(--leading-snug)]">{description}</div>
         </div>
         <div className="border-t border-[var(--border-hairline)]">
           <button className="w-full h-11 text-[var(--type-14)] text-[var(--text-link)] border-b border-[var(--border-hairline)]">Allow Once</button>
@@ -232,7 +232,7 @@ export function KeyboardAccessoryBar() {
 export function CoachMark() {
   return (
     <div className="rounded-[var(--radius-md)] bg-[var(--lumen-obsidian-9)] text-white p-3 max-w-[260px] shadow-[var(--shadow-modal)]">
-      <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">New: Quick rates</div>
+      <div className="text-heading-h6">New: Quick rates</div>
       <p className="text-[var(--type-12)] text-[var(--lumen-obsidian-2)] mt-1 leading-[var(--leading-snug)]">
         Quote a lane in three taps. Swipe up from the bottom edge to begin.
       </p>
