@@ -42,12 +42,13 @@
       "wide":    { "$value": { "value": 75,   "unit": "ch" }, "$description": "Editorial body cap; wider tolerance for sans body." }
     },
     "control": {
-      "sm":      { "$value": "{dimension.8}",  "$description": "32 px — compact button / input height. Desktop only." },
+      "xs":      { "$value": "{dimension.6}",  "$description": "v0.9 — 24 px table-row inline action / chip-close / segment cell. Desktop-density only; below the 44 px touch floor." },
+      "sm":      { "$value": "{dimension.8}",  "$description": "32 px — compact button / input height. Linear/Carbon operator default. Desktop-density only." },
       "cozy":    { "$value": "{dimension.9}",  "$description": "v0.8 — 36 px settings-panel sweet spot. Density tier between sm and md. Tab-nav, mood-switcher, library skeletons consume." },
-      "md":      { "$value": "{dimension.10}", "$description": "40 px — default control height" },
-      "touch":   { "$value": "{dimension.11}", "$description": "44 px — Apple HIG minimum touch target" },
+      "md":      { "$value": "{dimension.10}", "$description": "40 px — default control height. Lumen Button default size." },
+      "touch":   { "$value": "{dimension.11}", "$description": "44 px — Apple HIG minimum touch target. Mobile floor." },
       "lg":      { "$value": "{dimension.12}", "$description": "48 px — large CTA / form height. Mobile / marketing." },
-      "xl":      { "$value": "{dimension.14}", "$description": "v0.8 — 56 px hero pill CTA. Button.xl tier." }
+      "xl":      { "$value": "{dimension.14}", "$description": "v0.8 — 56 px hero pill CTA. Button.xl tier (added v0.4)." }
     },
     "scrollbar": { "$value": "{dimension.2}", "$description": "v0.8 — 8 px scrollbar track width. Used in ::-webkit-scrollbar." },
     "dot": {

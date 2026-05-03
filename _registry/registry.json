@@ -93,6 +93,21 @@
     },
     {
       "$ref": "./file-dropzone.json"
+    },
+    {
+      "$ref": "./icon-button.json"
+    },
+    {
+      "$ref": "./button-group.json"
+    },
+    {
+      "$ref": "./split-button.json"
+    },
+    {
+      "$ref": "./command-palette-button.json"
+    },
+    {
+      "$ref": "./fab.json"
     }
   ]
 }

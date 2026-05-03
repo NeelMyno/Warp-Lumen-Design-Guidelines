@@ -1,0 +1,67 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SplitButton",
+  "version": "0.9.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Primary action + dropdown caret in a single joined affordance. Used for actions with a default and 1–4 close-cousin alternates.",
+  "props": {
+    "children":   { "type": "node", "optional": false, "description": "Label of the primary action half." },
+    "intent":     { "type": "enum", "values": ["primary", "secondary", "outline", "ghost", "danger", "ai"], "default": "primary", "optional": true },
+    "size":       { "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "optional": true },
+    "leadingIcon":{ "type": "icon", "optional": true },
+    "menuLabel":  { "type": "string", "optional": false, "description": "REQUIRED — accessible name for the dropdown trigger. Example: 'More save options'." },
+    "onAction":   { "type": "handler", "optional": true, "description": "Click handler for the primary action half." },
+    "onMenuOpen": { "type": "handler", "optional": true, "description": "Click handler for the dropdown trigger. Wire whatever menu component (Radix DropdownMenu, cmdk popover) you use." },
+    "loading":    { "type": "boolean", "default": false, "optional": true },
+    "disabled":   { "type": "boolean", "default": false, "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.action.primary.bg.rest",
+      "color.action.primary.fg",
+      "color.action.primary.border",
+      "color.action.outline.border.rest",
+      "size.control.md",
+      "radius.control.md"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Enter (on action half) - activate",
+      "Space (on action half) - activate",
+      "ArrowDown (on menu half) - opens menu",
+      "Tab - moves focus from action half to menu half"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='group' on the wrapper.",
+      "Menu trigger uses aria-haspopup='menu'.",
+      "menuLabel prop is REQUIRED — the icon-only menu trigger needs an accessible name."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use when the primary action has 1–4 close-cousin alternates: 'Save / Save as draft / Save & continue', 'Quote / Quote with AI / Quote + book'.",
+      "Match action and menu intents — same intent on both halves.",
+      "Surface the most common alternate as the menu's first item."
+    ],
+    "dont": [
+      "Don't use SplitButton if there's only one alternate — that's a regular Button + a single follow-up.",
+      "Don't use SplitButton for unrelated actions — that's Toolbar.",
+      "Don't bury the primary action inside the menu — the action half is the entry point."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Button", "ButtonGroup", "DropdownMenu", "Tooltip"],
+  "changelog": [
+    { "version": "0.9.0", "type": "Added", "note": "Formal SplitButton primitive. Joined action + ChevronDown trigger with hairline divider; aria-haspopup='menu' on trigger." }
+  ]
+}

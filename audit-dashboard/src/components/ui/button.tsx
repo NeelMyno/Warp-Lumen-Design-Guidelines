@@ -1,3 +1,29 @@
+/**
+ * v0.9 — Lumen Button (vendor primitive)
+ * ----------------------------------------------------------------------------
+ * The cva variants compose CSS classes declared in
+ * `audit-dashboard/src/app/globals.css` (`.lumen-btn`, `.lumen-btn-{intent}`,
+ * `.lumen-btn-{size}`, `.lumen-btn-pill`, `.lumen-icon-button`, etc.).
+ *
+ * Why CSS classes, not Tailwind arbitrary-values:
+ *   - v0.8.1 (ADR 0015) found Tailwind v4's content scanner intermittently
+ *     drops the shadcn token-bridge utilities (`bg-primary`, `text-primary-foreground`).
+ *     We pinned direct refs (`bg-[var(--lumen-accent-4)]`) per surface.
+ *   - v0.9 generalises: the intent surfaces, sizes, and shape live in CSS
+ *     (`.lumen-btn-primary` etc.) so the button is independent of Tailwind's
+ *     content-scanning behavior and doesn't depend on `@theme inline` working.
+ *   - Side benefit: hover, focus-visible, active, disabled, aria-busy, and the
+ *     glow ladder are all encoded once in CSS state selectors. The cva is
+ *     short and the runtime stays predictable across dev / prod / SSR.
+ *
+ * Five sizes: xs (24) / sm (32) / md (40, default) / lg (48) / xl (56).
+ * Eight intents: primary / secondary / outline / tertiary / ghost / danger /
+ *   danger-soft / ai (+ destructive alias for shadcn parity, link for inline use).
+ * Three shapes: rect (default) / pill / round (icon-only square + full radius).
+ *
+ * AGENTS.md hard rule #9 + ADR 0016 cover the no-white-on-lime guarantee.
+ */
+
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -5,36 +31,55 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] text-sm font-medium tracking-[var(--tracking-tight)] transition-[background-color,border-color,color,transform] disabled:pointer-events-none disabled:opacity-40 outline-none focus-visible:shadow-[var(--shadow-focus)] [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 active:translate-y-px select-none",
+  /* Base — every button gets these. globals.css `.lumen-btn` ships layout,
+     transitions, focus-visible, disabled, no-transform press feedback. */
+  "lumen-btn",
   {
     variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground font-semibold hover:bg-[var(--lumen-accent-5)] active:bg-[var(--lumen-accent-6)]",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-[var(--lumen-red-6)] active:bg-[var(--lumen-red-7)]",
-        outline: "border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)]",
-        secondary: "bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-strong)]",
-        ghost: "text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]",
-        link: "text-[var(--text-link)] underline-offset-4 hover:underline",
+      /* INTENT — role: what the button means. Composed with shape/size externally. */
+      intent: {
+        default:       "lumen-btn-primary",
+        primary:       "lumen-btn-primary",
+        secondary:     "lumen-btn-secondary",
+        outline:       "lumen-btn-outline",
+        tertiary:      "lumen-btn-tertiary",
+        ghost:         "lumen-btn-ghost",
+        destructive:   "lumen-btn-danger",
+        danger:        "lumen-btn-danger",
+        "danger-soft": "lumen-btn-danger-soft",
+        ai:            "lumen-btn-ai",
+        glass:         "lumen-btn-glass",
+        link:          "lumen-btn-ghost underline-offset-4 hover:underline",
       },
-      /* v0.5: Button size ramp uses raw type tokens (12/13/14/15/16) — finer-grained than text-label-sm/md/lg ramp; review for consolidation. */
+      /* SIZE — height tier. Defaults to md (40 px). */
       size: {
-        default: "h-10 px-4 has-[>svg]:px-3",
-        xs: "h-7 rounded-[var(--radius-sm)] gap-1.5 px-2 has-[>svg]:px-1.5 text-[var(--type-12)]",
-        sm: "h-8 rounded-[var(--radius-md)] gap-2 px-3 has-[>svg]:px-2.5 text-[var(--type-13)]",
-        md: "h-10 px-4 text-[var(--type-14)]",
-        lg: "h-12 rounded-[var(--radius-lg)] px-6 text-[var(--type-15)] has-[>svg]:px-5",
-        xl: "h-14 rounded-[var(--radius-full)] px-8 gap-2.5 text-[var(--type-16)]",
-        icon: "size-10",
+        default: "lumen-btn-md",
+        xs:      "lumen-btn-xs",
+        sm:      "lumen-btn-sm",
+        md:      "lumen-btn-md",
+        lg:      "lumen-btn-lg",
+        xl:      "lumen-btn-xl",
+        /* `icon` is shorthand for size=md + IconButton aspect. New code should
+           prefer the dedicated <IconButton /> component, but `size="icon"` is
+           preserved for shadcn parity. */
+        icon:    "lumen-btn-md lumen-icon-button",
+      },
+      /* SHAPE — rect / pill / round. Composes with size. Round = square + full radius. */
+      shape: {
+        rect:  "",
+        pill:  "lumen-btn-pill",
+        round: "lumen-icon-button lumen-btn-round",
       },
     },
-    defaultVariants: { variant: "default", size: "default" },
+    defaultVariants: { intent: "default", size: "default", shape: "rect" },
   },
 );
 
 function Button({
   className,
-  variant,
+  intent,
   size,
+  shape,
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
@@ -43,7 +88,9 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      data-intent={intent ?? "default"}
+      data-shape={shape ?? "rect"}
+      className={cn(buttonVariants({ intent, size, shape }), className)}
       {...props}
     />
   );

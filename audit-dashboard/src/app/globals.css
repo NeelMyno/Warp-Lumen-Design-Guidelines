@@ -117,6 +117,52 @@
   --lumen-paper-a72: rgba(255, 255, 255, 0.72);
   --lumen-paper-a86: rgba(255, 255, 255, 0.86);
 
+  /* ── v0.9 — Button anatomy: per-size paddings, gaps, icon dims, label types ────
+     Bound here so the Tailwind arbitrary-value scanner emits direct utilities and
+     the cva button variants resolve through ONE var() hop, not three. The shadcn
+     bridge (`bg-primary` etc.) was unreliable in dev (v0.8.1 ADR 0015); the v0.9
+     direct-ref pattern extends the same fix to every Button surface. */
+  --button-padding-x-xs:  8px;
+  --button-padding-y-xs:  0;
+  --button-padding-x-sm:  12px;
+  --button-padding-y-sm:  4px;
+  --button-padding-x-md:  16px;
+  --button-padding-y-md:  8px;
+  --button-padding-x-lg:  20px;
+  --button-padding-y-lg:  12px;
+  --button-padding-x-xl:  32px;
+  --button-padding-y-xl:  16px;
+  /* Pill shape adds ~50% to horizontal inset (gives the elongated read). */
+  --button-padding-x-xs-pill:  12px;
+  --button-padding-x-sm-pill:  18px;
+  --button-padding-x-md-pill:  24px;
+  --button-padding-x-lg-pill:  30px;
+  --button-padding-x-xl-pill:  40px;
+
+  --button-gap-xs:  4px;
+  --button-gap-sm:  6px;
+  --button-gap-md:  8px;
+  --button-gap-lg:  8px;
+  --button-gap-xl:  12px;
+
+  --button-icon-xs: 12px;
+  --button-icon-sm: 12px;
+  --button-icon-md: 14px;
+  --button-icon-lg: 16px;
+  --button-icon-xl: 20px;
+
+  /* ── v0.9 — Glow ladder, primary intent only ──────────────────────────────
+     Three-state: rest / hover / active. Reserved exclusively for primary CTAs
+     on operator pages (and AI when configured). Other intents and surfaces ship
+     zero glow at all states. Honors `prefers-reduced-motion: reduce` (the
+     transition is dropped; the glow stays steady at the rest value). */
+  --shadow-button-glow-rest:   0 0 16px rgba(74, 222, 128, 0.25);
+  --shadow-button-glow-hover:  0 0 24px rgba(74, 222, 128, 0.40);
+  --shadow-button-glow-active: 0 0 8px  rgba(74, 222, 128, 0.20);
+
+  /* ── v0.9 — AI-action shimmer border (idle, paused on hover) ─────────────── */
+  --shadow-button-ai-shimmer:  0 0 0 1px rgba(74, 222, 128, 0.32);
+
   /* lime alphas — the signature ambient glow stack */
   --lumen-lime-a08:  rgba(74, 222, 128, 0.08);
   --lumen-lime-a14:  rgba(74, 222, 128, 0.14);
@@ -260,6 +306,7 @@
      The v0.7 dashboard had two parallel scales (--height-ctrl-* declared, --size-control-*
      referenced but never defined → .lumen-field had undefined height). v0.8 picks
      the JSON name (--size-control-*) as canonical. */
+  --size-control-xs:    24px;        /* v0.9 — table-row inline action / chip-close. Desktop-density only; below the 44 px touch floor */
   --size-control-sm:    32px;        /* compact button / input — desktop only */
   --size-control-cozy:  36px;        /* v0.8 — settings-panel sweet spot, density tier */
   --size-control-md:    40px;        /* DEFAULT */
@@ -479,6 +526,16 @@
   --shadow-inset: inset 0 1px 0 0 var(--lumen-paper-a08);
   /* v0.6 — Reconciled with shadow.focus token (was 3.5px / a40; now 3px / a32 to match JSON SoT). */
   --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
+  /* v0.9 — Dual-ring focus indicator. Atlassian's 2024 fix: a single colored ring
+     fails the 3:1 contrast floor (WCAG 2.4.13) when the button's background is the
+     same color as the ring. The dual ring places a 2 px page-canvas-colored
+     separator BETWEEN the button and a 4 px accent halo, guaranteeing 3:1 on
+     any surface. Apply on focus-visible for primary lime buttons + any surface
+     where the focus ring could approach the button's bg color.
+     Composition: 0 0 0 2px canvas (inner separator), 0 0 0 4px lime (outer halo). */
+  --shadow-focus-dual:
+    0 0 0 2px var(--surface-canvas),
+    0 0 0 4px var(--lumen-accent-4);
   /* v0.6 — Field-shell-scoped shadows. .lumen-field consumes these; the inner
      <input> never paints a ring. lit-edge composes under focus/error halos
      via comma-separation to preserve the glass-pane top-reflection effect. */
@@ -499,6 +556,10 @@
      installed shadcn primitives wear Lumen colors automatically. Components
      reference these via Tailwind classes (bg-background, text-foreground,
      bg-card, etc.). The full bridge is mirrored in the LIGHT theme below.
+     v0.8.1: Vendor primitives (button, badge, card, popover, sheet, progress,
+     slider) now use direct refs and bypass the bridge; ADR 0015 explains.
+     v0.9: Action-surface bridge — every Button intent×surface combo gets a
+     pair of vars so the cva button can resolve through ONE var() hop.
   */
   --background:         var(--surface-canvas);
   --foreground:         var(--text-primary);
@@ -514,13 +575,74 @@
   --muted-foreground:   var(--text-tertiary);
   --accent:             var(--surface-tint-accent);
   --accent-foreground:  var(--text-accent);
-  --destructive:        var(--lumen-red-5);
+  --destructive:        var(--lumen-red-6); /* v0.9 — was red-5 (#e23b3b, 3.94:1 AA fail). Now red-6 (#c92626, ~5.2:1 AA pass). */
   --destructive-foreground: #ffffff;
   --border:             var(--border-default);
   --input:              var(--border-default);
   --ring:               var(--border-focus);
   /* shadcn radius — uses --radius as base; --radius-* tokens stay Lumen */
   --radius:             var(--radius-md);
+
+  /* ─────────────────────  v0.9 ACTION SURFACE BRIDGE (DARK)  ──────────────
+     Per-intent×per-surface tokens. The vendor cva button consumes these via
+     `bg-[var(--color-action-{intent}-bg-{state})]` direct-ref utilities. Each
+     pair guarantees one-hop resolution and keeps Tailwind v4's content scanner
+     happy (the bracket syntax always compiles).
+  */
+  --color-action-primary-bg-rest:    var(--lumen-accent-4);
+  --color-action-primary-bg-hover:   var(--lumen-accent-5);
+  --color-action-primary-bg-press:   var(--lumen-accent-6);
+  --color-action-primary-fg:         var(--lumen-accent-fg); /* #0a0a0d — 12.6:1 AAA */
+  --color-action-primary-border:     transparent;
+
+  --color-action-secondary-bg-rest:  var(--surface-raised);
+  --color-action-secondary-bg-hover: var(--surface-sunken);
+  --color-action-secondary-bg-press: var(--surface-sunken);
+  --color-action-secondary-fg:       var(--text-primary);
+  --color-action-secondary-border:   var(--border-default);
+
+  --color-action-outline-bg-rest:    transparent;
+  --color-action-outline-bg-hover:   var(--lumen-paper-a04);
+  --color-action-outline-bg-press:   var(--lumen-paper-a08);
+  --color-action-outline-fg:         var(--text-primary);
+  --color-action-outline-border:     var(--lumen-paper-a16);
+  --color-action-outline-border-hover: var(--lumen-paper-a24);
+
+  --color-action-ghost-bg-rest:      transparent;
+  --color-action-ghost-bg-hover:     var(--lumen-paper-a06);
+  --color-action-ghost-bg-press:     var(--lumen-paper-a08);
+  --color-action-ghost-fg:           var(--text-primary);
+
+  --color-action-danger-bg-rest:     var(--lumen-red-6);  /* v0.9 — deepened for AA */
+  --color-action-danger-bg-hover:    var(--lumen-red-7);
+  --color-action-danger-bg-press:    var(--lumen-red-7);
+  --color-action-danger-fg:          #ffffff;
+  --color-action-danger-border:      transparent;
+
+  --color-action-danger-soft-bg-rest:  transparent;
+  --color-action-danger-soft-bg-hover: rgba(201,38,38,0.12);
+  --color-action-danger-soft-bg-press: rgba(201,38,38,0.18);
+  --color-action-danger-soft-fg:       #f48a86; /* matches --text-error */
+
+  --color-action-ai-bg-rest:         var(--lumen-lime-a14);
+  --color-action-ai-bg-hover:        var(--lumen-lime-a24);
+  --color-action-ai-bg-press:        var(--lumen-lime-a32);
+  --color-action-ai-fg:              var(--lumen-accent-3); /* laser lime */
+  --color-action-ai-border:          var(--lumen-lime-a40);
+
+  --color-action-success-bg:         var(--lumen-lime-a24);
+  --color-action-success-fg:         var(--lumen-accent-3);
+  --color-action-success-border:     var(--lumen-lime-a40);
+
+  --color-action-selected-bg:        var(--lumen-lime-a14);
+  --color-action-selected-fg:        var(--text-primary);
+  --color-action-selected-border:    var(--lumen-accent-4);
+
+  --color-action-glass-bg-rest:      var(--surface-glass);
+  --color-action-glass-bg-hover:     rgba(20,20,26,0.72);
+  --color-action-glass-bg-press:     rgba(20,20,26,0.86);
+  --color-action-glass-fg:           var(--text-primary);
+  --color-action-glass-border:       var(--lumen-paper-a10);
 
   /* Chart palette — used by recharts when wrapped in shadcn's <ChartContainer>. */
   --chart-1: var(--lumen-accent-5);
@@ -639,6 +761,12 @@
   /* v0.6 — Reconciled with shadow.focus token. Light mode keeps the same
      3px / a32 recipe; the lime stroke + halo read clearly on cream. */
   --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
+  /* v0.9 — Dual-ring focus indicator for lime-accent surfaces (Atlassian 2024 pattern).
+     Inner ring matches the canvas (cream paper in light mode), outer ring is the lime accent.
+     Identical recipe to dark mode — only --surface-canvas resolves differently. */
+  --shadow-focus-dual:
+    0 0 0 2px var(--surface-canvas),
+    0 0 0 4px var(--lumen-accent-4);
   /* v0.6 — Field-shell-scoped shadows. lit-edge is no-op on light mode
      (cream paper doesn't have a glass top reflection); declared transparent
      so the comma-stack composes cleanly. */
@@ -672,12 +800,70 @@
   --muted-foreground:   var(--text-tertiary);
   --accent:             var(--surface-tint-accent);
   --accent-foreground:  var(--text-accent);
-  --destructive:        var(--lumen-red-5);
+  --destructive:        var(--lumen-red-6); /* v0.9 — was red-5; deepened for AA Normal pass. */
   --destructive-foreground: #ffffff;
   --border:             var(--border-default);
   --input:              var(--border-default);
   --ring:               var(--border-focus);
   --radius:             var(--radius-md);
+
+  /* ─────────────────────  v0.9 ACTION SURFACE BRIDGE (LIGHT)  ─────────────
+     Mirrors the DARK bridge — same keys, light-theme values.
+  */
+  --color-action-primary-bg-rest:    var(--lumen-accent-4);
+  --color-action-primary-bg-hover:   var(--lumen-accent-5);
+  --color-action-primary-bg-press:   var(--lumen-accent-6);
+  --color-action-primary-fg:         var(--lumen-accent-fg); /* same #0a0a0d in both themes */
+  --color-action-primary-border:     transparent;
+
+  --color-action-secondary-bg-rest:  #ffffff;
+  --color-action-secondary-bg-hover: var(--lumen-cream-1);
+  --color-action-secondary-bg-press: var(--lumen-cream-1);
+  --color-action-secondary-fg:       var(--text-primary);
+  --color-action-secondary-border:   var(--border-default);
+
+  --color-action-outline-bg-rest:    transparent;
+  --color-action-outline-bg-hover:   var(--lumen-ink-a04);
+  --color-action-outline-bg-press:   var(--lumen-ink-a08);
+  --color-action-outline-fg:         var(--text-primary);
+  --color-action-outline-border:     var(--lumen-ink-a16);
+  --color-action-outline-border-hover: var(--lumen-ink-a24);
+
+  --color-action-ghost-bg-rest:      transparent;
+  --color-action-ghost-bg-hover:     var(--lumen-ink-a06);
+  --color-action-ghost-bg-press:     var(--lumen-ink-a08);
+  --color-action-ghost-fg:           var(--text-primary);
+
+  --color-action-danger-bg-rest:     var(--lumen-red-6);
+  --color-action-danger-bg-hover:    var(--lumen-red-7);
+  --color-action-danger-bg-press:    var(--lumen-red-7);
+  --color-action-danger-fg:          #ffffff;
+  --color-action-danger-border:      transparent;
+
+  --color-action-danger-soft-bg-rest:  transparent;
+  --color-action-danger-soft-bg-hover: rgba(201,38,38,0.08);
+  --color-action-danger-soft-bg-press: rgba(201,38,38,0.14);
+  --color-action-danger-soft-fg:       var(--lumen-red-7);
+
+  --color-action-ai-bg-rest:         var(--lumen-lime-a14);
+  --color-action-ai-bg-hover:        var(--lumen-lime-a24);
+  --color-action-ai-bg-press:        var(--lumen-lime-a32);
+  --color-action-ai-fg:              var(--lumen-accent-8); /* deep accent on cream */
+  --color-action-ai-border:          var(--lumen-lime-a40);
+
+  --color-action-success-bg:         var(--lumen-lime-a24);
+  --color-action-success-fg:         var(--lumen-accent-8);
+  --color-action-success-border:     var(--lumen-lime-a40);
+
+  --color-action-selected-bg:        var(--lumen-lime-a14);
+  --color-action-selected-fg:        var(--text-primary);
+  --color-action-selected-border:    var(--lumen-accent-4);
+
+  --color-action-glass-bg-rest:      var(--surface-glass);
+  --color-action-glass-bg-hover:     rgba(255,255,255,0.84);
+  --color-action-glass-bg-press:     rgba(255,255,255,0.94);
+  --color-action-glass-fg:           var(--text-primary);
+  --color-action-glass-border:       var(--lumen-ink-a12);
 
   --chart-1: var(--lumen-accent-6);
   --chart-2: var(--lumen-cream-7);
@@ -840,12 +1026,26 @@
   --container-reading: var(--size-reading-default);
 
   /* ─── v0.8 — Control-height utilities (h-control-sm / h-control-cozy / etc.) ─── */
+  --height-control-xs:    var(--size-control-xs);   /* v0.9 */
   --height-control-sm:    var(--size-control-sm);
   --height-control-cozy:  var(--size-control-cozy);
   --height-control-md:    var(--size-control-md);
   --height-control-touch: var(--size-control-touch);
   --height-control-lg:    var(--size-control-lg);
   --height-control-xl:    var(--size-control-xl);
+
+  /* ─── v0.9 — Action-surface utility shorthands.
+       The vendor cva Button consumes per-state vars (`bg-[var(--color-action-primary-bg-rest)]`)
+       directly — the bracket syntax always compiles in Tailwind v4. We don't republish the
+       per-state vars under @theme aliases (would create self-referential cycles) — instead
+       we publish ONE rest-state alias per intent for places that need a shorter utility name
+       like `bg-action-primary`. */
+  --color-action-primary-bg:           var(--color-action-primary-bg-rest);
+  --color-action-secondary-bg:         var(--color-action-secondary-bg-rest);
+  --color-action-outline-bg:           var(--color-action-outline-bg-rest);
+  --color-action-ghost-bg:             var(--color-action-ghost-bg-rest);
+  --color-action-danger-bg:            var(--color-action-danger-bg-rest);
+  --color-action-ai-bg:                var(--color-action-ai-bg-rest);
 
 }
 
@@ -2033,6 +2233,314 @@ html[data-font="inter"] {
 }
 
 /* v0.4 — lime-glow CTA halo. For primary hero actions only. */
+.lumen-glow-cta {
+  box-shadow: var(--shadow-glow-accent-strong);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LUMEN · v0.9 — BUTTON SYSTEM
+   ----------------------------------------------------------------------------
+   Defensive .lumen-btn-* classes for every intent. Used as a single-class
+   shorthand outside the Button primitive (raw <a> CTAs, templated buttons,
+   custom action surfaces). The vendor cva button at audit-dashboard/src/
+   components/ui/button.tsx uses the SAME --color-action-* refs internally.
+
+   No transform on press. Press feedback = bg color shift + filter brightness
+   + glow ladder shrink. Decelerate-not-bounce per ADR 0016.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Shared base — every variant inherits this. */
+.lumen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap-md);
+  padding-inline: var(--button-padding-x-md);
+  padding-block:  var(--button-padding-y-md);
+  height: var(--size-control-md);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+  font-size: var(--type-14);
+  font-weight: 600; /* v0.4 contrast pass — semibold lifts the operator-confident voice */
+  letter-spacing: 0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition:
+    background-color 120ms cubic-bezier(0.2, 0, 0, 1),
+    border-color     120ms cubic-bezier(0.2, 0, 0, 1),
+    color            120ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow       120ms cubic-bezier(0.2, 0, 0, 1),
+    filter           80ms  cubic-bezier(0.2, 0, 0, 1);
+}
+.lumen-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+.lumen-btn:disabled,
+.lumen-btn[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.lumen-btn:active:not(:disabled):not([aria-disabled="true"]) {
+  filter: brightness(0.92);
+  /* No transform. No translate. No scale. Decelerate, don't bounce. */
+}
+.lumen-btn svg {
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+/* Sizes — apply via .lumen-btn-{size}. Five tiers: xs (24) / sm (32) / md (40 default) / lg (48) / xl (56). */
+.lumen-btn-xs { height: var(--size-control-xs); padding-inline: var(--button-padding-x-xs); padding-block: var(--button-padding-y-xs); gap: var(--button-gap-xs); font-size: var(--type-12); }
+.lumen-btn-xs svg { width: var(--button-icon-xs); height: var(--button-icon-xs); }
+.lumen-btn-sm { height: var(--size-control-sm); padding-inline: var(--button-padding-x-sm); padding-block: var(--button-padding-y-sm); gap: var(--button-gap-sm); font-size: var(--type-13); }
+.lumen-btn-sm svg { width: var(--button-icon-sm); height: var(--button-icon-sm); }
+.lumen-btn-md { height: var(--size-control-md); padding-inline: var(--button-padding-x-md); padding-block: var(--button-padding-y-md); gap: var(--button-gap-md); font-size: var(--type-14); }
+.lumen-btn-md svg { width: var(--button-icon-md); height: var(--button-icon-md); }
+.lumen-btn-lg { height: var(--size-control-lg); padding-inline: var(--button-padding-x-lg); padding-block: var(--button-padding-y-lg); gap: var(--button-gap-lg); font-size: var(--type-15); }
+.lumen-btn-lg svg { width: var(--button-icon-lg); height: var(--button-icon-lg); }
+.lumen-btn-xl { height: var(--size-control-xl); padding-inline: var(--button-padding-x-xl); padding-block: var(--button-padding-y-xl); gap: var(--button-gap-xl); font-size: var(--type-16); font-weight: 700; }
+.lumen-btn-xl svg { width: var(--button-icon-xl); height: var(--button-icon-xl); }
+
+/* Pill shape — full radius + extra horizontal padding. */
+.lumen-btn-pill { border-radius: var(--radius-full); }
+.lumen-btn-pill.lumen-btn-xs { padding-inline: var(--button-padding-x-xs-pill); }
+.lumen-btn-pill.lumen-btn-sm { padding-inline: var(--button-padding-x-sm-pill); }
+.lumen-btn-pill.lumen-btn-md { padding-inline: var(--button-padding-x-md-pill); }
+.lumen-btn-pill.lumen-btn-lg { padding-inline: var(--button-padding-x-lg-pill); }
+.lumen-btn-pill.lumen-btn-xl { padding-inline: var(--button-padding-x-xl-pill); }
+
+/* ────────────────────────────  INTENTS  ────────────────────────────────── */
+
+/* PRIMARY — lime fill, accent.fg text, three-state glow ladder.
+   v0.8.1 root-cause: the shadcn `bg-primary text-primary-foreground` bridge
+   was unreliable in dev. v0.9 pins direct refs across every state.
+   12.6:1 contrast (#0a0a0d on #4ade80) — AAA. */
+.lumen-btn-primary {
+  background-color: var(--color-action-primary-bg-rest);
+  color:            var(--color-action-primary-fg);
+  border-color:     var(--color-action-primary-border);
+  box-shadow:       var(--shadow-button-glow-rest);
+}
+.lumen-btn-primary:hover {
+  background-color: var(--color-action-primary-bg-hover);
+  color:            var(--color-action-primary-fg);
+  box-shadow:       var(--shadow-button-glow-hover);
+}
+.lumen-btn-primary:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-action-primary-bg-press);
+  color:            var(--color-action-primary-fg);
+  box-shadow:       var(--shadow-button-glow-active);
+}
+.lumen-btn-primary:focus-visible {
+  outline: none;
+  /* Dual-ring focus — neutral inner separator + lime outer halo. */
+  box-shadow:
+    var(--shadow-button-glow-rest),
+    var(--shadow-focus-dual);
+}
+.lumen-btn-primary:disabled,
+.lumen-btn-primary[aria-disabled="true"] { box-shadow: none; }
+
+/* SECONDARY — raised surface, hairline border. Same height as primary, no glow. */
+.lumen-btn-secondary {
+  background-color: var(--color-action-secondary-bg-rest);
+  color:            var(--color-action-secondary-fg);
+  border-color:     var(--color-action-secondary-border);
+}
+.lumen-btn-secondary:hover  { background-color: var(--color-action-secondary-bg-hover);  border-color: var(--border-strong); }
+.lumen-btn-secondary:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-secondary-bg-press); }
+
+/* OUTLINE — transparent fill + 1 px hairline ink border. The Glassmorphism reference's "secondary." */
+.lumen-btn-outline {
+  background-color: var(--color-action-outline-bg-rest);
+  color:            var(--color-action-outline-fg);
+  border-color:     var(--color-action-outline-border);
+}
+.lumen-btn-outline:hover  { background-color: var(--color-action-outline-bg-hover);  border-color: var(--color-action-outline-border-hover); }
+.lumen-btn-outline:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-outline-bg-press); }
+
+/* GHOST / TERTIARY — no chrome, hover-only feedback. */
+.lumen-btn-ghost,
+.lumen-btn-tertiary {
+  background-color: var(--color-action-ghost-bg-rest);
+  color:            var(--color-action-ghost-fg);
+  border-color:     transparent;
+}
+.lumen-btn-ghost:hover, .lumen-btn-tertiary:hover { background-color: var(--color-action-ghost-bg-hover); }
+.lumen-btn-ghost:active:not(:disabled):not([aria-disabled="true"]),
+.lumen-btn-tertiary:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-ghost-bg-press); }
+
+/* DANGER — deep red fill, white text, AA Normal pass. */
+.lumen-btn-danger {
+  background-color: var(--color-action-danger-bg-rest);
+  color:            var(--color-action-danger-fg);
+  border-color:     var(--color-action-danger-border);
+}
+.lumen-btn-danger:hover  { background-color: var(--color-action-danger-bg-hover); }
+.lumen-btn-danger:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-danger-bg-press); }
+
+/* DANGER-SOFT — destructive in tight contexts (Carbon's danger-ghost). */
+.lumen-btn-danger-soft {
+  background-color: var(--color-action-danger-soft-bg-rest);
+  color:            var(--color-action-danger-soft-fg);
+  border-color:     transparent;
+}
+.lumen-btn-danger-soft:hover  { background-color: var(--color-action-danger-soft-bg-hover); }
+.lumen-btn-danger-soft:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-danger-soft-bg-press); }
+
+/* AI — tonal lime + sparkle leading icon + idle 1 px shimmer border (paused on hover/focus). */
+.lumen-btn-ai {
+  background-color: var(--color-action-ai-bg-rest);
+  color:            var(--color-action-ai-fg);
+  border-color:     var(--color-action-ai-border);
+  box-shadow:       var(--shadow-button-ai-shimmer);
+  animation: lumen-btn-ai-shimmer 1.6s ease-in-out infinite;
+}
+.lumen-btn-ai:hover, .lumen-btn-ai:focus-visible {
+  animation-play-state: paused;
+  background-color: var(--color-action-ai-bg-hover);
+}
+.lumen-btn-ai:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-ai-bg-press); animation-play-state: paused; }
+
+@keyframes lumen-btn-ai-shimmer {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.32); }
+  50%      { box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.64), 0 0 12px rgba(74, 222, 128, 0.18); }
+}
+
+/* SUCCESS — brief 1.6 s post-action affirmation state (Saved, Booked, Quoted). */
+.lumen-btn-success {
+  background-color: var(--color-action-success-bg);
+  color:            var(--color-action-success-fg);
+  border-color:     var(--color-action-success-border);
+}
+
+/* SELECTED — aria-pressed=true on Toggle / Segmented. Subtle lime tint + lime hairline. */
+.lumen-btn-selected {
+  background-color: var(--color-action-selected-bg);
+  color:            var(--color-action-selected-fg);
+  border-color:     var(--color-action-selected-border);
+}
+
+/* GLASS — translucent + backdrop blur. Floating overlays only. */
+.lumen-btn-glass {
+  background-color: var(--color-action-glass-bg-rest);
+  color:            var(--color-action-glass-fg);
+  border-color:     var(--color-action-glass-border);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+.lumen-btn-glass:hover  { background-color: var(--color-action-glass-bg-hover); }
+.lumen-btn-glass:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-glass-bg-press); }
+
+/* ────────────────────  COMPOSITES  ──────────────────────────────────── */
+
+/* IconButton — square aspect, single icon child. */
+.lumen-icon-button {
+  aspect-ratio: 1 / 1;
+  padding-inline: 0;
+  padding-block: 0;
+  width: var(--size-control-md);
+}
+.lumen-icon-button.lumen-btn-xs { width: var(--size-control-xs); }
+.lumen-icon-button.lumen-btn-sm { width: var(--size-control-sm); }
+.lumen-icon-button.lumen-btn-md { width: var(--size-control-md); }
+.lumen-icon-button.lumen-btn-lg { width: var(--size-control-lg); }
+.lumen-icon-button.lumen-btn-xl { width: var(--size-control-xl); }
+/* Round IconButton — full radius plus square dimensions. */
+.lumen-icon-button.lumen-btn-round { border-radius: var(--radius-full); }
+
+/* ButtonGroup — joined buttons. Shared border, single focus ring. */
+.lumen-button-group { display: inline-flex; isolation: isolate; }
+.lumen-button-group > .lumen-btn { border-radius: 0; margin-inline-start: -1px; position: relative; }
+.lumen-button-group > .lumen-btn:first-child  { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); margin-inline-start: 0; }
+.lumen-button-group > .lumen-btn:last-child   { border-start-end-radius:   var(--radius-md); border-end-end-radius:   var(--radius-md); }
+.lumen-button-group > .lumen-btn:hover,
+.lumen-button-group > .lumen-btn:focus-visible { z-index: 1; }
+.lumen-button-group.lumen-button-group-pill > .lumen-btn:first-child { border-start-start-radius: var(--radius-full); border-end-start-radius: var(--radius-full); }
+.lumen-button-group.lumen-button-group-pill > .lumen-btn:last-child  { border-start-end-radius:   var(--radius-full); border-end-end-radius:   var(--radius-full); }
+
+/* SplitButton — primary action + dropdown caret, joined with a hairline divider. */
+.lumen-split-button { display: inline-flex; }
+.lumen-split-button > .lumen-btn:first-child { border-start-end-radius: 0; border-end-end-radius: 0; padding-inline-end: var(--button-padding-x-sm); }
+.lumen-split-button > .lumen-btn:last-child  { border-start-start-radius: 0; border-end-start-radius: 0; padding-inline: var(--button-padding-x-sm); border-inline-start: 1px solid rgba(0, 0, 0, 0.16); }
+.lumen-split-button > .lumen-btn-primary:last-child { border-inline-start-color: rgba(0, 0, 0, 0.16); }
+
+/* CommandPaletteButton — search-shaped affordance with trailing kbd hint chip. */
+.lumen-cmd-button { gap: var(--button-gap-md); justify-content: space-between; min-width: 14rem; }
+.lumen-cmd-button .lumen-cmd-button-kbd {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px var(--space-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: var(--type-11);
+  letter-spacing: 0;
+  color: var(--text-tertiary);
+  background: var(--surface-sunken);
+}
+
+/* FAB — floating action button. Round, lifted, lime CTA. */
+.lumen-fab {
+  position: fixed;
+  bottom: var(--space-6);
+  inset-inline-end: var(--space-6);
+  border-radius: var(--radius-full);
+  width: var(--size-control-xl);
+  height: var(--size-control-xl);
+  padding: 0;
+  z-index: var(--z-fixed, 50);
+}
+
+/* Loading state — spinner replaces leading icon. Suppress click via aria-busy. */
+.lumen-btn[aria-busy="true"] {
+  cursor: progress;
+  pointer-events: none;
+}
+.lumen-btn[aria-busy="true"] svg.lumen-btn-spinner {
+  animation: lumen-btn-spin 800ms linear infinite;
+}
+@keyframes lumen-btn-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Success state — checkmark replaces leading icon for 1.6 s, then resets. */
+.lumen-btn[data-success="true"] {
+  background-color: var(--color-action-success-bg);
+  color:            var(--color-action-success-fg);
+  border-color:     var(--color-action-success-border);
+}
+.lumen-btn[data-success="true"] svg.lumen-btn-success-icon {
+  animation: lumen-btn-success-check 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+@keyframes lumen-btn-success-check {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* prefers-reduced-motion — kill animations, freeze the resting glow. */
+@media (prefers-reduced-motion: reduce) {
+  .lumen-btn,
+  .lumen-btn[aria-busy="true"] svg.lumen-btn-spinner,
+  .lumen-btn[data-success="true"] svg.lumen-btn-success-icon,
+  .lumen-btn-ai {
+    transition: none !important;
+    animation: none !important;
+  }
+  .lumen-btn-primary { box-shadow: var(--shadow-button-glow-rest); } /* steady glow, no pulse */
+  .lumen-btn-ai      { box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.32); } /* steady border, no shimmer */
+}
+
+/* v0.4 — lime-glow CTA halo. Legacy class for hero CTAs that opt into a stronger halo
+   beyond the standard primary glow ladder. .lumen-btn-primary.lumen-glow-cta layers it. */
 .lumen-glow-cta {
   box-shadow: var(--shadow-glow-accent-strong);
 }

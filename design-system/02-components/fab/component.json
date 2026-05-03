@@ -1,0 +1,72 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "FAB",
+  "version": "0.9.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Floating Action Button — round, fixed-position primary action. Single-tap access to the most common verb in a flow.",
+  "props": {
+    "ariaLabel": { "type": "string", "optional": false, "description": "REQUIRED — FAB is icon-only; accessible name is mandatory." },
+    "intent":    { "type": "enum", "values": ["primary", "ai"], "default": "primary", "optional": true, "description": "Primary (lime + glow) or AI (tonal lime + sparkle + shimmer)." },
+    "size":      { "type": "enum", "values": ["lg", "xl"], "default": "xl", "optional": true, "description": "lg 48 / xl 56 (Material 3 floor)." },
+    "position":  { "type": "enum", "values": ["bottom-end", "bottom-start", "bottom-center"], "default": "bottom-end", "optional": true },
+    "children":  { "type": "node", "optional": false, "description": "Single icon child. Lucide-react preferred." },
+    "onClick":   { "type": "handler", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.action.primary.bg.rest",
+      "color.action.primary.bg.hover",
+      "color.action.primary.bg.press",
+      "color.action.primary.fg",
+      "color.action.ai.bg.rest",
+      "color.action.ai.fg",
+      "size.control.lg",
+      "size.control.xl",
+      "radius.full",
+      "shadow.button.glow.rest",
+      "shadow.button.glow.hover",
+      "shadow.accent-glow",
+      "shadow.focus.dual.stack"
+    ]
+  },
+  "a11y": {
+    "role": "button",
+    "keyboard": [
+      "Enter - activate",
+      "Space - activate",
+      "Tab - move focus to next control"
+    ],
+    "minTouchTarget": "56x56",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.4.7 Focus Visible",
+      "2.5.5 Target Size (Enhanced)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "aria-label is REQUIRED.",
+      "Position must not collide with the bottom navigation tab bar — Material 3 spec offsets the FAB above the tab bar by space.4 (16 px).",
+      "Single FAB per screen. Two FABs is a sign the screen has two competing primary actions — re-architect."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use for the single most common verb in the flow ('+ New shipment', '+ New quote').",
+      "Position bottom-end on most screens; bottom-center for thumb-reach optimization on tall phones.",
+      "Pair with a tooltip ('Compose new lane') for first-time users."
+    ],
+    "dont": [
+      "Don't use FAB on dense desktop screens — there's no thumb-reach problem to solve.",
+      "Don't put two FABs on the same screen.",
+      "Don't use FAB for a destructive action."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Button", "IconButton", "BottomNav"],
+  "changelog": [
+    { "version": "0.9.0", "type": "Added", "note": "Formal FAB primitive (was inline in nav.tsx). Round 48/56 px, fixed bottom-end positioning, glow halo, dual-ring focus." }
+  ]
+}

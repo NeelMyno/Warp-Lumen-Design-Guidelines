@@ -30,7 +30,8 @@ function PopoverContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          "bg-popover text-popover-foreground z-[var(--z-overlay)] w-72 origin-(--radix-popover-content-transform-origin) rounded-[var(--radius-lg)] border border-[var(--border-default)] p-4 shadow-[var(--shadow-popover)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 outline-none",
+          /* v0.8.1 — Direct refs; see ui/button.tsx for context on the bridge fragility. */
+          "bg-[var(--surface-popover)] text-[var(--text-primary)] z-[var(--z-overlay)] w-72 origin-(--radix-popover-content-transform-origin) rounded-[var(--radius-lg)] border border-[var(--border-default)] p-4 shadow-[var(--shadow-popover)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 outline-none",
           className,
         )}
         {...props}

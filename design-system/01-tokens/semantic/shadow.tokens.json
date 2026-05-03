@@ -15,7 +15,58 @@
       "$value": [
         { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
       ],
-      "$description": "Focus ring around any focused control. Always 3px spread of accent at 32% alpha."
+      "$description": "Single-ring focus indicator — fine for surfaces where the button background is NOT lime. For lime-bg surfaces (primary intent), use shadow.focus.dual instead (Atlassian 2024 pattern)."
+    },
+    "focus.dual": {
+      "$description": "v0.9 — Dual-ring focus indicator for lime accent surfaces. Inner 2 px neutral ring separates the focus halo from the lime button so the outer ring maintains 3:1 contrast against the surface (WCAG 2.4.13). Atlassian's 2024 fix — needed because a colored ring on a same-colored surface fails the 3:1 floor.",
+      "inner": {
+        "$value": [
+          { "color": "var(--surface-canvas)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" }
+        ],
+        "$description": "Inner separator ring — paints the page canvas color, creating a 2 px gap between the button and the outer accent ring."
+      },
+      "outer": {
+        "$value": [
+          { "color": "var(--lumen-accent-4)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
+        ],
+        "$description": "Outer 2 px accent ring (4 px - 2 px inner = 2 px visible). Maintains 3:1 against canvas regardless of button surface. Compose: shadow-focus-dual = inset inner + outer."
+      },
+      "stack": {
+        "$value": [
+          { "color": "var(--surface-canvas)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
+          { "color": "var(--lumen-accent-4)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
+        ],
+        "$description": "v0.9 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible."
+      }
+    },
+    "button": {
+      "$description": "v0.9 — primary-button glow ladder. Three-state ambient halo: rest → hover → active. Reserved exclusively for primary intent (the lime CTA). Other intents and surfaces ship zero glow.",
+      "glow": {
+        "rest": {
+          "$value": [
+            { "color": "rgba(74,222,128,0.25)", "offsetX": "0px", "offsetY": "0px", "blur": "16px", "spread": "0px" }
+          ],
+          "$description": "Default ambient halo on a primary CTA. Soft and steady; signals 'live' without competing with hover."
+        },
+        "hover": {
+          "$value": [
+            { "color": "rgba(74,222,128,0.4)", "offsetX": "0px", "offsetY": "0px", "blur": "24px", "spread": "0px" }
+          ],
+          "$description": "Hover halo — wider blur + higher alpha. The Glassmorphism reference's 20→30 doubling, scaled for operator density."
+        },
+        "active": {
+          "$value": [
+            { "color": "rgba(74,222,128,0.2)", "offsetX": "0px", "offsetY": "0px", "blur": "8px", "spread": "0px" }
+          ],
+          "$description": "Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale."
+        }
+      },
+      "ai-shimmer": {
+        "$value": [
+          { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
+        ],
+        "$description": "v0.9 — AI-action variant idle border (1 px lime accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`."
+      }
     },
     "accent-glow": {
       "$value": "{shadow.accent-glow}",

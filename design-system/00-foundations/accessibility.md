@@ -45,6 +45,29 @@ These are AAA or beyond. Lumen pushes for them by default; missing them does not
 - No flashing > 3 times per second (we have nothing that does this).
 - Reading-width measure: 50–75 ch for any long-form text.
 
+## Primary action contrast — explicit
+
+The **lime accent surface** (`color.accent.500` = `#4ade80`) requires `color.accent.fg` (`#0a0a0d`) on top — that pair clears 12.6:1 (AAA). White-on-lime is 1.66:1 (AA fail) and **forbidden by Hard rule #9 in [`AGENTS.md`](../../AGENTS.md)**.
+
+Why this needs its own rule: in Tailwind v4, the shadcn token bridge (`bg-primary` + `text-primary-foreground` resolving via `:root` → `--primary-foreground` → `--text-on-accent` → `--lumen-accent-fg`) has been observed to drop those utility classes from compiled CSS. The button then inherits `--text-primary` (near-white in dark theme) and renders the AA-failing pair. Two enforcement layers protect against this:
+
+1. **Direct refs in vendor primitives.** `audit-dashboard/src/components/ui/{button,badge,progress,slider,card,popover,sheet}.tsx` use `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]` (and analogous direct refs for non-accent surfaces). Arbitrary-value Tailwind utilities (the bracket syntax) are guaranteed to compile.
+2. **Lint rule [`lint:no-white-on-accent`](../../scripts/lint-no-white-on-accent.mjs).** Flags both halves: the shadcn bridge utilities anywhere in product code, AND any white-text class paired with a lime background in the same `className` string.
+
+A `.lumen-btn-primary` class in `globals.css` ships as a single-class shorthand for any consumer that needs the same guarantee outside the Button primitive (e.g. raw `<a>` elements or templated CTAs).
+
+## Buttons — full a11y reference
+
+For the comprehensive button accessibility floor (focus rings, touch targets, keyboard, ARIA, motion, dual-ring on lime surfaces, loading-vs-disabled separation, success-state announcement), see [`buttons.md`](./buttons.md) § "Accessibility floor" and the per-component contracts in [`02-components/button/`](../02-components/button/) / [`icon-button/`](../02-components/icon-button/) / [`split-button/`](../02-components/split-button/) / [`fab/`](../02-components/fab/).
+
+Highlights of the v0.9 button accessibility model:
+
+- **Dual-ring focus on lime accent surfaces** (Atlassian 2024 pattern). A single colored focus ring fails WCAG 2.4.13's 3:1 contrast floor when the button background is the same color. The dual ring places a 2 px canvas-colored separator between button and halo.
+- **Touch target floor 44×44 pt** on mobile primaries (Apple HIG, WCAG 2.5.5). Lumen Button sizes lg (48) and xl (56) clear it; sm (32) and xs (24) are desktop-only.
+- **Loading is distinct from disabled.** Loading: spinner replaces leading icon, color preserved, `aria-busy=true`. Disabled: `opacity: 0.4`, `aria-disabled=true` (in forms). Operators must never confuse "happening" with "unavailable."
+- **Success state announces via live region.** When `<Button success>` flips true, the checkmark + verb-confirmed label hold for 1.6 s; pair with `aria-live="polite"` outside the button for screen-reader users.
+- **`prefers-reduced-motion` zero-out.** All transitions cancelled; AI shimmer paused; resting primary glow stays steady (it's a halo, not motion).
+
 ## Token contracts (already validated)
 
 These pairs are pre-validated to meet AA. Use these by default; if you mix, validate.

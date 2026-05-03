@@ -45,7 +45,8 @@ function Slider({
         <SliderPrimitive.Range
           data-slot="slider-range"
           className={cn(
-            "bg-primary absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
+            /* v0.8.1 — Direct lime token; see ui/button.tsx. */
+            "bg-[var(--lumen-accent-5)] absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
           )}
         />
       </SliderPrimitive.Track>
@@ -53,7 +54,8 @@ function Slider({
         <SliderPrimitive.Thumb
           data-slot="slider-thumb"
           key={index}
-          className="border-primary bg-[var(--surface-raised)] focus-visible:shadow-[var(--shadow-focus)] block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 hover:ring-[var(--lumen-lime-a14)] focus-visible:ring-4 focus-visible:ring-[var(--lumen-lime-a32)] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+          /* v0.8.1 — border-primary → border-[var(--lumen-accent-4)]; see ui/button.tsx. */
+          className="border-[var(--lumen-accent-4)] bg-[var(--surface-raised)] focus-visible:shadow-[var(--shadow-focus)] block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 hover:ring-[var(--lumen-lime-a14)] focus-visible:ring-4 focus-visible:ring-[var(--lumen-lime-a32)] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
         />
       ))}
     </SliderPrimitive.Root>

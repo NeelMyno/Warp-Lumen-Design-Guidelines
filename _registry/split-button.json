@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "split-button",
+  "type": "registry:ui",
+  "title": "SplitButton",
+  "description": "Primary action + dropdown caret in a joined affordance. aria-haspopup='menu' on the trigger; required menuLabel.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["button"],
+  "files": [
+    {
+      "path": "design-system/02-components/split-button/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/split-button.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.9.0",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/split-button/component.json",
+    "docsPath": "design-system/02-components/split-button/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

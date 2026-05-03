@@ -1,62 +1,206 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "button": {
-    "$description": "Component-bound tokens for the Button. Use these only inside Button code; for everything else, use the action.* semantics.",
+    "$description": "v0.9 — Component-bound tokens for the Button. Five sizes (xs/sm/md/lg/xl), five intents (primary/neutral/danger/ai/success) × five surfaces (solid/tonal/outline/ghost/glass), three shapes (rect/pill/round), full state matrix (rest/hover/focus/active/loading/disabled/selected/success). See ADR 0016 and 00-foundations/buttons.md.",
+
     "height": {
       "$type": "dimension",
-      "sm":   { "$value": "{size.control.sm}" },
-      "cozy": { "$value": "{size.control.cozy}", "$description": "v0.8 — 36 px settings-panel sweet spot." },
-      "md":   { "$value": "{size.control.md}" },
-      "lg":   { "$value": "{size.control.lg}" },
-      "xl":   { "$value": "{size.control.xl}",   "$description": "v0.8 — 56 px hero pill CTA." }
+      "xs":   { "$value": "{size.control.xs}",   "$description": "v0.9 — 24 px table-row inline action / chip-close. Desktop-density only; below the 44 px touch floor." },
+      "sm":   { "$value": "{size.control.sm}",   "$description": "32 px — compact toolbar / dense-form button. Linear/Carbon operator default. Desktop-density only." },
+      "cozy": { "$value": "{size.control.cozy}", "$description": "v0.8 — 36 px settings-panel sweet spot. Density tier between sm and md." },
+      "md":   { "$value": "{size.control.md}",   "$description": "40 px — Lumen Button default. Comfortable for trackpad + desktop." },
+      "lg":   { "$value": "{size.control.lg}",   "$description": "48 px — mobile primary / modal CTA / full-width form submit. Hits the 44 px touch floor with margin." },
+      "xl":   { "$value": "{size.control.xl}",   "$description": "v0.4 — 56 px hero pill CTA. Marketing + AI-action primary." }
     },
+
     "padding": {
-      "$description": "v0.8 — Migrated from raw px to semantic refs. Was hardcoded 12/16/20 — violated AGENTS.md hard rule #2 inside the token system itself.",
+      "$description": "v0.9 — `space.inset.squish.*` per size (x > y). Composed pattern from Atlassian / Curtis 2016. Pill shape adds +0.5x to horizontal inset.",
       "$type": "dimension",
-      "sm": { "$value": "{space.3}", "$description": "12 px x — sm button" },
-      "md": { "$value": "{space.4}", "$description": "16 px x — md button (default)" },
-      "lg": { "$value": "{space.5}", "$description": "20 px x — lg button" },
-      "xl": { "$value": "{space.8}", "$description": "v0.8 — 32 px x — xl hero pill CTA" }
+      "xs": { "$value": { "x": "{dimension.2}",   "y": "{dimension.0}" }, "$description": "8/0 px — xs (24 px button, no vertical inset because height = label + icon)." },
+      "sm": { "$value": { "x": "{dimension.3}",   "y": "{dimension.1}" }, "$description": "12/4 px — sm (32 px button)." },
+      "md": { "$value": { "x": "{dimension.4}",   "y": "{dimension.2}" }, "$description": "16/8 px — md (40 px button) — Lumen default." },
+      "lg": { "$value": { "x": "{dimension.5}",   "y": "{dimension.3}" }, "$description": "20/12 px — lg (48 px button)." },
+      "xl": { "$value": { "x": "{dimension.8}",   "y": "{dimension.4}" }, "$description": "32/16 px — xl (56 px hero pill CTA). Reads as 'CTA-spaced'." }
     },
+
     "gap": {
       "$type": "dimension",
-      "$value": "{space.inline.sm}",
-      "$description": "Gap between leading icon and label, etc."
+      "xs":  { "$value": "{dimension.1}",   "$description": "4 px — icon-to-label gap on xs." },
+      "sm":  { "$value": "{dimension.1_5}", "$description": "6 px — icon-to-label gap on sm." },
+      "md":  { "$value": "{dimension.2}",   "$description": "8 px — icon-to-label gap on md (default)." },
+      "lg":  { "$value": "{dimension.2}",   "$description": "8 px — icon-to-label gap on lg." },
+      "xl":  { "$value": "{dimension.3}",   "$description": "12 px — icon-to-label gap on xl. Slightly looser to match the hero scale." }
     },
-    "radius": { "$type": "dimension", "$value": "{radius.control.md}" },
+
+    "radius": {
+      "$type": "dimension",
+      "rect": { "$value": "{radius.control.md}", "$description": "Default rect button radius — ~6 px. Operator default; matches Linear/Notion." },
+      "pill": { "$value": "{radius.full}",       "$description": "Full pill (9999 px). Opt-in via shape='pill' for hero / AI / marketing CTAs." },
+      "round": {
+        "$value": "{radius.full}",
+        "$description": "Round IconButton — squared dimensions + full radius."
+      }
+    },
+
+    "icon": {
+      "$type": "dimension",
+      "$description": "v0.9 — Per-size icon dimensions. Each tier picks an icon size that pairs with the label ramp (size at +1 over the type tier).",
+      "xs": { "$value": "{dimension.3}",  "$description": "12 px icon on 24 px button." },
+      "sm": { "$value": "{dimension.3}",  "$description": "12 px icon on 32 px button." },
+      "md": { "$value": "{dimension.1_5}", "$description": "Override — 14 px (~13 px label + 1) — see button.tsx for the explicit size mapping." },
+      "lg": { "$value": "{dimension.4}",  "$description": "16 px icon on 48 px button (label is 14–15 px)." },
+      "xl": { "$value": "{dimension.5}",  "$description": "20 px icon on 56 px hero pill (label is 16–18 px)." }
+    },
+
+    "label": {
+      "$description": "v0.9 — Per-size label type tokens. Tied to typography.tokens.json via type.label.{sm,md,lg} for now; will migrate to type.button.* once the type system grows that surface.",
+      "xs":  { "$value": "{type.label.sm}", "$description": "11–12 px label on xs." },
+      "sm":  { "$value": "{type.label.sm}", "$description": "13 px label on sm." },
+      "md":  { "$value": "{type.label.md}", "$description": "14 px label on md (default)." },
+      "lg":  { "$value": "{type.label.lg}", "$description": "15 px label on lg." },
+      "xl":  { "$value": "{type.body.md}",  "$description": "16 px label on xl. Hero scale." }
+    },
+
+    "shape": {
+      "$type": "string",
+      "rect":  { "$value": "rect",  "$description": "Default — radius.control.md." },
+      "pill":  { "$value": "pill",  "$description": "Full radius. Hero / AI / marketing." },
+      "round": { "$value": "round", "$description": "Square dimensions + full radius. IconButton-style." }
+    },
+
     "intent": {
+      "$description": "v0.9 — Five intents define ROLE (color/voice). Compose with surface to get the visual variant (intent × surface).",
+
       "primary": {
+        "$description": "Primary action — the single most important thing in a view. Lime fill + accent.fg text + soft glow ladder. WCAG AAA contrast (12.6:1).",
         "background": {
           "rest":  { "$value": "{color.action.primary.bg.rest}" },
           "hover": { "$value": "{color.action.primary.bg.hover}" },
           "press": { "$value": "{color.action.primary.bg.press}" }
         },
         "foreground": { "$value": "{color.action.primary.fg}" },
-        "shadow":     { "$value": "{shadow.accent-glow}" }
+        "border":     { "$value": "{color.action.primary.border}" },
+        "shadow": {
+          "rest":  { "$value": "{shadow.button.glow.rest}" },
+          "hover": { "$value": "{shadow.button.glow.hover}" },
+          "active":{ "$value": "{shadow.button.glow.active}" }
+        }
       },
+
       "secondary": {
+        "$description": "Secondary action — outline pill or rect, hairline ink. Same height + padding as primary; only fill + border differ.",
         "background": {
-          "rest":  { "$value": "{color.action.secondary.bg.rest}" },
-          "hover": { "$value": "{color.action.secondary.bg.hover}" },
-          "press": { "$value": "{color.action.secondary.bg.press}" }
+          "rest":  { "$value": "{color.action.outline.bg.rest}" },
+          "hover": { "$value": "{color.action.outline.bg.hover}" },
+          "press": { "$value": "{color.action.outline.bg.press}" }
         },
-        "foreground": { "$value": "{color.action.secondary.fg}" },
-        "border":     { "$value": "{color.action.secondary.border}" }
+        "foreground": { "$value": "{color.action.outline.fg}" },
+        "border": {
+          "rest":  { "$value": "{color.action.outline.border.rest}" },
+          "hover": { "$value": "{color.action.outline.border.hover}" }
+        }
       },
+
       "tertiary": {
+        "$description": "Tertiary action — alias of ghost surface (kept for backwards compat). New code uses surface='ghost'.",
         "background": {
-          "rest":  { "$value": "{color.action.tertiary.bg.rest}" },
-          "hover": { "$value": "{color.action.tertiary.bg.hover}" },
-          "press": { "$value": "{color.action.tertiary.bg.press}" }
+          "rest":  { "$value": "{color.action.ghost.bg.rest}" },
+          "hover": { "$value": "{color.action.ghost.bg.hover}" },
+          "press": { "$value": "{color.action.ghost.bg.press}" }
         },
-        "foreground": { "$value": "{color.action.tertiary.fg}" }
+        "foreground": { "$value": "{color.action.ghost.fg}" }
       },
+
+      "ghost": {
+        "$description": "Ghost — no chrome at rest, subtle hover tint. Used in toolbars / table-row actions / nested controls.",
+        "background": {
+          "rest":  { "$value": "{color.action.ghost.bg.rest}" },
+          "hover": { "$value": "{color.action.ghost.bg.hover}" },
+          "press": { "$value": "{color.action.ghost.bg.press}" }
+        },
+        "foreground": { "$value": "{color.action.ghost.fg}" }
+      },
+
       "danger": {
+        "$description": "v0.9 — bg deepened red.500→.700 to clear AA Normal (4.5:1). White text on #c92626 = 5.2:1.",
         "background": {
           "rest":  { "$value": "{color.action.danger.bg.rest}" },
-          "hover": { "$value": "{color.action.danger.bg.hover}" }
+          "hover": { "$value": "{color.action.danger.bg.hover}" },
+          "press": { "$value": "{color.action.danger.bg.press}" }
         },
-        "foreground": { "$value": "{color.action.danger.fg}" }
+        "foreground": { "$value": "{color.action.danger.fg}" },
+        "border":     { "$value": "{color.action.danger.border}" }
+      },
+
+      "danger-soft": {
+        "$description": "v0.9 — danger × ghost (Carbon's `danger-ghost` pattern). Destructive in tight contexts (table-row delete) where solid red over-emphasizes.",
+        "background": {
+          "rest":  { "$value": "{color.action.danger-soft.bg.rest}" },
+          "hover": { "$value": "{color.action.danger-soft.bg.hover}" },
+          "press": { "$value": "{color.action.danger-soft.bg.press}" }
+        },
+        "foreground": { "$value": "{color.action.danger-soft.fg}" }
+      },
+
+      "ai": {
+        "$description": "v0.9 — AI-action variant. Tonal lime + sparkle leading icon + idle 1 px shimmer border. Sparingly: only on AI-driven primary actions (Improve, Summarize, Suggest, Quote-with-AI).",
+        "background": {
+          "rest":  { "$value": "{color.action.ai.bg.rest}" },
+          "hover": { "$value": "{color.action.ai.bg.hover}" },
+          "press": { "$value": "{color.action.ai.bg.press}" }
+        },
+        "foreground": { "$value": "{color.action.ai.fg}" },
+        "border":     { "$value": "{color.action.ai.border}" },
+        "shimmer":    { "$value": "{shadow.button.ai-shimmer}" }
+      },
+
+      "success": {
+        "$description": "v0.9 — success-affirmation. Brief 1.6 s state of any button after async confirmation (Saved, Booked, Quoted). Tonal lime + checkmark icon + verb-confirmed label.",
+        "background": { "$value": "{color.action.success.bg}" },
+        "foreground": { "$value": "{color.action.success.fg}" },
+        "border":     { "$value": "{color.action.success.border}" }
+      },
+
+      "selected": {
+        "$description": "v0.9 — aria-pressed=true state for ToggleButton / Segmented / split-button menu trigger. Subtle lime tint + lime hairline border.",
+        "background": { "$value": "{color.action.selected.bg}" },
+        "foreground": { "$value": "{color.action.selected.fg}" },
+        "border":     { "$value": "{color.action.selected.border}" }
+      },
+
+      "glass": {
+        "$description": "v0.9 — translucent glass surface for floating overlays (toolbar pinned over a map, modal scrim toolbar). backdrop-filter: blur(12px). NOT a default primary.",
+        "background": {
+          "rest":  { "$value": "{color.action.glass.bg.rest}" },
+          "hover": { "$value": "{color.action.glass.bg.hover}" },
+          "press": { "$value": "{color.action.glass.bg.press}" }
+        },
+        "foreground": { "$value": "{color.action.glass.fg}" },
+        "border":     { "$value": "{color.action.glass.border}" },
+        "blur":       { "$value": "12px" }
+      }
+    },
+
+    "focus": {
+      "$description": "v0.9 — Focus indicator — dual-ring on lime accent surfaces, single-ring on neutral surfaces. Atlassian 2024 pattern (single-color ring fails 3:1 on same-colored surface).",
+      "primary":  { "$value": "{shadow.focus.dual.stack}", "$description": "Primary intent (lime bg) — dual ring." },
+      "neutral":  { "$value": "{shadow.focus}",            "$description": "Other intents — single ring (3 px lime alpha at 32% on neutral bg passes 3:1)." }
+    },
+
+    "motion": {
+      "$description": "v0.9 — Decelerate-not-bounce. No transform/scale on press. Press feedback = bg color shift + filter brightness(0.92) + glow ladder shrink.",
+      "duration": {
+        "$type": "duration",
+        "hover-in":  { "$value": "{motion.duration.fast}",     "$description": "120 ms color/border ease-out." },
+        "hover-out": { "$value": { "value": 80, "unit": "ms" }, "$description": "80 ms color/border ease-in. Faster than fast — reads as immediate 'release'." },
+        "press":     { "$value": "{motion.duration.instant}",  "$description": "0 ms — instant feedback on activate." },
+        "focus-in":  { "$value": "{motion.duration.fast}",     "$description": "120 ms ring fade." },
+        "success":   { "$value": "{motion.duration.slow}",     "$description": "260 ms checkmark transition; the 'Saved' label persists 1.6 s, then the success state exits at 80 ms." }
+      },
+      "easing": {
+        "$type": "cubicBezier",
+        "in":  { "$value": "{motion.easing.standard}",   "$description": "cubic-bezier(0.2, 0, 0, 1) — entry/decelerate." },
+        "out": { "$value": "{motion.easing.accelerate}", "$description": "cubic-bezier(0.4, 0, 1, 1) — exit/accelerate." }
       }
     }
   }

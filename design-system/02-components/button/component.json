@@ -1,50 +1,42 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Button",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "status": "stable",
   "deprecated": false,
-  "summary": "A button triggers an action. The primary way users commit to a decision in a flow.",
+  "summary": "Primary action affordance. Renders a labeled, focusable, intent-bearing control. Five sizes × eight intents × three shapes. The single most important interaction component in Lumen.",
   "props": {
     "intent": {
       "type": "enum",
-      "values": ["primary", "secondary", "tertiary", "danger"],
+      "values": ["primary", "secondary", "tertiary", "ghost", "outline", "danger", "danger-soft", "ai", "glass", "link"],
       "default": "secondary",
       "optional": true,
-      "description": "Visual emphasis. Use 'primary' for the single most important action in a view."
+      "description": "Role + chrome of the button. v0.9 expanded from 4 to 8 (added ghost, outline, danger-soft, ai, glass; tertiary kept as alias of ghost). One primary CTA per view; danger pairs with confirmation; ai is a tonal lime + sparkle for AI-driven primaries; glass is for floating overlays."
     },
     "size": {
       "type": "enum",
-      "values": ["sm", "md", "lg"],
+      "values": ["xs", "sm", "md", "lg", "xl"],
       "default": "md",
       "optional": true,
-      "description": "Button height. sm=32px, md=40px, lg=48px. Mobile templates must use md minimum for 44px touch target."
+      "description": "Height: xs 24 / sm 32 / md 40 (default) / lg 48 / xl 56 px. Mobile primary uses lg minimum to clear 44 px touch target. xs is desktop-density only (table-row inline, chip-close)."
     },
-    "width": {
+    "shape": {
       "type": "enum",
-      "values": ["auto", "full"],
-      "default": "auto",
-      "optional": true
-    },
-    "leadingIcon":  { "type": "icon", "optional": true, "description": "Sized 16 for sm/md, 18 for lg." },
-    "trailingIcon": { "type": "icon", "optional": true },
-    "loading": {
-      "type": "boolean",
-      "default": false,
+      "values": ["rect", "pill", "round"],
+      "default": "rect",
       "optional": true,
-      "description": "Replaces leading icon with spinner. Sets aria-busy=true. Suppresses onClick."
+      "description": "v0.9 NEW. rect = radius.control.md (~6 px) operator default. pill = full radius for hero / AI / marketing CTAs. round = square dimensions + full radius (use IconButton instead for icon-only)."
     },
-    "disabled": {
-      "type": "boolean",
-      "default": false,
-      "optional": true,
-      "description": "Sets aria-disabled=true (not the disabled attribute) inside forms."
-    },
-    "onClick": {
-      "type": "handler",
-      "optional": false,
-      "description": "Required unless disabled or as='a'."
-    }
+    "leadingIcon":  { "type": "icon", "optional": true, "description": "12 px on xs/sm, 14 px on md, 16 px on lg, 20 px on xl. Replaced by spinner during loading or checkmark during success." },
+    "trailingIcon": { "type": "icon", "optional": true, "description": "Use sparingly — primary CTAs should not bracket the label with two icons. ChevronDown for dropdown triggers, ArrowRight for advance flows." },
+    "fullWidth":    { "type": "boolean", "default": false, "optional": true, "description": "w-full. Common in modal footers and mobile CTAs." },
+    "loading":      { "type": "boolean", "default": false, "optional": true, "description": "Replaces leadingIcon with a spinner. Sets aria-busy=true. Suppresses click. Visually distinct from disabled (color preserved)." },
+    "success":      { "type": "boolean", "default": false, "optional": true, "description": "v0.9 NEW. Transient — when flipped to true, the button shows a checkmark + tonal-lime surface for 1.6 s, then auto-clears. Use after a successful async action (Saved, Booked, Quoted)." },
+    "pressed":      { "type": "boolean", "default": false, "optional": true, "description": "v0.9 NEW. aria-pressed=true. Renders the lime-tinted selected surface. For ToggleButton / Segmented option / split-button menu trigger." },
+    "disabled":     { "type": "boolean", "default": false, "optional": true, "description": "Sets aria-disabled=true (not the disabled attribute) inside forms. Loading auto-disables." },
+    "pill":         { "type": "boolean", "default": false, "optional": true, "description": "v0.4 LEGACY — alias of shape='pill'. Kept for backwards compat; new code uses shape." },
+    "glow":         { "type": "boolean", "default": false, "optional": true, "description": "v0.4 LEGACY — layers .lumen-glow-cta on top of the standard primary glow ladder. Hero CTAs only (landing page primaries, AI primary)." },
+    "onClick":      { "type": "handler", "optional": false, "description": "Required unless disabled, loading, asChild, or as='a'." }
   },
   "tokens": {
     "consumed": [
@@ -52,24 +44,76 @@
       "color.action.primary.bg.hover",
       "color.action.primary.bg.press",
       "color.action.primary.fg",
+      "color.action.primary.border",
       "color.action.secondary.bg.rest",
       "color.action.secondary.bg.hover",
       "color.action.secondary.fg",
       "color.action.secondary.border",
-      "color.action.tertiary.bg.hover",
-      "color.action.tertiary.fg",
+      "color.action.outline.bg.rest",
+      "color.action.outline.fg",
+      "color.action.outline.border.rest",
+      "color.action.outline.border.hover",
+      "color.action.ghost.bg.rest",
+      "color.action.ghost.bg.hover",
+      "color.action.ghost.fg",
       "color.action.danger.bg.rest",
       "color.action.danger.bg.hover",
+      "color.action.danger.bg.press",
       "color.action.danger.fg",
+      "color.action.danger-soft.bg.rest",
+      "color.action.danger-soft.bg.hover",
+      "color.action.danger-soft.fg",
+      "color.action.ai.bg.rest",
+      "color.action.ai.bg.hover",
+      "color.action.ai.bg.press",
+      "color.action.ai.fg",
+      "color.action.ai.border",
+      "color.action.success.bg",
+      "color.action.success.fg",
+      "color.action.selected.bg",
+      "color.action.selected.fg",
+      "color.action.selected.border",
+      "color.action.glass.bg.rest",
+      "color.action.glass.fg",
+      "color.action.glass.border",
+      "shadow.button.glow.rest",
+      "shadow.button.glow.hover",
+      "shadow.button.glow.active",
+      "shadow.button.ai-shimmer",
       "shadow.focus",
-      "shadow.accent-glow",
-      "radius.control.md",
-      "space.inline.sm",
-      "size.control.sm",
-      "size.control.md",
-      "size.control.lg",
-      "type.label.sm", "type.label.md", "type.label.lg",
-      "motion.transition.fast"
+      "shadow.focus.dual.stack",
+      "button.height.xs",
+      "button.height.sm",
+      "button.height.md",
+      "button.height.lg",
+      "button.height.xl",
+      "button.padding.xs",
+      "button.padding.sm",
+      "button.padding.md",
+      "button.padding.lg",
+      "button.padding.xl",
+      "button.gap.xs",
+      "button.gap.sm",
+      "button.gap.md",
+      "button.gap.lg",
+      "button.gap.xl",
+      "button.icon.xs",
+      "button.icon.sm",
+      "button.icon.md",
+      "button.icon.lg",
+      "button.icon.xl",
+      "button.radius.rect",
+      "button.radius.pill",
+      "button.radius.round",
+      "button.label.xs",
+      "button.label.sm",
+      "button.label.md",
+      "button.label.lg",
+      "button.label.xl",
+      "motion.duration.fast",
+      "motion.duration.instant",
+      "motion.easing.standard",
+      "motion.easing.accelerate"
     ]
   },
   "a11y": {
@@ -83,37 +127,62 @@
     "minTouchTarget": "44x44",
     "wcag": [
       "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "1.4.13 Content on Hover or Focus",
+      "2.1.1 Keyboard",
       "2.4.7 Focus Visible",
+      "2.4.11 Focus Not Obscured (Minimum)",
+      "2.4.13 Focus Appearance",
       "2.5.5 Target Size (Enhanced)",
       "4.1.2 Name, Role, Value"
     ],
     "rules": [
-      "Visible focus ring required. Do not remove via outline:none.",
-      "Disabled state must use aria-disabled, not the disabled attribute, when used inside a form.",
+      "Visible focus ring required. Do NOT remove via outline:none.",
+      "Primary intent uses dual-ring focus (canvas-colored 2 px inner + lime 4 px outer) so the ring maintains 3:1 against the lime button surface (Atlassian 2024 fix; WCAG 2.4.13).",
+      "Disabled state must use aria-disabled, not the disabled attribute, when used inside a form (so the button stays in tab order).",
       "Loading state must set aria-busy=true and suppress onClick.",
-      "Label must contain at least one visible character. Icon-only requires the IconButton component with aria-label."
+      "Success state must announce via live region when used as confirmation feedback.",
+      "Pressed state (aria-pressed) is for toggle / segmented behavior — do NOT use it for momentary buttons.",
+      "Label must contain at least one visible character. Icon-only requires the IconButton component with a required aria-label.",
+      "Honor prefers-reduced-motion: hover-color transitions, glow ladder pulses, and AI shimmer are dropped under reduce; the resting glow stays steady."
     ]
   },
   "rules": {
     "do": [
-      "Use one primary button per view.",
-      "Lead the label with a verb: 'Save changes', 'Get rates', 'Delete account'.",
-      "Pair danger intent with a confirmation dialog.",
-      "Pair loading with optimistic feedback elsewhere if the operation takes >2s."
+      "Use one primary intent per view. Multiple primaries = no primary.",
+      "Lead the label with a verb: 'Save changes', 'Get rates', 'Delete account'. Numerate when possible: 'Add 3 lanes' not 'Add lanes'.",
+      "Pair danger intent with a confirmation dialog OR a HoldToConfirm pattern (deferred to v0.9.x).",
+      "Pair loading with optimistic feedback elsewhere if the operation takes >2 s. Use a progress bar in the page if the action takes >5 s.",
+      "Use the success prop for short-lived confirmation feedback ('Saved', 'Sent', 'Quoted'). Pair with a live region announcement.",
+      "Use intent='ai' for AI-driven primary actions (Improve, Summarize, Suggest, Quote-with-AI). Pair with a sparkle leading icon.",
+      "Use shape='pill' for hero / marketing CTAs and the AI primary. Operator pages stay shape='rect' for density.",
+      "Use intent='danger-soft' for destructive actions in tight contexts (table-row delete, settings) where solid red over-emphasizes."
     ],
     "dont": [
       "Don't stack three primary buttons in a row.",
       "Don't use Title Case. Use sentence case.",
       "Don't disable a button without explaining why nearby.",
       "Don't put icons on both sides of a short label. Pick one.",
-      "Don't use intent='primary' for a destructive action — that's intent='danger'."
+      "Don't use intent='primary' for a destructive action — that's intent='danger'.",
+      "Don't render white or near-white text on the lime accent surface. The primary action surface is bound to color.action.primary.fg ({color.accent.fg} = #0a0a0d, 12.6:1 AAA). White on lime is 1.66:1 — a WCAG AA fail. Lint rule lint-no-white-on-accent enforces this.",
+      "Don't use the shadcn token-bridge utilities (`bg-primary text-primary-foreground` etc.) in product code. They're unreliable in Tailwind v4 (ADR 0015). Use the .lumen-btn-* defensive classes or direct semantic refs.",
+      "Don't translate or scale the button on press. Press feedback is filter brightness(0.92) + glow ladder shrink. Decelerate, don't bounce.",
+      "Don't use intent='ai' for non-AI actions. The sparkle + tonal lime is reserved for AI affordances; over-using it dilutes the signal.",
+      "Don't apply intent='glass' to default primary actions — operator pages rarely have the canvas to make glass work."
     ]
   },
   "examples": {
     "web-react": "./examples/primary.tsx"
   },
-  "related": ["IconButton", "Link", "Toggle"],
+  "related": ["IconButton", "ButtonGroup", "SplitButton", "CommandPaletteButton", "FAB", "Toggle", "Segmented", "Link"],
   "changelog": [
-    { "version": "0.1.0", "type": "Added", "note": "Initial release. Four intents, three sizes, loading, full-width, leading/trailing icons." }
+    { "version": "0.1.0", "type": "Added", "note": "Initial release. Four intents, three sizes, loading, full-width, leading/trailing icons." },
+    { "version": "0.4.0", "type": "Added", "note": "Pill shape (via `pill` prop). Glow halo (`glow` prop) for hero CTAs. xl size (56 px hero). Accent.fg pinned to obsidian #0a0a0d for 12.6:1 AAA on lime." },
+    { "version": "0.8.0", "type": "Changed", "note": "Heights re-bound to `size.control.*` semantic tokens. Padding migrated from raw px to `space.inset.squish.*` semantic refs (Curtis 2016 / Atlassian compositional pattern)." },
+    { "version": "0.8.1", "type": "Fixed", "note": "Primary intent — pinned bg/fg to direct Lumen-token refs to bypass the shadcn bridge fragility in Tailwind v4. See ADR 0015." },
+    { "version": "0.9.0", "type": "Added", "note": "Eight intents (added ghost, outline, danger-soft, ai, glass; tertiary kept as alias of ghost). Five sizes (added xs=24 for table inline). Three shapes (rect/pill/round). Three-state glow ladder for primary (rest 16/0.25 → hover 24/0.4 → active 8/0.2). Dual-ring focus indicator on lime accent surfaces (Atlassian 2024 fix; WCAG 2.4.13). New props: shape, success (transient checkmark+verb), pressed (aria-pressed). Press feedback dropped translate-y; replaced with filter brightness(0.92)." },
+    { "version": "0.9.0", "type": "Changed", "note": "Danger bg deepened red.500 → red.600 (#c92626) to clear WCAG AA Normal. White on red.600 = 5.2:1." },
+    { "version": "0.9.0", "type": "Changed", "note": "Implementation moved from cva inline-Tailwind utilities to globals.css `.lumen-btn-*` defensive classes. The cva button now composes class names (not Tailwind arbitrary values), guaranteeing dev/prod parity in Tailwind v4. See ADR 0016." },
+    { "version": "0.9.0", "type": "Deprecated", "note": "`intent='tertiary'` is now an alias of `intent='ghost'`. Both work; ghost is the new canonical name. Tertiary will be removed in v1.0." }
   ]
 }

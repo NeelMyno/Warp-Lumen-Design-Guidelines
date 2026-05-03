@@ -311,6 +311,7 @@ export function LibraryClient() {
             <VariantRow label="Ghost"><Button intent="ghost">Reset</Button></VariantRow>
             <VariantRow label="Danger"><Button intent="danger">Delete account</Button></VariantRow>
             <VariantRow label="Loading"><Button intent="primary" loading>Saving</Button></VariantRow>
+            {/* lumen-lint-allow: button-label — "Submit"/"Cancel" are intentional generic stand-ins for the disabled-state showcase, not real product copy. */}
             <VariantRow label="Disabled"><Button intent="primary" disabled>Submit</Button><Button intent="secondary" disabled>Cancel</Button></VariantRow>
           </SubSection>
 

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group",
+  "type": "registry:ui",
+  "title": "ButtonGroup",
+  "description": "Joined buttons sharing a single rounded outline. role='group'. Pill mode optional.",
+  "dependencies": [],
+  "registryDependencies": ["button"],
+  "files": [
+    {
+      "path": "design-system/02-components/button-group/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/button-group.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.9.0",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/button-group/component.json",
+    "docsPath": "design-system/02-components/button-group/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

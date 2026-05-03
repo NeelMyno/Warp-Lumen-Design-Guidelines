@@ -1,56 +1,96 @@
-import { ReactNode, ButtonHTMLAttributes, forwardRef } from "react";
-import { Loader2 } from "lucide-react";
+"use client";
+
+/**
+ * v0.9 — Lumen Button (consumer-facing wrapper)
+ * ----------------------------------------------------------------------------
+ * Forwards a stable Lumen API onto the v0.9 vendor primitive.
+ *
+ * Stable API (v0.6+):
+ *   intent       primary | secondary | tertiary | ghost | danger | danger-soft | ai | link
+ *   size         xs | sm | md | lg | xl
+ *   shape        rect | pill | round           (v0.9 NEW — orthogonal to size)
+ *   leadingIcon  ReactNode
+ *   trailingIcon ReactNode
+ *   loading      boolean (replaces leading icon with spinner; suppresses click)
+ *   success      boolean (transient — replaces leading icon with checkmark; clears after 1.6 s)
+ *   pressed      boolean (aria-pressed=true; renders selected surface)
+ *   disabled     boolean (aria-disabled, opacity 0.4, no pointer events)
+ *   pill         boolean (legacy — alias of shape="pill")
+ *   glow         boolean (legacy — primary already has the glow ladder; this layers .lumen-glow-cta on top for hero CTAs)
+ *   fullWidth    boolean (w-full)
+ *
+ * Press feedback: filter brightness(0.92) (no transform / no scale).
+ * Loading vs disabled: visually distinct (loading keeps color, shows spinner).
+ * Focus: dual-ring on primary (lime accent surface), single-ring elsewhere.
+ *
+ * IconButton, ButtonGroup, SplitButton, CommandPaletteButton, FAB are split
+ * into dedicated files. Import them from `./icon-button`, `./button-group`,
+ * `./split-button`, `./command-palette-button`, `./fab`.
+ */
+
+import {
+  ReactNode,
+  ButtonHTMLAttributes,
+  forwardRef,
+  useEffect,
+  useState,
+} from "react";
+import { Loader2, Check } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button as ShadcnButton, buttonVariants } from "@/components/ui/button";
 
-/**
- * Lumen Button — thin wrapper over the shadcn Button.
- *
- * Preserves the existing Lumen API (`intent`, `size`, `leadingIcon`,
- * `trailingIcon`, `loading`, `glow`, `pill`) by mapping it onto shadcn's
- * (`variant`, `size`, `asChild`) contract. Consumer pages don't need to
- * change a single import.
- */
+type Intent =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "ghost"
+  | "outline"
+  | "danger"
+  | "danger-soft"
+  | "ai"
+  | "glass"
+  | "link";
 
-type Intent = "primary" | "secondary" | "tertiary" | "danger" | "ghost";
 type Size = "xs" | "sm" | "md" | "lg" | "xl";
 
-const INTENT_TO_VARIANT: Record<Intent, "default" | "secondary" | "ghost" | "destructive" | "link"> = {
-  primary:   "default",
-  secondary: "secondary",
-  tertiary:  "ghost",
-  ghost:     "ghost",
-  danger:    "destructive",
-};
-
-const SIZE_MAP: Record<Size, "xs" | "sm" | "md" | "lg" | "xl"> = {
-  xs: "xs", sm: "sm", md: "md", lg: "lg", xl: "xl",
-};
+type Shape = "rect" | "pill" | "round";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   intent?: Intent;
   size?: Size;
+  shape?: Shape;
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
   fullWidth?: boolean;
   loading?: boolean;
-  /** v0.4 — strengthen the lime ambient glow on this button (hero CTAs only). */
-  glow?: boolean;
-  /** v0.4 — render as a pill regardless of size. */
+  /** v0.9 — Brief success state. Pass `true` after a successful async action;
+   *  the button shows a checkmark for 1.6 s then auto-clears. */
+  success?: boolean;
+  /** v0.9 — aria-pressed=true. Renders the lime-tinted selected surface. */
+  pressed?: boolean;
+  /** v0.4 legacy — alias of shape="pill". */
   pill?: boolean;
+  /** v0.4 legacy — layers the .lumen-glow-cta hero halo on top of the
+   *  standard primary glow ladder. For hero/landing CTAs only. */
+  glow?: boolean;
 };
+
+const SUCCESS_HOLD_MS = 1600;
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     intent = "secondary",
     size = "md",
+    shape,
     leadingIcon,
     trailingIcon,
     fullWidth,
     loading,
-    glow,
+    success: successProp = false,
+    pressed,
     pill,
+    glow,
     disabled,
     className,
     children,
@@ -58,59 +98,71 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
+  /* Transient success state — when `success` flips true we hold the
+     checkmark for 1.6 s, then auto-clear. Honors prefers-reduced-motion
+     via the CSS in globals.css; this hook just manages the data-attribute. */
+  const [holdSuccess, setHoldSuccess] = useState(false);
+  useEffect(() => {
+    if (!successProp) return;
+    setHoldSuccess(true);
+    const id = window.setTimeout(() => setHoldSuccess(false), SUCCESS_HOLD_MS);
+    return () => window.clearTimeout(id);
+  }, [successProp]);
+
+  const resolvedShape: Shape | undefined = shape ?? (pill ? "pill" : undefined);
+
+  const isLoading = !!loading;
+  const isSuccess = holdSuccess;
+  const isDisabled = !!disabled || isLoading;
+
   return (
     <ShadcnButton
       ref={ref}
-      variant={INTENT_TO_VARIANT[intent]}
-      size={SIZE_MAP[size]}
-      aria-busy={loading || undefined}
-      disabled={disabled || loading}
+      intent={intent}
+      size={size}
+      shape={resolvedShape}
+      aria-busy={isLoading || undefined}
+      aria-pressed={pressed || undefined}
+      aria-disabled={isDisabled || undefined}
+      data-success={isSuccess || undefined}
+      data-pressed={pressed || undefined}
+      disabled={isDisabled}
       className={cn(
         fullWidth && "w-full",
-        pill && "!rounded-[var(--radius-full)]",
         glow && intent === "primary" && "lumen-glow-cta",
+        pressed && "lumen-btn-selected",
         className,
       )}
       {...props}
     >
-      {loading ? (
-        <Loader2 className="size-3.5 animate-spin shrink-0" aria-hidden />
+      {isLoading ? (
+        <Loader2
+          className="lumen-btn-spinner shrink-0"
+          aria-hidden
+        />
+      ) : isSuccess ? (
+        <Check
+          className="lumen-btn-success-icon shrink-0"
+          aria-hidden
+        />
       ) : leadingIcon ? (
-        <span aria-hidden className="shrink-0">{leadingIcon}</span>
+        <span aria-hidden className="shrink-0">
+          {leadingIcon}
+        </span>
       ) : null}
       {children}
-      {trailingIcon && !loading ? (
-        <span aria-hidden className="shrink-0">{trailingIcon}</span>
+      {trailingIcon && !isLoading && !isSuccess ? (
+        <span aria-hidden className="shrink-0">
+          {trailingIcon}
+        </span>
       ) : null}
     </ShadcnButton>
   );
 });
 
-export function IconButton({
-  size = "md",
-  intent = "tertiary",
-  className,
-  children,
-  "aria-label": ariaLabel,
-  ...props
-}: ButtonProps & { "aria-label": string }) {
-  const dim =
-    size === "xs" ? "!h-7  !w-7"  :
-    size === "sm" ? "!h-8  !w-8"  :
-    size === "lg" ? "!h-12 !w-12" :
-    size === "xl" ? "!h-14 !w-14" :
-                    "!h-10 !w-10";
-  return (
-    <Button
-      intent={intent}
-      size={size}
-      aria-label={ariaLabel}
-      className={cn(dim, "!px-0", className)}
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-}
-
 export { buttonVariants };
+
+/* IconButton — relocated to its own file for v0.9. Re-exported here for
+   backwards compatibility; new code should import directly from
+   `@/components/primitives/icon-button`. */
+export { IconButton } from "./icon-button";

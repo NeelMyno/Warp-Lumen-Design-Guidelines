@@ -55,7 +55,8 @@
           "hover": { "$value": "{color.accent.600}" },
           "press": { "$value": "{color.accent.700}" }
         },
-        "fg":   { "$value": "{color.accent.fg}" },
+        "fg":   { "$value": "{color.accent.fg}", "$description": "Obsidian-leaning #0a0a0d on lime — 12.6:1 AAA. Never inherit text-primary." },
+        "border": { "$value": "transparent" },
         "glow": { "$value": "{shadow.accent-glow}" }
       },
       "secondary": {
@@ -68,6 +69,7 @@
         "border": { "$value": "{color.alpha.paper.12}" }
       },
       "tertiary": {
+        "$description": "v0.9 alias of ghost — kept for backwards compatibility. New code uses ghost surface composed with neutral intent.",
         "bg": {
           "rest":  { "$value": "transparent" },
           "hover": { "$value": "rgba(255,255,255,0.06)" },
@@ -75,12 +77,78 @@
         },
         "fg": { "$value": "#f5f5f3" }
       },
-      "danger": {
+      "ghost": {
+        "$description": "v0.9 — no chrome at rest, subtle hover tint. The neutral × ghost surface.",
         "bg": {
-          "rest":  { "$value": "{color.status.danger.500}" },
-          "hover": { "$value": "{color.status.danger.700}" }
+          "rest":  { "$value": "transparent" },
+          "hover": { "$value": "{color.alpha.paper.06}" },
+          "press": { "$value": "{color.alpha.paper.08}" }
         },
-        "fg": { "$value": "#ffffff" }
+        "fg": { "$value": "#f5f5f3" }
+      },
+      "outline": {
+        "$description": "v0.9 — hairline pill (transparent fill, 1px border). The neutral × outline surface. Mirrors current secondary visually but is keyword-explicit for orthogonal composition.",
+        "bg": {
+          "rest":  { "$value": "transparent" },
+          "hover": { "$value": "{color.alpha.paper.04}" },
+          "press": { "$value": "{color.alpha.paper.08}" }
+        },
+        "fg":     { "$value": "#f5f5f3" },
+        "border": {
+          "rest":  { "$value": "{color.alpha.paper.16}" },
+          "hover": { "$value": "{color.alpha.paper.24}" }
+        }
+      },
+      "danger": {
+        "$description": "v0.9 — bg deepened red.500→.700 to clear WCAG AA Normal (4.5:1). Was 3.94:1 with red.500/white per visual audit.",
+        "bg": {
+          "rest":  { "$value": "{color.status.danger.700}", "$description": "v0.9 — was {color.status.danger.500} (3.94:1 AA fail). Now red.700 #c92626 (~5.2:1 AA pass)." },
+          "hover": { "$value": "{color.status.danger.800}", "$description": "v0.9 — was .700; now .800 for stronger hover delta." },
+          "press": { "$value": "{color.status.danger.800}", "$description": "v0.9 — added for press feedback (was missing)." }
+        },
+        "fg":     { "$value": "#ffffff", "$description": "5.2:1 on red.700 — passes AA Normal." },
+        "border": { "$value": "transparent" }
+      },
+      "danger-soft": {
+        "$description": "v0.9 — danger × ghost surface. Carbon's `danger-ghost` pattern. For destructive actions in tight contexts (table row delete, settings) where solid red would over-emphasize.",
+        "bg": {
+          "rest":  { "$value": "transparent" },
+          "hover": { "$value": "rgba(201,38,38,0.12)" },
+          "press": { "$value": "rgba(201,38,38,0.18)" }
+        },
+        "fg": { "$value": "#f48a86", "$description": "Lumen text.error — same source. 4.7:1 on canvas." }
+      },
+      "ai": {
+        "$description": "v0.9 — AI-action variant. Lime tonal surface + sparkle leading icon. Sparingly: only on AI-driven primary actions (Improve, Summarize, Suggest, Quote-with-AI). Not a general-purpose intent. See ADR 0016.",
+        "bg": {
+          "rest":  { "$value": "{color.alpha.accent.12}" },
+          "hover": { "$value": "{color.alpha.accent.24}" },
+          "press": { "$value": "{color.alpha.accent.32}" }
+        },
+        "fg":     { "$value": "{color.accent.300}", "$description": "Laser lime — brighter than accent.fg on tonal lime to maintain perceived hierarchy." },
+        "border": { "$value": "{color.alpha.accent.40}" }
+      },
+      "success": {
+        "$description": "v0.9 — success-affirmation feedback variant. Same lime palette as primary per the single-accent rule, but tonal not solid. Used briefly (1.6 s) post-success state of any button (`<Button success>Saved</Button>`).",
+        "bg":  { "$value": "{color.alpha.accent.24}" },
+        "fg":  { "$value": "{color.accent.300}" },
+        "border": { "$value": "{color.alpha.accent.40}" }
+      },
+      "selected": {
+        "$description": "v0.9 — aria-pressed=true state for ToggleButton / Segmented option. Subtle lime tint + lime hairline. Distinct from primary (filled lime).",
+        "bg":     { "$value": "{color.alpha.accent.12}" },
+        "fg":     { "$value": "#f5f5f3" },
+        "border": { "$value": "{color.accent.500}" }
+      },
+      "glass": {
+        "$description": "v0.9 — translucent surface for floating overlays (toolbar pinned over a map, modal action bar, scrim toolbar). Composes with backdrop-filter: blur(12px). Not a default primary.",
+        "bg": {
+          "rest":  { "$value": "{color.surface.glass}" },
+          "hover": { "$value": "rgba(20,20,26,0.72)" },
+          "press": { "$value": "rgba(20,20,26,0.86)" }
+        },
+        "fg":     { "$value": "#f5f5f3" },
+        "border": { "$value": "{color.alpha.paper.10}" }
       }
     },
     "status": {

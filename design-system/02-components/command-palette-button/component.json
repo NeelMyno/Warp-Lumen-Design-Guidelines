@@ -1,0 +1,67 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CommandPaletteButton",
+  "version": "0.9.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Search-styled trigger that opens the global command palette. Carries leading search icon, placeholder hint, and trailing keyboard-shortcut chip.",
+  "props": {
+    "hint":        { "type": "node",   "optional": true, "default": "Find a lane, load, customer…", "description": "Placeholder-style hint, rendered in muted text." },
+    "shortcutKey": { "type": "string", "optional": true, "default": "K", "description": "Keyboard letter for the shortcut. Default 'K' — paired with platform modifier (⌘ on Mac, Ctrl elsewhere)." },
+    "size":        { "type": "enum",   "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "onClick":     { "type": "handler", "optional": false, "description": "Open the actual palette. The component is just the trigger." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.action.outline.bg.rest",
+      "color.action.outline.fg",
+      "color.action.outline.border.rest",
+      "color.text.tertiary",
+      "color.surface.sunken",
+      "color.border.default",
+      "size.control.md",
+      "radius.control.md",
+      "type.kbd",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "button",
+    "keyboard": [
+      "Enter - open the palette",
+      "Space - open the palette",
+      "Tab - move focus to next control",
+      "{platform-modifier}+{shortcutKey} - global shortcut to open the palette"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Implement the global keyboard shortcut at the app level (window event listener) — the trigger is just the visible affordance.",
+      "The platform modifier auto-detects on the client; SSR renders 'Ctrl' as the safe default.",
+      "kbd chip must use mono typography (Lumen type.kbd).",
+      "If the palette is the primary nav for power users, place the trigger high in the visual hierarchy (top-bar centre or right-of-logo)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Pair with the global keyboard shortcut. Without the shortcut the trigger is just a button.",
+      "Use a verb-noun hint: 'Find a lane, load, customer' — concrete examples beat 'Search'.",
+      "Place at top-bar centre or right of logo, the universal place power users look."
+    ],
+    "dont": [
+      "Don't use CommandPaletteButton as a substitute for a real search input — the palette is for navigation + quick actions, not field-search.",
+      "Don't omit the kbd chip — operators rely on the visual hint to discover the shortcut."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Button", "Field", "Combobox"],
+  "changelog": [
+    { "version": "0.9.0", "type": "Added", "note": "Formal CommandPaletteButton primitive. Search-styled outline button + leading Search icon + trailing platform-aware kbd chip." }
+  ]
+}

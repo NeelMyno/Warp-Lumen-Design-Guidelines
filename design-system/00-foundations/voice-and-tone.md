@@ -141,6 +141,45 @@ When generating any copy for Lumen:
 3. Cut one sentence.
 4. Read it aloud once. If it sounds like a senior operator at a logistics company, ship it. If it sounds like a marketing intern, rewrite.
 
+## Buttons (v0.9)
+
+Button labels are the most-touched copy in the system. The voice rules above all apply, plus:
+
+**Always**
+- **Verb-leading.** "Save changes" not "Save" or "Submit". The verb is the action.
+- **Numerate when you can.** "Add 3 lanes" not "Add lanes." "Re-route load #4928" not "Re-route load." Operators read numbers fastest.
+- **Sentence case.** "Save changes" not "Save Changes." Title Case in buttons reads as marketing.
+- **Specific over generic.** "Continue to billing" not "Continue." "Cancel order" not "Cancel."
+
+**Never** (banned in product code; flagged by `lint:button-conventions`)
+- "OK" — what would *not OK* even mean? Use the verb.
+- "Submit" — what's being submitted? Use the noun's verb: "Get rates", "Book load", "Save quote."
+- "Yes" / "No" / "Confirm" / "Cancel" — confirm what? Cancel what? Use specifics.
+- "Click here" — it's a button. The user knows.
+- "Learn more" — learn what? "See pricing", "Read the changelog", "Watch demo (3 min)."
+- "Get started" — start what? "Create account", "Add first lane."
+
+**Icon-only buttons** require an `aria-label` that's verb-led and disambiguates context: not just "Edit" but "Edit row" / "Edit lane" / "Edit shipment." `lint:button-conventions` flags icon-only buttons missing the label.
+
+**Hold-to-confirm danger labels** (when shipped in v0.9.x) use imperative + warning verb. "Hold to delete carrier" not "Confirm delete." The verb sets expectation; the warning sets stakes.
+
+**AI-action labels** can use a sparkle icon as visual prefix, but the verb leads: "✨ Improve copy" not just "✨ AI." The sparkle signals "AI is doing the verb"; without the verb, the button has no meaning.
+
+**Examples — good vs. bad**
+
+| Bad | Good |
+|---|---|
+| Submit | Save quote |
+| OK | Got it |
+| Yes | Delete carrier |
+| Cancel | Keep editing |
+| Click to upload | Upload file |
+| Learn more | See pricing |
+| Get started | Create account |
+| Continue | Continue to billing |
+| Save | Save 3 lanes |
+| Edit | Edit lane TX → CA |
+
 ## Related
 
 - [UI writing style](../04-content/ui-writing-style.md)

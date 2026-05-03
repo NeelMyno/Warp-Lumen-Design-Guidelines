@@ -9,7 +9,8 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "border-transparent bg-primary text-primary-foreground",
+        /* v0.8.1 — Direct token refs, mirrors the Button fix. See ui/button.tsx. */
+        default: "border-transparent bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]",
         secondary: "border-transparent bg-[var(--surface-sunken)] text-[var(--text-secondary)]",
         destructive: "border-transparent bg-[var(--lumen-red-5)] text-white",
         outline: "border-[var(--border-default)] text-[var(--text-primary)]",

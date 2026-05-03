@@ -1,0 +1,104 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "IconButton",
+  "version": "0.9.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A square Button containing only an icon. Required aria-label gives the control a name for screen readers and keyboard users.",
+  "props": {
+    "ariaLabel": {
+      "type": "string",
+      "optional": false,
+      "description": "REQUIRED. The accessible name. Without it the button is invisible to assistive tech."
+    },
+    "intent": {
+      "type": "enum",
+      "values": ["primary", "secondary", "tertiary", "ghost", "outline", "danger", "danger-soft", "ai", "glass"],
+      "default": "ghost",
+      "optional": true,
+      "description": "Default 'ghost' for toolbar density. Use 'primary' sparingly — round + solid lime is loud."
+    },
+    "size": {
+      "type": "enum",
+      "values": ["xs", "sm", "md", "lg", "xl"],
+      "default": "md",
+      "optional": true,
+      "description": "Square dimensions: xs 24×24 / sm 32×32 / md 40×40 (default) / lg 48×48 / xl 56×56. Only md+ meets the 44 px touch floor on mobile."
+    },
+    "shape": {
+      "type": "enum",
+      "values": ["rect", "round"],
+      "default": "rect",
+      "optional": true,
+      "description": "rect = rounded square (radius.control.md). round = full radius (FAB-shaped, status pings, chip-close)."
+    },
+    "loading":  { "type": "boolean", "default": false, "optional": true, "description": "Spinner replaces the icon. aria-busy=true." },
+    "pressed":  { "type": "boolean", "default": false, "optional": true, "description": "aria-pressed=true. For toggle / segmented icon buttons (compose / decompose, view-list / view-grid)." },
+    "disabled": { "type": "boolean", "default": false, "optional": true },
+    "onClick":  { "type": "handler", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.action.primary.bg.rest",
+      "color.action.primary.fg",
+      "color.action.ghost.bg.rest",
+      "color.action.ghost.bg.hover",
+      "color.action.ghost.fg",
+      "color.action.outline.bg.rest",
+      "color.action.outline.fg",
+      "color.action.outline.border.rest",
+      "size.control.xs",
+      "size.control.sm",
+      "size.control.md",
+      "size.control.lg",
+      "size.control.xl",
+      "radius.control.md",
+      "radius.full",
+      "shadow.focus",
+      "shadow.focus.dual.stack"
+    ]
+  },
+  "a11y": {
+    "role": "button",
+    "keyboard": [
+      "Enter - activate",
+      "Space - activate",
+      "Tab - move focus to next control",
+      "Shift+Tab - move focus to previous control"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.5 Target Size (Enhanced)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "aria-label is REQUIRED. The component throws a TypeScript error if missing.",
+      "Provide a tooltip via Tooltip primitive after 600 ms hover-delay so sighted users know the icon's purpose.",
+      "If the same icon means different things in different contexts, the aria-label must disambiguate ('Edit row' not 'Edit').",
+      "Touch targets below 44×44 (xs / sm) are desktop-density only — do not use on mobile primary surfaces."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use a recognized lucide-react icon. The icon set is opinionated; adding a new icon is a system decision.",
+      "Pair with Tooltip for disambiguation on hover.",
+      "Match the IconButton size to surrounding controls (toolbar buttons + IconButtons should share a height tier)."
+    ],
+    "dont": [
+      "Don't use IconButton without aria-label — TypeScript rejects it.",
+      "Don't use a custom icon that doesn't appear elsewhere in the system.",
+      "Don't use IconButton for the only primary action on a screen — pair with a labeled Button."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Button", "Tooltip", "ButtonGroup"],
+  "changelog": [
+    { "version": "0.9.0", "type": "Added", "note": "Formal IconButton primitive (was inline in primitives/button.tsx). Required aria-label, full size ladder, rect/round shape, all Button intents." }
+  ]
+}

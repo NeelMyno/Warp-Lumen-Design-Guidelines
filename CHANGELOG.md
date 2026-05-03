@@ -10,6 +10,130 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.9.0] — 2026-05-03 — Button rebuild · 5×8×3 surface · CSS-class implementation
+
+A user-reported visual regression on `<Button intent="primary">` (white text on lime, ~1.66:1 contrast — same defect as v0.8.1) revealed a deeper issue: **the Vercel preview is stuck at v0.5.0**, four versions behind the source. The v0.8.1 fix was correct in source but never deployed. A four-agent investigation surveyed 20+ peer button systems (Material 3 Expressive May 2025, IBM Carbon v11, Atlassian, Polaris, Vercel Geist, Stripe, Apple HIG iOS 26 Liquid Glass, Linear, Notion, GitHub Primer, Tailwind UI, Radix Themes, Anthropic, OpenAI Platform) plus the two SuperDesign references (Glassmorphism / Neon Velocity), audited every button-shaped surface in the repo, and proposed a comprehensive v0.9 rebuild grounded in nine decisions.
+
+See [ADR 0016](./_meta/decisions/0016-button-rebuild-v09.md) for the full audit + rationale and [00-foundations/buttons.md](./design-system/00-foundations/buttons.md) for the canonical reference.
+
+### Added
+
+- **5 explicit size tiers**: xs 24 / sm 32 / md 40 (default) / lg 48 / xl 56 px. Mapped onto `size.control.{xs,sm,md,lg,xl}` semantic tokens (`size.control.xs = 24` is NEW). Mobile primaries floor at lg to clear the 44 px touch target. xs is desktop-density only (table-row inline, chip-close).
+- **8 intents (role)** × **5 surfaces (chrome)** as orthogonal axes:
+  - **`primary`** — lime fill + obsidian-fg + three-state glow ladder
+  - **`secondary`** — raised surface + hairline border (existing v0.4 pattern)
+  - **`outline`** — transparent + 1 px ink hairline (Glassmorphism reference's secondary)
+  - **`tertiary`** — alias of ghost (kept for backwards compat; deprecated for v1.0)
+  - **`ghost`** — no chrome, hover-only feedback
+  - **`danger`** — red.600 fill + white text (was red.500 → AA fail; now 5.2:1 AA pass)
+  - **`danger-soft`** — Carbon's `danger-ghost` pattern; transparent + ink-red text for tight contexts
+  - **`ai`** — tonal lime + sparkle leading icon + idle 1 px shimmer border (paused on hover)
+  - **`glass`** — translucent + `backdrop-filter: blur(12px)` for floating overlays
+  - **`link`** — inline text-link styled as button
+- **3 shapes** orthogonal to size:
+  - **`rect`** (default) — `radius.control.md` (~6 px); operator pages
+  - **`pill`** — full radius + 50% extra horizontal padding; hero / AI / marketing
+  - **`round`** — square + full radius; IconButton / FAB
+- **Three-state glow ladder** for `intent="primary"` only:
+  - rest: `0 0 16px rgba(lime, 0.25)`
+  - hover: `0 0 24px rgba(lime, 0.40)` (Glassmorphism's hover-doubling pattern)
+  - active: `0 0 8px rgba(lime, 0.20)` paired with `filter: brightness(0.92)`
+  Other intents and surfaces ship zero glow at all states. Single-accent rule preserved.
+- **Dual-ring focus indicator** for lime accent surfaces (Atlassian 2024 pattern). Inner 2 px canvas-color separator + outer 4 px lime ring. `shadow.focus.dual.stack` token. Other intents continue with `shadow.focus` (single 3 px lime alpha at 32%). Closes WCAG 2.4.13 against same-color focus rings on brand surfaces.
+- **`success` state** (NEW prop, transient): when set, the button shows a checkmark + tonal-lime surface + verb-confirmed label ("Saved", "Booked", "Quoted") for 1.6 s, then auto-clears. Live-region announce. Pairs with React 19's `useOptimistic`.
+- **`pressed` state** (NEW prop): renders the lime-tinted selected surface; sets `aria-pressed=true`. For ToggleButton / Segmented option / split-button menu trigger.
+- **`shape` prop** (NEW): explicit rect / pill / round on Button. `pill` legacy alias preserved.
+- **Five new component contracts** (full md + json + canonical example for each):
+  - **IconButton** (`02-components/icon-button/`) — formal primitive with required `aria-label`. Five sizes + rect/round shapes.
+  - **ButtonGroup** (`02-components/button-group/`) — joined-button row, `role="group"`, focus-visible z-index lift.
+  - **SplitButton** (`02-components/split-button/`) — primary action + dropdown caret with hairline divider, `aria-haspopup="menu"` on trigger, required `menuLabel`.
+  - **CommandPaletteButton** (`02-components/command-palette-button/`) — search-styled trigger with platform-aware kbd chip (⌘K on macOS, Ctrl K elsewhere).
+  - **FAB** (`02-components/fab/`) — round, fixed-position primary action; required `aria-label`; lg/xl sizes (Material 3 floor 56).
+- **`00-foundations/buttons.md`** (NEW canonical doc) — anatomy, sizes, intents, shapes, states, motion, focus, voice, accessibility, implementation pattern.
+- **ADR 0016** — durable record of the v0.9 audit + 9-decision rationale.
+- **Action-surface CSS bridge** in `globals.css` — `--color-action-{intent}-{bg|fg|border}-{rest|hover|press}` per-state vars for both dark and light themes. The vendor cva button consumes these via direct refs (one var() hop, dev-stable in Tailwind v4).
+- **`.lumen-btn-*` defensive class family** in `globals.css` — single-class shorthand for every intent (`primary`, `secondary`, `outline`, `ghost`, `tertiary`, `danger`, `danger-soft`, `ai`, `success`, `selected`, `glass`), every size, every shape. Exposes the v0.9 button system to consumers outside the Button primitive (raw `<a>` CTAs, templated buttons, custom action surfaces).
+- **`.lumen-button-group`, `.lumen-split-button`, `.lumen-cmd-button`, `.lumen-icon-button`, `.lumen-fab`** CSS scaffolding for the new composites.
+- **Loading vs. disabled — visually distinct** at last. Loading keeps color, swaps icon to spinner, sets `aria-busy=true`. Disabled drops to opacity 0.4. No more "is the button waiting or unavailable?" ambiguity.
+- **AI shimmer keyframe** (`@keyframes lumen-btn-ai-shimmer`) — 1 px lime border pulse, 1.6 s ease-in-out, paused on hover/focus, dropped under `prefers-reduced-motion`.
+- **Success-checkmark keyframe** (`@keyframes lumen-btn-success-check`) — 240 ms scale-in entrance, holds 1.6 s, exits 80 ms.
+- **`prefers-reduced-motion` overrides** — every Button transition zeroed; AI shimmer paused; resting glow stays steady (it's a halo, not motion).
+- **`tab-nav` and `bottom-nav` `aria-current="page"`** added in `audit-dashboard/src/components/primitives/nav.tsx`. WCAG-compliant active-state announcement for screen readers.
+- **5 new color primitives**: `color.status.danger.600` (`#dc2626`, 5.13:1 white-on-bg), `color.status.danger.700` (`#c92626`, 5.20:1 — used by danger.bg.rest), `color.status.danger.800` (`#a31b1b`, 7.07:1 — danger.hover/press). Plus `color.alpha.{ink,paper}.{04,08,10,16,24}` filling gaps in the alpha ladder needed by orthogonal action surfaces.
+
+### Changed
+
+- **Implementation pattern**: vendor button moved from inline Tailwind utilities (`bg-[var(...)] text-[var(...)] hover:bg-[var(...)] ...`) to **CSS-class composition**. The cva variants now compose `.lumen-btn-{intent}` / `.lumen-btn-{size}` / `.lumen-btn-{shape}` classes declared in `globals.css`. This eliminates Tailwind v4's content-scanner fragility (which v0.8.1 patched per-primitive) and guarantees dev/prod parity for every Button surface. See ADR 0016 § "Why CSS classes."
+- **Press feedback dropped `translate-y(1px)`** — replaced with `filter: brightness(0.92)` + glow ladder shrink. Apple HIG / Linear / Vercel / Notion / GitHub all converge on no-transform press for operator UI. Decelerate-not-bounce.
+- **Vendor `cva` rename: `variant` → `intent`** in `audit-dashboard/src/components/ui/button.tsx`. Aligns the vendor primitive with the Lumen wrapper API. No external callers used the `variant` name directly (verified by grep), so this is non-breaking in the audit-dashboard.
+- **Danger background deepened** `red.500 (#e23b3b, 3.94:1 AA fail)` → `red.600 (#c92626, ~5.2:1 AA pass)`. Hover deepens further to `red.700`. Matches Linear / Stripe / GitHub red-button conventions.
+- **`color.action.outline.*` and `color.action.ghost.*`** explicitly named (was implicit alias of secondary/tertiary). The orthogonal `surface` axis is now first-class.
+- **Button contract** ([design-system/02-components/button/component.json](design-system/02-components/button/component.json)) — full v0.9 rewrite: 8 intents, 5 sizes, shape prop, success/pressed props, 9 expanded `rules.dont`, full WCAG 2.2 AA enumeration including 1.4.13, 2.1.1, 2.4.11, 2.4.13.
+- **Canonical Button example** ([design-system/02-components/button/examples/primary.tsx](design-system/02-components/button/examples/primary.tsx)) — rewritten to use the CSS-class pattern; consumers copy a single tsx file and reference the same `.lumen-btn-*` family from globals.css.
+- **`color.action.primary.border = transparent`** explicit (was implicit). Other action intents now also have a `border` slot so the orthogonal surface composition is symmetric.
+
+### Fixed
+
+- **Vendor `nav.tsx` FAB** now wraps the formal `FAB` primitive (was inline `<button>` with hardcoded h-14 + glow).
+- **Vendor `nav.tsx` SplitButton** now wraps the formal `SplitButton` primitive (was inline two-`<button>` group with hardcoded lime + chevron).
+- **`tab-nav` (`primitives/nav.tsx`)** — added `role="tab"`, `aria-selected`, `aria-current="page"` on the active tab. Was visual-only.
+- **`bottom-nav` (`primitives/nav.tsx`)** — added `role="navigation"`, `aria-label`, `aria-current="page"` on the active item. Was visual-only.
+- **Bottom-nav unread badge** — `bg-[var(--lumen-red-5)]` → `bg-[var(--lumen-red-6)]` to match the v0.9 danger-bg deepening (consistency with Button danger).
+- **Loading state collapsed onto disabled** at the visual level (both used `opacity: 0.4`). v0.9 separates them via the spinner-replaces-icon pattern.
+
+### Deprecated
+
+- **`intent="tertiary"`** — alias of `intent="ghost"` in v0.9. Both work; ghost is the new canonical name. Tertiary will be removed in v1.0.
+
+### Deferred
+
+- **Style Dictionary `_build/css/buttons.css`** wiring (carries from v0.7 ADR 0012 / v0.8 ADR 0014 / v0.8.1 ADR 0015). Once wired, the `.lumen-btn-*` block in `globals.css` derives from `01-tokens/components/button.tokens.json`. v0.9.x.
+- **`HoldToConfirmButton`** — destructive 2 s mouse-hold + type-to-confirm fallback (Smashing 2024 dangerous-actions panel). v0.9.x.
+- **Mono-cap variant** (`<Button variant="mono">EXPORT CSV</Button>`) — uppercase Geist Mono with 2 px tracking, for data-context buttons only. v0.9.x.
+- **Loading-with-progress** — bg fill 0% → 100% under label for actions >5 s (Vercel deploy-button pattern). v0.9.x.
+- **Density propagation to Button via `data-density`** (v0.8 pattern). v0.9.x.
+- **Migrate every raw `<button>`** in `templates.tsx`, `ai.tsx`, `commerce.tsx`, `mobile.tsx` to use Button / IconButton / SplitButton — ~150 inline buttons remain. Tracked as v0.9.x cleanup.
+- **`lint:button-conventions`** — extend with banned-phrase detection ("OK", "Submit", "Yes", "No"), Title Case detection, double-icon flagging. v0.9 ships the script foundation; v0.9.x adds the rules.
+- **Vercel deploy stuck at v0.5.0** — the auto-deploy hasn't picked up v0.6, v0.7, v0.8, v0.8.1, or v0.9. Either the Root Directory config drifted or SAML re-engaged. Investigation tracked separately; the v0.9 source is shippable independently.
+
+---
+
+## [0.8.1] — 2026-05-03 — Primary-action contrast fix · shadcn bridge ban
+
+A user-reported visual regression on the dashboard's `<Button intent="primary">` — white text on the lime accent surface (~1.66:1 contrast, WCAG AA fail). The token chain on paper was correct (`color.action.primary.fg` → `{color.accent.fg}` = `#0a0a0d`, 12.6:1 AAA). The break was in the shadcn token bridge: the cva `default` variant in `audit-dashboard/src/components/ui/button.tsx` used the shadcn utility names (`bg-primary text-primary-foreground`), which resolve through three `var()` hops at runtime (`:root` → `--primary-foreground` → `--text-on-accent` → `--lumen-accent-fg`). Tailwind v4's content scanner was observed to drop those classes from compiled CSS in this repo's setup, leaving the button to inherit `--text-primary` (near-white in dark theme) on the lime canvas.
+
+The same bridge fragility affected `bg-card / text-card-foreground` (Card), `bg-popover / text-popover-foreground` (Popover), `bg-secondary` (Sheet close hover), and the Badge / Progress / Slider primary variants. All seven vendor primitives are now pinned to direct semantic refs that the arbitrary-value scanner is guaranteed to compile (`bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]`, etc.).
+
+See [ADR 0015](./_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md) for the root-cause analysis.
+
+### Added
+
+- **AGENTS.md hard rule #9** — never render white or near-white text on the lime accent surface. Documents both the failing token bridge utilities and the working direct-ref pattern.
+- **Foundation doc — `00-foundations/accessibility.md` § "Primary action contrast — explicit"** — explains the 12.6:1 AAA pairing rule, the Tailwind v4 bridge fragility, and the two enforcement layers (direct refs in vendor primitives + lint rule).
+- **Lint rule `lint:no-white-on-accent`** ([scripts/lint-no-white-on-accent.mjs](scripts/lint-no-white-on-accent.mjs)) — flags two patterns:
+  1. Shadcn bridge utilities (`bg-primary`, `text-primary-foreground`, `bg-card`, `text-card-foreground`, `bg-popover`, `text-popover-foreground`, `bg-destructive`, `text-destructive-foreground`, `bg-secondary`, `text-secondary-foreground`, `bg-muted`, `text-muted-foreground`, `bg-accent`, `text-accent-foreground`, `bg-foreground`, `text-foreground`) anywhere in product code.
+  2. White-ish text classes (`text-white`, `text-[#fff]`, `text-[#ffffff]`, `text-[var(--text-primary)]`, `text-[var(--lumen-paper-*)]`) paired with a lime background (`bg-[var(--lumen-accent-{3,4,5,6})]` or `bg-primary`) in the same `className` string.
+  Wired into the main `pnpm lint` chain. Exempts the four vendor files audited by hand (`VENDOR_REWRITTEN` set). Inline `lumen-lint-allow: white-on-accent` directive supported per existing precedent.
+- **`.lumen-btn-primary` defensive class** in [audit-dashboard/src/app/globals.css](audit-dashboard/src/app/globals.css) — single-class shorthand baking in `bg-[var(--lumen-accent-4)] / text-[var(--lumen-accent-fg)]` plus hover, active, disabled, and focus-visible states. For consumers that need the guarantee outside the Button primitive (raw `<a>` CTAs, templated buttons, etc.).
+
+### Fixed
+
+- **`audit-dashboard/src/components/ui/button.tsx`** — `default` variant now `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]` (was `bg-primary text-primary-foreground`). `destructive` variant now uses direct red ref. Hover and active states explicitly re-pin the foreground to prevent any inheritance regression.
+- **`audit-dashboard/src/components/ui/badge.tsx`** — `default` and `destructive` variants pinned to direct refs.
+- **`audit-dashboard/src/components/ui/progress.tsx`** — Indicator now `bg-[var(--lumen-accent-5)]` (was `bg-primary`).
+- **`audit-dashboard/src/components/ui/slider.tsx`** — Range fill `bg-[var(--lumen-accent-5)]`; Thumb border `border-[var(--lumen-accent-4)]`.
+- **`audit-dashboard/src/components/ui/card.tsx`** — `bg-[var(--surface-raised)] text-[var(--text-primary)]` (was `bg-card text-card-foreground`).
+- **`audit-dashboard/src/components/ui/popover.tsx`** — Content surface pinned to direct refs.
+- **`audit-dashboard/src/components/ui/sheet.tsx`** — Close button hover state `bg-[var(--surface-sunken)]` and uses `--shadow-focus` for the focus ring (was `focus:ring-ring`, which also depends on the bridge).
+- **Button component contract** ([design-system/02-components/button/component.json](design-system/02-components/button/component.json)) — `rules.dont` now explicitly bans white/near-white text on the primary action surface. Changelog entry added.
+- **Canonical Button example** ([design-system/02-components/button/examples/primary.tsx](design-system/02-components/button/examples/primary.tsx)) — comment block at top warns consumers off the shadcn bridge for the primary intent. Body unchanged (already used direct semantic refs).
+
+### Deferred
+
+- **Wire Style Dictionary → `_build/tailwind/theme.css` (carried from v0.7 ADR 0012, v0.8 ADR 0014).** Once wired, `--color-action-primary-bg-rest` etc. will exist as real CSS variables and the canonical Button example renders correctly in isolation. v0.8.1's direct-ref fix is forward-compatible: when Style Dictionary lands, vendor primitives can migrate from `--lumen-accent-4` (audit-dashboard internal palette) to `--color-action-primary-bg-rest` (canonical semantic) without any contract change.
+
+---
+
 ## [0.8.0] — 2026-05-03 — Spacing rebuild + token-system reconciliation
 
 A repo-wide spacing/whitespace audit at the close of v0.7 found the conceptual model in `spacing.md` was sound but the implementation had **forked from the canonical source in five compounding ways**: source/implementation drift (`globals.css` declared its own non-canonical `--space-*` ladder + radius scale), phantom token references (`--size-control-{sm,md,lg}` and `--space-9` referenced 7+ times but never declared, breaking `.lumen-field` and `.lumen-switch` heights silently), 195 half-step Tailwind violations, 19+ uses of an undocumented "cozy" 36 px tier, and 27 hardcoded container widths. Plus the v0.7 semantic spacing layer (`stack/inline/section/page`) was zero-consumed in audit-dashboard because it had no Tailwind utility access.

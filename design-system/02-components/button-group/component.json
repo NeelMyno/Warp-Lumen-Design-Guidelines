@@ -1,0 +1,58 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ButtonGroup",
+  "version": "0.9.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "A row of joined buttons that share a single rounded outline. For segmented filters, toolbar action groups, and density toggles.",
+  "props": {
+    "pill": {
+      "type": "boolean",
+      "default": false,
+      "optional": true,
+      "description": "Pill mode — first/last child get full radius. Pair with shape='pill' on the children for visual consistency."
+    },
+    "children": { "type": "node", "optional": false, "description": "Two or more <Button> elements. Each child renders with borderRadius=0 and -1 px margin to overlap borders." }
+  },
+  "tokens": {
+    "consumed": [
+      "radius.control.md",
+      "radius.full",
+      "color.action.primary.border",
+      "color.action.outline.border.rest"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab - enter the group",
+      "Tab - move focus through buttons (each button is independently focusable)"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "2.4.7 Focus Visible"
+    ],
+    "rules": [
+      "role='group' on the wrapper.",
+      "Each child Button retains its own keyboard handling — do NOT swap to ArrowLeft/ArrowRight (that's the Segmented pattern).",
+      "If the group represents an exclusive choice (one option active), use Segmented instead — it ships aria-pressed handling."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use for related actions (Cut / Copy / Paste).",
+      "Use ButtonGroup for non-exclusive button rows; use Segmented for exclusive single-choice rows."
+    ],
+    "dont": [
+      "Don't put a primary intent next to a danger intent in a ButtonGroup — too much shared chrome.",
+      "Don't put a primary CTA inside a ButtonGroup — that's a SplitButton."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Button", "Segmented", "SplitButton"],
+  "changelog": [
+    { "version": "0.9.0", "type": "Added", "note": "Formal ButtonGroup primitive. Joined buttons via -1 px overlap, focus-visible z-index lift, pill-mode optional." }
+  ]
+}

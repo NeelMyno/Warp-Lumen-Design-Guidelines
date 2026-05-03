@@ -21,7 +21,8 @@ function Progress({
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="bg-primary h-full w-full flex-1 transition-all"
+        /* v0.8.1 — Direct lime token; see ui/button.tsx for context on the shadcn bridge fragility. */
+        className="bg-[var(--lumen-accent-5)] h-full w-full flex-1 transition-all"
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </ProgressPrimitive.Root>

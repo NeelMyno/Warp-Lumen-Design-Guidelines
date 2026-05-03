@@ -49,6 +49,13 @@ Repo root tree (orient yourself):
 
 8. **Honor `prefers-reduced-motion`** in everything that animates. Motion that doesn't respect this fails CI.
 
+9. **Never render white or near-white text on the lime accent surface.** The accent foreground is bound to `color.accent.fg` (`#0a0a0d`, ~12.6:1 AAA on `#4ade80`). White on lime is ≈1.66:1 — a WCAG AA fail. Specifically:
+   - Do NOT use the shadcn token-bridge utilities (`bg-primary`, `text-primary-foreground`, `bg-card`, `text-card-foreground`, `bg-popover`, `text-popover-foreground`, etc.) in product code. They resolve through `:root` → `--primary-foreground` → `--text-on-accent` → `--lumen-accent-fg`, and Tailwind v4's content scanner has been observed to drop those classes, leaving the element to inherit `--text-primary` (near-white).
+   - DO use the v0.9 `.lumen-btn-*` defensive class family (declared in `audit-dashboard/src/app/globals.css`) for any button surface — `.lumen-btn-primary`, `.lumen-btn-secondary`, `.lumen-btn-ghost`, etc. compose statically and ship every time.
+   - DO use direct semantic refs for one-off surfaces: `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]` (audit-dashboard) or `bg-[var(--color-action-primary-bg-rest)] text-[var(--color-action-primary-fg)]` (canonical via the v0.9 action-surface bridge).
+   - Lint rule `lint:no-white-on-accent` enforces both halves automatically. Vendor `audit-dashboard/src/components/ui/*` files are audited by hand; only files listed in the lint's `VENDOR_REWRITTEN` set are exempt from the bridge ban.
+   - For the comprehensive button language — sizes, intents, shapes, states, motion, voice — read [`design-system/00-foundations/buttons.md`](design-system/00-foundations/buttons.md). For the rationale read [ADR 0016](_meta/decisions/0016-button-rebuild-v09.md).
+
 ## Setup commands
 
 - Install dev deps: `pnpm install`

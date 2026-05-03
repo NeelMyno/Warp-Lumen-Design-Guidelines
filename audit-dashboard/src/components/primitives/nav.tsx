@@ -2,6 +2,8 @@
 
 import { ReactNode, useState } from "react";
 import { Plus, ChevronDown, Search as SearchIcon, Home, Bell, Inbox, Cart, User, Check } from "./icon";
+import { FAB as LumenFab } from "./fab";
+import { SplitButton as LumenSplitButton } from "./split-button";
 
 /* ─────────────────────────  PAGINATION  ───────────────────────── */
 export function Pagination({
@@ -308,6 +310,9 @@ export function TabBar({
           <button
             key={t.value}
             type="button"
+            role="tab"
+            aria-selected={active}
+            aria-current={active ? "page" : undefined}
             onClick={() => onChange(t.value)}
             className={[
               "relative h-10 px-3 text-[var(--type-13)] tracking-[var(--tracking-tight)] inline-flex items-center gap-2 transition-colors",
@@ -335,15 +340,21 @@ export function BottomNav({ active = "home" }: { active?: string }) {
     { value: "you", label: "You", icon: <User size={18} /> },
   ];
   return (
-    <div className="bg-[var(--surface-raised)] border-t border-[var(--border-hairline)] flex items-center justify-around h-14">
+    <nav role="navigation" aria-label="Bottom navigation" className="bg-[var(--surface-raised)] border-t border-[var(--border-hairline)] flex items-center justify-around h-14">
       {items.map((i) => {
         const isActive = i.value === active;
         return (
-          <button key={i.value} className="flex flex-col items-center gap-1 relative">
+          <button
+            key={i.value}
+            type="button"
+            aria-label={i.label}
+            aria-current={isActive ? "page" : undefined}
+            className="flex flex-col items-center gap-1 relative"
+          >
             <span className={["h-6 w-6 inline-flex items-center justify-center", isActive ? "text-[var(--text-primary)]" : "text-[var(--text-tertiary)]"].join(" ")}>
               {i.icon}
               {i.badge && (
-                <span className="absolute -top-[2px] right-2 min-w-[14px] h-[14px] px-1 inline-flex items-center justify-center rounded-full bg-[var(--lumen-red-5)] text-white text-[9px] lumen-mono font-semibold">{i.badge}</span>
+                <span className="absolute -top-[2px] right-2 min-w-[14px] h-[14px] px-1 inline-flex items-center justify-center rounded-full bg-[var(--lumen-red-6)] text-white text-[9px] lumen-mono font-semibold">{i.badge}</span>
               )}
             </span>
             <span className={["text-[10px] tracking-[var(--tracking-wide)]", isActive ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>
@@ -352,37 +363,38 @@ export function BottomNav({ active = "home" }: { active?: string }) {
           </button>
         );
       })}
-    </div>
+    </nav>
   );
 }
 
-/* ─────────────────────────  FAB  ───────────────────────── */
+/* ─────────────────────────  FAB  ─────────────────────────
+   v0.9 — Inline FAB now wraps the formal FAB primitive so the library demo
+   and the canonical contract render identically. The label prop is forwarded
+   as aria-label per v0.9 IconButton convention. */
 export function FAB({ icon = <Plus size={18} />, label = "Compose" }: { icon?: ReactNode; label?: string }) {
   return (
-    <button
-      aria-label={label}
-      className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] shadow-[var(--shadow-glow-accent)] hover:bg-[var(--lumen-accent-5)] active:translate-y-px transition-[background-color,transform]"
-    >
+    <LumenFab aria-label={label} intent="primary" size="xl">
       {icon}
-    </button>
+    </LumenFab>
   );
 }
 
-/* ─────────────────────────  SPLIT BUTTON  ───────────────────────── */
+/* ─────────────────────────  SPLIT BUTTON  ─────────────────────────
+   v0.9 — Inline SplitButton now wraps the formal SplitButton primitive plus a
+   local popover for the menu options (the formal primitive doesn't ship a menu
+   — that's the consumer's job). */
 export function SplitButton({ primary = "Save", options = ["Save and continue", "Save as draft", "Discard"] }: { primary?: string; options?: string[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative inline-flex">
-      <button className="h-10 px-4 rounded-l-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-medium hover:bg-[var(--lumen-accent-5)] active:translate-y-px transition-[background-color,transform]">
-        {primary}
-      </button>
-      <button
-        onClick={() => setOpen((s) => !s)}
-        aria-label="More save options"
-        className="h-10 w-10 rounded-r-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] hover:bg-[var(--lumen-accent-5)] border-l border-[rgba(0,0,0,0.15)] inline-flex items-center justify-center"
+      <LumenSplitButton
+        intent="primary"
+        size="md"
+        menuLabel="More save options"
+        onMenuOpen={() => setOpen((s) => !s)}
       >
-        <ChevronDown size={14} />
-      </button>
+        {primary}
+      </LumenSplitButton>
       {open && (
         <div className="absolute z-[var(--z-overlay)] right-0 top-full mt-1 min-w-[200px] rounded-[var(--radius-md)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-1">
           {options.map((o) => (

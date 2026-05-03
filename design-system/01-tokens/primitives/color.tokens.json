@@ -60,7 +60,9 @@
       "danger": {
         "50":  { "$value": "#fde9e7" },
         "500": { "$value": "#ef4444" },
-        "700": { "$value": "#7a1f1c" },
+        "600": { "$value": "#dc2626", "$description": "v0.9 — added for stronger AA-pass danger button (5.13:1 white-on-bg)." },
+        "700": { "$value": "#c92626", "$description": "v0.9 — was #7a1f1c; remapped to a deeper red that clears AA Normal (5.20:1 white-on-bg). Used by color.action.danger.bg.rest." },
+        "800": { "$value": "#a31b1b", "$description": "v0.9 — added for danger.bg.hover/press (7.07:1 white-on-bg)." },
         "900": { "$value": "#2c130f" }
       },
       "info": {
@@ -72,17 +74,25 @@
       }
     },
     "alpha": {
-      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades, and the lime ambient glow.",
+      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades, and the lime ambient glow. v0.9 added 04/08/10/16 stops to support the orthogonal action surface system (ghost-hover, outline-press, glass-hover, etc).",
       "ink": {
+        "04": { "$value": "rgba(10,10,13,0.04)", "$description": "v0.9 — outline-hover bg." },
         "06": { "$value": "rgba(10,10,13,0.06)" },
+        "08": { "$value": "rgba(10,10,13,0.08)", "$description": "v0.9 — outline-press bg, ghost-press bg." },
         "12": { "$value": "rgba(10,10,13,0.12)" },
+        "16": { "$value": "rgba(10,10,13,0.16)", "$description": "v0.9 — outline-rest border." },
         "24": { "$value": "rgba(10,10,13,0.24)" },
         "40": { "$value": "rgba(10,10,13,0.40)" },
         "60": { "$value": "rgba(10,10,13,0.60)" }
       },
       "paper": {
+        "04": { "$value": "rgba(255,255,255,0.04)", "$description": "v0.9 — outline-hover bg in dark mode." },
         "06": { "$value": "rgba(255,255,255,0.06)" },
+        "08": { "$value": "rgba(255,255,255,0.08)", "$description": "v0.9 — ghost-press bg in dark mode." },
+        "10": { "$value": "rgba(255,255,255,0.10)", "$description": "v0.9 — glass-rest border in dark mode." },
         "12": { "$value": "rgba(255,255,255,0.12)" },
+        "16": { "$value": "rgba(255,255,255,0.16)", "$description": "v0.9 — outline-rest border in dark mode." },
+        "24": { "$value": "rgba(255,255,255,0.24)", "$description": "v0.9 — outline-hover border in dark mode." },
         "40": { "$value": "rgba(255,255,255,0.40)" },
         "84": { "$value": "rgba(255,255,255,0.84)" }
       },

@@ -87,7 +87,7 @@ export function HeroBlock() {
         Live carrier rates, automated quoting, and operational signal in one calm surface. Built for the people who actually move trucks.
       </p>
       <div className="flex flex-wrap items-center gap-2 mt-6">
-        <button className="h-12 px-6 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-15)] font-semibold shadow-[var(--shadow-glow-accent)]">Get started</button>
+        <button className="h-12 px-6 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-15)] font-semibold shadow-[var(--shadow-glow-accent)]">Quote a lane</button>
         <button className="h-12 px-6 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-15)] font-medium">Watch the demo</button>
       </div>
       <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">
