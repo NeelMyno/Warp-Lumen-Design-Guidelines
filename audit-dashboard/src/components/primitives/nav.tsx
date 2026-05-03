@@ -35,7 +35,7 @@ export function Pagination({
             onClick={() => onChange?.(p)}
             aria-current={p === current ? "page" : undefined}
             className={[
-              "h-8 min-w-[32px] px-2.5 rounded-[var(--radius-sm)] text-[var(--type-13)] lumen-mono transition-colors",
+              "h-8 min-w-[32px] px-3 rounded-[var(--radius-sm)] text-[var(--type-13)] lumen-mono transition-colors",
               p === current
                 ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)] font-semibold"
                 : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
@@ -54,7 +54,7 @@ function PageBtn({ children, disabled, onClick }: { children: ReactNode; disable
     <button
       onClick={onClick}
       disabled={disabled}
-      className="h-8 px-2.5 rounded-[var(--radius-sm)] text-body-xs text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+      className="h-8 px-3 rounded-[var(--radius-sm)] text-body-xs text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
     >
       {children}
     </button>
@@ -93,17 +93,18 @@ export function Stepper({
                 <span className={["mt-2 h-px w-px relative -z-0", done ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--border-default)]"].join(" ")} />
               )}
             </div>
-            <div className="flex-1 pt-0.5 pb-3 pr-2">
+            <div className="flex-1 pt-1 pb-3 pr-2">
               <div className={["text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]", active ? "text-[var(--text-primary)]" : done ? "text-[var(--text-secondary)]" : "text-[var(--text-tertiary)]"].join(" ")}>
                 {s.label}
               </div>
               {s.description && (
-                <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{s.description}</div>
+                <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">{s.description}</div>
               )}
             </div>
             {i < steps.length - 1 && (
               <span
                 aria-hidden
+                // lumen-lint-allow: off-grid — 14 px stepper-rail offset to align with step-circle vertical center.
                 className={["absolute left-7 top-3.5 right-2 h-px", done ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--border-hairline)]"].join(" ")}
               />
             )}
@@ -121,7 +122,7 @@ export function AnchorList({
   items: { id: string; label: string; level?: 1 | 2 }[];
 }) {
   return (
-    <ul className="flex flex-col gap-1.5">
+    <ul className="flex flex-col gap-[var(--space-1_5)]">
       {items.map((i) => (
         <li key={i.id}>
           <a
@@ -154,7 +155,7 @@ export function MenuList({ items }: { items: ({ kind?: "item" | "divider" | "lab
             key={i}
             type="button"
             className={[
-              "w-full flex items-center justify-between gap-3 px-2 py-1.5 rounded-[var(--radius-sm)] text-[var(--type-13)]",
+              "w-full flex items-center justify-between gap-3 px-2 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[var(--type-13)]",
               it.danger ? "text-[var(--lumen-red-7)] hover:bg-[var(--lumen-red-0)]" : "text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]",
             ].join(" ")}
           >
@@ -258,7 +259,7 @@ export function SidebarDemo() {
         <span className="h-6 w-6 rounded-full bg-[var(--lumen-accent-4)]" />
         <span className="text-heading-h6">Acme Logistics</span>
       </div>
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-1">
         {items.map((i) => (
           <button
             key={i.label}
@@ -278,10 +279,10 @@ export function SidebarDemo() {
         ))}
       </div>
       <div className="lumen-eyebrow text-[10px] mt-2 px-2">Saved views</div>
-      <div className="flex flex-col gap-0.5">
+      <div className="flex flex-col gap-1">
         {["High-priority lanes", "TX → CA"].map((l) => (
           <button key={l} className="w-full h-7 px-2 inline-flex items-center rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:bg-[var(--surface-sunken)] transition-colors">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--lumen-amber-4)] mr-2" /> {l}
+            <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-amber-4)] mr-2" /> {l}
           </button>
         ))}
       </div>
@@ -317,7 +318,7 @@ export function TabBar({
             {t.count !== undefined && (
               <span className={["min-w-[18px] h-[18px] px-1 inline-flex items-center justify-center rounded-full text-[10px] lumen-mono", active ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)]" : "bg-[var(--surface-sunken)] text-[var(--text-tertiary)]"].join(" ")}>{t.count}</span>
             )}
-            {active && <span className="absolute left-3 right-3 -bottom-px h-0.5 rounded-full bg-[var(--lumen-accent-5)]" />}
+            {active && <span className="absolute left-3 right-3 -bottom-px h-[2px] rounded-full bg-[var(--lumen-accent-5)]" />}
           </button>
         );
       })}
@@ -338,11 +339,11 @@ export function BottomNav({ active = "home" }: { active?: string }) {
       {items.map((i) => {
         const isActive = i.value === active;
         return (
-          <button key={i.value} className="flex flex-col items-center gap-0.5 relative">
+          <button key={i.value} className="flex flex-col items-center gap-1 relative">
             <span className={["h-6 w-6 inline-flex items-center justify-center", isActive ? "text-[var(--text-primary)]" : "text-[var(--text-tertiary)]"].join(" ")}>
               {i.icon}
               {i.badge && (
-                <span className="absolute -top-0.5 right-2 min-w-[14px] h-3.5 px-1 inline-flex items-center justify-center rounded-full bg-[var(--lumen-red-5)] text-white text-[9px] lumen-mono font-semibold">{i.badge}</span>
+                <span className="absolute -top-[2px] right-2 min-w-[14px] h-[14px] px-1 inline-flex items-center justify-center rounded-full bg-[var(--lumen-red-5)] text-white text-[9px] lumen-mono font-semibold">{i.badge}</span>
               )}
             </span>
             <span className={["text-[10px] tracking-[var(--tracking-wide)]", isActive ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>
@@ -385,7 +386,7 @@ export function SplitButton({ primary = "Save", options = ["Save and continue", 
       {open && (
         <div className="absolute z-[var(--z-overlay)] right-0 top-full mt-1 min-w-[200px] rounded-[var(--radius-md)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-1">
           {options.map((o) => (
-            <button key={o} className="w-full text-left px-2.5 py-1.5 rounded-[var(--radius-sm)] text-[var(--type-13)] text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">{o}</button>
+            <button key={o} className="w-full text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[var(--type-13)] text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">{o}</button>
           ))}
         </div>
       )}
@@ -424,13 +425,13 @@ export function CommandPalette() {
       <div className="p-1 max-h-[280px] overflow-auto">
         {items.map((it, i) => {
           if (it.kind === "divider") return <div key={i} className="my-1 h-px bg-[var(--border-hairline)] mx-2" />;
-          if (it.kind === "label") return <div key={i} className="px-3 py-1.5 lumen-eyebrow text-[10px]">{it.label}</div>;
+          if (it.kind === "label") return <div key={i} className="px-3 py-[var(--space-1_5)] lumen-eyebrow text-[10px]">{it.label}</div>;
           const isFirst = i === 1;
           return (
             <div
               key={i}
               className={[
-                "w-full flex items-center justify-between px-2.5 py-1.5 rounded-[var(--radius-sm)] text-[var(--type-13)] cursor-pointer",
+                "w-full flex items-center justify-between px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[var(--type-13)] cursor-pointer",
                 isFirst ? "bg-[var(--surface-sunken)] text-[var(--text-primary)]" : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
               ].join(" ")}
             >
@@ -470,7 +471,7 @@ export function FooterDemo() {
       <div className="mt-8 pt-5 border-t border-[var(--border-hairline)] flex items-center justify-between text-[var(--type-11)] text-[var(--text-tertiary)]">
         <span>© 2026 Warp Inc. All rights reserved.</span>
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-[var(--lumen-accent-5)]" /> All systems operational</span>
+          <span className="inline-flex items-center gap-[var(--space-1_5)]"><span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-5)]" /> All systems operational</span>
         </div>
       </div>
     </footer>
@@ -479,8 +480,8 @@ export function FooterDemo() {
 function FCol({ title, links }: { title: string; links: string[] }) {
   return (
     <div>
-      <div className="lumen-eyebrow text-[10px] mb-2.5">{title}</div>
-      <ul className="flex flex-col gap-1.5">
+      <div className="lumen-eyebrow text-[10px] mb-3">{title}</div>
+      <ul className="flex flex-col gap-[var(--space-1_5)]">
         {links.map((l) => <li key={l}><a className="text-[var(--type-12)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">{l}</a></li>)}
       </ul>
     </div>

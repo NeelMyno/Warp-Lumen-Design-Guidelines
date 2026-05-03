@@ -216,7 +216,7 @@ export function DatePickerCalendar({ value, onChange, min, max }: CalendarProps)
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-y-1 mb-1.5">
+      <div className="grid grid-cols-7 gap-y-1 mb-2">
         {days.map((d) => (
           <span
             key={d}

@@ -14,13 +14,16 @@
   },
   "tokens": {
     "consumed": [
+      "space.inline.md",
+      "space.stack.xs",
+      "radius.pill",
       "color.accent.500",
       "color.border.strong",
       "color.surface.raised",
+      "color.text.primary", "color.text.tertiary",
       "shadow.xs",
       "shadow.focus",
-      "type.label.md",
-      "radius.pill",
+      "type.label.md", "type.body.sm",
       "motion.transition.fast"
     ]
   },

@@ -24,7 +24,10 @@
       "rangeSlider.range.background",
       "rangeSlider.thumb.size", "rangeSlider.thumb.radius", "rangeSlider.thumb.background", "rangeSlider.thumb.border", "rangeSlider.thumb.shadow", "rangeSlider.thumb.ringFocus",
       "rangeSlider.value.type", "rangeSlider.value.color",
-      "rangeSlider.trackHeight"
+      "rangeSlider.trackHeight",
+      "space.stack.xs",
+      "color.surface.sunken",
+      "color.accent.500"
     ]
   },
   "a11y": {

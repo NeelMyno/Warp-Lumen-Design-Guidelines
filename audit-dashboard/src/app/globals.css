@@ -256,36 +256,92 @@
   --grid-24: 192px;
   --grid-32: 256px;
 
-  --height-ctrl-xs: 28px;        /* 3.5u soft — dense rows only */
-  --height-ctrl-sm: 32px;        /* 4u — toolbars */
-  --height-ctrl-md: 40px;        /* 5u — DEFAULT */
-  --height-ctrl-lg: 48px;        /* 6u — primary CTA */
-  --height-ctrl-xl: 56px;        /* 7u — hero CTA, v0.4 */
-  --height-touch:   44px;        /* iOS soft */
+  /* Control heights — v0.8 reconciled with size.control.* JSON tokens.
+     The v0.7 dashboard had two parallel scales (--height-ctrl-* declared, --size-control-*
+     referenced but never defined → .lumen-field had undefined height). v0.8 picks
+     the JSON name (--size-control-*) as canonical. */
+  --size-control-sm:    32px;        /* compact button / input — desktop only */
+  --size-control-cozy:  36px;        /* v0.8 — settings-panel sweet spot, density tier */
+  --size-control-md:    40px;        /* DEFAULT */
+  --size-control-touch: 44px;        /* Apple HIG floor */
+  --size-control-lg:    48px;        /* primary CTA / form */
+  --size-control-xl:    56px;        /* v0.4 — hero pill CTA */
 
-  /* Spacing — half/quarter steps reserved for soft optical adjustments. */
-  --space-px: 1px;
+  /* Container widths — v0.8 hoisted from JSON for direct use. */
+  --size-container-narrow:  720px;
+  --size-container-default: 1100px;
+  --size-container-wide:    1200px;
+  --size-container-max:     1440px;
+  --size-container-ultra:   1920px;  /* v0.8 — 32" ops monitor reach */
+  --size-reading-narrow:    60ch;
+  --size-reading-default:   65ch;    /* v0.8 — typographic sweet spot */
+  --size-reading-wide:      75ch;
+
+  /* Decorative dot sizes (LiveDot family). */
+  --size-dot-sm: 6px;
+  --size-dot-md: 8px;
+
+  /* Scrollbar track. */
+  --size-scrollbar: 8px;
+
+  /* Spacing — v0.8 reconciled with the canonical JSON. The forked
+     half-step ladder (--space-0_5/1_5/2_5/3_5) is removed; use the integer
+     ladder + sub-grid stops 1_5/7/9/11/14 added in v0.8 to JSON. */
+  --space-px:  1px;        /* hairline, documented exception */
   --space-0:   0px;
-  --space-0_5: 2px;
   --space-1:   4px;
-  --space-1_5: 6px;
-  --space-2:   8px;     /* GRID 1 */
-  --space-2_5: 10px;
+  --space-1_5: 6px;        /* v0.8 — sub-grid for optical adjustment */
+  --space-2:   8px;        /* GRID 1 */
   --space-3:   12px;
-  --space-3_5: 14px;
-  --space-4:   16px;    /* GRID 2 */
+  --space-4:   16px;       /* GRID 2 */
   --space-5:   20px;
-  --space-6:   24px;    /* GRID 3 */
-  --space-7:   28px;
-  --space-8:   32px;    /* GRID 4 */
-  --space-10:  40px;    /* GRID 5 */
-  --space-12:  48px;    /* GRID 6 */
-  --space-14:  56px;    /* GRID 7 */
-  --space-16:  64px;    /* GRID 8 */
-  --space-20:  80px;    /* GRID 10 */
-  --space-24:  96px;    /* GRID 12 */
-  --space-32:  128px;   /* GRID 16 */
-  --space-40:  160px;   /* GRID 20 */
+  --space-6:   24px;       /* GRID 3 */
+  --space-7:   28px;       /* v0.8 */
+  --space-8:   32px;       /* GRID 4 */
+  --space-9:   36px;       /* v0.8 — switch track, cozy tier */
+  --space-10:  40px;       /* GRID 5 */
+  --space-11:  44px;       /* v0.8 — touch target */
+  --space-12:  48px;       /* GRID 6 */
+  --space-14:  56px;       /* v0.8 — button.xl */
+  --space-16:  64px;       /* GRID 8 */
+  --space-20:  80px;       /* GRID 10 */
+  --space-24:  96px;       /* GRID 12 */
+  --space-32:  128px;      /* GRID 16 */
+  --space-40:  160px;      /* GRID 20 */
+
+  /* Semantic spacing groupings — v0.8 hoisted from semantic/space.tokens.json.
+     Stack = vertical rhythm. Inline = horizontal gaps within a row.
+     Inset = padding inside containers. Section = between major sections. */
+  --space-stack-xs:  8px;
+  --space-stack-sm:  12px;
+  --space-stack-md:  16px;
+  --space-stack-lg:  24px;
+  --space-stack-xl:  40px;
+  --space-inline-xs: 4px;
+  --space-inline-sm: 8px;
+  --space-inline-md: 12px;
+  --space-inline-lg: 16px;
+  --space-inset-xs:  4px;
+  --space-inset-sm:  8px;
+  --space-inset-md:  12px;
+  --space-inset-lg:  16px;
+  --space-inset-xl:  24px;
+  --space-inset-2xl: 40px;
+  --space-section-dense: 24px;     /* v0.8 — operator dashboard */
+  --space-section-sm:    32px;     /* v0.8 — was 40, reduced for peer convergence */
+  --space-section-md:    48px;
+  --space-section-lg:    64px;
+  --space-section-xl:    80px;
+  --space-section-hero:  96px;     /* v0.8 — Vercel-style marketing hero */
+  --space-page-sm:   16px;
+  --space-page-md:   24px;
+  --space-page-lg:   32px;
+  --space-table-cell-gap:     16px;
+  --space-table-cell-compact: 12px;
+  --space-field-gap-label:    4px;   /* v0.8 — field.gap.label (was labelToControl) */
+  --space-field-gap-help:     4px;   /* v0.8 — field.gap.help (was controlToHelp) */
+  --space-field-gap-field:    16px;  /* v0.8 — field.gap.field, 20→16 (was groupToGroup) */
+  --space-field-gap-fieldset: 32px;  /* v0.8 — field.gap.fieldset (was fieldsetToFieldset) */
 
   /* Radius — modestly rounder in v0.4 to read as "modern" against obsidian,
      with full pill (radius-full) reserved for nav and primary CTAs.
@@ -737,6 +793,60 @@
   --shadow-xl:  var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
   --shadow-glass: var(--shadow-glass);
+
+  /* ─── v0.8 — Spacing utilities (Tailwind --spacing-* prefix → p-/m-/gap-/space-y-/space-x- utilities) ─── */
+  /* The integer ladder maps 1:1 with Tailwind's default spacing utilities.
+     Tailwind v4 multiplies its built-in --spacing (default 0.25rem = 4px) by N for `gap-N`,
+     so `gap-4` = 16 px regardless. We declare here so the dashboard's Lumen-mapped
+     reference is explicit; consumers can override --spacing per the docs.
+     The named utilities (gap-stack-md, p-inset-card, gap-section-dense) are the
+     v0.8 unlock — they let Tailwind utility classes carry intent. */
+  --spacing-stack-xs:    var(--space-stack-xs);
+  --spacing-stack-sm:    var(--space-stack-sm);
+  --spacing-stack-md:    var(--space-stack-md);
+  --spacing-stack-lg:    var(--space-stack-lg);
+  --spacing-stack-xl:    var(--space-stack-xl);
+  --spacing-inline-xs:   var(--space-inline-xs);
+  --spacing-inline-sm:   var(--space-inline-sm);
+  --spacing-inline-md:   var(--space-inline-md);
+  --spacing-inline-lg:   var(--space-inline-lg);
+  --spacing-inset-xs:    var(--space-inset-xs);
+  --spacing-inset-sm:    var(--space-inset-sm);
+  --spacing-inset-md:    var(--space-inset-md);
+  --spacing-inset-lg:    var(--space-inset-lg);
+  --spacing-inset-xl:    var(--space-inset-xl);
+  --spacing-inset-2xl:   var(--space-inset-2xl);
+  --spacing-section-dense: var(--space-section-dense);
+  --spacing-section-sm:    var(--space-section-sm);
+  --spacing-section-md:    var(--space-section-md);
+  --spacing-section-lg:    var(--space-section-lg);
+  --spacing-section-xl:    var(--space-section-xl);
+  --spacing-section-hero:  var(--space-section-hero);
+  --spacing-page-sm:     var(--space-page-sm);
+  --spacing-page-md:     var(--space-page-md);
+  --spacing-page-lg:     var(--space-page-lg);
+  --spacing-table-cell:  var(--space-table-cell-gap);
+  --spacing-field-label:    var(--space-field-gap-label);
+  --spacing-field-help:     var(--space-field-gap-help);
+  --spacing-field-field:    var(--space-field-gap-field);
+  --spacing-field-fieldset: var(--space-field-gap-fieldset);
+
+  /* ─── v0.8 — Container width utilities (max-w-narrow / max-w-default / etc.) ─── */
+  --container-narrow:  var(--size-container-narrow);
+  --container-default: var(--size-container-default);
+  --container-wide:    var(--size-container-wide);
+  --container-max:     var(--size-container-max);
+  --container-ultra:   var(--size-container-ultra);
+  --container-reading: var(--size-reading-default);
+
+  /* ─── v0.8 — Control-height utilities (h-control-sm / h-control-cozy / etc.) ─── */
+  --height-control-sm:    var(--size-control-sm);
+  --height-control-cozy:  var(--size-control-cozy);
+  --height-control-md:    var(--size-control-md);
+  --height-control-touch: var(--size-control-touch);
+  --height-control-lg:    var(--size-control-lg);
+  --height-control-xl:    var(--size-control-xl);
+
 }
 
 /* ───────────────────────────  RESET  ─────────────────────────────────────── */
@@ -920,7 +1030,7 @@ html[data-font="inter"] {
   align-items: center;
   justify-content: center;
   min-width: 18px;
-  padding: 1px 5px;
+  padding: 1px var(--space-1);
   font-family: var(--font-mono);
   font-size: var(--type-11);
   font-weight: var(--weight-medium);
@@ -983,6 +1093,21 @@ html[data-font="inter"] {
   height: var(--size-control-lg);
   padding-inline: var(--space-4);
   font-size: var(--type-15);
+}
+
+/* v0.8 — Padding modifiers. data-padding="none" suppresses the inline padding
+   so a field can host its own grouped controls (number-spinner buttons,
+   token-input chips) flush to the edges. The wrapper still owns border /
+   focus halo / lit edge — only padding is reset. */
+.lumen-field[data-padding="none"] { padding-inline: 0; }
+
+/* v0.8 — Chip-input variant: tags wrap, height auto-grows from md floor,
+   block padding contributes to row breathing. Used by Token / Tag inputs. */
+.lumen-field[data-variant="chips"] {
+  height: auto;
+  min-height: var(--size-control-md);
+  flex-wrap: wrap;
+  padding-block: var(--space-1);
 }
 
 /* Density. data-density="compact" on a Form / page region makes every nested

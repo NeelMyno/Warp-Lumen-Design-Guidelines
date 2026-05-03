@@ -76,7 +76,9 @@ export function Segmented({
       className="inline-flex items-center"
       style={{
         height: barHeight,
-        padding: 2,
+        // 4 px inset on every side keeps the active thumb on the 4-grid
+        // (sm bar 32 → 24 thumb; md bar 40 → 32 thumb).
+        padding: "var(--space-1)",
         borderRadius: "var(--radius-md)",
         background: "var(--color-surface-sunken)",
         border: "1px solid var(--color-border-hairline, var(--color-border-default))",
@@ -102,7 +104,7 @@ export function Segmented({
               "inline-flex items-center justify-center transition-[background,color,box-shadow] disabled:cursor-not-allowed text-label-sm",
             )}
             style={{
-              height: barHeight - 4,
+              height: barHeight - 8,
               paddingInline: "var(--space-3)",
               borderRadius: "var(--radius-sm)",
               gap: "var(--space-1)",

@@ -64,7 +64,7 @@ export function EmptyState({
       {supporting && (
         <p
           className={[
-            "mt-1.5 text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]",
+            "mt-2 text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]",
             "leading-[var(--leading-snug)]",
             isCenter ? "max-w-[42ch]" : "",
           ].join(" ")}

@@ -12,11 +12,17 @@
   },
   "tokens": {
     "consumed": [
+      "space.inline.sm",
+      "space.10",
+      "space.2",
       "color.surface.sunken",
       "color.border.subtle",
+      "color.text.primary",
       "color.text.secondary",
       "color.text.tertiary",
       "color.accent.700",
+      "color.status.success.fg",
+      "color.status.danger.fg",
       "type.code.inline", "type.data.md", "type.data.sm", "type.eyebrow.mono",
       "font.family.mono"
     ]

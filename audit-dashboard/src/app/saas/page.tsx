@@ -80,7 +80,7 @@ function Sidebar() {
   return (
     <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5 min-h-[760px]">
       {/* workspace switcher */}
-      <button className="mx-3 flex items-center gap-2.5 px-2 py-1.5 rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
+      <button className="mx-3 flex items-center gap-inline-sm px-2 py-[var(--space-1_5)] rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
         {/* lumen-lint-allow: typography — type-13 mono bold avatar mark; no semantic preset for mono+bold at 13 */}
         <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-13)] font-bold">
           A
@@ -97,8 +97,8 @@ function Sidebar() {
 
       <div className="flex flex-col gap-5 px-2">
         {sections.map((s) => (
-          <div key={s.title} className="flex flex-col gap-0.5">
-            <div className="lumen-eyebrow px-2 mb-1.5">{s.title}</div>
+          <div key={s.title} className="flex flex-col gap-1">
+            <div className="lumen-eyebrow px-2 mb-2">{s.title}</div>
             {s.items.map((item) => {
               const I = item.icon;
               return (
@@ -106,7 +106,7 @@ function Sidebar() {
                   key={item.label}
                   href="#"
                   className={[
-                    "flex items-center gap-2.5 px-2 py-1.5 rounded-[var(--radius-md)]",
+                    "flex items-center gap-inline-sm px-2 py-[var(--space-1_5)] rounded-[var(--radius-md)]",
                     "text-label-sm",
                     "transition-colors duration-[var(--motion-fast)]",
                     item.active
@@ -130,7 +130,7 @@ function Sidebar() {
       </div>
 
       {/* status footer */}
-      <div className="mt-auto mx-3 mb-2 px-3 py-2.5 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-sunken)] flex flex-col gap-1.5">
+      <div className="mt-auto mx-3 mb-2 px-3 py-2 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-sunken)] flex flex-col gap-[var(--space-1_5)]">
         <LiveDot label="API healthy" />
         {/* lumen-lint-allow: typography — type-11 mono tabular status footer; no semantic preset for 11px tabular */}
         <div className="flex items-center justify-between lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
@@ -160,10 +160,10 @@ function TopBar() {
       </div>
 
       <div className="flex-1 max-w-md">
-        <button className="w-full flex items-center gap-2.5 h-9 px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] text-[var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] transition-colors">
+        <button className="w-full flex items-center gap-inline-md h-control-cozy px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] text-[var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] transition-colors">
           <Search size={14} />
           <span className="flex-1 text-left">Search shipments, lanes, quotes…</span>
-          <span className="flex items-center gap-0.5">
+          <span className="flex items-center gap-1">
             <kbd className="lumen-kbd">⌘</kbd>
             <kbd className="lumen-kbd">K</kbd>
           </span>
@@ -303,7 +303,7 @@ function ShipmentsTable() {
         </table>
       </div>
       {/* lumen-lint-allow: typography — type-12 plain pagination meta footer; no semantic preset for 12 regular */}
-      <div className="flex items-center justify-between gap-2 px-4 py-2.5 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[var(--type-12)] text-[var(--text-tertiary)]">
+      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[var(--type-12)] text-[var(--text-tertiary)]">
         <span>7 of 1,284 · refreshed 12 s ago</span>
         <div className="flex items-center gap-1">
           <Button intent="tertiary" size="xs">Prev</Button>
@@ -316,7 +316,7 @@ function ShipmentsTable() {
 
 function Th({ children, align = "left" }: { children: React.ReactNode; align?: "left" | "right" }) {
   return (
-    <th className={["px-4 py-2.5 lumen-eyebrow font-semibold", align === "right" ? "text-right" : ""].join(" ")}>
+    <th className={["px-4 py-2 lumen-eyebrow font-semibold", align === "right" ? "text-right" : ""].join(" ")}>
       {children}
     </th>
   );
@@ -362,8 +362,8 @@ function SidePanel() {
             { who: "ODFL",         what: "scanned at SLC hub",     when: "48 min ago", icon: <MapPin size={12} /> },
             { who: "Quote engine", what: "reduced 16 lanes by 4.2%", when: "2 h ago",  icon: <Code size={12} /> },
           ].map((a, i) => (
-            <li key={i} className="flex items-start gap-3 px-4 py-2.5">
-              <span className="mt-0.5 h-6 w-6 grid place-items-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--text-tertiary)] shrink-0">
+            <li key={i} className="flex items-start gap-3 px-4 py-2">
+              <span className="mt-1 h-6 w-6 grid place-items-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--text-tertiary)] shrink-0">
                 {a.icon}
               </span>
               <div className="flex-1 min-w-0">
@@ -372,7 +372,7 @@ function SidePanel() {
                   <span className="text-[var(--text-secondary)]">{a.what}</span>
                 </div>
                 {/* lumen-lint-allow: typography — mono regular at 11 activity timestamp; no semantic preset for 11px mono */}
-                <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] mt-0.5">{a.when}</div>
+                <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] mt-1">{a.when}</div>
               </div>
             </li>
           ))}
@@ -397,7 +397,7 @@ function SidePanel() {
         <CardHeader title="On-time index" description="14-day rolling average" />
         <div className="flex items-center gap-4">
           <ProgressRing value={98} tone="success" size={64} stroke={5} />
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col gap-1">
             {/* lumen-lint-allow: typography — type-12 plain ring meta; no semantic preset for 12 regular */}
             <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">vs last period</div>
             {/* lumen-lint-allow: typography — type-15 mono tabular semibold delta; intermediate density between 14 and 16 */}

@@ -113,6 +113,8 @@ export function OtpInput({
             data-disabled={disabled ? "true" : undefined}
             style={{
               width: cellPx,
+              // shell override — see ADR 0014; will be cleaned up in v0.9
+              // via a `data-padding="none"` modifier on the lumen-field shell.
               padding: 0,
               justifyContent: "center",
             }}

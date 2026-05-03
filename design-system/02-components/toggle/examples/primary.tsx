@@ -12,17 +12,20 @@ import { ReactNode, useId } from "react";
 
 type Size = "sm" | "md";
 
-// Track + knob dimensions snap to 8pt. sm = 20×12 track, knob 10. md = 28×16 track, knob 14.
+// Track + knob dimensions snap to the 4-grid:
+//   sm  → 12 × 20 track, 8 × 8 knob, 4 px inset, 8 px slide.
+//   md  → 16 × 28 track, 12 × 12 knob, 4 px inset, 12 px slide.
+// (Inset = 20 − 8 − 8 / 28 − 12 − 12. Slide arithmetic stays on the grid.)
 const SIZE: Record<Size, { track: string; knob: string; translate: string; label: string }> = {
   sm: {
     track: "h-3 w-5",
-    knob: "h-2.5 w-2.5",
+    knob: "h-2 w-2",
     translate: "translate-x-2",
     label: "text-[var(--type-label-md)]",
   },
   md: {
     track: "h-4 w-7",
-    knob: "h-3.5 w-3.5",
+    knob: "h-3 w-3",
     translate: "translate-x-3",
     label: "text-[var(--type-label-md)]",
   },
@@ -93,14 +96,14 @@ export function Toggle({
           className={[
             "inline-block rounded-[var(--radius-pill)] bg-white shadow-[var(--shadow-xs)]",
             "transition-transform duration-[var(--motion-transition-fast)] ease-[var(--motion-easing-standard)]",
-            "ml-0.5",
+            "ml-1",
             dims.knob,
             checked ? dims.translate : "translate-x-0",
           ].join(" ")}
         />
       </button>
       {(label || description || children) && (
-        <div className="flex flex-col gap-0.5 leading-snug">
+        <div className="flex flex-col gap-1 leading-snug">
           {label && (
             <label
               htmlFor={toggleId}

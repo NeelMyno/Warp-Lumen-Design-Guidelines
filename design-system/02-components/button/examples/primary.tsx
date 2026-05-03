@@ -26,10 +26,14 @@ const INTENT: Record<Intent, string> = {
     "hover:bg-[var(--color-action-danger-bg-hover)]",
 };
 
+// Heights and horizontal padding are bound to the Button component-token
+// contract so consumers get a single source of truth (--button-height-*,
+// --button-padding-*). Don't substitute raw space.* utilities here — the
+// component-token layer is the seam where Button-specific overrides land.
 const SIZE: Record<Size, string> = {
-  sm: "h-[var(--size-control-sm)] px-3 text-[var(--type-body-sm)]",
-  md: "h-[var(--size-control-md)] px-4 text-[var(--type-label-sm)]",
-  lg: "h-[var(--size-control-lg)] px-5 text-[var(--type-body-md)]",
+  sm: "h-[var(--button-height-sm)] px-[var(--button-padding-sm)] text-[var(--type-body-sm)]",
+  md: "h-[var(--button-height-md)] px-[var(--button-padding-md)] text-[var(--type-label-sm)]",
+  lg: "h-[var(--button-height-lg)] px-[var(--button-padding-lg)] text-[var(--type-body-md)]",
 };
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -61,8 +65,8 @@ export function Button({
       disabled={disabled || loading}
       {...props}
       className={[
-        "inline-flex items-center justify-center gap-[var(--space-inline-sm)]",
-        "rounded-[var(--radius-control-md)] font-medium",
+        "inline-flex items-center justify-center gap-[var(--button-gap)]",
+        "rounded-[var(--button-radius)] font-medium",
         "transition-colors duration-[var(--motion-duration-fast)] ease-[var(--motion-easing-standard)]",
         "focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]",
         "disabled:opacity-40 disabled:cursor-not-allowed",

@@ -10,10 +10,14 @@
       "hero":      { "$value": "{radius.card.hero}" }
     },
     "padding": {
+      "$description": "v0.8 — Expanded from 3 sizes to 7 to match audit-dashboard implementation (card.tsx ships none/xs/sm/md/lg/xl/hero). Names align with spacing.md §3 mapping: default = lg (24 px); compact = md (16 px).",
       "$type": "dimension",
-      "sm": { "$value": "{space.3}" },
-      "md": { "$value": "{space.4}" },
-      "lg": { "$value": "{space.6}" }
+      "xs":   { "$value": "{space.inset.sm}",  "$description": "v0.8 — 8 px (dense list-row card)." },
+      "sm":   { "$value": "{space.inset.md}",  "$description": "12 px — small card." },
+      "md":   { "$value": "{space.inset.lg}",  "$description": "16 px — compact-density card (default for compact mode)." },
+      "lg":   { "$value": "{space.inset.xl}",  "$description": "24 px — comfortable-density card (default for comfortable mode)." },
+      "xl":   { "$value": "{space.8}",         "$description": "v0.8 — 32 px (lifted card)." },
+      "hero": { "$value": "{space.inset.2xl}", "$description": "v0.8 — 40 px (hero card / marketing surface)." }
     },
     "shadow": {
       "rest":   { "$value": "{shadow.card}" },

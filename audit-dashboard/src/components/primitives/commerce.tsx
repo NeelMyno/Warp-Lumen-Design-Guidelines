@@ -32,6 +32,7 @@ export function PricingCard({
       ].join(" ")}
     >
       {recommended && (
+        // lumen-lint-allow: off-grid — 10 px optical overlap of pill above card edge.
         <span className="absolute -top-2.5 left-5 inline-flex items-center gap-1 h-5 px-2 rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]">
           Most popular
         </span>
@@ -47,7 +48,7 @@ export function PricingCard({
       <ul className="flex flex-col gap-2">
         {features.map((f) => (
           <li key={f} className="flex items-start gap-2 text-body-xs text-[var(--text-secondary)]">
-            <span className="mt-0.5 text-[var(--lumen-accent-6)]"><Check size={13} /></span>
+            <span className="mt-1 text-[var(--lumen-accent-6)]"><Check size={13} /></span>
             <span>{f}</span>
           </li>
         ))}
@@ -76,12 +77,14 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
         className="relative h-6 w-11 rounded-full bg-[var(--surface-sunken)] border border-[var(--border-default)] transition-colors"
         aria-pressed={value === "yearly"}
       >
+        {/* lumen-lint-allow-block: off-grid */}
         <span
           className={[
-            "absolute top-0.5 h-4.5 w-4.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] transition-transform shadow-[var(--shadow-xs)]",
+            "absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] transition-transform shadow-[var(--shadow-xs)]",
             value === "yearly" ? "translate-x-[22px]" : "translate-x-0.5",
           ].join(" ")}
         />
+        {/* lumen-lint-allow-end: off-grid */}
       </button>
       <span className={["text-[var(--type-13)]", value === "yearly" ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>
         Yearly <span className="text-[var(--lumen-accent-7)] lumen-mono text-[var(--type-11)]">−2 mo</span>
@@ -115,7 +118,7 @@ export function ShopPay() {
 export function PayPal() {
   return (
     <button className="h-12 rounded-[var(--radius-md)] bg-[#ffc439] text-[#003087] inline-flex items-center justify-center gap-2 text-[var(--type-14)] font-bold tracking-tight w-full">
-      <i style={{ fontStyle: "italic" }}>Pay</i><span className="text-[#0070ba] -ml-0.5">Pal</span>
+      <i style={{ fontStyle: "italic" }}>Pay</i><span className="text-[#0070ba] -ml-[2px]">Pal</span>
     </button>
   );
 }
@@ -169,7 +172,7 @@ export function CouponInput() {
         </button>
       </div>
       {applied && (
-        <div className="text-[var(--type-12)] text-[var(--lumen-accent-7)] flex items-center gap-1.5">
+        <div className="text-[var(--type-12)] text-[var(--lumen-accent-7)] flex items-center gap-[var(--space-1_5)]">
           <Check size={12} />
           Code <span className="lumen-mono">{applied}</span> applied — 12% off
         </div>
@@ -189,8 +192,8 @@ export function InventoryStatus({ status }: { status: "in-stock" | "low-stock" |
   };
   const c = config[status];
   return (
-    <span className="inline-flex items-center gap-1.5 text-[var(--type-12)] font-medium" style={{ color: c.color }}>
-      <span className="h-1.5 w-1.5 rounded-full" style={{ background: c.color }} />
+    <span className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)] font-medium" style={{ color: c.color }}>
+      <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full" style={{ background: c.color }} />
       {c.label}
     </span>
   );
@@ -245,7 +248,7 @@ export function CartDrawer() {
             <div className="flex-1 min-w-0">
               <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{it.name}</div>
               <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{it.variant}</div>
-              <div className="flex items-center gap-2 mt-1.5">
+              <div className="flex items-center gap-2 mt-2">
                 <div className="inline-flex items-center h-7 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-raised)] overflow-hidden text-[var(--type-12)]">
                   <button className="px-2 hover:bg-[var(--surface-sunken)]">−</button>
                   <span className="px-2 lumen-mono">{it.qty}</span>
@@ -278,7 +281,7 @@ export function OrderSummary() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4">
       <div className="text-heading-h6 mb-3">Order summary</div>
-      <div className="flex flex-col gap-1.5 text-[var(--type-13)]">
+      <div className="flex flex-col gap-[var(--space-1_5)] text-[var(--type-13)]">
         <Row label="Subtotal" value="$256.00" />
         <Row label="Shipping" value="$8.50" />
         <Row label="Tax (8.875%)" value="$23.49" />
@@ -362,8 +365,8 @@ export function TrustStrip() {
   return (
     <div className="flex flex-wrap items-center gap-2">
       {items.map((b) => (
-        <span key={b} className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">
-          <span className="h-1.5 w-1.5 rounded-[1px] bg-[var(--lumen-accent-5)]" />
+        <span key={b} className="inline-flex items-center gap-[var(--space-1_5)] h-7 px-3 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">
+          <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-[1px] bg-[var(--lumen-accent-5)]" />
           {b}
         </span>
       ))}
@@ -421,7 +424,7 @@ export function SizeSelector({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-[var(--space-1_5)]">
       {sizes.map((s) => (
         <button
           key={s}

@@ -13,8 +13,11 @@
   },
   "tokens": {
     "consumed": [
-      "card.background", "card.border", "card.radius.default", "card.radius.lifted",
-      "card.padding.sm", "card.padding.md", "card.padding.lg",
+      "card.padding.xs", "card.padding.sm", "card.padding.md", "card.padding.lg", "card.padding.xl", "card.padding.hero",
+      "card.radius.default", "card.radius.lifted", "card.radius.hero",
+      "space.stack.md", "space.stack.lg",
+      "space.inline.lg",
+      "card.background", "card.border",
       "card.shadow.rest", "card.shadow.hover",
       "color.border.focus", "shadow.focus",
       "type.heading.h4", "type.body.md", "type.eyebrow.mono",

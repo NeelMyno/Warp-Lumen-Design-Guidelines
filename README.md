@@ -10,7 +10,7 @@ Density:            Generous breathing room. Operator-readable.
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors
-Status:             v0.7.0 · forms layer + RHF binding + distribution surface complete
+Status:             v0.8.0 · spacing rebuild · 4-pt base / 8-pt soft / cozy density / marketing-vs-operator section split
 ```
 
 ## What this repo is
@@ -38,7 +38,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.7.0
+├── VERSION                         ← 0.8.0
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release

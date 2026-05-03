@@ -6,7 +6,7 @@ import { ChevronDown, Plus, Search as SearchIcon, Bell, Inbox, Check, X, Code } 
 /* ─────────────────────────  AI BADGE  ───────────────────────── */
 export function AIBadge({ label = "AI generated" }: { label?: string }) {
   return (
-    <span className="inline-flex items-center gap-1 h-5 px-1.5 rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)] text-[var(--text-accent)] bg-[var(--surface-tint-accent)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]">
+    <span className="inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)] text-[var(--text-accent)] bg-[var(--surface-tint-accent)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]">
       <Sparkles size={10} />
       {label}
     </span>
@@ -29,7 +29,7 @@ export function AIThinking() {
         <Sparkles size={14} />
       </span>
       <span>Thinking</span>
-      <span className="inline-flex items-end gap-0.5">
+      <span className="inline-flex items-end gap-1">
         {[0, 1, 2].map((i) => (
           <span
             key={i}
@@ -47,7 +47,7 @@ export function AIThinking() {
 export function AIConfidence({ score }: { score: number }) {
   const tone = score >= 0.8 ? ["var(--lumen-accent-7)", "var(--lumen-accent-1)"] : score >= 0.5 ? ["var(--lumen-amber-7)", "var(--lumen-amber-1)"] : ["var(--lumen-red-7)", "var(--lumen-red-1)"];
   return (
-    <span className="inline-flex items-center gap-1.5 h-5 px-1.5 rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]" style={{ color: tone[0], background: tone[1] }}>
+    <span className="inline-flex items-center gap-[var(--space-1_5)] h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]" style={{ color: tone[0], background: tone[1] }}>
       <span className="lumen-mono">{Math.round(score * 100)}%</span> confidence
     </span>
   );
@@ -78,7 +78,7 @@ export function AIPromptInput() {
         </div>
         <div className="flex items-center gap-2">
           <span className="lumen-kbd">⌘⏎</span>
-          <button className="h-8 px-3 inline-flex items-center gap-1.5 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-12)] font-semibold">
+          <button className="h-8 px-3 inline-flex items-center gap-[var(--space-1_5)] rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-12)] font-semibold">
             <Sparkles size={11} /> Generate
           </button>
         </div>
@@ -162,7 +162,7 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
       <div className="flex flex-col gap-1">
         <div
           className={[
-            "rounded-[var(--radius-lg)] px-3.5 py-2 text-[var(--type-13)] leading-[var(--leading-snug)]",
+            "rounded-[var(--radius-lg)] px-4 py-2 text-[var(--type-13)] leading-[var(--leading-snug)]",
             isYou
               ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] rounded-tr-[6px]"
               : from === "ai"
@@ -183,7 +183,7 @@ export function ChatComposer() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] flex items-end gap-2 px-3 py-2">
       <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><Plus size={14} /></button>
-      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[var(--type-13)] placeholder:text-[var(--text-tertiary)] focus:outline-none resize-none py-1.5" />
+      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[var(--type-13)] placeholder:text-[var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
       <button className="h-8 px-3 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-12)] font-semibold">Send</button>
     </div>
   );
@@ -193,11 +193,11 @@ export function ChatComposer() {
 export function TypingIndicator({ name = "Daniel" }: { name?: string }) {
   return (
     <div className="inline-flex items-center gap-2 text-[var(--type-12)] text-[var(--text-tertiary)]">
-      <span className="inline-flex items-end gap-0.5">
+      <span className="inline-flex items-end gap-1">
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="h-1.5 w-1.5 rounded-full bg-[var(--text-tertiary)]"
+            className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--text-tertiary)]"
             style={{ animation: `lumen-bounce 0.9s ${i * 0.12}s infinite ease-in-out` }}
           />
         ))}
@@ -236,7 +236,7 @@ export function NotificationItem({
     success: "var(--lumen-accent-7)",
   };
   return (
-    <div className={["flex gap-3 px-3 py-2.5", unread ? "bg-[var(--surface-tint-accent)]/50" : ""].join(" ")}>
+    <div className={["flex gap-3 px-3 py-2", unread ? "bg-[var(--surface-tint-accent)]/50" : ""].join(" ")}>
       <span
         className="h-8 w-8 rounded-full inline-flex items-center justify-center shrink-0"
         style={{ background: toneBg[tone], color: toneFg[tone] }}
@@ -246,9 +246,9 @@ export function NotificationItem({
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-3">
           <span className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</span>
-          {unread && <span className="h-1.5 w-1.5 rounded-full bg-[var(--lumen-accent-5)]" />}
+          {unread && <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-5)]" />}
         </div>
-        {body && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5 line-clamp-2 leading-[var(--leading-snug)]">{body}</div>}
+        {body && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 line-clamp-2 leading-[var(--leading-snug)]">{body}</div>}
         <div className="text-[10px] text-[var(--text-tertiary)] lumen-mono mt-1">{time}</div>
       </div>
     </div>
@@ -339,7 +339,7 @@ export function ReactionBar() {
   return (
     <div className="inline-flex items-center gap-1">
       {items.map(([e, n]) => (
-        <button key={e} className="inline-flex items-center gap-1 h-6 px-1.5 rounded-[var(--radius-full)] bg-[var(--surface-sunken)] hover:bg-[var(--surface-tint-accent)] border border-[var(--border-hairline)] text-[var(--type-11)]">
+        <button key={e} className="inline-flex items-center gap-1 h-6 px-[var(--space-1_5)] rounded-[var(--radius-full)] bg-[var(--surface-sunken)] hover:bg-[var(--surface-tint-accent)] border border-[var(--border-hairline)] text-[var(--type-11)]">
           <span>{e}</span>
           <span className="lumen-mono text-[var(--text-tertiary)]">{n}</span>
         </button>

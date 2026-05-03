@@ -23,6 +23,7 @@
       "input.foreground.value", "input.foreground.placeholder",
       "input.ring.focus", "input.ring.error", "input.ring.litEdge",
       "input.transition",
+      "space.inline.sm",
       "timePicker.digit.width", "timePicker.digit.type", "timePicker.digit.color", "timePicker.digit.align",
       "timePicker.separator.color",
       "timePicker.ampm.background", "timePicker.ampm.padding", "timePicker.ampm.radius",

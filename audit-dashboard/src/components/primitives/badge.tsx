@@ -15,8 +15,8 @@ const STYLES: Record<Status, string> = {
 /* Heights snap to 8pt: sm = 20 (2.5u soft), md = 24 (3u). */
 /* v0.5: badge sizes use type-11/type-12 — review for semantic preset (badge ramp distinct from overline/micro) */
 const SIZE: Record<Size, string> = {
-  sm: "h-5 px-1.5 text-[var(--type-11)] gap-1   rounded-[var(--radius-full)]",
-  md: "h-6 px-2   text-[var(--type-12)] gap-1.5 rounded-[var(--radius-full)]",
+  sm: "h-5 px-[var(--space-1_5)] text-[var(--type-11)] gap-1                 rounded-[var(--radius-full)]",
+  md: "h-6 px-2                  text-[var(--type-12)] gap-[var(--space-1_5)] rounded-[var(--radius-full)]",
 };
 
 export function Badge({
@@ -43,7 +43,7 @@ export function Badge({
       {leadingDot && (
         <span
           aria-hidden
-          className="h-1.5 w-1.5 rounded-full"
+          className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full"
           style={{ background: "currentColor" }}
         />
       )}

@@ -137,7 +137,7 @@ export function LibraryClient() {
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="group rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3.5 hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] transition-[border-color,box-shadow]"
+                className="group rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-inset-md hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] transition-[border-color,box-shadow]"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-heading-h6 text-[var(--text-primary)]">{s.label}</span>
@@ -171,7 +171,7 @@ export function LibraryClient() {
             <div className="grid gap-3 md:grid-cols-3">
               <Showcase label="Stack (vertical)"><div className="flex flex-col gap-2"><RowSwatch /><RowSwatch /><RowSwatch /></div></Showcase>
               <Showcase label="Stack (horizontal)"><div className="flex items-center gap-2"><DotSwatch /><DotSwatch /><DotSwatch /></div></Showcase>
-              <Showcase label="Layout grid"><div className="grid grid-cols-3 gap-1.5 w-full"><Sq /><Sq /><Sq /><Sq /><Sq /><Sq /></div></Showcase>
+              <Showcase label="Layout grid"><div className="grid grid-cols-3 gap-[var(--space-1_5)] w-full"><Sq /><Sq /><Sq /><Sq /><Sq /><Sq /></div></Showcase>
               <Showcase label="Divider · horizontal"><div className="w-full"><Divider /></div></Showcase>
               <Showcase label="Vertical divider"><div className="h-12 flex items-center"><VerticalDivider height="40px" /></div></Showcase>
               <Showcase label="Spacer (12 / 16 / 24)"><div className="flex flex-col gap-1"><span className="block h-3 bg-[var(--surface-sunken)] rounded-[var(--radius-xs)]" /><span className="block h-4 bg-[var(--surface-sunken)] rounded-[var(--radius-xs)]" /><span className="block h-6 bg-[var(--surface-sunken)] rounded-[var(--radius-xs)]" /></div></Showcase>
@@ -183,13 +183,13 @@ export function LibraryClient() {
               <Showcase label="Fluid container"><div className="w-full h-12 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" /></Showcase>
               <Showcase label="Fixed (max 720)"><div className="mx-auto w-[80%] h-12 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" /></Showcase>
               <Showcase label="Two-pane (master-detail)">
-                <div className="grid grid-cols-[120px_1fr] gap-1.5 w-full">
+                <div className="grid grid-cols-[120px_1fr] gap-[var(--space-1_5)] w-full">
                   <div className="h-16 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" />
                   <div className="h-16 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" />
                 </div>
               </Showcase>
               <Showcase label="Three-pane">
-                <div className="grid grid-cols-[80px_1fr_120px] gap-1.5 w-full">
+                <div className="grid grid-cols-[80px_1fr_120px] gap-[var(--space-1_5)] w-full">
                   <div className="h-16 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" />
                   <div className="h-16 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" />
                   <div className="h-16 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" />
@@ -201,10 +201,10 @@ export function LibraryClient() {
           <SubSection title="Sticky elements">
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
               {/* lumen-lint-allow: typography — type-12 plain sticky header bar; no semantic preset for 12 regular */}
-              <div className="h-9 px-3 flex items-center justify-between bg-[var(--surface-sunken)] border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky header</span><Plus size={12} /></div>
+              <div className="h-control-cozy px-3 flex items-center justify-between bg-[var(--surface-sunken)] border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky header</span><Plus size={12} /></div>
               <div className="h-32 lumen-stripe-grid" />
               {/* lumen-lint-allow: typography — type-12 plain sticky footer bar; no semantic preset for 12 regular */}
-              <div className="h-9 px-3 flex items-center justify-end bg-[var(--surface-sunken)] border-t border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky action bar</span></div>
+              <div className="h-control-cozy px-3 flex items-center justify-end bg-[var(--surface-sunken)] border-t border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky action bar</span></div>
             </div>
           </SubSection>
         </Section>
@@ -348,7 +348,7 @@ export function LibraryClient() {
                   <Button size="sm" intent="tertiary">Sort</Button>
                   <Button size="sm" intent="tertiary">Group</Button>
                   {/* lumen-lint-allow: typography — type-11 mono row count; no semantic preset for 11px mono */}
-                  <span className="ml-auto inline-flex items-center gap-1.5 text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">42 rows</span>
+                  <span className="ml-auto inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">42 rows</span>
                   <Button size="sm" intent="tertiary">⋯</Button>
                 </div>
               </Showcase>
@@ -522,7 +522,7 @@ export function LibraryClient() {
             <FileDropzone />
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4">
               <div className="text-heading-h6 mb-3">Upload progress</div>
-              <div className="flex flex-col gap-2.5">
+              <div className="flex flex-col gap-stack-sm">
                 <UploadRow name="bol-2026-04-29.pdf" pct={100} />
                 <UploadRow name="rate-confirmation.pdf" pct={62} />
                 <UploadRow name="invoice-3442.xlsx" pct={28} />
@@ -678,8 +678,8 @@ export function LibraryClient() {
               </Showcase>
               <Showcase label="Avatar skeleton">
                 <div className="flex items-center gap-2">
-                  <Skeleton className="h-9 w-9 rounded-full" />
-                  <div className="flex flex-col gap-1.5">
+                  <Skeleton className="h-control-cozy w-[var(--size-control-cozy)] rounded-full" />
+                  <div className="flex flex-col gap-[var(--space-1_5)]">
                     <Skeleton className="h-3 w-32" />
                     <Skeleton className="h-2 w-20" />
                   </div>
@@ -688,9 +688,9 @@ export function LibraryClient() {
               <Showcase label="Form skeleton">
                 <div className="flex flex-col gap-2 w-full">
                   <Skeleton className="h-3 w-16" />
-                  <Skeleton className="h-9 w-full" />
+                  <Skeleton className="h-control-cozy w-full" />
                   <Skeleton className="h-3 w-12 mt-2" />
-                  <Skeleton className="h-9 w-full" />
+                  <Skeleton className="h-control-cozy w-full" />
                 </div>
               </Showcase>
             </div>
@@ -982,7 +982,7 @@ export function LibraryClient() {
                 <div className="px-4 py-2 flex items-center justify-between">
                   {/* lumen-lint-allow: typography — type-22 mobile screen title; intermediate between heading-h3 (20) and heading-h2 (25) */}
                   <span className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Inbox</span>
-                  <button className="h-9 w-9 rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[var(--text-secondary)]"><SearchIcon size={16} /></button>
+                  <button className="h-control-cozy w-[var(--size-control-cozy)] rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[var(--text-secondary)]"><SearchIcon size={16} /></button>
                 </div>
                 <PullToRefresh />
                 <div className="flex-1 overflow-auto divide-y divide-[var(--border-hairline)]">
@@ -1228,7 +1228,7 @@ export function LibraryClient() {
             <NotificationCenter />
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5">
               <div className="text-heading-h5 mb-3">Notification preferences</div>
-              <div className="flex flex-col gap-2.5">
+              <div className="flex flex-col gap-stack-sm">
                 <SwitchRow label="Email · daily digest" defaultChecked />
                 <SwitchRow label="Email · instant on rate accepted" defaultChecked />
                 <SwitchRow label="Slack · Sterling LTL channel" defaultChecked />
@@ -1416,7 +1416,7 @@ export function Hero() {
         <nav className="sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-auto pr-2">
           <div className="lumen-eyebrow text-[10px] mb-2">On this page</div>
           {/* lumen-lint-allow: typography — type-12 plain right-rail nav; no semantic preset for 12 regular */}
-          <ul className="flex flex-col gap-0.5 text-[var(--type-12)]">
+          <ul className="flex flex-col gap-1 text-[var(--type-12)]">
             {SECTIONS.map((s) => (
               <li key={s.id}>
                 <a href={`#${s.id}`} className="block px-2 py-1 rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors">

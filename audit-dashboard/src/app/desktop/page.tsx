@@ -45,7 +45,7 @@ function Frame({
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <div className="lumen-eyebrow mb-1.5">{os}</div>
+        <div className="lumen-eyebrow mb-2">{os}</div>
         <p className="text-body-xs text-[var(--text-tertiary)] leading-snug max-w-[48ch]">{notes}</p>
       </div>
       {children}
@@ -77,7 +77,7 @@ function MacFrame() {
           }}
         >
           {/* workspace switcher */}
-          <button className="mx-2 flex items-center gap-2 px-1.5 py-1 rounded-[var(--radius-sm)] hover:bg-[var(--surface-raised)] transition-colors">
+          <button className="mx-2 flex items-center gap-2 px-2 py-1 rounded-[var(--radius-sm)] hover:bg-[var(--surface-raised)] transition-colors">
             <Avatar name="Acme Logistics" size="xs" />
             <span className="text-micro font-semibold flex-1 text-left truncate">Acme</span>
             <span className="text-[var(--text-tertiary)]">⌃</span>
@@ -115,7 +115,7 @@ function MacFrame() {
           <div className="mt-auto px-2 py-2 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] bg-[var(--surface-raised)]">
             <LiveDot label="API healthy" />
             {/* lumen-lint-allow: typography — type-11 mono tabular status footer; no semantic preset for 11px tabular numerals */}
-            <div className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)] mt-0.5">
+            <div className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)] mt-1">
               v2.18.4 · 12 ms
             </div>
           </div>
@@ -129,7 +129,7 @@ function MacFrame() {
             <Badge status="accent" size="sm" leadingDot>Live</Badge>
             <div className="flex-1" />
             {/* lumen-lint-allow: typography — type-12 search-bar placeholder; no plain 12 regular preset (micro is medium, caption is 13) */}
-            <div className="flex items-center gap-1.5 bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-[var(--type-12)] text-[var(--text-tertiary)]">
+            <div className="flex items-center gap-[var(--space-1_5)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-[var(--type-12)] text-[var(--text-tertiary)]">
               <Search size={11} />
               Search…
               <kbd className="lumen-kbd ml-1 text-[10px]">⌘K</kbd>
@@ -178,7 +178,7 @@ function WindowsFrame() {
       style={{ background: "var(--surface-page)" }}
     >
       {/* Mica titlebar */}
-      <div className="flex items-center gap-2 px-2.5 h-9 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
+      <div className="flex items-center gap-inline-sm px-2 h-control-cozy border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
         <div className="flex items-center gap-2">
           <div className="h-4 w-4 rounded-[2px] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] text-[8px] font-bold">
             W
@@ -207,7 +207,7 @@ function WindowsFrame() {
               key={label}
               aria-label={label}
               className={[
-                "h-9 w-9 grid place-items-center rounded-[3px]",
+                "h-control-cozy w-[var(--size-control-cozy)] grid place-items-center rounded-[3px]",
                 i === 0
                   ? "bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-hairline)]"
                   : "text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)]",
@@ -217,14 +217,14 @@ function WindowsFrame() {
             </button>
           ))}
           <div className="flex-1" />
-          <button aria-label="Settings" className="h-9 w-9 grid place-items-center text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
+          <button aria-label="Settings" className="h-control-cozy w-[var(--size-control-cozy)] grid place-items-center text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
             <Settings size={16} />
           </button>
         </aside>
 
         {/* Secondary nav */}
-        <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 px-2 flex flex-col gap-0.5">
-          <div className="lumen-eyebrow px-2 mb-1.5">Today</div>
+        <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 px-2 flex flex-col gap-1">
+          <div className="lumen-eyebrow px-2 mb-2">Today</div>
           {[
             { name: "Overview", active: true },
             { name: "Active shipments" },
@@ -235,7 +235,7 @@ function WindowsFrame() {
             <button
               key={item.name}
               className={[
-                "flex items-center gap-2 px-2.5 py-1.5 rounded-[3px] text-micro",
+                "flex items-center gap-2 px-3 py-[var(--space-1_5)] rounded-[3px] text-micro",
                 item.active
                   ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
                   : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
@@ -274,7 +274,7 @@ function WindowsFrame() {
                 { who: "Quote engine", what: "reduced 16 lanes",    when: "2 h ago" },
               ].map((a) => (
                 /* lumen-lint-allow: typography — activity row uses 12 plain + 11 mono; no presets at those sizes */
-                <li key={a.when} className="flex items-baseline gap-2 px-3 py-1.5 text-[var(--type-12)]">
+                <li key={a.when} className="flex items-baseline gap-2 px-3 py-[var(--space-1_5)] text-[var(--type-12)]">
                   <span className="font-medium">{a.who}</span>
                   <span className="text-[var(--text-secondary)] flex-1">{a.what}</span>
                   {/* lumen-lint-allow: typography — mono regular at 11; no semantic preset */}

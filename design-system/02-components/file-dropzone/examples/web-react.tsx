@@ -165,7 +165,7 @@ export function FileDropzone({
         </div>
 
         {picked.length > 0 && (
-          <div className="mt-4 text-left flex flex-col" style={{ gap: 4 }}>
+          <div className="mt-4 text-left flex flex-col" style={{ gap: "var(--space-1)" }}>
             {picked.map((f) => (
               <div
                 key={f.name}

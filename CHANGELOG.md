@@ -10,6 +10,93 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.8.0] — 2026-05-03 — Spacing rebuild + token-system reconciliation
+
+A repo-wide spacing/whitespace audit at the close of v0.7 found the conceptual model in `spacing.md` was sound but the implementation had **forked from the canonical source in five compounding ways**: source/implementation drift (`globals.css` declared its own non-canonical `--space-*` ladder + radius scale), phantom token references (`--size-control-{sm,md,lg}` and `--space-9` referenced 7+ times but never declared, breaking `.lumen-field` and `.lumen-switch` heights silently), 195 half-step Tailwind violations, 19+ uses of an undocumented "cozy" 36 px tier, and 27 hardcoded container widths. Plus the v0.7 semantic spacing layer (`stack/inline/section/page`) was zero-consumed in audit-dashboard because it had no Tailwind utility access.
+
+A three-agent investigation across 12 peer systems (Linear / Stripe / Vercel Geist / Origin UI / Apple HIG / Material 3 / IBM Carbon / Atlassian / GitHub Primer / Refactoring UI / Apple Sport / superdesign.dev) + 36-issue repo audit + token-shape audit produced the punch list. v0.8 closes every issue.
+
+See [ADR 0014](./_meta/decisions/0014-spacing-rebuild-v08.md) for the full audit + 22-change rationale.
+
+### Added
+
+- **5 primitive scale fillers** in `01-tokens/primitives/dimension.tokens.json`: `dimension.{1_5, 7, 9, 11, 14}` (= 6, 28, 36, 44, 56 px). Closes the gaps that created off-grid inline values across Switch, Segmented, Button.xl. The strict `validate:tokens` from v0.7 caught `{dimension.9}` as an unresolved alias; v0.8 declares it.
+- **`size.control.cozy` (36 px)** — ratifies the de facto fourth control tier that appeared 19+ times in v0.7 dashboard as `h-9`. Plus `size.control.xl` (56 px) for hero pill CTAs. Re-binds entire `size.control.*` to dimension primitives (was inline values).
+- **`space.inset.*` namespace** — `xs/sm/md/lg/xl/2xl` (4/8/12/16/24/40 px). The canonical token group for "padding inside a container." Components MUST reach here, not into the integer ladder. Plus `space.inset.squish.{sm,md,lg}` (button-style x>y) and `space.inset.stretch.{sm,md}` (textarea-style y>x). Curtis 2016 compositional pattern.
+- **`space.section.dense` (24 px)** — operator-dashboard section break. Plus `space.section.hero` (96 px) — Vercel-style marketing hero. Plus semantic aliases `space.section.{operator, marketing}`.
+- **`size.container.ultra` (1920 px)** — for 32" ops monitors. Operator-only.
+- **`size.reading.{narrow, default, wide}` rename** — was `60ch`/`75ch` (encoding unit in the key was anti-pattern). Adds `default` (65 ch — the typographic sweet spot the `.prose-lumen` wrapper already uses).
+- **`radius.4xl` (36 px)** — for `.lumen-frame-brutalist` and mobile-phone bezels. Was inline in dashboard CSS; now declared properly.
+- **`size.dot.{sm, md}` and `size.scrollbar`** — small-but-recurring dimensions that had been anonymous.
+- **`space.table.cell.{gap, compact}`** — Apple Sport-pattern table column rhythm (16, 12 px). Constant when type scales per the dynamic-type rule.
+- **3 modes for density** — `cozy` ratified as the third tier between `comfortable` and `compact`. Plaid + Asana convergence. `<Form density="cozy">` and `data-density="cozy"` work.
+- **`@theme inline` extension** in [globals.css](audit-dashboard/src/app/globals.css) — surfaces all v0.7 semantic spacing tokens (`stack/inline/inset/section/page`) plus container widths and control heights as Tailwind utility classes. `gap-stack-md`, `p-inset-xl`, `gap-section-dense`, `max-w-default`, `h-control-cozy` etc. now work natively. The v0.7 semantic ladder was documentation-only; v0.8 makes it consumable.
+- **2 new lint scripts**:
+  - `scripts/lint-no-off-grid-spacing.mjs` — flags Tailwind half-step utilities (`gap-1.5`, `px-2.5`, etc.) and inline-style off-grid px values. Inline `lumen-lint-allow: off-grid` and block `lumen-lint-allow-block: off-grid` directives for documented exceptions. Wired into `pnpm lint` chain.
+  - `scripts/lint-token-naming-kebab.mjs` — flags camelCase tokens (`litEdge`, `valueDisabled`, `labelToControl`). Honors `$deprecated` markers. **Not** in main chain (45 pre-existing tokens need v0.9 sweep).
+- **Apple HIG dynamic-type rule** documented in [spacing.md](design-system/00-foundations/spacing.md) §6.5 — "Spacing is constant; type scales into it." Gaps in `space.*` and `field.gap.*` do NOT change with user font-size. Type scales into constant gaps. Apple HIG / Material 3 / Apple Sport convergence.
+- **Marketing-vs-operator surface mode** documented in [spacing.md](design-system/00-foundations/spacing.md) — first-class concept. Operator pages default to 24 px section breaks; marketing defaults to 64-96 px.
+- **`.lumen-field[data-padding="none"]`** and **`.lumen-field[data-variant="chips"]`** shell modifiers in globals.css — replace the inline `style={{ paddingInline: ... }}` overrides on OTP cells, NumberInput steppers, TagsInput.
+- **ADR 0014** — durable record of the v0.8 audit + 22-change rationale.
+
+### Changed
+
+- **`field.gap.*` renamed for kebab-case + `groupToGroup` value reduced 20 → 16 px**: `labelToControl` → `label`, `controlToHelp` → `help`, `groupToGroup` → `field` (and value 20 → 16 — Apple HIG / Linear / Stripe convergence), `fieldsetToFieldset` → `fieldset`. Old names ship as deprecated aliases per ADR 0009; removal in v0.9.
+- **`space.section.sm` reduced 40 → 32 px** to converge with Linear's tighter operator rhythm.
+- **`button.tokens.json` `padding.{sm,md,lg}` migrated to semantic refs.** Was hardcoded 12/16/20 px — violated AGENTS.md hard rule #2 inside the token system itself. Now `{space.3}`, `{space.4}`, `{space.5}`. Plus added `padding.xl` (32 px = `{space.8}`).
+- **`button.tokens.json` `height.cozy/xl`** added — Button now ships sm/cozy/md/lg/xl tiers.
+- **`card.tokens.json` `padding` API expanded 4 → 7 sizes** (none/xs/sm/md/lg/xl/hero) to match `card.tsx` implementation. Includes new `padding.xs` (8 px) and `padding.hero` (40 px).
+- **`switch.tokens.json` `track.width`** changed from inline `36 px` value to `{dimension.9}` reference — now uses the v0.8 primitive properly.
+- **Radius primitive scale reconciled** with the live audit-dashboard values that had been shipping since v0.4 (the JSON had different smaller values; v0.8 trusts the implementation): `xs:2→3, sm:4→6, md:6→8, lg:10→12, xl:14→16`.
+- **`globals.css` reconciled with canonical JSON**: dropped forked half-step entries (`--space-0_5/2_5/3_5/14`); declared the 5 v0.8 primitive fillers (`--space-1_5/7/9/11`); declared `--size-control-{sm,cozy,md,touch,lg,xl}` (was phantom); declared `--size-container-*`, `--size-reading-*`, `--size-dot-*`, `--size-scrollbar`. Now matches `01-tokens/primitives/dimension.tokens.json` 1:1.
+- **13/25 silent component contracts migrated** to declare consumed spacing tokens. Net token-references in contracts: ~440 → 569.
+- **Section.tsx redundant margin removed** (`mb-16 md:mb-24`). Per principle 5: "Whitespace lives inside sections, not between them." Top border + `pt-12 md:pt-16` does the work.
+- **`foundations/page.tsx` prose rewritten** to fix three contradictions: said "8pt soft grid base 8" (contradicts spacing.md "4-pt base, 8-pt soft"); listed canonical 4/12/20 as "soft exceptions" (they're on-grid); declared xs/xl/touch heights as if tokenized (only `touch` was in v0.7). v0.8 expanded to the 6-tier control ladder.
+- **23 canonical example files cleaned** for grid-cleanliness. Half-step plague killed in shadcn-distributable code.
+- **27 hardcoded container widths replaced** with `max-w-default`/`max-w-max`/`max-w-wide` Tailwind utilities (resolved via the new `--container-*` declarations).
+- **18 `h-9` cozy violations** replaced with `h-control-cozy`.
+- **158 of 195 half-step Tailwind violations migrated** in audit-dashboard. Remainder: 18 in shadcn vendor `ui/*` (out of scope) + 5 documented optical exceptions with `lumen-lint-allow: off-grid` directives.
+- **`spacing.md` updated** to v2.0.0: documents `space.inset.*`, `space.section.dense`/`.hero`, the 3-mode density story, marketing-vs-operator surface modes, Apple HIG dynamic-type rule, the v0.8 expanded control ladder, the `@theme inline` Tailwind utility surface.
+- **`density.md` updated** — third mode (cozy) ratified, no longer "deferred to v0.7+." Plaid + Asana convergence cited.
+- **`.lumen-kbd { padding: 1px 5px }` fixed** — 5 px off-grid → `padding: 1px var(--space-1)` (4 px).
+- **`mobile.tsx` phone-frame inline padding fixed** — `padding: "10px"` → `padding: "var(--space-3)"` (12 px).
+- **`mobile.tsx` touch targets fixed** — `h-11` and `h-7` on touch surfaces → `h-control-touch` (44 px).
+- **`landing/page.tsx` section rhythm fixed** — `py-10` and `py-14` outliers → `py-section-xl` (matches surrounding `py-20`).
+
+### Fixed
+
+- **Phantom `--size-control-{sm,md,lg}` references** — `.lumen-field` `height: var(--size-control-md)` resolved to `auto` (CSS unset-var fallback). Field heights were silently broken across the entire form layer. v0.8 declares the variables in `:root`.
+- **Phantom `--space-9` reference** — `.lumen-switch { --_w: var(--space-9) }` resolved to `auto`. Switch width was broken. v0.8 declares `--space-9: 36px` (was the missing primitive that surfaced in v0.7's strict `validate:tokens`).
+- **Source/implementation fork** between `01-tokens/*.tokens.json` and `globals.css` — four parallel spacing dialects now collapsed to one canonical source. The dashboard CSS is no longer a fork.
+- **Radius scale fork** — `globals.css` and `01-tokens/README.md` cheatsheet had `xs:3, sm:6, md:8, lg:12, xl:16` while `primitives/radius.tokens.json` had `xs:2, sm:4, md:6, lg:10, xl:14`. v0.8 reconciled by trusting the live values; JSON updated.
+- **5 inline px stragglers** in audit-dashboard primitives that the migration agent missed (avatar badge offset, commerce pricing pill + toggle thumb, feedback tooltip arrow, nav stepper rail). All annotated with `lumen-lint-allow: off-grid` directives + rationale.
+- **Section.tsx + foundations/page.tsx contradicting principle 5.** Whitespace between sections compounded redundantly with top borders; foundations doc taught the wrong grid model.
+- **`button.tokens.json` violating AGENTS.md hard rule #2 inside the token system itself** — hardcoded `padding.sm/md/lg` as raw px instead of semantic refs.
+- **Card padding API drift** — implementation shipped 7 sizes; contract had 4. Reconciled.
+- **`h-4.5` invented Tailwind class in stat/examples/primary.tsx** — wouldn't resolve at runtime. Replaced with `h-5`.
+
+### Deprecated
+
+- **`field.gap.{labelToControl, controlToHelp, groupToGroup, fieldsetToFieldset}`** — renamed to `field.gap.{label, help, field, fieldset}` (kebab-case) in v0.8. Old names ship as deprecated aliases per ADR 0009. Will be removed in v0.9.
+- **`field.label.colorDisabled`, `field.helper.colorDisabled`** — renamed to `color-disabled` (kebab-case). Aliases retained; removal v0.9.
+- **`size.reading.60ch`, `size.reading.75ch`** — renamed to `size.reading.narrow`, `size.reading.wide`. v0.7 names not aliased (zero in-repo consumers).
+
+### Deferred
+
+- **Sweep the 45 pre-existing camelCase tokens** to kebab-case (mostly in `input.tokens.json`, `time-picker.tokens.json`, `tags-input.tokens.json`, `textarea.tokens.json`, `color.{light,dark}.tokens.json`). Move `lint:token-naming` into `pnpm lint` chain. v0.9.
+- **Address the 22 pre-existing `lint:no-primitives` violations** in `audit-dashboard/src/components/{primitives,dashboard-shell,tab-nav}.tsx`. Mostly icon dimensions (use `size={16}` prop) and chart palettes (move to a `chart.tokens.json` file). v0.8 introduced 0 new ones; cleanup deferred to v0.9.
+- **`lint-no-integer-space-in-component-tokens` rule** — forbid `{space.0..space.32}` in component-token files; force `space.inset.*`/`space.inline.*`/`space.stack.*` semantic refs. v0.9.
+- **Style Dictionary → `_build/tailwind/theme.css` wiring** — derive `globals.css`'s `:root` block from JSON. Eliminates the manual sync v0.8 just did by hand. Carried from ADR 0012 v0.7 deferred follow-ups.
+- **Fluid spacing tokens** (Carbon-style `clamp()`) for ≥1280 viewports if the ultra container surfaces ship.
+- **Scalar `--space-unit` override** for sectional density rescale (Stripe Elements / Geist UI pattern).
+- **Density propagation to Card / Table / Stat / Badge.** Currently only `.lumen-field` reads `data-density`. Per density.md §4, Card and Table should subscribe.
+- **18 half-step violations in shadcn vendor `ui/*`.** Decide: patch them or accept vendor drift.
+- **Real DatePicker / TimePicker logic** (still deferred from v0.7 ADR 0012).
+- **PasswordStrength dedicated contract** (still deferred from v0.7 ADR 0012).
+- **Vercel deployment SAML protection** blocked the v0.8 visual audit. The three-agent code+research path replaced what would have been a fourth (visual) audit agent.
+
+---
+
 ## [0.7.0] — 2026-05-03 — Distribution surface completion + RHF binding
 
 A repo-wide audit at the close of v0.6 found the contracts were sound but the **distribution surface — the layer that lets consumers actually use Lumen — was deeply broken.** The shadcn registry was missing 8 sidecars (every v0.6 component would 404 on `npx shadcn add`), 11 v0.1 components had broken example references, the glossary was two releases stale, four foundation docs were missing, all 9 platform READMEs were unaware of v0.6, and the v0.6 Form primitive's promised react-hook-form binding was unshipped. v0.7 closes every gap.

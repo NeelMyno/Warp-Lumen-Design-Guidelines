@@ -1,7 +1,7 @@
 ---
 name: Spacing
 type: foundation
-version: 1.0.0
+version: 2.0.0
 last_updated: 2026-05-03
 audience: [designer, engineer, llm-agent]
 related:
@@ -13,6 +13,7 @@ related:
   - ../01-tokens/primitives/dimension.tokens.json
   - ../01-tokens/semantic/space.tokens.json
   - ../01-tokens/primitives/radius.tokens.json
+  - ../../_meta/decisions/0014-spacing-rebuild-v08.md
 ---
 
 # Lumen Spacing
@@ -40,11 +41,13 @@ Why both. The 4-point base gives precise control where it matters (form field rh
 
 ### When the grid breaks intentionally
 
-A small number of components ship off-grid because the visual target is optical, not structural. Each is documented in its component contract:
+A small number of components ship off-grid because the visual target is optical, not structural. Each is documented in its component contract or annotated with an inline `lumen-lint-allow: off-grid` directive (per `scripts/lint-no-off-grid-spacing.mjs`):
 
-- **Switch track** — 36 px wide × 20 px tall (the Radix Switch standard width). Off the 8-grid by design; pill geometry doesn't quantize cleanly to 8.
-- **`LiveDot`** — 8 px filled dot. On grid. Pulse ring expands to ~19 px (off-grid by design — it's an optical animation, not a layout primitive).
+- **Switch track** — 36 px wide × 20 px tall. v0.8 promoted 36 px to a primitive (`dimension.9`) so this is now on the canonical scale.
+- **`LiveDot`** — 8 px filled dot. On grid (`size.dot.md`). Pulse ring expands to ~19 px (off-grid by design — it's an optical animation, not a layout primitive).
 - **Focus ring** — 3 px spread per `shadow.focus`. Off the 4-grid because 3 px is the WCAG-validated visible-focus minimum for normal-stroke borders.
+- **Hairline accents** — 1 px (`--space-px`) for borders, 2 px (`radius.xs`) for chip corners. The lint allows these as documented exceptions.
+- **6 px optical sub-grid** (`dimension.1_5` / `space.1_5`) — for cases where 4 reads tight and 8 reads loose. Use sparingly; document why in the consumer code.
 
 ---
 
@@ -119,14 +122,27 @@ For gaps between inline elements (icon + label, button group, breadcrumbs).
 
 ### Section — vertical gap between major page sections
 
-For gaps between marketing-section bands or operator-dashboard regions.
+v0.8 split sections into operator and marketing modes — the same brand can be 96 px section padding *and* 24 px section padding depending on whether the page is selling or working. Both Vercel Geist and Linear demonstrated this in their respective dashboards/marketing.
 
 | Token | Value | Use |
 |---|---|---|
-| `space.section.sm` | 40 px | Tight operator-dashboard section break. |
+| `space.section.dense` | 24 px | v0.8 — operator dashboard section break. Aliased as `space.section.operator`. |
+| `space.section.sm` | 32 px | v0.8 — was 40; reduced to converge with Linear's tighter rhythm. |
 | `space.section.md` | 48 px | Default section break. |
-| `space.section.lg` | 64 px | Marketing section break. |
+| `space.section.lg` | 64 px | Marketing section break. Aliased as `space.section.marketing`. |
 | `space.section.xl` | 80 px | Marketing hero / brutalist section break. |
+| `space.section.hero` | 96 px | v0.8 — Vercel-style marketing hero. Used on /landing. |
+
+### Marketing vs operator — the v0.8 split
+
+Lumen ships two surface modes with very different section rhythms:
+
+| Mode | Default section gap | Container | When to use |
+|---|---|---|---|
+| **Operator dashboard** | `space.section.dense` (24 px) | `size.container.max` (1440) or `ultra` (1920) | Repeat-user surfaces. Long single-column scrolls. Tabular density. Linear / Plaid / Notion / Asana. |
+| **Marketing landing** | `space.section.lg` (64 px) or `hero` (96 px) | `size.container.default` (1100) or `wide` (1200) | Public-facing pages. Stat bands, feature grids, pricing. Vercel / Linear marketing. |
+
+**Don't blend.** A page that mixes 24 px and 96 px section breaks reads as inconsistent. Pick the surface mode at the page level and stay in it.
 
 ### Page — outer container padding
 
@@ -136,21 +152,47 @@ For gaps between marketing-section bands or operator-dashboard regions.
 | `space.page.md` | 24 px | Tablet / default. |
 | `space.page.lg` | 32 px | Desktop wide. |
 
-### Inset — padding inside containers
+### Inset — padding inside containers (v0.8)
 
-Lumen uses the integer ladder directly for inset (no separate `inset.*` namespace). Common patterns:
+v0.8 added the **`space.inset.*` namespace** as the canonical token group for "padding inside a container." Components MUST reach here, not into the integer ladder. The lint rule `scripts/lint-no-off-grid-spacing.mjs` enforces in v0.8.x; `lint-no-integer-space-in-component-tokens` is queued for v0.9.
 
-| Container | Inset | Token |
+| Token | Value | Use |
 |---|---|---|
-| Card (default) | 24 px | `space.6` |
-| Card (compact) | 16 px | `space.4` |
-| Card (hero) | 40 px | `space.10` (via `dimension.10`) |
-| Button (sm) | 8 px x | `space.2` |
-| Button (md) | 12 px x | `space.3` |
-| Button (lg) | 16 px x | `space.4` |
-| Input (sm) | 8 px x | `space.2` |
-| Input (md) | 12 px x | `space.3` |
-| Input (lg) | 16 px x | `space.4` |
+| `space.inset.xs` | 4 px | input padding-y at sm |
+| `space.inset.sm` | 8 px | input padding-y at md, button padding-y at sm |
+| `space.inset.md` | 12 px | input padding-x at md, card sm padding |
+| `space.inset.lg` | 16 px | input padding-x at lg, card md padding (compact) |
+| `space.inset.xl` | 24 px | card lg padding (default for comfortable mode) |
+| `space.inset.2xl` | 40 px | hero card padding |
+
+**Squish + stretch composition** — for controls where x ≠ y:
+
+| Token | x / y | Use |
+|---|---|---|
+| `space.inset.squish.sm` | 8 / 4 | sm button, chip |
+| `space.inset.squish.md` | 12 / 8 | md button (default) |
+| `space.inset.squish.lg` | 16 / 12 | lg button |
+| `space.inset.stretch.sm` | 8 / 12 | textarea sm |
+| `space.inset.stretch.md` | 12 / 16 | textarea md |
+
+Squish/stretch is Curtis 2016's compositional pattern, adopted by Atlassian, Material 3, GitHub Primer.
+
+### Tailwind utility access (v0.8)
+
+The Lumen semantic spacing tokens are exposed as Tailwind v4 utility classes via the `@theme inline` block in [globals.css](../../audit-dashboard/src/app/globals.css):
+
+| Tailwind class | Resolves to |
+|---|---|
+| `gap-stack-sm` / `gap-stack-md` / `gap-stack-lg` / `gap-stack-xl` | semantic `space.stack.*` |
+| `gap-inline-xs` / `gap-inline-sm` / `gap-inline-md` / `gap-inline-lg` | semantic `space.inline.*` |
+| `p-inset-xs` / `p-inset-sm` / `p-inset-md` / `p-inset-lg` / `p-inset-xl` / `p-inset-2xl` | semantic `space.inset.*` |
+| `gap-section-dense` / `gap-section-sm` / ... `gap-section-hero` | semantic `space.section.*` |
+| `p-page-sm` / `p-page-md` / `p-page-lg` | semantic `space.page.*` |
+| `gap-table-cell` | semantic `space.table.cell.gap` |
+| `max-w-narrow` / `max-w-default` / `max-w-wide` / `max-w-max` / `max-w-ultra` | `size.container.*` |
+| `h-control-sm` / `h-control-cozy` / `h-control-md` / `h-control-touch` / `h-control-lg` / `h-control-xl` | `size.control.*` |
+
+**Use these over Tailwind's default scale** (`gap-4`, `p-3`, etc.) when the design intent is clear. Tailwind defaults still work and resolve to the same values — but the semantic utilities carry intent.
 
 ---
 
@@ -160,10 +202,10 @@ The forms layer (per [`forms-and-inputs.md`](./forms-and-inputs.md) §Form layou
 
 | Gap | Default | Token | Notes |
 |---|---|---|---|
-| Label → control | 4 px | `field.gap.labelToControl` | Maps to `space.1`. |
-| Control → hint / error | 4 px | `field.gap.controlToHelp` | Maps to `space.1`. |
-| Field → field | 20 px | `field.gap.groupToGroup` | Maps to `space.5`. |
-| Fieldset → fieldset | 32 px | `field.gap.fieldsetToFieldset` | Maps to `space.8`. |
+| Label → control | 4 px | `field.gap.label` | v0.8 — was `labelToControl`; old name deprecated alias. Maps to `space.1`. |
+| Control → hint / error | 4 px | `field.gap.help` | v0.8 — was `controlToHelp`; old name deprecated alias. Maps to `space.1`. |
+| Field → field | **16 px** | `field.gap.field` | v0.8 — **reduced from 20 → 16** (Apple HIG / Linear / Stripe convergence). Was `groupToGroup`; old name deprecated alias. Maps to `space.4`. |
+| Fieldset → fieldset | 32 px | `field.gap.fieldset` | v0.8 — was `fieldsetToFieldset`; old name deprecated alias. Maps to `space.8`. |
 
 > [!note]
 > Per [`forms-and-inputs.md`](./forms-and-inputs.md): "Two-column layouts: only when the fields are conceptually related (city + state + ZIP triplet). Eye-tracking shows F-pattern fails on multi-column forms (Baymard)."
@@ -180,6 +222,7 @@ Defined in [`01-tokens/primitives/dimension.tokens.json`](../01-tokens/primitive
 | `size.container.default` | 1100 px | Primary marketing + dashboard width. **Matches Warp production.** |
 | `size.container.wide` | 1200 px | Wide hero blocks. |
 | `size.container.max` | 1440 px | Audit dashboard maximum. |
+| `size.container.ultra` | 1920 px | v0.8 — 32" ops monitor reach. **Operator-only**; not for marketing. |
 
 ### Reading-column widths
 
@@ -187,10 +230,9 @@ Per [`accessibility.md`](./accessibility.md) §Typography, reading copy is cappe
 
 | Token | Width | Use |
 |---|---|---|
-| `size.reading.60ch` | 60 ch | Prose body (Source Serif 4 longform). |
-| `size.reading.75ch` | 75 ch | Editorial body cap; wider tolerance for sans body. |
-
-The `.prose-lumen` longform wrapper (per [`typography.md`](./typography.md) §10) sets `max-width: 65ch` — between the two tokens, tuned for Source Serif 4 at 18 px.
+| `size.reading.narrow` | 60 ch | Prose body (Source Serif 4 longform). v0.8 — was `size.reading.60ch`. |
+| `size.reading.default` | 65 ch | v0.8 — typographic sweet spot. The `.prose-lumen` wrapper consumes this. |
+| `size.reading.wide` | 75 ch | Editorial body cap; wider tolerance for sans body. v0.8 — was `size.reading.75ch`. |
 
 > [!note]
 > Per [`principles.md`](./principles.md) §5: "Content widths: 1100px primary, 1200px wide hero, 720px / 60ch reading column." These are observed from Warp's production CSS. Do not invent in-between widths without an ADR.
@@ -207,24 +249,35 @@ Lumen exposes this as a token:
 
 | Token | Value | Source |
 |---|---|---|
-| `size.control.touch` | 44 px | Apple HIG minimum touch target. |
 | `size.control.sm` | 32 px | Compact button / input height. **Desktop only.** |
+| `size.control.cozy` | 36 px | v0.8 — settings-panel sweet spot. Density tier between sm and md. **Ratified after appearing 19+ times in v0.7 dashboard as the de facto fourth tier.** |
 | `size.control.md` | 40 px | Default control height. |
+| `size.control.touch` | 44 px | Apple HIG minimum touch target. |
 | `size.control.lg` | 48 px | Large CTA / form height. **Mobile / marketing.** |
+| `size.control.xl` | 56 px | v0.8 — hero pill CTA. Button.xl tier. |
 
 Mobile clients should auto-bump `md` → `lg` to satisfy WCAG 2.5.8 and Apple HIG. Lumen's `lg` (48 px) satisfies both. See [`forms-and-inputs.md`](./forms-and-inputs.md) §Sizing scale.
 
 ---
 
+## 6.5 Apple HIG dynamic-type rule (v0.8)
+
+**Spacing is constant; type scales into it.** When a user scales their system font-size up to 130%, the gaps in `space.*` and `field.gap.*` do NOT change with the user's preference. Type uses the leading curve in [`typography.md`](./typography.md); spacing holds.
+
+This is the inverse of the naive "fluid everything" approach. Apple HIG, Material 3 density, and Apple Sport (the dense data-grid app from 2024) all converge on this rule. The grid stays scannable because the gap rhythm is constant in pixels — text gets larger, gaps stay tight.
+
+**Implication for components:** when type scales, headers wrap to a second line, columns hold their width, team names truncate first. Don't use `clamp()` on internal padding/gap; use it only on container padding (`space.page.*`) where the canvas itself responds.
+
 ## 7. Density modes — preview
 
 Lumen ships two density modes: **comfortable** (default) and **compact** (operator surfaces). The full discussion lives in [`density.md`](./density.md). Spacing summary:
 
-| Container | Comfortable | Compact |
-|---|---|---|
-| Card padding | 24–32 px (`space.6` / `space.8`) | 12–16 px (`space.3` / `space.4`) |
-| Form field height | 40 px (`size.control.md`) | 32 px (`size.control.sm`) |
-| Table row | 40 px or 48 px | 32 px (default) |
+| Container | Comfortable | Cozy (v0.8) | Compact |
+|---|---|---|---|
+| Card padding | 24 px (`space.inset.xl`) | 20 px | 16 px (`space.inset.lg`) |
+| Form field height | 40 px (`size.control.md`) | 36 px (`size.control.cozy`) | 32 px (`size.control.sm`) |
+| Table row | 48 px | 40 px | 32 px (default) |
+| Section break | 48 px (`space.section.md`) | 32 px (`space.section.sm`) | 24 px (`space.section.dense`) |
 
 > [!warning]
 > Compact mode never violates the 44 × 44 px touch target on mobile. Mobile auto-bumps controls regardless of density. See [`density.md`](./density.md) §Touch target compatibility.
@@ -252,22 +305,23 @@ The 8-point soft grid does **not** apply to radius. Radius is an optical concern
 
 ## 9. Patterns — per surface
 
-### Operator dashboard
+### Operator dashboard (v0.8)
 
-- Page padding: `space.page.md` (24 px)
-- Container: `size.container.max` (1440 px)
+- Page padding: `space.page.md` (24 px) or `space.page.lg` (32 px)
+- Container: `size.container.max` (1440 px) or `size.container.ultra` (1920 px) on 32" monitors
 - Stack between cards: `space.stack.lg` (24 px)
-- Card inset: `space.6` (24 px) comfortable, `space.4` (16 px) compact
-- Section break: `space.section.sm` (40 px) — operator pages stay tight per [`principles.md`](./principles.md) §5
+- Card inset: `space.inset.xl` (24 px) comfortable, `space.inset.lg` (16 px) compact
+- **Section break: `space.section.dense` (24 px) — operator pages stay tight per [`principles.md`](./principles.md) §5.**
 - Table row: 32 px compact (default), 40 px regular
+- Table cell column gap: `space.table.cell.gap` (16 px), constant when type scales
 
 ### Marketing landing
 
 - Page padding: `space.page.lg` (32 px)
 - Container: `size.container.default` (1100 px)
 - Stack within hero: `space.stack.xl` (40 px)
-- Section break: `space.section.lg` (64 px) or `space.section.xl` (80 px)
-- Card inset: `space.6` (24 px) or hero card `space.10` (40 px)
+- **Section break: `space.section.lg` (64 px) standard, `space.section.hero` (96 px) for Vercel-style hero rhythm.**
+- Card inset: `space.inset.xl` (24 px) or hero card `space.inset.2xl` (40 px)
 
 ### Reading / editorial
 

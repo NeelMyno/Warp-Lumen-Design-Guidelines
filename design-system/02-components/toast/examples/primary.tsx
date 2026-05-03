@@ -109,7 +109,7 @@ export function Toast({
       <span
         aria-hidden
         className={[
-          "mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full shrink-0",
+          "mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full shrink-0",
           ICON_BG[status],
         ].join(" ")}
       >
@@ -120,7 +120,7 @@ export function Toast({
           {title}
         </div>
         {description && (
-          <div className="mt-0.5 text-[var(--type-body-sm)] text-[var(--color-text-secondary)]">
+          <div className="mt-1 text-[var(--type-body-sm)] text-[var(--color-text-secondary)]">
             {description}
           </div>
         )}

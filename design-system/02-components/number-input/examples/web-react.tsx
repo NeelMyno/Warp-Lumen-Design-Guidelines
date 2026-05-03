@@ -53,6 +53,8 @@ export function NumberInput({
       data-mono="true"
       data-size={size === "md" ? undefined : size}
       data-disabled={disabled ? "true" : undefined}
+      // shell override — see ADR 0014; will be cleaned up in v0.9 via
+      // a `data-padding="none"` modifier on the lumen-field shell.
       style={{ paddingInline: 0 }}
     >
       <button

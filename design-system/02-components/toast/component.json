@@ -14,14 +14,20 @@
   },
   "tokens": {
     "consumed": [
+      "space.inset.md",
+      "space.stack.xs",
+      "space.inline.md",
+      "radius.card.lifted",
+      "radius.sm",
       "color.surface.raised",
+      "color.surface.sunken",
       "color.border.subtle",
+      "color.text.primary", "color.text.tertiary",
       "color.status.success.bg", "color.status.success.fg",
       "color.status.warning.bg", "color.status.warning.fg",
       "color.status.danger.bg",  "color.status.danger.fg",
       "color.status.info.bg",    "color.status.info.fg",
-      "radius.card.lifted",
-      "shadow.toast",
+      "shadow.toast", "shadow.focus",
       "type.body.sm", "type.label.md", "type.heading.h6",
       "motion.transition.slow",
       "motion.transition.accelerate"

@@ -21,7 +21,7 @@ export function RateTicker({
       className="relative overflow-hidden border-y border-[var(--border-hairline)] bg-[var(--surface-sunken)]"
       aria-label="Live freight rates"
     >
-      <div className="lumen-ticker-track flex gap-10 whitespace-nowrap py-2.5">
+      <div className="lumen-ticker-track flex gap-10 whitespace-nowrap py-3">
         {repeated.map((r, i) => (
           /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 13) */
           <div

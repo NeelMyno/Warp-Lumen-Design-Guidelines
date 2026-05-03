@@ -27,7 +27,7 @@ export default function ToolPage() {
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
         {/* TITLE BAR */}
         <header className="flex items-center justify-between gap-3 px-4 h-12 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-inline-sm">
             {/* lumen-lint-allow: typography — type-11 mono bold app icon mark; no semantic preset for mono+bold at 11 */}
             <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-11)] font-bold">
               W
@@ -39,7 +39,7 @@ export default function ToolPage() {
             <Badge status="neutral" size="sm">v0.4</Badge>
             <LiveDot label="Auto-quoting" />
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-[var(--space-1_5)]">
             <Button intent="tertiary" size="sm" leadingIcon={<Code size={13} />}>View JSON</Button>
             <Button intent="secondary" size="sm">Save preset</Button>
             <Button intent="primary" size="sm" trailingIcon={<ArrowRight size={13} />}>Get rates</Button>
@@ -61,7 +61,7 @@ export default function ToolPage() {
               <button
                 key={p.name}
                 className={[
-                  "text-left px-2.5 py-1.5 rounded-[var(--radius-md)] text-label-sm transition-colors duration-[var(--motion-fast)]",
+                  "text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-label-sm transition-colors duration-[var(--motion-fast)]",
                   p.active
                     ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
                     : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)]",
@@ -70,7 +70,7 @@ export default function ToolPage() {
                 {p.name}
               </button>
             ))}
-            <button className="mt-3 flex items-center gap-2 px-2.5 py-1.5 rounded-[var(--radius-md)] text-[var(--text-tertiary)] text-body-xs hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] transition-colors">
+            <button className="mt-3 flex items-center gap-2 px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-[var(--text-tertiary)] text-body-xs hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] transition-colors">
               <Plus size={13} /> New preset
             </button>
 

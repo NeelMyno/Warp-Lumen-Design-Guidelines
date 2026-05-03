@@ -10,7 +10,7 @@ export function MotionDemo({ token, ms }: { token: string; ms: string }) {
   const [active, setActive] = useState(false);
   return (
     <div className="flex flex-col gap-2">
-      <div className="relative h-9 w-full rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] overflow-hidden">
+      <div className="relative h-control-cozy w-full rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] overflow-hidden">
         <button
           onMouseEnter={() => setActive(true)}
           onMouseLeave={() => setActive(false)}

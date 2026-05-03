@@ -2,24 +2,31 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "space": {
     "$type": "dimension",
-    "$description": "Semantic spacing ladder. Engineers consume these — never the dimension.* primitives. The integer suffix matches the primitive scale (space.4 = 16px) for predictability.",
-    "0":  { "$value": "{dimension.0}" },
-    "1":  { "$value": "{dimension.1}" },
-    "2":  { "$value": "{dimension.2}" },
-    "3":  { "$value": "{dimension.3}" },
-    "4":  { "$value": "{dimension.4}" },
-    "5":  { "$value": "{dimension.5}" },
-    "6":  { "$value": "{dimension.6}" },
-    "8":  { "$value": "{dimension.8}" },
-    "10": { "$value": "{dimension.10}" },
-    "12": { "$value": "{dimension.12}" },
-    "16": { "$value": "{dimension.16}" },
-    "20": { "$value": "{dimension.20}" },
-    "24": { "$value": "{dimension.24}" },
-    "32": { "$value": "{dimension.32}" },
-    "40": { "$value": "{dimension.40}" },
-    "48": { "$value": "{dimension.48}" },
-    "64": { "$value": "{dimension.64}" },
+    "$description": "Semantic spacing ladder. Engineers consume these — never the dimension.* primitives. The integer suffix matches the primitive scale (space.4 = 16px) for predictability and Tailwind utility parity. v0.8 added 1_5/7/9/11/14 stops + space.inset.* / space.inset.squish.* / space.inset.stretch.* / space.section.dense / space.section.hero.",
+
+    "0":     { "$value": "{dimension.0}" },
+    "1":     { "$value": "{dimension.1}" },
+    "1_5":   { "$value": "{dimension.1_5}", "$description": "v0.8 — 6 px sub-grid for optical adjustment." },
+    "2":     { "$value": "{dimension.2}" },
+    "3":     { "$value": "{dimension.3}" },
+    "4":     { "$value": "{dimension.4}" },
+    "5":     { "$value": "{dimension.5}" },
+    "6":     { "$value": "{dimension.6}" },
+    "7":     { "$value": "{dimension.7}",  "$description": "v0.8 — 28 px (segmented bar segment)." },
+    "8":     { "$value": "{dimension.8}" },
+    "9":     { "$value": "{dimension.9}",  "$description": "v0.8 — 36 px (switch track, cozy tier)." },
+    "10":    { "$value": "{dimension.10}" },
+    "11":    { "$value": "{dimension.11}", "$description": "v0.8 — 44 px (touch target floor)." },
+    "12":    { "$value": "{dimension.12}" },
+    "14":    { "$value": "{dimension.14}", "$description": "v0.8 — 56 px (button.xl, hero pill CTA)." },
+    "16":    { "$value": "{dimension.16}" },
+    "20":    { "$value": "{dimension.20}" },
+    "24":    { "$value": "{dimension.24}" },
+    "32":    { "$value": "{dimension.32}" },
+    "40":    { "$value": "{dimension.40}" },
+    "48":    { "$value": "{dimension.48}" },
+    "64":    { "$value": "{dimension.64}" },
+
     "stack": {
       "$description": "Vertical rhythm — gaps between stacked elements within a section.",
       "xs":  { "$value": "{dimension.2}" },
@@ -28,6 +35,7 @@
       "lg":  { "$value": "{dimension.6}" },
       "xl":  { "$value": "{dimension.10}" }
     },
+
     "inline": {
       "$description": "Horizontal gaps within a row of elements (icon + label, button group).",
       "xs":  { "$value": "{dimension.1}" },
@@ -35,18 +43,56 @@
       "md":  { "$value": "{dimension.3}" },
       "lg":  { "$value": "{dimension.4}" }
     },
-    "section": {
-      "$description": "Vertical gap between major sections of a page.",
-      "sm":  { "$value": "{dimension.10}" },
-      "md":  { "$value": "{dimension.12}" },
-      "lg":  { "$value": "{dimension.16}" },
-      "xl":  { "$value": "{dimension.20}" }
+
+    "inset": {
+      "$description": "v0.8 — padding INSIDE a container. Use for component padding, button padding, card padding, popover padding. Components MUST reach here, not into the integer ladder.",
+      "xs":  { "$value": "{dimension.1}", "$description": "4 px — input padding-y at sm." },
+      "sm":  { "$value": "{dimension.2}", "$description": "8 px — input padding-y at md, button padding-y at sm." },
+      "md":  { "$value": "{dimension.3}", "$description": "12 px — input padding-x at md, card sm padding." },
+      "lg":  { "$value": "{dimension.4}", "$description": "16 px — input padding-x at lg, card md padding." },
+      "xl":  { "$value": "{dimension.6}", "$description": "24 px — card lg / default padding." },
+      "2xl": { "$value": "{dimension.10}", "$description": "40 px — hero card padding (.lumen-card[data-padding=hero])." },
+
+      "squish": {
+        "$description": "v0.8 — paired x/y for controls where x > y (button, chip, segmented). Atlassian's compositional pattern; Curtis 2016.",
+        "sm": { "$value": { "x": "{dimension.2}", "y": "{dimension.1}" }, "$description": "8/4 — sm button/chip." },
+        "md": { "$value": { "x": "{dimension.3}", "y": "{dimension.2}" }, "$description": "12/8 — md button." },
+        "lg": { "$value": { "x": "{dimension.4}", "y": "{dimension.3}" }, "$description": "16/12 — lg button." }
+      },
+
+      "stretch": {
+        "$description": "v0.8 — paired x/y for controls where y > x (textarea, prose card). Less common but documents the intent.",
+        "sm": { "$value": { "x": "{dimension.2}", "y": "{dimension.3}" } },
+        "md": { "$value": { "x": "{dimension.3}", "y": "{dimension.4}" } }
+      }
     },
+
+    "section": {
+      "$description": "Vertical gap between major sections of a page. v0.8 added dense (operator) and hero (marketing-extreme) tiers — see ADR 0014 for the operator-vs-marketing split.",
+      "dense": { "$value": "{dimension.6}",  "$description": "v0.8 — 24 px operator-dashboard section break. Aliased as .operator." },
+      "sm":    { "$value": "{dimension.8}",  "$description": "v0.8 — 32 px tight band (was 40 px in v0.7; reduced to converge with Linear)." },
+      "md":    { "$value": "{dimension.12}", "$description": "v0.8 — 48 px default band (was 48 px; unchanged)." },
+      "lg":    { "$value": "{dimension.16}", "$description": "64 px marketing band." },
+      "xl":    { "$value": "{dimension.20}", "$description": "80 px hero/brutalist band." },
+      "hero":  { "$value": "{dimension.24}", "$description": "v0.8 — 96 px Vercel-style marketing hero. Used on /landing." },
+
+      "operator":   { "$value": "{space.section.dense}", "$description": "v0.8 alias — operator dashboards default to dense." },
+      "marketing":  { "$value": "{space.section.lg}",    "$description": "v0.8 alias — marketing pages default to lg." }
+    },
+
     "page": {
       "$description": "Outer padding of the page container.",
       "sm":  { "$value": "{dimension.4}" },
       "md":  { "$value": "{dimension.6}" },
       "lg":  { "$value": "{dimension.8}" }
+    },
+
+    "table": {
+      "$description": "v0.8 — table-cell rhythm. Apple Sport pattern: column gap stays constant when type scales.",
+      "cell": {
+        "gap":     { "$value": "{dimension.4}", "$description": "16 px — default column gap." },
+        "compact": { "$value": "{dimension.3}", "$description": "12 px — operator-table column gap." }
+      }
     }
   }
 }

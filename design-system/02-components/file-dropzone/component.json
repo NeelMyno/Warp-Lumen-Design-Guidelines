@@ -26,7 +26,9 @@
       "fileDropzone.title.type", "fileDropzone.title.color",
       "fileDropzone.browseLink.color", "fileDropzone.browseLink.textDecoration",
       "fileDropzone.hint.type", "fileDropzone.hint.color",
-      "fileDropzone.fileRow.background", "fileDropzone.fileRow.radius", "fileDropzone.fileRow.padding.x", "fileDropzone.fileRow.padding.y"
+      "fileDropzone.fileRow.background", "fileDropzone.fileRow.radius", "fileDropzone.fileRow.padding.x", "fileDropzone.fileRow.padding.y",
+      "space.stack.sm",
+      "space.inline.sm"
     ]
   },
   "a11y": {

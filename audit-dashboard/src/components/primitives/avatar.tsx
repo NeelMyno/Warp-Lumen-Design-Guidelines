@@ -84,6 +84,7 @@ export function Avatar({
           {initials(name)}
         </AvatarFallback>
       </ShadcnAvatar>
+      {/* lumen-lint-allow: off-grid — 2 px badge offset from avatar corner is optical, hairline-class. */}
       {badge && <span className="absolute -right-0.5 -bottom-0.5">{badge}</span>}
       <span className="sr-only">{name}</span>
     </span>
@@ -102,7 +103,7 @@ export function AvatarGroup({
   const visible = names.slice(0, max);
   const overflow = names.length - visible.length;
   return (
-    <div className="inline-flex items-center -space-x-1.5">
+    <div className="inline-flex items-center -space-x-2">
       {visible.map((n) => <Avatar key={n} name={n} size={size} ring />)}
       {overflow > 0 && (
         <span

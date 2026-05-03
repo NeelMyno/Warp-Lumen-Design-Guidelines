@@ -2,13 +2,15 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "radius": {
     "$type": "dimension",
-    "xs":   { "$value": { "value": 2,    "unit": "px" }, "$description": "Hairline accents" },
-    "sm":   { "$value": { "value": 4,    "unit": "px" }, "$description": "Small chips, kbd" },
-    "md":   { "$value": { "value": 6,    "unit": "px" }, "$description": "Inputs, buttons" },
-    "lg":   { "$value": { "value": 10,   "unit": "px" }, "$description": "Cards (default)" },
-    "xl":   { "$value": { "value": 14,   "unit": "px" }, "$description": "Cards (lifted), navigation panels" },
+    "$description": "Border-radius scale. Optical concern, not subject to the 4-pt grid. v0.8 reconciled with the live audit-dashboard values (the v0.4 Obsidian Lime retune that previously diverged from this JSON). Adds 4xl (36 px) for brutalist hero frames + mobile-phone bezels.",
+    "xs":   { "$value": { "value": 3,    "unit": "px" }, "$description": "v0.8 reconciled — hairline accents (was 2)" },
+    "sm":   { "$value": { "value": 6,    "unit": "px" }, "$description": "v0.8 reconciled — small chips, kbd (was 4)" },
+    "md":   { "$value": { "value": 8,    "unit": "px" }, "$description": "v0.8 reconciled — inputs, buttons (was 6)" },
+    "lg":   { "$value": { "value": 12,   "unit": "px" }, "$description": "v0.8 reconciled — cards default (was 10)" },
+    "xl":   { "$value": { "value": 16,   "unit": "px" }, "$description": "v0.8 reconciled — cards lifted, navigation panels, mobile cards (was 14)" },
     "2xl":  { "$value": { "value": 20,   "unit": "px" }, "$description": "Hero surfaces, large cards" },
     "3xl":  { "$value": { "value": 28,   "unit": "px" }, "$description": "Marketing surfaces, modal sheets" },
+    "4xl":  { "$value": { "value": 36,   "unit": "px" }, "$description": "v0.8 — Brutalist hero frames, mobile-phone bezels." },
     "full": { "$value": { "value": 9999, "unit": "px" }, "$description": "Pills, dots, avatars" }
   }
 }

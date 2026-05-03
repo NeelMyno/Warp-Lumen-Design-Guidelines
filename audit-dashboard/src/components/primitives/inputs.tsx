@@ -89,7 +89,7 @@ export function Radio({
 }) {
   return (
     <label className={cn(
-      "flex items-start gap-2.5 cursor-pointer select-none",
+      "flex items-start gap-inline-sm cursor-pointer select-none",
       disabled && "opacity-50 cursor-not-allowed",
     )}>
       <input
@@ -111,7 +111,7 @@ export function Radio({
       <span className="min-w-0 leading-snug">
         <span className="block text-body-sm text-[var(--text-primary)]">{label}</span>
         {description && (
-          <span className="block text-caption text-[var(--text-tertiary)] mt-0.5">{description}</span>
+          <span className="block text-caption text-[var(--text-tertiary)] mt-1">{description}</span>
         )}
       </span>
     </label>
@@ -119,7 +119,7 @@ export function Radio({
 }
 
 export function RadioGroup({ children }: { children: ReactNode }) {
-  return <div role="radiogroup" className="flex flex-col gap-2.5">{children}</div>;
+  return <div role="radiogroup" className="flex flex-col gap-stack-sm">{children}</div>;
 }
 
 /* ─────────────────────────  SELECT (native, .lumen-field shell)  ───────────────────────── */
@@ -238,7 +238,7 @@ export function Combobox({
               onMouseEnter={() => setHighlight(i)}
               onClick={() => pick(o)}
               className={cn(
-                "w-full text-left px-2.5 py-1.5 rounded-[var(--radius-sm)] text-body-sm",
+                "w-full text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-body-sm",
                 i === highlight ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)]" : "text-[var(--text-secondary)]",
               )}
             >
@@ -272,7 +272,7 @@ export function NumberInput({
   const dec = () => onChange(Math.max(min, value - step));
   const inc = () => onChange(Math.min(max, value + step));
   return (
-    <div className="lumen-field" data-mono="true" style={{ paddingInline: 0 }}>
+    <div className="lumen-field" data-mono="true" data-padding="none">
       <button
         type="button"
         data-interactive
@@ -334,7 +334,7 @@ export function PasswordInput({
           onClick={() => setShow((s) => !s)}
           aria-pressed={show}
           aria-label={show ? "Hide password" : "Show password"}
-          className="text-eyebrow-mono px-1.5 py-0.5 rounded-[var(--radius-xs)] text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors"
+          className="text-eyebrow-mono px-[var(--space-1_5)] py-1 rounded-[var(--radius-xs)] text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors"
         >
           {show ? "Hide" : "Show"}
         </button>
@@ -349,7 +349,7 @@ export function PasswordStrength({ value }: { value: string }) {
   const colors = ["var(--lumen-red-5)", "var(--lumen-amber-5)", "var(--lumen-cream-5)", "var(--lumen-accent-6)"];
   const labels = ["Too weak", "Weak", "Decent", "Strong"];
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--space-1_5)]">
       <div className="flex gap-1">
         {segs.map((i) => (
           <div
@@ -394,14 +394,15 @@ export function OtpInput({ length = 6, value, onChange }: { length?: number; val
     if (e.key === "Backspace" && !cells[i] && i > 0) refs.current[i - 1]?.focus();
   }
   return (
-    <div className="inline-flex gap-1.5" role="group" aria-label="One-time passcode">
+    <div className="inline-flex gap-[var(--space-1_5)]" role="group" aria-label="One-time passcode">
       {Array.from({ length }).map((_, i) => (
         <div
           key={i}
           className="lumen-field"
           data-mono="true"
           data-size="lg"
-          style={{ width: 40, padding: 0, justifyContent: "center" }}
+          data-padding="none"
+          style={{ width: 40, justifyContent: "center" }}
         >
           <input
             ref={(el) => { refs.current[i] = el; }}
@@ -439,7 +440,7 @@ export function TagsInput({
   return (
     <div
       className="lumen-field"
-      style={{ height: "auto", minHeight: "var(--size-control-md)", flexWrap: "wrap", paddingBlock: "var(--space-1)" }}
+      data-variant="chips"
     >
       {value.map((t) => (
         <span
@@ -616,7 +617,7 @@ export function FileDropzone({
       {picked.length > 0 && (
         <div className="mt-4 text-left flex flex-col gap-1">
           {picked.map((f) => (
-            <div key={f.name} className="flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)]">
+            <div key={f.name} className="flex items-center justify-between gap-3 px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] bg-[var(--surface-sunken)]">
               <span className="text-caption text-[var(--text-secondary)] truncate">{f.name}</span>
               <span className="text-overline text-[var(--text-tertiary)]">{(f.size / 1024).toFixed(1)} KB</span>
             </div>
@@ -655,7 +656,7 @@ export function DatePickerCalendar() {
           <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Next month">›</button>
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-y-1 mb-1.5">
+      <div className="grid grid-cols-7 gap-y-1 mb-2">
         {days.map((d) => (
           <span key={d} className="text-center text-overline text-[var(--text-tertiary)]">{d}</span>
         ))}
@@ -703,9 +704,9 @@ export function TimePicker() {
         className="w-7 text-center"
         aria-label="Minutes"
       />
-      <div className="ml-1 inline-flex rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] p-0.5" style={{ pointerEvents: "auto" }}>
-        <button data-interactive className="text-overline px-1.5 py-0.5 rounded-[var(--radius-xs)] bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]">am</button>
-        <button data-interactive className="text-overline px-1.5 py-0.5 rounded-[var(--radius-xs)] text-[var(--text-tertiary)]">pm</button>
+      <div className="ml-1 inline-flex rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] p-px" style={{ pointerEvents: "auto" }}>
+        <button data-interactive className="text-overline px-[var(--space-1_5)] py-[2px] rounded-[var(--radius-xs)] bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]">am</button>
+        <button data-interactive className="text-overline px-[var(--space-1_5)] py-[2px] rounded-[var(--radius-xs)] text-[var(--text-tertiary)]">pm</button>
       </div>
     </div>
   );
@@ -722,7 +723,7 @@ export function Segmented({
   options: { label: string; value: string }[];
 }) {
   return (
-    <div className="inline-flex items-center p-0.5 rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" role="group">
+    <div className="inline-flex items-center p-px rounded-[var(--radius-md)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]" role="group">
       {options.map((o) => (
         <button
           key={o.value}

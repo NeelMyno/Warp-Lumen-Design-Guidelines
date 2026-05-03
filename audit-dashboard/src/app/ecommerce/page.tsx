@@ -62,7 +62,7 @@ export default function EcommercePage() {
                 </span>
               </div>
               <Stars value={4.8} />
-              <div className="mt-3 flex flex-col gap-1.5">
+              <div className="mt-3 flex flex-col gap-[var(--space-1_5)]">
                 {[5, 4, 3, 2, 1].map((s) => (
                   <Bar key={s} stars={s} pct={[78, 14, 5, 2, 1][5 - s]} />
                 ))}
@@ -214,7 +214,7 @@ function Buy() {
       </p>
 
       <div>
-        <div className="lumen-eyebrow mb-2.5">Color · Olive Drab</div>
+        <div className="lumen-eyebrow mb-3">Color · Olive Drab</div>
         <div className="flex gap-2">
           {[
             ["#525c44", "Olive Drab"],
@@ -225,7 +225,7 @@ function Buy() {
             <button
               key={name}
               aria-label={name}
-              className="h-9 w-9 rounded-full transition-shadow"
+              className="h-control-cozy w-[var(--size-control-cozy)] rounded-full transition-shadow"
               style={{
                 background: hex,
                 boxShadow: i === 0
@@ -238,12 +238,12 @@ function Buy() {
       </div>
 
       <div>
-        <div className="flex items-baseline justify-between mb-2.5">
+        <div className="flex items-baseline justify-between mb-3">
           <div className="lumen-eyebrow">Size</div>
           {/* lumen-lint-allow: typography — type-12 plain link in size selector; no semantic preset for 12 regular */}
           <a href="#" className="text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] underline underline-offset-2">Size guide</a>
         </div>
-        <div className="grid grid-cols-6 gap-1.5">
+        <div className="grid grid-cols-6 gap-[var(--space-1_5)]">
           {sizes.map((s) => (
             <button
               key={s}
@@ -300,7 +300,7 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
   const full = Math.floor(value);
   const partial = value - full;
   return (
-    <div className="flex items-center gap-0.5" aria-label={`${value} of 5 stars`}>
+    <div className="flex items-center gap-1" aria-label={`${value} of 5 stars`}>
       {Array.from({ length: 5 }).map((_, i) => {
         const fillPct = i < full ? 100 : i === full ? Math.round(partial * 100) : 0;
         return (
@@ -327,7 +327,7 @@ function Bar({ stars, pct }: { stars: number; pct: number }) {
     /* lumen-lint-allow: typography — type-12 review bar row plain; no semantic preset for 12 regular */
     <div className="flex items-center gap-2 text-[var(--type-12)]">
       <span className="w-3 lumen-mono text-[var(--text-tertiary)]">{stars}</span>
-      <div className="flex-1 h-1.5 rounded-full bg-[var(--surface-sunken)] overflow-hidden">
+      <div className="flex-1 h-[var(--space-1_5)] rounded-full bg-[var(--surface-sunken)] overflow-hidden">
         <div className="h-full bg-[var(--text-primary)]" style={{ width: `${pct}%` }} />
       </div>
       <span className="w-8 text-right lumen-mono text-[var(--text-tertiary)]">{pct}%</span>

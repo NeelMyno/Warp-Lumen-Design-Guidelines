@@ -12,14 +12,19 @@
   },
   "tokens": {
     "consumed": [
+      "space.inline.xs",
+      "space.inline.sm",
+      "size.dot.sm",
+      "radius.pill",
       "color.status.success.bg", "color.status.success.fg",
       "color.status.warning.bg", "color.status.warning.fg",
       "color.status.danger.bg",  "color.status.danger.fg",
       "color.status.info.bg",    "color.status.info.fg",
-      "color.surface.sunken",    "color.text.secondary",
+      "color.surface.sunken",    "color.surface.tint-accent",
+      "color.text.secondary",
       "color.border.subtle",
       "color.accent.500",        "color.text.accent",
-      "radius.pill", "type.micro", "type.eyebrow.mono"
+      "type.micro", "type.eyebrow.mono"
     ]
   },
   "a11y": {

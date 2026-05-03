@@ -49,12 +49,12 @@ export function Swatch({
       >
         {copied && (
           /* v0.5: arbitrary-value type — review for semantic preset (11 medium toast) */
-          <span className="absolute top-1.5 right-1.5 px-1.5 h-[18px] inline-flex items-center rounded-full bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]">
+          <span className="absolute top-2 right-2 px-[var(--space-1_5)] h-[18px] inline-flex items-center rounded-full bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]">
             Copied
           </span>
         )}
       </div>
-      <div className="px-2.5 py-2 border-t border-[var(--border-hairline)] flex flex-col gap-0.5">
+      <div className="px-3 py-2 border-t border-[var(--border-hairline)] flex flex-col gap-1">
         <div className="flex items-center justify-between gap-2 min-w-0">
           <span className="text-label-sm text-[var(--text-primary)] truncate">
             {name}
@@ -87,8 +87,8 @@ export function SwatchGrid({
   // Default: responsive 2 → 5 columns. Pass cols to override on a single
   // breakpoint (used for ramps that should always fit on one row).
   const cls = cols
-    ? `grid gap-2.5 grid-cols-${Math.min(cols, 12)}`
-    : "grid gap-2.5 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5";
+    ? `grid gap-stack-sm grid-cols-${Math.min(cols, 12)}`
+    : "grid gap-stack-sm grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5";
   return <div className={cls}>{children}</div>;
 }
 
@@ -115,11 +115,11 @@ export function SwatchRamp({
           type="button"
           title={`var(--${family}-${i})`}
           onClick={() => navigator.clipboard?.writeText(`var(--${family}-${i})`)}
-          className="group relative h-16 flex flex-col items-center justify-end pb-1.5 transition-[transform] hover:z-10 hover:scale-[1.06] focus-visible:outline-none focus-visible:z-10 focus-visible:scale-[1.06]"
+          className="group relative h-16 flex flex-col items-center justify-end pb-2 transition-[transform] hover:z-10 hover:scale-[1.06] focus-visible:outline-none focus-visible:z-10 focus-visible:scale-[1.06]"
           style={{ background: `var(--${family}-${i})` }}
         >
           <span
-            className="text-[10px] font-semibold lumen-tnum opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity px-1 py-0.5 rounded-sm"
+            className="text-[10px] font-semibold lumen-tnum opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity px-1 py-px rounded-sm"
             style={{
               background: "rgba(0,0,0,0.55)",
               color: "white",

@@ -62,7 +62,7 @@ export function RateTicker({
       ].join(" ")}
     >
       <div
-        className="lumen-ticker-track flex gap-10 whitespace-nowrap py-2.5"
+        className="lumen-ticker-track flex gap-10 whitespace-nowrap py-3"
         style={{
           animation: `${animationName} ${dur} linear infinite`,
           width: "max-content",

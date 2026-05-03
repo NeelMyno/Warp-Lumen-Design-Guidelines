@@ -71,11 +71,17 @@ export function Stat({
   };
 
   return (
-    <div {...props} className={["flex flex-col gap-1.5", className ?? ""].join(" ")}>
+    <div
+      {...props}
+      // Eyebrow/value/delta stack uses 6 px sub-grid for the signature
+      // tight Stat rhythm. v0.8 documented space.1_5 as the explicit stop.
+      className={["flex flex-col gap-[var(--space-1_5)]", className ?? ""].join(" ")} // 6 px optical sub-grid
+    >
       <div className="text-[var(--type-eyebrow-sans)] uppercase tracking-[var(--tracking-wider)] font-semibold text-[var(--color-text-tertiary)]">
         {label}
       </div>
-      <div className="flex items-baseline gap-1.5">
+      {/* 6 px gap holds the unit close to its number on the baseline. */}
+      <div className="flex items-baseline gap-[var(--space-1_5)]"> {/* 6 px optical sub-grid */}
         <span
           className={[
             VALUE_SIZE[size],
@@ -101,11 +107,13 @@ export function Stat({
         )}
       </div>
       {(delta || spark) && (
-        <div className="flex items-center gap-3 mt-0.5">
+        <div className="flex items-center gap-3 mt-1">
           {delta && trend && (
             <span
               className={[
-                "inline-flex items-center gap-1 px-1.5 h-4.5 rounded-[var(--radius-pill)]",
+                // Pill: 6 px x-padding (sub-grid), 20 px height snaps to grid
+                // and reads better with body-sm than the prior 18 px.
+                "inline-flex items-center gap-1 px-[var(--space-1_5)] h-5 rounded-[var(--radius-pill)]", // 6 px optical sub-grid
                 DELTA_SIZE[size],
                 "font-medium tracking-[var(--tracking-tight)]",
                 "[font-variant-numeric:tabular-nums_lining-nums_slashed-zero]",

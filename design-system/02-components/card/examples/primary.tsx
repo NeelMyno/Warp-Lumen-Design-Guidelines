@@ -130,7 +130,7 @@ export function CardHeader({
 }: CardHeaderProps) {
   return (
     <div className="flex items-start justify-between gap-4 mb-4">
-      <div className="flex flex-col gap-0.5 min-w-0">
+      <div className="flex flex-col gap-1 min-w-0">
         {eyebrow && (
           <div className="text-[var(--type-eyebrow-mono)] uppercase tracking-[var(--tracking-wider)] text-[var(--color-text-tertiary)] mb-1">
             {eyebrow}

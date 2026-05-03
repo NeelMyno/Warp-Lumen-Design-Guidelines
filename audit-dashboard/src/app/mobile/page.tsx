@@ -45,7 +45,7 @@ function DeviceColumn({
   return (
     <div className="flex flex-col gap-5 items-center">
       <div className="self-start">
-        <div className="lumen-eyebrow mb-1.5">{name}</div>
+        <div className="lumen-eyebrow mb-2">{name}</div>
         <p className="text-body-xs text-[var(--text-tertiary)] leading-snug max-w-[42ch]">{notes}</p>
       </div>
       <div className="flex justify-center">{children}</div>
@@ -71,7 +71,7 @@ function IOSFrame() {
           {/* Dynamic Island */}
           <div className="absolute left-1/2 top-2 -translate-x-1/2 w-[105px] h-[28px] rounded-full bg-black" />
           {/* lumen-lint-allow: typography — type-12 mono tabular status bar; no semantic preset for mono+regular at 12 */}
-          <div className="flex items-center gap-1.5 lumen-mono lumen-tnum text-[var(--type-12)]">
+          <div className="flex items-center gap-[var(--space-1_5)] lumen-mono lumen-tnum text-[var(--type-12)]">
             <span>5G</span>
             <span>100%</span>
           </div>
@@ -87,7 +87,7 @@ function IOSFrame() {
 
         {/* Search */}
         <div className="px-6 mt-2">
-          <div className="bg-[var(--surface-sunken)] rounded-[var(--radius-lg)] h-9 flex items-center gap-2 px-3 text-[var(--text-tertiary)]">
+          <div className="bg-[var(--surface-sunken)] rounded-[var(--radius-lg)] h-control-cozy flex items-center gap-2 px-3 text-[var(--text-tertiary)]">
             <Search size={14} />
             <span className="text-body-sm">Search lanes…</span>
           </div>
@@ -117,9 +117,9 @@ function IOSFrame() {
           ].map((s) => (
             <div
               key={s.id}
-              className="flex items-center justify-between gap-3 bg-[var(--surface-raised)] rounded-[var(--radius-lg)] px-3 py-2.5 border border-[var(--border-hairline)]"
+              className="flex items-center justify-between gap-3 bg-[var(--surface-raised)] rounded-[var(--radius-lg)] px-3 py-2 border border-[var(--border-hairline)]"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
+              <div className="flex items-center gap-inline-sm min-w-0">
                 <Avatar name={s.carrier} size="xs" />
                 <div className="flex flex-col min-w-0">
                   <span className="text-heading-h5 leading-tight">{s.lane}</span>
@@ -165,7 +165,7 @@ function IOSFrame() {
         </div>
 
         {/* Home indicator */}
-        <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 h-[5px] w-[120px] rounded-full bg-[var(--text-primary)] opacity-70" />
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 h-[5px] w-[120px] rounded-full bg-[var(--text-primary)] opacity-70" />
       </div>
     </div>
   );
@@ -186,7 +186,7 @@ function AndroidFrame() {
         {/* Status bar */}
         <div className="flex items-center justify-between px-5 py-2 text-micro lumen-tnum">
           <span>9:41</span>
-          <div className="flex items-center gap-1.5 lumen-mono">
+          <div className="flex items-center gap-[var(--space-1_5)] lumen-mono">
             <span>5G</span><span>•</span><span>100%</span>
           </div>
         </div>
@@ -199,7 +199,7 @@ function AndroidFrame() {
           <Search size={18} />
           <span className="relative">
             <Bell size={18} />
-            <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+            <span className="absolute -top-[2px] -right-[2px] h-2 w-2 rounded-full bg-[var(--color-accent)]" />
           </span>
         </div>
 
@@ -265,7 +265,7 @@ function AndroidFrame() {
             { I: Bell,   label: "Alerts" },
           ].map(({ I, label, active }) => (
             /* lumen-lint-allow: typography — type-11 plain android tab label; no semantic preset for 11px regular */
-            <button key={label} className="flex flex-col items-center gap-0.5 px-3 py-1 text-[var(--type-11)]">
+            <button key={label} className="flex flex-col items-center gap-1 px-3 py-1 text-[var(--type-11)]">
               <span
                 className={[
                   "h-7 w-14 rounded-full grid place-items-center transition-colors",

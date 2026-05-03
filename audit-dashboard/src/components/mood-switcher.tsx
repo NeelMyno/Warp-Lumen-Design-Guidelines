@@ -38,7 +38,7 @@ export function MoodSwitcher() {
         value={mounted ? mood : DEFAULT_MOOD}
         onChange={(e) => select(e.target.value as MoodId)}
         aria-label="Visual mood"
-        className="h-9 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 text-body-sm text-[var(--text-primary)] focus-visible:border-[var(--border-focus)]"
+        className="h-control-cozy rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 text-body-sm text-[var(--text-primary)] focus-visible:border-[var(--border-focus)]"
       >
         {MOODS.map((m) => (
           <option key={m.id} value={m.id}>

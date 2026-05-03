@@ -14,10 +14,12 @@
     "registry":           "node scripts/build-registry.mjs",
     "docs:dev":           "cd audit-dashboard && pnpm dev",
     "docs:build":         "cd audit-dashboard && pnpm build",
-    "lint":               "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography && pnpm lint:no-arbitrary-form-values",
+    "lint":               "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography && pnpm lint:no-arbitrary-form-values && pnpm lint:no-off-grid-spacing",
     "lint:no-primitives": "node scripts/lint-no-primitives-in-components.mjs",
     "lint:no-arbitrary-typography": "node scripts/lint-no-arbitrary-typography.mjs",
     "lint:no-arbitrary-form-values": "node scripts/lint-no-arbitrary-form-values.mjs",
+    "lint:no-off-grid-spacing":     "node scripts/lint-no-off-grid-spacing.mjs",
+    "lint:token-naming":            "node scripts/lint-token-naming-kebab.mjs",
     "cls":                "node scripts/measure-cls.mjs",
     "format":             "prettier --write 'design-system/**/*.{md,json}' '*.{md,json,ts}'",
     "release":            "node scripts/release.mjs"

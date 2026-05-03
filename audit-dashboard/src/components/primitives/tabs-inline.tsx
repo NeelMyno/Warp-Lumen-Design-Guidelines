@@ -33,7 +33,7 @@ export function InlineTabs({
   variant?: "underline" | "pill";
 }) {
   const [active, setActive] = useState(defaultId ?? items[0]?.id ?? "");
-  const heightCls = size === "sm" ? "h-8" : "h-9";
+  const heightCls = size === "sm" ? "h-8" : "h-control-cozy";
 
   function select(id: string) {
     setActive(id);
@@ -62,7 +62,7 @@ export function InlineTabs({
               heightCls,
             )}
           >
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-[var(--space-1_5)]">
               {it.label}
               {it.badge !== undefined && (
                 /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 11) */

@@ -41,9 +41,9 @@ export function ProgressBar({
   size?: "sm" | "md" | "lg";
 }) {
   const pct = Math.max(0, Math.min(100, (value / max) * 100));
-  const h = size === "sm" ? "h-1" : size === "lg" ? "h-2" : "h-1.5";
+  const h = size === "sm" ? "h-1" : size === "lg" ? "h-2" : "h-[var(--space-1_5)]";
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--space-1_5)]">
       {(label || showValue) && (
         <div className="flex items-baseline justify-between gap-3">
           {label && <span className="text-body-xs text-[var(--text-secondary)]">{label}</span>}

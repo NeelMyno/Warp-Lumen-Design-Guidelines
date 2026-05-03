@@ -34,14 +34,15 @@ Density is what separates Lumen from a marketing-system look-alike. Without it, 
 
 ---
 
-## 2. Two modes — `comfortable` and `compact`
+## 2. Three modes — `comfortable`, `cozy` (v0.8), and `compact`
 
-Lumen ships exactly two modes. A future v0.7+ may introduce a `cozy` mode between them.
+v0.8 ratifies `cozy` as the third density tier between comfortable and compact. Cozy was de facto in use across 19+ sites in the v0.7 dashboard (`h-9` = 36 px); v0.8 promotes it to a first-class token (`size.control.cozy = 36 px`) + `dimension.9` primitive + `data-density="cozy"` attribute hook.
 
 | Mode | Default for | Trigger | Field height | Card padding |
 |---|---|---|---|---|
-| **`comfortable`** (default) | Marketing landing, blog, editorial, first-time-user flows | Default — no opt-in needed | 40 px (`size.control.md`) | 24–32 px (`space.6` / `space.8`) |
-| **`compact`** | Operator dashboards, data tables, dense forms | `<Form density="compact">`, `data-density="compact"` on container | 32 px (`size.control.sm`) | 12–16 px (`space.3` / `space.4`) |
+| **`comfortable`** (default) | Marketing landing, blog, editorial, first-time-user flows | Default — no opt-in needed | 40 px (`size.control.md`) | 24 px (`space.inset.xl`) |
+| **`cozy`** (v0.8) | Settings panels, profile pages, in-between data surfaces | `<Form density="cozy">`, `data-density="cozy"` on container | 36 px (`size.control.cozy`) | 20 px |
+| **`compact`** | Operator dashboards, data tables, dense forms | `<Form density="compact">`, `data-density="compact"` on container | 32 px (`size.control.sm`) | 16 px (`space.inset.lg`) |
 
 ### Form density mode
 
@@ -62,7 +63,7 @@ Lumen's two-mode model converges with the data-app standard. Linear, Plaid Dashb
 
 > Density modes. `<Form density="compact">` sets `data-density="compact"` on the form root; nested `.lumen-field` shells without an explicit `data-size` adopt 32 px height + reduced padding. **Linear/Plaid/Notion convergence pattern.**
 
-Lumen ships two; a future v0.7+ may add `cozy` (a 36 px field-height mode) between comfortable and compact for the in-between case (e.g., settings panels that aren't full operator dashboards).
+**v0.8 update:** Lumen now ships three modes. `cozy` (36 px field-height) lands between comfortable and compact for the in-between case — settings panels, profile pages, in-app dashboards that aren't full operator surfaces. Linear and Plaid both ship a similar middle tier (Linear's "default" between condensed and spacious; Plaid's "regular" between dense and comfortable).
 
 ---
 
@@ -190,19 +191,22 @@ What changes is **leading on data tables only**: compact tables can opt into the
 
 ---
 
-## 9. The third mode — `cozy` (deferred)
+## 9. The third mode — `cozy` (v0.8 — shipped)
 
-A `cozy` mode between comfortable and compact is **deferred to v0.7+**. The convergence question:
+A `cozy` 36 px field-height tier between comfortable (40) and compact (32) shipped in v0.8 after appearing 19+ times in the v0.7 dashboard as a de facto fourth tier. The convergence Lumen joined:
 
 | System | Modes | Cozy step? |
 |---|---|---|
 | Linear | 2 (comfortable / compact) | No |
-| Plaid Dashboard | 3 (comfortable / cozy / compact) | Yes — 36 px field |
+| **Plaid Dashboard** | **3 (comfortable / cozy / compact)** | **Yes — 36 px field** |
 | Notion | 2 (default / compact) | No |
-| Asana | 3 (comfortable / default / compact) | Yes |
+| **Asana** | **3 (comfortable / default / compact)** | **Yes** |
 | Airtable | 4 (extra-tall / tall / medium / short) | Multiple |
+| **Lumen v0.8** | **3 (comfortable / cozy / compact)** | **Yes — 36 px field** |
 
-Lumen v0.6 ships 2. The `cozy` 36 px tier — a settings-panel sweet spot — is tracked for v0.7. Adding it requires an ADR + design audit per the deprecation policy (per [AGENTS.md](../../AGENTS.md)).
+**Trigger:** `<Form density="cozy">` or `data-density="cozy"` on any container. Same propagation pattern as `compact` — nested `.lumen-field` shells inherit unless they declare `data-size` explicitly.
+
+**When to use cozy.** Settings panels, profile pages, in-app dashboards (`/account`, `/settings`, `/team`) where compact reads as too dense for one-off interaction but comfortable wastes vertical space on repeat-user surfaces. Linear and Plaid both ship the same middle tier for the same reason.
 
 ---
 
@@ -210,11 +214,11 @@ Lumen v0.6 ships 2. The `cozy` 36 px tier — a settings-panel sweet spot — is
 
 | Hook | Location | Purpose |
 |---|---|---|
-| `<Form density="compact">` | `02-components/form/` | Sets `data-density="compact"` on form root. |
-| `data-density="compact"` | Any container | CSS attribute selector for nested density propagation. |
-| `data-size="sm" \| "md" \| "lg"` | Field shell | Explicit per-control size override; wins over inherited density. |
+| `<Form density="comfortable" \| "cozy" \| "compact">` | `02-components/form/` | Sets `data-density` on form root. |
+| `data-density="cozy" \| "compact"` | Any container | CSS attribute selector for nested density propagation. v0.8 added cozy. |
+| `data-size="sm" \| "cozy" \| "md" \| "touch" \| "lg" \| "xl"` | Field shell | Explicit per-control size override; wins over inherited density. v0.8 added cozy/xl. |
 | `space.*` semantic tokens | [`semantic/space.tokens.json`](../01-tokens/semantic/space.tokens.json) | Density compositions reach for these, never primitives. |
-| `size.control.{sm,md,lg,touch}` | [`primitives/dimension.tokens.json`](../01-tokens/primitives/dimension.tokens.json) | Control heights — compact uses `sm`, comfortable uses `md`. |
+| `size.control.{sm,cozy,md,touch,lg,xl}` | [`primitives/dimension.tokens.json`](../01-tokens/primitives/dimension.tokens.json) | Control heights — compact uses `sm`, cozy uses `cozy` (36), comfortable uses `md`. v0.8 added cozy + xl. |
 
 ---
 

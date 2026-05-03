@@ -21,7 +21,7 @@ export function PhoneFrame({
           ? "border-[var(--lumen-obsidian-9)]"
           : "border-[var(--lumen-cream-7)]",
       ].join(" ")}
-      style={{ height, padding: "10px" }}
+      style={{ height, padding: "var(--space-3)" }}
     >
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-center pointer-events-none">
         {os === "ios" ? (
@@ -44,7 +44,7 @@ export function StatusBar({ time = "9:41", carrier = "Verizon" }: { time?: strin
   return (
     <div className="h-10 px-5 flex items-center justify-between text-[12px] font-semibold lumen-mono text-[var(--text-primary)] shrink-0">
       <span>{time}</span>
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-[var(--space-1_5)]">
         <span className="hidden sm:inline">{carrier}</span>
         <SignalIcon />
         <WifiIcon />
@@ -132,12 +132,12 @@ export function PermissionPrompt({
       <div className="w-full max-w-[280px] rounded-[14px] bg-[var(--surface-popover)] overflow-hidden">
         <div className="px-5 pt-5 pb-4 text-center">
           <div className="text-heading-h5">Allow "{appName}" to {permission}?</div>
-          <div className="text-body-xs text-[var(--text-tertiary)] mt-1.5 leading-[var(--leading-snug)]">{description}</div>
+          <div className="text-body-xs text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">{description}</div>
         </div>
         <div className="border-t border-[var(--border-hairline)]">
-          <button className="w-full h-11 text-[var(--type-14)] text-[var(--text-link)] border-b border-[var(--border-hairline)]">Allow Once</button>
-          <button className="w-full h-11 text-[var(--type-14)] text-[var(--text-link)] border-b border-[var(--border-hairline)]">Allow While Using App</button>
-          <button className="w-full h-11 text-[var(--type-14)] text-[var(--text-link)]">Don't Allow</button>
+          <button className="w-full h-control-touch text-[var(--type-14)] text-[var(--text-link)] border-b border-[var(--border-hairline)]">Allow Once</button>
+          <button className="w-full h-control-touch text-[var(--type-14)] text-[var(--text-link)] border-b border-[var(--border-hairline)]">Allow While Using App</button>
+          <button className="w-full h-control-touch text-[var(--type-14)] text-[var(--text-link)]">Don't Allow</button>
         </div>
       </div>
     </div>
@@ -174,7 +174,7 @@ export function MobileListItem({
     <div className={["flex items-center gap-3 px-4 py-3 bg-[var(--surface-raised)]", swipeable ? "relative overflow-hidden" : ""].join(" ")}>
       <div className="flex-1 min-w-0">
         <div className="text-[var(--type-14)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</div>
-        {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] truncate mt-0.5">{description}</div>}
+        {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] truncate mt-1">{description}</div>}
       </div>
       <div className="flex items-center gap-2 shrink-0 text-[var(--type-12)] text-[var(--text-tertiary)] lumen-mono">
         {meta && <span>{meta}</span>}
@@ -238,7 +238,7 @@ export function CoachMark() {
       </p>
       <div className="flex items-center justify-between mt-3 text-[var(--type-11)]">
         <span className="lumen-mono text-[var(--lumen-obsidian-3)]">Step 2 of 4</span>
-        <button className="bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] px-3 h-7 rounded-[var(--radius-sm)] font-semibold">Got it</button>
+        <button className="bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] px-3 h-control-touch rounded-[var(--radius-sm)] font-semibold">Got it</button>
       </div>
     </div>
   );

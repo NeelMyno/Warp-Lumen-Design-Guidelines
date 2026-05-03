@@ -123,12 +123,12 @@ export function Toast({
       className="min-w-[300px] max-w-[400px] rounded-[var(--radius-md)] border bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] p-3 flex items-start gap-3"
       style={{ borderColor: "var(--border-default)" }}
     >
-      <span className="mt-0.5 shrink-0" style={{ color: s.icon }}>
+      <span className="mt-1 shrink-0" style={{ color: s.icon }}>
         <AlertIcon tone={tone} />
       </span>
       <div className="min-w-0 flex-1">
         <div className="text-heading-h6 text-[var(--text-primary)]">{title}</div>
-        {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{description}</div>}
+        {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">{description}</div>}
       </div>
       {action && (
         <button
@@ -145,7 +145,7 @@ export function Toast({
 /* ─────────────────────────  SNACKBAR (compact toast w/ undo)  ───────────────────────── */
 export function Snackbar({ children, action }: { children: ReactNode; action?: { label: string; onClick?: () => void } }) {
   return (
-    <div className="inline-flex items-center gap-3 rounded-[var(--radius-full)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] px-3.5 py-2 shadow-[var(--shadow-popover)]">
+    <div className="inline-flex items-center gap-3 rounded-[var(--radius-full)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] px-4 py-2 shadow-[var(--shadow-popover)]">
       <span className="text-[var(--type-13)]">{children}</span>
       {action && (
         <button onClick={action.onClick} className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] font-semibold text-[var(--lumen-accent-3)] hover:text-[var(--lumen-accent-2)]">
@@ -194,7 +194,7 @@ export function ModalCard({
       </div>
       {children && <div className="px-5 pb-4 pt-2 text-body-xs text-[var(--text-secondary)]">{children}</div>}
       {(primary || secondary) && (
-        <div className="px-5 py-3.5 border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)]/40 flex items-center justify-end gap-2">
+        <div className="px-5 py-4 border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)]/40 flex items-center justify-end gap-2">
           {secondary && (
             <button
               onClick={secondary.onClick}
@@ -272,6 +272,7 @@ export function Popover({ children, arrow = true }: { children: ReactNode; arrow
         {children}
       </div>
       {arrow && (
+        // lumen-lint-allow: off-grid — 6 px tooltip arrow offset from popover edge (sub-grid optical).
         <span className="absolute -bottom-1.5 left-6 h-3 w-3 rotate-45 bg-[var(--surface-popover)] border-r border-b border-[var(--border-default)]" />
       )}
     </div>
@@ -305,7 +306,7 @@ export function ValidationMessage({ tone = "danger", children }: { tone?: AlertT
     neutral: "var(--text-tertiary)",
   };
   return (
-    <span className="inline-flex items-center gap-1.5 text-[var(--type-12)]" style={{ color: colors[tone] }}>
+    <span className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)]" style={{ color: colors[tone] }}>
       <span aria-hidden style={{ color: colors[tone] }}>
         {tone === "success" ? <Check size={12} /> : tone === "danger" ? "•" : "•"}
       </span>

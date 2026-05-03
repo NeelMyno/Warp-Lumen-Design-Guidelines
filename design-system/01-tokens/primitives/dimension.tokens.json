@@ -2,43 +2,57 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "dimension": {
     "$type": "dimension",
-    "$description": "4-based spacing/sizing scale. Engineers consume via space.* semantic tokens, not these primitives.",
-    "0":   { "$value": { "value": 0,   "unit": "px" } },
-    "1":   { "$value": { "value": 4,   "unit": "px" } },
-    "2":   { "$value": { "value": 8,   "unit": "px" } },
-    "3":   { "$value": { "value": 12,  "unit": "px" } },
-    "4":   { "$value": { "value": 16,  "unit": "px" } },
-    "5":   { "$value": { "value": 20,  "unit": "px" } },
-    "6":   { "$value": { "value": 24,  "unit": "px" } },
-    "8":   { "$value": { "value": 32,  "unit": "px" } },
-    "10":  { "$value": { "value": 40,  "unit": "px" } },
-    "12":  { "$value": { "value": 48,  "unit": "px" } },
-    "16":  { "$value": { "value": 64,  "unit": "px" } },
-    "20":  { "$value": { "value": 80,  "unit": "px" } },
-    "24":  { "$value": { "value": 96,  "unit": "px" } },
-    "32":  { "$value": { "value": 128, "unit": "px" } },
-    "40":  { "$value": { "value": 160, "unit": "px" } },
-    "48":  { "$value": { "value": 192, "unit": "px" } },
-    "64":  { "$value": { "value": 256, "unit": "px" } }
+    "$description": "4-based spacing/sizing scale. Engineers consume via space.* semantic tokens, not these primitives. v0.8 added stops 1_5/7/9/11/14 to close documented gaps surfaced by component contracts.",
+    "0":     { "$value": { "value": 0,   "unit": "px" } },
+    "1":     { "$value": { "value": 4,   "unit": "px" } },
+    "1_5":   { "$value": { "value": 6,   "unit": "px" }, "$description": "Sub-grid 6 px. Pairs with radius.md (6 px) and provides the optical inner-padding tier between 4 and 8. Documented exception per spacing.md §1." },
+    "2":     { "$value": { "value": 8,   "unit": "px" } },
+    "3":     { "$value": { "value": 12,  "unit": "px" } },
+    "4":     { "$value": { "value": 16,  "unit": "px" } },
+    "5":     { "$value": { "value": 20,  "unit": "px" } },
+    "6":     { "$value": { "value": 24,  "unit": "px" } },
+    "7":     { "$value": { "value": 28,  "unit": "px" }, "$description": "v0.8 — Used by Segmented segment height (32 - 2×2 padding) and the deferred Button.xs tier." },
+    "8":     { "$value": { "value": 32,  "unit": "px" } },
+    "9":     { "$value": { "value": 36,  "unit": "px" }, "$description": "v0.8 — Used by Switch track width and the cozy density tier (size.control.cozy)." },
+    "10":    { "$value": { "value": 40,  "unit": "px" } },
+    "11":    { "$value": { "value": 44,  "unit": "px" }, "$description": "v0.8 — Apple HIG minimum touch target. Aliased by size.control.touch." },
+    "12":    { "$value": { "value": 48,  "unit": "px" } },
+    "14":    { "$value": { "value": 56,  "unit": "px" }, "$description": "v0.8 — Used by Button.xl (hero pill CTA, added v0.4)." },
+    "16":    { "$value": { "value": 64,  "unit": "px" } },
+    "20":    { "$value": { "value": 80,  "unit": "px" } },
+    "24":    { "$value": { "value": 96,  "unit": "px" } },
+    "32":    { "$value": { "value": 128, "unit": "px" } },
+    "40":    { "$value": { "value": 160, "unit": "px" } },
+    "48":    { "$value": { "value": 192, "unit": "px" } },
+    "64":    { "$value": { "value": 256, "unit": "px" } }
   },
   "size": {
     "$type": "dimension",
-    "$description": "Common bounded sizes for layout containers and reading widths.",
+    "$description": "Common bounded sizes for layout containers and reading widths. v0.8 re-binds size.control.* to dimension primitives and adds cozy/xl tiers.",
     "container": {
       "narrow":  { "$value": { "value": 720,  "unit": "px" }, "$description": "Reading column / single article" },
       "default": { "$value": { "value": 1100, "unit": "px" }, "$description": "Primary marketing + dashboard width (matches Warp)" },
       "wide":    { "$value": { "value": 1200, "unit": "px" }, "$description": "Wide hero blocks" },
-      "max":     { "$value": { "value": 1440, "unit": "px" }, "$description": "Audit dashboard maximum" }
+      "max":     { "$value": { "value": 1440, "unit": "px" }, "$description": "Audit dashboard maximum" },
+      "ultra":   { "$value": { "value": 1920, "unit": "px" }, "$description": "v0.8 — 32\" ops monitor reach. Operator-only; not for marketing." }
     },
     "reading": {
-      "60ch":    { "$value": { "value": 60,   "unit": "ch" } },
-      "75ch":    { "$value": { "value": 75,   "unit": "ch" } }
+      "narrow":  { "$value": { "value": 60,   "unit": "ch" }, "$description": "Source Serif longform body cap." },
+      "default": { "$value": { "value": 65,   "unit": "ch" }, "$description": "v0.8 — Typographic sweet spot. .prose-lumen consumes this." },
+      "wide":    { "$value": { "value": 75,   "unit": "ch" }, "$description": "Editorial body cap; wider tolerance for sans body." }
     },
     "control": {
-      "sm":      { "$value": { "value": 32,   "unit": "px" }, "$description": "Compact button / input height" },
-      "md":      { "$value": { "value": 40,   "unit": "px" }, "$description": "Default control height" },
-      "lg":      { "$value": { "value": 48,   "unit": "px" }, "$description": "Large CTA / form height" },
-      "touch":   { "$value": { "value": 44,   "unit": "px" }, "$description": "Apple HIG minimum touch target" }
+      "sm":      { "$value": "{dimension.8}",  "$description": "32 px — compact button / input height. Desktop only." },
+      "cozy":    { "$value": "{dimension.9}",  "$description": "v0.8 — 36 px settings-panel sweet spot. Density tier between sm and md. Tab-nav, mood-switcher, library skeletons consume." },
+      "md":      { "$value": "{dimension.10}", "$description": "40 px — default control height" },
+      "touch":   { "$value": "{dimension.11}", "$description": "44 px — Apple HIG minimum touch target" },
+      "lg":      { "$value": "{dimension.12}", "$description": "48 px — large CTA / form height. Mobile / marketing." },
+      "xl":      { "$value": "{dimension.14}", "$description": "v0.8 — 56 px hero pill CTA. Button.xl tier." }
+    },
+    "scrollbar": { "$value": "{dimension.2}", "$description": "v0.8 — 8 px scrollbar track width. Used in ::-webkit-scrollbar." },
+    "dot": {
+      "sm":  { "$value": "{dimension.1_5}", "$description": "v0.8 — 6 px decorative dot (status row indicator)." },
+      "md":  { "$value": "{dimension.2}",   "$description": "v0.8 — 8 px LiveDot signature size." }
     }
   }
 }

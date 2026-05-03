@@ -39,10 +39,10 @@ export function Switch({
         defaultChecked={defaultChecked}
         onCheckedChange={onCheckedChange}
         disabled={disabled}
-        className="mt-0.5 shrink-0"
+        className="mt-1 shrink-0"
       />
       {(label || description) && (
-        <div className="flex flex-col gap-0.5 leading-snug">
+        <div className="flex flex-col gap-1 leading-snug">
           {label && (
             <Label htmlFor={switchId} className="text-label-md text-[var(--text-primary)] cursor-pointer">
               {label}

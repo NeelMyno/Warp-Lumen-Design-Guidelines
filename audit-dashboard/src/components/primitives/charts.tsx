@@ -150,7 +150,7 @@ export function BarChart({
 /* ─────────────────────────  STACKED BAR  ───────────────────────── */
 export function StackedBar({ rows }: { rows: { label: string; segments: { value: number; color: string; label?: string }[] }[] }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--space-1_5)]">
       {rows.map((r) => {
         const total = r.segments.reduce((a, b) => a + b.value, 0);
         return (
@@ -225,7 +225,7 @@ export function DonutChart({
           </text>
         )}
       </svg>
-      <ul className="flex flex-col gap-1.5 text-[var(--type-12)]">
+      <ul className="flex flex-col gap-[var(--space-1_5)] text-[var(--type-12)]">
         {segments.map((s, i) => (
           <li key={s.label} className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-[1px]" style={{ background: s.color ?? CHART_PALETTE[i % CHART_PALETTE.length] }} />
@@ -354,7 +354,7 @@ export function Treemap({ items }: { items: { label: string; value: number; colo
         return (
           <div
             key={idx}
-            className="rounded-[var(--radius-xs)] px-2 py-1.5 flex flex-col justify-end"
+            className="rounded-[var(--radius-xs)] px-2 py-[var(--space-1_5)] flex flex-col justify-end"
             style={{ background: i.color ?? CHART_PALETTE[idx % CHART_PALETTE.length], gridColumn: `span ${span}` }}
           >
             <div className="text-[var(--type-11)] font-semibold text-white tracking-[var(--tracking-tight)] truncate">{i.label}</div>
@@ -511,7 +511,7 @@ export function Cohort() {
         <tbody>
           {rows.map((r, i) => (
             <tr key={i}>
-              <td className="px-2 py-1.5 text-[var(--text-secondary)]">{r.label}</td>
+              <td className="px-2 py-[var(--space-1_5)] text-[var(--text-secondary)]">{r.label}</td>
               {r.cells.map((c, j) => (
                 <td key={j} className="px-1 py-1">
                   <span
@@ -535,7 +535,7 @@ export function ChartLegend({ items }: { items: { label: string; color: string }
   return (
     <div className="inline-flex flex-wrap items-center gap-3">
       {items.map((i) => (
-        <span key={i.label} className="inline-flex items-center gap-1.5 text-[var(--type-12)] text-[var(--text-secondary)]">
+        <span key={i.label} className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)] text-[var(--text-secondary)]">
           <span className="h-2 w-2 rounded-[1px]" style={{ background: i.color }} />
           {i.label}
         </span>

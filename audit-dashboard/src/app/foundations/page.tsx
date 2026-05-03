@@ -31,7 +31,7 @@ export default function FoundationsPage() {
     <div className="grid gap-12 lg:grid-cols-[1fr_200px] lg:gap-x-12">
       <article className="min-w-0">
         {/* HERO — brutalist hairline frame, mono-cap eyebrow, italic display accent */}
-        <header className="mb-16 md:mb-24">
+        <header>
           <div className="flex items-center gap-3 mb-6 lumen-mono-cap text-[var(--text-tertiary)]">
             <span className="lumen-dot-pulse" aria-hidden />
             <span>Tab 01 · system primitives</span>
@@ -207,8 +207,8 @@ export default function FoundationsPage() {
         <Section
           id="spacing"
           eyebrow="03 · Foundations"
-          title="Spacing & 8-point soft grid"
-          description="Lumen runs on an 8pt soft grid. Base unit is 8 — section gaps, control heights, paddings, gaps between siblings all snap to multiples of 8. 4-pixel halves are allowed in dense rows; 2-pixel quarters reserved for hairlines and dot indicators. Decorative pixels (border-radius, glow, tooltip arrows) stay free of the grid."
+          title="Spacing · 4-point base, 8-point soft"
+          description="Lumen runs on a 4-point base, 8-point soft grid. Every structural pixel snaps to 4; most snap to 8. Section gaps, control heights, paddings, and gaps between siblings prefer multiples of 8 (8, 16, 24, 32, 40, 48, 64, 80, 96, 128). The 4-step is the standard fine-tune; 6 (--space-1_5) is the documented sub-grid stop for genuine optical work. Decorative pixels (border radius, focus ring, dot indicators) stay free of the grid."
         >
           <SubSection title="Grid ladder · structural multiples of 8">
             <Card padding="lg">
@@ -241,15 +241,15 @@ export default function FoundationsPage() {
             </Card>
           </SubSection>
 
-          <SubSection title="Soft exceptions · half-steps for fine optical work">
+          <SubSection title="True exceptions · off-grid pixels with a job to do" description="These are the only structural values that intentionally break the 4-point grid. Every one is documented at the token level (--space-1_5, --size-control-cozy, --radius-xs, --size-dot-md, --shadow-focus-ring). Don't add new exceptions without a token.">
             <Card padding="lg">
               <div className="flex flex-col gap-3">
                 {[
-                  { px: 4,  role: "half-step — icon ↔ label gap" },
-                  { px: 6,  role: "tooltip arrow / focus offset" },
-                  { px: 12, role: "half-step — chip insets, control internals" },
-                  { px: 20, role: "half-step — between dense rows" },
-                  { px: 28, role: "soft control height (xs button, dense rows)" },
+                  { px: 2,  role: "radius.xs · hairline corner softening (--radius-xs)" },
+                  { px: 3,  role: "focus ring outset · WCAG 2.4.7 visible focus (--shadow-focus)" },
+                  { px: 6,  role: "sub-grid optical stop (--space-1_5) · used by lumen-kbd, tag-chip insets" },
+                  { px: 19, role: "LiveDot pulse glow radius — odd to keep the dot optically centered" },
+                  { px: 36, role: "size.control.cozy · settings-panel sweet spot, Switch track height (--size-control-cozy)" },
                 ].map((s) => (
                   <div key={s.px} className="flex items-center gap-4">
                     {/* lumen-lint-allow: typography — mono tabular at 12 spacing metric; no preset for mono+regular at 12 */}
@@ -286,15 +286,15 @@ export default function FoundationsPage() {
             </Card>
           </SubSection>
 
-          <SubSection title="Control-height ladder" description="Every interactive control snaps to one of four heights. xs (28) is the only soft exception, kept for dense data-table rows.">
+          <SubSection title="Control-height ladder · v0.8 expanded" description="Every interactive control snaps to one of six tokenized heights. v0.8 fills out the ladder: sm, cozy, md, touch, lg, xl all carry --size-control-* tokens. cozy (36) is the settings-panel sweet spot; touch (44) is the Apple HIG floor for fingertip targets.">
             <Card padding="lg">
               <div className="flex items-end gap-4 flex-wrap">
-                <HeightSpec h={28} label="xs · 28" sub="3.5u soft" />
-                <HeightSpec h={32} label="sm · 32" sub="4u" />
-                <HeightSpec h={40} label="md · 40" sub="5u · default" />
-                <HeightSpec h={48} label="lg · 48" sub="6u" />
-                <HeightSpec h={56} label="xl · 56" sub="7u · hero" />
-                <HeightSpec h={44} label="touch · 44" sub="5.5u soft · iOS" tone="soft" />
+                <HeightSpec h={32} label="sm · 32"    sub="--size-control-sm" />
+                <HeightSpec h={36} label="cozy · 36"  sub="--size-control-cozy · v0.8" />
+                <HeightSpec h={40} label="md · 40"    sub="--size-control-md · default" />
+                <HeightSpec h={44} label="touch · 44" sub="--size-control-touch · iOS HIG" tone="soft" />
+                <HeightSpec h={48} label="lg · 48"    sub="--size-control-lg" />
+                <HeightSpec h={56} label="xl · 56"    sub="--size-control-xl · hero" />
               </div>
             </Card>
           </SubSection>
@@ -318,7 +318,7 @@ export default function FoundationsPage() {
                   className="h-14 w-14 bg-[var(--color-accent)]"
                   style={{ borderRadius: `var(--radius-${name})` }}
                 />
-                <div className="flex flex-col items-center gap-0.5">
+                <div className="flex flex-col items-center gap-1">
                   <div className="text-label-sm text-[var(--text-primary)]">{name}</div>
                   {/* lumen-lint-allow: typography — mono tabular at 11 radius value; no semantic preset for 11px tabular */}
                   <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{px}</code>
@@ -657,7 +657,7 @@ export default function FoundationsPage() {
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-3">
                   <Skeleton width={36} height={36} rounded="9999px" />
-                  <div className="flex-1 flex flex-col gap-1.5">
+                  <div className="flex-1 flex flex-col gap-[var(--space-1_5)]">
                     <Skeleton width={140} />
                     <Skeleton width={88} height={11} />
                   </div>
@@ -777,7 +777,7 @@ export default function FoundationsPage() {
       {/* ON-PAGE NAV */}
       <aside className="hidden lg:block">
         {/* lumen-lint-allow: typography — type-12 sidebar nav links; no semantic preset for 12 regular */}
-        <nav className="sticky top-32 flex flex-col gap-1.5 text-[var(--type-12)]">
+        <nav className="sticky top-32 flex flex-col gap-[var(--space-1_5)] text-[var(--type-12)]">
           <div className="lumen-mono-cap mb-3 text-[var(--text-tertiary)]">On this page</div>
           {[
             ["color", "Color"],
@@ -848,7 +848,7 @@ function PairRow({
 
 function StatusRamp({ family }: { family: string }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--space-1_5)]">
       <div className="flex items-baseline justify-between">
         {/* lumen-lint-allow: typography — mono regular at 11 token name; no semantic preset for 11px mono */}
         <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{family}</code>
@@ -857,7 +857,7 @@ function StatusRamp({ family }: { family: string }) {
       </div>
       <div className="grid grid-cols-10 gap-0 rounded-[var(--radius-md)] overflow-hidden border border-[var(--border-hairline)]">
         {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="h-9" style={{ background: `var(--${family}-${i})` }} title={`var(--${family}-${i})`} />
+          <div key={i} className="h-control-cozy" style={{ background: `var(--${family}-${i})` }} title={`var(--${family}-${i})`} />
         ))}
       </div>
     </div>

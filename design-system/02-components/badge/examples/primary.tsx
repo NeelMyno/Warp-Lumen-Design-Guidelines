@@ -25,10 +25,12 @@ const STATUS: Record<Status, string> = {
     "bg-[var(--color-status-info-bg)] text-[var(--color-status-info-fg)]",
 };
 
-// Sizes snap to 8pt: sm = 20 (2.5u), md = 24 (3u).
+// Sizes snap to the 4-grid: sm = 20 (5u), md = 24 (6u).
+// 6 px x-padding (sm) and 6 px gap (md) are documented sub-grid stops; we
+// reach them via the v0.8 space.1_5 token rather than Tailwind's half-step.
 const SIZE: Record<Size, string> = {
-  sm: "h-5 px-1.5 text-[var(--type-eyebrow-mono)] gap-1 rounded-[var(--radius-pill)]",
-  md: "h-6 px-2 text-[var(--type-micro)] gap-1.5 rounded-[var(--radius-pill)]",
+  sm: "h-5 px-[var(--space-1_5)] text-[var(--type-eyebrow-mono)] gap-1 rounded-[var(--radius-pill)]", // 6 px optical sub-grid
+  md: "h-6 px-2 text-[var(--type-micro)] gap-[var(--space-1_5)] rounded-[var(--radius-pill)]",        // 6 px optical sub-grid
 };
 
 export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
@@ -64,7 +66,7 @@ export function Badge({
       {showDot && (
         <span
           aria-hidden
-          className="h-1.5 w-1.5 rounded-full"
+          className="h-[var(--space-1_5)] w-[var(--space-1_5)] rounded-full" // 6 px optical sub-grid
           style={{ background: "currentColor" }}
         />
       )}

@@ -14,7 +14,7 @@ export function TabNav() {
   const pathname = usePathname();
   return (
     <nav aria-label="Project type" className="overflow-x-auto">
-      <ul className="mx-auto flex w-full max-w-[1440px] items-stretch gap-1 px-4 py-2">
+      <ul className="mx-auto flex w-full max-w-max items-stretch gap-1 px-4 py-2">
         {TABS.map((tab) => {
           const isActive =
             pathname === tab.href ||
@@ -25,7 +25,7 @@ export function TabNav() {
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}
                 className={[
-                  "inline-flex items-center gap-2 h-9 px-4 rounded-[var(--radius-full)]",
+                  "inline-flex items-center gap-2 h-control-cozy px-4 rounded-[var(--radius-full)]",
                   "text-label-sm whitespace-nowrap",
                   "border transition-[color,background-color,border-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
                   isActive
@@ -33,7 +33,7 @@ export function TabNav() {
                     : "text-[var(--text-tertiary)] border-transparent hover:text-[var(--text-primary)] hover:border-[var(--border-subtle)]",
                 ].join(" ")}
               >
-                {isActive && <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[var(--lumen-accent-4)]" />}
+                {isActive && <span aria-hidden className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-4)]" />}
                 <span>{tab.shortLabel ?? tab.label}</span>
               </Link>
             </li>

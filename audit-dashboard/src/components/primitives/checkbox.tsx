@@ -30,17 +30,17 @@ export function Checkbox({
   const cbId = id ?? generatedId;
 
   return (
-    <div className="flex items-start gap-2.5">
+    <div className="flex items-start gap-inline-sm">
       <ShadcnCheckbox
         id={cbId}
         checked={checked}
         defaultChecked={defaultChecked}
         onCheckedChange={(v) => onCheckedChange?.(v === true)}
         disabled={disabled}
-        className="mt-0.5 shrink-0"
+        className="mt-1 shrink-0"
       />
       {(label || description) && (
-        <div className="flex flex-col gap-0.5 leading-snug">
+        <div className="flex flex-col gap-1 leading-snug">
           {label && (
             <Label htmlFor={cbId} className="text-label-md text-[var(--text-primary)] cursor-pointer">
               {label}

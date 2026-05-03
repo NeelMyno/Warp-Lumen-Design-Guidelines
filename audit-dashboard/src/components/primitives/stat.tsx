@@ -48,9 +48,9 @@ export function Stat({
     flat: "bg-[var(--status-neutral-bg)] text-[var(--status-neutral-fg)]",
   };
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-[var(--space-1_5)]">
       <div className="lumen-eyebrow">{label}</div>
-      <div className="flex items-baseline gap-1.5">
+      <div className="flex items-baseline gap-[var(--space-1_5)]">
         <span
           className={[
             VALUE_SIZE[size],
@@ -68,12 +68,12 @@ export function Stat({
         )}
       </div>
       {(delta || spark) && (
-        <div className="flex items-center gap-3 mt-0.5">
+        <div className="flex items-center gap-3 mt-1">
           {delta && trend && (
             /* v0.5: arbitrary-value type — review for semantic preset (type-11 delta pill) */
             <span
               className={[
-                "inline-flex items-center gap-1 px-1.5 h-[18px] rounded-[var(--radius-full)]",
+                "inline-flex items-center gap-1 px-[var(--space-1_5)] h-[18px] rounded-[var(--radius-full)]",
                 "text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]",
                 "lumen-tnum",
                 trendStyles[trend],

@@ -116,7 +116,7 @@ export function FeatureGrid() {
       {features.map((f) => (
         <div key={f.title} className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5">
           <div className="text-heading-h5">{f.title}</div>
-          <p className="text-body-xs text-[var(--text-tertiary)] mt-1.5 leading-[var(--leading-snug)]">{f.body}</p>
+          <p className="text-body-xs text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">{f.body}</p>
         </div>
       ))}
     </div>
@@ -153,7 +153,7 @@ export function StatStrip() {
       ].map((s) => (
         <div key={s.v}>
           <div className="lumen-tnum text-[var(--type-39)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{s.k}</div>
-          <div className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[var(--lumen-obsidian-3)] mt-1.5">{s.v}</div>
+          <div className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[var(--lumen-obsidian-3)] mt-2">{s.v}</div>
         </div>
       ))}
     </div>
@@ -173,7 +173,7 @@ export function MaintenanceCard() {
       </p>
       <div className="mt-6 inline-flex items-center gap-3 text-[var(--type-12)]">
         <span className="lumen-mono text-[var(--text-tertiary)]">Status</span>
-        <span className="inline-flex items-center gap-1.5 text-[var(--lumen-amber-7)]"><span className="h-1.5 w-1.5 rounded-full bg-[var(--lumen-amber-5)]" />Partial degradation</span>
+        <span className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--lumen-amber-7)]"><span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-amber-5)]" />Partial degradation</span>
       </div>
     </div>
   );

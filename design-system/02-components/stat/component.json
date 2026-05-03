@@ -15,11 +15,17 @@
   },
   "tokens": {
     "consumed": [
+      "space.inline.xs",
+      "space.inline.md",
+      "space.stack.xs",
+      "radius.pill",
       "type.eyebrow.sans",
       "type.metric.sm", "type.metric.md", "type.metric.lg", "type.metric.xl",
-      "type.data.sm", "type.body.sm", "type.caption",
+      "type.data.sm", "type.data.md", "type.data.lg",
+      "type.body.sm", "type.body.md", "type.caption",
       "color.text.primary", "color.text.tertiary",
-      "color.status.success.fg", "color.status.danger.fg",
+      "color.status.success.bg", "color.status.success.fg",
+      "color.status.danger.bg", "color.status.danger.fg",
       "font.family.mono"
     ]
   },

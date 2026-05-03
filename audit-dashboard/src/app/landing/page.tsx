@@ -24,7 +24,7 @@ export default function LandingPage() {
 
         {/* HERO — v0.4 obsidian-lime: architectural grid + brutalist headline (gradients stripped) */}
         <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural overflow-hidden">
-          <div className="relative max-w-[1100px] mx-auto flex flex-col gap-7">
+          <div className="relative max-w-default mx-auto flex flex-col gap-7">
             <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
               <span className="lumen-dot-pulse" aria-hidden />
               <span>Now in private beta · Spring 2026 · system v0.4 live</span>
@@ -66,8 +66,8 @@ export default function LandingPage() {
         <RateTicker />
 
         {/* TRUST STRIP */}
-        <section className="bg-[var(--surface-page)] px-10 py-10 border-t border-[var(--border-hairline)]">
-          <div className="max-w-[1100px] mx-auto flex flex-col gap-5">
+        <section className="bg-[var(--surface-page)] px-10 py-section-xl border-t border-[var(--border-hairline)]">
+          <div className="max-w-default mx-auto flex flex-col gap-5">
             <div className="lumen-eyebrow">Trusted by operators at</div>
             <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
@@ -81,8 +81,8 @@ export default function LandingPage() {
         </section>
 
         {/* STAT BAND */}
-        <section className="bg-[var(--surface-sunken)] px-10 py-14 border-y border-[var(--border-hairline)]">
-          <div className="max-w-[1100px] mx-auto">
+        <section className="bg-[var(--surface-sunken)] px-10 py-section-xl border-y border-[var(--border-hairline)]">
+          <div className="max-w-default mx-auto">
             <StatGrid cols={4} divided>
               <Stat label="Shipments routed" value="655K+" size="hero" />
               <Stat label="On-time"          value="98.2"  unit="%" size="hero" />
@@ -94,7 +94,7 @@ export default function LandingPage() {
 
         {/* FEATURES */}
         <section className="bg-[var(--surface-page)] px-10 py-20">
-          <div className="max-w-[1100px] mx-auto flex flex-col gap-12">
+          <div className="max-w-default mx-auto flex flex-col gap-12">
             <header className="max-w-[640px]">
               <div className="lumen-eyebrow mb-2">What you get</div>
               <h2 className="text-display-md md:text-display-lg">
@@ -114,7 +114,7 @@ export default function LandingPage() {
 
         {/* PRICING */}
         <section className="bg-[var(--surface-page)] px-10 py-20 border-t border-[var(--border-hairline)]">
-          <div className="max-w-[1100px] mx-auto flex flex-col gap-10">
+          <div className="max-w-default mx-auto flex flex-col gap-10">
             <header className="max-w-[640px]">
               <div className="lumen-eyebrow mb-2">Pricing</div>
               <h2 className="text-display-md md:text-display-lg">
@@ -179,7 +179,7 @@ export default function LandingPage() {
 
         {/* CTA */}
         <section className="bg-[var(--surface-inverse)] px-10 py-20 border-t border-[var(--border-hairline)]">
-          <div className="max-w-[1100px] mx-auto flex flex-col items-start gap-7">
+          <div className="max-w-default mx-auto flex flex-col items-start gap-7">
             <h2
               className="text-display-lg md:text-display-2xl"
               style={{ color: "var(--text-inverse)" }}
@@ -199,7 +199,7 @@ export default function LandingPage() {
           className="bg-[var(--surface-inverse)] px-10 py-12"
           style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
         >
-          <div className="max-w-[1100px] mx-auto grid gap-8 md:grid-cols-[1.5fr_2fr] text-body-xs">
+          <div className="max-w-default mx-auto grid gap-8 md:grid-cols-[1.5fr_2fr] text-body-xs">
             <div className="flex flex-col gap-4" style={{ color: "var(--text-inverse)" }}>
               <div className="text-heading-h5">Warp</div>
               <p className="opacity-70 max-w-[40ch] leading-snug">
@@ -263,11 +263,11 @@ function PriceCard({
         <div className="text-heading-h5">{name}</div>
         {highlighted && <Badge status="accent" leadingDot>Most popular</Badge>}
       </div>
-      <div className="flex items-baseline gap-1.5">
+      <div className="flex items-baseline gap-[var(--space-1_5)]">
         <div className="text-display-lg lumen-tnum">{price}</div>
         <div className="text-body-xs text-[var(--text-tertiary)]">{period}</div>
       </div>
-      <ul className="flex flex-col gap-2.5">
+      <ul className="flex flex-col gap-stack-sm">
         {features.map((f) => (
           <li key={f} className="flex items-start gap-2 text-body-sm text-[var(--text-secondary)]">
             <Check size={14} />
@@ -285,7 +285,7 @@ function PriceCard({
 function BrowserChrome({ url }: { url: string }) {
   return (
     <div className="bg-[var(--surface-sunken)] border-b border-[var(--border-hairline)] px-3 py-2 flex items-center gap-2">
-      <div className="flex gap-1.5">
+      <div className="flex gap-[var(--space-1_5)]">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />

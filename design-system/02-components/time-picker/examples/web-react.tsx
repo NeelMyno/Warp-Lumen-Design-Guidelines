@@ -158,7 +158,7 @@ export function TimePicker({
         <div
           role="radiogroup"
           aria-label="am or pm"
-          className="ml-1 inline-flex p-0.5"
+          className="ml-1 inline-flex p-1"
           style={{
             background: "var(--color-surface-sunken)",
             borderRadius: "var(--radius-sm)",
@@ -179,7 +179,7 @@ export function TimePicker({
                 className={cn("transition-colors text-overline")}
                 style={{
                   paddingInline: "var(--space-2)",
-                  paddingBlock: "2px",
+                  paddingBlock: "var(--space-1)",
                   borderRadius: "var(--radius-xs)",
                   background: active
                     ? "var(--color-surface-raised)"

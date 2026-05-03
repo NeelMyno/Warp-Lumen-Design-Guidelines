@@ -12,6 +12,8 @@
   },
   "tokens": {
     "consumed": [
+      "size.dot.md",
+      "space.inline.sm",
       "color.accent.500",
       "color.status.warning.fg",
       "color.status.danger.fg",

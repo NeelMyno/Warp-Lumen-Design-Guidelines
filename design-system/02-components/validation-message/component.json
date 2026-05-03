@@ -15,9 +15,13 @@
   },
   "tokens": {
     "consumed": [
+      "space.inline.xs",
+      "space.stack.xs",
+      "space.inset.lg",
       "field.error.type", "field.error.color",
       "field.success.type", "field.success.color",
-      "field.helper.type", "field.helper.color"
+      "field.helper.type", "field.helper.color",
+      "color.text.warning", "color.text.tertiary"
     ]
   },
   "a11y": {
