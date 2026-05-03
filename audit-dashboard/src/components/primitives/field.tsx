@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, InputHTMLAttributes, useId } from "react";
+import { ReactNode, InputHTMLAttributes, useId, forwardRef } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,9 @@ import { cn } from "@/lib/utils";
  * now the SINGLE focus surface, painting exactly one ring via :has(:focus-visible).
  * Leading icon, trailing icon, and trailing addon are siblings inside the shell
  * — bonded under the same focus boundary by construction.
+ *
+ * v0.7 forwarding: the inner <input> ref is forwarded so RHF's
+ * Controller.render({ field: { ref } }) can wire up focus-on-first-invalid.
  *
  * The CSS recipes live in globals.css under "v0.6 — FORMS & INPUT FIELDS".
  * Component contract: design-system/02-components/field/component.{md,json}.
@@ -41,11 +44,14 @@ export type FieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "c
   children?: ReactNode;
 };
 
-export function Field({
-  label, description, error, hint, optional, required,
-  leadingIcon, trailingIcon, trailingAddon, size = "md", mono,
-  id, className, disabled, readOnly, children, ...input
-}: FieldProps) {
+export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
+  {
+    label, description, error, hint, optional, required,
+    leadingIcon, trailingIcon, trailingAddon, size = "md", mono,
+    id, className, disabled, readOnly, children, ...input
+  },
+  ref,
+) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const helpId = error ? `${inputId}-err` : hint ? `${inputId}-hint` : undefined;
@@ -89,6 +95,7 @@ export function Field({
             <span data-slot="leading" aria-hidden>{leadingIcon}</span>
           )}
           <input
+            ref={ref}
             id={inputId}
             disabled={disabled}
             readOnly={readOnly}
@@ -113,4 +120,4 @@ export function Field({
       ) : null}
     </div>
   );
-}
+});

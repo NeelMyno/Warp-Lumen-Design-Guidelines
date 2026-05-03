@@ -102,3 +102,104 @@ Honor `@Environment(\.colorScheme)`. Lumen Color assets resolve light/dark autom
 - Mac App Store: bundle Satoshi in app bundle (FFL allows this).
 - Direct download / DMG: same.
 - Notarization: Lumen package is signed; pass through to your bundle.
+
+## Forms & inputs (v0.6 mapping)
+
+> v0.6 introduced the **field-shell architecture** for all text-entry controls. See [forms-and-inputs.md](../../00-foundations/forms-and-inputs.md) for the canonical guide. This section maps the architecture to macOS — SwiftUI on macOS 14+ is the default; AppKit `NSTextField` only when SwiftUI lacks a primitive.
+
+### The shell pattern in macOS
+
+The same `LumenField` SwiftUI implementation from the iOS guide works on macOS — `@FocusState` + `.textFieldStyle(.plain)` + a custom shell overlay. macOS-specific layering: pair the shell with macOS's frosted-glass surfaces (`NSVisualEffectView` / `.ultraThinMaterial`) and the v0.6 `lit-edge` becomes a natural reflection on top of the vibrancy substrate.
+
+For AppKit-required cases (rare in 2026 — only inspector panels and some toolbar inputs):
+
+```swift
+import AppKit
+
+class LumenTextField: NSView {
+  let textField = NSTextField()
+
+  override init(frame: NSRect) {
+    super.init(frame: frame)
+    wantsLayer = true
+    layer?.cornerRadius = LumenTokens.radius.control.md
+    layer?.borderWidth = 1
+    layer?.borderColor = LumenTokens.color.border.default.cgColor
+    layer?.backgroundColor = LumenTokens.surface.input.rest.cgColor
+    addSubview(textField)
+    textField.isBordered = false      // strip default chrome
+    textField.drawsBackground = false
+    textField.focusRingType = .none   // suppress default ring
+    textField.cell?.usesSingleLineMode = true
+  }
+
+  override func becomeFirstResponder() -> Bool {
+    layer?.borderColor = LumenTokens.color.border.focus.cgColor
+    // paint the lime halo as a stacked CALayer
+    return super.becomeFirstResponder()
+  }
+}
+```
+
+The discipline parallel to web: `isBordered = false`, `drawsBackground = false`, `focusRingType = .none` strip AppKit's default chrome. The `NSView` wrapper paints the shell.
+
+### Token mapping
+
+macOS's coordinate system is `pt` (= `px` at 1×; identical at 2× retina). Token heights stay 32 / 40 / 48 px directly.
+
+| Lumen token | macOS equivalent | Notes |
+|---|---|---|
+| `input.height.sm` | `.frame(height: 32)` / `NSLayoutConstraint(height = 32)` | macOS's natural density default |
+| `input.height.md` | `.frame(height: 40)` | |
+| `input.height.lg` | `.frame(height: 48)` | only for Mac Catalyst inspector panels |
+| `input.padding.x.md` | `.padding(.horizontal, 12)` | |
+| `input.background.rest` | `RoundedRectangle.fill(LumenTokens.surface.input.rest)` (SwiftUI) / `layer?.backgroundColor` (AppKit) | |
+| `input.border.rest` | `.strokeBorder(LumenTokens.color.border.default, lineWidth: 1)` / `layer?.borderColor` | |
+| `input.border.focus` | driven by `@FocusState` (SwiftUI) / `becomeFirstResponder()` (AppKit) | |
+| `input.ring.focus` | stacked overlay or `CALayer` with `shadowColor` + `shadowRadius` | platform compromise — see iOS guide |
+| `input.ring.litEdge` | composes naturally on top of `NSVisualEffectView` vibrancy | macOS-specific win |
+| `input.transition` | `.animation(.easeOut(duration: 0.15), value: isFocused)` (SwiftUI) / `CABasicAnimation` (AppKit) | |
+
+### Density modes
+
+macOS is conventionally **dense** — Finder, Mail, Xcode, the system controls all run tight. `compact` is the **implicit default** on macOS-only surfaces. Switch to `comfortable` only for:
+- Mac Catalyst apps deliberately preserving iPad density.
+- Marketing-style onboarding flows inside otherwise-dense apps.
+- Settings panes that carry a lot of explanatory copy alongside controls.
+
+Wire density via `.controlSize(.small | .regular)` from the iOS guide. `.controlSize(.small)` maps to Lumen `compact` / 32 pt; `.regular` maps to `comfortable` / 40 pt. macOS surfaces don't typically need `.large` (48 pt) — that's a touch-target ceiling, and macOS is mouse-first.
+
+### Validation timing
+
+Same rules as web. macOS-specific notes:
+
+1. **Blur on Tab** — macOS users tab between fields aggressively; `@FocusState` fires `onChange` reliably on Tab.
+2. **Submit via Return** — wire `.onSubmit { validate() }` on the form. Return key is the macOS-idiomatic submit affordance.
+3. **Server validation announcement** — macOS uses `NSAccessibility.post(element: …, notification: .announcementRequested)` (the AppKit equivalent of `aria-live`).
+4. **Async validation spinner** — `ProgressView()` in the trailing slot (SwiftUI) or `NSProgressIndicator(style: .spinning)` (AppKit). macOS users tolerate a slightly longer debounce (500 ms) than web because the cursor stays put after typing.
+
+### Read-only vs disabled
+
+Same SwiftUI mapping as iOS — `.disabled(true)` for disabled, `.allowsHitTesting(false) + .textSelection(.enabled)` for read-only. AppKit equivalents:
+
+| State | AppKit | Visual | In tab order? | Caret? | Copyable? |
+|---|---|---|---|---|---|
+| `disabled` | `textField.isEnabled = false` | muted bg via Lumen disabled tokens | no | no | no |
+| `readOnly` | `textField.isEditable = false` + `textField.isSelectable = true` | rest bg, full contrast | yes | no | yes (Cmd-C works) |
+
+`isSelectable = true` is the macOS detail that makes read-only fields actually copyable via the standard Cmd-C menu shortcut.
+
+### Vibrancy + autofill
+
+`NSVisualEffectView` (the macOS frosted-glass material) composes cleanly **behind** the `.lumen-field` shell — the shell is opaque; only the surrounding chrome (sidebar, toolbar) uses vibrancy. NN/g's "don't glass interactive elements" warning is honored: input surfaces stay fully opaque, and the lit-edge is the only nod to the surrounding glass aesthetic.
+
+**Keychain autofill** respects the field shell as long as `nsTextField.cell.usesSingleLineMode = true` — the autofill popover anchors to the field's bounds, not its inner text view. SwiftUI handles this automatically; AppKit requires the explicit cell setting above.
+
+### Web-only features that don't translate
+
+| Web feature | macOS equivalent | Status |
+|---|---|---|
+| `:has(:focus-visible)` | `@FocusState` (SwiftUI) / `becomeFirstResponder()` (AppKit) | clean |
+| Autofill bg override | Keychain autofill respects the shell natively | clean |
+| `field-sizing: content` | `TextEditor` + `GeometryReader` for SwiftUI; `NSTextView` auto-resize for AppKit | partial |
+| Lit top edge (inset highlight) | enhanced by `NSVisualEffectView` substrate — composes naturally | platform win |

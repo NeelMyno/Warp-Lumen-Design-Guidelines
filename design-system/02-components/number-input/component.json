@@ -1,0 +1,80 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "NumberInput",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Stepper-flanked numeric input. Minus button + mono numeric value + plus button (and optional unit suffix) bonded inside a single field shell.",
+  "props": {
+    "value":    { "type": "number", "optional": false, "description": "Controlled numeric value." },
+    "onChange": { "type": "handler", "optional": false, "description": "Fires on each step or keystroke." },
+    "min":      { "type": "number", "default": 0, "optional": true },
+    "max":      { "type": "number", "default": 999, "optional": true },
+    "step":     { "type": "number", "default": 1, "optional": true, "description": "Increment per stepper click and per ArrowUp/Down keystroke." },
+    "suffix":   { "type": "string", "optional": true, "description": "Trailing addon (unit chip): %, lb, STD, min." },
+    "size":     { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "disabled": { "type": "boolean", "default": false, "optional": true },
+    "name":     { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "input.height.sm", "input.height.md", "input.height.lg",
+      "input.gap.slot", "input.radius",
+      "input.background.rest", "input.background.hover", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.addon",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "numberInput.stepper.padding.x",
+      "numberInput.stepper.background.rest", "numberInput.stepper.background.hover", "numberInput.stepper.background.press",
+      "numberInput.stepper.color.rest", "numberInput.stepper.color.hover", "numberInput.stepper.color.disabled",
+      "numberInput.stepper.iconSize",
+      "numberInput.value.type", "numberInput.value.color", "numberInput.value.align",
+      "numberInput.suffix.type", "numberInput.suffix.color"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the input",
+      "ArrowUp — increment by step",
+      "ArrowDown — decrement by step",
+      "PageUp / PageDown — step by 10× when meaningful",
+      "Home — set to min; End — set to max",
+      "Type — overwrite value (clamps to min/max on blur)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.1 Error Identification",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Native <input type=number> so AT announces role + value + min/max.",
+      "Stepper buttons get aria-label='Decrement'/'Increment' and aria-controls pointing at the input id.",
+      "Disable the minus button at min and the plus button at max — don't just no-op them.",
+      "Always paired with a visible label via Field, or with aria-label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use NumberInput for bounded quantity entry (cases, pallets, weight, count, %).",
+      "Pass suffix for the unit chip (%, lb, STD, min).",
+      "Set step to match the user's mental increment (5 for percentages, 0.5 for hours).",
+      "Default to mono tabular numerals so digits stay column-aligned across stacked NumberInputs."
+    ],
+    "dont": [
+      "Don't ship without min / max if the domain is bounded.",
+      "Don't use NumberInput for money — currency-aware Input handles locale and cents.",
+      "Don't disable the stepper to communicate validity — disable only at the actual bound."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["Input", "Field", "Form", "Stat", "RangeSlider"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Single-shell stepper composition; mono tabular numerals; suffix addon slot." }
+  ]
+}

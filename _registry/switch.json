@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "type": "registry:ui",
+  "title": "Switch",
+  "description": "Binary toggle for an immediate-effect setting. Pill track + sliding thumb. Distinct from Toggle (button-style on/off) and Checkbox (form-submission boolean). Built on Radix Switch.",
+  "dependencies": [
+    "@radix-ui/react-switch"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/ui/switch.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/switch.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/switch/component.json",
+    "docsPath": "design-system/02-components/switch/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "TagsInput",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Wrapping chip-row tag entry. Comma OR Enter commits; Backspace on empty draft removes last chip; shell flexes to multi-line when chips wrap.",
+  "props": {
+    "value":       { "type": "node", "optional": false, "description": "Controlled array of tag strings." },
+    "onChange":    { "type": "handler", "optional": false, "description": "Fires with the next tag-array on add or remove." },
+    "placeholder": { "type": "string", "default": "Add tag…", "optional": true },
+    "size":        { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "disabled":    { "type": "boolean", "default": false, "optional": true },
+    "max":         { "type": "number", "optional": true, "description": "Soft cap on tag count. UI shows '+N more' past this and refuses to add more." },
+    "name":        { "type": "string", "optional": true, "description": "Form field name. Submitted as a comma-joined string." }
+  },
+  "tokens": {
+    "consumed": [
+      "input.height.sm", "input.height.md", "input.height.lg",
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.gap.slot", "input.radius",
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "tagsInput.shell.minHeight", "tagsInput.shell.padding.y", "tagsInput.shell.gap.wrap",
+      "tagsInput.tag.height", "tagsInput.tag.padding.x", "tagsInput.tag.radius", "tagsInput.tag.type",
+      "tagsInput.tag.background", "tagsInput.tag.color", "tagsInput.tag.border",
+      "tagsInput.tag.remove.color.rest", "tagsInput.tag.remove.color.hover", "tagsInput.tag.remove.iconSize",
+      "tagsInput.draft.minWidth", "tagsInput.draft.type", "tagsInput.draft.color", "tagsInput.draft.placeholder"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the field (lands on the draft input)",
+      "Type — enter draft text",
+      "Enter or Comma — commit draft as a new tag",
+      "Backspace on empty draft — remove the last tag (announced)",
+      "Click the X on a chip — remove that chip",
+      "Blur — commit any pending draft"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.1 Error Identification",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Each chip's close button has aria-label='Remove {tag}'.",
+      "Backspace-removes-last fires a polite live-region announcement so AT users hear the removal.",
+      "Commit on blur — don't drop a half-typed tag.",
+      "Duplicate add is a silent no-op with subtle visual feedback (chip flashes briefly)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Commit on both Enter AND Comma — the two most common keys.",
+      "Commit on blur as well; don't drop a half-typed tag.",
+      "Trim whitespace and skip empty / duplicate tags silently.",
+      "Cap rendered chips and show '+N more' for dense tables."
+    ],
+    "dont": [
+      "Don't auto-format casing — preserve user input.",
+      "Don't allow whitespace-only tags.",
+      "Don't allow commas-as-separator AND commas-in-tag in the same field without a clear UX hint."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["Input", "Combobox", "Field", "Form"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Wrap-flex shell, Comma + Enter commit, Backspace-removes-last, blur commits." }
+  ]
+}

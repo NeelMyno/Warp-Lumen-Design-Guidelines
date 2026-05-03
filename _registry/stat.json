@@ -3,15 +3,28 @@
   "name": "stat",
   "type": "registry:ui",
   "title": "Stat",
-  "description": "Big bold tabular number with small mono unit and optional delta. Warp signature primitive.",
+  "description": "A big bold number with a small mono unit and optional delta. Warp signature primitive.",
+  "dependencies": [],
+  "registryDependencies": [],
   "files": [
-    { "path": "design-system/02-components/stat/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/stat.tsx" }
+    {
+      "path": "design-system/02-components/stat/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/stat.tsx"
+    }
   ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/stat/component.json",
     "docsPath": "design-system/02-components/stat/component.md",
+    "status": "stable",
     "warpSignature": true
   }
 }

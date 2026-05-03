@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-picker",
+  "type": "registry:ui",
+  "title": "TimePicker",
+  "description": "Hours/minutes input + am/pm pill toggle on one row inside a field shell. Two narrow numeric inputs, a non-interactive colon separator, and a two-state segmented pill.",
+  "dependencies": [],
+  "registryDependencies": [
+    "./input.json",
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/time-picker/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/time-picker.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/time-picker/component.json",
+    "docsPath": "design-system/02-components/time-picker/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

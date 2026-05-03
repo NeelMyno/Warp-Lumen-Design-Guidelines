@@ -124,7 +124,7 @@ Warp-Lumen-Design-Guidelines/
 │   │   │   ├── dimension.tokens.json # Spacing/sizing scale (4-base, OR 8-base — pick one).
 │   │   │   ├── typography.tokens.json# Font families, weights, sizes (raw scale).
 │   │   │   ├── motion.tokens.json    # Durations, cubic-beziers.
-│   │   │   ├── elevation.tokens.json # Shadow primitives.
+│   │   │   ├── shadow.tokens.json    # Shadow primitives (renamed from elevation.tokens.json in v0.7).
 │   │   │   └── radius.tokens.json
 │   │   ├── semantic/
 │   │   │   ├── color.light.tokens.json

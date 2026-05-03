@@ -10,7 +10,7 @@ Density:            Generous breathing room. Operator-readable.
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors
-Status:             v0.4.0 · obsidian-lime
+Status:             v0.7.0 · forms layer + RHF binding + distribution surface complete
 ```
 
 ## What this repo is
@@ -18,11 +18,11 @@ Status:             v0.4.0 · obsidian-lime
 This repo is the **single source of truth** for Lumen. Everything Warp's team ships should pull tokens, components, and rules from here.
 
 It contains:
-- Design tokens in DTCG JSON (primitives → semantic → component).
-- Component contracts (Markdown spec + JSON sidecar) for 12 components.
-- Per-platform consumption guides for 9 platforms.
+- Design tokens in DTCG JSON (primitives → semantic → component) — 694 tokens across 32 files.
+- Component contracts (Markdown spec + JSON sidecar) for 30 components: 12 v0.1 baseline + 8 v0.6 forms layer + 10 v0.7 deferred-form completion.
+- Per-platform consumption guides for 9 platforms (each maps the v0.6 field shell + density modes).
 - Content rules (imagery, illustration, motion, voice, microcopy, errors, empty states).
-- An [`/audit-dashboard/`](./audit-dashboard/) — a Next.js 16 reference implementation showing every component pattern across 7 project templates.
+- An [`/audit-dashboard/`](./audit-dashboard/) — a Next.js 16 reference implementation showing every component pattern across 8 project templates (foundations, landing, saas, tool, ecommerce, mobile, desktop, library).
 - A layered LLM contract so any AI coding tool (Cursor, Claude Code, Codex, Copilot, Devin, Warp Terminal AI) can consume Lumen rules natively.
 
 It does NOT contain shipped product code. Product code lives in consumer repos and pulls Lumen via shadcn registry / Swift Package / Compose module / etc.
@@ -38,7 +38,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.1.0
+├── VERSION                         ← 0.7.0
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release

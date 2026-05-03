@@ -3,15 +3,28 @@
   "name": "card",
   "type": "registry:ui",
   "title": "Card",
-  "description": "A bordered surface that groups related content. Hairline border by default.",
+  "description": "A bounded surface with a hairline border and optional subtle shadow.",
+  "dependencies": [],
+  "registryDependencies": [],
   "files": [
-    { "path": "design-system/02-components/card/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/card.tsx" }
+    {
+      "path": "design-system/02-components/card/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/card.tsx"
+    }
   ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "react-native", "ios-native", "android-native", "shopify-liquid"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/card/component.json",
     "docsPath": "design-system/02-components/card/component.md",
+    "status": "stable",
     "warpSignature": false
   }
 }

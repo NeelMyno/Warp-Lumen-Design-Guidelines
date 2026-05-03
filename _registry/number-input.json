@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-input",
+  "type": "registry:ui",
+  "title": "NumberInput",
+  "description": "Stepper-flanked numeric input. Minus button + mono numeric value + plus button (and optional unit suffix) bonded inside a single field shell.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "./input.json",
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/number-input/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/number-input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/number-input/component.json",
+    "docsPath": "design-system/02-components/number-input/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

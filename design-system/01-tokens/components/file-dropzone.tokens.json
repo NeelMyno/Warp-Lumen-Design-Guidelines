@@ -1,0 +1,62 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "fileDropzone": {
+    "$description": "v0.7 — Drag-and-drop file input. NOT a field-shell — it's a large dashed-bordered tap target with its own resting + drag-over states. Native <input type='file'> is sr-only behind the label.",
+    "shell": {
+      "$description": "The dashed-border drop target. Default rest, hover, and drag-over states.",
+      "radius":  { "$value": "{radius.lg}" },
+      "padding": {
+        "x": { "$value": "{space.4}" },
+        "y": { "$value": "{space.8}" }
+      },
+      "borderWidth": { "$value": "1px" },
+      "borderStyle": { "$value": "dashed" },
+      "border": {
+        "rest":     { "$value": "{color.border.default}" },
+        "hover":    { "$value": "{color.border.strong}" },
+        "dragover": { "$value": "{color.accent.500}", "$description": "Lime border when files are being dragged over." },
+        "error":    { "$value": "{color.border.error}", "$description": "Border color when the file fails accept/size validation." }
+      },
+      "background": {
+        "rest":     { "$value": "transparent" },
+        "hover":    { "$value": "transparent" },
+        "dragover": { "$value": "{color.alpha.accent.12}", "$description": "Subtle lime tint reinforces the dragover border." }
+      },
+      "transition": { "$value": "{motion.transition.fast}" }
+    },
+    "icon": {
+      "$description": "Center icon affordance — circular sunken disc with a + glyph.",
+      "size":       { "$value": "{dimension.10}", "$description": "40 px circle." },
+      "radius":     { "$value": "{radius.full}" },
+      "background": { "$value": "{color.surface.sunken}" },
+      "color":      { "$value": "{color.text.secondary}" },
+      "iconSize":   { "$value": "{dimension.5}", "$description": "18–20 px + glyph." }
+    },
+    "title": {
+      "$description": "'Drop files here or browse' headline.",
+      "type":  { "$value": "{type.body.sm}" },
+      "color": { "$value": "{color.text.primary}" }
+    },
+    "browseLink": {
+      "$description": "The 'browse' word inside the title — underlined accent color.",
+      "color":          { "$value": "{color.text.accent}" },
+      "textDecoration": { "$value": "underline" }
+    },
+    "hint": {
+      "$description": "'PDF, CSV, XLSX up to 25 MB' fine-print under the title.",
+      "type":  { "$value": "{type.caption}" },
+      "color": { "$value": "{color.text.tertiary}" }
+    },
+    "fileRow": {
+      "$description": "A picked-file row rendered beneath the dropzone after selection.",
+      "background": { "$value": "{color.surface.sunken}" },
+      "radius":     { "$value": "{radius.sm}" },
+      "padding": {
+        "x": { "$value": "{space.2}" },
+        "y": { "$value": "{space.1}" }
+      },
+      "name":  { "type": { "$value": "{type.caption}" }, "color": { "$value": "{color.text.secondary}" } },
+      "meta":  { "type": { "$value": "{type.overline}" }, "color": { "$value": "{color.text.tertiary}" } }
+    }
+  }
+}

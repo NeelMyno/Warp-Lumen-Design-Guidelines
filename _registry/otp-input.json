@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "otp-input",
+  "type": "registry:ui",
+  "title": "OtpInput",
+  "description": "One-time passcode entry. Row of single-digit cells with auto-advance, backspace-erases-previous, and paste-distribute. Each cell is its own field micro-shell.",
+  "dependencies": [],
+  "registryDependencies": [
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/otp-input/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/otp-input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/otp-input/component.json",
+    "docsPath": "design-system/02-components/otp-input/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

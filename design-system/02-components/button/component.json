@@ -110,11 +110,7 @@
     ]
   },
   "examples": {
-    "web-react":      "./examples/primary.tsx",
-    "react-native":   "./examples/primary.rn.tsx",
-    "ios-native":     "./examples/primary.swift",
-    "android-native": "./examples/primary.kt",
-    "shopify-liquid": "./examples/primary.liquid"
+    "web-react": "./examples/primary.tsx"
   },
   "related": ["IconButton", "Link", "Toggle"],
   "changelog": [

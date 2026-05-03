@@ -180,6 +180,32 @@ Inputs / Textarea / Combobox / NumberInput / PasswordInput / OtpInput / TagsInpu
 | Auto-format on type | 🔜 v0.7 | Display formatted, submit raw (phone, card, IBAN). |
 | Paste-handling | 🔜 v0.7 | Sniff for tab/comma-separated content; split across fields. |
 
+## react-hook-form binding (v0.7)
+
+For non-trivial forms, Lumen ships a react-hook-form binding via the `Form` primitive. Pass a Zod `schema` and `defaultValues`; field-level errors surface automatically through `<Field name="…">`. The v0.6 native-mode path remains the default for simple forms (<3 fields).
+
+```tsx
+import { Form, Field } from "@/components/primitives/form-rhf";
+import { z } from "zod";
+
+const schema = z.object({
+  email: z.string().email(),
+  name: z.string().min(2),
+  age: z.coerce.number().min(18),
+});
+
+<Form schema={schema} defaultValues={{ email: "", name: "" }} onSubmit={(data) => …}>
+  <Field name="email" label="Email" type="email" />
+  <Field name="name"  label="Full name" />
+  <Field name="age"   label="Age" type="number" />
+  <Button type="submit">Create account</Button>
+</Form>
+```
+
+The `schema` prop activates RHF mode. Internally, `Form` calls `useForm({ resolver: zodResolver(schema), defaultValues, mode })` and wraps children in a `FormProvider`. Each `<Field name="…">` is bridged to RHF via `useFormContext()` — `formState.errors[name]` flows into the Field's `error` prop automatically. The validation timing rules above (blur after first interaction, switch to onChange after first error, focus-on-first-invalid on submit) are the defaults.
+
+See [ADR 0013](../../_meta/decisions/0013-form-rhf-binding-v07.md) for the decision rationale, deps (`react-hook-form`, `@hookform/resolvers`, `zod`), and tradeoffs.
+
 ## Plan B: Inter
 
 Per [foundations/typography.md](./typography.md) §1 Plan B — `html[data-font="inter"]` flips `--font-sans` to Inter Variable. Form labels, helper text, and value text all switch atomically. Use if Cyrillic/Greek expansion needed or Windows ClearType QA fails.

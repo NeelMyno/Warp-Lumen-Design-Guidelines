@@ -3,15 +3,28 @@
   "name": "input",
   "type": "registry:ui",
   "title": "Input",
-  "description": "Single-line text input. Hairline border, focus ring, mono variant for codes/IDs.",
+  "description": "Single-line text input. The base of every text-entry form control. Renders inside a Field shell that owns the focus surface.",
+  "dependencies": [],
+  "registryDependencies": [],
   "files": [
-    { "path": "design-system/02-components/input/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/input.tsx" }
+    {
+      "path": "audit-dashboard/src/components/ui/input.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/input.tsx"
+    }
   ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/input/component.json",
     "docsPath": "design-system/02-components/input/component.md",
+    "status": "stable",
     "warpSignature": false
   }
 }

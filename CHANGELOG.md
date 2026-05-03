@@ -10,6 +10,86 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.7.0] — 2026-05-03 — Distribution surface completion + RHF binding
+
+A repo-wide audit at the close of v0.6 found the contracts were sound but the **distribution surface — the layer that lets consumers actually use Lumen — was deeply broken.** The shadcn registry was missing 8 sidecars (every v0.6 component would 404 on `npx shadcn add`), 11 v0.1 components had broken example references, the glossary was two releases stale, four foundation docs were missing, all 9 platform READMEs were unaware of v0.6, and the v0.6 Form primitive's promised react-hook-form binding was unshipped. v0.7 closes every gap.
+
+See [ADR 0012](./_meta/decisions/0012-distribution-surface-v07.md) for the full audit + decision rationale, [ADR 0013](./_meta/decisions/0013-form-rhf-binding-v07.md) for the RHF binding decision.
+
+### Added
+
+- **10 deferred-form component contracts** (full md + json + example + sidecar trio for each, all `status: "beta"`):
+  - **Combobox** (`02-components/combobox/`) — searchable single-choice dropdown with portaled listbox and keyboard nav.
+  - **NumberInput** (`02-components/number-input/`) — stepper-flanked numeric with min/max/step/suffix; `aria-controls` wires steppers to the input.
+  - **PasswordInput** (`02-components/password-input/`) — password entry with show/hide toggle + Caps Lock detection in a polite live region.
+  - **OtpInput** (`02-components/otp-input/`) — 6-cell pattern, auto-advance on type, paste-distribute (paste "492781" → fills all six cells), Backspace-erases-previous on empty.
+  - **TagsInput** (`02-components/tags-input/`) — wrapping chip-row tag entry; Comma + Enter both add; live-region announce on remove.
+  - **DatePicker** (`02-components/date-picker/`) — calendar-portal scaffold (real `react-day-picker` integration deferred to v0.8); SHELL contract is canonical.
+  - **TimePicker** (`02-components/time-picker/`) — hours/minutes/am-pm; 12h vs 24h auto-detected via `Intl.DateTimeFormat` on `navigator.language`; hidden `<input name>` always serializes 24h `HH:MM`.
+  - **Segmented** (`02-components/segmented/`) — 2-4 mutually exclusive options with toolbar-pattern keyboard (Arrows move focus AND change value).
+  - **RangeSlider** (`02-components/range-slider/`) — single + dual-handle modes with discriminated-union types so consumers can't accidentally pass `value: number` to dual mode at compile time.
+  - **FileDropzone** (`02-components/file-dropzone/`) — drag-and-drop file input with client-side `accept` and `maxSize` validation; live-region announces selected file count.
+- **8 missing registry sidecars** for v0.5-beta and v0.6 components: `_registry/{checkbox,field,form,radio-group,select,switch,textarea,validation-message}.json`. Each carries hand-curated `dependencies` (Radix packages, lucide-react), `registryDependencies` (cross-component refs), `cssVars`, `meta.platforms`, `meta.specPath`, `meta.docsPath`, `meta.warpSignature`.
+- **11 missing example files for v0.1 components** at `02-components/{badge,card,dialog,empty-state,input,live-dot,rate-ticker,stat,table,toast,toggle}/examples/primary.tsx`. Each is standalone (inline `cn` helper, no `@/lib/utils` import), uses semantic tokens via `var(--…)`, honors `prefers-reduced-motion`. The 3 Warp signatures (Stat, LiveDot, RateTicker) preserve their distinctive behaviors. **Examples coverage: 1/20 → 30/30.**
+- **react-hook-form binding for Form primitive** (v0.7 dual-mode). Pass `schema` (Zod) and `defaultValues`; nested `<Field name="…">` from `form-rhf` auto-registers and surfaces `formState.errors[name]`. Native v0.6 mode preserved exactly — no deps for the simple path.
+  - **`audit-dashboard/src/components/primitives/form.tsx`** (243 lines) — dual-mode Form. Discriminated-union typing prevents mixing `validate` with `schema` at compile time.
+  - **`audit-dashboard/src/components/primitives/form-rhf.tsx`** (199 lines) — convenience surface. Re-exports `Form`; exports a `Field` bridge that detects `useFormContext()`. Inside FormProvider it uses RHF's `Controller`; outside it falls through to the native v0.6 Field. Includes dotted-path error reader for nested schemas (`address.zip`), checkbox vs value coercion, and a dev-mode warning when manual `error` is passed inside RHF context.
+  - **`design-system/02-components/form/examples/web-react-rhf.tsx`** — standalone 4-field example: email + min-2 name + age (z.coerce.number.min(18)) + boolean terms (z.literal(true)).
+  - **Deps added to `audit-dashboard/package.json`**: `react-hook-form ^7.54.2`, `@hookform/resolvers ^3.9.1`, `zod ^3.24.1`.
+- **4 missing foundation docs** at `00-foundations/`:
+  - **`color.md`** (310 lines) — mood model, three-layer color, light/dark parallel, Warp lime accent discipline, accent glow, status palette, contrast.
+  - **`spacing.md`** (310 lines) — 4-point base, 8-point soft grid, primitive scale, semantic ladder (inline/stack/inset/section), form-specific gaps, container widths, touch target floor.
+  - **`density.md`** (244 lines) — comfortable vs compact, density mode hook, convergence pattern (Linear/Plaid/Notion/Asana), per-component density behavior, ARIA implications.
+  - **`elevation.md`** (250 lines) — three depth modalities (hairline / shadow / lit edge), shadow ladder, lit-edge dark-mode trick, accent glow, focus shadow, surface ladder.
+- **`scripts/validate-tokens.mjs`** — strict v0.7 replacement for the v0.6 `ajv-cli + || true` mask. Walks all `*.tokens.json` files, verifies every `{x.y.z}` alias resolves, verifies every `tokens.consumed` reference in every `component.json` resolves. Caught two real bugs the v0.6 mask was hiding (now fixed).
+- **`## Forms & inputs (v0.6 mapping)` section** added to all 9 platform READMEs (`03-platforms/{web-react,react-native,ios-native,android-native,desktop-mac,desktop-windows,shopify-liquid,bigcommerce-stencil,woo-wordpress}/README.md`). Each maps the field shell + token table + density mode + validation timing + read-only-vs-disabled to platform-native equivalents. Honest about per-platform compromises (React Native lacks `:has(:focus-visible)` equivalent; Material 3 `OutlinedTextField` is the wrapper-paints-focus pattern by construction; SwiftUI `.shadow` is gaussian where CSS `box-shadow` is sharp).
+- **10 component-token files** for the deferred contracts at `01-tokens/components/`. Token count: 521 → 694 (+173).
+- **READMEs for the 4 placeholder dirs** (`notes/`, `reports/`, `assets/`) so they're documented purpose, not mute clutter.
+- **Schema sub-version `radius.popover`** in `01-tokens/semantic/radius.tokens.json` (=`{radius.lg}`) — added to resolve a v0.6 alias that the silent-pass mask had been hiding.
+- **ADR 0012** — durable record of the v0.7 distribution-surface audit + 16 changes.
+- **ADR 0013** — RHF binding decision (peer-system survey: RHF vs Formik vs TanStack Form vs Conform; Zod vs Yup vs Valibot vs Joi; tradeoffs not chosen).
+
+### Changed
+
+- **`Form` contract bumped 0.6.0 → 0.7.0**. New props: `schema` (Zod), `defaultValues`, `resolver`, `mode`. Summary rewritten to describe dual-mode. New `a11y.rule`, new do/don't entries about RHF semantics. Backward compatible — native mode unchanged.
+- **`scripts/build-registry.mjs` rewritten with MERGE semantics.** The v0.6 script clobbered hand-curated `dependencies`, `registryDependencies`, `cssVars`, and produced broken paths like `design-system/02-components/checkbox/../../../audit-dashboard/...`. The v0.7 script reads existing sidecars, preserves curated fields, and resolves example paths to repo-relative form via `path.resolve` + `path.relative`. Field/Form/ValidationMessage targets land at `components/lumen/{name}.tsx` to avoid colliding with consumer's shadcn `components/ui/`.
+- **`registry.json.items[]` sorted semantically** — by component family (v0.1 baseline → v0.6 forms layer → v0.7 deferred-form completion), not alphabetically. Helps human readers + orders shadcn registry index pages logically.
+- **`primitives/elevation.tokens.json` renamed → `primitives/shadow.tokens.json`.** The file's top-level token namespace is `shadow`, not `elevation`. Misnamed filename made `elevation.*` lookups fail silently. References updated in `00-foundations/{elevation.md, color.md}`, `01-tokens/README.md`, `research/system-architecture.md`. Foundation doc keeps the elevation name (user-facing concept); token file holds the implementation values.
+- **`switch.tokens.json` `track.width`** changed from `{dimension.9}` (a primitive that doesn't exist) to inline `{ "value": 36, "unit": "px" }` with rationale: switch-specific (thumb 16 + travel 16 + padding 4 = 36), off-grid relative to the 4-multiple primitive scale. The strict `validate:tokens` caught this; v0.6 mask had been hiding it.
+- **`02-components/README.md`** — components table reorganized to reflect all 30 components grouped by release (v0.1 baseline / v0.6 forms / v0.7 deferred-form completion). Validation script docs updated for the v0.7 strict gates.
+- **`_meta/glossary.json`** extended 33 → 54 terms. Added v0.5 typography vocabulary (Major Third, semantic typography presets, leading curve, tracking curve, Plan B Inter, ss01–ss04, Satoshi-Fallback, tabular-nums, fluid hero, italic policy) and v0.6 forms vocabulary (field shell, single focus surface, .lumen-field, .lumen-checkbox, .lumen-radio, .lumen-switch, lit edge, density mode, error wins focus weakens, read-only, validation timing, ValidationMessage, slot, autofill recipe, field-sizing auto-grow). Plus Obsidian Lime as a recognized term.
+- **`CLAUDE.md`** — removed stale "globals.css is a placeholder" guidance. New text frames `globals.css` as the de-facto source of truth for built CSS (~1900 lines, carries v0.4 token mappings + v0.5 typography utilities + v0.6 forms shell). When Style Dictionary's `_build/tailwind/theme.css` is wired, the goal is to derive the `:root` token block from it; v0.5+ utility classes and v0.6 shells continue as authored CSS.
+- **`button/component.json` `examples`** — dropped 4 broken platform refs (`primary.rn.tsx`, `primary.swift`, `primary.kt`, `primary.liquid`) that pointed to nonexistent files. Only `web-react: "./examples/primary.tsx"` remains. Other platforms re-add when their example files actually exist.
+- **`forms-and-inputs.md`** — added "react-hook-form binding (v0.7)" section before "Plan B: Inter" with a 12-line code snippet and a link to ADR 0013.
+
+### Fixed
+
+- **`validate:tokens` silent-pass** — v0.6's `package.json` ended `validate:tokens` with `|| true`, masking every failure. v0.7 swaps to `node scripts/validate-tokens.mjs` (strict, no mask). Removing the mask immediately surfaced two real bugs:
+  - **`select.listbox.radius` referenced unresolved alias `{radius.popover}`** — fixed by adding `radius.popover` (= `{radius.lg}`) to `semantic/radius.tokens.json`.
+  - **`switch.track.width` referenced unresolved alias `{dimension.9}`** — fixed by inlining the value with a rationale comment.
+- **30 broken `_registry/` example file paths.** v0.6 sidecars resolved relative paths through the component dir, producing nonsense like `design-system/02-components/checkbox/../../../audit-dashboard/src/components/ui/checkbox.tsx`. v0.7 resolves via `path.resolve` + `path.relative` so paths are clean repo-relative.
+- **8 missing v0.6 sidecars** (every Form/Field/Checkbox/Radio/Select/Switch/Textarea/ValidationMessage component). Without these, `registry.json.items[]` stopped at 12 — consumers running `npx shadcn add <url>/checkbox` would 404.
+- **11 broken `examples/primary.tsx` references** in v0.1 component contracts (badge, card, dialog, empty-state, input, live-dot, rate-ticker, stat, table, toast, toggle). The `examples` field declared a path that didn't exist on disk.
+- **Glossary staleness.** Two releases of vocabulary missing.
+- **All 9 platform READMEs** lacked any reference to the v0.6 forms shell, density modes, or `:has(:focus-visible)` pattern. CHANGELOG v0.6 tracked this as `Deferred`; v0.7 closes the thread.
+- **Hardcoded px values in 10 deferred-contract example files** (`combobox/examples/web-react.tsx` etc.) — the deferred-contract authoring agent inlined `style={{ fontSize: "14px" }}` instead of using semantic typography utilities. Cleaned: 11px → `text-overline`, 12px → `text-micro font-mono`, 13px → `text-body-xs` / `text-label-sm`, 14px → `text-body-sm` / `text-label-md`, 18px → `text-body-lg`. Removed `var(--…, 14px)` fallback patterns so missing tokens surface as bugs instead of silently degrading.
+- **Misleading filename** `primitives/elevation.tokens.json` (top-level namespace was `shadow`). Renamed.
+
+### Deferred
+
+- **22 pre-existing `lint:no-primitives` violations** in `audit-dashboard/src/components/{primitives,dashboard-shell,tab-nav}.tsx`. Mostly icon dimensions (use `size={16}` prop instead of `style={{ width: "16px" }}`) and chart palettes (move to a `chart.tokens.json` file). v0.7 introduced zero new violations; cleanup deferred to v0.8.
+- **Style Dictionary → `_build/tailwind/theme.css` wiring.** `pnpm build` runs Style Dictionary but `audit-dashboard/globals.css` doesn't consume the output. Deferred to v0.8.
+- **`registry.dependencies` field on `component.schema.json`.** Currently the build-registry script's MERGE depends on existing sidecars carrying `dependencies`. Promoting deps to component.json itself eliminates the dependency on existing sidecars. Deferred to v0.8.
+- **Real DatePicker / TimePicker logic.** v0.7 ships visual scaffolds; v0.8 wires `react-day-picker` (or first-party logic).
+- **PasswordStrength dedicated contract.** Currently a sub-primitive in `primitives/inputs.tsx`. Promote in v0.8.
+- **`space.inset.*` semantic namespace.** A `space.inset.{xs,sm,md,lg}` ladder (matching `space.stack.*` / `space.inline.*`) for inset-padding lint cleanliness.
+- **`size.control.cozy` (36 px)** for a future `cozy` density mode (between comfortable and compact).
+- **Lit-edge naming normalization.** `shadow.input.lit-edge` (kebab) vs `input.ring.litEdge` (camel) — cosmetic but worth a sweep.
+- **Vercel deployment** still dead (`DEPLOYMENT_NOT_FOUND` from v0.6). Blocks `pnpm cls` + visual-audit re-loop.
+- **v1.0 cut criteria.** When `_build/tailwind/theme.css` ships + Vercel is alive + 3 v0.7 betas promote to stable, v1.0 is the natural next bump.
+
+---
+
 ## [0.6.0] — 2026-05-03 — Forms & input fields rebuild
 
 A user-reported double-focus-ring bug on the foundations Form fields demo triggered a full audit of the forms layer. The audit found the bug was symptomatic of deeper drift: three parallel input chrome systems, two parallel Selects, two parallel Radios, 17 form primitives without contracts, no Form/RHF integration, hardcoded rgba/hex chains. v0.6 collapses the architecture: ONE shell (`.lumen-field`), ONE focus surface, ONE ring. Plus 9 new component contracts, foundation doc, lint script, ADR.

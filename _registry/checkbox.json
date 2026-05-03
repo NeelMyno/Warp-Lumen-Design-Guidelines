@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "Independent boolean. Square 16 px (md). Unchecked = hairline ring on input bg; checked = lime fill + dark check glyph. Built on Radix Checkbox; uses .lumen-checkbox shell.",
+  "dependencies": [
+    "@radix-ui/react-checkbox",
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/ui/checkbox.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/checkbox.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/checkbox/component.json",
+    "docsPath": "design-system/02-components/checkbox/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

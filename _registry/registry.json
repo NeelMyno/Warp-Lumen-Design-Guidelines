@@ -2,19 +2,97 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "lumen",
   "homepage": "https://lumen.warp.dev",
-  "description": "Lumen — Warp's vertically integrated design system. Quiet Industrial mood, Satoshi typography, Warp lime green accent. Install components via `npx shadcn@latest add <registry-url>/<name>`.",
+  "description": "Lumen — Warp's vertically integrated design system. Quiet Industrial mood, Satoshi typography, Warp lime green accent. Install: `npx shadcn@latest add <registry-url>/<name>`.",
   "items": [
-    { "$ref": "./button.json" },
-    { "$ref": "./input.json" },
-    { "$ref": "./card.json" },
-    { "$ref": "./badge.json" },
-    { "$ref": "./stat.json" },
-    { "$ref": "./live-dot.json" },
-    { "$ref": "./rate-ticker.json" },
-    { "$ref": "./table.json" },
-    { "$ref": "./dialog.json" },
-    { "$ref": "./toast.json" },
-    { "$ref": "./empty-state.json" },
-    { "$ref": "./toggle.json" }
+    {
+      "$ref": "./button.json"
+    },
+    {
+      "$ref": "./input.json"
+    },
+    {
+      "$ref": "./card.json"
+    },
+    {
+      "$ref": "./badge.json"
+    },
+    {
+      "$ref": "./stat.json"
+    },
+    {
+      "$ref": "./live-dot.json"
+    },
+    {
+      "$ref": "./rate-ticker.json"
+    },
+    {
+      "$ref": "./table.json"
+    },
+    {
+      "$ref": "./dialog.json"
+    },
+    {
+      "$ref": "./toast.json"
+    },
+    {
+      "$ref": "./empty-state.json"
+    },
+    {
+      "$ref": "./toggle.json"
+    },
+    {
+      "$ref": "./field.json"
+    },
+    {
+      "$ref": "./form.json"
+    },
+    {
+      "$ref": "./textarea.json"
+    },
+    {
+      "$ref": "./select.json"
+    },
+    {
+      "$ref": "./checkbox.json"
+    },
+    {
+      "$ref": "./radio-group.json"
+    },
+    {
+      "$ref": "./switch.json"
+    },
+    {
+      "$ref": "./validation-message.json"
+    },
+    {
+      "$ref": "./combobox.json"
+    },
+    {
+      "$ref": "./number-input.json"
+    },
+    {
+      "$ref": "./password-input.json"
+    },
+    {
+      "$ref": "./otp-input.json"
+    },
+    {
+      "$ref": "./tags-input.json"
+    },
+    {
+      "$ref": "./date-picker.json"
+    },
+    {
+      "$ref": "./time-picker.json"
+    },
+    {
+      "$ref": "./segmented.json"
+    },
+    {
+      "$ref": "./range-slider.json"
+    },
+    {
+      "$ref": "./file-dropzone.json"
+    }
   ]
 }

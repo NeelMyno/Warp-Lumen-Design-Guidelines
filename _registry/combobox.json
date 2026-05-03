@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox",
+  "type": "registry:ui",
+  "title": "Combobox",
+  "description": "Searchable single-choice dropdown. Field-shell trigger + portaled listbox filtered by the typed query. Use when Select's static list would exceed ~12 options.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "./input.json",
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/combobox/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/combobox.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/combobox/component.json",
+    "docsPath": "design-system/02-components/combobox/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

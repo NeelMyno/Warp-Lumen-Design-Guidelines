@@ -1,0 +1,73 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "FileDropzone",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Drag-and-drop file input. Large dashed-bordered tap target wrapping a hidden native <input type='file'>. Distinct rest, hover, and drag-over states; supports single and multi-file selection.",
+  "props": {
+    "onFiles":   { "type": "handler", "optional": true, "description": "Fires with the selected File[] on pick or drop." },
+    "accept":    { "type": "string", "optional": true, "description": "MIME types or extensions (e.g. '.pdf,.csv,.xlsx' or 'image/*')." },
+    "multiple":  { "type": "boolean", "default": true, "optional": true, "description": "Allow selecting multiple files." },
+    "maxSize":   { "type": "number", "optional": true, "description": "Max file size in bytes; files larger than this are rejected with an error." },
+    "hint":      { "type": "string", "default": "PDF, CSV, XLSX up to 25 MB", "optional": true },
+    "title":     { "type": "string", "default": "Drop files here or browse", "optional": true },
+    "disabled":  { "type": "boolean", "default": false, "optional": true },
+    "name":      { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "fileDropzone.shell.radius", "fileDropzone.shell.padding.x", "fileDropzone.shell.padding.y",
+      "fileDropzone.shell.borderWidth", "fileDropzone.shell.borderStyle",
+      "fileDropzone.shell.border.rest", "fileDropzone.shell.border.hover", "fileDropzone.shell.border.dragover", "fileDropzone.shell.border.error",
+      "fileDropzone.shell.background.rest", "fileDropzone.shell.background.hover", "fileDropzone.shell.background.dragover",
+      "fileDropzone.shell.transition",
+      "fileDropzone.icon.size", "fileDropzone.icon.radius", "fileDropzone.icon.background", "fileDropzone.icon.color", "fileDropzone.icon.iconSize",
+      "fileDropzone.title.type", "fileDropzone.title.color",
+      "fileDropzone.browseLink.color", "fileDropzone.browseLink.textDecoration",
+      "fileDropzone.hint.type", "fileDropzone.hint.color",
+      "fileDropzone.fileRow.background", "fileDropzone.fileRow.radius", "fileDropzone.fileRow.padding.x", "fileDropzone.fileRow.padding.y"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the dropzone (label)",
+      "Space / Enter — open the native file picker",
+      "Tab — focus the remove button on each picked file"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Whole dropzone is a <label> wrapping the input — click affordance correct AND screen readers announce 'file picker'.",
+      "accept and multiple pass through to the inner <input>.",
+      "After files are picked, a polite live region announces the count.",
+      "Drag-over events visually indicate 'you can drop here'; consumer must call e.preventDefault() on onDragOver."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Pass accept for known MIME types or extensions.",
+      "Pass maxSize and validate client-side; show a polite error.",
+      "Show picked files with a remove affordance.",
+      "Surface upload progress beneath each file row (consumer responsibility)."
+    ],
+    "dont": [
+      "Don't auto-upload silently — let the user confirm or clear before the request fires.",
+      "Don't disable the picker as the only error treatment — show a hint and let them retry.",
+      "Don't allow dropping arbitrary files when accept is set — filter on drop."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["Field", "Form", "Button"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Single + multi-file modes; native <input type='file'> behind a labeled drop target with distinct rest / hover / drag-over states." }
+  ]
+}

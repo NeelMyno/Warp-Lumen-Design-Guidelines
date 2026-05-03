@@ -1,0 +1,37 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "segmented": {
+    "$description": "v0.7 — Segmented control. 2–4 mutually exclusive options on one row. The 'tabs but for control' pattern. Built on <button> elements (NOT radio inputs — RadioGroup owns that). One bar surface; active item lifts above with a subtle shadow.",
+    "bar": {
+      "$description": "The container that holds all segments.",
+      "height":     { "$value": "{size.control.sm}", "$description": "32 px — denser than full inputs because it lives next to other controls." },
+      "padding":    { "$value": "{dimension.0}", "$description": "Outer pad is 2 px applied as a 0.5 utility — inner segments handle their own padding." },
+      "radius":     { "$value": "{radius.md}" },
+      "background": { "$value": "{color.surface.sunken}" },
+      "border":     { "$value": "{color.border.hairline}" }
+    },
+    "segment": {
+      "$description": "A single button inside the bar. Active segment fills with surface.raised + shadow.xs to lift above its peers.",
+      "height":  { "$value": "28px", "$description": "Bar 32 minus 2 px padding × 2." },
+      "padding": {
+        "x": { "$value": "{space.3}" }
+      },
+      "radius": { "$value": "{radius.sm}" },
+      "type":   { "$value": "{type.label.sm}" },
+      "background": {
+        "active":   { "$value": "{color.surface.raised}" },
+        "inactive": { "$value": "transparent" },
+        "hover":    { "$value": "transparent", "$description": "Hover is signaled via color shift on the inactive label, not bg." }
+      },
+      "color": {
+        "active":        { "$value": "{color.text.primary}" },
+        "inactive":      { "$value": "{color.text.tertiary}" },
+        "inactiveHover": { "$value": "{color.text.primary}" }
+      },
+      "shadow": {
+        "active": { "$value": "{shadow.xs}", "$description": "Subtle lift to read above the bar." }
+      },
+      "transition": { "$value": "{motion.transition.fast}" }
+    }
+  }
+}

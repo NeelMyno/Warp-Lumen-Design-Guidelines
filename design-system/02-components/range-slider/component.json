@@ -1,0 +1,75 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "RangeSlider",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Single-handle or dual-handle bar slider. Sunken track + lime active range + white-with-hairline-border handles. Built on native <input type='range'>.",
+  "props": {
+    "value":      { "type": "node", "optional": false, "description": "Single number for single-handle; [low, high] tuple for dual-handle." },
+    "onChange":   { "type": "handler", "optional": false },
+    "min":        { "type": "number", "default": 0, "optional": true },
+    "max":        { "type": "number", "default": 100, "optional": true },
+    "step":       { "type": "number", "default": 1, "optional": true },
+    "mode":       { "type": "enum", "values": ["single", "dual"], "default": "single", "optional": true },
+    "format":     { "type": "handler", "optional": true, "description": "Function (n: number) => string for the value label beneath the track." },
+    "disabled":   { "type": "boolean", "default": false, "optional": true },
+    "ariaLabel":  { "type": "string", "optional": true, "description": "Single-handle label, OR low-handle label in dual mode." },
+    "ariaLabelHigh": { "type": "string", "optional": true, "description": "High-handle label in dual mode." },
+    "name":       { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "rangeSlider.track.height", "rangeSlider.track.radius", "rangeSlider.track.background",
+      "rangeSlider.range.background",
+      "rangeSlider.thumb.size", "rangeSlider.thumb.radius", "rangeSlider.thumb.background", "rangeSlider.thumb.border", "rangeSlider.thumb.shadow", "rangeSlider.thumb.ringFocus",
+      "rangeSlider.value.type", "rangeSlider.value.color",
+      "rangeSlider.trackHeight"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the (or first) handle",
+      "ArrowLeft / ArrowDown — decrement by step",
+      "ArrowRight / ArrowUp — increment by step",
+      "PageUp / PageDown — step by 10×",
+      "Home — set to min; End — set to max",
+      "Tab — move to the second handle in dual mode"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Each handle is native <input type='range'> so AT announces role + value + min/max.",
+      "Single-handle: aria-label describes the value's meaning ('Volume').",
+      "Dual-handle: each handle gets its own label ('Minimum price', 'Maximum price').",
+      "Honor the lime focus ring on the thumb — never `outline: none` without a replacement.",
+      "Clamp dual-handle so low <= high on every change."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use dual-handle only when bracketing a range; single-handle covers most cases.",
+      "Render value labels beneath the track, not floating on the handle.",
+      "Format labels with the relevant unit ($32, 14 lb, 88%).",
+      "Set sensible step (5 for percentage, 10 for currency)."
+    ],
+    "dont": [
+      "Don't ship a slider without min / max.",
+      "Don't use a slider for high-precision values — typing is faster.",
+      "Don't allow dual-handle handles to cross — clamp low <= high on every change."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["NumberInput", "Field", "Form"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Single + dual-handle modes; native <input type='range'> overlay with custom thumb / track via webkit-thumb pseudo-element." }
+  ]
+}

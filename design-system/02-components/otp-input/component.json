@@ -1,0 +1,78 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "OtpInput",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "One-time passcode entry. Row of single-digit cells with auto-advance, backspace-erases-previous, and paste-distribute. Each cell is its own field micro-shell.",
+  "props": {
+    "length":      { "type": "number", "default": 6, "optional": true, "description": "Number of cells. Common: 4 or 6." },
+    "value":       { "type": "string", "optional": true, "description": "Controlled value as a single string of digits." },
+    "onChange":    { "type": "handler", "optional": true, "description": "Fires with the joined digit string on each cell change." },
+    "onComplete":  { "type": "handler", "optional": true, "description": "Fires once when all cells are filled." },
+    "size":        { "type": "enum", "values": ["sm", "md", "lg"], "default": "lg", "optional": true, "description": "Default lg — OTP cells benefit from the larger touch target." },
+    "disabled":    { "type": "boolean", "default": false, "optional": true },
+    "groupBy":     { "type": "number", "optional": true, "description": "Insert a wider separator after every Nth cell (e.g. groupBy=3 for 3-3 visual grouping)." },
+    "ariaLabel":   { "type": "string", "default": "One-time passcode", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.radius",
+      "input.transition",
+      "otpInput.cell.size.sm", "otpInput.cell.size.md", "otpInput.cell.size.lg",
+      "otpInput.value.type", "otpInput.value.color",
+      "otpInput.gap.row", "otpInput.gap.groupSep"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab — enter the row, focus the first empty cell",
+      "Type digit — fill cell, auto-advance to next",
+      "Backspace on empty cell — focus previous cell",
+      "Backspace on filled cell — clear cell",
+      "ArrowLeft / ArrowRight — move between cells",
+      "Cmd+V / Ctrl+V — paste-distribute one digit per cell from the focused position"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.1 Error Identification",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "inputMode='numeric' so mobile keyboards show the number pad.",
+      "autoComplete='one-time-code' on the first cell so iOS/Android can autofill from SMS.",
+      "Row wrapped in role=group with an aria-label describing the code purpose.",
+      "Each cell aria-labeled with its position ('OTP digit N of M').",
+      "Paste-distribute: pasting 'N digits' fills N cells starting at the focused cell.",
+      "Validate on the whole row, not per cell."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Auto-advance on a valid digit and backspace-erases-previous on Backspace from an empty cell.",
+      "Default size to lg — OTP cells benefit from a larger touch target than typical inputs.",
+      "Insert a wider separator after every 3 cells when length is 6 (matches how users read the code aloud).",
+      "Set autoComplete='one-time-code' so the OS autofills from SMS."
+    ],
+    "dont": [
+      "Don't allow non-digit characters — filter on input.",
+      "Don't focus the next cell after a paste-fill — focus the LAST filled cell so the user can submit.",
+      "Don't disable paste — users paste from email and SMS notifications."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["Input", "Field", "Form", "PasswordInput"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Auto-advance, backspace-erases-prev, paste-distribute, optional 3-3 grouping for 6-digit codes." }
+  ]
+}

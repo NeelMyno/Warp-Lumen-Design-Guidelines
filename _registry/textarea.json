@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "type": "registry:ui",
+  "title": "Textarea",
+  "description": "Multi-line text input. Auto-grows up to a cap; resize handle at bottom-right. Inherits the field shell from Input.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/ui/textarea.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/textarea.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/textarea/component.json",
+    "docsPath": "design-system/02-components/textarea/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

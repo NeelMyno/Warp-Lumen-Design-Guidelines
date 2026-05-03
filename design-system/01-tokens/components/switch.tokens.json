@@ -4,7 +4,7 @@
     "$description": "v0.6 — Switch (binary toggle). Distinct from Toggle (button-style on/off). Off = sunken track. On = lime track + thumb slides right.",
     "track": {
       "$description": "The pill-shaped background. Sized to fit a 16 px thumb with 2 px padding on each side.",
-      "width":  { "$value": "{dimension.9}", "$description": "36 px" },
+      "width":  { "$value": { "value": 36, "unit": "px" }, "$description": "Switch-specific. Computed: thumb (16) + travel (16) + padding (2 + 2) = 36 px. Off-grid relative to the 4-multiple primitive scale, hence inline." },
       "height": { "$value": "{dimension.5}", "$description": "20 px" },
       "radius": { "$value": "{radius.full}" },
       "background": {

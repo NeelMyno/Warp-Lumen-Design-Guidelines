@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "range-slider",
+  "type": "registry:ui",
+  "title": "RangeSlider",
+  "description": "Single-handle or dual-handle bar slider. Sunken track + lime active range + white-with-hairline-border handles. Built on native <input type='range'>.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/range-slider/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/range-slider.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/range-slider/component.json",
+    "docsPath": "design-system/02-components/range-slider/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

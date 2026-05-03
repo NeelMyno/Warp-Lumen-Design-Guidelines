@@ -1,0 +1,79 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "TimePicker",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Hours/minutes input + am/pm pill toggle on one row inside a field shell. Two narrow numeric inputs, a non-interactive colon separator, and a two-state segmented pill.",
+  "props": {
+    "value":    { "type": "string", "optional": true, "description": "HH:MM 24-hour time string." },
+    "onChange": { "type": "handler", "optional": true },
+    "format":   { "type": "enum", "values": ["12h", "24h"], "optional": true, "description": "Defaults to user's locale (navigator.language). 12h shows the am/pm pill; 24h omits it." },
+    "size":     { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "disabled": { "type": "boolean", "default": false, "optional": true },
+    "name":     { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "input.height.sm", "input.height.md", "input.height.lg",
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.gap.slot", "input.radius",
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "timePicker.digit.width", "timePicker.digit.type", "timePicker.digit.color", "timePicker.digit.align",
+      "timePicker.separator.color",
+      "timePicker.ampm.background", "timePicker.ampm.padding", "timePicker.ampm.radius",
+      "timePicker.ampm.segment.type", "timePicker.ampm.segment.radius", "timePicker.ampm.segment.padding.x",
+      "timePicker.ampm.segment.background.active", "timePicker.ampm.segment.background.inactive",
+      "timePicker.ampm.segment.color.active", "timePicker.ampm.segment.color.inactive",
+      "timePicker.ampm.segment.shadow.active"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus HH",
+      "Tab — focus MM",
+      "Tab — focus the am/pm pill",
+      "ArrowLeft / ArrowRight on pill — flip am ⇄ pm",
+      "Type two digits in HH — auto-advance to MM",
+      "Blur — auto-pad single digits to two ('9' → '09')"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.1 Error Identification",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "HH gets aria-label='Hours'; MM gets aria-label='Minutes'.",
+      "inputMode='numeric' and maxLength=2 on each digit input.",
+      "am/pm pill uses role='radiogroup' with role='radio' segments and aria-checked.",
+      "Clamp HH on blur (0–23 for 24h, 1–12 for 12h); clamp MM to 0–59."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Auto-pad single digits on blur ('9' → '09').",
+      "Auto-advance from HH to MM after two digits.",
+      "Default format to 12h or 24h based on navigator.language.",
+      "Use the segmented-style pill for am/pm — never a Select dropdown."
+    ],
+    "dont": [
+      "Don't allow values like 99 minutes — clamp on blur.",
+      "Don't show am/pm in 24h locales — render conditionally on format='12h'.",
+      "Don't let the user type non-digits — filter on input."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["DatePicker", "Field", "Form", "Segmented"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Two-numeric-input shell + two-state am/pm pill (segmented-style); locale-aware 12h vs 24h." }
+  ]
+}

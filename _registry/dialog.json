@@ -3,16 +3,30 @@
   "name": "dialog",
   "type": "registry:ui",
   "title": "Dialog",
-  "description": "Modal interrupt for confirmation, focused decision, or short form. Backdrop scrim + scaled-in container.",
-  "dependencies": ["@radix-ui/react-dialog"],
-  "files": [
-    { "path": "design-system/02-components/dialog/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/dialog.tsx" }
+  "description": "A modal interrupt for confirmation, focused decision, or short-form input.",
+  "dependencies": [
+    "@radix-ui/react-dialog"
   ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/dialog/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/dialog.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "ios-native", "android-native"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/dialog/component.json",
     "docsPath": "design-system/02-components/dialog/component.md",
-    "status": "beta"
+    "status": "beta",
+    "warpSignature": false
   }
 }

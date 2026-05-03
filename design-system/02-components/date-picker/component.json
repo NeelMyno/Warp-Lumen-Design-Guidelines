@@ -1,0 +1,89 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "DatePicker",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Read-only field-shell trigger with leading calendar glyph; click opens a portaled calendar popover. v0.7 ships the visual contract; consumers compose react-day-picker for real selection logic.",
+  "props": {
+    "value":       { "type": "string", "optional": true, "description": "Currently selected date as ISO 8601 (YYYY-MM-DD)." },
+    "onChange":    { "type": "handler", "optional": true, "description": "Fires with an ISO date string when a day is picked." },
+    "placeholder": { "type": "string", "default": "Select date", "optional": true },
+    "size":        { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "disabled":    { "type": "boolean", "default": false, "optional": true },
+    "min":         { "type": "string", "optional": true, "description": "Earliest selectable date (ISO 8601)." },
+    "max":         { "type": "string", "optional": true, "description": "Latest selectable date (ISO 8601)." },
+    "locale":      { "type": "string", "optional": true, "description": "BCP-47 locale tag for formatting (defaults to navigator.language)." },
+    "name":        { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "input.height.sm", "input.height.md", "input.height.lg",
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.gap.slot", "input.radius",
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconLeading",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "datePicker.trigger.iconColor",
+      "datePicker.calendar.background", "datePicker.calendar.border", "datePicker.calendar.radius", "datePicker.calendar.shadow", "datePicker.calendar.padding", "datePicker.calendar.width",
+      "datePicker.calendar.header.type", "datePicker.calendar.header.color", "datePicker.calendar.header.navColor.rest", "datePicker.calendar.header.navColor.hover",
+      "datePicker.calendar.weekday.type", "datePicker.calendar.weekday.color",
+      "datePicker.calendar.day.size", "datePicker.calendar.day.radius", "datePicker.calendar.day.type",
+      "datePicker.calendar.day.background.rest", "datePicker.calendar.day.background.hover", "datePicker.calendar.day.background.selected", "datePicker.calendar.day.background.today",
+      "datePicker.calendar.day.color.rest", "datePicker.calendar.day.color.hover", "datePicker.calendar.day.color.selected", "datePicker.calendar.day.color.muted", "datePicker.calendar.day.color.disabled",
+      "datePicker.calendar.day.border.today",
+      "datePicker.transition.open", "datePicker.transition.close"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab — focus the trigger",
+      "Space / Enter on trigger — open the calendar",
+      "Escape — close",
+      "ArrowLeft / ArrowRight — previous / next day",
+      "ArrowUp / ArrowDown — previous / next week",
+      "PageUp / PageDown — previous / next month",
+      "Shift+PageUp / Shift+PageDown — previous / next year",
+      "Home / End — start / end of week",
+      "Enter on day — select"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.1 Error Identification",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Trigger is a real <button> or labeled read-only <input> — never a <div>.",
+      "Calendar lives in a portal so it escapes overflow:hidden ancestors.",
+      "Today is marked by border, not fill — so it doesn't compete with selection.",
+      "Honor prefers-reduced-motion — open/close collapses to instant.",
+      "Always paired with a visible label via Field, or with aria-label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Compose react-day-picker for real selection, locale, and range-picker logic. Lumen defines the shell only.",
+      "Format the displayed date per the user's locale via Intl.DateTimeFormat.",
+      "Default the calendar to the selected month, or to today if no selection.",
+      "Use the audit-dashboard's DatePickerCalendar as a visual starting point."
+    ],
+    "dont": [
+      "Don't ship the v0.7 static scaffold to production — it has no real selection logic.",
+      "Don't lock the user into the calendar — let them paste or type a date if your consumer adds that capability.",
+      "Don't use lime fill for 'today' — it competes with selection. Use border-only."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["TimePicker", "Field", "Form", "Input"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitives (DatePicker + DatePickerCalendar) to a dedicated contract. Visual shell + scaffold calendar; real selection logic deferred to v0.8 react-day-picker integration." }
+  ]
+}

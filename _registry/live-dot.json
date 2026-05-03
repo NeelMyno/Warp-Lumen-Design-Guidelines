@@ -3,15 +3,28 @@
   "name": "live-dot",
   "type": "registry:ui",
   "title": "LiveDot",
-  "description": "8px green dot with a 2px ring that pulses on a 3s loop. The system's signature recurring animation. Warp signature primitive.",
+  "description": "An 8px green dot with a 2px pulsing ring. Warp signature primitive that signals 'this is live'.",
+  "dependencies": [],
+  "registryDependencies": [],
   "files": [
-    { "path": "design-system/02-components/live-dot/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/live-dot.tsx" }
+    {
+      "path": "design-system/02-components/live-dot/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/live-dot.tsx"
+    }
   ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/live-dot/component.json",
     "docsPath": "design-system/02-components/live-dot/component.md",
+    "status": "stable",
     "warpSignature": true
   }
 }

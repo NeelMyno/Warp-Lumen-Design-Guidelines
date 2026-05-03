@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "file-dropzone",
+  "type": "registry:ui",
+  "title": "FileDropzone",
+  "description": "Drag-and-drop file input. Large dashed-bordered tap target wrapping a hidden native <input type='file'>. Distinct rest, hover, and drag-over states; supports single and multi-file selection.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/file-dropzone/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/file-dropzone.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/file-dropzone/component.json",
+    "docsPath": "design-system/02-components/file-dropzone/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

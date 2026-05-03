@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "type": "registry:ui",
+  "title": "RadioGroup",
+  "description": "Mutually exclusive single choice from 2+ options. Round 16 px ring per option (md). Built on Radix RadioGroup; uses .lumen-radio shell.",
+  "dependencies": [
+    "@radix-ui/react-radio-group"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/ui/radio-group.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/radio-group.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/radio-group/component.json",
+    "docsPath": "design-system/02-components/radio-group/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

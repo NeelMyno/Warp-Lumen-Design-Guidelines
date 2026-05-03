@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "validation-message",
+  "type": "registry:ui",
+  "title": "ValidationMessage",
+  "description": "Inline or summary validation message. Variants: error, warning, success, info. Pairs with Field (inline error/hint) and Form (top-of-form summary). Pulls icon + color + role from one source.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/primitives/feedback.tsx",
+      "type": "registry:ui",
+      "target": "components/lumen/validation-message.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/validation-message/component.json",
+    "docsPath": "design-system/02-components/validation-message/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

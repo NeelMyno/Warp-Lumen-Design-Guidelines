@@ -1,14 +1,18 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Form",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "status": "stable",
   "deprecated": false,
-  "summary": "Semantic form wrapper. Owns submission, blur-validation orchestration, and focus-on-first-error. Pairs with Field for the field-level UI. v0.6 ships the lightweight native pattern; v0.7 will add a react-hook-form binding.",
+  "summary": "Semantic form wrapper with dual-mode validation. Native mode (v0.6) is the default — manual `validate` callback, blur-validation, focus-on-first-error. RHF mode (v0.7) activates when a Zod `schema` prop is passed — wraps children in a FormProvider, auto-registers nested Fields by `name`, and surfaces field-level errors automatically.",
   "props": {
-    "onSubmit":      { "type": "handler", "optional": false, "description": "Called with the FormData after validation passes." },
-    "onError":       { "type": "handler", "optional": true, "description": "Called when submit is blocked by validation." },
-    "validate":      { "type": "handler", "optional": true, "description": "(formData) => Record<fieldName, error>. Called on submit; return non-empty record to block." },
+    "onSubmit":      { "type": "handler", "optional": false, "description": "Called with the validated payload. Native mode: receives FormData. RHF mode: receives the typed schema-inferred object." },
+    "onError":       { "type": "handler", "optional": true, "description": "Called when submit is blocked by validation. RHF mode: receives the FieldErrors map from react-hook-form." },
+    "validate":      { "type": "handler", "optional": true, "description": "(formData) => Record<fieldName, error>. Native mode only. Called on submit; return non-empty record to block. Ignored when `schema` is set." },
+    "schema":        { "type": "ref", "optional": true, "description": "Zod schema. When present, activates RHF mode: the form internally calls useForm({ resolver: zodResolver(schema) }) and wraps children in FormProvider." },
+    "defaultValues": { "type": "ref", "optional": true, "description": "RHF mode only. Initial values for all registered fields. Recommended whenever `schema` is set so RHF stays in controlled-friendly mode from first render." },
+    "resolver":      { "type": "ref", "optional": true, "description": "RHF mode only. Override resolver. Defaults to zodResolver(schema). Pass a custom resolver to swap validation engines (yup, valibot, etc.)." },
+    "mode":          { "type": "enum", "values": ["onBlur", "onChange", "onSubmit"], "default": "onBlur", "optional": true, "description": "RHF mode only. When validation runs. Default `onBlur` matches the Lumen validation timing rule (validate on blur after first interaction)." },
     "density":       { "type": "enum", "values": ["comfortable", "compact"], "default": "comfortable", "optional": true, "description": "Sets data-density on the form root; nested .lumen-field shells respect it." },
     "children":      { "type": "node", "optional": false, "description": "Field, Fieldset, ValidationMessage, and submit Button." },
     "method":        { "type": "enum", "values": ["get", "post"], "default": "post", "optional": true },
@@ -35,10 +39,11 @@
       "4.1.3 Status Messages"
     ],
     "rules": [
-      "On submit failure, focus moves to the first invalid field.",
+      "On submit failure, focus moves to the first invalid field. RHF mode does this automatically via shouldFocusError; native mode does it via the focus-on-first-error orchestration.",
       "On submit failure, render a ValidationMessage summary at the top of the form with anchor links to each invalid field.",
       "Submit button disabled state must NEVER be the only signal of validation failure — the user must be able to attempt submit and see what's wrong.",
-      "Live region for server validation errors uses aria-live=polite by default; assertive only for critical errors that need immediate attention."
+      "Live region for server validation errors uses aria-live=polite by default; assertive only for critical errors that need immediate attention.",
+      "When using `schema` prop, Zod validation errors auto-bind to fields via FormProvider. Manual `error` prop on Field is overridden when RHF is active."
     ]
   },
   "rules": {
@@ -46,17 +51,22 @@
       "Validate on blur after first interaction; switch to onChange after first error per field.",
       "On submit, validate everything — focus the first invalid field, render a summary at top.",
       "Pair Form with Field — let Field own field-level UI; Form owns flow + submit + summary.",
-      "Set autoComplete='off' only for sensitive forms (one-time passcode entry); default keep on."
+      "Set autoComplete='off' only for sensitive forms (one-time passcode entry); default keep on.",
+      "Use `schema` for any non-trivial form (>3 fields). Native Form is for simple cases.",
+      "Pair with `<Field name=\"email\">` — the `name` prop bridges Field to RHF's register/control."
     ],
     "dont": [
       "Don't disable the submit button as the only signal of failed validation — the user should be able to submit and see errors.",
       "Don't validate on every keystroke before first interaction — wait for blur.",
-      "Don't suppress browser autofill for known-safe fields (name, email, address). Autofill is an a11y feature."
+      "Don't suppress browser autofill for known-safe fields (name, email, address). Autofill is an a11y feature.",
+      "Don't mix manual `validate` prop with `schema` — pick one. RHF + Zod is canonical for non-trivial forms; the `validate` callback is ignored in RHF mode.",
+      "Don't paint your own error state on Field when RHF is active — let `formState.errors` drive the message via the FieldRHFBridge."
     ]
   },
-  "examples": { "web-react": "../../../audit-dashboard/src/components/primitives/field.tsx" },
+  "examples": { "web-react": "./examples/web-react-rhf.tsx" },
   "related": ["Field", "Input", "Textarea", "Select", "Checkbox", "RadioGroup", "Switch", "ValidationMessage", "Button"],
   "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "react-hook-form binding via FormProvider + zodResolver. Pass `schema` (Zod) and `defaultValues`; nested `<Field name=\"…\">` auto-registers and surfaces field errors." },
     { "version": "0.6.0", "type": "Added", "note": "Initial release. Lightweight native FormElement wrapper with onSubmit, validate, focus-on-first-error orchestration, and a density mode hook. v0.7 adds react-hook-form binding." }
   ]
 }

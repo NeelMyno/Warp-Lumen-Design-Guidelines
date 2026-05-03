@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "type": "registry:ui",
+  "title": "Field",
+  "description": "Composition wrapper for a single form control. Stacks label + description + control shell + hint/error in one vertical group. The control shell owns the focus surface; slots (leading icon, trailing icon, addon) bond under that single ring.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/primitives/field.tsx",
+      "type": "registry:ui",
+      "target": "components/lumen/field.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/field/component.json",
+    "docsPath": "design-system/02-components/field/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "type": "registry:ui",
+  "title": "Form",
+  "description": "Semantic form wrapper with dual-mode validation. Native mode (v0.6) is the default — manual `validate` callback, blur-validation, focus-on-first-error. RHF mode (v0.7) activates when a Zod `schema` prop is passed — wraps children in a FormProvider, auto-registers nested Fields by `name`, and surfaces field-level errors automatically.",
+  "dependencies": [
+    "react-hook-form",
+    "@hookform/resolvers",
+    "zod"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/form/examples/web-react-rhf.tsx",
+      "type": "registry:ui",
+      "target": "components/lumen/form.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/form/component.json",
+    "docsPath": "design-system/02-components/form/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

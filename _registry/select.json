@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:ui",
+  "title": "Select",
+  "description": "Single-choice dropdown from a known list of options. Built on Radix Select for keyboard nav, type-ahead, popover positioning, and screen-reader semantics.",
+  "dependencies": [
+    "@radix-ui/react-select",
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/ui/select.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/select.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/select/component.json",
+    "docsPath": "design-system/02-components/select/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

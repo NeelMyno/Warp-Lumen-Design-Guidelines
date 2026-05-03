@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "segmented",
+  "type": "registry:ui",
+  "title": "Segmented",
+  "description": "2–4 mutually exclusive options on one row. The 'tabs but for a control' pattern. Active segment lifts above the sunken bar with surface.raised + shadow.xs.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/segmented/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/segmented.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/segmented/component.json",
+    "docsPath": "design-system/02-components/segmented/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

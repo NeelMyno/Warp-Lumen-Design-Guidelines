@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tags-input",
+  "type": "registry:ui",
+  "title": "TagsInput",
+  "description": "Wrapping chip-row tag entry. Comma OR Enter commits; Backspace on empty draft removes last chip; shell flexes to multi-line when chips wrap.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "./input.json",
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/tags-input/examples/web-react.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/tags-input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/tags-input/component.json",
+    "docsPath": "design-system/02-components/tags-input/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

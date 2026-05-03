@@ -10,7 +10,7 @@
 primitives/        Raw values. Mode-agnostic. Hand-edited.
                    color.tokens.json, dimension.tokens.json,
                    typography.tokens.json, motion.tokens.json,
-                   elevation.tokens.json, radius.tokens.json
+                   shadow.tokens.json, radius.tokens.json
                        │
                        ▼ (referenced by)
 semantic/          Role-based. Mode-aware. Engineers/LLMs read FROM here.

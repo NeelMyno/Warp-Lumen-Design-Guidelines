@@ -1,0 +1,84 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Combobox",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Searchable single-choice dropdown. Field-shell trigger + portaled listbox filtered by the typed query. Use when Select's static list would exceed ~12 options.",
+  "props": {
+    "value":       { "type": "string", "optional": true, "description": "Controlled selected value." },
+    "onChange":    { "type": "handler", "optional": true, "description": "Fires when an option is picked." },
+    "options":     { "type": "node", "optional": false, "description": "Array of option strings (or { label, value } pairs in extended consumers)." },
+    "placeholder": { "type": "string", "default": "Type or pick…", "optional": true },
+    "size":        { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "disabled":    { "type": "boolean", "default": false, "optional": true },
+    "name":        { "type": "string", "optional": true, "description": "Form field name when used inside a Form." },
+    "maxVisible":  { "type": "number", "default": 8, "optional": true, "description": "Cap the visible rows; scroll past this." }
+  },
+  "tokens": {
+    "consumed": [
+      "input.height.sm", "input.height.md", "input.height.lg",
+      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
+      "input.gap.slot", "input.radius",
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconTrailing",
+      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.transition",
+      "combobox.trigger.caretColor", "combobox.trigger.caretRotation",
+      "combobox.listbox.background", "combobox.listbox.border", "combobox.listbox.radius", "combobox.listbox.shadow", "combobox.listbox.maxHeight", "combobox.listbox.padding",
+      "combobox.item.height", "combobox.item.padding.x", "combobox.item.padding.y", "combobox.item.radius", "combobox.item.type",
+      "combobox.item.background.rest", "combobox.item.background.highlight",
+      "combobox.item.color.rest", "combobox.item.color.highlight",
+      "combobox.empty.type", "combobox.empty.color"
+    ]
+  },
+  "a11y": {
+    "role": "combobox",
+    "keyboard": [
+      "Tab — focus the input",
+      "Type — filter the list and open it",
+      "ArrowDown — open / move highlight down",
+      "ArrowUp — move highlight up",
+      "Home / End — first / last visible match",
+      "Enter — select the highlighted option",
+      "Escape — close without selecting",
+      "Click outside — close"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.3 Focus Order",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "3.3.2 Labels or Instructions",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role=combobox on the input; aria-expanded, aria-autocomplete=list, aria-controls all wired.",
+      "Listbox portals to <body> so it escapes overflow:hidden ancestors (dialogs, tables).",
+      "Highlighted row carries aria-selected=true for screen-reader announcement.",
+      "Always paired with a visible label via Field, or with aria-label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Combobox for searchable / dynamic / large option lists.",
+      "Sort matches prefix-first, then substring.",
+      "Cap visible rows at 8 with internal scroll past that.",
+      "Render the listbox in a portal so it escapes overflow:hidden ancestors."
+    ],
+    "dont": [
+      "Don't use Combobox for short stable lists — Select is denser and faster to scan.",
+      "Don't auto-select on blur unless the typed value is an exact match.",
+      "Don't disable Enter when no option matches — let the user submit and surface a 'no matches' hint."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["Select", "Field", "Form", "Input"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Reuses select.listbox.* tokens; adds combobox-only deltas (caret rotation, item highlight states)." }
+  ]
+}

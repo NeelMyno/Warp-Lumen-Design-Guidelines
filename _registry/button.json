@@ -3,7 +3,7 @@
   "name": "button",
   "type": "registry:ui",
   "title": "Button",
-  "description": "Primary, secondary, tertiary, and danger button. Supports leading/trailing icons, loading state, full-width.",
+  "description": "A button triggers an action. The primary way users commit to a decision in a flow.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -18,10 +18,13 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "react-native", "ios-native", "android-native", "shopify-liquid"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/button/component.json",
     "docsPath": "design-system/02-components/button/component.md",
+    "status": "stable",
     "warpSignature": false
   }
 }

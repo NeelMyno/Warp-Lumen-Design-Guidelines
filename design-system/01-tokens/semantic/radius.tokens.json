@@ -13,7 +13,8 @@
       "hero":    { "$value": "{radius.2xl}" },
       "marketing": { "$value": "{radius.3xl}" }
     },
-    "pill":   { "$value": "{radius.full}" },
-    "circle": { "$value": "{radius.full}" }
+    "pill":    { "$value": "{radius.full}" },
+    "circle":  { "$value": "{radius.full}" },
+    "popover": { "$value": "{radius.lg}", "$description": "Listbox / dropdown / menu / tooltip radius. Matches card.default for visual continuity." }
   }
 }

@@ -1,0 +1,70 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Segmented",
+  "version": "0.7.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "2–4 mutually exclusive options on one row. The 'tabs but for a control' pattern. Active segment lifts above the sunken bar with surface.raised + shadow.xs.",
+  "props": {
+    "value":    { "type": "string", "optional": false, "description": "Currently selected option value." },
+    "onChange": { "type": "handler", "optional": false },
+    "options":  { "type": "node", "optional": false, "description": "Array of { label, value, icon? } for 2–4 options." },
+    "size":     { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true, "description": "Density. md is rare — Segmented is usually sm so it sits beside other controls cleanly." },
+    "disabled": { "type": "boolean", "default": false, "optional": true },
+    "ariaLabel":{ "type": "string", "optional": true, "description": "Required if no surrounding label — describes what's being chosen." }
+  },
+  "tokens": {
+    "consumed": [
+      "segmented.bar.height", "segmented.bar.padding", "segmented.bar.radius", "segmented.bar.background", "segmented.bar.border",
+      "segmented.segment.height", "segmented.segment.padding.x", "segmented.segment.radius", "segmented.segment.type",
+      "segmented.segment.background.active", "segmented.segment.background.inactive", "segmented.segment.background.hover",
+      "segmented.segment.color.active", "segmented.segment.color.inactive", "segmented.segment.color.inactiveHover",
+      "segmented.segment.shadow.active",
+      "segmented.segment.transition"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab — focus the active segment",
+      "ArrowLeft — move focus AND select the previous segment",
+      "ArrowRight — move focus AND select the next segment",
+      "Home / End — first / last segment",
+      "Tab again — leave the bar"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.3 Focus Order",
+      "2.4.7 Focus Visible",
+      "2.5.8 Target Size (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Bar carries role='group' with an aria-label describing what's being chosen.",
+      "Each segment is a real <button type='button'> with aria-pressed.",
+      "ArrowLeft/Right inside the bar both move focus AND change value (toolbar pattern, not radio roving).",
+      "Icon-only segments require aria-label per segment."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Limit to 2–4 options. Past 4, the bar overflows or labels truncate.",
+      "Use short, scannable labels — single nouns or 1-word verbs.",
+      "Pair with a Field if you need a label or hint.",
+      "Animate active-segment shift with motion.transition.fast; honor prefers-reduced-motion."
+    ],
+    "dont": [
+      "Don't use Segmented for booleans — use Toggle / Switch.",
+      "Don't use Segmented for radio semantics with form submission — use RadioGroup.",
+      "Don't put icon-only segments without an aria-label per segment."
+    ]
+  },
+  "examples": { "web-react": "./examples/web-react.tsx" },
+  "related": ["RadioGroup", "Toggle", "Select", "Field", "Form"],
+  "changelog": [
+    { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. <button>-based (not radio); single bar with lift-and-shadow active state." }
+  ]
+}

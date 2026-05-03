@@ -55,7 +55,8 @@ The audit dashboard at `/audit-dashboard/` is the live reference implementation.
 
 - Run with `cd audit-dashboard && pnpm dev`.
 - DO NOT run the dev server during heavy file-editing work — Turbopack + many open files can OOM the kernel. Run dev server when actively viewing; kill it before doing batch edits.
-- The dashboard's `globals.css` is a placeholder — when Style Dictionary outputs `_build/tailwind/theme.css`, replace the dashboard's tokens with that file.
+- The dashboard's [globals.css](audit-dashboard/src/app/globals.css) is now the de-facto source of truth for built CSS — it carries all v0.4 token mappings, the v0.5 typography utility classes, and the v0.6 `.lumen-field` shell system (~1900 lines). When Style Dictionary's `_build/tailwind/theme.css` is wired (ADR-0001 follow-up), the goal is to derive `globals.css`'s `:root` token block from it; the v0.5+ utility classes and v0.6 shells continue to live in `globals.css` as authored CSS.
+- Treat `globals.css` as edit-with-care, not a placeholder.
 
 ## When asked to ship a brand voice
 

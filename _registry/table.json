@@ -4,14 +4,27 @@
   "type": "registry:ui",
   "title": "Table",
   "description": "Operator-density data table. Hairline row dividers, no column dividers, sticky header, tabular numerics.",
+  "dependencies": [],
+  "registryDependencies": [],
   "files": [
-    { "path": "design-system/02-components/table/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/table.tsx" }
+    {
+      "path": "design-system/02-components/table/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/table.tsx"
+    }
   ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.1.0",
-    "platforms": ["web-react", "react-native"],
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/table/component.json",
     "docsPath": "design-system/02-components/table/component.md",
+    "status": "stable",
     "warpSignature": false
   }
 }
