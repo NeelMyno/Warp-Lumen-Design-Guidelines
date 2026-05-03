@@ -17,13 +17,13 @@ const satoshi = localFont({
       style: "italic",
     },
   ],
-  variable: "--font-sans",
+  variable: "--font-satoshi",
   display: "swap",
   preload: true,
 });
 
 const jetbrains = JetBrains_Mono({
-  variable: "--font-mono",
+  variable: "--font-jetbrains",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600"],
