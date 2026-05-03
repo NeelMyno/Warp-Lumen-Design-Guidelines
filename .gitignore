@@ -43,3 +43,8 @@ coverage
 # Sub-agent transcripts (do not commit)
 *.output
 .agent-runs/
+
+# Claude Code session-local state (never commit)
+.claude/scheduled_tasks.lock
+.claude/sessions/
+.claude/memory/
