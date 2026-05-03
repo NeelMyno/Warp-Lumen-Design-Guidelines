@@ -1,16 +1,30 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { Info, AlertTriangle, AlertOctagon, CheckCircle2, X as XIcon } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import { Alert as ShadcnAlert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { X, Check } from "./icon";
 
-/* ─────────────────────────  ALERT BANNER (page-level)  ───────────────────────── */
+/* ─────────────────────────  ALERT BANNER (page-level)  ─────────────────────────
+ * Wrapped over the canonical shadcn Alert. Lumen API preserved:
+ *   <Alert tone="warn" title="…">{children}</Alert>
+ * Maps `tone` → shadcn Alert variant, supplies the right icon, supports
+ * dismiss button. Shadcn Alert provides the role="alert" + grid layout.
+ */
 type AlertTone = "info" | "warn" | "danger" | "success" | "neutral";
-const ALERT_STYLES: Record<AlertTone, { bg: string; fg: string; border: string; icon: string }> = {
-  info:    { bg: "var(--lumen-cream-0)",    fg: "var(--lumen-cream-7)",    border: "var(--lumen-cream-2)",    icon: "var(--lumen-cream-5)" },
-  warn:    { bg: "var(--lumen-amber-0)",  fg: "var(--lumen-amber-7)",  border: "var(--lumen-amber-2)",  icon: "var(--lumen-amber-5)" },
-  danger:  { bg: "var(--lumen-red-0)",    fg: "var(--lumen-red-7)",    border: "var(--lumen-red-2)",    icon: "var(--lumen-red-5)" },
-  success: { bg: "#ecfdf3",               fg: "var(--lumen-accent-8)", border: "var(--lumen-accent-2)", icon: "var(--lumen-accent-6)" },
-  neutral: { bg: "var(--surface-sunken)", fg: "var(--text-secondary)", border: "var(--border-hairline)", icon: "var(--text-tertiary)" },
+
+const TONE_TO_VARIANT: Record<AlertTone, "info" | "warning" | "destructive" | "success" | "default"> = {
+  info: "info", warn: "warning", danger: "destructive", success: "success", neutral: "default",
+};
+
+const ToneIcon: Record<AlertTone, React.ComponentType<{ className?: string }>> = {
+  info:    Info,
+  warn:    AlertTriangle,
+  danger:  AlertOctagon,
+  success: CheckCircle2,
+  neutral: Info,
 };
 
 export function Alert({
@@ -24,33 +38,36 @@ export function Alert({
   children?: ReactNode;
   onDismiss?: () => void;
 }) {
-  const s = ALERT_STYLES[tone];
+  const Icon = ToneIcon[tone];
   return (
-    <div className="rounded-[var(--radius-md)] border p-3.5 flex items-start gap-3" style={{ background: s.bg, borderColor: s.border, color: s.fg }}>
-      <span className="mt-0.5 shrink-0" style={{ color: s.icon }}>
-        <AlertIcon tone={tone} />
-      </span>
-      <div className="min-w-0 flex-1">
-        {title && <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]" style={{ color: s.fg }}>{title}</div>}
-        {children && (
-          <div className="text-[var(--type-13)] mt-0.5 leading-[var(--leading-snug)]" style={{ color: s.fg, opacity: 0.92 }}>
-            {children}
-          </div>
-        )}
-      </div>
+    <ShadcnAlert variant={TONE_TO_VARIANT[tone]} className={cn(onDismiss && "pr-10 relative")}>
+      <Icon />
+      {title && <AlertTitle>{title}</AlertTitle>}
+      {children && <AlertDescription>{children}</AlertDescription>}
       {onDismiss && (
-        <button onClick={onDismiss} aria-label="Dismiss" className="shrink-0 opacity-60 hover:opacity-100 transition-opacity" style={{ color: s.fg }}>
-          <X size={14} />
+        <button
+          onClick={onDismiss}
+          aria-label="Dismiss"
+          className="absolute right-3 top-3 opacity-60 hover:opacity-100 transition-opacity"
+        >
+          <XIcon className="size-3.5" aria-hidden />
         </button>
       )}
-    </div>
+    </ShadcnAlert>
   );
 }
+
+/* legacy export — kept for any straggler imports */
+const ALERT_STYLES: Record<AlertTone, { bg: string; fg: string; border: string; icon: string }> = {
+  info:    { bg: "var(--lumen-cream-0)",   fg: "var(--lumen-cream-7)",  border: "var(--lumen-cream-2)",  icon: "var(--lumen-cream-5)" },
+  warn:    { bg: "var(--lumen-amber-0)",   fg: "var(--lumen-amber-7)",  border: "var(--lumen-amber-2)",  icon: "var(--lumen-amber-5)" },
+  danger:  { bg: "var(--lumen-red-0)",     fg: "var(--lumen-red-7)",    border: "var(--lumen-red-2)",    icon: "var(--lumen-red-5)" },
+  success: { bg: "#ecfdf3",                fg: "var(--lumen-accent-8)", border: "var(--lumen-accent-2)", icon: "var(--lumen-accent-6)" },
+  neutral: { bg: "var(--surface-sunken)",  fg: "var(--text-secondary)", border: "var(--border-hairline)", icon: "var(--text-tertiary)" },
+};
 function AlertIcon({ tone }: { tone: AlertTone }) {
-  if (tone === "success") return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M8.5 12.5l2.5 2.5L15.5 9" /></svg>;
-  if (tone === "warn") return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l10 18H2z" /><path d="M12 10v5M12 18.5v.01" /></svg>;
-  if (tone === "danger") return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v6M12 16v.01" /></svg>;
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 11v5.5M12 7.5v.01" /></svg>;
+  const Icon = ToneIcon[tone];
+  return <Icon className="size-4" />;
 }
 
 /* ─────────────────────────  PAGE BANNER  ───────────────────────── */

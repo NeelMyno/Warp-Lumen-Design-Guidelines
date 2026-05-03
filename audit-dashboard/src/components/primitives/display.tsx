@@ -103,37 +103,29 @@ export function Severity({ level }: { level: "low" | "med" | "high" | "critical"
   );
 }
 
-/* ─────────────────────────  ACCORDION  ───────────────────────── */
+/* ─────────────────────────  ACCORDION (shadcn Accordion)  ───────────────────────── */
+import {
+  Accordion as ShadcnAccordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+
 export function Accordion({ items }: { items: { title: string; content: ReactNode }[] }) {
-  const [open, setOpen] = useState(0);
   return (
-    <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden divide-y divide-[var(--border-hairline)]">
-      {items.map((it, i) => (
-        <div key={i}>
-          <button
-            type="button"
-            onClick={() => setOpen(open === i ? -1 : i)}
-            className="w-full flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-[var(--surface-sunken)]"
-            aria-expanded={open === i}
-          >
-            <span className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] text-[var(--text-primary)]">{it.title}</span>
-            <ChevronDown
-              size={14}
-              className={["text-[var(--text-tertiary)] transition-transform duration-[var(--motion-fast)]", open === i ? "rotate-180" : ""].join(" ")}
-            />
-          </button>
-          <div
-            className="overflow-hidden transition-[grid-template-rows] duration-[var(--motion-base)] ease-[var(--easing-standard)] grid"
-            style={{ gridTemplateRows: open === i ? "1fr" : "0fr" }}
-          >
-            <div className="min-h-0">
-              <div className="px-4 pb-4 text-[var(--type-13)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
-                {it.content}
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
+      <ShadcnAccordion type="single" collapsible defaultValue="item-0" className="divide-y divide-[var(--border-hairline)]">
+        {items.map((it, i) => (
+          <AccordionItem key={i} value={`item-${i}`} className="border-b-0 px-4">
+            <AccordionTrigger className="text-[var(--type-13)] font-medium text-[var(--text-primary)] hover:no-underline">
+              {it.title}
+            </AccordionTrigger>
+            <AccordionContent className="text-[var(--type-13)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+              {it.content}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </ShadcnAccordion>
     </div>
   );
 }

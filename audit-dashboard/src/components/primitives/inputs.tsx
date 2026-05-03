@@ -3,9 +3,15 @@
 import { useState, useRef, useEffect, ReactNode, ChangeEvent, KeyboardEvent } from "react";
 import { Search as SearchIcon, ChevronDown, Plus, X, Check } from "./icon";
 
-/* All inputs run at 40px (5u, default md). The 8pt soft grid keeps
-   forms feeling like a single chiseled instrument panel — every control
-   sits on the same baseline. */
+import { cn } from "@/lib/utils";
+import { Input as ShadcnInput } from "@/components/ui/input";
+import { Textarea as ShadcnTextarea } from "@/components/ui/textarea";
+
+/* INPUT_BASE — Lumen's shared input chrome class. Used by composite controls
+ * (SearchInput, NumberInput, Combobox, TagsInput, etc.) that build their own
+ * input shell around a custom layout. The bare TextInput / Textarea use the
+ * shadcn Input / Textarea directly.
+ */
 const INPUT_BASE = [
   "h-10 w-full px-3 rounded-[var(--radius-md)]",
   "bg-[var(--surface-raised)] text-[var(--text-primary)]",
@@ -18,24 +24,14 @@ const INPUT_BASE = [
   "disabled:opacity-50 disabled:cursor-not-allowed",
 ].join(" ");
 
-/* ─────────────────────────  TEXT INPUT  ───────────────────────── */
+/* ─────────────────────────  TEXT INPUT (shadcn Input)  ───────────────────────── */
 export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input type="text" {...props} className={[INPUT_BASE, props.className ?? ""].join(" ")} />;
+  return <ShadcnInput type="text" {...props} className={cn(props.className)} />;
 }
 
-/* ─────────────────────────  TEXTAREA  ───────────────────────── */
+/* ─────────────────────────  TEXTAREA (shadcn Textarea)  ───────────────────────── */
 export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return (
-    <textarea
-      rows={4}
-      {...props}
-      className={[
-        INPUT_BASE.replace("h-10", "min-h-[96px] py-2"),
-        "resize-y leading-[var(--leading-normal)]",
-        props.className ?? "",
-      ].join(" ")}
-    />
-  );
+  return <ShadcnTextarea rows={4} {...props} className={cn("min-h-[96px]", props.className)} />;
 }
 
 /* ─────────────────────────  SEARCH INPUT  ───────────────────────── */
