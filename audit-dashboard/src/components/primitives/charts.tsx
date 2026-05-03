@@ -78,7 +78,7 @@ export function LineChart({
       })}
       {/* x labels */}
       {labels && labels.map((l, i) => (
-        <text key={i} x={xs(i, labels.length)} y={height - 2} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-mono)">
+        <text key={i} x={xs(i, labels.length)} y={height - 2} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }}>
           {l}
         </text>
       ))}
@@ -113,9 +113,9 @@ export function BarChart({
           const bw = (v / max) * (w - pad * 2 - 60);
           return (
             <g key={i}>
-              <text x={6} y={y + 14} fontSize="10" fill="var(--text-secondary)" fontFamily="var(--font-mono)">{labels?.[i]}</text>
+              <text x={6} y={y + 14} fontSize="10" fill="var(--text-secondary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }}>{labels?.[i]}</text>
               <rect x={60} y={y + 4} width={bw} height={(height - pad * 2) / data.length - 8} rx="3" fill={CHART_PALETTE[0]} opacity="0.85" />
-              <text x={60 + bw + 4} y={y + 14} fontSize="10" fill="var(--text-tertiary)" fontFamily="var(--font-mono)">{v}</text>
+              <text x={60 + bw + 4} y={y + 14} fontSize="10" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }}>{v}</text>
             </g>
           );
         })}
@@ -136,7 +136,7 @@ export function BarChart({
           <g key={i}>
             <rect x={x} y={height - pad - bh} width={barW} height={bh} rx="3" fill={CHART_PALETTE[0]} />
             {labels && (
-              <text x={x + barW / 2} y={height - 4} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-mono)">
+              <text x={x + barW / 2} y={height - 4} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }}>
                 {labels[i]}
               </text>
             )}
@@ -220,7 +220,7 @@ export function DonutChart({
           </text>
         )}
         {centerLabel && (
-          <text x={size / 2} y={size / 2 + 12} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-mono)" letterSpacing="0.04em">
+          <text x={size / 2} y={size / 2 + 12} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }} letterSpacing="0.04em">
             {centerLabel.toUpperCase()}
           </text>
         )}
@@ -334,7 +334,7 @@ export function Radar({ axes, values }: { axes: string[]; values: number[] }) {
         const lx = cx + Math.cos(angle) * (r + 14);
         const ly = cy + Math.sin(angle) * (r + 14);
         return (
-          <text key={i} x={lx} y={ly} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-mono)" alignmentBaseline="middle">
+          <text key={i} x={lx} y={ly} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }} alignmentBaseline="middle">
             {a}
           </text>
         );
@@ -430,7 +430,7 @@ export function Waterfall({ items }: { items: { label: string; delta: number; to
         return (
           <g key={i}>
             <rect x={x} y={y} width={bw} height={height || 2} fill={color} rx="2" />
-            <text x={x + bw / 2} y={h - 3} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-mono)">
+            <text x={x + bw / 2} y={h - 3} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }}>
               {p.label}
             </text>
           </g>

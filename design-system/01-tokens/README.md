@@ -204,7 +204,7 @@ If you are an AI coding agent and you need a token, here is the cheat sheet. Do 
 |---|---|
 | `color.aurora.color` | The radial-glow rgba used by `.lumen-aurora` ambient lighting at hero |
 | `color.aurora.core` | The hot-core rgba — slightly more saturated for inner edge of the radial gradient |
-| `lumen-mono-cap` | (CSS utility) JetBrains Mono · uppercase · +0.16em tracking — the v0.4 system metadata voice |
+| `lumen-mono-cap` | (CSS utility) Satoshi · uppercase · +0.16em tracking · `calt 0, tnum 1, zero 1, case 1` — the v0.4 system-metadata voice (v0.10 — Satoshi-carried; ADR 0017) |
 | `lumen-frame-brutalist` | (CSS utility) 1px hairline frame around a single statement headline; no shadow |
 
 ### Motion

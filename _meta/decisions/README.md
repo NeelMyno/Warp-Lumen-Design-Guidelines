@@ -11,10 +11,18 @@
 | [0003](./0003-shadcn-registry.md) | Distribute via shadcn registry, not npm | Accepted |
 | [0004](./0004-quiet-industrial-mood.md) | Default mood: Quiet Industrial | Accepted |
 | [0005](./0005-warp-green-as-only-accent.md) | Warp lime green is the system's only loud accent | Accepted |
-| [0006](./0006-satoshi-jetbrains-pairing.md) | Pair Satoshi with JetBrains Mono | Accepted |
+| [0006](./0006-satoshi-jetbrains-pairing.md) | Pair Satoshi with JetBrains Mono | Superseded by [0017](./0017-satoshi-only-typography-v010.md) |
 | [0007](./0007-two-file-component-contract.md) | Each component ships md + json sidecar | Accepted |
 | [0008](./0008-llm-contract-layered.md) | Layered LLM contract (llms.txt → AGENTS.md → CLAUDE.md → tool-specific) | Accepted |
 | [0009](./0009-versioning-semver-system-wide.md) | Single semver for the whole system, not per-component | Accepted |
+| [0010](./0010-typography-v05.md) | Typography v0.5 system upgrade | Accepted (partially amended by [0017](./0017-satoshi-only-typography-v010.md)) |
+| [0011](./0011-forms-and-inputs-v06.md) | Forms & inputs v0.6 — single-shell single-focus-surface | Accepted |
+| [0012](./0012-distribution-surface-v07.md) | Distribution surface v0.7 | Accepted |
+| [0013](./0013-form-rhf-binding-v07.md) | Form RHF binding v0.7 | Accepted |
+| [0014](./0014-spacing-rebuild-v08.md) | Spacing rebuild v0.8 | Accepted |
+| [0015](./0015-shadcn-token-bridge-direct-refs-v081.md) | shadcn token-bridge direct refs (v0.8.1) | Accepted |
+| [0016](./0016-button-rebuild-v09.md) | Button rebuild v0.9 | Accepted |
+| [0017](./0017-satoshi-only-typography-v010.md) | Satoshi-only typography (v0.10) — single-typeface system | Accepted |
 
 ## Adding a new ADR
 

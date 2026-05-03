@@ -53,7 +53,11 @@ export function PasswordInput({
           autoComplete={autoComplete}
           onKeyUp={trackCapsLock}
           style={{
-            fontFamily: show ? undefined : "var(--font-mono)",
+            // v0.10 — Satoshi-only. Hidden state uses tabular-nums + wider tracking
+            // so the masked dots sit on a regular grid (Satoshi has no monospaced
+            // counterpart in v0.10; the dot glyph is already proportional and reads
+            // fine here).
+            fontVariantNumeric: show ? undefined : "tabular-nums lining-nums",
             letterSpacing: show ? undefined : "0.1em",
           }}
         />
@@ -65,9 +69,11 @@ export function PasswordInput({
             aria-pressed={show}
             aria-label={show ? "Hide password" : "Show password"}
             disabled={disabled}
-            className="transition-colors disabled:opacity-40 text-micro font-mono"
+            className="transition-colors disabled:opacity-40 text-micro"
             style={{
               textTransform: "uppercase",
+              letterSpacing: "0.16em",
+              fontVariantNumeric: "tabular-nums lining-nums",
               paddingInline: "var(--space-2)",
               paddingBlock: "var(--space-1)",
               borderRadius: "var(--radius-xs)",

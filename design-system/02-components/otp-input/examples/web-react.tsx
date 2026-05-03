@@ -132,10 +132,11 @@ export function OtpInput({
               onPaste={(e) => onPaste(i, e)}
               disabled={disabled}
               aria-label={`OTP digit ${i + 1} of ${length}`}
-              className="text-center text-body-lg font-mono"
+              className="text-center text-body-lg"
               style={{
                 fontWeight: 500,
                 fontVariantNumeric: "tabular-nums lining-nums",
+                fontFeatureSettings: '"tnum" 1, "lnum" 1, "zero" 1',
               }}
             />
           </div>

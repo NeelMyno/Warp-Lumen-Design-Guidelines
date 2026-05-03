@@ -10,6 +10,70 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.10.0] — 2026-05-03 — Satoshi-only typography · single-typeface system
+
+User directive: **"I only want Satoshi as the font in the dashboard and in the design system."** v0.10 collapses Lumen to a single typeface. Through v0.9 the system shipped four families — Satoshi (UI/display), JetBrains Mono (numerics/code), Source Serif 4 (editorial), and Plan-B Inter (hostile-rendering swap). Each had a defensible job, but four families is one more discipline than the brutalist-leaning aesthetic actually wanted, and the JetBrains Mono codepath alone added ~40 KB to every page. v0.10 retires the mono, serif, and alt-sans slots; numeric, code, editorial, and metric moments now ride Satoshi separated by weight, size, tracking, and OpenType feature flags (`tnum`, `lnum`, `zero`, `calt`, `liga`, `ss01–ss04`, `case`, `pnum`).
+
+See [ADR 0017](./_meta/decisions/0017-satoshi-only-typography-v010.md) for the decision, the verification work against Satoshi's GSUB inventory, and the migration path. [ADR 0006](./_meta/decisions/0006-satoshi-jetbrains-pairing.md) is now superseded; [ADR 0010](./_meta/decisions/0010-typography-v05.md) (the v0.5 scale + curves + presets + italic policy + modern-CSS techniques) stays in force, partially amended.
+
+### Changed
+
+- **Single primitive `font.family.sans`** — `design-system/01-tokens/primitives/typography.tokens.json` collapses the `font.family` group to one entry: Satoshi Variable + the metric-aligned `Satoshi-Fallback` Arial alias for zero-CLS swap. Every semantic preset's `fontFamily` now resolves to `{font.family.sans}`.
+- **Semantic preset family slots redirect to Satoshi** — `design-system/01-tokens/semantic/type.tokens.json` — every preset that previously bound `{font.family.mono}` (`eyebrow.mono`, `kbd`, `data.{lg,md,sm}`, `metric.{xl,lg,md,sm}`, `code.{inline,block,terminal}`) or `{font.family.serif}` (`prose.{body,lead,title,subtitle}`) now resolves to `{font.family.sans}`. Class names and preset names preserved for component-API stability; they signal a feature-flag bundle (calt/liga/tnum/lnum/zero/case/pnum) rather than a separate family.
+- **`audit-dashboard/src/app/layout.tsx`** — `JetBrains_Mono` import from `next/font/google` removed; the `${jetbrains.variable}` className gone from the `<html>` tag. Only Satoshi Variable + Italic VF self-hosted via `next/font/local` survives.
+- **`audit-dashboard/src/app/globals.css`** — root `:root { … }` block now defines only `--font-sans`. The `--font-mono`, `--font-serif`, `--font-alt-sans` CSS variables are removed; the `[data-font="inter"]` Plan-B override block is removed. The Tailwind v4 `@theme` republish drops `--font-mono` (so the `font-mono` utility is no longer emitted). Every `font-family: var(--font-mono)` and `font-family: var(--font-serif)` declaration in the file (~24 occurrences across `.lumen-mono*`, `.lumen-mono-cap`, `.lumen-kbd`, `.lumen-field [data-slot="addon"]`, `.lumen-field[data-mono="true"]`, `.text-eyebrow-mono`, `.text-data-*`, `.text-metric-*`, `.text-code-*`, `.text-prose-*`, `.lumen-cmd-button-kbd`) now targets `var(--font-sans)`. The `.prose-lumen` body switches `onum` (silent no-op against Satoshi) for `pnum` (Satoshi ships proportional figures).
+- **SVG chart text** — `audit-dashboard/src/components/primitives/charts.tsx` axis and tick labels now carry `fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }}` so they keep column alignment under proportional Satoshi.
+- **Design-system component examples** — every `examples/*.tsx` that previously baked `font-[var(--font-mono)]` (Stat, RateTicker, Table, OtpInput, NumberInput, PasswordInput, TimePicker, DatePicker) now relies on `font-variant-numeric` + `font-feature-settings` for tabular alignment without naming a family.
+- **Component contracts** — `design-system/02-components/{stat,rate-ticker}/component.json` token-consumption lists swap `font.family.mono` for `font.family.sans` and add a v0.10 changelog entry. `input/component.json` and `field.tsx` update the `mono` prop docstring: it no longer switches typeface, it toggles the OpenType feature stack.
+- **Platform READMEs** — `web-react`, `desktop-windows`, `react-native`, `bigcommerce-stencil`, `woo-wordpress` updated to drop JetBrains Mono / `LumenMono` / `$mono-font` / `Mono` font family entries. Web-React performance budget restated as ≤90 KB Satoshi-only.
+- **Foundations docs** — `00-foundations/typography.md` rewritten end-to-end for the single-typeface system (sections 1, 6, 9, 10, 12, 13 substantively updated; scale + leading + tracking curves + italic policy + numbers contract unchanged). `00-foundations/forms-and-inputs.md` Plan-B Inter section replaced with "Typography in forms (v0.10)". `00-foundations/spacing.md` `size.reading.narrow` description updated. `01-tokens/README.md` `lumen-mono-cap` row updated to reflect Satoshi carrier + feature flags.
+- **Lint** — `scripts/lint-no-arbitrary-typography.mjs` allowlist restricted to `--font-sans` only. Arbitrary references to `--font-mono` / `--font-serif` / `--font-alt-sans` / `--font-jetbrains` in product code now flag.
+- **Glossary** — `_meta/glossary.json` JetBrains Mono / Source Serif 4 / Inter / Plan-B Inter entries updated to "Retired by ADR 0017" with feature-flag carrier guidance. ETA description swapped from "tabular monospace" to "tabular numerics (Satoshi tnum + lnum + zero)".
+
+### Removed
+
+- **JetBrains Mono webfont** — no longer loaded via `next/font/google`. ~40 KB saved per page that previously hit the mono codepath.
+- **Source Serif 4 references** — no longer wired in `globals.css` or in the primitive token. Editorial routes (`/blog`, `/changelog`, `/press`) now render in Satoshi at editorial scale (18–22 px body, 1.65 leading, 60–65 ch measure).
+- **Plan-B Inter `[data-font="inter"]` override** — removed from `globals.css`. The `--font-alt-sans` variable and the Inter primitive token are gone. Future hostile-rendering scenarios require a new ADR rather than a silent CSS-attribute toggle.
+- **`--font-jetbrains` CSS variable** — removed (was set by the dropped `next/font/google` import).
+- **Tailwind `font-mono` utility** — no longer emitted (the `--font-mono` republish in the `@theme` block is gone). Any consumer that used `<className="font-mono">` should replace with `[font-variant-numeric:tabular-nums_lining-nums]` or reach for a semantic preset like `.lumen-mono` / `.text-data-md` / `.text-metric-md`.
+- **`LumenMono` XAML resource** — removed from `03-platforms/desktop-windows/README.md`. Same single-typeface story on Windows.
+- **`JetBrainsMono-Regular`** — removed from the `expo-font` `useFonts` example in `03-platforms/react-native/README.md`.
+
+### Deprecated
+
+- **`font.family.mono`, `font.family.serif`, `font.family.alt-sans` token references** — these tokens no longer exist in v0.10; references in external consumer code will resolve to UA defaults. Migration: rebind to `font.family.sans` and add the relevant feature-flag bundle (`tabular-nums lining-nums slashed-zero` for numerics; `calt 0, liga 0, tnum 1, zero 1` for terminal output; `calt 1, liga 1, zero 1` for code prose). Internal consumers (audit-dashboard + design-system component examples) are migrated in this commit.
+- **`mono` prop semantics on `<Field>` / `<Input>`** — the prop name persists for API stability but no longer switches typeface. It now toggles the feature-flag stack only. Code that depended on a typeface visual difference between `mono={true}` and `mono={false}` will see only the alignment shift.
+
+### Verification
+
+- ✅ **`pnpm lint:no-arbitrary-typography`** — exits 0 ("No arbitrary-value typography. ✓") with the v0.10 allowlist (`--font-sans` only).
+- ✅ **`ajv validate -s _schema/component.schema.json -d 'design-system/02-components/*/component.json'`** — every component contract (Button, Field, Input, Stat, RateTicker, Table, Form, OtpInput, PasswordInput, NumberInput, TimePicker, DatePicker, etc.) validates against the schema after the v0.10 token-consumption changes.
+- ✅ **`audit-dashboard` `next build`** — TypeScript clean, all 12 static pages prerender (`/`, `/foundations`, `/landing`, `/library`, `/desktop`, `/ecommerce`, `/mobile`, `/saas`, `/tool`, `/_not-found`).
+- ✅ **No live `var(--font-mono)`, `var(--font-serif)`, `var(--font-alt-sans)`, or `var(--font-jetbrains)` references** survive in `audit-dashboard/src/` or in design-system component examples. Remaining mentions are intentional retirement-narrative in foundations docs, ADR 0017, and the CHANGELOG.
+
+### Known issues (pre-existing, out of scope for v0.10)
+
+- **`pnpm build` (Style Dictionary)** fails with a circular reference between `color.action.primary.glow` and `shadow.accent-glow` — the `shadow.accent-glow` token aliases itself in `design-system/01-tokens/semantic/shadow.tokens.json:72`. This break predates v0.10 (introduced in v0.9 button rebuild) and is unrelated to typography. Track separately; v0.10's typography changes are correctly reflected in the source DTCG JSON and will flow through once the cycle is resolved.
+- **`pnpm lint`** (full suite) exits non-zero with 20 hardcoded-pixel and hardcoded-hex-color violations across `audit-dashboard/src/components/primitives/{feedback,inputs,mobile,motion-demo,nav,progress,rate-ticker,stat,swatch,templates}.tsx`. Verified pre-existing (present at the v0.9 HEAD with v0.10 changes stashed). Track separately.
+
+### Migration
+
+External consumers binding to retired tokens:
+
+| Was | Now |
+|---|---|
+| `var(--font-mono)` | `var(--font-sans)` + `font-variant-numeric: tabular-nums lining-nums` |
+| `var(--font-serif)` | `var(--font-sans)` + larger size + 1.65 leading for editorial |
+| `var(--font-alt-sans)` | `var(--font-sans)` (no fallback wired post-v0.10) |
+| `font.family.mono` token reference | `font.family.sans` + feature-flag bundle |
+| Tailwind `className="font-mono"` | `[font-variant-numeric:tabular-nums_lining-nums]` or `.lumen-mono` / `.text-data-*` semantic class |
+| `html[data-font="inter"]` toggle | Remove. Raise an ADR if a non-Satoshi family is genuinely required. |
+
+Internal app code in `audit-dashboard/src/` is migrated in this release; design-system component examples are migrated; foundations docs and platform READMEs reflect the new state.
+
+---
+
 ## [0.9.0] — 2026-05-03 — Button rebuild · 5×8×3 surface · CSS-class implementation
 
 A user-reported visual regression on `<Button intent="primary">` (white text on lime, ~1.66:1 contrast — same defect as v0.8.1) revealed a deeper issue: **the Vercel preview is stuck at v0.5.0**, four versions behind the source. The v0.8.1 fix was correct in source but never deployed. A four-agent investigation surveyed 20+ peer button systems (Material 3 Expressive May 2025, IBM Carbon v11, Atlassian, Polaris, Vercel Geist, Stripe, Apple HIG iOS 26 Liquid Glass, Linear, Notion, GitHub Primer, Tailwind UI, Radix Themes, Anthropic, OpenAI Platform) plus the two SuperDesign references (Glassmorphism / Neon Velocity), audited every button-shaped surface in the repo, and proposed a comprehensive v0.9 rebuild grounded in nine decisions.

@@ -38,7 +38,7 @@ export type FieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "c
   /** Trailing unit chip (lb / STD / %). Renders mono uppercase. */
   trailingAddon?: ReactNode;
   size?: Size;
-  /** Render value in JetBrains Mono with tabular numerics. For IDs / ZIPs / codes. */
+  /** Render value with tabular numerics + slashed-zero (Satoshi tnum). For IDs / ZIPs / codes. */
   mono?: boolean;
   /** Custom control. When present, replaces the built-in <input>. The wrapper still owns focus. */
   children?: ReactNode;

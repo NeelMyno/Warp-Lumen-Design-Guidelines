@@ -101,10 +101,12 @@ export function NumberInput({
         <span
           data-slot="addon"
           aria-hidden
-          className="text-micro font-mono"
+          className="text-micro"
           style={{
             color: "var(--color-text-tertiary)",
             textTransform: "uppercase",
+            fontVariantNumeric: "tabular-nums lining-nums",
+            letterSpacing: "0.16em",
           }}
         >
           {suffix}

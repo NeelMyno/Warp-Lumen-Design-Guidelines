@@ -240,7 +240,7 @@ export function DatePickerCalendar({ value, onChange, min, max }: CalendarProps)
             aria-pressed={isSelected(d)}
             aria-label={d ? `Day ${d}` : undefined}
             className={cn(
-              "h-7 rounded-[var(--radius-sm)] transition-colors text-body-xs font-mono",
+              "h-7 rounded-[var(--radius-sm)] transition-colors text-body-xs [font-variant-numeric:tabular-nums_lining-nums]",
               !d && "opacity-0 pointer-events-none",
             )}
             style={{

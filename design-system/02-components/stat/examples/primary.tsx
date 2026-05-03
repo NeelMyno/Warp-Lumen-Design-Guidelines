@@ -97,9 +97,10 @@ export function Stat({
         {unit && (
           <span
             className={[
-              "font-[var(--font-mono)]",
               UNIT_SIZE[size],
               "text-[var(--color-text-tertiary)]",
+              "[font-variant-numeric:tabular-nums_lining-nums]",
+              "uppercase tracking-[0.12em]",
             ].join(" ")}
           >
             {unit}

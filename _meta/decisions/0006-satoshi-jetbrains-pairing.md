@@ -1,8 +1,10 @@
 # ADR 0006 — Pair Satoshi with JetBrains Mono
 
 - **Date:** 2026-05-02
-- **Status:** Accepted
+- **Status:** Superseded by [ADR 0017 — Satoshi-only typography (v0.10)](./0017-satoshi-only-typography-v010.md)
 - **Deciders:** Lumen working group
+
+> **2026-05-03 — Superseded by ADR 0017.** v0.10 collapsed Lumen to a single typeface. The Satoshi + JetBrains Mono + Source Serif 4 + Plan-B Inter quad in this ADR was retired in favor of Satoshi-only with role separation by weight, size, tracking, and OpenType feature flags. Read this ADR for the historical evaluation; read ADR 0017 for current state.
 
 ## Context
 

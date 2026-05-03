@@ -4,11 +4,11 @@
   "version": "0.1.0",
   "status": "stable",
   "deprecated": false,
-  "summary": "A big bold number with a small mono unit and optional delta. Warp signature primitive.",
+  "summary": "A big bold number with a small uppercase tracked unit and optional delta. Warp signature primitive. v0.10 — Satoshi-only; tabular alignment via OpenType tnum, not a separate mono face.",
   "props": {
     "label":  { "type": "string", "optional": false, "description": "Eyebrow label, sentence case." },
-    "value":  { "type": "string", "optional": false, "description": "The number. Always render in tabular monospace." },
-    "unit":   { "type": "string", "optional": true,  "description": "Small mono unit suffix ('%', 'lb', 'days')." },
+    "value":  { "type": "string", "optional": false, "description": "The number. Always render with tabular numerics (Satoshi tnum + lnum) so stacked KPIs align column-true." },
+    "unit":   { "type": "string", "optional": true,  "description": "Small uppercase tracked unit suffix ('%', 'lb', 'days'). v0.10 — Satoshi at .text-data-* with calt off + tnum on." },
     "delta":  { "type": "string", "optional": true,  "description": "Change description. e.g. '+12.4% wow', '-3.6%'." },
     "trend":  { "type": "enum", "values": ["up", "down", "flat"], "optional": true },
     "size":   { "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "optional": true }
@@ -26,7 +26,7 @@
       "color.text.primary", "color.text.tertiary",
       "color.status.success.bg", "color.status.success.fg",
       "color.status.danger.bg", "color.status.danger.fg",
-      "font.family.mono"
+      "font.family.sans"
     ]
   },
   "sizeMapping": {
@@ -45,7 +45,7 @@
   },
   "rules": {
     "do": [
-      "Always tabular monospace for the value.",
+      "Always tabular numerics for the value (Satoshi tnum + lnum + zero).",
       "Pair with unit in text-tertiary so the number reads as hero.",
       "Use StatGrid for rows of Stats to enforce uniform sizing."
     ],
@@ -58,6 +58,7 @@
   "examples": { "web-react": "./examples/primary.tsx" },
   "related": ["LiveDot", "RateTicker", "Card"],
   "changelog": [
-    { "version": "0.1.0", "type": "Added", "note": "Initial release. Warp signature primitive." }
+    { "version": "0.1.0",  "type": "Added",   "note": "Initial release. Warp signature primitive." },
+    { "version": "0.10.0", "type": "Changed", "note": "Token consumption swapped from font.family.mono to font.family.sans — v0.10 single-typeface system. Tabular alignment now carried by OpenType tnum/lnum/zero on Satoshi." }
   ]
 }

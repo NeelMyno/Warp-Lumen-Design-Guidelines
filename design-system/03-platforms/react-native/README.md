@@ -44,11 +44,13 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
+  // v0.10 — Lumen is Satoshi-only. JetBrains Mono / Source Serif 4 / Inter
+  // were all retired; tabular numerics + editorial moments use Satoshi
+  // OpenType features (tnum, lnum, zero) on the same family.
   const [loaded] = useFonts({
     "Satoshi-Regular": require("../assets/fonts/Satoshi-Regular.otf"),
     "Satoshi-Medium":  require("../assets/fonts/Satoshi-Medium.otf"),
     "Satoshi-Bold":    require("../assets/fonts/Satoshi-Bold.otf"),
-    "JetBrainsMono-Regular": require("../assets/fonts/JetBrainsMono-Regular.ttf"),
   });
   if (!loaded) return null;
   SplashScreen.hideAsync();

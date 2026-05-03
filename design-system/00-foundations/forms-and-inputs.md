@@ -206,9 +206,11 @@ The `schema` prop activates RHF mode. Internally, `Form` calls `useForm({ resolv
 
 See [ADR 0013](../../_meta/decisions/0013-form-rhf-binding-v07.md) for the decision rationale, deps (`react-hook-form`, `@hookform/resolvers`, `zod`), and tradeoffs.
 
-## Plan B: Inter
+## Typography in forms (v0.10)
 
-Per [foundations/typography.md](./typography.md) §1 Plan B — `html[data-font="inter"]` flips `--font-sans` to Inter Variable. Form labels, helper text, and value text all switch atomically. Use if Cyrillic/Greek expansion needed or Windows ClearType QA fails.
+Form labels, helper text, value text, and trailing-addon chips all render in Satoshi — see [foundations/typography.md](./typography.md) §1. The `mono` prop on `<Field>` / `<Input>` no longer switches typeface; it toggles the OpenType feature stack (`tabular-nums lining-nums slashed-zero` plus `tnum 1, lnum 1, zero 1`) for column-aligned values like IDs, ZIPs, codes, weights, and money. The trailing addon chip (`.lumen-field [data-slot="addon"]`) carries the same Satoshi tracked-out treatment as `.lumen-mono-cap`.
+
+The Plan-B Inter swap from v0.5 was retired by [ADR 0017](../../_meta/decisions/0017-satoshi-only-typography-v010.md). If a hostile rendering environment ever forces a non-Satoshi family on Windows ClearType or in a regional market, raise a new ADR before reintroducing a fallback.
 
 ## What we deferred
 

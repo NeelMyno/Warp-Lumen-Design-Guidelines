@@ -1,24 +1,12 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "$description": "Lumen typography primitives. v0.5 — Major Third (1.25) modular scale on a 16px base, extended floor-to-ceiling 11→128px to honor the v0.4 'Obsidian Lime' brutalist intent without forcing arbitrary-value escapes in components. Leading + tracking are size-conditional curves, not single-bucket aliases. See 00-foundations/typography.md for the canonical guide.",
+  "$description": "Lumen typography primitives. v0.10 — single-typeface system. Satoshi does every job (UI, display, numerics, code, editorial) separated by weight, size, and OpenType feature flags rather than by family. Major Third (1.25) modular scale on a 16px base, extended floor-to-ceiling 11→128px. Leading + tracking are size-conditional curves, not single-bucket aliases. v0.10 retired font.family.mono (JetBrains Mono), font.family.serif (Source Serif 4), and font.family.alt-sans (Inter). See 00-foundations/typography.md and ADR 0017.",
   "font": {
     "family": {
       "$type": "fontFamily",
       "sans": {
         "$value": ["Satoshi", "Satoshi-Fallback", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI Variable", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif"],
-        "$description": "Primary face. Satoshi Variable (ITF-FFL, 300–900 weight axis, true italic VF). 'Satoshi-Fallback' is a metric-aligned Arial alias defined in globals.css to eliminate CLS on font swap. SF Pro on Apple, Segoe UI Variable on Windows 11, Roboto on Android."
-      },
-      "mono": {
-        "$value": ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"],
-        "$description": "Mono companion. JetBrains Mono (OFL). Used for numerics, code, terminal output, IDs, money, ETAs. Slashed zero verified."
-      },
-      "serif": {
-        "$value": ["Source Serif 4", "ui-serif", "Iowan Old Style", "Georgia", "Cambria", "Times New Roman", "serif"],
-        "$description": "Editorial pair. Source Serif 4 (Adobe, OFL, variable wght 200–900 + opsz 8–60). Reserved for longform marketing/blog/legal — never UI chrome."
-      },
-      "alt-sans": {
-        "$value": ["Inter", "InterVariable", "ui-sans-serif", "system-ui", "sans-serif"],
-        "$description": "Plan B sans. Inter (OFL). Wired via [data-font='inter'] override in globals.css. Used as the swap if (a) ITF licensing changes, (b) Cyrillic/Greek market expansion, (c) Windows ClearType QA fails at 12–14px."
+        "$description": "The only family. Satoshi Variable (ITF-FFL, 300–900 weight axis, true italic VF). 'Satoshi-Fallback' is a metric-aligned Arial alias defined in globals.css to eliminate CLS on font swap. SF Pro on Apple, Segoe UI Variable on Windows 11, Roboto on Android. v0.10 — Satoshi is now the sole carrier; mono / serif / editorial moments lean on OpenType feature flags (tnum, lnum, zero, calt, liga, ss01-04, case) rather than separate families."
       }
     },
     "weight": {
@@ -82,7 +70,7 @@
       "ui": { "$value": 1.40, "$description": "h4/h5/h6, caption, label tiers. UI rhythm." },
       "normal": { "$value": 1.50, "$description": "Body (16px). Peer consensus default for screen body." },
       "body-comfortable": { "$value": 1.55, "$description": "Body sm/md and body lg. Per-size tuning above 1.50 for comfort." },
-      "relaxed": { "$value": 1.65, "$description": "Longform prose (Source Serif 4 body). Editorial reading." },
+      "relaxed": { "$value": 1.65, "$description": "Longform prose (Satoshi at editorial scale). Editorial reading rhythm — wider than UI body to slow the eye." },
       "loose": { "$value": 1.80, "$description": "Reserved. Not used in current presets." }
     },
     "tracking": {
@@ -100,7 +88,7 @@
       "wider": { "$value": { "value": 0.012, "unit": "em" }, "$description": "micro (12px), eyebrow.sans tier letter-tuning." },
       "cap-eyebrow": { "$value": { "value": 0.10, "unit": "em" }, "$description": "Sans uppercase eyebrow at 12px. Butterick band 0.05–0.12em compliant." },
       "cap-overline": { "$value": { "value": 0.05, "unit": "em" }, "$description": "Light all-caps tracking — chart axis labels, secondary uppercase." },
-      "cap-mono": { "$value": { "value": 0.16, "unit": "em" }, "$description": "Mono uppercase tracked. The v0.4 system-metadata signature ('SYSTEM V0.5 LIVE')." }
+      "cap-mono": { "$value": { "value": 0.16, "unit": "em" }, "$description": "Wide uppercase tracked. The v0.4 system-metadata signature ('SYSTEM V0.10 LIVE'). v0.10 — paired with Satoshi (calt off + tnum on) instead of a separate mono family." }
     }
   }
 }

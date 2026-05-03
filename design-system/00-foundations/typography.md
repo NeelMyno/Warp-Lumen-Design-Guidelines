@@ -1,8 +1,8 @@
 ---
 name: Typography
 type: foundation
-version: 0.5.0
-last_updated: 2026-05-02
+version: 0.10.0
+last_updated: 2026-05-03
 audience: [designer, engineer, writer, llm-agent]
 related:
   - ./principles.md
@@ -13,32 +13,36 @@ related:
   - ../../research/satoshi-typography.md
   - ../../_meta/decisions/0006-satoshi-jetbrains-pairing.md
   - ../../_meta/decisions/0010-typography-v05.md
+  - ../../_meta/decisions/0017-satoshi-only-typography-v010.md
 ---
 
 # Lumen Typography
 
 > Lumen is the typographic spine of Warp's UI. Every word the user reads — KPI, error, lane name, button — is set in this system. The principles are simple: **type does the hierarchy, numbers align in columns, and one italic word is allowed per page.** Everything else is restraint.
 
-This is the canonical reference. Tokens are in [`01-tokens/primitives/typography.tokens.json`](../01-tokens/primitives/typography.tokens.json) and [`01-tokens/semantic/type.tokens.json`](../01-tokens/semantic/type.tokens.json). The research that shaped these decisions lives in [`research/satoshi-typography.md`](../../research/satoshi-typography.md). The why is in [ADR 0006](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md) and [ADR 0010](../../_meta/decisions/0010-typography-v05.md).
+This is the canonical reference. Tokens are in [`01-tokens/primitives/typography.tokens.json`](../01-tokens/primitives/typography.tokens.json) and [`01-tokens/semantic/type.tokens.json`](../01-tokens/semantic/type.tokens.json). The research that shaped these decisions lives in [`research/satoshi-typography.md`](../../research/satoshi-typography.md). The why is in [ADR 0010](../../_meta/decisions/0010-typography-v05.md) (the v0.5 scale + curves + presets) and [ADR 0017](../../_meta/decisions/0017-satoshi-only-typography-v010.md) (the v0.10 collapse to a single typeface). [ADR 0006](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md) is the historical pairing decision and is now superseded.
 
 ---
 
-## 1. Faces
+## 1. The face — Satoshi, alone
+
+Lumen ships **one typeface**: Satoshi Variable. UI, display, body, numerics, code, and editorial moments all ride the same family — separated by weight, size, tracking, and OpenType feature flags rather than by family.
 
 | Face | Use | License | File |
 |---|---|---|---|
-| **Satoshi Variable** | Primary UI + display, sans | ITF-FFL — free, self-hosted, do NOT redistribute | `Satoshi-Variable.woff2` (wght 300–900), `Satoshi-VariableItalic.woff2` |
-| **JetBrains Mono** | Numerics, code, terminal, IDs, money, ETAs | OFL | served via `next/font/google` |
-| **Source Serif 4** | Editorial longform only — `/blog`, `/changelog`, `/press`, legal | OFL | optional load on prose routes |
-| **Inter** (Plan B) | Emergency swap if (a) ITF licensing changes, (b) Cyrillic/Greek expansion, (c) Windows ClearType QA fails | OFL | wired via `[data-font="inter"]` override |
+| **Satoshi Variable** | Every job — UI, display, body, numerics, code, editorial | ITF-FFL — free, self-hosted, do NOT redistribute | `Satoshi-Variable.woff2` (wght 300–900), `Satoshi-VariableItalic.woff2` |
 
 **Why Satoshi.** Geometric Swiss-modernist sans. Subtle humanist details (single-storey alternates available via stylistic set). Designed by Deni Anggara at Indian Type Foundry. Reads "modern operator" — what Warp is. Plus it's free.
 
-**Why JetBrains Mono.** Closest mono companion to Satoshi: same geometric DNA, x-height match, disambiguated `0/O 1/l/I` for terminal-adjacent contexts. Slashed zero is verified.
+**Why one face.** Through v0.9 Lumen ran four families (Satoshi + JetBrains Mono + Source Serif 4 + Plan-B Inter). v0.10 collapsed to Satoshi alone — see [ADR 0017](../../_meta/decisions/0017-satoshi-only-typography-v010.md). Three reasons:
 
-**Why Source Serif 4 only for editorial.** Source Serif 4 has the `opsz` (optical-size) axis — at 18px it draws warm and humanist; at 49px it sharpens for headlines. We never use serif in product UI. We do use it for blog body, where the warmth pays off.
+1. **Brand discipline.** Single-typeface systems read as more confident, especially under a brutalist-leaning aesthetic where restraint is the voice.
+2. **Payload.** ~40 KB saved on every page that previously hit the JetBrains Mono codepath.
+3. **One license to track.** ITF-FFL on Satoshi. No OFL JetBrains Mono distribution, no OFL Source Serif 4 distribution, no Inter wiring to maintain.
 
-**Plan B is wired, not aspirational.** Toggling `[data-font="inter"]` on the root flips the whole system to Inter Variable in one render. Do this if QA flags Windows hinting issues at 12–14px or if we expand into Cyrillic/Greek markets. See [ADR 0006](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md) §Plan B switch.
+**No fallback typeface is wired.** Through v0.9 the system had `html[data-font="inter"]` as an emergency swap. v0.10 retired that toggle. If a hostile rendering environment ever forces a non-Satoshi swap, raise a new ADR before reintroducing a fallback family.
+
+**Self-hosting note.** Per ITF-FFL: do not commit Satoshi font files to a public repository. The audit-dashboard ships them in `audit-dashboard/src/fonts/` (Latin subset) under the project's existing self-hosting setup; that directory must remain out of public mirrors.
 
 ---
 
@@ -50,7 +54,7 @@ This is the canonical reference. Tokens are in [`01-tokens/primitives/typography
 11 · 12 · 13 · 14 · 15 · 16 · 17 · 18 · 20 · 22 · 25 · 28 · 31 · 36 · 39 · 44 · 49 · 56 · 61 · 72 · 76 · 84 · 96 · 112 · 128
 ```
 
-Floor-to-ceiling, every step you'd ever need. **Designers and engineers must reach for the closest size on this scale, never an in-between value.** v0.4 introduced 84/96/112/128 to honor the brutalist hero treatment; v0.5 codifies 11/17/22/28/36/44/56/72 so cross-platform builds match the web.
+Floor-to-ceiling, every step you'd ever need. **Designers and engineers must reach for the closest size on this scale, never an in-between value.** v0.4 introduced 84/96/112/128 to honor the brutalist hero treatment; v0.5 codified 11/17/22/28/36/44/56/72 so cross-platform builds match the web; v0.10 leaves the scale unchanged.
 
 ### Why 1.25 (and not 1.2 or 1.333)
 - 1.125 is too tight — display sizes don't get visual lift.
@@ -91,7 +95,7 @@ Display tightens as size grows. Body relaxes for screen comfort. Each value is g
 | UI rhythm | 13–17px (h4/h5/h6, label, caption, micro) | 1.40 | |
 | Body | 16px | 1.50 | Peer consensus default |
 | Body comfortable | 14px / 16px / 18px (size-tuned) | 1.55 | Per-size tuning above 1.50 for screen comfort |
-| Editorial relaxed | 18px (Source Serif 4) | 1.65 | Longform reading |
+| Editorial relaxed | 18px (Satoshi at editorial scale) | 1.65 | Longform reading rhythm — wider than UI body to slow the eye |
 | Compact-table | 13–15px (dense data UI) | 1.18 | Reserved — only for high-density operator views |
 | Uppercase | 11–12px (caps eyebrow, overline) | 1.30 | Caps need slightly looser leading than mixed-case |
 
@@ -119,13 +123,13 @@ Below 14px, tracking goes slightly positive for legibility. Above 20px, it goes 
 | 12px MONO ALL CAPS (eyebrow.mono) | +0.16em | `tracking.cap-mono` |
 | 11px ALL CAPS (overline) | +0.05em | `tracking.cap-overline` |
 
-**The cap-mono 0.16em tracking is the v0.4 system-metadata signature.** `[•] SYSTEM V0.5 LIVE`, `@ DIGITAL HQ / GLOBAL ACCESS`, `INVITES IN:`. It's what makes Lumen sound like a freight Bloomberg terminal.
+**The cap-mono 0.16em tracking is the v0.4 system-metadata signature.** `[•] SYSTEM V0.10 LIVE`, `@ DIGITAL HQ / GLOBAL ACCESS`, `INVITES IN:`. v0.10 carries this with Satoshi (calt off, tnum on, case on) instead of a separate mono family — the rhythm comes from the tracking and feature flags, not the typeface.
 
 ---
 
 ## 6. Semantic preset map
 
-Components consume **semantic presets**, never primitives. Every preset bundles family + size + weight + leading + tracking (and OpenType features where relevant) into a single token in [`semantic/type.tokens.json`](../01-tokens/semantic/type.tokens.json).
+Components consume **semantic presets**, never primitives. Every preset bundles family + size + weight + leading + tracking (and OpenType features where relevant) into a single token in [`semantic/type.tokens.json`](../01-tokens/semantic/type.tokens.json). v0.10 — every preset's `fontFamily` resolves to `{font.family.sans}` (Satoshi); the preset name is the contract, the feature flags carry the role.
 
 ### Display (marketing impact)
 
@@ -170,59 +174,63 @@ Components consume **semantic presets**, never primitives. Every preset bundles 
 
 ### Eyebrow / overline (uppercase tracked)
 
-| Preset | Size | Family | Tracking | Use |
-|---|---|---|---|---|
-| `eyebrow.sans` | 12px | Sans Medium | 0.10em UPPER | Section eyebrow above display/heading. |
-| `eyebrow.mono` | 12px | Mono Medium | 0.16em UPPER | **System-metadata signature** — `[•] SYSTEM V0.5 LIVE`. |
-| `overline` | 11px | Sans Medium | 0.05em UPPER | Chart axis, sub-eyebrow secondary uppercase. |
+| Preset | Size | Carrier | Tracking | Feature flags | Use |
+|---|---|---|---|---|---|
+| `eyebrow.sans` | 12px | Satoshi Medium | 0.10em UPPER | `kern 1, liga 1` | Section eyebrow above display/heading. |
+| `eyebrow.mono` | 12px | Satoshi Medium | 0.16em UPPER | `tnum 1, calt 0, zero 1, case 1` | **System-metadata signature** — `[•] SYSTEM V0.10 LIVE`. |
+| `overline` | 11px | Satoshi Medium | 0.05em UPPER | `kern 1, liga 1` | Chart axis, sub-eyebrow secondary uppercase. |
+
+`eyebrow.mono` retains its name for component-API stability and signals the feature-flag bundle (calt off, tnum on, case-sensitive forms on, wide tracking) — not a separate family.
 
 ### Tabular data — Lumen's signature
 
-The voice contract says "always use tabular monospace for numbers in UI" (see [voice-and-tone.md](./voice-and-tone.md#numbers)). These presets enforce it at the token level via `font-feature-settings: 'tnum' 1, 'lnum' 1, 'zero' 1` baked in.
+The voice contract says "always use tabular numerics for numbers in UI" (see [voice-and-tone.md](./voice-and-tone.md#numbers)). These presets enforce it at the token level via `font-feature-settings: 'tnum' 1, 'lnum' 1, 'zero' 1` baked in — Satoshi's `tnum` table preserves column alignment without needing a separate monospaced face.
 
-| Preset | Size | Use |
-|---|---|---|
-| `data.lg` | 20px Mono Medium | Stat secondary metric, prominent table cell. |
-| `data.md` | 16px Mono Medium | Default tabular cell — money, weight, ETA. |
-| `data.sm` | 14px Mono Regular | Compact table — `DRY-93H7` IDs, timestamps. |
+| Preset | Size | Weight | Feature flags | Use |
+|---|---|---|---|---|
+| `data.lg` | 20px | Medium 500 | `tnum 1, lnum 1, zero 1` | Stat secondary metric, prominent table cell. |
+| `data.md` | 16px | Medium 500 | `tnum 1, lnum 1, zero 1` | Default tabular cell — money, weight, ETA. |
+| `data.sm` | 14px | Regular 400 | `tnum 1, lnum 1, zero 1` | Compact table — `DRY-93H7` IDs, timestamps. |
 
 ### Metric (Big-number KPI — Stat primitive)
 
-| Preset | Size | Weight | Use |
-|---|---|---|---|
-| `metric.xl` | 61px Mono Bold | Hero KPI — landing-page revenue counter. |
-| `metric.lg` | 49px Mono Bold | Page-level KPI block. |
-| `metric.md` | 31px Mono Bold | Card-level KPI (Stat default). |
-| `metric.sm` | 20px Mono Semibold | Sidebar KPI, table summary row. |
+| Preset | Size | Weight | Feature flags | Use |
+|---|---|---|---|---|
+| `metric.xl` | 61px | Bold 700 | `tnum 1, lnum 1, zero 1` | Hero KPI — landing-page revenue counter. |
+| `metric.lg` | 49px | Bold 700 | `tnum 1, lnum 1, zero 1` | Page-level KPI block. |
+| `metric.md` | 31px | Bold 700 | `tnum 1, lnum 1, zero 1` | Card-level KPI (Stat default). |
+| `metric.sm` | 20px | Semibold 600 | `tnum 1, lnum 1, zero 1` | Sidebar KPI, table summary row. |
 
 ### Code
 
-| Preset | Size | Use |
-|---|---|---|
-| `code.inline` | 0.9286em (relative) | Inline `code` in body. Programming ligatures ON. |
-| `code.block` | 13px | Code snippet/sample. Programming ligatures ON. |
-| `code.terminal` | 13px | Terminal output, diff view. **Ligatures OFF** so `==` reads as two `=`. |
+| Preset | Size | Feature flags | Use |
+|---|---|---|---|
+| `code.inline` | 0.9286em (relative) | `calt 1, liga 1, zero 1` | Inline `code` in body. Programming ligatures ON. |
+| `code.block` | 13px | `calt 1, liga 1, zero 1` | Code snippet/sample. Programming ligatures ON. |
+| `code.terminal` | 13px | `calt 0, liga 0, zero 1, tnum 1` | Terminal output, diff view. **Ligatures OFF** so `==` reads as two `=`. |
 
-The 0.9286em ratio (= 13/14) makes inline mono optically match the surrounding sans body — a Primer/GitHub trick that prevents inline code from popping above body x-height.
+The 0.9286em ratio (= 13/14) is a Primer/GitHub trick that keeps inline code at a slightly smaller cap-height than surrounding body so it reads as set-apart without breaking line rhythm. v0.10 — same ratio, single family.
 
-### Editorial prose (Source Serif 4)
+### Editorial prose (Satoshi at editorial scale)
 
-| Preset | Size | Use |
-|---|---|---|
-| `prose.body` | 18px Serif Regular | Longform reading body. 60–75ch measure. |
-| `prose.lead` | 22px Serif Regular | Longform lead paragraph. |
-| `prose.title` | 49px Serif Semibold | Article title. |
-| `prose.subtitle` | 25px Serif Regular | Article subtitle, section heading inside prose. |
+| Preset | Size | Weight | Use |
+|---|---|---|---|
+| `prose.body` | 18px | Regular 400 | Longform reading body. 60–65 ch measure. Leading 1.65, ligatures + proportional figures on. |
+| `prose.lead` | 22px | Regular 400 | Longform lead paragraph (under article title). |
+| `prose.title` | 49px | Semibold 600 | Article title. |
+| `prose.subtitle` | 25px | Regular 400 | Article subtitle, section heading inside prose. |
+
+v0.10 — Satoshi-only editorial. The serif voice (Source Serif 4) was retired by ADR 0017; if a longform surface ever genuinely needs a true serif, raise a new ADR.
 
 ### Utility
 
-| Preset | Size | Use |
-|---|---|---|
-| `caption` | 13px Sans Regular | Photo caption, image alt visible, helper text. |
-| `micro` | 12px Sans Medium | Badge body, timestamp, tooltip. |
-| `kbd` | 11px Mono Medium | Keyboard shortcut glyph (always inside `.lumen-kbd`). |
-| `quote` | 31px Sans Semibold | Block quote / testimonial. |
-| `display-italic-accent` | 96px Sans Bold *italic* | The one-italic-word-per-page moment. |
+| Preset | Size | Weight | Use |
+|---|---|---|---|
+| `caption` | 13px | Regular 400 | Photo caption, image alt visible, helper text. |
+| `micro` | 12px | Medium 500 | Badge body, timestamp, tooltip. |
+| `kbd` | 11px | Medium 500 | Keyboard shortcut glyph (always inside `.lumen-kbd`). Carries `tnum 1, calt 0, zero 1`. |
+| `quote` | 31px | Semibold 600 | Block quote / testimonial. |
+| `display-italic-accent` | 96px | Bold *italic* | The one-italic-word-per-page moment. |
 
 ---
 
@@ -242,20 +250,20 @@ The display-italic-accent preset enables the brutalist "one italic word per hero
 
 From [voice-and-tone.md § Numbers](./voice-and-tone.md#numbers):
 
-- **Tabular monospace, always.** `data.*`, `metric.*`, and `body.tabular` presets bake this in via `font-feature-settings: 'tnum' 1, 'lnum' 1, 'zero' 1`.
+- **Tabular numerics, always.** `data.*`, `metric.*`, and `body.tabular` presets bake this in via `font-feature-settings: 'tnum' 1, 'lnum' 1, 'zero' 1`. Satoshi's tabular figures preserve column alignment without a separate monospaced face.
 - **Money:** `$262`, `$1,243.50`. Currency symbol attached to first digit; no space.
 - **Weights:** `520 lb`, `2,100 lb`. Unit detached, lowercase.
 - **Time:** `04:18`, `Today · 9:30 AM`. 24-hour for operator UI; 12-hour for marketing.
 - **ETAs:** `Today · 04:18`, `Tomorrow · 12:30`, `Wed 10:00`.
 - **Percentages:** `98.2%` operator (one decimal); `98%` marketing (integer).
 
-Inline figure runs in regular sans body (e.g., reading "We saved 18.3% on Q3 lanes" in a paragraph) should use `body.tabular` so the percentages align with any preceding figures. Don't switch to mono mid-sentence.
+Inline figure runs in regular sans body (e.g., reading "We saved 18.3% on Q3 lanes" in a paragraph) should use `body.tabular` so the percentages align with any preceding figures. Don't switch to a "mono" preset mid-sentence — the `eyebrow.mono` / `code.*` / `data.*` presets are for whole-line contexts, not inline emphasis.
 
 ---
 
 ## 9. OpenType features
 
-Per-context feature stack. Set globally on `html, body` and overridden on utility classes. The full feature inventory and verification status is in [ADR 0010](../../_meta/decisions/0010-typography-v05.md).
+Per-context feature stack. Set globally on `html, body` and overridden on utility classes. The full feature inventory and verification status is in [ADR 0010 § Verification](../../_meta/decisions/0010-typography-v05.md#verification).
 
 | Context | Feature stack |
 |---|---|
@@ -266,8 +274,13 @@ Per-context feature stack. Set globally on `html, body` and overridden on utilit
 | Terminal / diff / source viewer | `calt 0, liga 0, zero 1, tnum 1` (ligatures OFF) |
 | Mono uppercase tracked | `calt 0, zero 1, case 1` (case-sensitive forms enabled) |
 | Mathematical fractions | `numr 1` on `<sup>`, `dnom 1` on `<sub>` |
+| Editorial prose | `kern 1, liga 1, pnum 1` (proportional figures for narrative rhythm) |
 
-> **⚠️ Stylistic sets (`ss01`, `ss02`, `cv11`)** are NOT applied globally in v0.5. The tags exist in Satoshi but ITF does not publish their mapping. They were declared in the v0.4 globals.css as guesses; v0.5 strips them until visual QA confirms the alternate. Re-add with a code comment recording verification date and sample.
+> **⚠️ Stylistic sets (`ss01`, `ss02`, `ss03`, `ss04`)** verified against Satoshi GSUB on 2026-05-02. Available as opt-in utilities (`.lumen-display-alt`, `.lumen-alt-q`); never enabled globally — single-storey alternates are a brand-level decision, not a default.
+>
+> **⚠️ `zero` (slashed-zero) is NOT in Satoshi's GSUB.** The declaration is kept in `.lumen-mono*` as a forward-compatibility hint; runtime alignment relies on Satoshi's already-disambiguated default `0` glyph + `font-variant-numeric: tabular-nums slashed-zero` for browsers that synthesize. Verified absent via fontTools 2026-05-02.
+>
+> **⚠️ `onum` (oldstyle figures) is NOT in Satoshi's GSUB.** v0.10 — `.prose-lumen` body uses `pnum` (proportional figures) instead; the previous `onum` declaration was a silent no-op.
 
 **Tabular nums via `font-variant-numeric` (preferred), not `font-feature-settings`.** The latter overrides the former — mixing them silently drops the property that lost. The `data.*` presets use both; `body.tabular` uses both. This is intentional, the inline `font-feature-settings` is the override; consumers should not also set `font-variant-numeric`.
 
@@ -275,10 +288,10 @@ Per-context feature stack. Set globally on `html, body` and overridden on utilit
 
 ## 10. Modern CSS techniques
 
-These ship in v0.5 globals.css.
+These ship in v0.5+ globals.css.
 
 ### `font-optical-sizing: auto` at root
-Free win. Harmless on Satoshi (no opsz axis). Beneficial on Source Serif 4 (auto-applies the right cut at the rendered size).
+Free win. Harmless on Satoshi (no opsz axis currently). Reserved for a future Satoshi build that ships an `opsz` axis — automatically picks the right cut at the rendered size.
 
 ### `text-wrap: balance` on `display.*` and `heading.h1/h2/h3`
 Browser balances short headlines so the last line doesn't dangle alone. 91.44% global support. Headlines look better at zero cost.
@@ -298,7 +311,7 @@ Hero scales smoothly between viewports without media queries. Body and headings 
 ```
 
 ### Metric-aligned fallback (`Satoshi-Fallback`)
-Eliminates CLS on font-swap. Defined in globals.css as an `@font-face` aliasing Arial with `size-adjust`, `ascent-override`, and `descent-override` tuned to Satoshi metrics. When Satoshi is loading, the system falls through to "Satoshi-Fallback" → renders Arial scaled to occupy Satoshi's box → swaps in cleanly.
+Eliminates CLS on font-swap. Defined in globals.css as an `@font-face` aliasing Arial with `size-adjust`, `ascent-override`, and `descent-override` tuned to Satoshi metrics. When Satoshi is loading, the system falls through to "Satoshi-Fallback" → renders Arial scaled to occupy Satoshi's box → swaps in cleanly. Verified zero-CLS on cold load via `pnpm cls`.
 
 ---
 
@@ -355,16 +368,14 @@ Full table in [`03-platforms/android-native/README.md`](../03-platforms/android-
 
 | Asset | Size (woff2 Latin) | Strategy |
 |---|---|---|
-| Satoshi-Variable | ~85 KB | preload, swap |
-| Satoshi-VariableItalic | ~85 KB | lazy (no preload — most pages have no above-the-fold italic) |
-| JetBrains Mono Regular | ~28 KB | preload only on routes with above-the-fold mono content |
-| Source Serif 4 Variable | ~115 KB | only loaded on /blog, /changelog, /press, legal |
+| Satoshi-Variable | ~85 KB | preload, `font-display: swap` |
+| Satoshi-VariableItalic | ~85 KB | lazy (no preload — most pages have no above-the-fold italic; loads on first `<em>` paint) |
 
-Total font budget per landing page: ~115 KB (Satoshi VF + JetBrains Mono Regular). Well under the 150 KB-per-page font budget recommended by web.dev.
+Total font budget per page: ≤ 90 KB (Satoshi VF Latin only). Well under the 150 KB-per-page font budget recommended by web.dev. v0.10 — JetBrains Mono (~28 KB) and Source Serif 4 (~115 KB on prose routes) are no longer loaded; numerics ride Satoshi's `tnum` table and editorial uses Satoshi at larger sizes.
 
 `unicode-range` subsetting: Latin only by default. Latin Extended-A only on routes that need Polish/Turkish/Czech/Croatian (none currently).
 
-`font-display`: `swap` for Satoshi (accept FOUT, keep LCP fast). Italic VF lazy-loads on first `<em>` paint.
+`font-display`: `swap` for Satoshi (accept FOUT, keep LCP fast).
 
 `font-synthesis: none`: enforced globally so the browser cannot fake italic from upright Regular or fake Bold from interpolated wght. Both real italic VF and full Bold weight axis are shipped, so there's nothing for the browser to fake — this rule prevents drift.
 
@@ -384,12 +395,12 @@ Total font budget per landing page: ~115 KB (Satoshi VF + JetBrains Mono Regular
 
 ### Don't
 
-- Don't write `text-[var(--type-31)] font-bold tracking-[var(--tracking-tight)]` — that's bypassing the semantic layer. Lint flags this in v0.5.
+- Don't write `text-[var(--type-31)] font-bold tracking-[var(--tracking-tight)]` — that's bypassing the semantic layer. Lint flags this.
 - Don't pick a leading or tracking ad-hoc — use the curve.
 - Don't apply `tnum` globally — it widens digit spacing and looks wrong in marketing prose. Apply via `data.*` / `metric.*` / `body.tabular` only.
 - Don't enable programming ligatures in terminal/diff views — operators must see `==` as two `=` signs.
 - Don't use Light (300). It was dropped in v0.5.
-- Don't add a third typeface. Satoshi + JetBrains Mono + Source Serif 4 is the cap.
+- Don't add a second typeface. Lumen is Satoshi-only post-v0.10. If you genuinely need a different family, raise a new ADR.
 - Don't synthesize italic or bold (`font-synthesis: none`). If you need a weight or italic, ship the real file.
 - Don't push tracking past -0.025em on display. Inter formula convergence; tighter has no benefit.
 - Don't use `font-feature-settings` and `font-variant-numeric` together — they fight; the former wins and silently drops what the latter set. Use one.
@@ -402,7 +413,7 @@ Total font budget per landing page: ~115 KB (Satoshi VF + JetBrains Mono Regular
 From [voice-and-tone.md](./voice-and-tone.md): "Declarative. Fragmenting. Numerate."
 
 - **Declarative.** Use `display.xl/2xl` Bold over headings stacked — one statement headline, not three. Pair with `lead` 20px below. Don't use `display.hero` Black 900 unless you're making a one-word brand moment.
-- **Fragmenting.** Use `eyebrow.mono` short tracked-out caps to break sections without subheading them — `[•] OPERATE`, `[•] SHIP`, `[•] PAY`. Mono caps signal "system metadata," exactly the freight-Bloomberg-terminal voice.
+- **Fragmenting.** Use `eyebrow.mono` short tracked-out caps to break sections without subheading them — `[•] OPERATE`, `[•] SHIP`, `[•] PAY`. Tracked-out Satoshi caps with calt off + tnum on signal "system metadata," exactly the freight-Bloomberg-terminal voice.
 - **Numerate.** Use `metric.lg` for the KPI moment, `data.md` for the column moment. Money, weight, ETA — every number tabular and aligned. Never let prose hide a number.
 
 If you're doing it right, the page should read like a senior operator's slide deck, not a marketing intern's landing page. If three sentences could become one number-led sentence and an `eyebrow.mono` line, do that.
@@ -415,6 +426,7 @@ If you're doing it right, the page should read like a senior operator's slide de
 - [Voice and tone](./voice-and-tone.md) — how Lumen sounds; numbers contract
 - [Accessibility](./accessibility.md) — WCAG 2.2 AA floor; contrast pairs
 - [Motion language](./motion-language.md) — type doesn't move; only state pulses
-- [ADR 0006 — Satoshi + JetBrains Mono pairing](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md)
-- [ADR 0010 — Typography v0.5 system upgrade](../../_meta/decisions/0010-typography-v05.md)
+- [ADR 0017 — Satoshi-only typography (v0.10)](../../_meta/decisions/0017-satoshi-only-typography-v010.md) — current state
+- [ADR 0010 — Typography v0.5 system upgrade](../../_meta/decisions/0010-typography-v05.md) — the scale, curves, and presets (still in force)
+- [ADR 0006 — Satoshi + JetBrains Mono pairing](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md) — superseded; historical record of the four-family era
 - [Typography research](../../research/satoshi-typography.md)

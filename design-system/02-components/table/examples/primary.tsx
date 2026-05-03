@@ -182,7 +182,7 @@ export function TableHeadCell({
         "[[data-density=cozy]_&]:h-12",
         ALIGN[align],
         numeric
-          ? "font-[var(--font-mono)] [font-variant-numeric:tabular-nums_lining-nums_slashed-zero]"
+          ? "[font-variant-numeric:tabular-nums_lining-nums_slashed-zero] [font-feature-settings:'tnum'_1,'lnum'_1,'zero'_1]"
           : "",
         // Density-driven horizontal padding.
         "[[data-density=compact]_&]:px-3",
@@ -228,7 +228,7 @@ export function TableCell({
         ALIGN[finalAlign],
         "text-[var(--color-text-primary)] align-middle",
         numeric
-          ? "font-[var(--font-mono)] [font-variant-numeric:tabular-nums_lining-nums_slashed-zero]"
+          ? "[font-variant-numeric:tabular-nums_lining-nums_slashed-zero] [font-feature-settings:'tnum'_1,'lnum'_1,'zero'_1]"
           : "",
         header ? "font-medium text-[var(--color-text-primary)]" : "",
         className ?? "",

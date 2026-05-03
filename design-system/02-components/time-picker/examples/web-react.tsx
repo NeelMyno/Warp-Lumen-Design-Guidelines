@@ -125,8 +125,8 @@ export function TimePicker({
         className="text-center"
         style={{
           width: 28,
-          fontFamily: "var(--font-mono)",
           fontVariantNumeric: "tabular-nums lining-nums",
+          fontFeatureSettings: '"tnum" 1, "lnum" 1',
         }}
       />
       <span
@@ -150,8 +150,8 @@ export function TimePicker({
         className="text-center"
         style={{
           width: 28,
-          fontFamily: "var(--font-mono)",
           fontVariantNumeric: "tabular-nums lining-nums",
+          fontFeatureSettings: '"tnum" 1, "lnum" 1',
         }}
       />
       {formatRef.current === "12h" && (

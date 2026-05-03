@@ -71,7 +71,7 @@ export function RateTicker({
         {repeated.map((r, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 font-[var(--font-mono)] [font-variant-numeric:tabular-nums_lining-nums_slashed-zero] text-[var(--type-data-sm)]"
+            className="flex items-center gap-2 [font-variant-numeric:tabular-nums_lining-nums_slashed-zero] [font-feature-settings:'tnum'_1,'lnum'_1,'zero'_1] text-[var(--type-data-sm)]"
           >
             <span className="text-[var(--color-text-secondary)]">{r.from}</span>
             <span aria-hidden className="text-[var(--color-text-tertiary)]">

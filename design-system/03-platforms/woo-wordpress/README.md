@@ -59,8 +59,7 @@ Drop `Satoshi-Variable.woff2` (and the italic) in `your-theme/fonts/`.
     },
     "typography": {
       "fontFamilies": [
-        { "fontFamily": "var(--font-sans)", "name": "Sans", "slug": "sans" },
-        { "fontFamily": "var(--font-mono)", "name": "Mono", "slug": "mono" }
+        { "fontFamily": "var(--font-sans)", "name": "Satoshi", "slug": "sans" }
       ]
     }
   }

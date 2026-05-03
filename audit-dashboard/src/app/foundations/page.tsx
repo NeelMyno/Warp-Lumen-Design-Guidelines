@@ -54,7 +54,7 @@ export default function FoundationsPage() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Badge status="accent" leadingDot>v0.4.0 · Obsidian Lime</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
-            <Badge status="neutral">Satoshi · JetBrains Mono</Badge>
+            <Badge status="neutral">Satoshi · single-typeface system</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
         </header>
@@ -138,7 +138,7 @@ export default function FoundationsPage() {
           id="typography"
           eyebrow="02 · Foundations"
           title="Typography"
-          description="Satoshi for UI and display. JetBrains Mono for any number, ID, money, or code. v0.4 pushes the display ceiling so brutalist headlines breathe at hero scale. Italic accents reserved for one signature word."
+          description="Satoshi does everything. UI, display, numerics, code, editorial — one typeface, one weight ladder, one set of OpenType features. v0.10 retired JetBrains Mono and Source Serif 4; numeric and code moments now ride Satoshi's tabular-nums + slashed-zero feature set. The display ceiling stays at 128 px so brutalist headlines breathe; italic accents stay reserved for one signature word."
         >
           <Card padding="lg">
             <div className="flex flex-col gap-7 lumen-row-divider">
@@ -161,7 +161,7 @@ export default function FoundationsPage() {
             </div>
           </Card>
 
-          <SubSection title="Numerics — JetBrains Mono with tabular-nums + slashed-zero">
+          <SubSection title="Numerics — Satoshi with tabular-nums + slashed-zero">
             <Card padding="lg">
               <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 <div>
@@ -192,12 +192,12 @@ export default function FoundationsPage() {
             </Card>
           </SubSection>
 
-          <SubSection title="Pairings" description="Recommended companions to Satoshi.">
+          <SubSection title="One typeface, every job" description="v0.10 collapsed Lumen to a single typeface. Satoshi covers UI, display, numerics, code, and editorial — separated by weight, size, and OpenType feature flags rather than by family.">
             <Card padding="none">
               <ul className="lumen-row-divider">
-                <PairRow primary="Satoshi" secondary="JetBrains Mono" use="Default — UI + numerics + code. The recommended pair." note="ITF-FFL + OFL · free for commercial use" />
-                <PairRow primary="Satoshi" secondary="Source Serif 4" use="Editorial — long-form blog, marketing essays, italic display moments." note="OFL · variable optical-size axis" />
-                <PairRow primary="Inter"   secondary="JetBrains Mono" use="Plan B — if Satoshi licensing or Windows ClearType ever blocks." note="OFL · widest hinting on Windows" />
+                <PairRow primary="Satoshi" secondary="UI · display" use="Body, headings, marketing display, controls. Weights 300–900 with italic VF. The default everywhere." note="ITF-FFL · free for commercial use · self-hosted" />
+                <PairRow primary="Satoshi" secondary="numerics + code" use=".lumen-mono / .text-data-* / .text-code-* — Satoshi with calt off, tabular-nums + slashed-zero on. Reads as instrument-panel data without leaving the family." note="OpenType: tnum · lnum · zero · case · pnum" />
+                <PairRow primary="Satoshi" secondary="editorial" use=".prose-lumen / .text-prose-* — Satoshi at editorial scale with ligatures + proportional figures. Italic accents handle one-word display moments." note="OpenType: liga · pnum · ss01–ss04 · italic VF" />
               </ul>
             </Card>
           </SubSection>
@@ -518,7 +518,7 @@ export default function FoundationsPage() {
             </div>
           </SubSection>
 
-          <SubSection title="Mono uppercase tracked labels" description="Every system metadata line uses .lumen-mono-cap — JetBrains Mono, +0.16em tracking, uppercase. Reads as 'instrument-panel signal'.">
+          <SubSection title="Mono uppercase tracked labels" description="Every system metadata line uses .lumen-mono-cap — Satoshi at +0.16em tracking, uppercase, calt off, tnum on. Reads as 'instrument-panel signal' without a second typeface.">
             <Card padding="lg">
               <div className="flex flex-col gap-3 lumen-mono-cap text-[var(--text-tertiary)]">
                 <div>SYSTEM V0.4 · LIVE</div>

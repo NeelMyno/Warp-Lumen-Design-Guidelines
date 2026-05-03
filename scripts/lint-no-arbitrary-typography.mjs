@@ -29,9 +29,11 @@ const FORBIDDEN = [
     msg: "Arbitrary leading class. Line-height is bundled into the semantic typography utility.",
   },
   {
-    // font-[var(--font-...)] but NOT --font-sans, --font-mono, --font-serif (root family vars).
-    re: /font-\[var\(--font-(?!sans\)|mono\)|serif\))[^\]]+\)\]/g,
-    msg: "Arbitrary font weight/family class. Weight is bundled into the semantic typography utility; family vars (--font-sans/mono/serif) are exempt.",
+    // font-[var(--font-...)] but NOT --font-sans (the only Lumen family root var post-v0.10 / ADR 0017).
+    // --font-mono / --font-serif / --font-alt-sans / --font-jetbrains were retired in v0.10
+    // and now flag — references in product code should use --font-sans (or a semantic typography utility).
+    re: /font-\[var\(--font-(?!sans\))[^\]]+\)\]/g,
+    msg: "Arbitrary font weight/family class. Weight is bundled into the semantic typography utility; only --font-sans is exempt (Lumen is Satoshi-only post-v0.10 / ADR 0017).",
   },
 ];
 

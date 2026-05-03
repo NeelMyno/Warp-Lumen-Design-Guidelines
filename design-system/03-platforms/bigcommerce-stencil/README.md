@@ -55,8 +55,9 @@ $card-backgroundColor: var(--surface-raised);
 $card-borderColor: var(--border-subtle);
 $card-borderRadius: var(--radius-card-default);
 
+// v0.10 — Lumen is Satoshi-only. Tabular numerics ride font-variant-numeric
+// + OpenType tnum/lnum/zero on the same family rather than a separate face.
 $body-font: var(--font-sans);
-$mono-font: var(--font-mono);
 ```
 
 ## Live primitives

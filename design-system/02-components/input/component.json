@@ -8,7 +8,7 @@
   "props": {
     "size":         { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
     "type":         { "type": "enum", "values": ["text", "email", "tel", "url", "search", "password", "number"], "default": "text", "optional": true },
-    "mono":         { "type": "boolean", "default": false, "optional": true, "description": "Render value in JetBrains Mono with tabular numerics. Use for IDs, ZIPs, codes, weights, money." },
+    "mono":         { "type": "boolean", "default": false, "optional": true, "description": "Render value with tabular numerics + slashed-zero (Satoshi tnum). Use for IDs, ZIPs, codes, weights, money. v0.10 — `mono` no longer switches typeface; the family stays Satoshi and the flag toggles the OpenType feature stack (tnum, lnum, zero) that puts characters on a tabular grid." },
     "disabled":     { "type": "boolean", "default": false, "optional": true },
     "readOnly":     { "type": "boolean", "default": false, "optional": true, "description": "Non-editable but focusable, copyable, and in tab order. Distinct from disabled." },
     "value":        { "type": "string", "optional": true },
@@ -81,6 +81,7 @@
   "related": ["Field", "Form", "Textarea", "Select", "ValidationMessage"],
   "changelog": [
     { "version": "0.1.0", "type": "Added",   "note": "Initial release." },
-    { "version": "0.6.0", "type": "Changed", "note": "Adopts the .lumen-field shell. Inner <input> renders bare; the wrapper paints the single focus ring. Removes text-base md:text-sm font-size override that fought Lumen's 14 px body floor. Adds readOnly distinct from disabled, autofill recipe, success/warning border tokens." }
+    { "version": "0.6.0", "type": "Changed", "note": "Adopts the .lumen-field shell. Inner <input> renders bare; the wrapper paints the single focus ring. Removes text-base md:text-sm font-size override that fought Lumen's 14 px body floor. Adds readOnly distinct from disabled, autofill recipe, success/warning border tokens." },
+    { "version": "0.10.0", "type": "Changed", "note": "`mono` prop no longer switches typeface — the family stays Satoshi and the flag toggles the OpenType feature stack (tabular-nums, lining-nums, slashed-zero) for column alignment. v0.10 retired JetBrains Mono system-wide." }
   ]
 }

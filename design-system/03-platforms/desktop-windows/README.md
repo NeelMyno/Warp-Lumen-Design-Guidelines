@@ -22,8 +22,9 @@ Add to your project's `Resources` folder.
     <ResourceDictionary.MergedDictionaries>
       <ResourceDictionary Source="Resources/LumenTokens.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+    <!-- v0.10 — Lumen is Satoshi-only. LumenMono / LumenSerif resources retired;
+         tabular numerics + editorial moments ride Satoshi's OpenType features. -->
     <FontFamily x:Key="LumenSans">ms-appx:///Assets/Fonts/Satoshi-Variable.ttf#Satoshi</FontFamily>
-    <FontFamily x:Key="LumenMono">ms-appx:///Assets/Fonts/JetBrainsMono-Variable.ttf#JetBrains Mono</FontFamily>
   </ResourceDictionary>
 </Application.Resources>
 ```
@@ -51,14 +52,10 @@ Add to your project's `Resources` folder.
 
 Satoshi is display-oriented and not deeply hinted for Windows GDI/ClearType. At 13–14 px UI sizes on 1080p displays, expect slight stem irregularity. **Mitigations:**
 
-1. **Recommended:** bump Windows-specific UI text to 14 px minimum.
-2. **Fallback:** detect Windows + low-DPI and switch to Inter via XAML resource:
+1. **Recommended:** bump Windows-specific UI text to 14 px minimum (Lumen's body floor) and pin DirectWrite ClearType rendering on. WinUI 3 honors this by default.
+2. **Optical-size axis:** if a future Satoshi build ships an `opsz` axis, wire it through `FontVariations` to favor the small-text instance at 12–14 px.
 
-```xml
-<FontFamily x:Key="LumenSansFallback">Inter, Segoe UI Variable, Segoe UI, sans-serif</FontFamily>
-```
-
-QA at 12–14 px on a 1080p Windows 10/11 VM during pre-release.
+QA at 12–14 px on a 1080p Windows 10/11 VM during pre-release. v0.10 retired the Inter Plan-B fallback — Lumen is Satoshi-only on every platform. If a hostile rendering environment ever forces a non-Satoshi swap, document it via a new ADR before reintroducing a fallback resource.
 
 ## Mica titlebar
 
@@ -231,10 +228,11 @@ Same rules as web. WinUI implementation:
 
 ### ClearType caveat for forms
 
-The Plan B Inter toggle from §"ClearType caveat" earlier in this README applies to form text too. At 13–14 px Satoshi on 1080p ClearType, value text and helper text can show stem irregularity. Mitigations:
+The Satoshi/ClearType caveat above applies to form text too. At 13–14 px Satoshi on 1080p ClearType, value text and helper text can show stem irregularity. Mitigations:
 
-1. **Bump form text to 14 px minimum** on Windows-targeted styles.
-2. **Switch to Inter** via `LumenSansFallback` resource — applied atomically to label, value, hint, error, and addon text via the `LumenSans` resource swap. Cross-reference [foundations/typography.md](../../00-foundations/typography.md) §1 Plan B.
+1. **Bump form text to 14 px minimum** on Windows-targeted styles — this is Lumen's body floor and the most common fix.
+2. **Pin ClearType + DirectWrite rendering** via XAML resources. WinUI 3 defaults are already correct; verify on shipped builds.
+3. **Last resort:** if Satoshi rendering ever proves unworkable for a Windows-only build, raise a new ADR before reintroducing a fallback family. v0.10 is single-typeface.
 
 ### Mica + acrylic compatibility
 

@@ -86,7 +86,7 @@ src/
 
 ## Performance
 
-- **Font payload budget:** 104 KB total (Satoshi Regular + Medium + Bold + JetBrains Mono Regular). Stay under 150 KB.
+- **Font payload budget:** ≤ 90 KB total — Satoshi Variable + Italic VF (~86 KB combined, gzipped ~34 KB). v0.10 retired JetBrains Mono so the system ships a single typeface; numerics ride Satoshi's tnum table. Stay under 150 KB.
 - Use `font-display: swap` for body weights; `font-display: optional` for display weights only used above the fold.
 - Subset Satoshi to Latin only unless you ship in markets needing Latin Extended.
 

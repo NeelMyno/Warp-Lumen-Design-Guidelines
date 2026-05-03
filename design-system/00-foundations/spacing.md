@@ -230,7 +230,7 @@ Per [`accessibility.md`](./accessibility.md) §Typography, reading copy is cappe
 
 | Token | Width | Use |
 |---|---|---|
-| `size.reading.narrow` | 60 ch | Prose body (Source Serif 4 longform). v0.8 — was `size.reading.60ch`. |
+| `size.reading.narrow` | 60 ch | Prose body (Satoshi at editorial scale, longform). v0.8 — was `size.reading.60ch`; v0.10 — Source Serif 4 retired (ADR 0017), narrow measure preserved for Satoshi editorial. |
 | `size.reading.default` | 65 ch | v0.8 — typographic sweet spot. The `.prose-lumen` wrapper consumes this. |
 | `size.reading.wide` | 75 ch | Editorial body cap; wider tolerance for sans body. v0.8 — was `size.reading.75ch`. |
 

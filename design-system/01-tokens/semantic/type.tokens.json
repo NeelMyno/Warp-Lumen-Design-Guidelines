@@ -1,6 +1,6 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "$description": "Lumen semantic typography presets — v0.5. Composes primitive tokens into single bundles that components consume. Six role groups: display (marketing impact), heading (app structure), body (paragraph), label (UI controls), data (tabular numerics — Lumen's signature), and editorial (longform prose). Plus the eyebrow / overline / caption / micro / kbd / code / metric utility presets. Read 00-foundations/typography.md for the full vocabulary, italic policy, and per-platform mapping.",
+  "$description": "Lumen semantic typography presets — v0.10. Composes primitive tokens into single bundles that components consume. Six role groups: display (marketing impact), heading (app structure), body (paragraph), label (UI controls), data (tabular numerics — Lumen's signature), and editorial (longform prose). Plus the eyebrow / overline / caption / micro / kbd / code / metric utility presets. v0.10 is single-typeface — every preset's fontFamily resolves to Satoshi, with role separation carried by weight, size, tracking, and OpenType feature flags (tnum, lnum, zero, calt, liga, ss01-04, case). Read 00-foundations/typography.md for the full vocabulary, italic policy, and per-platform mapping.",
   "type": {
     "$type": "typography",
 
@@ -233,7 +233,7 @@
     },
 
     "eyebrow": {
-      "$description": "Uppercase tracked label tier. The voice signature of operator UI — short, declarative, system metadata. Two cuts: sans for human-facing section eyebrows, mono for system/state metadata.",
+      "$description": "Uppercase tracked label tier. The voice signature of operator UI — short, declarative, system metadata. Two cuts: sans for human-facing section eyebrows, mono for system/state metadata. v0.10 — both cuts ride Satoshi; the 'mono' name persists for component-API stability and signals 'tabular tracked-out' rather than a separate family.",
       "sans": {
         "$value": {
           "fontFamily": "{font.family.sans}",
@@ -247,7 +247,7 @@
       },
       "mono": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.12}",
           "fontWeight": "{font.weight.medium}",
           "lineHeight": "{font.leading.uppercase}",
@@ -255,7 +255,7 @@
           "textTransform": "uppercase",
           "fontFeatureSettings": "'tnum' 1, 'calt' 0, 'zero' 1, 'case' 1"
         },
-        "$description": "v0.5 system-metadata signature — '[•] SYSTEM V0.5 LIVE', '@ DIGITAL HQ', 'INVITES IN:'. Mono caps tracked at 0.16em. The hallmark of the Obsidian Lime aesthetic."
+        "$description": "v0.4+ system-metadata signature — '[•] SYSTEM V0.10 LIVE', '@ DIGITAL HQ', 'INVITES IN:'. Wide-tracked uppercase (0.16em) with calt off + tnum + case feature flags so caps sit on a tabular grid. The hallmark of the Obsidian Lime aesthetic — Satoshi-carried since v0.10."
       }
     },
 
@@ -295,7 +295,7 @@
 
     "kbd": {
       "$value": {
-        "fontFamily": "{font.family.mono}",
+        "fontFamily": "{font.family.sans}",
         "fontSize": "{font.size.11}",
         "fontWeight": "{font.weight.medium}",
         "lineHeight": "{font.leading.flat}",
@@ -306,10 +306,10 @@
     },
 
     "data": {
-      "$description": "Tabular numeric tier — Lumen's signature for stats, KPIs, money, weights, ETAs. Mono variant for true tabular alignment in tables; sans variant for inline figure runs that should align without changing family.",
+      "$description": "Tabular numeric tier — Lumen's signature for stats, KPIs, money, weights, ETAs. v0.10 — carried by Satoshi with tnum + lnum + zero feature flags rather than a separate mono family. Tabular alignment is preserved by Satoshi's tnum table; the operator-instrument-panel feel comes from weight, tracking, and the calt-off / case-on flags rather than a monospaced face.",
       "lg": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.20}",
           "fontWeight": "{font.weight.medium}",
           "lineHeight": "{font.leading.snug-body}",
@@ -320,7 +320,7 @@
       },
       "md": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.16}",
           "fontWeight": "{font.weight.medium}",
           "lineHeight": "{font.leading.snug-body}",
@@ -331,7 +331,7 @@
       },
       "sm": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.14}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.ui}",
@@ -343,10 +343,10 @@
     },
 
     "metric": {
-      "$description": "Big-number KPI tier — the Stat primitive's anatomy. Mono for tabular alignment when stacked; weight bolds the number against label/unit context. Atlassian metric token role adopted into Lumen.",
+      "$description": "Big-number KPI tier — the Stat primitive's anatomy. v0.10 — Satoshi at heavy weights with tnum + lnum + zero feature flags so stacked KPIs align column-true. Atlassian metric token role adopted into Lumen.",
       "xl": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.61}",
           "fontWeight": "{font.weight.bold}",
           "lineHeight": "{font.leading.tight}",
@@ -357,7 +357,7 @@
       },
       "lg": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.49}",
           "fontWeight": "{font.weight.bold}",
           "lineHeight": "{font.leading.snug}",
@@ -368,7 +368,7 @@
       },
       "md": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.31}",
           "fontWeight": "{font.weight.bold}",
           "lineHeight": "{font.leading.compact}",
@@ -379,7 +379,7 @@
       },
       "sm": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.20}",
           "fontWeight": "{font.weight.semibold}",
           "lineHeight": "{font.leading.snug-body}",
@@ -391,21 +391,21 @@
     },
 
     "code": {
-      "$description": "Code tier. Inline uses 0.9286em (= 13/14) relative ratio so mono runs visually match the surrounding sans body x-height. Block has tabular nums for column-aligned line numbers; ligatures default ON. Terminal/diff variant disables ligatures so operators read as discrete tokens.",
+      "$description": "Code tier. v0.10 — Satoshi-only. Inline uses 0.9286em (= 13/14) relative ratio so inline code runs visually match the surrounding body x-height (a holdover from the JetBrains-pair era; kept because it lands the same in Satoshi). Block has ligatures ON for prose narration; terminal/diff variant disables ligatures so operators read as discrete tokens. Tabular figures (tnum) preserve column alignment in line-numbered blocks.",
       "inline": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": { "value": 0.9286, "unit": "em" },
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.normal}",
           "letterSpacing": "{font.tracking.normal}",
           "fontFeatureSettings": "'calt' 1, 'liga' 1, 'zero' 1"
         },
-        "$description": "Inline `code` in body. Relative size (0.9286em) optically matches Satoshi-vs-JetBrains x-height. Programming ligatures ON for prose narration."
+        "$description": "Inline `code` in body. Relative size (0.9286em) holds inline code at a slightly smaller cap-height than surrounding body so it reads as 'set apart' without breaking line rhythm. v0.10 — programming ligatures ON for prose narration; family is Satoshi (not a separate mono face)."
       },
       "block": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.13}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.normal}",
@@ -416,7 +416,7 @@
       },
       "terminal": {
         "$value": {
-          "fontFamily": "{font.family.mono}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.13}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.normal}",
@@ -428,10 +428,10 @@
     },
 
     "prose": {
-      "$description": "Editorial longform tier — Source Serif 4 family, looser leading, wider measure. Reserved for /blog, /changelog, /press, legal copy. Never UI chrome. Apply text-wrap: pretty + hanging punctuation in globals.css.",
+      "$description": "Editorial longform tier — v0.10 — Satoshi at editorial scale, looser leading, wider measure, ligatures + proportional figures on. Reserved for /blog, /changelog, /press, legal copy. Never UI chrome. Apply text-wrap: pretty + hanging punctuation in globals.css.",
       "body": {
         "$value": {
-          "fontFamily": "{font.family.serif}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.18}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.relaxed}",
@@ -441,7 +441,7 @@
       },
       "lead": {
         "$value": {
-          "fontFamily": "{font.family.serif}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.22}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.body-comfortable}",
@@ -451,17 +451,17 @@
       },
       "title": {
         "$value": {
-          "fontFamily": "{font.family.serif}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.49}",
           "fontWeight": "{font.weight.semibold}",
           "lineHeight": "{font.leading.snug}",
           "letterSpacing": "{font.tracking.tight}"
         },
-        "$description": "Article title (blog, press, changelog feature). Source Serif 4 with opsz."
+        "$description": "Article title (blog, press, changelog feature). Satoshi at heavy weight; v0.10 — opsz axis is reserved for a future variant."
       },
       "subtitle": {
         "$value": {
-          "fontFamily": "{font.family.serif}",
+          "fontFamily": "{font.family.sans}",
           "fontSize": "{font.size.25}",
           "fontWeight": "{font.weight.regular}",
           "lineHeight": "{font.leading.comfortable}",

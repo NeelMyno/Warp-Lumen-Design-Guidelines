@@ -37,7 +37,7 @@
       "ultra":   { "$value": { "value": 1920, "unit": "px" }, "$description": "v0.8 — 32\" ops monitor reach. Operator-only; not for marketing." }
     },
     "reading": {
-      "narrow":  { "$value": { "value": 60,   "unit": "ch" }, "$description": "Source Serif longform body cap." },
+      "narrow":  { "$value": { "value": 60,   "unit": "ch" }, "$description": "Satoshi longform body cap (editorial prose). v0.10 — narrowest editorial measure." },
       "default": { "$value": { "value": 65,   "unit": "ch" }, "$description": "v0.8 — Typographic sweet spot. .prose-lumen consumes this." },
       "wide":    { "$value": { "value": 75,   "unit": "ch" }, "$description": "Editorial body cap; wider tolerance for sans body." }
     },

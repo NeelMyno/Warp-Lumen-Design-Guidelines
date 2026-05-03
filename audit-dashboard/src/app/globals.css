@@ -176,27 +176,23 @@
   --lumen-accent-a24: var(--lumen-lime-a24);
   --lumen-accent-a32: var(--lumen-lime-a32);
 
-  /* ───────────────────────  TYPOGRAPHY · v0.5  ─────────────────────────────
-     next/font/local writes --font-satoshi; next/font/google writes --font-jetbrains.
-     We compose them into --font-sans / --font-mono with system fallbacks.
-     CRITICAL: never write --font-sans referring to itself; CSS resolves a
-     self-ref var as invalid and silently drops back to UA serif.
+  /* ───────────────────────  TYPOGRAPHY · v0.10  ────────────────────────────
+     SATOSHI-ONLY. next/font/local writes --font-satoshi (UPM 1000, weights
+     300-900 with italic VF). The system composes it into --font-sans with a
+     metric-aligned Arial fallback for zero-CLS swap, then system fonts.
 
-     v0.5 typography rebuild — see /design-system/00-foundations/typography.md
-     and /design-system/01-tokens/{primitives,semantic}/*.tokens.json. Token
-     JSON is the source of truth; the values below MUST match it.
+     v0.10 retired: JetBrains Mono (--font-mono), Source Serif 4 (--font-serif),
+     Inter (--font-alt-sans, [data-font="inter"] override). Numeric, code, and
+     editorial moments ride Satoshi's OpenType feature set (tnum, lnum, slashed
+     zero, ss01-ss04, case, frac, onum). See type.tokens.json for the canonical
+     mapping and design-system/00-foundations/typography.md for the why.
+
+     CRITICAL: never write --font-sans referring to itself; CSS resolves a
+     self-ref var as invalid and silently drops to UA serif.
   */
   --font-sans: var(--font-satoshi), "Satoshi-Fallback", ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, "SF Mono",
-    Menlo, Consolas, "Liberation Mono", monospace;
-  /* Editorial slot — Source Serif 4 with opsz axis. Loaded only on prose routes. */
-  --font-serif: "Source Serif 4", ui-serif, "Iowan Old Style", "New York",
-    Georgia, Cambria, "Times New Roman", serif;
-  /* Plan B sans — wired via [data-font="inter"] override below. */
-  --font-alt-sans: "Inter", "InterVariable", ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, sans-serif;
 
   /* type scale — 1.25 (Major Third) at 16px, floor-to-ceiling 11→128px.
      Mirrors /design-system/01-tokens/primitives/typography.tokens.json. */
@@ -961,7 +957,6 @@
   --color-accent-laser:   var(--lumen-accent-3);
 
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
 
   --radius-xs:  var(--radius-xs);
   --radius-sm:  var(--radius-sm);
@@ -1071,7 +1066,7 @@ html, body {
   font-feature-settings: "kern" 1, "liga" 1;
   font-kerning: normal;
   font-variant-ligatures: common-ligatures contextual;
-  font-optical-sizing: auto;       /* harmless on Satoshi, beneficial on Source Serif 4 */
+  font-optical-sizing: auto;       /* harmless on Satoshi VF; reserved for future opsz axes */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -1114,12 +1109,10 @@ html, body {
 
 a { color: inherit; text-decoration: none; }
 
-/* v0.5 — Plan B Inter swap. Toggle [data-font="inter"] on <html> to flip the
-   whole system to Inter Variable for Cyrillic/Greek market expansion or
-   Windows ClearType fallback. Documented in foundations/typography.md §1. */
-html[data-font="inter"] {
-  --font-sans: var(--font-alt-sans);
-}
+/* v0.10 — Plan B Inter swap retired. Lumen is Satoshi-only. If the brand
+   ever needs a non-Satoshi fallback for hostile environments, reintroduce
+   --font-alt-sans + [data-font] override here and document in foundations/
+   typography.md. Until then, intentionally absent. */
 
 /* ─────────────────────────  ATOMS  ──────────────────────────────────────── */
 .lumen-card {
@@ -1136,31 +1129,36 @@ html[data-font="inter"] {
 .lumen-row-divider > * + * {
   border-top: 1px solid var(--border-hairline);
 }
-/* v0.5 — Mono utility split.
-   .lumen-mono         → DEFAULT mono. IDs, money, ETAs, weights, timestamps.
-                         Programming ligatures OFF (`==` should look like two `=`).
-                         Slashed zero ON. Tabular nums via font-variant-numeric.
-   .lumen-mono-code    → mono inside <code>/<pre> in PROSE. Ligatures ON.
-   .lumen-mono-terminal→ terminal/diff output. Ligatures OFF, tabular ON.
-   The earlier `.lumen-mono { calt 0 }` was clobbering JetBrains Mono's
-   programming ligatures everywhere — bug fix in v0.5.
+/* v0.10 — "Mono" utilities, Satoshi edition.
+   The slot stays — IDs, money, ETAs, weights, timestamps still read better as
+   tabular — but the carrier is now Satoshi with OpenType numerics rather than
+   a separate monospaced face. The class names are preserved so consumers
+   don't need to re-author markup.
+
+   .lumen-mono         → DEFAULT tabular Satoshi. tnum + slashed-zero ON,
+                         ligatures OFF so `==` reads as two `=` and IDs sit
+                         on their own column.
+   .lumen-mono-code    → Satoshi for inline code in prose. Ligatures ON.
+   .lumen-mono-terminal→ terminal/diff output. tnum + slashed-zero ON,
+                         ligatures OFF.
+
+   Note: Satoshi's GSUB inventory verified 2026-05-02 — calt, liga, dlig, tnum,
+   pnum, frac, sups, subs, ordn, salt, case, ss01-ss04 all present. `zero`
+   (slashed) is NOT in Satoshi; we still ship the declaration so a future
+   font swap is zero-edit, but the runtime relies on tabular-nums alignment +
+   Satoshi's already-disambiguated default `0` glyph.
 */
 .lumen-mono {
-  /* v0.5.1 — `zero` feature verified absent from next/font/google's JetBrains
-     Mono subset (only calt/ccmp/frac/locl ship). Slashed-zero declaration is
-     a no-op on the served subset, but JetBrains Mono's default `0` glyph is
-     already dotted/disambiguated, so IDs read unambiguously without it.
-     Keep the declaration so self-hosted full-feature switch is zero-edit.    */
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-variant-numeric: tabular-nums slashed-zero;
   font-feature-settings: "calt" 0, "liga" 0, "zero" 1;
 }
 .lumen-mono-code {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-feature-settings: "calt" 1, "liga" 1, "zero" 1;
 }
 .lumen-mono-terminal {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-variant-numeric: tabular-nums slashed-zero;
   font-feature-settings: "calt" 0, "liga" 0, "zero" 1, "tnum" 1;
 }
@@ -1191,7 +1189,7 @@ html[data-font="inter"] {
    "@ DIGITAL HQ / GLOBAL ACCESS", "INVITES IN:"). Now a formal token preset. */
 .lumen-mono-cap,
 .lumen-eyebrow-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-12);
   font-weight: var(--weight-medium);
   line-height: var(--leading-uppercase);
@@ -1231,7 +1229,7 @@ html[data-font="inter"] {
   justify-content: center;
   min-width: 18px;
   padding: 1px var(--space-1);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-11);
   font-weight: var(--weight-medium);
   color: var(--text-tertiary);
@@ -1456,7 +1454,7 @@ html[data-font="inter"] {
    tracked, decorative. Sits inside the focus surface. */
 .lumen-field [data-slot="addon"] {
   flex-shrink: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-12);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-cap-mono);
@@ -1468,7 +1466,7 @@ html[data-font="inter"] {
 
 /* Mono value — opt in via data-mono on the wrapper for IDs / ZIPs / codes. */
 .lumen-field[data-mono="true"] :is(input, textarea) {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-feature-settings: "tnum" 1, "calt" 0, "zero" 1;
   font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
@@ -1942,7 +1940,7 @@ html[data-font="inter"] {
   text-transform: uppercase;
 }
 .text-eyebrow-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-12);
   font-weight: var(--weight-medium);
   line-height: var(--leading-uppercase);
@@ -1975,7 +1973,7 @@ html[data-font="inter"] {
 
 /* — Tabular data (Lumen signature — KPIs, money, weights) — */
 .text-data-lg {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-20);
   font-weight: var(--weight-medium);
   line-height: var(--leading-snug-body);
@@ -1983,7 +1981,7 @@ html[data-font="inter"] {
   font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
 .text-data-md {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-16);
   font-weight: var(--weight-medium);
   line-height: var(--leading-snug-body);
@@ -1991,7 +1989,7 @@ html[data-font="inter"] {
   font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
 .text-data-sm {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-14);
   font-weight: var(--weight-regular);
   line-height: var(--leading-ui);
@@ -2001,7 +1999,7 @@ html[data-font="inter"] {
 
 /* — Metric (Big-number KPI — Stat primitive) — */
 .text-metric-xl {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-61);
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
@@ -2009,7 +2007,7 @@ html[data-font="inter"] {
   font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
 .text-metric-lg {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-49);
   font-weight: var(--weight-bold);
   line-height: var(--leading-snug);
@@ -2017,7 +2015,7 @@ html[data-font="inter"] {
   font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
 .text-metric-md {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-31);
   font-weight: var(--weight-bold);
   line-height: var(--leading-compact);
@@ -2025,7 +2023,7 @@ html[data-font="inter"] {
   font-variant-numeric: tabular-nums lining-nums slashed-zero;
 }
 .text-metric-sm {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-20);
   font-weight: var(--weight-semibold);
   line-height: var(--leading-snug-body);
@@ -2035,7 +2033,7 @@ html[data-font="inter"] {
 
 /* — Code (inline 0.9286em ratio for x-height parity with body sans) — */
 .text-code-inline {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.9286em;
   font-weight: var(--weight-regular);
   line-height: var(--leading-normal);
@@ -2043,7 +2041,7 @@ html[data-font="inter"] {
   font-feature-settings: "calt" 1, "liga" 1, "zero" 1;
 }
 .text-code-block {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-13);
   font-weight: var(--weight-regular);
   line-height: var(--leading-normal);
@@ -2051,7 +2049,7 @@ html[data-font="inter"] {
   font-feature-settings: "calt" 1, "liga" 1, "zero" 1;
 }
 .text-code-terminal {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-13);
   font-weight: var(--weight-regular);
   line-height: var(--leading-normal);
@@ -2060,9 +2058,9 @@ html[data-font="inter"] {
   font-variant-numeric: tabular-nums slashed-zero;
 }
 
-/* — Editorial prose (Source Serif 4 — only on /blog, /changelog, /press) — */
+/* — Editorial prose (Satoshi at editorial scale — /blog, /changelog, /press) — */
 .text-prose-body {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--type-18);
   font-weight: var(--weight-regular);
   line-height: var(--leading-relaxed);
@@ -2070,7 +2068,7 @@ html[data-font="inter"] {
   text-wrap: pretty;
 }
 .text-prose-lead {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--type-22);
   font-weight: var(--weight-regular);
   line-height: var(--leading-body-comfortable);
@@ -2079,7 +2077,7 @@ html[data-font="inter"] {
   color: var(--text-secondary);
 }
 .text-prose-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--type-49);
   font-weight: var(--weight-semibold);
   line-height: var(--leading-snug);
@@ -2087,7 +2085,7 @@ html[data-font="inter"] {
   text-wrap: balance;
 }
 .text-prose-subtitle {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--type-25);
   font-weight: var(--weight-regular);
   line-height: var(--leading-comfortable);
@@ -2117,8 +2115,12 @@ html[data-font="inter"] {
 /* — Longform prose container — apply on .prose-lumen wrapper — */
 .prose-lumen {
   max-width: 65ch;
-  font-family: var(--font-serif);
-  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;  /* oldstyle figures in editorial */
+  font-family: var(--font-sans);
+  /* v0.10 — Satoshi GSUB does NOT ship onum (oldstyle figures); the previous
+     onum declaration was a silent no-op. Editorial pages now lean on Satoshi's
+     proportional figures (pnum) for body copy and switch to .lumen-tnum for
+     any aligned-column moments inside the article. */
+  font-feature-settings: "kern" 1, "liga" 1, "pnum" 1;
   hanging-punctuation: first last;
   text-wrap: pretty;
 }
@@ -2480,7 +2482,7 @@ html[data-font="inter"] {
   padding: 1px var(--space-1);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-xs);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--type-11);
   letter-spacing: 0;
   color: var(--text-tertiary);

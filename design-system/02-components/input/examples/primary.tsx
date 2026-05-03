@@ -20,7 +20,7 @@ const SIZE: Record<Size, string> = {
 
 export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
   size?: Size;
-  /** Render value in JetBrains Mono with tabular numerics. Use for IDs, ZIPs, codes, weights, money. */
+  /** Render value with tabular numerics + slashed-zero (Satoshi tnum). Use for IDs, ZIPs, codes, weights, money. */
   mono?: boolean;
 };
 
@@ -49,7 +49,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         "disabled:cursor-not-allowed disabled:bg-[var(--input-background-disabled)] disabled:text-[var(--input-foreground-valueDisabled)] disabled:border-[var(--input-border-disabled)] disabled:pointer-events-none",
         "read-only:cursor-default read-only:bg-[var(--input-background-readOnly)] read-only:text-[var(--input-foreground-valueReadOnly)] read-only:border-[var(--input-border-readOnly)]",
         SIZE[size],
-        mono ? "font-[var(--font-mono)] [font-variant-numeric:tabular-nums_lining-nums_slashed-zero]" : "",
+        mono ? "[font-variant-numeric:tabular-nums_lining-nums_slashed-zero] [font-feature-settings:'tnum'_1,'lnum'_1,'zero'_1]" : "",
         className ?? "",
       ].join(" ")}
       {...props}

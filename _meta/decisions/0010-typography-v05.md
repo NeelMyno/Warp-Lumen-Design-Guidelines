@@ -1,9 +1,11 @@
 # ADR 0010 — Typography v0.5 system upgrade
 
 - **Date:** 2026-05-02
-- **Status:** Accepted
+- **Status:** Accepted (partially amended by ADR 0017)
 - **Deciders:** Lumen working group
-- **Supersedes:** complements [ADR 0006 — Satoshi + JetBrains Mono pairing](./0006-satoshi-jetbrains-pairing.md). Does not supersede; ADR 0006's family decisions stand.
+- **Supersedes:** complements [ADR 0006 — Satoshi + JetBrains Mono pairing](./0006-satoshi-jetbrains-pairing.md). Does not supersede 0006's structure; v0.5 used the Satoshi/JetBrains/Source Serif 4/Inter quad established there.
+
+> **2026-05-03 — Family decisions amended by [ADR 0017](./0017-satoshi-only-typography-v010.md).** ADR 0017 retires JetBrains Mono, Source Serif 4, and the Plan-B Inter override. Every other v0.5 decision in this ADR — the 1.25 modular scale, the leading + tracking curves, the 35+ semantic presets, the italic policy, the modern-CSS techniques (clamp/text-wrap/optical-sizing/Satoshi-Fallback), the lint-enforced semantic-utility contract — stays in force. The semantic-preset font-family slots (`font.family.mono`, `font.family.serif`) referenced below now resolve to Satoshi rather than separate families; class names (`.lumen-mono*`, `.text-data-*`, `.text-prose-*`) are preserved for component-API stability and signal feature-flag intent rather than separate family.
 
 ## Context
 

@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { JetBrains_Mono } from "next/font/google";
 import { DashboardShell } from "@/components/dashboard-shell";
 import "./globals.css";
 
+// v0.10 — Satoshi is the sole typeface across the dashboard and design system.
+// JetBrains Mono, Source Serif 4, and the Inter Plan-B fallback were retired;
+// numeric/code/editorial moments now ride Satoshi's OpenType feature set
+// (tnum, lnum, ss01-ss04, case, frac). See design-system/00-foundations/typography.md.
 const satoshi = localFont({
   src: [
     {
@@ -22,13 +25,6 @@ const satoshi = localFont({
   preload: true,
 });
 
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
-
 export const metadata: Metadata = {
   title: "Lumen — Warp Design System Audit",
   description:
@@ -43,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${satoshi.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${satoshi.variable} h-full antialiased`}
       data-mood="obsidian-lime"
       data-theme="dark"
       suppressHydrationWarning

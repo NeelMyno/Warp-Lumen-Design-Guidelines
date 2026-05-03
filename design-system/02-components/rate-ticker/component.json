@@ -24,7 +24,7 @@
       "color.status.success.fg",
       "color.status.danger.fg",
       "type.code.inline", "type.data.md", "type.data.sm", "type.eyebrow.mono",
-      "font.family.mono"
+      "font.family.sans"
     ]
   },
   "a11y": {
@@ -52,6 +52,7 @@
   "examples": { "web-react": "./examples/primary.tsx" },
   "related": ["Stat", "LiveDot", "Marquee"],
   "changelog": [
-    { "version": "0.1.0", "type": "Added", "note": "Initial release. Warp signature primitive." }
+    { "version": "0.1.0",  "type": "Added",   "note": "Initial release. Warp signature primitive." },
+    { "version": "0.10.0", "type": "Changed", "note": "Token consumption swapped from font.family.mono to font.family.sans — v0.10 single-typeface system. Lane codes and rates now ride Satoshi's tnum/lnum/zero feature flags." }
   ]
 }
