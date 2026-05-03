@@ -2,6 +2,10 @@ import { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 
+/* a11y: icons are decorative by default. Their meaning lives in the button's
+ * aria-label or the surrounding text. Anything that wraps an icon and IS the
+ * meaning (e.g. an icon-only IconButton) is responsible for its own
+ * accessible name. Consumers can override aria-hidden if needed. */
 const base = (size: number) => ({
   width: size,
   height: size,
@@ -11,6 +15,8 @@ const base = (size: number) => ({
   strokeWidth: 1.5,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
+  "aria-hidden": true as const,
+  focusable: false as const,
 });
 
 export const ArrowRight = ({ size = 16, ...p }: IconProps) => (

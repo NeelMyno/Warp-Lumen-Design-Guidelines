@@ -282,8 +282,8 @@
 
   --text-primary:    #f5f5f3;
   --text-secondary:  var(--lumen-obsidian-3);
-  --text-tertiary:   var(--lumen-obsidian-4);
-  --text-disabled:   var(--lumen-obsidian-5);
+  --text-tertiary:   var(--lumen-obsidian-3);  /* a11y: WCAG AA 5.4:1 on canvas (was obsidian-4 / 2.7:1 fail) */
+  --text-disabled:   var(--lumen-obsidian-4);  /* a11y: still feels "dim", but perceptible (was obsidian-5 / 1.5:1) */
   --text-inverse:    #0a0a0c;
   --text-accent:     var(--lumen-accent-3);
   --text-link:       #f5f5f3;
@@ -375,9 +375,9 @@
   --text-primary:    #14110f;
   --text-secondary:  var(--lumen-cream-7);
   --text-tertiary:   var(--lumen-cream-6);
-  --text-disabled:   var(--lumen-cream-4);
+  --text-disabled:   var(--lumen-cream-5);   /* a11y: was cream-4 / 2.2:1, now ~3.6:1 perceptible */
   --text-inverse:    var(--lumen-cream-0);
-  --text-accent:     var(--lumen-accent-7);
+  --text-accent:     var(--lumen-accent-8);  /* a11y: WCAG AA 5.6:1 on cream (was accent-7 / 3.2:1 fail) */
   --text-link:       #14110f;
   --text-on-accent:  var(--lumen-accent-fg);
 

@@ -12,6 +12,14 @@ import { Search } from "./primitives/icon";
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-svh flex flex-col relative">
+      {/* a11y: skip-to-content link. Visually hidden until focused. */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[var(--z-overlay)] focus:rounded-[var(--radius-md)] focus:bg-[var(--surface-raised)] focus:text-[var(--text-primary)] focus:border focus:border-[var(--border-accent)] focus:px-4 focus:py-2 focus:text-[var(--type-13)] focus:font-semibold focus:shadow-[var(--shadow-focus)] focus:outline-none"
+      >
+        Skip to main content
+      </a>
+
       {/* Architectural grid — runs full-canvas, behind everything. */}
       <div
         aria-hidden
@@ -65,7 +73,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="lumen-aurora flex-1 mx-auto w-full max-w-[1440px] px-6 py-12 md:py-16">
+      <main id="main-content" className="lumen-aurora flex-1 mx-auto w-full max-w-[1440px] px-6 py-12 md:py-16">
         {children}
       </main>
 

@@ -233,7 +233,7 @@ export function NavbarDemo() {
             <SearchIcon size={13} /> Search
             <span className="lumen-kbd ml-2">⌘K</span>
           </span>
-          <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]">
+          <button aria-label="Notifications" className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]">
             <Bell size={15} />
           </button>
           <span className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-[var(--lumen-obsidian-9)] text-white text-[var(--type-12)] lumen-mono font-semibold">NT</span>

@@ -191,9 +191,16 @@ function WindowsFrame() {
       <div className="grid grid-cols-[56px_210px_1fr]" style={{ minHeight: 480 }}>
         {/* Nav rail */}
         <aside className="bg-[var(--surface-sunken)] flex flex-col gap-1 py-2 items-center border-r border-[var(--border-hairline)]">
-          {[Home, Truck, MapPin, Box, Inbox].map((Ico, i) => (
+          {[
+            { Ico: Home,   label: "Home" },
+            { Ico: Truck,  label: "Shipments" },
+            { Ico: MapPin, label: "Lanes" },
+            { Ico: Box,    label: "Quotes" },
+            { Ico: Inbox,  label: "Inbox" },
+          ].map(({ Ico, label }, i) => (
             <button
-              key={i}
+              key={label}
+              aria-label={label}
               className={[
                 "h-9 w-9 grid place-items-center rounded-[3px]",
                 i === 0
@@ -205,7 +212,7 @@ function WindowsFrame() {
             </button>
           ))}
           <div className="flex-1" />
-          <button className="h-9 w-9 grid place-items-center text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
+          <button aria-label="Settings" className="h-9 w-9 grid place-items-center text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
             <Settings size={16} />
           </button>
         </aside>
