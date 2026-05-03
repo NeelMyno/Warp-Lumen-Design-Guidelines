@@ -6,9 +6,9 @@ type Size = "xs" | "sm" | "md" | "lg" | "xl";
 const INTENT: Record<Intent, string> = {
   primary: [
     "bg-[var(--color-accent)] text-[var(--text-on-accent)]",
+    "font-semibold",
     "hover:bg-[var(--color-accent-hover)]",
     "active:bg-[var(--color-accent-press)]",
-    "shadow-[var(--shadow-glow-accent)]",
     "border border-transparent",
   ].join(" "),
   secondary: [
@@ -91,7 +91,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {...props}
       className={[
         "inline-flex items-center justify-center font-medium tracking-[var(--tracking-tight)]",
-        "transition-[background-color,border-color,box-shadow,color,transform] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
+        "transition-[background-color,border-color,color,transform] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
         "focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]",
         "active:translate-y-px",
         "disabled:opacity-40 disabled:cursor-not-allowed disabled:active:translate-y-0",

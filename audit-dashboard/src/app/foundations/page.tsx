@@ -376,15 +376,6 @@ export default function FoundationsPage() {
 
           <SubSection title="Glass surface — the floating shell" description="backdrop-filter blur 20px + saturate 140% + hairline border. Reserved for nav, popovers, sheets, hero device shells. Never used as a fashion statement.">
             <div className="relative rounded-[var(--radius-2xl)] border border-[var(--border-hairline)] p-12 overflow-hidden lumen-grid-architectural-fine bg-[var(--surface-canvas)]">
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 60% 80% at 30% 30%, var(--lumen-lime-a32), transparent 60%), radial-gradient(ellipse 60% 60% at 80% 70%, rgba(255,255,255,0.06), transparent 60%)",
-                  filter: "blur(40px)",
-                }}
-              />
               <div className="relative grid gap-4 md:grid-cols-2">
                 <div className="lumen-glass rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
                   <div className="lumen-mono-cap text-[var(--text-tertiary)]">surface.glass</div>
@@ -404,18 +395,18 @@ export default function FoundationsPage() {
             </div>
           </SubSection>
 
-          <SubSection title="Aurora — radial lime ambient" description="The brand's signature lighting gesture. A radial green glow eases in over 1.2s when a hero section enters; honours prefers-reduced-motion.">
+          <SubSection title="Brand voice on canvas — flat surface" description="The hero panel: flat obsidian, hairline border, hero scale typography. v0.4 prefers calm restraint over decorative gradients on surfaces.">
             <div
-              className="relative rounded-[var(--radius-3xl)] border border-[var(--border-hairline)] overflow-hidden bg-[var(--surface-canvas)] lumen-aurora"
+              className="relative rounded-[var(--radius-3xl)] border border-[var(--border-hairline)] overflow-hidden bg-[var(--surface-canvas)]"
               style={{ minHeight: "260px" }}
             >
               <div className="relative h-full p-12 flex flex-col items-center justify-center gap-4 text-center">
                 <span className="lumen-mono-cap text-[var(--text-accent)]">SYSTEM V0.4 · LIVE</span>
                 <h3 className="text-[var(--type-44)] md:text-[var(--type-56)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]">
-                  Lit from above.
+                  Calm and lit from within.
                 </h3>
                 <p className="max-w-[40ch] text-[var(--type-14)] text-[var(--text-tertiary)]">
-                  One ambient light source. The brand's only theatrical move.
+                  Surfaces stay flat. Lime carries the energy on its own.
                 </p>
               </div>
             </div>

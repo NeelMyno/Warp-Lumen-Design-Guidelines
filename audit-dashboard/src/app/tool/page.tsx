@@ -28,7 +28,7 @@ export default function ToolPage() {
         {/* TITLE BAR */}
         <header className="flex items-center justify-between gap-3 px-4 h-12 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
           <div className="flex items-center gap-2.5">
-            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-11)] font-bold shadow-[var(--shadow-glow-accent)]">
+            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-11)] font-bold">
               W
             </div>
             <span className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">

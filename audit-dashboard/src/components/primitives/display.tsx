@@ -418,7 +418,7 @@ export function Carousel({ items }: { items: { title: string; subtitle?: string;
         style={{ scrollbarWidth: "thin" }}>
         {items.map((it, i) => (
           <div key={i} className="snap-start shrink-0 w-[260px] rounded-[var(--radius-lg)] overflow-hidden border border-[var(--border-hairline)] bg-[var(--surface-raised)] shadow-[var(--shadow-sm)]">
-            <div className="h-32" style={{ background: it.bg ?? "linear-gradient(135deg, var(--lumen-obsidian-9), var(--lumen-obsidian-6))" }} />
+            <div className="h-32" style={{ background: it.bg ?? "var(--lumen-obsidian-7)" }} />
             <div className="p-3">
               <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{it.title}</div>
               {it.subtitle && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{it.subtitle}</div>}

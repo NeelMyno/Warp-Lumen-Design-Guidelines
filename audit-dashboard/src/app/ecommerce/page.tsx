@@ -99,7 +99,7 @@ export default function EcommercePage() {
               <Card key={p.name} padding="none" className="overflow-hidden hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer group">
                 <div
                   className="aspect-[4/5] relative"
-                  style={{ background: `linear-gradient(135deg, ${p.bgA} 0%, ${p.bgB} 100%)` }}
+                  style={{ background: p.bgA }}
                 >
                   <div className="absolute top-2 right-2">
                     <IconButton aria-label="Add to wishlist" intent="secondary" size="sm" className="!bg-[var(--surface-raised)]/80">
@@ -157,10 +157,10 @@ function Announcement() {
 
 function Gallery() {
   const tiles = [
-    "linear-gradient(135deg, #243245, #1a2332)",
-    "linear-gradient(135deg, #2a3a52, #161e2a)",
-    "linear-gradient(135deg, #3b4b66, #1f2a3c)",
-    "linear-gradient(135deg, #21304a, #0f1622)",
+    "var(--lumen-obsidian-7)",
+    "var(--lumen-obsidian-6)",
+    "var(--lumen-obsidian-5)",
+    "var(--lumen-obsidian-8)",
   ];
   return (
     <div className="grid gap-3 grid-cols-[88px_1fr]">

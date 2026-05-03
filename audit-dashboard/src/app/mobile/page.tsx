@@ -201,7 +201,7 @@ function AndroidFrame() {
 
         {/* FAB-style primary action */}
         <div className="px-4 mt-4">
-          <button className="w-full h-12 rounded-[var(--radius-2xl)] bg-[var(--color-accent)] text-[var(--text-on-accent)] font-semibold flex items-center justify-center gap-2 shadow-[var(--shadow-glow-accent)]">
+          <button className="w-full h-12 rounded-[var(--radius-2xl)] bg-[var(--color-accent)] text-[var(--text-on-accent)] font-semibold flex items-center justify-center gap-2">
             <Plus size={16} /> New shipment
           </button>
         </div>

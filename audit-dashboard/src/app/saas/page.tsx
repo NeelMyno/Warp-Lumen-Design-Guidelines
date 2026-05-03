@@ -81,7 +81,7 @@ function Sidebar() {
     <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5 min-h-[760px]">
       {/* workspace switcher */}
       <button className="mx-3 flex items-center gap-2.5 px-2 py-1.5 rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
-        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-13)] font-bold shadow-[var(--shadow-glow-accent)]">
+        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-13)] font-bold">
           A
         </div>
         <div className="flex flex-col leading-tight min-w-0 text-left">

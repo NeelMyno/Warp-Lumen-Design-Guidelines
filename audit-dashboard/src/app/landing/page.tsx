@@ -22,8 +22,8 @@ export default function LandingPage() {
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
         <BrowserChrome url="warp.example.com" />
 
-        {/* HERO — v0.4 obsidian-lime: architectural grid + aurora glow + brutalist headline */}
-        <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural lumen-aurora overflow-hidden">
+        {/* HERO — v0.4 obsidian-lime: architectural grid + brutalist headline (gradients stripped) */}
+        <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural overflow-hidden">
           <div className="relative max-w-[1100px] mx-auto flex flex-col gap-7">
             <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
               <span className="lumen-dot-pulse" aria-hidden />
@@ -45,7 +45,7 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-3">
-              <Button intent="primary" size="xl" pill glow trailingIcon={<ArrowRight size={16} />}>
+              <Button intent="primary" size="xl" pill trailingIcon={<ArrowRight size={16} />}>
                 Get started
               </Button>
               <Button intent="secondary" size="xl" pill leadingIcon={<Code size={16} />}>

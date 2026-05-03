@@ -59,7 +59,7 @@
   --lumen-accent-7:  #16a34a;     /* accent text on light (4.7:1 on white)    */
   --lumen-accent-8:  #15803d;
   --lumen-accent-9:  #14532d;
-  --lumen-accent-fg: #06120a;     /* near-black-green on accent button        */
+  --lumen-accent-fg: #0a0a0d;     /* obsidian-8 — true near-black on lime, ~12.6:1 contrast */
 
   /* ── status (kept, slightly desaturated for the calmer aesthetic) ───── */
   --lumen-red-0: #fef1f1; --lumen-red-1: #fcdcdc; --lumen-red-2: #f9b8b8;
@@ -673,34 +673,13 @@ a { color: inherit; text-decoration: none; }
   background-size: 8px 8px, 8px 8px, 64px 64px, 64px 64px;
 }
 
-/* v0.4 — the radial lime aurora. The brand's signature lighting gesture.
-   Render once, fixed at the top center of the canvas, behind everything.
+/* v0.4 — radial lime aurora was the signature lighting gesture, but per
+   user direction "no gradient in BG, remove gradient from all surfaces"
+   the aurora is now a no-op flat surface. The class stays so consuming
+   pages don't break; the gradient ::before is removed.
 */
 .lumen-aurora {
   position: relative;
-}
-.lumen-aurora::before {
-  content: "";
-  position: absolute;
-  top: -25%;
-  left: 50%;
-  width: 120%;
-  height: 80%;
-  transform: translateX(-50%);
-  background:
-    radial-gradient(ellipse at center top,
-      var(--aurora-glow-color) 0%,
-      transparent 55%);
-  pointer-events: none;
-  filter: blur(40px);
-  z-index: 0;
-  opacity: 0;
-  animation: lumen-aurora-fade-in var(--motion-aurora-fade-in) var(--easing-decelerate) 200ms forwards;
-}
-.lumen-aurora > * { position: relative; z-index: 1; }
-
-@keyframes lumen-aurora-fade-in {
-  to { opacity: 1; }
 }
 
 /* v0.4 — pulse for live/active dots, mirrors both references' "SYSTEM LIVE" idiom */
@@ -739,8 +718,6 @@ a { color: inherit; text-decoration: none; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  /* Aurora: skip the entrance, render at full opacity immediately. */
-  .lumen-aurora::before { opacity: 1; animation: none; }
   /* Dot pulse: hold steady. */
   .lumen-dot-pulse::after { animation: none; opacity: 0.4; transform: scale(1.2); }
 }
