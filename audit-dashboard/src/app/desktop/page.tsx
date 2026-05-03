@@ -3,16 +3,9 @@ import { Stat } from "@/components/primitives/stat";
 import { Badge } from "@/components/primitives/badge";
 import { LiveDot } from "@/components/primitives/live-dot";
 import { Button } from "@/components/primitives/button";
+import { Avatar } from "@/components/primitives/avatar";
 import {
-  Home,
-  Box,
-  MapPin,
-  Inbox,
-  Settings,
-  Search,
-  Bell,
-  Truck,
-  Plus,
+  Home, Box, MapPin, Inbox, Settings, Search, Truck, Plus,
 } from "@/components/primitives/icon";
 
 export const metadata = { title: "Native Desktop · Lumen" };
@@ -21,12 +14,12 @@ export default function DesktopPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 7 of 7"
+        eyebrow="Tab 7 of 7 · Native desktop"
         title="Native Desktop"
-        description="macOS and Windows frames side-by-side. Same Lumen visual language with platform-native chrome — traffic-light + sidebar + vibrancy on Mac; Mica titlebar + sidebar with squared corners on Windows."
+        description="macOS and Windows frames side-by-side. Same Lumen visual language with platform-native chrome — traffic-light + sidebar with vibrancy on Mac; Mica titlebar + segmented sidebar on Windows."
       />
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-10 lg:grid-cols-2 items-start">
         <Frame
           os="macOS · Tahoe"
           notes="Traffic-light + translucent sidebar (vibrancy) · 8pt grid · system-wide accent honored only when user accent is unset."
@@ -45,86 +38,97 @@ export default function DesktopPage() {
 }
 
 function Frame({
-  os,
-  notes,
-  children,
+  os, notes, children,
 }: {
-  os: string;
-  notes: string;
-  children: React.ReactNode;
+  os: string; notes: string; children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
       <div>
-        <div className="lumen-eyebrow mb-1">{os}</div>
-        <p className="text-[var(--type-13)] text-[var(--text-secondary)]">{notes}</p>
+        <div className="lumen-eyebrow mb-1.5">{os}</div>
+        <p className="text-[var(--type-13)] text-[var(--text-tertiary)] leading-snug max-w-[48ch]">{notes}</p>
       </div>
       {children}
     </div>
   );
 }
 
+/* ──────────────────  macOS  ────────────────── */
+
 function MacFrame() {
   return (
-    <div className="rounded-[12px] overflow-hidden border border-[var(--border-subtle)] shadow-[var(--shadow-2xl)] bg-[var(--surface-page)]">
+    <div className="rounded-[12px] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-2xl)] bg-[var(--surface-page)]">
       {/* Title bar */}
-      <div className="flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)]">
-        <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-        <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-        <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        <div className="flex-1 text-center text-[var(--type-13)] text-[var(--text-secondary)]">
+      <div className="flex items-center gap-2 px-3 h-[34px] border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] relative">
+        <span className="h-3 w-3 rounded-full bg-[#ff5f57] hover:bg-[#ee5046] transition-colors" />
+        <span className="h-3 w-3 rounded-full bg-[#febc2e] hover:bg-[#ed9e25] transition-colors" />
+        <span className="h-3 w-3 rounded-full bg-[#28c840] hover:bg-[#20a635] transition-colors" />
+        <div className="absolute left-1/2 -translate-x-1/2 text-[var(--type-13)] text-[var(--text-secondary)] font-medium">
           Warp · Operator
         </div>
       </div>
 
-      <div className="grid grid-cols-[200px_1fr]" style={{ minHeight: 460 }}>
-        {/* Sidebar — translucent / vibrancy feel */}
-        <aside className="bg-[color-mix(in_oklab,var(--surface-sunken)_85%,white)] border-r border-[var(--border-subtle)] py-3 px-2 flex flex-col gap-3">
-          <div className="lumen-eyebrow px-2">Operate</div>
-          {[
-            { I: Home, label: "Today", active: true },
-            { I: Truck, label: "Shipments", badge: "12" },
-            { I: MapPin, label: "Lanes" },
-            { I: Box, label: "Quotes" },
-            { I: Inbox, label: "Tasks", badge: "3" },
-          ].map(({ I, label, active, badge }) => (
-            <button
-              key={label}
-              className={[
-                "flex items-center gap-2.5 px-2 py-1.5 rounded-[var(--radius-md)] text-[var(--type-14)]",
-                active
-                  ? "bg-[color-mix(in_oklab,var(--color-accent)_18%,transparent)] text-[var(--text-primary)] font-medium"
-                  : "text-[var(--text-secondary)] hover:bg-[var(--surface-raised)]",
-              ].join(" ")}
-            >
-              <I size={16} />
-              <span className="flex-1 text-left">{label}</span>
-              {badge && (
-                <span className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
-                  {badge}
-                </span>
-              )}
-            </button>
-          ))}
-          <div className="mt-auto px-2 py-2 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]">
+      <div className="grid grid-cols-[210px_1fr]" style={{ minHeight: 480 }}>
+        {/* Sidebar — vibrancy feel */}
+        <aside
+          className="border-r border-[var(--border-hairline)] py-3 px-2 flex flex-col gap-3"
+          style={{
+            background: "color-mix(in oklab, var(--surface-sunken) 75%, white)",
+          }}
+        >
+          {/* workspace switcher */}
+          <button className="mx-2 flex items-center gap-2 px-1.5 py-1 rounded-[var(--radius-sm)] hover:bg-[var(--surface-raised)] transition-colors">
+            <Avatar name="Acme Logistics" size="xs" />
+            <span className="text-[var(--type-12)] font-semibold flex-1 text-left truncate">Acme</span>
+            <span className="text-[var(--text-tertiary)]">⌃</span>
+          </button>
+
+          <div>
+            <div className="lumen-eyebrow px-2 mb-1">Operate</div>
+            {[
+              { I: Home,  label: "Today", active: true },
+              { I: Truck, label: "Shipments", badge: "12" },
+              { I: MapPin,label: "Lanes" },
+              { I: Box,   label: "Quotes" },
+              { I: Inbox, label: "Tasks", badge: "3" },
+            ].map(({ I, label, active, badge }) => (
+              <button
+                key={label}
+                className={[
+                  "w-full flex items-center gap-2 px-2 py-1 rounded-[var(--radius-sm)] text-[var(--type-12)]",
+                  "transition-colors duration-[var(--motion-fast)]",
+                  active
+                    ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
+                    : "text-[var(--text-secondary)] hover:bg-[var(--surface-raised)] font-medium",
+                ].join(" ")}
+              >
+                <I size={14} />
+                <span className="flex-1 text-left">{label}</span>
+                {badge && (
+                  <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{badge}</span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-auto px-2 py-2 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] bg-[var(--surface-raised)]">
             <LiveDot label="API healthy" />
-            <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">
-              v2.18.4
+            <div className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)] mt-0.5">
+              v2.18.4 · 12 ms
             </div>
           </div>
         </aside>
 
         {/* Content */}
         <div className="flex flex-col">
-          <header className="flex items-center gap-3 border-b border-[var(--border-subtle)] px-4 py-3 bg-[var(--surface-raised)]">
-            <h2 className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">
-              Today
-            </h2>
+          <header className="flex items-center gap-3 border-b border-[var(--border-hairline)] px-4 h-11 bg-[var(--surface-raised)]">
+            <h2 className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">Today</h2>
+            <Badge status="accent" size="sm" leadingDot>Live</Badge>
             <div className="flex-1" />
-            <div className="flex items-center gap-2 bg-[var(--surface-sunken)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] px-2 h-7 text-[var(--type-13)] text-[var(--text-tertiary)]">
-              <Search size={12} />
+            <div className="flex items-center gap-1.5 bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-[var(--type-12)] text-[var(--text-tertiary)]">
+              <Search size={11} />
               Search…
-              <kbd className="lumen-mono text-[var(--type-12)] border border-[var(--border-subtle)] rounded px-1 ml-1">⌘K</kbd>
+              <kbd className="lumen-kbd ml-1 text-[10px]">⌘K</kbd>
             </div>
           </header>
           <main className="p-4 flex flex-col gap-3 flex-1">
@@ -133,23 +137,22 @@ function MacFrame() {
               <Stat label="On time" value="98.2" unit="%" size="sm" />
               <Stat label="Avg cost" value="$42" size="sm" />
             </div>
-            <div className="lumen-card flex-1 p-3">
+            <div className="rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 flex-1">
               <div className="flex items-center justify-between mb-2">
                 <div className="lumen-eyebrow">Recent</div>
-                <Badge status="accent">
-                  <LiveDot color="currentColor" /> Live
-                </Badge>
+                <Badge status="accent" size="sm" leadingDot>Live</Badge>
               </div>
-              <ul className="lumen-row-divider">
+              <ul className="lumen-row-divider -mx-3">
                 {[
                   ["WRP-9824", "LAX → SFO", "Sterling LTL"],
                   ["WRP-9825", "ORD → ATL", "Estes"],
                   ["WRP-9826", "DFW → PHX", "Saia"],
+                  ["WRP-9827", "SEA → DEN", "ODFL"],
                 ].map(([id, lane, c]) => (
-                  <li key={id} className="flex items-center justify-between py-1.5 text-[var(--type-13)]">
-                    <span className="lumen-mono text-[var(--text-tertiary)]">{id}</span>
-                    <span>{lane}</span>
-                    <span className="text-[var(--text-secondary)]">{c}</span>
+                  <li key={id} className="flex items-center justify-between gap-3 px-3 py-2 text-[var(--type-12)]">
+                    <code className="lumen-mono text-[var(--text-tertiary)]">{id}</code>
+                    <span className="font-medium">{lane}</span>
+                    <span className="text-[var(--text-secondary)] flex-1 text-right">{c}</span>
                   </li>
                 ))}
               </ul>
@@ -161,77 +164,81 @@ function MacFrame() {
   );
 }
 
+/* ──────────────────  Windows  ────────────────── */
+
 function WindowsFrame() {
   return (
     <div
-      className="rounded-[6px] overflow-hidden border border-[var(--border-subtle)] shadow-[var(--shadow-2xl)]"
+      className="rounded-[6px] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-2xl)]"
       style={{ background: "var(--surface-page)" }}
     >
       {/* Mica titlebar */}
       <div
-        className="flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)]"
+        className="flex items-center gap-2 px-2.5 h-9 border-b border-[var(--border-hairline)]"
         style={{
           background:
-            "linear-gradient(180deg, var(--surface-raised) 0%, color-mix(in oklab, var(--surface-page) 88%, var(--color-accent)) 100%)",
+            "linear-gradient(180deg, var(--surface-raised) 0%, color-mix(in oklab, var(--surface-page) 92%, var(--lumen-accent-4)) 100%)",
         }}
       >
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-[3px] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] text-[8px] font-bold">
+          <div className="h-4 w-4 rounded-[2px] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] text-[8px] font-bold">
             W
           </div>
-          <span className="text-[var(--type-13)] font-medium">Warp Operator</span>
+          <span className="text-[var(--type-12)] font-medium">Warp Operator</span>
         </div>
         <div className="flex-1" />
-        <div className="flex items-center gap-1 text-[var(--text-tertiary)]">
-          <span className="h-7 w-9 grid place-items-center hover:bg-[var(--surface-sunken)] rounded-[2px]">_</span>
-          <span className="h-7 w-9 grid place-items-center hover:bg-[var(--surface-sunken)] rounded-[2px]">▢</span>
-          <span className="h-7 w-9 grid place-items-center hover:bg-[#c42b1c] hover:text-white rounded-[2px]">×</span>
+        <div className="flex items-center text-[var(--text-tertiary)]">
+          <span className="h-7 w-10 grid place-items-center hover:bg-[var(--surface-sunken)] rounded-[2px] cursor-pointer text-[10px]">_</span>
+          <span className="h-7 w-10 grid place-items-center hover:bg-[var(--surface-sunken)] rounded-[2px] cursor-pointer text-[10px]">▢</span>
+          <span className="h-7 w-10 grid place-items-center hover:bg-[#c42b1c] hover:text-white rounded-[2px] cursor-pointer text-[12px]">×</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-[60px_220px_1fr]" style={{ minHeight: 460 }}>
+      <div className="grid grid-cols-[56px_210px_1fr]" style={{ minHeight: 480 }}>
         {/* Nav rail */}
-        <aside className="bg-[var(--surface-sunken)] flex flex-col gap-1 py-2 items-center border-r border-[var(--border-subtle)]">
-          {[
-            { I: Home, active: true },
-            { I: Truck },
-            { I: MapPin },
-            { I: Box },
-            { I: Inbox },
-          ].map(({ I, active }, i) => (
+        <aside className="bg-[var(--surface-sunken)] flex flex-col gap-1 py-2 items-center border-r border-[var(--border-hairline)]">
+          {[Home, Truck, MapPin, Box, Inbox].map((Ico, i) => (
             <button
               key={i}
               className={[
-                "h-10 w-10 grid place-items-center rounded-[4px]",
-                active ? "bg-[var(--surface-raised)] text-[var(--text-primary)]" : "text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)]",
+                "h-9 w-9 grid place-items-center rounded-[3px]",
+                i === 0
+                  ? "bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-hairline)]"
+                  : "text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)]",
               ].join(" ")}
             >
-              <I size={18} />
+              <Ico size={16} />
             </button>
           ))}
           <div className="flex-1" />
-          <button className="h-10 w-10 grid place-items-center text-[var(--text-tertiary)]">
-            <Settings size={18} />
+          <button className="h-9 w-9 grid place-items-center text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
+            <Settings size={16} />
           </button>
         </aside>
 
         {/* Secondary nav */}
-        <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-subtle)] py-3 px-2 flex flex-col gap-1">
-          <div className="lumen-eyebrow px-2 mb-1">Today</div>
+        <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 px-2 flex flex-col gap-0.5">
+          <div className="lumen-eyebrow px-2 mb-1.5">Today</div>
           {[
             { name: "Overview", active: true },
             { name: "Active shipments" },
             { name: "Pending pickups" },
-            { name: "Exceptions" },
+            { name: "Exceptions", badge: "3" },
+            { name: "Delivered" },
           ].map((item) => (
             <button
               key={item.name}
               className={[
-                "text-left px-2.5 py-1.5 rounded-[4px] text-[var(--type-13)]",
-                item.active ? "bg-[color-mix(in_oklab,var(--color-accent)_18%,transparent)] text-[var(--text-primary)] font-medium" : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
+                "flex items-center gap-2 px-2.5 py-1.5 rounded-[3px] text-[var(--type-12)]",
+                item.active
+                  ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
+                  : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
               ].join(" ")}
             >
-              {item.name}
+              <span className="flex-1 text-left">{item.name}</span>
+              {item.badge && (
+                <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{item.badge}</span>
+              )}
             </button>
           ))}
         </aside>
@@ -239,8 +246,8 @@ function WindowsFrame() {
         {/* Content */}
         <main className="p-4 flex flex-col gap-3">
           <header className="flex items-center justify-between gap-3">
-            <h2 className="text-[var(--type-18)] font-semibold tracking-[var(--tracking-tight)]">Overview</h2>
-            <Button intent="primary" size="sm" leadingIcon={<Plus size={14} />}>
+            <h2 className="text-[var(--type-16)] font-semibold tracking-[var(--tracking-tight)]">Overview</h2>
+            <Button intent="primary" size="sm" leadingIcon={<Plus size={13} />}>
               New shipment
             </Button>
           </header>
@@ -249,18 +256,19 @@ function WindowsFrame() {
             <Stat label="On time" value="98.2" unit="%" size="sm" />
             <Stat label="Avg cost" value="$42" size="sm" />
           </div>
-          <div className="lumen-card flex-1 p-3">
+          <div className="rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 flex-1">
             <div className="lumen-eyebrow mb-2">Live activity</div>
-            <ul className="lumen-row-divider">
+            <ul className="lumen-row-divider -mx-3">
               {[
-                { who: "Sterling LTL",  what: "picked up at LAX", when: "12 min ago" },
-                { who: "Estes",         what: "tendered ORD → ATL", when: "27 min ago" },
-                { who: "ODFL",          what: "scanned at SLC hub", when: "48 min ago" },
+                { who: "Sterling LTL", what: "picked up at LAX",   when: "12 min ago" },
+                { who: "Estes",        what: "tendered ORD → ATL",  when: "27 min ago" },
+                { who: "ODFL",         what: "scanned at SLC hub",  when: "48 min ago" },
+                { who: "Quote engine", what: "reduced 16 lanes",    when: "2 h ago" },
               ].map((a) => (
-                <li key={a.when} className="flex items-baseline gap-3 py-1.5 text-[var(--type-13)]">
+                <li key={a.when} className="flex items-baseline gap-2 px-3 py-1.5 text-[var(--type-12)]">
                   <span className="font-medium">{a.who}</span>
                   <span className="text-[var(--text-secondary)] flex-1">{a.what}</span>
-                  <span className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{a.when}</span>
+                  <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{a.when}</span>
                 </li>
               ))}
             </ul>
