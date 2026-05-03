@@ -10,6 +10,26 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.10.1] — 2026-05-03 — Card slot alignment fix
+
+User reported visual misalignment in `/foundations` § Card variants — title and bare-`<p>` body text inside the same `<Card>` rendered at different x positions, with the body paragraph appearing 24 px further left than the `<CardHeader>` title and description. The same offset showed up everywhere a Card mixed a `<CardHeader />` with bare body content (the pattern is repeated 25 times across `/foundations` and `/library`).
+
+### Fixed
+
+- **`audit-dashboard/src/components/primitives/card.tsx`** — Lumen's `Card` wrapper was adding `p-N` to the outer card AND `[&_[data-slot=card-{header,content,footer}]]:px-N` in lockstep on the slot wrappers. The descendant-variant CSS specificity (`:where(parent) [data-slot=card-header]:where(.px-N)`) outranked the inner slot's own `px-0`, so slot content sat inset by `p-N + px-N` while bare-`<p>` siblings sat at only `p-N`. Two sources of inline padding for one container is one source too many.
+
+  Fix: outer `Card` keeps `p-N` as the single source of inline padding; slot descendant variants now zero out (`[&_[data-slot=card-header]]:px-0` etc.). Slots and bare children both inset to the same x = `p-N` from the card edge.
+
+  Codified in a `SLOT_PX_ZERO` constant + a doc-comment explicitly naming the alignment contract: "outer Card owns inline padding via `p-N`; slots are zeroed; don't reintroduce slot px without removing `p-N` from the same row." Cascades to every consumer — `/foundations` Card variants, the 25 `<CardHeader />` instances across `/foundations` (Buttons, Form fields, Switches, Sliders, Avatars, Skeletons, Spinners, Tabs, etc.), and the 49 `<Card padding=…>` usages spanning `/landing`, `/saas`, `/tool`, `/ecommerce`, `/mobile`, `/library`.
+
+### Verification
+
+- ✅ `audit-dashboard` `next build` — TypeScript clean, all 12 static pages prerender.
+- ✅ Single point of fix: only `card.tsx` changes; no consumer needs to update markup.
+- ✅ Defensive `px-0` on Lumen `CardHeader`'s inner div is preserved as belt-and-braces — protects if the primitive is ever used inside a non-Lumen Card wrapper.
+
+---
+
 ## [0.10.0] — 2026-05-03 — Satoshi-only typography · single-typeface system
 
 User directive: **"I only want Satoshi as the font in the dashboard and in the design system."** v0.10 collapses Lumen to a single typeface. Through v0.9 the system shipped four families — Satoshi (UI/display), JetBrains Mono (numerics/code), Source Serif 4 (editorial), and Plan-B Inter (hostile-rendering swap). Each had a defensible job, but four families is one more discipline than the brutalist-leaning aesthetic actually wanted, and the JetBrains Mono codepath alone added ~40 KB to every page. v0.10 retires the mono, serif, and alt-sans slots; numeric, code, editorial, and metric moments now ride Satoshi separated by weight, size, tracking, and OpenType feature flags (`tnum`, `lnum`, `zero`, `calt`, `liga`, `ss01–ss04`, `case`, `pnum`).
