@@ -1,0 +1,165 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "type": {
+    "$type": "typography",
+    "$description": "Semantic typography presets. Bundles fontFamily + fontSize + fontWeight + lineHeight + letterSpacing into single tokens. Use these in components.",
+    "display": {
+      "xl": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.76}",
+          "fontWeight":   "{font.weight.bold}",
+          "lineHeight":   "{font.leading.tight}",
+          "letterSpacing":"{font.tracking.tightest}"
+        },
+        "$description": "Hero of marketing landing"
+      },
+      "lg": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.49}",
+          "fontWeight":   "{font.weight.bold}",
+          "lineHeight":   "{font.leading.tight}",
+          "letterSpacing":"{font.tracking.tighter}"
+        },
+        "$description": "Section opener"
+      },
+      "md": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.39}",
+          "fontWeight":   "{font.weight.bold}",
+          "lineHeight":   "{font.leading.tight}",
+          "letterSpacing":"{font.tracking.tighter}"
+        },
+        "$description": "Page title (marketing)"
+      }
+    },
+    "heading": {
+      "h1": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.31}",
+          "fontWeight":   "{font.weight.bold}",
+          "lineHeight":   "{font.leading.snug}",
+          "letterSpacing":"{font.tracking.tight}"
+        },
+        "$description": "Page title (app)"
+      },
+      "h2": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.25}",
+          "fontWeight":   "{font.weight.semibold}",
+          "lineHeight":   "{font.leading.snug}",
+          "letterSpacing":"{font.tracking.tight}"
+        },
+        "$description": "Section header"
+      },
+      "h3": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.20}",
+          "fontWeight":   "{font.weight.medium}",
+          "lineHeight":   "{font.leading.snug}",
+          "letterSpacing":"{font.tracking.normal}"
+        },
+        "$description": "Subsection"
+      }
+    },
+    "body": {
+      "lg": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.18}",
+          "fontWeight":   "{font.weight.regular}",
+          "lineHeight":   "{font.leading.normal}",
+          "letterSpacing":"{font.tracking.normal}"
+        },
+        "$description": "Lead paragraph"
+      },
+      "md": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.16}",
+          "fontWeight":   "{font.weight.regular}",
+          "lineHeight":   "{font.leading.normal}",
+          "letterSpacing":"{font.tracking.normal}"
+        },
+        "$description": "Default body"
+      },
+      "sm": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.14}",
+          "fontWeight":   "{font.weight.regular}",
+          "lineHeight":   "{font.leading.normal}",
+          "letterSpacing":"{font.tracking.normal}"
+        },
+        "$description": "Secondary body, table cells"
+      }
+    },
+    "caption": {
+      "$value": {
+        "fontFamily":   "{font.family.sans}",
+        "fontSize":     "{font.size.13}",
+        "fontWeight":   "{font.weight.regular}",
+        "lineHeight":   "{font.leading.normal}",
+        "letterSpacing":"{font.tracking.normal}"
+      }
+    },
+    "micro": {
+      "$value": {
+        "fontFamily":   "{font.family.sans}",
+        "fontSize":     "{font.size.12}",
+        "fontWeight":   "{font.weight.medium}",
+        "lineHeight":   "{font.leading.normal}",
+        "letterSpacing":"{font.tracking.wide}"
+      },
+      "$description": "Badges, timestamps, hints"
+    },
+    "label": {
+      "sm": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.14}",
+          "fontWeight":   "{font.weight.medium}",
+          "lineHeight":   "{font.leading.tight}",
+          "letterSpacing":"{font.tracking.normal}"
+        },
+        "$description": "Button text, tabs"
+      },
+      "eyebrow": {
+        "$value": {
+          "fontFamily":   "{font.family.sans}",
+          "fontSize":     "{font.size.12}",
+          "fontWeight":   "{font.weight.medium}",
+          "lineHeight":   "{font.leading.tight}",
+          "letterSpacing":"{font.tracking.widest}",
+          "textTransform":"uppercase"
+        },
+        "$description": "ALL CAPS eyebrow labels above titles"
+      }
+    },
+    "code": {
+      "inline": {
+        "$value": {
+          "fontFamily":   "{font.family.mono}",
+          "fontSize":     "{font.size.14}",
+          "fontWeight":   "{font.weight.regular}",
+          "lineHeight":   "{font.leading.normal}",
+          "letterSpacing":"{font.tracking.normal}"
+        }
+      },
+      "block": {
+        "$value": {
+          "fontFamily":   "{font.family.mono}",
+          "fontSize":     "{font.size.13}",
+          "fontWeight":   "{font.weight.regular}",
+          "lineHeight":   "{font.leading.normal}",
+          "letterSpacing":"{font.tracking.normal}"
+        }
+      }
+    }
+  }
+}

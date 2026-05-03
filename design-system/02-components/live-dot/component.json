@@ -1,0 +1,51 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "LiveDot",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "An 8px green dot with a 2px pulsing ring. Warp signature primitive that signals 'this is live'.",
+  "props": {
+    "color": { "type": "string", "optional": true, "default": "var(--color-accent-500)", "description": "CSS color value. Override with status.warning.fg or status.danger.fg for non-healthy live states." },
+    "size":  { "type": "number", "optional": true, "default": 8 },
+    "label": { "type": "string", "optional": true, "description": "Optional uppercase label rendered to the right of the dot." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.accent.500",
+      "color.status.warning.fg",
+      "color.status.danger.fg",
+      "color.text.secondary",
+      "type.label.eyebrow",
+      "motion.duration.slower",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.4.1 Use of Color", "2.3.1 Three Flashes or Below Threshold"],
+    "rules": [
+      "Ring is decorative (aria-hidden). Meaning lives in the label.",
+      "Animation honors prefers-reduced-motion: ring stops pulsing, dot remains.",
+      "Pulse cadence is 3s — slow enough to never trigger flash thresholds.",
+      "When state changes in real time, wrap in aria-live='polite' so the label updates announce."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default green = healthy/live. Use warning.fg for degraded; danger.fg for offline.",
+      "Pair with a label.",
+      "Place inside Badge[status='accent'] for the strongest 'live' signal."
+    ],
+    "dont": [
+      "Don't use multiple LiveDots in the same eye-line.",
+      "Don't change the 3-second cadence.",
+      "Don't substitute for a static status — use Badge[leadingDot] instead."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Stat", "Badge", "RateTicker"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release. Warp signature primitive — 3s pulse cadence locked." }
+  ]
+}

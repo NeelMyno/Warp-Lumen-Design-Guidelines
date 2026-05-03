@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "Single-line text input. Hairline border, focus ring, mono variant for codes/IDs.",
+  "files": [
+    { "path": "design-system/02-components/input/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/input.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "specPath": "design-system/02-components/input/component.json",
+    "docsPath": "design-system/02-components/input/component.md",
+    "warpSignature": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "space": {
+    "$type": "dimension",
+    "$description": "Semantic spacing ladder. Engineers consume these — never the dimension.* primitives. The integer suffix matches the primitive scale (space.4 = 16px) for predictability.",
+    "0":  { "$value": "{dimension.0}" },
+    "1":  { "$value": "{dimension.1}" },
+    "2":  { "$value": "{dimension.2}" },
+    "3":  { "$value": "{dimension.3}" },
+    "4":  { "$value": "{dimension.4}" },
+    "5":  { "$value": "{dimension.5}" },
+    "6":  { "$value": "{dimension.6}" },
+    "8":  { "$value": "{dimension.8}" },
+    "10": { "$value": "{dimension.10}" },
+    "12": { "$value": "{dimension.12}" },
+    "16": { "$value": "{dimension.16}" },
+    "20": { "$value": "{dimension.20}" },
+    "24": { "$value": "{dimension.24}" },
+    "32": { "$value": "{dimension.32}" },
+    "40": { "$value": "{dimension.40}" },
+    "48": { "$value": "{dimension.48}" },
+    "64": { "$value": "{dimension.64}" },
+    "stack": {
+      "$description": "Vertical rhythm — gaps between stacked elements within a section.",
+      "xs":  { "$value": "{dimension.2}" },
+      "sm":  { "$value": "{dimension.3}" },
+      "md":  { "$value": "{dimension.4}" },
+      "lg":  { "$value": "{dimension.6}" },
+      "xl":  { "$value": "{dimension.10}" }
+    },
+    "inline": {
+      "$description": "Horizontal gaps within a row of elements (icon + label, button group).",
+      "xs":  { "$value": "{dimension.1}" },
+      "sm":  { "$value": "{dimension.2}" },
+      "md":  { "$value": "{dimension.3}" },
+      "lg":  { "$value": "{dimension.4}" }
+    },
+    "section": {
+      "$description": "Vertical gap between major sections of a page.",
+      "sm":  { "$value": "{dimension.10}" },
+      "md":  { "$value": "{dimension.12}" },
+      "lg":  { "$value": "{dimension.16}" },
+      "xl":  { "$value": "{dimension.20}" }
+    },
+    "page": {
+      "$description": "Outer padding of the page container.",
+      "sm":  { "$value": "{dimension.4}" },
+      "md":  { "$value": "{dimension.6}" },
+      "lg":  { "$value": "{dimension.8}" }
+    }
+  }
+}

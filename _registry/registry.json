@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "lumen",
+  "homepage": "https://lumen.warp.dev",
+  "description": "Lumen — Warp's vertically integrated design system. Quiet Industrial mood, Satoshi typography, Warp lime green accent. Install components via `npx shadcn@latest add <registry-url>/<name>`.",
+  "items": [
+    { "$ref": "./button.json" },
+    { "$ref": "./input.json" },
+    { "$ref": "./card.json" },
+    { "$ref": "./badge.json" },
+    { "$ref": "./stat.json" },
+    { "$ref": "./live-dot.json" },
+    { "$ref": "./rate-ticker.json" },
+    { "$ref": "./table.json" },
+    { "$ref": "./dialog.json" },
+    { "$ref": "./toast.json" },
+    { "$ref": "./empty-state.json" },
+    { "$ref": "./toggle.json" }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Badge",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A small pill that labels status, category, or count. Always paired with a label or shape.",
+  "props": {
+    "status":     { "type": "enum", "values": ["neutral", "accent", "success", "warning", "danger", "info"], "default": "neutral", "optional": true },
+    "leadingDot": { "type": "boolean", "optional": true, "description": "Defaults true for status variants, false for neutral." },
+    "size":       { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.status.success.bg", "color.status.success.fg",
+      "color.status.warning.bg", "color.status.warning.fg",
+      "color.status.danger.bg",  "color.status.danger.fg",
+      "color.status.info.bg",    "color.status.info.fg",
+      "color.surface.sunken",    "color.text.secondary",
+      "color.border.subtle",
+      "color.accent.500",        "color.text.accent",
+      "radius.pill", "type.micro"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.4.1 Use of Color", "1.4.3 Contrast (Minimum)"],
+    "rules": [
+      "Status meaning must live in the label. Color reinforces, never replaces.",
+      "For badges whose value changes in real time, wrap parent in aria-live='polite'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Always include a label.",
+      "Use sentence case.",
+      "Pair with LiveDot for real-time states."
+    ],
+    "dont": [
+      "Don't use accent green for non-action statuses.",
+      "Don't use red for non-error contexts.",
+      "Don't put 4+ badges in a row — use BadgeGroup."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["LiveDot", "Tag", "StatusDot"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+  ]
+}

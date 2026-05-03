@@ -1,0 +1,20 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "instant": { "$value": { "value": 0,   "unit": "ms" } },
+      "fast":    { "$value": { "value": 120, "unit": "ms" }, "$description": "Hover, micro-feedback" },
+      "base":    { "$value": { "value": 180, "unit": "ms" }, "$description": "Default UI feedback" },
+      "slow":    { "$value": { "value": 260, "unit": "ms" }, "$description": "State changes (panel open, drawer slide)" },
+      "slower":  { "$value": { "value": 400, "unit": "ms" }, "$description": "Page-level transitions" }
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "standard":   { "$value": [0.2, 0.0, 0.0, 1.0], "$description": "Default. Use 95% of the time." },
+      "emphasised": { "$value": [0.2, 0.0, 0.0, 1.2], "$description": "Reserved. Slight overshoot for entry of large state changes." },
+      "decelerate": { "$value": [0.0, 0.0, 0.2, 1.0], "$description": "Entry side. Thing arriving." },
+      "accelerate": { "$value": [0.4, 0.0, 1.0, 1.0], "$description": "Exit side. Thing leaving." }
+    }
+  }
+}

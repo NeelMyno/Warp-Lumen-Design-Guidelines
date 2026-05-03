@@ -1,0 +1,44 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "dimension": {
+    "$type": "dimension",
+    "$description": "4-based spacing/sizing scale. Engineers consume via space.* semantic tokens, not these primitives.",
+    "0":   { "$value": { "value": 0,   "unit": "px" } },
+    "1":   { "$value": { "value": 4,   "unit": "px" } },
+    "2":   { "$value": { "value": 8,   "unit": "px" } },
+    "3":   { "$value": { "value": 12,  "unit": "px" } },
+    "4":   { "$value": { "value": 16,  "unit": "px" } },
+    "5":   { "$value": { "value": 20,  "unit": "px" } },
+    "6":   { "$value": { "value": 24,  "unit": "px" } },
+    "8":   { "$value": { "value": 32,  "unit": "px" } },
+    "10":  { "$value": { "value": 40,  "unit": "px" } },
+    "12":  { "$value": { "value": 48,  "unit": "px" } },
+    "16":  { "$value": { "value": 64,  "unit": "px" } },
+    "20":  { "$value": { "value": 80,  "unit": "px" } },
+    "24":  { "$value": { "value": 96,  "unit": "px" } },
+    "32":  { "$value": { "value": 128, "unit": "px" } },
+    "40":  { "$value": { "value": 160, "unit": "px" } },
+    "48":  { "$value": { "value": 192, "unit": "px" } },
+    "64":  { "$value": { "value": 256, "unit": "px" } }
+  },
+  "size": {
+    "$type": "dimension",
+    "$description": "Common bounded sizes for layout containers and reading widths.",
+    "container": {
+      "narrow":  { "$value": { "value": 720,  "unit": "px" }, "$description": "Reading column / single article" },
+      "default": { "$value": { "value": 1100, "unit": "px" }, "$description": "Primary marketing + dashboard width (matches Warp)" },
+      "wide":    { "$value": { "value": 1200, "unit": "px" }, "$description": "Wide hero blocks" },
+      "max":     { "$value": { "value": 1440, "unit": "px" }, "$description": "Audit dashboard maximum" }
+    },
+    "reading": {
+      "60ch":    { "$value": { "value": 60,   "unit": "ch" } },
+      "75ch":    { "$value": { "value": 75,   "unit": "ch" } }
+    },
+    "control": {
+      "sm":      { "$value": { "value": 32,   "unit": "px" }, "$description": "Compact button / input height" },
+      "md":      { "$value": { "value": 40,   "unit": "px" }, "$description": "Default control height" },
+      "lg":      { "$value": { "value": 48,   "unit": "px" }, "$description": "Large CTA / form height" },
+      "touch":   { "$value": { "value": 44,   "unit": "px" }, "$description": "Apple HIG minimum touch target" }
+    }
+  }
+}

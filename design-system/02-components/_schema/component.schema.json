@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://lumen.warp.dev/schemas/component.schema.json",
+  "title": "Lumen component contract",
+  "description": "Every component.json in /design-system/02-components/{name}/ validates against this. CI rejects components missing required fields.",
+  "type": "object",
+  "required": ["name", "version", "status", "summary", "props", "tokens", "a11y", "rules", "examples"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "PascalCase component name. e.g. \"Button\", \"LiveDot\".",
+      "pattern": "^[A-Z][A-Za-z0-9]*$"
+    },
+    "version": { "type": "string", "description": "Semver. Matches the system version at the time of latest change." },
+    "status": {
+      "type": "string",
+      "enum": ["stable", "beta", "experimental", "deprecated"],
+      "description": "Lifecycle stage."
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false
+    },
+    "deprecationNotice": {
+      "type": "string",
+      "description": "Required when deprecated=true. Tell consumers what to use instead and when this will be removed."
+    },
+    "removedIn": {
+      "type": "string",
+      "description": "Semver in which this component will be removed. Required when deprecated=true."
+    },
+    "summary": {
+      "type": "string",
+      "description": "One sentence. What does this component do for the user?"
+    },
+    "props": {
+      "type": "object",
+      "description": "Every prop the component accepts. Key is prop name (camelCase).",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type":        { "type": "string", "enum": ["enum", "boolean", "string", "number", "node", "icon", "handler", "ref"] },
+          "values":      { "type": "array", "items": { "type": "string" }, "description": "Required when type=enum." },
+          "default":     { },
+          "optional":    { "type": "boolean", "default": true },
+          "description": { "type": "string" },
+          "deprecated":  { "type": "boolean", "default": false },
+          "deprecationNotice": { "type": "string" }
+        }
+      }
+    },
+    "tokens": {
+      "type": "object",
+      "required": ["consumed"],
+      "properties": {
+        "consumed": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z][a-zA-Z0-9.-]+$" },
+          "description": "All semantic / component tokens this component reads from. Used by token-impact analysis: changing a token here triggers a rebuild of every consumer."
+        }
+      }
+    },
+    "a11y": {
+      "type": "object",
+      "required": ["wcag", "keyboard"],
+      "properties": {
+        "role":     { "type": "string", "description": "ARIA role if not implicit." },
+        "keyboard": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Every keyboard shortcut and what it does. Format: \"<Key> - <action>\". Example: \"Enter - activate\"."
+        },
+        "minTouchTarget": { "type": "string", "description": "e.g. \"44x44\" (px or pt depending on platform)." },
+        "wcag": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "WCAG 2.2 success criteria the component is validated against. e.g. \"2.4.7 Focus Visible\"."
+        },
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Component-specific a11y rules."
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "required": ["do", "dont"],
+      "properties": {
+        "do":   { "type": "array", "items": { "type": "string" } },
+        "dont": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "examples": {
+      "type": "object",
+      "description": "Map platform -> file path of a copy-paste-ready example.",
+      "patternProperties": {
+        "^(web-react|react-native|ios-native|android-native|desktop-mac|desktop-windows|shopify-liquid|bigcommerce-stencil|woo-wordpress)$": {
+          "type": "string"
+        }
+      }
+    },
+    "related": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "changelog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "type", "note"],
+        "properties": {
+          "version": { "type": "string" },
+          "type":    { "type": "string", "enum": ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"] },
+          "note":    { "type": "string" }
+        }
+      }
+    }
+  }
+}

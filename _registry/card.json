@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card",
+  "type": "registry:ui",
+  "title": "Card",
+  "description": "A bordered surface that groups related content. Hairline border by default.",
+  "files": [
+    { "path": "design-system/02-components/card/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/card.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native", "ios-native", "android-native", "shopify-liquid"],
+    "specPath": "design-system/02-components/card/component.json",
+    "docsPath": "design-system/02-components/card/component.md",
+    "warpSignature": false
+  }
+}

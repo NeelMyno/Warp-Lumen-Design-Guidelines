@@ -1,0 +1,50 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "EmptyState",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Type-led message for empty collections. Headline + supporting line + optional primary action.",
+  "props": {
+    "icon":       { "type": "icon", "optional": true },
+    "headline":   { "type": "string", "optional": false },
+    "supporting": { "type": "string", "optional": true },
+    "action":     { "type": "node", "optional": true },
+    "align":      { "type": "enum", "values": ["start", "center"], "default": "center", "optional": true },
+    "compact":    { "type": "boolean", "default": false, "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary", "color.text.secondary", "color.text.tertiary",
+      "color.border.default",
+      "type.heading.h3", "type.body.sm",
+      "space.4", "space.8"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.3.1 Info and Relationships"],
+    "rules": [
+      "role='region' with aria-labelledby pointing to headline.",
+      "Icon is decorative (aria-hidden).",
+      "Action label carries the meaning."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Two lines max.",
+      "Lead action with a verb.",
+      "Use 1.5px stroke icon language."
+    ],
+    "dont": [
+      "Don't illustrate.",
+      "Don't say 'Oops' or 'Uh-oh.'",
+      "Don't put two equal-weight actions."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Card", "Button"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+  ]
+}

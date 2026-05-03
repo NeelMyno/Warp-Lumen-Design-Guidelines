@@ -1,0 +1,68 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "sans":  {
+        "$value": ["Satoshi", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI Variable", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif"],
+        "$description": "Primary face. Satoshi (ITF-FFL, free for commercial use, self-host woff2). Fallback chain prefers SF Pro on Apple, Segoe UI Variable on Windows 11, Roboto on Android."
+      },
+      "mono":  {
+        "$value": ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"],
+        "$description": "Mono companion. JetBrains Mono (OFL). Used for numerics, code, terminal output."
+      },
+      "serif": {
+        "$value": ["Source Serif 4", "ui-serif", "Georgia", "Cambria", "Times New Roman", "serif"],
+        "$description": "Editorial pair. Source Serif 4 (Adobe, OFL, variable with opsz axis). Use only for longform marketing/blog."
+      },
+      "alt-sans": {
+        "$value": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        "$description": "Plan B sans. Inter (OFL). Used as the swap if Satoshi licensing changes, Cyrillic/Greek market expansion, or Windows ClearType QA fails at 12-14px."
+      }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "light":    { "$value": 300 },
+      "regular":  { "$value": 400 },
+      "medium":   { "$value": 500 },
+      "semibold": { "$value": 600 },
+      "bold":     { "$value": 700 },
+      "black":    { "$value": 900, "$description": "Reserved for hero impact words. Never body or H3+." }
+    },
+    "size": {
+      "$type": "dimension",
+      "$description": "1.25 (Major Third) modular scale on a 16px base.",
+      "12":  { "$value": { "value": 12,  "unit": "px" } },
+      "13":  { "$value": { "value": 13,  "unit": "px" } },
+      "14":  { "$value": { "value": 14,  "unit": "px" } },
+      "15":  { "$value": { "value": 15,  "unit": "px" } },
+      "16":  { "$value": { "value": 16,  "unit": "px" }, "$description": "Base" },
+      "18":  { "$value": { "value": 18,  "unit": "px" } },
+      "20":  { "$value": { "value": 20,  "unit": "px" } },
+      "25":  { "$value": { "value": 25,  "unit": "px" } },
+      "31":  { "$value": { "value": 31,  "unit": "px" } },
+      "39":  { "$value": { "value": 39,  "unit": "px" } },
+      "49":  { "$value": { "value": 49,  "unit": "px" } },
+      "61":  { "$value": { "value": 61,  "unit": "px" } },
+      "76":  { "$value": { "value": 76,  "unit": "px" } }
+    },
+    "leading": {
+      "$type": "number",
+      "tight":    { "$value": 1.10 },
+      "snug":     { "$value": 1.25 },
+      "normal":   { "$value": 1.50 },
+      "relaxed":  { "$value": 1.65 }
+    },
+    "tracking": {
+      "$type": "dimension",
+      "$description": "Letter-spacing. Tighter as size increases, looser as size decreases. Optical compensation for Satoshi.",
+      "tightest": { "$value": { "value": -0.04, "unit": "em" } },
+      "tighter":  { "$value": { "value": -0.02, "unit": "em" } },
+      "tight":    { "$value": { "value": -0.01, "unit": "em" } },
+      "normal":   { "$value": { "value": 0,     "unit": "em" } },
+      "wide":     { "$value": { "value": 0.02,  "unit": "em" } },
+      "wider":    { "$value": { "value": 0.05,  "unit": "em" } },
+      "widest":   { "$value": { "value": 0.10,  "unit": "em" } }
+    }
+  }
+}

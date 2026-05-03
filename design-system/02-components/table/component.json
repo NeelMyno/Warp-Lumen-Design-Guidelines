@@ -1,0 +1,59 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Table",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Operator-density data table. Hairline row dividers, no column dividers, sticky header, tabular numerics.",
+  "props": {
+    "density":      { "type": "enum", "values": ["compact", "regular", "cozy"], "default": "regular", "optional": true },
+    "stickyHeader": { "type": "boolean", "default": true, "optional": true },
+    "zebra":        { "type": "boolean", "default": false, "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.sunken",
+      "color.border.subtle",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary",
+      "type.body.sm", "type.label.eyebrow", "type.code.inline",
+      "space.3", "space.4",
+      "motion.transition.fast"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab - move focus to next interactive cell",
+      "Arrow keys - move within a sortable header (if implementing keyboard sort)"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "2.4.6 Headings and Labels",
+      "1.4.3 Contrast (Minimum)"
+    ],
+    "rules": [
+      "Use semantic <table>, <thead>, <tbody>, <tfoot>.",
+      "<th scope='col'> on header cells, <th scope='row'> on row headers when present.",
+      "Sortable columns set aria-sort. Selected rows set aria-selected.",
+      "Tabular numerics are visual only; do NOT replace <th scope> semantics.",
+      "Sticky header uses <thead>; do not implement via CSS position:sticky on tbody."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Right-align numeric columns; use dash-mono + dash-tnum.",
+      "Use Badge in a status column.",
+      "Sticky the header for tables with > 12 rows.",
+      "Compact density for shipments / records lists."
+    ],
+    "dont": [
+      "Don't use column dividers.",
+      "Don't put primary actions in cells.",
+      "Don't rely on row color alone for status."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Stat", "Badge", "EmptyState"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+  ]
+}

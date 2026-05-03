@@ -1,0 +1,42 @@
+---
+description: Lumen design system rules for Warp Terminal AI
+globs: ["**/*.{ts,tsx,jsx,js,css,scss,md,json,swift,kt,liquid,xml}"]
+alwaysApply: true
+---
+
+# Lumen — Warp Terminal AI rules
+
+> This file mirrors [AGENTS.md](../AGENTS.md). Warp Terminal's AI features (Agent Mode, suggestions) reference this when working in repos that use Lumen.
+
+## Identity
+
+This is the design system for **Warp** (wearewarp.com — the freight network). Not to be confused with Warp Terminal. The accent green here is the freight Warp's brand green.
+
+## Hard rules
+
+(Same as AGENTS.md and `.cursor/rules/lumen.mdc`. The full text lives in AGENTS.md — this file is the Warp-Terminal-friendly mirror.)
+
+1. Use semantic Lumen tokens, never primitives.
+2. Never hardcode hex / px in component code.
+3. Component contracts must validate against the schema.
+4. WCAG 2.2 AA hard floor.
+5. Warp green = action/live/success only.
+6. Honor `prefers-reduced-motion`.
+
+## Common terminal commands
+
+```bash
+pnpm install                    # install deps
+pnpm build                      # build tokens (Style Dictionary)
+pnpm validate                   # JSON schema + DTCG lint + WCAG
+pnpm registry                   # regenerate _registry/
+cd audit-dashboard && pnpm dev  # run reference dashboard
+```
+
+## Quick lookups
+
+When you need to reference a Lumen value, query in this order:
+1. `_registry/{name}.json` — installable component metadata
+2. `design-system/02-components/{name}/component.json` — full contract
+3. `design-system/01-tokens/semantic/*.tokens.json` — tokens
+4. `design-system/01-tokens/README.md` — token taxonomy & quick-ref tables

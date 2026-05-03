@@ -1,0 +1,142 @@
+# Lumen — Warp's Design System (full)
+
+> Inlined version of llms.txt for agents that do a single fetch. Combines llms.txt index with the contents of AGENTS.md, the principles, the token quick-ref, and the brand brief.
+
+## Index (same as llms.txt)
+
+- AGENTS.md — universal agent rules
+- CLAUDE.md — Claude-specific addenda
+- llms.txt — discovery index
+- design-system/00-foundations/ — principles, voice, a11y, motion-language
+- design-system/01-tokens/ — DTCG JSON (primitives → semantic → component)
+- design-system/02-components/ — component.md + component.json per component
+- design-system/03-platforms/ — per-platform consumption guides
+- design-system/04-content/ — imagery, illustration, microcopy, errors
+- _registry/ — shadcn-compatible registry.json + sidecars
+- _meta/ — glossary, ADRs, prompt fragments
+- audit-dashboard/ — Next.js 16 reference implementation
+- research/ — brand DNA, inspiration, typography, architecture
+
+## Inlined: principles (from design-system/00-foundations/principles.md)
+
+Five operating principles, in priority order when in conflict:
+
+1. **Less, but better.** Restraint is a constraint, not a style. Cut until removing one more thing breaks meaning. One primary action per view, one disciplined accent in the system, no second loud color, no decorative gradients.
+
+2. **Care is total or it is performance.** The empty state, the error toast, the disabled button, the focus ring, the 404 page get the same attention as the marquee dashboard.
+
+3. **Color is supplement, not signal.** Status meaning never lives only in hue. Pair color with a label or shape. The accent green is reserved for action / live / success.
+
+4. **Decelerate, don't bounce.** Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI feedback ≤ 180 ms; state changes ≤ 260 ms. The LiveDot pulse is the one signature recurring animation. Honor `prefers-reduced-motion`.
+
+5. **Density is dense, not airy.** Long single-column scrolls, ~1100–1200 px content widths, FAQ accordions are fine. Whitespace lives inside sections. Apple's calm comes from typographic discipline and 1px hairlines, not emptiness.
+
+## Inlined: AGENTS.md hard rules
+
+1. Never invent tokens. Add semantic aliases, never import primitives.
+2. Always reference SEMANTIC tokens. `color.surface.default`, never `color.warm.50`.
+3. Component contracts validate against `_schema/component.schema.json`.
+4. Every component ships a `component.json` machine contract.
+5. Accessibility is WCAG 2.2 AA. Hard floor.
+6. Use platform-appropriate code templates from `02-components/{name}/examples/`.
+7. The Warp lime green plays exactly one role: action / live / success.
+8. Honor `prefers-reduced-motion` everywhere.
+
+## Inlined: token quick reference
+
+### Surfaces
+- `color.surface.page` — page canvas (paper-warm white in light, Warp navy in dark)
+- `color.surface.raised` — cards (white in light, lifted navy in dark)
+- `color.surface.sunken` — inputs, table row hover
+- `color.surface.overlay` — translucent sticky chrome
+- `color.surface.inverse` — dark surface for contrast moments
+
+### Text
+- `color.text.primary` — body and titles (14.6:1 contrast)
+- `color.text.secondary` — captions (7.4:1)
+- `color.text.tertiary` — hints (4.6:1, ≥18px only)
+- `color.text.inverse` — text on inverse surfaces
+- `color.text.accent` — emphasis text matching accent
+
+### Action
+- `color.action.primary.bg.{rest,hover,press}` — Warp green button background
+- `color.action.primary.fg` — near-black-green text on accent
+- `color.action.primary.glow` — signature green-glow under primary CTAs (`0 14px 34px rgba(74,222,128,0.24)`)
+
+### Status
+- `color.status.{success,warning,danger,info}.{bg,fg}` — always paired with label or shape, never color alone
+
+### Spacing (semantic)
+- `space.0` to `space.32` (4-based scale)
+- `space.stack.{xs,sm,md,lg,xl}` — vertical rhythm
+- `space.inline.{xs,sm,md,lg}` — horizontal gaps
+- `space.section.{sm,md,lg,xl}` — between major page sections
+
+### Radius
+- `radius.control.md` — buttons, inputs (6 px)
+- `radius.card.default` — cards (10 px)
+- `radius.card.lifted` — interactive cards (14 px)
+- `radius.card.hero` — hero surfaces (20 px)
+- `radius.pill` — status badges, dots
+
+### Motion
+- `motion.transition.fast` — 120 ms standard (hover, micro-feedback)
+- `motion.transition.base` — 180 ms standard (default UI feedback)
+- `motion.transition.slow` — 260 ms standard (state changes)
+- `motion.transition.page` — 400 ms standard (page transitions)
+- `motion.easing.standard` — `cubic-bezier(0.2, 0, 0, 1)` (default)
+- `motion.easing.decelerate` — entry side
+- `motion.easing.accelerate` — exit side
+
+### Typography
+- `type.display.{xl,lg,md}` — hero, section opener, page title (76/49/39 px)
+- `type.heading.{h1,h2,h3}` — app title, section, subsection (31/25/20 px)
+- `type.body.{lg,md,sm}` — lead, default, secondary (18/16/14 px)
+- `type.caption` (13 px) — metadata
+- `type.micro` (12 px) — eyebrows, badges
+- `type.label.{sm,eyebrow}` — UI labels
+- `type.code.{inline,block}` — JetBrains Mono
+
+## Inlined: brand brief decisions
+
+### D-001 Visual mood
+Quiet Industrial. Warp's substance + Apple's typographic discipline. Paper-warm white light, Warp navy dark.
+
+### D-002 Color
+Warp lime green `#4ade80` as the only loud color, role: action / live / success. Hover `#34c977`, press `#22c55e`. Light mode canvas `#fafaf7`. Dark mode canvas `#131c2a` (Warp's actual `--warp-bg`).
+
+### D-003 Typography
+Satoshi (UI/display) + JetBrains Mono (numerics/code). 1.25 modular scale on 16 px base. Editorial pair: Source Serif 4. Plan B: Inter.
+
+### D-004 Spacing & geometry
+4-based spacing scale. Radius 2/4/6/10/14/20/28/9999. Hairline borders do most surface separation.
+
+### D-005 Motion
+Decelerate, don't bounce. Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI ≤ 180 ms. The LiveDot pulse is the one signature loop.
+
+### D-006 Imagery
+No stock photography. Marketing: product screenshots first, documentary second. No mascots, no illustrated scenes. Iconography: 1.5 px stroke, 24 px grid, rounded ends.
+
+### D-007 Density
+Dense over airy. 1100 px primary content width. Tables compact 32 px rows.
+
+### D-008 Live-data signature primitives
+Three: `Stat` (big tabular numeric + small mono unit), `LiveDot` (8 px green dot with 2 px pulsing ring), `RateTicker` (horizontal scrolling lane rates).
+
+### D-009 Architecture
+DTCG JSON tokens → Style Dictionary v5 → 8 platform outputs. Three-layer taxonomy. Two-file-per-component (md + json). shadcn registry distribution. Layered LLM contract.
+
+## Reference files (read in detail when working in their domain)
+
+- Brand brief: `/research/lumen-brief.md`
+- Brand DNA study: `/research/warp-brand-dna.md`
+- Inspiration brief: `/research/inspiration-brief.md`
+- Typography research: `/research/satoshi-typography.md`
+- System architecture research: `/research/system-architecture.md`
+- Component schema: `/design-system/02-components/_schema/component.schema.json`
+- Token taxonomy: `/design-system/01-tokens/README.md`
+- Voice & tone: `/design-system/00-foundations/voice-and-tone.md`
+- Accessibility: `/design-system/00-foundations/accessibility.md`
+- Motion language: `/design-system/00-foundations/motion-language.md`
+- Microcopy library: `/design-system/04-content/microcopy.md`
+- Error messages: `/design-system/04-content/error-messages.md`

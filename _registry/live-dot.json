@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "live-dot",
+  "type": "registry:ui",
+  "title": "LiveDot",
+  "description": "8px green dot with a 2px ring that pulses on a 3s loop. The system's signature recurring animation. Warp signature primitive.",
+  "files": [
+    { "path": "design-system/02-components/live-dot/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/live-dot.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "specPath": "design-system/02-components/live-dot/component.json",
+    "docsPath": "design-system/02-components/live-dot/component.md",
+    "warpSignature": true
+  }
+}

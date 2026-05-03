@@ -1,0 +1,51 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Card",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A bounded surface with a hairline border and optional subtle shadow.",
+  "props": {
+    "padding":     { "type": "enum", "values": ["none", "sm", "md", "lg"], "default": "md", "optional": true },
+    "interactive": { "type": "boolean", "default": false, "optional": true },
+    "selected":    { "type": "boolean", "default": false, "optional": true },
+    "as":          { "type": "enum", "values": ["div", "article", "section", "button", "a"], "default": "div", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "card.background", "card.border", "card.radius.default", "card.radius.lifted",
+      "card.padding.sm", "card.padding.md", "card.padding.lg",
+      "card.shadow.rest", "card.shadow.hover",
+      "color.border.focus", "shadow.focus",
+      "motion.transition.fast"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Enter / Space - activate (interactive only)"
+    ],
+    "wcag": ["2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Non-interactive cards do NOT receive a role.",
+      "Interactive cards render as <button> (action) or <a> (navigation). Never <div onClick>.",
+      "Selection announces via aria-pressed (button) or aria-selected (listbox)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default to hairline border only, no shadow.",
+      "Pair with CardHeader when the card has a title.",
+      "Use padding=none when the body controls its own padding."
+    ],
+    "dont": [
+      "Don't stack shadows. One per card.",
+      "Don't nest cards more than one level deep.",
+      "Don't use a heavy border for emphasis."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["CardHeader", "Section"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+  ]
+}

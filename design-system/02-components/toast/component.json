@@ -1,0 +1,64 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Toast",
+  "version": "0.1.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "A short non-blocking message anchored to a viewport corner.",
+  "props": {
+    "status":   { "type": "enum", "values": ["success", "info", "warning", "danger"], "default": "info", "optional": true },
+    "anchor":   { "type": "enum", "values": ["bottom-right", "bottom-left", "bottom-center", "top-right"], "default": "bottom-right", "optional": true },
+    "duration": { "type": "number", "optional": true, "description": "Auto-dismiss in ms. null = sticky. Defaults: success/info 6000, warning 8000, danger null." },
+    "action":   { "type": "node", "optional": true, "description": "Optional action button." },
+    "onDismiss":{ "type": "handler", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.border.subtle",
+      "color.status.success.bg", "color.status.success.fg",
+      "color.status.warning.bg", "color.status.warning.fg",
+      "color.status.danger.bg",  "color.status.danger.fg",
+      "color.status.info.bg",    "color.status.info.fg",
+      "radius.card.lifted",
+      "shadow.toast",
+      "type.body.sm",
+      "motion.transition.slow",
+      "motion.transition.accelerate"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab to action / dismiss",
+      "Enter to activate"
+    ],
+    "wcag": [
+      "1.4.13 Content on Hover or Focus",
+      "2.2.1 Timing Adjustable",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Region wraps in aria-live='polite' (non-error) or 'assertive' (error).",
+      "role='status' for non-error, role='alert' for error.",
+      "Hover or focus pauses auto-dismiss.",
+      "Dismiss button keyboard reachable."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Past tense for completed ('Booked').",
+      "Present continuous for ongoing ('Quoting…').",
+      "Pair errors with an action."
+    ],
+    "dont": [
+      "Don't queue more than 3 on screen.",
+      "Don't use for destructive confirmations (use Dialog).",
+      "Don't auto-dismiss errors."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Dialog", "Banner"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Beta release." }
+  ]
+}

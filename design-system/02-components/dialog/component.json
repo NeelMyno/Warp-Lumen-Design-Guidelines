@@ -1,0 +1,64 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Dialog",
+  "version": "0.1.0",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "A modal interrupt for confirmation, focused decision, or short-form input.",
+  "props": {
+    "open":        { "type": "boolean", "optional": false },
+    "onOpenChange":{ "type": "handler", "optional": false },
+    "size":        { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "destructive": { "type": "boolean", "default": false, "optional": true, "description": "Adds a confirmation phrase requirement when true." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.scrim",
+      "color.text.primary", "color.text.secondary",
+      "radius.card.hero",
+      "shadow.modal",
+      "motion.transition.slow",
+      "motion.transition.accelerate",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Escape - close",
+      "Tab - cycle focus within trap",
+      "Shift+Tab - cycle focus reverse",
+      "Enter - activate focused button"
+    ],
+    "wcag": [
+      "2.1.2 No Keyboard Trap (intentional, with visible exit)",
+      "2.4.3 Focus Order",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' + aria-modal='true'.",
+      "Focus trap. First focusable receives focus on open.",
+      "Escape closes.",
+      "Page background aria-hidden='true' while open.",
+      "Returns focus to trigger on close.",
+      "Destructive actions require a typed confirmation phrase."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead the title with the consequence.",
+      "Right-align actions; primary on the right, cancel on the left.",
+      "Require typed confirmation for destructive primary."
+    ],
+    "dont": [
+      "Don't open a dialog from a dialog.",
+      "Don't put long-form content in a dialog.",
+      "Don't use as a marketing teaser."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Toast", "Drawer", "Button"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Beta release." }
+  ]
+}

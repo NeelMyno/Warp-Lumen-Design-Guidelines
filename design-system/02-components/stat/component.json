@@ -1,0 +1,52 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Stat",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A big bold number with a small mono unit and optional delta. Warp signature primitive.",
+  "props": {
+    "label":  { "type": "string", "optional": false, "description": "Eyebrow label, sentence case." },
+    "value":  { "type": "string", "optional": false, "description": "The number. Always render in tabular monospace." },
+    "unit":   { "type": "string", "optional": true,  "description": "Small mono unit suffix ('%', 'lb', 'days')." },
+    "delta":  { "type": "string", "optional": true,  "description": "Change description. e.g. '+12.4% wow', '-3.6%'." },
+    "trend":  { "type": "enum", "values": ["up", "down", "flat"], "optional": true },
+    "size":   { "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "type.label.eyebrow",
+      "type.display.md", "type.display.lg", "type.display.xl",
+      "type.heading.h1", "type.heading.h2",
+      "type.body.sm", "type.caption",
+      "color.text.primary", "color.text.tertiary",
+      "color.status.success.fg", "color.status.danger.fg",
+      "font.family.mono"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.4.3 Contrast (Minimum)"],
+    "rules": [
+      "Trend arrow uses aria-hidden; meaning lives in the delta string.",
+      "Real-time Stats are wrapped in aria-live='polite' by the consumer."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Always tabular monospace for the value.",
+      "Pair with unit in text-tertiary so the number reads as hero.",
+      "Use StatGrid for rows of Stats to enforce uniform sizing."
+    ],
+    "dont": [
+      "Don't bold the unit.",
+      "Don't put delta inside value — separate line.",
+      "Don't mix sizes within a row."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["LiveDot", "RateTicker", "Card"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release. Warp signature primitive." }
+  ]
+}

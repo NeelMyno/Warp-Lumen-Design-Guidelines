@@ -1,0 +1,123 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Button",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A button triggers an action. The primary way users commit to a decision in a flow.",
+  "props": {
+    "intent": {
+      "type": "enum",
+      "values": ["primary", "secondary", "tertiary", "danger"],
+      "default": "secondary",
+      "optional": true,
+      "description": "Visual emphasis. Use 'primary' for the single most important action in a view."
+    },
+    "size": {
+      "type": "enum",
+      "values": ["sm", "md", "lg"],
+      "default": "md",
+      "optional": true,
+      "description": "Button height. sm=32px, md=40px, lg=48px. Mobile templates must use md minimum for 44px touch target."
+    },
+    "width": {
+      "type": "enum",
+      "values": ["auto", "full"],
+      "default": "auto",
+      "optional": true
+    },
+    "leadingIcon":  { "type": "icon", "optional": true, "description": "Sized 16 for sm/md, 18 for lg." },
+    "trailingIcon": { "type": "icon", "optional": true },
+    "loading": {
+      "type": "boolean",
+      "default": false,
+      "optional": true,
+      "description": "Replaces leading icon with spinner. Sets aria-busy=true. Suppresses onClick."
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "optional": true,
+      "description": "Sets aria-disabled=true (not the disabled attribute) inside forms."
+    },
+    "onClick": {
+      "type": "handler",
+      "optional": false,
+      "description": "Required unless disabled or as='a'."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.action.primary.bg.rest",
+      "color.action.primary.bg.hover",
+      "color.action.primary.bg.press",
+      "color.action.primary.fg",
+      "color.action.secondary.bg.rest",
+      "color.action.secondary.bg.hover",
+      "color.action.secondary.fg",
+      "color.action.secondary.border",
+      "color.action.tertiary.bg.hover",
+      "color.action.tertiary.fg",
+      "color.action.danger.bg.rest",
+      "color.action.danger.bg.hover",
+      "color.action.danger.fg",
+      "shadow.focus",
+      "shadow.accent-glow",
+      "radius.control.md",
+      "space.inline.sm",
+      "size.control.sm",
+      "size.control.md",
+      "size.control.lg",
+      "type.label.sm",
+      "motion.transition.fast"
+    ]
+  },
+  "a11y": {
+    "role": "button",
+    "keyboard": [
+      "Enter - activate",
+      "Space - activate",
+      "Tab - move focus to next control",
+      "Shift+Tab - move focus to previous control"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.4.7 Focus Visible",
+      "2.5.5 Target Size (Enhanced)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Visible focus ring required. Do not remove via outline:none.",
+      "Disabled state must use aria-disabled, not the disabled attribute, when used inside a form.",
+      "Loading state must set aria-busy=true and suppress onClick.",
+      "Label must contain at least one visible character. Icon-only requires the IconButton component with aria-label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use one primary button per view.",
+      "Lead the label with a verb: 'Save changes', 'Get rates', 'Delete account'.",
+      "Pair danger intent with a confirmation dialog.",
+      "Pair loading with optimistic feedback elsewhere if the operation takes >2s."
+    ],
+    "dont": [
+      "Don't stack three primary buttons in a row.",
+      "Don't use Title Case. Use sentence case.",
+      "Don't disable a button without explaining why nearby.",
+      "Don't put icons on both sides of a short label. Pick one.",
+      "Don't use intent='primary' for a destructive action — that's intent='danger'."
+    ]
+  },
+  "examples": {
+    "web-react":      "./examples/primary.tsx",
+    "react-native":   "./examples/primary.rn.tsx",
+    "ios-native":     "./examples/primary.swift",
+    "android-native": "./examples/primary.kt",
+    "shopify-liquid": "./examples/primary.liquid"
+  },
+  "related": ["IconButton", "Link", "Toggle"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release. Four intents, three sizes, loading, full-width, leading/trailing icons." }
+  ]
+}

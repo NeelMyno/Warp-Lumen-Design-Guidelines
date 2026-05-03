@@ -1,0 +1,51 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "RateTicker",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Horizontal marquee of freight lane rates. Warp signature primitive.",
+  "props": {
+    "rates":     { "type": "node", "optional": true, "description": "Array of {from, to, price} objects." },
+    "speed":     { "type": "enum", "values": ["slow", "normal", "fast"], "default": "normal", "optional": true },
+    "direction": { "type": "enum", "values": ["left", "right"], "default": "left", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.sunken",
+      "color.border.subtle",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.accent.700",
+      "type.code.inline",
+      "font.family.mono"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.4.1 Use of Color", "2.2.2 Pause Stop Hide", "2.3.1 Three Flashes"],
+    "rules": [
+      "Animation honors prefers-reduced-motion (track stops, rates display statically).",
+      "Region exposes aria-label='Live freight rates'.",
+      "Not focusable; not interactive.",
+      "Cadence is slow enough to be 'present without demanding.' Never faster than 40s loop."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use 8+ rates so the loop feels continuous.",
+      "Place between hero and trust strip on landing pages.",
+      "Add aria-label."
+    ],
+    "dont": [
+      "Don't put interactive elements inside.",
+      "Don't auto-scroll faster than 60s as default.",
+      "Don't use as the ONLY signal of live data — pair with LiveDot."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Stat", "LiveDot", "Marquee"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release. Warp signature primitive." }
+  ]
+}

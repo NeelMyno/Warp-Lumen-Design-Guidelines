@@ -1,0 +1,14 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "radius": {
+    "$type": "dimension",
+    "xs":   { "$value": { "value": 2,    "unit": "px" }, "$description": "Hairline accents" },
+    "sm":   { "$value": { "value": 4,    "unit": "px" }, "$description": "Small chips, kbd" },
+    "md":   { "$value": { "value": 6,    "unit": "px" }, "$description": "Inputs, buttons" },
+    "lg":   { "$value": { "value": 10,   "unit": "px" }, "$description": "Cards (default)" },
+    "xl":   { "$value": { "value": 14,   "unit": "px" }, "$description": "Cards (lifted), navigation panels" },
+    "2xl":  { "$value": { "value": 20,   "unit": "px" }, "$description": "Hero surfaces, large cards" },
+    "3xl":  { "$value": { "value": 28,   "unit": "px" }, "$description": "Marketing surfaces, modal sheets" },
+    "full": { "$value": { "value": 9999, "unit": "px" }, "$description": "Pills, dots, avatars" }
+  }
+}

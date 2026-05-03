@@ -1,0 +1,92 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "color": {
+    "$type": "color",
+    "$description": "Primitive color ramps. Mode-agnostic. Engineers and LLMs do NOT consume these directly — use semantic aliases (color.surface.*, color.text.*, etc.) instead.",
+    "brand": {
+      "50":  { "$value": "#f4f5f7", "$description": "Page tints" },
+      "100": { "$value": "#e4e6ea", "$description": "Hover surfaces" },
+      "200": { "$value": "#c5c9d1", "$description": "Dividers" },
+      "300": { "$value": "#9aa0ab", "$description": "Muted UI" },
+      "400": { "$value": "#6b7280", "$description": "Captions" },
+      "500": { "$value": "#334155", "$description": "Secondary text" },
+      "600": { "$value": "#253040", "$description": "Border strong (Warp --warp-border-strong)" },
+      "700": { "$value": "#1a2332", "$description": "Surface 2 dark (Warp --warp-surface-2)" },
+      "800": { "$value": "#141c2b", "$description": "Surface 1 dark (Warp --warp-surface-1)" },
+      "900": { "$value": "#131c2a", "$description": "Canvas dark (Warp --warp-bg)" }
+    },
+    "accent": {
+      "$description": "Warp lime green. The only loud color in the system. Reserved for action / live / success. Never used decoratively.",
+      "50":  { "$value": "#f0fdf4" },
+      "100": { "$value": "#dcfce7" },
+      "200": { "$value": "#bbf7d0" },
+      "300": { "$value": "#86efac", "$description": "Warp --color-warp-green" },
+      "400": { "$value": "#4ade80", "$description": "Warp --warp-accent (canonical brand accent, used 788x in Warp CSS)" },
+      "500": { "$value": "#4ade80", "$description": "Same as 400 — convention to keep the brand value at the 500 step" },
+      "600": { "$value": "#34c977", "$description": "Hover state observed in Warp CSS" },
+      "700": { "$value": "#22c55e", "$description": "Press state, Warp --warp-success" },
+      "800": { "$value": "#16a34a", "$description": "Accent text on light surfaces (passes 4.5:1 on white)" },
+      "900": { "$value": "#14532d" },
+      "fg":  { "$value": "#071109", "$description": "Near-black-green text on accent surfaces (Warp --color-warp-green-dark)" }
+    },
+    "warm": {
+      "$description": "Paper-warm neutrals for the light-mode canvas. Slightly warmer than neutral grey to give the surface life.",
+      "50":  { "$value": "#fafaf7" },
+      "100": { "$value": "#f1f1ec" },
+      "200": { "$value": "#e3e2da" },
+      "300": { "$value": "#c0bfb3" },
+      "400": { "$value": "#84817a" },
+      "500": { "$value": "#4a4843" },
+      "600": { "$value": "#2c2b27" },
+      "700": { "$value": "#1c1b18" },
+      "800": { "$value": "#0e0d0c" }
+    },
+    "status": {
+      "$description": "Status palette. Always paired with a label or shape — never used as the sole signal.",
+      "success": {
+        "50":  { "$value": "#ecfdf3" },
+        "500": { "$value": "#22c55e" },
+        "700": { "$value": "#166534" },
+        "900": { "$value": "#11281c" }
+      },
+      "warning": {
+        "50":  { "$value": "#fef6e1" },
+        "500": { "$value": "#f59e0b" },
+        "700": { "$value": "#6b4a08" },
+        "900": { "$value": "#2e2310" }
+      },
+      "danger": {
+        "50":  { "$value": "#fde9e7" },
+        "500": { "$value": "#ef4444" },
+        "700": { "$value": "#7a1f1c" },
+        "900": { "$value": "#2c130f" }
+      },
+      "info": {
+        "50":  { "$value": "#eaf3ff" },
+        "500": { "$value": "#38bdf8" },
+        "700": { "$value": "#1f3f80" },
+        "900": { "$value": "#14223d" }
+      }
+    },
+    "alpha": {
+      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades.",
+      "ink": {
+        "06": { "$value": "rgba(14,18,25,0.06)" },
+        "12": { "$value": "rgba(14,18,25,0.12)" },
+        "24": { "$value": "rgba(14,18,25,0.24)" },
+        "40": { "$value": "rgba(14,18,25,0.40)" },
+        "60": { "$value": "rgba(14,18,25,0.60)" }
+      },
+      "paper": {
+        "06": { "$value": "rgba(255,255,255,0.06)" },
+        "12": { "$value": "rgba(255,255,255,0.12)" },
+        "84": { "$value": "rgba(255,255,255,0.84)" }
+      },
+      "accent": {
+        "12": { "$value": "rgba(74,222,128,0.12)", "$description": "Subtle accent tint (card hover, table row tint)" },
+        "24": { "$value": "rgba(74,222,128,0.24)", "$description": "The signature green-glow opacity used by Warp under primary CTAs" },
+        "32": { "$value": "rgba(74,222,128,0.32)", "$description": "Focus ring opacity" }
+      }
+    }
+  }
+}

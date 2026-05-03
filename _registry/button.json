@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "Primary, secondary, tertiary, and danger button. Supports leading/trailing icons, loading state, full-width.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/button/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native", "ios-native", "android-native", "shopify-liquid"],
+    "specPath": "design-system/02-components/button/component.json",
+    "docsPath": "design-system/02-components/button/component.md",
+    "warpSignature": false
+  }
+}

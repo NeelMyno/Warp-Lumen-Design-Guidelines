@@ -1,0 +1,36 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "input": {
+    "$description": "Component-bound tokens for text Input, Select, Textarea.",
+    "height": {
+      "$type": "dimension",
+      "sm": { "$value": "{size.control.sm}" },
+      "md": { "$value": "{size.control.md}" },
+      "lg": { "$value": "{size.control.lg}" }
+    },
+    "padding": {
+      "$type": "dimension",
+      "x": { "$value": "{space.3}" }
+    },
+    "radius": { "$value": "{radius.control.md}" },
+    "background": {
+      "rest":     { "$value": "{color.surface.raised}" },
+      "hover":    { "$value": "{color.surface.raised}" },
+      "focus":    { "$value": "{color.surface.raised}" },
+      "disabled": { "$value": "{color.surface.sunken}" }
+    },
+    "border": {
+      "rest":  { "$value": "{color.border.default}" },
+      "hover": { "$value": "{color.border.strong}" },
+      "focus": { "$value": "{color.border.focus}" },
+      "error": { "$value": "{color.status.danger.fg}" }
+    },
+    "foreground": {
+      "value":       { "$value": "{color.text.primary}" },
+      "placeholder": { "$value": "{color.text.tertiary}" },
+      "label":       { "$value": "{color.text.secondary}" },
+      "helper":      { "$value": "{color.text.tertiary}" },
+      "error":       { "$value": "{color.status.danger.fg}" }
+    }
+  }
+}

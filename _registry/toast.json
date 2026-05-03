@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast",
+  "type": "registry:ui",
+  "title": "Toast",
+  "description": "Short non-blocking message anchored to a viewport corner. Auto-dismisses for success/info; sticky for errors.",
+  "files": [
+    { "path": "design-system/02-components/toast/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/toast.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "ios-native", "android-native"],
+    "specPath": "design-system/02-components/toast/component.json",
+    "docsPath": "design-system/02-components/toast/component.md",
+    "status": "beta"
+  }
+}

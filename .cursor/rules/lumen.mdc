@@ -1,0 +1,56 @@
+---
+description: Lumen design system rules for Cursor
+globs: ["**/*.{ts,tsx,jsx,js,css,scss,md,json,swift,kt,liquid,xml}"]
+alwaysApply: true
+---
+
+# Lumen design system — Cursor rules
+
+> Mirror of [AGENTS.md](../../AGENTS.md). If the file you're editing references Lumen tokens or components, these rules apply.
+
+## Hard rules
+
+1. **Never hardcode tokens.** Use semantic tokens (`var(--color-surface-page)`, `LumenTokens.text.primary`, etc.). Lint catches raw hex/px in component code.
+2. **Use SEMANTIC tokens, not primitives.** `color.surface.default`, not `color.warm.50`.
+3. **Component contracts (`component.json`) must validate against `/design-system/02-components/_schema/component.schema.json`.**
+4. **Accessibility floor: WCAG 2.2 AA.** Visible focus, contrast, keyboard reachability, accessible name.
+5. **Warp green (`accent.500` = `#4ade80`) plays one role only**: action / live / success. Never decorative.
+6. **Honor `prefers-reduced-motion`.**
+
+## Token quick reference
+
+| Need | Token |
+|---|---|
+| Page canvas | `color.surface.page` |
+| Card surface | `color.surface.raised` |
+| Primary text | `color.text.primary` |
+| Secondary text | `color.text.secondary` |
+| Hairline border | `color.border.subtle` |
+| Primary CTA bg | `color.action.primary.bg.rest` |
+| Success bg/fg | `color.status.success.bg` / `.fg` |
+| Default radius (cards) | `radius.card.default` |
+| Default radius (buttons) | `radius.control.md` |
+| Default UI motion | `motion.transition.base` |
+
+## When generating Lumen UI code
+
+- Web: Tailwind v4 utilities mapped to Lumen tokens via `@theme`. `bg-page`, `text-fg`, `rounded-lg`, etc.
+- React Native: NativeWind with `@lumen/tokens-rn`.
+- iOS: `LumenTokens.{layer}.{key}` from the Swift Package.
+- Android: `LumenTokens.{Layer}.{key}` from the Compose object.
+
+## Generation workflow
+
+When asked to create a new UI piece:
+
+1. Check `design-system/02-components/` for the closest existing component.
+2. Compose using existing components.
+3. If no fit exists, follow `_meta/prompts/new-component.md`.
+4. Use the voice rules in `design-system/04-content/ui-writing-style.md` for any copy.
+5. Cite token paths in inline comments where it adds clarity.
+
+## When unsure
+
+- Look at `audit-dashboard/src/` for working examples of every component pattern.
+- Read the `component.md` of the closest match.
+- Surface the question — don't guess.

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "motion": {
+    "transition": {
+      "$type": "transition",
+      "fast": {
+        "$value": {
+          "duration": "{motion.duration.fast}",
+          "delay":    { "value": 0, "unit": "ms" },
+          "timingFunction": "{motion.easing.standard}"
+        },
+        "$description": "Hover, micro-feedback"
+      },
+      "base": {
+        "$value": {
+          "duration": "{motion.duration.base}",
+          "delay":    { "value": 0, "unit": "ms" },
+          "timingFunction": "{motion.easing.standard}"
+        },
+        "$description": "Default UI feedback"
+      },
+      "slow": {
+        "$value": {
+          "duration": "{motion.duration.slow}",
+          "delay":    { "value": 0, "unit": "ms" },
+          "timingFunction": "{motion.easing.standard}"
+        },
+        "$description": "State changes"
+      },
+      "page": {
+        "$value": {
+          "duration": "{motion.duration.slower}",
+          "delay":    { "value": 0, "unit": "ms" },
+          "timingFunction": "{motion.easing.standard}"
+        },
+        "$description": "Page-level transitions"
+      },
+      "decelerate": {
+        "$value": {
+          "duration": "{motion.duration.slow}",
+          "delay":    { "value": 0, "unit": "ms" },
+          "timingFunction": "{motion.easing.decelerate}"
+        }
+      },
+      "accelerate": {
+        "$value": {
+          "duration": "{motion.duration.base}",
+          "delay":    { "value": 0, "unit": "ms" },
+          "timingFunction": "{motion.easing.accelerate}"
+        }
+      }
+    }
+  }
+}

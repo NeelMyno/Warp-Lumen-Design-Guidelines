@@ -1,0 +1,23 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "card": {
+    "$description": "Component-bound tokens for the Card. Most cards use a hairline border + subtle shadow; reach for lifted only when the card is genuinely elevating.",
+    "background": { "$value": "{color.surface.raised}" },
+    "border":     { "$value": "{color.border.subtle}" },
+    "radius": {
+      "default":   { "$value": "{radius.card.default}" },
+      "lifted":    { "$value": "{radius.card.lifted}" },
+      "hero":      { "$value": "{radius.card.hero}" }
+    },
+    "padding": {
+      "$type": "dimension",
+      "sm": { "$value": "{space.3}" },
+      "md": { "$value": "{space.4}" },
+      "lg": { "$value": "{space.6}" }
+    },
+    "shadow": {
+      "rest":   { "$value": "{shadow.card}" },
+      "hover":  { "$value": "{shadow.lifted}" }
+    }
+  }
+}

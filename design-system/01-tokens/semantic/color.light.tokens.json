@@ -1,0 +1,71 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "color": {
+    "$type": "color",
+    "$description": "SEMANTIC color tokens — light mode. Engineers and LLMs consume these. Mode parity required: same key paths exist in color.dark.tokens.json with different values.",
+    "surface": {
+      "page":    { "$value": "{color.warm.50}",  "$description": "The page canvas. Paper-warm white." },
+      "raised":  { "$value": "#ffffff",           "$description": "Cards, panels, raised surfaces." },
+      "sunken":  { "$value": "{color.warm.100}", "$description": "Inputs background, table row hover, sidebar." },
+      "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome / popovers." },
+      "scrim":   { "$value": "{color.alpha.ink.40}",   "$description": "Modal backdrop." },
+      "inverse": { "$value": "{color.brand.900}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." }
+    },
+    "text": {
+      "primary":   { "$value": "{color.brand.900}", "$description": "Body and titles. Contrast 14.6:1 on surface.page." },
+      "secondary": { "$value": "{color.brand.500}", "$description": "Captions, descriptions. Contrast 7.4:1." },
+      "tertiary":  { "$value": "{color.brand.400}", "$description": "Hints, eyebrow labels. Contrast 4.6:1 — use on >=18px only or non-essential text." },
+      "disabled":  { "$value": "{color.brand.300}", "$description": "Disabled control text." },
+      "inverse":   { "$value": "{color.warm.50}",   "$description": "Text on inverse surfaces." },
+      "accent":    { "$value": "{color.accent.800}","$description": "Accent text on light surfaces. Contrast 4.7:1+." },
+      "link":      { "$value": "{color.brand.900}", "$description": "Hyperlinks. Lumen uses primary text + underline rather than a link color." }
+    },
+    "border": {
+      "subtle":  { "$value": "{color.alpha.ink.06}", "$description": "Default hairline. Cards, table rows, dividers." },
+      "default": { "$value": "{color.alpha.ink.12}", "$description": "Standard control border." },
+      "strong":  { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
+      "focus":   { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with --shadow.focus." }
+    },
+    "action": {
+      "primary": {
+        "bg": {
+          "rest":  { "$value": "{color.accent.500}" },
+          "hover": { "$value": "{color.accent.600}" },
+          "press": { "$value": "{color.accent.700}" }
+        },
+        "fg":    { "$value": "{color.accent.fg}" },
+        "glow":  { "$value": "{shadow.accent-glow}" }
+      },
+      "secondary": {
+        "bg": {
+          "rest":  { "$value": "#ffffff" },
+          "hover": { "$value": "{color.warm.100}" },
+          "press": { "$value": "{color.warm.100}" }
+        },
+        "fg":     { "$value": "{color.brand.900}" },
+        "border": { "$value": "{color.alpha.ink.12}" }
+      },
+      "tertiary": {
+        "bg": {
+          "rest":  { "$value": "transparent" },
+          "hover": { "$value": "{color.warm.100}" },
+          "press": { "$value": "{color.warm.100}" }
+        },
+        "fg":     { "$value": "{color.brand.900}" }
+      },
+      "danger": {
+        "bg": {
+          "rest":  { "$value": "{color.status.danger.500}" },
+          "hover": { "$value": "{color.status.danger.700}" }
+        },
+        "fg":     { "$value": "#ffffff" }
+      }
+    },
+    "status": {
+      "success": { "bg": { "$value": "{color.status.success.50}" }, "fg": { "$value": "{color.status.success.700}" } },
+      "warning": { "bg": { "$value": "{color.status.warning.50}" }, "fg": { "$value": "{color.status.warning.700}" } },
+      "danger":  { "bg": { "$value": "{color.status.danger.50}"  }, "fg": { "$value": "{color.status.danger.700}"  } },
+      "info":    { "bg": { "$value": "{color.status.info.50}"    }, "fg": { "$value": "{color.status.info.700}"    } }
+    }
+  }
+}

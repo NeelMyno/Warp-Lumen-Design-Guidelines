@@ -1,0 +1,19 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "radius": {
+    "$type": "dimension",
+    "control": {
+      "sm": { "$value": "{radius.sm}" },
+      "md": { "$value": "{radius.md}", "$description": "Buttons and inputs" },
+      "lg": { "$value": "{radius.lg}" }
+    },
+    "card": {
+      "default": { "$value": "{radius.lg}" },
+      "lifted":  { "$value": "{radius.xl}" },
+      "hero":    { "$value": "{radius.2xl}" },
+      "marketing": { "$value": "{radius.3xl}" }
+    },
+    "pill":   { "$value": "{radius.full}" },
+    "circle": { "$value": "{radius.full}" }
+  }
+}

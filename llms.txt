@@ -1,0 +1,70 @@
+# Lumen — Warp's Design System
+
+> Lumen is Warp's vertically-integrated UI design system spanning web (Next.js 16 + Tailwind v4 + shadcn), React Native, native iOS/Android, native desktop (macOS/Windows), and e-commerce themes (Shopify Liquid, BigCommerce Stencil, WooCommerce). Tokens are DTCG JSON; build pipeline is Style Dictionary v5; component contracts follow the shadcn registry spec. Visual mood: **Quiet Industrial** — paper-warm white in light, Warp's actual navy ladder in dark, one disciplined Warp lime green accent (`#4ade80`) used for action / live / success only.
+
+If you are an AI coding agent, read these in order:
+
+## Core (read first)
+- [AGENTS.md](/AGENTS.md): Universal agent rules. Highest-priority hard rules for any work in this repo.
+- [CLAUDE.md](/CLAUDE.md): Claude-specific addenda on top of AGENTS.md.
+- [Token taxonomy](/design-system/01-tokens/README.md): Three-layer system (primitives → semantic → component). Engineers and LLMs only consume semantic.
+- [Component schema](/design-system/02-components/_schema/component.schema.json): JSON schema every component contract validates against.
+- [Synthesised brief](/research/lumen-brief.md): Why every major decision was made.
+
+## Foundations
+- [Principles](/design-system/00-foundations/principles.md): The five operating principles.
+- [Voice & tone](/design-system/00-foundations/voice-and-tone.md): How Lumen sounds.
+- [Accessibility](/design-system/00-foundations/accessibility.md): WCAG 2.2 AA floor — non-negotiable.
+- [Motion language](/design-system/00-foundations/motion-language.md): Timing tokens, easing, choreography.
+
+## Components (machine-readable contracts)
+- [Button](/design-system/02-components/button/component.json)
+- [Input](/design-system/02-components/input/component.json)
+- [Card](/design-system/02-components/card/component.json)
+- [Badge](/design-system/02-components/badge/component.json)
+- [Stat](/design-system/02-components/stat/component.json) — Warp signature primitive
+- [LiveDot](/design-system/02-components/live-dot/component.json) — Warp signature primitive
+- [RateTicker](/design-system/02-components/rate-ticker/component.json) — Warp signature primitive
+- [Table](/design-system/02-components/table/component.json)
+- [Dialog](/design-system/02-components/dialog/component.json)
+- [Toast](/design-system/02-components/toast/component.json)
+- [EmptyState](/design-system/02-components/empty-state/component.json)
+- [Toggle](/design-system/02-components/toggle/component.json)
+
+## Tokens
+- [Color (light)](/design-system/01-tokens/semantic/color.light.tokens.json)
+- [Color (dark)](/design-system/01-tokens/semantic/color.dark.tokens.json)
+- [Space](/design-system/01-tokens/semantic/space.tokens.json)
+- [Typography](/design-system/01-tokens/semantic/type.tokens.json)
+- [Motion](/design-system/01-tokens/semantic/motion.tokens.json)
+- [Radius](/design-system/01-tokens/semantic/radius.tokens.json)
+- [Shadow](/design-system/01-tokens/semantic/shadow.tokens.json)
+
+## Platforms
+- [Web · Next.js + React + Tailwind v4](/design-system/03-platforms/web-react/README.md)
+- [React Native](/design-system/03-platforms/react-native/README.md)
+- [iOS native (SwiftUI)](/design-system/03-platforms/ios-native/README.md)
+- [Android native (Compose)](/design-system/03-platforms/android-native/README.md)
+- [macOS desktop](/design-system/03-platforms/desktop-mac/README.md)
+- [Windows desktop (WinUI 3)](/design-system/03-platforms/desktop-windows/README.md)
+- [Shopify Liquid](/design-system/03-platforms/shopify-liquid/README.md)
+- [BigCommerce Stencil](/design-system/03-platforms/bigcommerce-stencil/README.md)
+- [WooCommerce / WordPress](/design-system/03-platforms/woo-wordpress/README.md)
+
+## Content
+- [Imagery](/design-system/04-content/imagery.md)
+- [Illustration](/design-system/04-content/illustration.md)
+- [Iconography](/design-system/04-content/iconography.md)
+- [Motion (recipes)](/design-system/04-content/motion.md)
+- [UI writing style](/design-system/04-content/ui-writing-style.md)
+- [Microcopy library](/design-system/04-content/microcopy.md)
+- [Error messages](/design-system/04-content/error-messages.md)
+- [Empty states](/design-system/04-content/empty-states.md)
+
+## Optional (deeper context)
+- [Research reports](/research/) — Warp brand DNA, inspiration brief, Satoshi typography, system architecture
+- [_meta/decisions/](/_meta/decisions/) — Architecture Decision Records
+- [_meta/prompts/](/_meta/prompts/) — Reusable prompt fragments for agent workflows
+- [_meta/glossary.json](/_meta/glossary.json) — Term disambiguation
+- [Audit dashboard](/audit-dashboard/) — Working Next.js 16 reference implementation of all 7 project templates
+- [CHANGELOG](/CHANGELOG.md)

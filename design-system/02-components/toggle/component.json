@@ -1,0 +1,60 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Toggle",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A switch for binary on/off settings. Instant-effect changes only.",
+  "props": {
+    "checked":  { "type": "boolean", "optional": false },
+    "onChange": { "type": "handler", "optional": false },
+    "disabled": { "type": "boolean", "default": false, "optional": true },
+    "size":     { "type": "enum", "values": ["sm", "md"], "default": "md", "optional": true },
+    "label":    { "type": "string", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.accent.500",
+      "color.border.strong",
+      "color.surface.raised",
+      "shadow.xs",
+      "shadow.focus",
+      "radius.pill",
+      "motion.transition.fast"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Space - toggle",
+      "Enter - toggle"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships",
+      "2.1.1 Keyboard",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='switch' (NOT checkbox or button).",
+      "aria-checked communicates state.",
+      "Disabled uses aria-disabled (not disabled attribute) when inside a form.",
+      "Label associated via <label for> or aria-labelledby."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use a noun label.",
+      "Place label to the right.",
+      "Add a one-line description below when behavior needs explanation."
+    ],
+    "dont": [
+      "Don't use for form fields committed on submit.",
+      "Don't change the knob color.",
+      "Don't omit the label."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Checkbox", "Switch", "Button"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+  ]
+}

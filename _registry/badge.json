@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "description": "Small pill that labels status, category, or count. Always paired with a label or shape.",
+  "files": [
+    { "path": "design-system/02-components/badge/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/badge.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "specPath": "design-system/02-components/badge/component.json",
+    "docsPath": "design-system/02-components/badge/component.md",
+    "warpSignature": false
+  }
+}

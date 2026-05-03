@@ -1,0 +1,48 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { MOODS, type MoodId } from "@/lib/moods";
+
+export function MoodSwitcher() {
+  const [mood, setMood] = useState<MoodId>("default");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem("lumen-mood") as MoodId | null;
+    const initial = stored && MOODS.find((m) => m.id === stored) ? stored : "default";
+    setMood(initial);
+    document.documentElement.dataset.mood = initial;
+    setMounted(true);
+  }, []);
+
+  if (MOODS.length <= 1) {
+    // Hide selector while only the placeholder mood is registered.
+    return null;
+  }
+
+  function select(next: MoodId) {
+    setMood(next);
+    document.documentElement.dataset.mood = next;
+    window.localStorage.setItem("lumen-mood", next);
+  }
+
+  return (
+    <div className="hidden md:flex items-center gap-2">
+      <span className="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">
+        Mood
+      </span>
+      <select
+        value={mounted ? mood : "default"}
+        onChange={(e) => select(e.target.value as MoodId)}
+        aria-label="Visual mood"
+        className="h-9 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)] px-3 text-[var(--type-14)] text-[var(--text-primary)] focus-visible:border-[var(--border-focus)]"
+      >
+        {MOODS.map((m) => (
+          <option key={m.id} value={m.id}>
+            {m.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}

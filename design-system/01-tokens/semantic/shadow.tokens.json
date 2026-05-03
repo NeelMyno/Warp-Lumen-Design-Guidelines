@@ -1,0 +1,25 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "shadow": {
+    "card": {
+      "$value": "{shadow.sm}",
+      "$description": "Cards default to a hairline border with this very subtle shadow. Reach for shadow.lifted only when card is genuinely lifting."
+    },
+    "lifted":   { "$value": "{shadow.md}" },
+    "popover":  { "$value": "{shadow.lg}" },
+    "menu":     { "$value": "{shadow.lg}" },
+    "modal":    { "$value": "{shadow.xl}" },
+    "toast":    { "$value": "{shadow.lg}" },
+    "floating": { "$value": "{shadow.2xl}" },
+    "focus": {
+      "$value": [
+        { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+      ],
+      "$description": "Focus ring around any focused control. Always 3px spread of accent at 32% alpha."
+    },
+    "accent-glow": {
+      "$value": "{shadow.accent-glow}",
+      "$description": "Optional outer glow under primary CTAs. Warp signature."
+    }
+  }
+}

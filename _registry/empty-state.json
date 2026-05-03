@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-state",
+  "type": "registry:ui",
+  "title": "EmptyState",
+  "description": "Type-led message for empty collections. Headline + supporting + optional primary action. Never illustrated.",
+  "files": [
+    { "path": "design-system/02-components/empty-state/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/empty-state.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native", "ios-native", "android-native"],
+    "specPath": "design-system/02-components/empty-state/component.json",
+    "docsPath": "design-system/02-components/empty-state/component.md"
+  }
+}

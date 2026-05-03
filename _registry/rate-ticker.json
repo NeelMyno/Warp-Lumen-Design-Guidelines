@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rate-ticker",
+  "type": "registry:ui",
+  "title": "RateTicker",
+  "description": "Horizontal marquee of freight lane rates. The 'live trading floor' surface. Warp signature primitive.",
+  "files": [
+    { "path": "design-system/02-components/rate-ticker/examples/primary.tsx", "type": "registry:ui", "target": "components/ui/rate-ticker.tsx" }
+  ],
+  "meta": {
+    "lumenVersion": "0.1.0",
+    "platforms": ["web-react", "react-native"],
+    "specPath": "design-system/02-components/rate-ticker/component.json",
+    "docsPath": "design-system/02-components/rate-ticker/component.md",
+    "warpSignature": true
+  }
+}
