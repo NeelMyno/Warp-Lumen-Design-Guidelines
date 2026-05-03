@@ -181,7 +181,7 @@ export function ModalCard({
           {secondary && (
             <button
               onClick={secondary.onClick}
-              className="h-9 px-3.5 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-13)] font-medium text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]"
+              className="h-10 px-4 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-14)] font-medium text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]"
             >
               {secondary.label}
             </button>
@@ -190,7 +190,7 @@ export function ModalCard({
             <button
               onClick={primary.onClick}
               className={[
-                "h-9 px-3.5 rounded-[var(--radius-md)] text-[var(--type-13)] font-medium",
+                "h-10 px-4 rounded-[var(--radius-md)] text-[var(--type-14)] font-medium",
                 destructive
                   ? "bg-[var(--lumen-red-5)] text-white hover:bg-[var(--lumen-red-6)]"
                   : "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] hover:bg-[var(--lumen-accent-5)]",
@@ -224,7 +224,7 @@ export function TypeToConfirm({ phrase = "DELETE" }: { phrase?: string }) {
         <input
           value={val}
           onChange={(e) => setVal(e.target.value)}
-          className="h-9 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-13)] lumen-mono focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
+          className="h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-14)] lumen-mono focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
         />
         <div className={["text-[var(--type-11)] mt-1", ok ? "text-[var(--lumen-accent-7)]" : "text-[var(--text-tertiary)]"].join(" ")}>
           {ok ? "Confirmation phrase matched." : "Phrase must match exactly."}

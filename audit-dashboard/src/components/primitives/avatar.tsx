@@ -1,13 +1,22 @@
 import { ReactNode } from "react";
 
-type Size = "xs" | "sm" | "md" | "lg" | "xl";
+type Size = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
+/* Avatar diameters track the 8pt soft grid:
+ *   xs = 20 (2.5u soft) — chat read-receipts, dense rows
+ *   sm = 24 (3u)        — comment threads
+ *   md = 32 (4u)        — DEFAULT
+ *   lg = 40 (5u)        — primary identity
+ *   xl = 48 (6u)        — profile cards
+ *   2xl = 64 (8u)       — hero / settings
+ */
 const SIZE: Record<Size, { box: string; text: string; ring: number }> = {
-  xs: { box: "h-5 w-5",  text: "text-[10px]",                ring: 1 },
-  sm: { box: "h-7 w-7",  text: "text-[var(--type-12)]",      ring: 1.5 },
-  md: { box: "h-9 w-9",  text: "text-[var(--type-13)]",      ring: 2 },
-  lg: { box: "h-12 w-12",text: "text-[var(--type-15)]",      ring: 2 },
-  xl: { box: "h-16 w-16",text: "text-[var(--type-18)]",      ring: 2 },
+  xs:  { box: "h-5  w-5",  text: "text-[10px]",                ring: 1 },
+  sm:  { box: "h-6  w-6",  text: "text-[var(--type-11)]",      ring: 1.5 },
+  md:  { box: "h-8  w-8",  text: "text-[var(--type-13)]",      ring: 1.5 },
+  lg:  { box: "h-10 w-10", text: "text-[var(--type-14)]",      ring: 2 },
+  xl:  { box: "h-12 w-12", text: "text-[var(--type-15)]",      ring: 2 },
+  "2xl": { box: "h-16 w-16", text: "text-[var(--type-18)]",    ring: 2 },
 };
 
 function initials(name: string): string {
@@ -92,8 +101,8 @@ export function AvatarGroup({
         <span
           className="inline-flex items-center justify-center rounded-full bg-[var(--surface-sunken)] text-[var(--text-tertiary)] font-medium text-[10px]"
           style={{
-            width: size === "sm" ? 28 : size === "xs" ? 20 : 36,
-            height: size === "sm" ? 28 : size === "xs" ? 20 : 36,
+            width:  size === "xs" ? 20 : size === "sm" ? 24 : size === "lg" ? 40 : size === "xl" ? 48 : size === "2xl" ? 64 : 32,
+            height: size === "xs" ? 20 : size === "sm" ? 24 : size === "lg" ? 40 : size === "xl" ? 48 : size === "2xl" ? 64 : 32,
             boxShadow: `0 0 0 1.5px var(--surface-page), 0 0 0 2.5px var(--border-default)`,
           }}
         >

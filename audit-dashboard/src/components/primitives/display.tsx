@@ -213,7 +213,7 @@ export function ListGroup({ items, dividers = true }: { items: { title: string; 
   return (
     <div className={["rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden", dividers ? "divide-y divide-[var(--border-hairline)]" : ""].join(" ")}>
       {items.map((i, idx) => (
-        <div key={idx} className="flex items-center justify-between gap-3 px-4 h-12">
+        <div key={idx} className="flex items-center justify-between gap-4 px-4 h-12">
           <div className="min-w-0 flex flex-col">
             <span className="text-[var(--type-13)] text-[var(--text-primary)] truncate">{i.title}</span>
             {i.description && <span className="text-[var(--type-12)] text-[var(--text-tertiary)] truncate">{i.description}</span>}
@@ -238,14 +238,14 @@ export function DataTable({
 }) {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
-      <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border-hairline)]">
+      <div className="flex items-center justify-between px-4 h-12 border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-2">
-          <input className="h-7 px-2.5 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)] w-[180px]" placeholder="Filter rows…" />
-          <button className="h-7 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">+ Add filter</button>
+          <input className="h-8 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)] w-[200px]" placeholder="Filter rows…" />
+          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">+ Add filter</button>
         </div>
         <div className="flex items-center gap-1">
           <span className="text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">{rows.length} rows</span>
-          <button className="h-7 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">⋯</button>
+          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">⋯</button>
         </div>
       </div>
       <table className="w-full text-[var(--type-13)]">
@@ -254,7 +254,7 @@ export function DataTable({
             {columns.map((c) => (
               <th
                 key={c.key}
-                className={["px-3 h-9 text-[var(--type-11)] font-medium text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]", c.align === "right" ? "text-right" : "text-left"].join(" ")}
+                className={["px-4 h-10 text-[var(--type-11)] font-medium text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]", c.align === "right" ? "text-right" : "text-left"].join(" ")}
               >
                 {c.label}
               </th>
@@ -267,7 +267,7 @@ export function DataTable({
               {columns.map((c) => (
                 <td
                   key={c.key}
-                  className={["px-3 h-11 text-[var(--text-primary)]", c.align === "right" ? "text-right lumen-mono" : ""].join(" ")}
+                  className={["px-4 h-12 text-[var(--text-primary)]", c.align === "right" ? "text-right lumen-mono" : ""].join(" ")}
                 >
                   {r[c.key]}
                 </td>

@@ -12,9 +12,10 @@ const STYLES: Record<Status, string> = {
   accent:  "bg-[var(--surface-tint-accent)] text-[var(--text-accent)]",
 };
 
+/* Heights snap to 8pt: sm = 20 (2.5u soft), md = 24 (3u). */
 const SIZE: Record<Size, string> = {
-  sm: "h-[18px] px-1.5 text-[var(--type-11)] gap-1   rounded-[var(--radius-full)]",
-  md: "h-[22px] px-2   text-[var(--type-12)] gap-1.5 rounded-[var(--radius-full)]",
+  sm: "h-5 px-1.5 text-[var(--type-11)] gap-1   rounded-[var(--radius-full)]",
+  md: "h-6 px-2   text-[var(--type-12)] gap-1.5 rounded-[var(--radius-full)]",
 };
 
 export function Badge({

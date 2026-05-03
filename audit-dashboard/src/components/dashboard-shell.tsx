@@ -12,23 +12,23 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         style={{ WebkitBackdropFilter: "blur(20px) saturate(150%)" }}
       >
         {/* Top row: brand + spotlight + actions */}
-        <div className="mx-auto flex w-full max-w-[1400px] items-center gap-6 px-6 h-14">
+        <div className="mx-auto flex w-full max-w-[1440px] items-center gap-6 px-6 h-16">
           <Link
             href="/foundations"
-            className="flex items-center gap-2.5 text-[var(--text-primary)]"
+            className="flex items-center gap-2 text-[var(--text-primary)]"
           >
             <LumenMark />
             <span className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">
               Lumen
             </span>
             <span className="hidden sm:inline-flex items-center h-5 px-1.5 rounded-full text-[var(--type-11)] font-medium bg-[var(--surface-tint-accent)] text-[var(--lumen-accent-7)] tracking-[var(--tracking-wide)]">
-              v0.2
+              v0.3
             </span>
           </Link>
 
           {/* Spotlight / command palette hint */}
           <button
-            className="hidden md:flex items-center gap-2.5 flex-1 max-w-md mx-auto h-9 px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]/60 text-[var(--text-tertiary)] text-[var(--type-13)] hover:border-[var(--border-default)] hover:text-[var(--text-secondary)] transition-colors"
+            className="hidden md:flex items-center gap-2 flex-1 max-w-md mx-auto h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]/60 text-[var(--text-tertiary)] text-[var(--type-13)] hover:border-[var(--border-default)] hover:text-[var(--text-secondary)] transition-colors"
             aria-label="Open spotlight"
           >
             <Search size={14} />
@@ -51,21 +51,21 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="flex-1 mx-auto w-full max-w-[1400px] px-6 py-10 md:py-12">
+      <main className="flex-1 mx-auto w-full max-w-[1440px] px-6 py-12 md:py-16">
         {children}
       </main>
 
       <footer className="mt-16 border-t border-[var(--border-hairline)]">
-        <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-6 py-6 text-[var(--type-12)] text-[var(--text-tertiary)]">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-6 py-8 text-[var(--type-12)] text-[var(--text-tertiary)]">
+          <div className="flex items-center gap-4">
             <LumenMark size={14} />
             <span>
               Lumen — Warp&apos;s LLM-first design system.
-              <span className="hidden md:inline"> Quiet Industrial mood, Apple-grade discipline.</span>
+              <span className="hidden md:inline"> Quiet Industrial mood, 8pt soft grid.</span>
             </span>
           </div>
           <div className="flex items-center gap-4 lumen-mono">
-            <span>v0.2.0 · audit preview</span>
+            <span>v0.3.0 · audit preview</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-[var(--border-strong)]" />
             <a className="lumen-link" href="https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines">
               github

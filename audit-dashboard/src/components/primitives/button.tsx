@@ -35,11 +35,17 @@ const INTENT: Record<Intent, string> = {
   ].join(" "),
 };
 
+/* Heights snap to the 8pt soft grid:
+ *   xs = 28 (3.5u soft) — dense data-table rows
+ *   sm = 32 (4u)         — toolbars, secondary controls
+ *   md = 40 (5u)         — DEFAULT
+ *   lg = 48 (6u)         — primary CTA / hero
+ */
 const SIZE: Record<Size, string> = {
-  xs: "h-7  px-2.5 text-[var(--type-12)] gap-1.5 rounded-[var(--radius-sm)]",
-  sm: "h-8  px-3   text-[var(--type-13)] gap-1.5 rounded-[var(--radius-md)]",
-  md: "h-9  px-3.5 text-[var(--type-13)] gap-2   rounded-[var(--radius-md)]",
-  lg: "h-11 px-5   text-[var(--type-15)] gap-2   rounded-[var(--radius-lg)]",
+  xs: "h-7  px-2 text-[var(--type-12)] gap-1.5 rounded-[var(--radius-sm)]",
+  sm: "h-8  px-3 text-[var(--type-13)] gap-2   rounded-[var(--radius-md)]",
+  md: "h-10 px-4 text-[var(--type-14)] gap-2   rounded-[var(--radius-md)]",
+  lg: "h-12 px-6 text-[var(--type-15)] gap-2   rounded-[var(--radius-lg)]",
 };
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -125,10 +131,10 @@ export function IconButton({
   ...props
 }: ButtonProps & { "aria-label": string }) {
   const dim =
-    size === "xs" ? "!h-7 !w-7" :
-    size === "sm" ? "!h-8 !w-8" :
-    size === "lg" ? "!h-11 !w-11" :
-                    "!h-9 !w-9";
+    size === "xs" ? "!h-7  !w-7"  :
+    size === "sm" ? "!h-8  !w-8"  :
+    size === "lg" ? "!h-12 !w-12" :
+                    "!h-10 !w-10";
   return (
     <Button
       intent={intent}

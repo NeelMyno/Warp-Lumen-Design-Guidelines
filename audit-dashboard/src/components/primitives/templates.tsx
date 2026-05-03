@@ -25,8 +25,8 @@ export function ErrorPage({
       <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)] mt-2 text-[var(--text-primary)]">{title}</div>
       <p className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)] max-w-[36ch] mx-auto">{description}</p>
       <div className="flex items-center justify-center gap-2 mt-6">
-        <button className="h-9 px-4 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-13)] font-medium">{primary}</button>
-        <button className="h-9 px-4 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-13)] font-medium">{secondary}</button>
+        <button className="h-10 px-4 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-medium">{primary}</button>
+        <button className="h-10 px-4 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-14)] font-medium">{secondary}</button>
       </div>
     </div>
   );
@@ -87,8 +87,8 @@ export function HeroBlock() {
         Live carrier rates, automated quoting, and operational signal in one calm surface. Built for the people who actually move trucks.
       </p>
       <div className="flex flex-wrap items-center gap-2 mt-6">
-        <button className="h-11 px-5 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-semibold shadow-[var(--shadow-glow-accent)]">Get started</button>
-        <button className="h-11 px-5 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-14)] font-medium">Watch the demo</button>
+        <button className="h-12 px-6 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-15)] font-semibold shadow-[var(--shadow-glow-accent)]">Get started</button>
+        <button className="h-12 px-6 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-15)] font-medium">Watch the demo</button>
       </div>
       <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">
         <span>Sterling LTL</span>
@@ -131,7 +131,7 @@ export function TestimonialCard() {
         "Lumen replaced four spreadsheets and three Slack threads. We can see the day."
       </div>
       <div className="flex items-center gap-3 mt-5">
-        <span className="h-9 w-9 rounded-full bg-[var(--lumen-navy-7)] text-white inline-flex items-center justify-center lumen-mono text-[var(--type-12)] font-semibold">JR</span>
+        <span className="h-10 w-10 rounded-full bg-[var(--lumen-navy-7)] text-white inline-flex items-center justify-center lumen-mono text-[var(--type-13)] font-semibold">JR</span>
         <div>
           <div className="text-[var(--type-13)] font-medium">Jamie Rivera</div>
           <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">Director of Logistics, Sterling LTL</div>

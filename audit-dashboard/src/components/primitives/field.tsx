@@ -3,10 +3,11 @@
 import { ReactNode, InputHTMLAttributes, useId } from "react";
 
 type Size = "sm" | "md" | "lg";
+/* Heights track Button — 8pt soft grid (32 / 40 / 48). */
 const SIZES: Record<Size, string> = {
-  sm: "h-8  text-[var(--type-13)] px-2.5",
-  md: "h-9  text-[var(--type-14)] px-3",
-  lg: "h-11 text-[var(--type-15)] px-3.5",
+  sm: "h-8  text-[var(--type-13)] px-3",
+  md: "h-10 text-[var(--type-14)] px-3",
+  lg: "h-12 text-[var(--type-15)] px-4",
 };
 
 export type FieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "children"> & {

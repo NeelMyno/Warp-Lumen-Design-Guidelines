@@ -211,15 +211,15 @@ function MegaCol({ title, links }: { title: string; links: string[] }) {
 export function NavbarDemo() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
-      <div className="h-14 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <div className="flex items-center gap-5">
+      <div className="h-16 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
+        <div className="flex items-center gap-6">
           <div className="lumen-mono text-[var(--type-13)] font-bold tracking-[-0.02em]">warp.</div>
           <nav className="hidden sm:flex items-center gap-1">
             {["Lanes", "Quotes", "Shipments", "Carriers", "Reports"].map((l, i) => (
               <a
                 key={l}
                 className={[
-                  "h-8 px-2.5 inline-flex items-center rounded-[var(--radius-sm)] text-[var(--type-13)] tracking-[var(--tracking-tight)] transition-colors",
+                  "h-8 px-3 inline-flex items-center rounded-[var(--radius-sm)] text-[var(--type-13)] tracking-[var(--tracking-tight)] transition-colors",
                   i === 0 ? "bg-[var(--surface-sunken)] text-[var(--text-primary)] font-medium" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
                 ].join(" ")}
               >
@@ -229,14 +229,14 @@ export function NavbarDemo() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <span className="hidden md:inline-flex h-8 items-center gap-2 px-2.5 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] text-[var(--text-tertiary)]">
+          <span className="hidden md:inline-flex h-8 items-center gap-2 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] text-[var(--text-tertiary)]">
             <SearchIcon size={13} /> Search
             <span className="lumen-kbd ml-2">⌘K</span>
           </span>
           <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]">
             <Bell size={15} />
           </button>
-          <span className="h-7 w-7 inline-flex items-center justify-center rounded-full bg-[var(--lumen-navy-9)] text-white text-[var(--type-12)] lumen-mono font-semibold">NT</span>
+          <span className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-[var(--lumen-navy-9)] text-white text-[var(--type-12)] lumen-mono font-semibold">NT</span>
         </div>
       </div>
     </div>
@@ -253,8 +253,8 @@ export function SidebarDemo() {
     { label: "Shipments", icon: undefined, count: undefined },
   ];
   return (
-    <div className="w-[220px] rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-2.5 flex flex-col gap-3">
-      <div className="flex items-center gap-2 h-9 px-2">
+    <div className="w-[224px] rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 flex flex-col gap-3">
+      <div className="flex items-center gap-2 h-10 px-2">
         <span className="h-6 w-6 rounded-full bg-[var(--lumen-accent-4)]" />
         <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">Acme Logistics</span>
       </div>
@@ -372,13 +372,13 @@ export function SplitButton({ primary = "Save", options = ["Save and continue", 
   const [open, setOpen] = useState(false);
   return (
     <div className="relative inline-flex">
-      <button className="h-9 px-3.5 rounded-l-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-13)] font-medium hover:bg-[var(--lumen-accent-5)] active:translate-y-px transition-[background-color,transform]">
+      <button className="h-10 px-4 rounded-l-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-medium hover:bg-[var(--lumen-accent-5)] active:translate-y-px transition-[background-color,transform]">
         {primary}
       </button>
       <button
         onClick={() => setOpen((s) => !s)}
         aria-label="More save options"
-        className="h-9 w-9 rounded-r-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] hover:bg-[var(--lumen-accent-5)] border-l border-[rgba(0,0,0,0.15)] inline-flex items-center justify-center"
+        className="h-10 w-10 rounded-r-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] hover:bg-[var(--lumen-accent-5)] border-l border-[rgba(0,0,0,0.15)] inline-flex items-center justify-center"
       >
         <ChevronDown size={14} />
       </button>

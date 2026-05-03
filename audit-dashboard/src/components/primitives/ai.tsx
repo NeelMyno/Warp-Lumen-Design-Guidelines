@@ -277,7 +277,7 @@ export function NotificationCenter() {
 export function CopilotPanel() {
   return (
     <div className="w-[360px] rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col h-[460px]">
-      <div className="h-11 px-3 flex items-center justify-between border-b border-[var(--border-hairline)]">
+      <div className="h-12 px-3 flex items-center justify-between border-b border-[var(--border-hairline)]">
         <span className="flex items-center gap-2 text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">
           <span className="text-[var(--text-accent)]"><Sparkles size={13} /></span>
           Lumen Copilot

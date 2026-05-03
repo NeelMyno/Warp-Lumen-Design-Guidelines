@@ -8,7 +8,7 @@ export function TabNav() {
   const pathname = usePathname();
   return (
     <nav aria-label="Project type" className="overflow-x-auto">
-      <ul className="mx-auto flex w-full max-w-[1400px] items-stretch gap-0.5 px-4">
+      <ul className="mx-auto flex w-full max-w-[1440px] items-stretch gap-1 px-4">
         {TABS.map((tab) => {
           const isActive =
             pathname === tab.href ||
@@ -19,7 +19,7 @@ export function TabNav() {
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}
                 className={[
-                  "relative inline-flex items-center gap-2 px-3.5 py-2.5",
+                  "relative inline-flex items-center gap-2 h-12 px-4",
                   "text-[var(--type-13)] tracking-[var(--tracking-tight)]",
                   "transition-[color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
                   isActive
@@ -31,7 +31,7 @@ export function TabNav() {
                 {isActive && (
                   <span
                     aria-hidden
-                    className="absolute -bottom-px left-3 right-3 h-[1.5px] bg-[var(--text-primary)] rounded-full"
+                    className="absolute -bottom-px left-4 right-4 h-[1.5px] bg-[var(--text-primary)] rounded-full"
                   />
                 )}
               </Link>

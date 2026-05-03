@@ -13,7 +13,7 @@ export function PageHeader({
 }) {
   return (
     <header className="mb-12 md:mb-16">
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-2 mb-4">
         <div className="lumen-eyebrow">{eyebrow}</div>
         {meta && <span className="text-[var(--text-tertiary)]">·</span>}
         {meta}
@@ -46,9 +46,9 @@ export function Section({
   return (
     <section
       id={id}
-      className="mb-16 md:mb-20 scroll-mt-32 border-t border-[var(--border-hairline)] pt-10 md:pt-12"
+      className="mb-16 md:mb-24 scroll-mt-32 border-t border-[var(--border-hairline)] pt-12 md:pt-16"
     >
-      <div className="mb-6 md:mb-8 flex flex-col gap-1.5">
+      <div className="mb-8 md:mb-10 flex flex-col gap-2">
         {eyebrow && <div className="lumen-eyebrow mb-1">{eyebrow}</div>}
         <div className="flex items-baseline justify-between gap-4 flex-wrap">
           <h2 className="text-[var(--type-28)] md:text-[var(--type-31)] font-semibold tracking-[var(--tracking-tight)] text-[var(--text-primary)]">
@@ -79,12 +79,12 @@ export function SubSection({
   children: ReactNode;
 }) {
   return (
-    <div className="mb-10">
-      <div className="flex items-baseline justify-between gap-4 mb-4">
-        <div className="flex flex-col gap-0.5">
+    <div className="mb-12">
+      <div className="flex items-baseline justify-between gap-4 mb-6">
+        <div className="flex flex-col gap-1">
           <div className="lumen-eyebrow">{title}</div>
           {description && (
-            <div className="text-[var(--type-13)] text-[var(--text-tertiary)] mt-0.5">
+            <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">
               {description}
             </div>
           )}

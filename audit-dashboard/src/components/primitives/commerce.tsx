@@ -93,42 +93,42 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
 /* ─────────────────────────  PAYMENT BUTTONS  ───────────────────────── */
 export function ApplePay() {
   return (
-    <button className="h-11 px-5 rounded-[var(--radius-md)] bg-[#000] text-white inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-semibold w-full">
+    <button className="h-12 px-5 rounded-[var(--radius-md)] bg-[#000] text-white inline-flex items-center justify-center gap-2 text-[var(--type-14)] font-semibold w-full">
       <ApplePayLogo /> <span>Pay</span>
     </button>
   );
 }
 export function GooglePay() {
   return (
-    <button className="h-11 px-5 rounded-[var(--radius-md)] bg-[#000] text-white inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-semibold w-full">
+    <button className="h-12 px-5 rounded-[var(--radius-md)] bg-[#000] text-white inline-flex items-center justify-center gap-2 text-[var(--type-14)] font-semibold w-full">
       <span className="lumen-mono font-bold">G</span> Pay
     </button>
   );
 }
 export function ShopPay() {
   return (
-    <button className="h-11 rounded-[var(--radius-md)] bg-[#5a31f4] text-white inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-semibold w-full">
+    <button className="h-12 rounded-[var(--radius-md)] bg-[#5a31f4] text-white inline-flex items-center justify-center gap-2 text-[var(--type-14)] font-semibold w-full">
       <span className="lumen-mono font-bold">shop</span> Pay
     </button>
   );
 }
 export function PayPal() {
   return (
-    <button className="h-11 rounded-[var(--radius-md)] bg-[#ffc439] text-[#003087] inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-bold tracking-tight w-full">
+    <button className="h-12 rounded-[var(--radius-md)] bg-[#ffc439] text-[#003087] inline-flex items-center justify-center gap-2 text-[var(--type-14)] font-bold tracking-tight w-full">
       <i style={{ fontStyle: "italic" }}>Pay</i><span className="text-[#0070ba] -ml-0.5">Pal</span>
     </button>
   );
 }
 export function Klarna() {
   return (
-    <button className="h-11 rounded-[var(--radius-md)] bg-[#ffa8cd] text-[#17120c] inline-flex items-center justify-center text-[var(--type-13)] font-semibold w-full">
+    <button className="h-12 rounded-[var(--radius-md)] bg-[#ffa8cd] text-[#17120c] inline-flex items-center justify-center text-[var(--type-14)] font-semibold w-full">
       Klarna
     </button>
   );
 }
 export function Afterpay() {
   return (
-    <button className="h-11 rounded-[var(--radius-md)] bg-[#b2fce4] text-[#08263a] inline-flex items-center justify-center text-[var(--type-13)] font-semibold w-full">
+    <button className="h-12 rounded-[var(--radius-md)] bg-[#b2fce4] text-[#08263a] inline-flex items-center justify-center text-[var(--type-14)] font-semibold w-full">
       afterpay
     </button>
   );
@@ -159,11 +159,11 @@ export function CouponInput() {
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
           placeholder="Discount code"
-          className="flex-1 h-9 px-3 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-13)] lumen-mono uppercase placeholder:text-[var(--text-tertiary)] placeholder:normal-case focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
+          className="flex-1 h-10 px-3 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-14)] lumen-mono uppercase placeholder:text-[var(--text-tertiary)] placeholder:normal-case focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
         />
         <button
           onClick={() => { if (code) setApplied(code); }}
-          className="h-9 px-3 rounded-[var(--radius-md)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-13)] font-medium hover:opacity-90"
+          className="h-10 px-3 rounded-[var(--radius-md)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-14)] font-medium hover:opacity-90"
         >
           Apply
         </button>
@@ -266,8 +266,8 @@ export function CartDrawer() {
         <div className="flex items-center justify-between text-[var(--type-12)] text-[var(--text-tertiary)]">
           <span>Shipping calculated at checkout</span>
         </div>
-        <button className="w-full h-11 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-13)] font-semibold mt-2">Checkout</button>
-        <button className="w-full h-9 rounded-[var(--radius-md)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Continue shopping</button>
+        <button className="w-full h-12 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-semibold mt-2">Checkout</button>
+        <button className="w-full h-10 rounded-[var(--radius-md)] text-[var(--type-13)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Continue shopping</button>
       </div>
     </div>
   );
@@ -427,7 +427,7 @@ export function SizeSelector({
           key={s}
           onClick={() => onChange(s)}
           className={[
-            "min-w-[44px] h-9 px-3 rounded-[var(--radius-md)] text-[var(--type-13)] lumen-mono transition-[background-color,border-color]",
+            "min-w-[48px] h-10 px-3 rounded-[var(--radius-md)] text-[var(--type-14)] lumen-mono transition-[background-color,border-color]",
             s === value
               ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)] border border-[var(--surface-inverse)]"
               : "bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-strong)]",

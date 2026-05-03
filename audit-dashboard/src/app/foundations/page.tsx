@@ -177,22 +177,90 @@ export default function FoundationsPage() {
         <Section
           id="spacing"
           eyebrow="03 · Foundations"
-          title="Spacing"
-          description="A 4-based scale with 2-step half-stops where dense surfaces need them. 4 / 8 / 12 / 16 / 20 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128 — the same intervals Apple's 8pt grid prescribes, with halves for table density."
+          title="Spacing & 8-point soft grid"
+          description="Lumen runs on an 8pt soft grid. The base unit is 8 — every section gap, control height, gap, and padding snaps to multiples of 8. 4-pixel halves are allowed in dense rows; 2-pixel quarters reserved for hairlines and dot indicators. Decorative pixels (border-radius, focus glow) stay free of the grid — they're optical, not structural."
         >
-          <Card padding="lg">
-            <div className="flex flex-col gap-2.5">
-              {[2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56, 64, 80, 96, 128].map((px) => (
-                <div key={px} className="flex items-center gap-4">
-                  <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-tertiary)] w-12 shrink-0">{px}</div>
-                  <div
-                    className="bg-[var(--color-accent)]"
-                    style={{ width: px, height: 8, borderRadius: 2 }}
-                  />
+          <SubSection title="Grid ladder · structural multiples of 8">
+            <Card padding="lg">
+              <div className="flex flex-col gap-3">
+                {[
+                  { px: 8,   tier: "1", role: "smallest gap · between icon and label" },
+                  { px: 16,  tier: "2", role: "default gap · card padding md" },
+                  { px: 24,  tier: "3", role: "card padding lg · sub-section gap" },
+                  { px: 32,  tier: "4", role: "section internal · column gap" },
+                  { px: 40,  tier: "5", role: "control height md · CTA padding" },
+                  { px: 48,  tier: "6", role: "control height lg · card padding xl" },
+                  { px: 64,  tier: "8", role: "between sections" },
+                  { px: 80,  tier: "10", role: "between major content groups" },
+                  { px: 96,  tier: "12", role: "page top · hero internal" },
+                  { px: 128, tier: "16", role: "hero margin · marketing breathing room" },
+                ].map((s) => (
+                  <div key={s.px} className="flex items-center gap-4">
+                    <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-primary)] w-10 shrink-0 text-right">{s.px}</div>
+                    <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)] w-10 shrink-0">G{s.tier}</div>
+                    <div
+                      className="bg-[var(--color-accent)]"
+                      style={{ width: s.px, height: 8, borderRadius: 2 }}
+                    />
+                    <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{s.role}</div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </SubSection>
+
+          <SubSection title="Soft exceptions · half-steps for fine optical work">
+            <Card padding="lg">
+              <div className="flex flex-col gap-3">
+                {[
+                  { px: 4,  role: "half-step — icon ↔ label gap" },
+                  { px: 6,  role: "tooltip arrow / focus offset" },
+                  { px: 12, role: "half-step — chip insets, control internals" },
+                  { px: 20, role: "half-step — between dense rows" },
+                  { px: 28, role: "soft control height (xs button, dense rows)" },
+                ].map((s) => (
+                  <div key={s.px} className="flex items-center gap-4">
+                    <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-tertiary)] w-10 shrink-0 text-right">{s.px}</div>
+                    <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)] w-10 shrink-0">soft</div>
+                    <div className="bg-[var(--lumen-amber-4)]" style={{ width: s.px, height: 8, borderRadius: 2 }} />
+                    <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{s.role}</div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </SubSection>
+
+          <SubSection title="Grid overlay · what 'on grid' looks like" description="An 8 × 8 grid with major lines every 64 px. Use the visual to test whether a layout's spacing rhythm holds.">
+            <Card padding="md" className="overflow-hidden">
+              <div className="lumen-grid-8-major rounded-[var(--radius-sm)] p-6 bg-[var(--surface-canvas)]">
+                <div className="rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] p-6 flex items-center justify-between gap-4 shadow-[var(--shadow-sm)]">
+                  <div className="flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-[var(--radius-sm)] bg-[var(--lumen-accent-4)]" />
+                    <div className="flex flex-col gap-1">
+                      <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">Card on grid</div>
+                      <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">8 / 16 / 24 / 32 / 40 / 48 — every measurement is a multiple of 8</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button intent="secondary" size="sm">Cancel</Button>
+                    <Button intent="primary" size="md">Confirm</Button>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </Card>
+              </div>
+            </Card>
+          </SubSection>
+
+          <SubSection title="Control-height ladder" description="Every interactive control snaps to one of four heights. xs (28) is the only soft exception, kept for dense data-table rows.">
+            <Card padding="lg">
+              <div className="flex items-end gap-4 flex-wrap">
+                <HeightSpec h={28} label="xs · 28" sub="3.5u soft" />
+                <HeightSpec h={32} label="sm · 32" sub="4u" />
+                <HeightSpec h={40} label="md · 40" sub="5u · default" />
+                <HeightSpec h={48} label="lg · 48" sub="6u" />
+                <HeightSpec h={44} label="touch · 44" sub="5.5u soft · iOS" tone="soft" />
+              </div>
+            </Card>
+          </SubSection>
         </Section>
 
         {/* RADIUS */}
@@ -623,6 +691,26 @@ function StatusRamp({ family }: { family: string }) {
         {Array.from({ length: 10 }).map((_, i) => (
           <div key={i} className="h-9" style={{ background: `var(--${family}-${i})` }} title={`var(--${family}-${i})`} />
         ))}
+      </div>
+    </div>
+  );
+}
+
+function HeightSpec({ h, label, sub, tone = "grid" }: { h: number; label: string; sub: string; tone?: "grid" | "soft" }) {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div
+        className={[
+          "rounded-[var(--radius-md)] border border-[var(--border-default)] flex items-center justify-center px-4",
+          tone === "soft" ? "bg-[var(--lumen-amber-1)] text-[var(--lumen-amber-7)]" : "bg-[var(--surface-tint-accent)] text-[var(--text-accent)]",
+        ].join(" ")}
+        style={{ height: h }}
+      >
+        <span className="lumen-mono text-[var(--type-12)] font-semibold">{h}</span>
+      </div>
+      <div className="flex flex-col items-center">
+        <div className="lumen-mono text-[var(--type-12)] text-[var(--text-primary)]">{label}</div>
+        <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">{sub}</div>
       </div>
     </div>
   );

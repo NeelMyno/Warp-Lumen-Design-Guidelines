@@ -3,11 +3,14 @@
 import { useState, useRef, useEffect, ReactNode, ChangeEvent, KeyboardEvent } from "react";
 import { Search as SearchIcon, ChevronDown, Plus, X, Check } from "./icon";
 
+/* All inputs run at 40px (5u, default md). The 8pt soft grid keeps
+   forms feeling like a single chiseled instrument panel — every control
+   sits on the same baseline. */
 const INPUT_BASE = [
-  "h-9 w-full px-3 rounded-[var(--radius-md)]",
+  "h-10 w-full px-3 rounded-[var(--radius-md)]",
   "bg-[var(--surface-raised)] text-[var(--text-primary)]",
   "border border-[var(--border-default)]",
-  "text-[var(--type-13)] tracking-[var(--tracking-tight)]",
+  "text-[var(--type-14)] tracking-[var(--tracking-tight)]",
   "placeholder:text-[var(--text-tertiary)]",
   "transition-[border-color,box-shadow,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
   "hover:border-[var(--border-strong)]",
@@ -27,7 +30,7 @@ export function Textarea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement
       rows={4}
       {...props}
       className={[
-        INPUT_BASE.replace("h-9", "min-h-[88px] py-2.5"),
+        INPUT_BASE.replace("h-10", "min-h-[96px] py-2"),
         "resize-y leading-[var(--leading-normal)]",
         props.className ?? "",
       ].join(" ")}
@@ -137,7 +140,7 @@ export function Select({
   size?: "sm" | "md";
   disabled?: boolean;
 }) {
-  const heightClass = size === "sm" ? "h-8 text-[var(--type-12)]" : "h-9 text-[var(--type-13)]";
+  const heightClass = size === "sm" ? "h-8 text-[var(--type-13)]" : "h-10 text-[var(--type-14)]";
   return (
     <div className="relative inline-block w-full">
       <select
@@ -145,7 +148,7 @@ export function Select({
         onChange={(e) => onChange?.(e.target.value)}
         disabled={disabled}
         className={[
-          INPUT_BASE.replace("h-9", "").replace("px-3", "pl-3 pr-9"),
+          INPUT_BASE.replace("h-10", "").replace("px-3", "pl-3 pr-9"),
           heightClass,
           "appearance-none cursor-pointer",
         ].join(" ")}
@@ -263,20 +266,20 @@ export function NumberInput({
   const dec = () => onChange(Math.max(min, value - step));
   const inc = () => onChange(Math.min(max, value + step));
   return (
-    <div className="inline-flex items-stretch h-9 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] overflow-hidden">
+    <div className="inline-flex items-stretch h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] overflow-hidden">
       <button type="button" onClick={dec} aria-label="Decrement"
-        className="px-2.5 text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors text-[16px] leading-none">−</button>
+        className="px-3 text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors text-[16px] leading-none">−</button>
       <div className="flex items-center px-2 border-x border-[var(--border-hairline)]">
         <input
           type="number"
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-14 bg-transparent text-center lumen-mono text-[var(--type-13)] focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          className="w-14 bg-transparent text-center lumen-mono text-[var(--type-14)] focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         />
         {suffix && <span className="text-[var(--type-12)] text-[var(--text-tertiary)] pr-1">{suffix}</span>}
       </div>
       <button type="button" onClick={inc} aria-label="Increment"
-        className="px-2.5 text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors text-[16px] leading-none">+</button>
+        className="px-3 text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors text-[16px] leading-none">+</button>
     </div>
   );
 }
@@ -373,7 +376,7 @@ export function OtpInput({ length = 6, value, onChange }: { length?: number; val
           value={cells[i] ?? ""}
           onChange={(e) => set(i, e.target.value)}
           onKeyDown={(e) => onKeyDown(i, e)}
-          className="h-11 w-10 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-center text-[var(--type-18)] lumen-mono text-[var(--text-primary)] hover:border-[var(--border-strong)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
+          className="h-12 w-10 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-center text-[var(--type-18)] lumen-mono text-[var(--text-primary)] hover:border-[var(--border-strong)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
           aria-label={`OTP digit ${i + 1}`}
         />
       ))}
@@ -399,7 +402,7 @@ export function TagsInput({
     setDraft("");
   }
   return (
-    <div className="flex flex-wrap items-center gap-1.5 min-h-9 px-2 py-1 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] focus-within:border-[var(--border-focus)] focus-within:shadow-[var(--shadow-focus)] transition-[border-color,box-shadow]">
+    <div className="flex flex-wrap items-center gap-2 min-h-10 px-2 py-1 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] focus-within:border-[var(--border-focus)] focus-within:shadow-[var(--shadow-focus)] transition-[border-color,box-shadow]">
       {value.map((t) => (
         <span key={t} className="inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--type-12)] text-[var(--text-secondary)]">
           {t}
@@ -435,7 +438,7 @@ export function ColorPicker({
 }) {
   return (
     <div className="inline-flex items-center gap-2">
-      <div className="relative inline-flex items-center gap-2 px-2 h-9 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
+      <div className="relative inline-flex items-center gap-2 px-2 h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
         <span className="block h-5 w-5 rounded-[4px] border border-[var(--border-default)]" style={{ background: value }} />
         <input
           type="color"
@@ -575,7 +578,7 @@ export function FileDropzone({
 /* ─────────────────────────  DATE PICKER (visual)  ───────────────────────── */
 export function DatePicker({ value }: { value?: string }) {
   return (
-    <div className="inline-flex h-9 items-center gap-2 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
+    <div className="inline-flex h-10 items-center gap-2 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
       <CalendarSm />
       <span className="lumen-mono text-[var(--type-13)] text-[var(--text-primary)]">
         {value ?? "Select date"}
@@ -627,7 +630,7 @@ export function DatePickerCalendar() {
 /* ─────────────────────────  TIME PICKER  ───────────────────────── */
 export function TimePicker() {
   return (
-    <div className="inline-flex h-9 items-center gap-1 px-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
+    <div className="inline-flex h-10 items-center gap-1 px-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)]">
       <input
         defaultValue="14"
         maxLength={2}
