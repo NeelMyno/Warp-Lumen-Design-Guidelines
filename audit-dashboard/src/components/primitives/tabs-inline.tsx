@@ -1,6 +1,21 @@
 "use client";
 
-import { ReactNode, useId, useState } from "react";
+import { ReactNode, useState } from "react";
+
+import { cn } from "@/lib/utils";
+import {
+  Tabs as ShadcnTabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+
+/**
+ * Lumen InlineTabs — Radix-backed shadcn Tabs wrapped to keep Lumen's
+ * `items` prop API. Two variants:
+ * - `underline` (default): bottom-bordered tab strip
+ * - `pill`: filled active pill, used in toolbars
+ */
 
 export type TabItem = { id: string; label: string; badge?: string | number };
 
@@ -17,8 +32,7 @@ export function InlineTabs({
   size?: "sm" | "md";
   variant?: "underline" | "pill";
 }) {
-  const baseId = useId();
-  const [active, setActive] = useState(defaultId ?? items[0]?.id);
+  const [active, setActive] = useState(defaultId ?? items[0]?.id ?? "");
   const heightCls = size === "sm" ? "h-8" : "h-9";
 
   function select(id: string) {
@@ -26,80 +40,43 @@ export function InlineTabs({
     onChange?.(id);
   }
 
-  if (variant === "pill") {
-    return (
-      <div role="tablist" className="inline-flex p-1 rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)]">
-        {items.map((it) => {
-          const isActive = it.id === active;
-          return (
-            <button
-              key={it.id}
-              role="tab"
-              aria-selected={isActive}
-              id={`${baseId}-${it.id}`}
-              onClick={() => select(it.id)}
-              className={[
-                "inline-flex items-center gap-1.5 px-3 rounded-[var(--radius-md)] text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]",
-                heightCls,
-                "transition-[background-color,color,box-shadow] duration-[var(--motion-fast)]",
-                isActive
-                  ? "bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]"
-                  : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
-              ].join(" ")}
-            >
+  return (
+    <ShadcnTabs value={active} onValueChange={select} className="gap-0">
+      <TabsList
+        className={cn(
+          variant === "pill"
+            ? "inline-flex p-1 rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] w-fit"
+            : "flex items-center gap-1 border-b border-[var(--border-hairline)] bg-transparent rounded-none p-0 w-full justify-start",
+          heightCls,
+          "h-auto",
+        )}
+      >
+        {items.map((it) => (
+          <TabsTrigger
+            key={it.id}
+            value={it.id}
+            className={cn(
+              variant === "pill"
+                ? "rounded-[var(--radius-md)] data-[state=active]:bg-[var(--surface-raised)] data-[state=active]:text-[var(--text-primary)] data-[state=active]:shadow-[var(--shadow-xs)] text-[var(--text-tertiary)]"
+                : "relative rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:font-semibold data-[state=active]:text-[var(--text-primary)] text-[var(--text-tertiary)] data-[state=active]:after:absolute data-[state=active]:after:left-2 data-[state=active]:after:right-2 data-[state=active]:after:-bottom-px data-[state=active]:after:h-[1.5px] data-[state=active]:after:rounded-full data-[state=active]:after:bg-[var(--text-primary)]",
+              heightCls,
+            )}
+          >
+            <span className="inline-flex items-center gap-1.5">
               {it.label}
               {it.badge !== undefined && (
                 <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
                   {it.badge}
                 </span>
               )}
-            </button>
-          );
-        })}
-      </div>
-    );
-  }
-
-  return (
-    <div role="tablist" className="flex items-center gap-1 border-b border-[var(--border-hairline)]">
-      {items.map((it) => {
-        const isActive = it.id === active;
-        return (
-          <button
-            key={it.id}
-            role="tab"
-            aria-selected={isActive}
-            id={`${baseId}-${it.id}`}
-            onClick={() => select(it.id)}
-            className={[
-              "relative inline-flex items-center gap-1.5 px-3 -mb-px text-[var(--type-13)] tracking-[var(--tracking-tight)]",
-              heightCls,
-              "transition-colors duration-[var(--motion-fast)]",
-              isActive
-                ? "text-[var(--text-primary)] font-semibold"
-                : "text-[var(--text-tertiary)] font-medium hover:text-[var(--text-primary)]",
-            ].join(" ")}
-          >
-            {it.label}
-            {it.badge !== undefined && (
-              <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
-                {it.badge}
-              </span>
-            )}
-            {isActive && (
-              <span aria-hidden className="absolute -bottom-0 left-2 right-2 h-[1.5px] rounded-full bg-[var(--text-primary)]" />
-            )}
-          </button>
-        );
-      })}
-    </div>
+            </span>
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </ShadcnTabs>
   );
 }
 
 export function TabPanel({ id, children }: { id: string; children: ReactNode }) {
-  return (
-    <div role="tabpanel" id={`tabpanel-${id}`}>
-      {children}
-    </div>
-  );
+  return <TabsContent value={id}>{children}</TabsContent>;
 }

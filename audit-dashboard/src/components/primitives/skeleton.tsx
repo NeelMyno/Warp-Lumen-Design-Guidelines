@@ -1,3 +1,11 @@
+import { cn } from "@/lib/utils";
+import { Skeleton as ShadcnSkeleton } from "@/components/ui/skeleton";
+
+/**
+ * Lumen Skeleton — wraps the shadcn Skeleton with Lumen's `width`/`height`/
+ * `rounded` shorthand. shadcn ships with a tw-animate-css `animate-pulse`
+ * shimmer.
+ */
 export function Skeleton({
   width,
   height = 14,
@@ -10,28 +18,14 @@ export function Skeleton({
   rounded?: string;
 }) {
   return (
-    <span
+    <ShadcnSkeleton
       aria-hidden
-      className={["lumen-skeleton inline-block", className].join(" ")}
+      className={cn("inline-block", className)}
       style={{
         width: typeof width === "number" ? `${width}px` : width ?? "100%",
         height: typeof height === "number" ? `${height}px` : height,
         borderRadius: rounded,
-        background:
-          "linear-gradient(90deg, var(--surface-sunken) 0%, color-mix(in oklab, var(--surface-sunken) 60%, var(--surface-raised)) 50%, var(--surface-sunken) 100%)",
-        backgroundSize: "200% 100%",
-        animation: "lumen-skeleton-shimmer 1.6s ease-in-out infinite",
       }}
-    >
-      <style>{`
-        @keyframes lumen-skeleton-shimmer {
-          0%   { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .lumen-skeleton { animation: none !important; }
-        }
-      `}</style>
-    </span>
+    />
   );
 }

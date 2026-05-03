@@ -1,27 +1,42 @@
 import { ReactNode } from "react";
 
+import {
+  Breadcrumb as ShadcnBreadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+/**
+ * Lumen Breadcrumb — wraps the shadcn Breadcrumb. The Lumen API stays
+ * `<Breadcrumb items={[{href, label}, ...]} />` so consumer pages don't
+ * need to switch to the verbose shadcn JSX.
+ */
+
 export type Crumb = { href?: string; label: ReactNode };
 
 export function Breadcrumb({ items }: { items: Crumb[] }) {
   return (
-    <nav aria-label="Breadcrumb">
-      <ol className="flex items-center gap-1.5 text-[var(--type-13)] text-[var(--text-tertiary)] tracking-[var(--tracking-tight)] flex-wrap">
+    <ShadcnBreadcrumb>
+      <BreadcrumbList>
         {items.map((c, i) => {
           const isLast = i === items.length - 1;
           return (
-            <li key={i} className="flex items-center gap-1.5">
-              {c.href && !isLast ? (
-                <a href={c.href} className="hover:text-[var(--text-primary)] transition-colors">{c.label}</a>
-              ) : (
-                <span className={isLast ? "text-[var(--text-primary)] font-medium" : ""}>{c.label}</span>
-              )}
-              {!isLast && (
-                <span aria-hidden className="text-[var(--border-strong)]">/</span>
-              )}
-            </li>
+            <span key={i} className="contents">
+              <BreadcrumbItem>
+                {c.href && !isLast ? (
+                  <BreadcrumbLink href={c.href}>{c.label}</BreadcrumbLink>
+                ) : (
+                  <BreadcrumbPage>{c.label}</BreadcrumbPage>
+                )}
+              </BreadcrumbItem>
+              {!isLast && <BreadcrumbSeparator />}
+            </span>
           );
         })}
-      </ol>
-    </nav>
+      </BreadcrumbList>
+    </ShadcnBreadcrumb>
   );
 }

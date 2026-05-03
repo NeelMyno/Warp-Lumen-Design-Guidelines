@@ -1,11 +1,17 @@
 "use client";
 
-import { ReactNode, useState, useId } from "react";
+import { ReactNode } from "react";
+
+import {
+  Tooltip as ShadcnTooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 /**
- * Lightweight CSS tooltip — no portal, no arrow tip, just a tasteful dark
- * bubble that appears on hover/focus. For complex tooltips with rich content,
- * promote to a Popover.
+ * Lumen Tooltip — Radix-backed shadcn Tooltip wrapped to keep the existing
+ * Lumen API of `<Tooltip content="..." side="top">{children}</Tooltip>`.
  */
 export function Tooltip({
   content,
@@ -18,51 +24,14 @@ export function Tooltip({
   side?: "top" | "bottom" | "left" | "right";
   delay?: number;
 }) {
-  const id = useId();
-  const [open, setOpen] = useState(false);
-  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
-
-  function show() {
-    if (timer) clearTimeout(timer);
-    setTimer(setTimeout(() => setOpen(true), delay));
-  }
-  function hide() {
-    if (timer) clearTimeout(timer);
-    setOpen(false);
-  }
-
-  const placement: Record<string, string> = {
-    top:    "bottom-[calc(100%+6px)] left-1/2 -translate-x-1/2",
-    bottom: "top-[calc(100%+6px)] left-1/2 -translate-x-1/2",
-    left:   "right-[calc(100%+6px)] top-1/2 -translate-y-1/2",
-    right:  "left-[calc(100%+6px)] top-1/2 -translate-y-1/2",
-  };
-
   return (
-    <span className="relative inline-flex" onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={hide}>
-      <span aria-describedby={open ? id : undefined}>{children}</span>
-      {open && (
-        <span
-          id={id}
-          role="tooltip"
-          className={[
-            "absolute z-[var(--z-tooltip)] pointer-events-none",
-            "px-2.5 py-1 rounded-[var(--radius-md)] whitespace-nowrap",
-            "lumen-glass-strong text-[var(--text-primary)]",
-            "text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]",
-            "animate-[tt-in_120ms_cubic-bezier(0.2,0,0,1)_both]",
-            placement[side],
-          ].join(" ")}
-        >
-          {content}
-        </span>
-      )}
-      <style>{`
-        @keyframes tt-in {
-          from { opacity: 0; transform: translate(-50%, 4px) scale(0.96); }
-          to   { opacity: 1; transform: translate(-50%, 0)    scale(1);    }
-        }
-      `}</style>
-    </span>
+    <TooltipProvider delayDuration={delay}>
+      <ShadcnTooltip>
+        <TooltipTrigger asChild>
+          <span className="inline-flex">{children}</span>
+        </TooltipTrigger>
+        <TooltipContent side={side}>{content}</TooltipContent>
+      </ShadcnTooltip>
+    </TooltipProvider>
   );
 }

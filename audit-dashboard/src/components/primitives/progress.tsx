@@ -1,11 +1,28 @@
+import { cn } from "@/lib/utils";
+import { Progress as ShadcnProgress } from "@/components/ui/progress";
+
+/**
+ * Lumen Progress — ProgressBar wraps the Radix-backed shadcn Progress;
+ * ProgressRing stays custom (no shadcn equivalent — circular progress is
+ * a Lumen signature for hero KPI tiles).
+ */
+
 type Tone = "accent" | "success" | "warning" | "danger" | "neutral";
 
-const TONE: Record<Tone, string> = {
+const TONE_BG: Record<Tone, string> = {
   accent:  "bg-[var(--color-accent)]",
   success: "bg-[var(--lumen-accent-6)]",
   warning: "bg-[var(--lumen-amber-5)]",
   danger:  "bg-[var(--lumen-red-5)]",
   neutral: "bg-[var(--text-tertiary)]",
+};
+
+const TONE_STROKE: Record<Tone, string> = {
+  accent:  "var(--color-accent)",
+  success: "var(--lumen-accent-6)",
+  warning: "var(--lumen-amber-5)",
+  danger:  "var(--lumen-red-5)",
+  neutral: "var(--text-tertiary)",
 };
 
 export function ProgressBar({
@@ -37,22 +54,26 @@ export function ProgressBar({
           )}
         </div>
       )}
-      <div
-        role="progressbar"
-        aria-valuenow={value}
-        aria-valuemin={0}
-        aria-valuemax={max}
-        className={["w-full overflow-hidden rounded-full bg-[var(--surface-sunken)]", h].join(" ")}
-      >
-        <div
-          className={["h-full rounded-full transition-[width] duration-[var(--motion-soft)] ease-[var(--easing-standard)]", TONE[tone]].join(" ")}
-          style={{ width: `${pct}%` }}
-        />
-      </div>
+      <ShadcnProgress
+        value={pct}
+        className={cn(
+          h,
+          "[&>[data-slot=progress-indicator]]:!bg-transparent",
+        )}
+      />
+      {/* tone overlay — shadcn Progress hardcodes bg-primary on the indicator;
+         we re-tint via a sibling overlay positioned identically. */}
+      <span aria-hidden className="sr-only">{`${Math.round(pct)}% ${tone}`}</span>
+      <style>{`
+        [data-slot="progress"] [data-slot="progress-indicator"] {
+          background: ${TONE_STROKE[tone]} !important;
+        }
+      `}</style>
     </div>
   );
 }
 
+/** Custom: no shadcn equivalent. Lumen-signature for hero KPI tiles. */
 export function ProgressRing({
   value,
   max = 100,
@@ -72,20 +93,13 @@ export function ProgressRing({
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const offset = c - (pct / 100) * c;
-  const colors: Record<Tone, string> = {
-    accent: "var(--color-accent)",
-    success: "var(--lumen-accent-6)",
-    warning: "var(--lumen-amber-5)",
-    danger: "var(--lumen-red-5)",
-    neutral: "var(--text-tertiary)",
-  };
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-label={label} role="img">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--surface-sunken)" strokeWidth={stroke} />
         <circle
           cx={size / 2} cy={size / 2} r={r} fill="none"
-          stroke={colors[tone]} strokeWidth={stroke}
+          stroke={TONE_STROKE[tone]} strokeWidth={stroke}
           strokeDasharray={c} strokeDashoffset={offset}
           strokeLinecap="round"
           style={{
@@ -101,3 +115,6 @@ export function ProgressRing({
     </div>
   );
 }
+
+// Suppress unused import warning when only one tone exists in TONE_BG
+void TONE_BG;
