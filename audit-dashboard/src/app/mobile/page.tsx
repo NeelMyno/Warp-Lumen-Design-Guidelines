@@ -14,7 +14,7 @@ export default function MobilePage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 6 of 7 · Mobile surfaces"
+        eyebrow="Tab 7 of 8 · Mobile surfaces"
         title="Mobile"
         description="iOS and Android frames side-by-side. Same Lumen visual language; platform-native chrome — HIG nav bar + tab bar on iOS, Material 3 top app bar + bottom navigation on Android."
       />

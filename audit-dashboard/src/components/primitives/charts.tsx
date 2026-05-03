@@ -8,10 +8,10 @@ import { ReactNode } from "react";
 
 export const CHART_PALETTE = [
   "var(--lumen-accent-5)",
-  "var(--lumen-sky-5)",
+  "var(--lumen-cream-5)",
   "var(--lumen-amber-5)",
   "var(--lumen-red-4)",
-  "var(--lumen-navy-5)",
+  "var(--lumen-obsidian-5)",
   "var(--lumen-accent-7)",
 ];
 
@@ -426,7 +426,7 @@ export function Waterfall({ items }: { items: { label: string; delta: number; to
         const x = pad + i * ((w - pad * 2) / items.length) + 2;
         const y = ys(Math.max(p.start, p.end));
         const height = Math.abs(ys(p.start) - ys(p.end));
-        const color = p.final ? "var(--lumen-navy-7)" : p.delta >= 0 ? "var(--lumen-accent-5)" : "var(--lumen-red-4)";
+        const color = p.final ? "var(--lumen-obsidian-7)" : p.delta >= 0 ? "var(--lumen-accent-5)" : "var(--lumen-red-4)";
         return (
           <g key={i}>
             <rect x={x} y={y} width={bw} height={height || 2} fill={color} rx="2" />

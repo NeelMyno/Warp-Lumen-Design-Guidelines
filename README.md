@@ -3,14 +3,14 @@
 > Lumen is Warp's vertically integrated UI design system. **LLM-first, human-second.** Single source of truth for every UI surface Warp's product/software-builder team ships — web, mobile, native desktop, e-commerce themes.
 
 ```
-Visual mood:        Quiet Industrial · Apple discipline + Warp substance
+Visual mood:        Obsidian Lime · glassmorphism + brutalist hairline frames + radial lime aurora
 Accent:             Warp lime green #4ade80 — action / live / success only
-Typography:         Satoshi + JetBrains Mono (mono companion)
-Density:            Dense over airy. Operator-grade.
+Typography:         Satoshi (UI + display) + JetBrains Mono (numerics + system metadata)
+Density:            Generous breathing room. Operator-readable.
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors
-Status:             v0.1.0 · audit baseline
+Status:             v0.4.0 · obsidian-lime
 ```
 
 ## What this repo is

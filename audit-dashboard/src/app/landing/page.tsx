@@ -14,7 +14,7 @@ export default function LandingPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 3 of 7 · Marketing surface"
+        eyebrow="Tab 4 of 8 · Marketing surface"
         title="Marketing & Landing"
         description="Public marketing surfaces. Type-led hero, screenshot-as-proof, live rate ticker, customer logos, FAQ. Reads as Apple-disciplined and Warp-substantive at the same time."
       />
@@ -22,19 +22,22 @@ export default function LandingPage() {
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
         <BrowserChrome url="warp.example.com" />
 
-        {/* HERO */}
-        <section className="relative bg-[var(--surface-page)] px-10 pt-20 pb-16 lumen-stripe-grid">
+        {/* HERO — v0.4 obsidian-lime: architectural grid + aurora glow + brutalist headline */}
+        <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural lumen-aurora overflow-hidden">
           <div className="relative max-w-[1100px] mx-auto flex flex-col gap-7">
-            <div className="inline-flex">
-              <Badge status="accent" size="md" leadingDot>
-                Now in private beta · Spring 2026
-              </Badge>
+            <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
+              <span className="lumen-dot-pulse" aria-hidden />
+              <span>Now in private beta · Spring 2026 · system v0.4 live</span>
             </div>
 
-            <h1 className="text-[var(--type-61)] sm:text-[var(--type-72)] md:text-[var(--type-76)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)] text-[var(--text-primary)]">
+            <h1 className="text-[var(--type-61)] sm:text-[var(--type-84)] md:text-[var(--type-96)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)] text-[var(--text-primary)]">
               The freight network
               <br />
-              <span className="text-[var(--text-tertiary)]">for builders.</span>
+              for{" "}
+              <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
+                builders
+              </em>
+              .
             </h1>
 
             <p className="max-w-[60ch] text-[var(--type-20)] md:text-[var(--type-22)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
@@ -42,16 +45,16 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-wrap gap-3 pt-3">
-              <Button intent="primary" size="lg" trailingIcon={<ArrowRight size={16} />}>
+              <Button intent="primary" size="xl" pill glow trailingIcon={<ArrowRight size={16} />}>
                 Get started
               </Button>
-              <Button intent="secondary" size="lg" leadingIcon={<Code size={16} />}>
+              <Button intent="secondary" size="xl" pill leadingIcon={<Code size={16} />}>
                 Read the docs
               </Button>
             </div>
 
-            <div className="mt-2 inline-flex items-center gap-3 px-3 h-9 rounded-[var(--radius-md)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] lumen-mono text-[var(--type-13)] self-start">
-              <span style={{ color: "var(--lumen-accent-3)" }}>$</span>
+            <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-[var(--type-13)] self-start">
+              <span style={{ color: "var(--lumen-accent-4)" }}>$</span>
               npx warp quote --from=LAX --to=SFO
               <LiveDot />
             </div>

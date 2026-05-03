@@ -1,64 +1,67 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   LUMEN · v0.2 — Mantine-structured color system, Apple-grade refinement
+   LUMEN · v0.4 — Obsidian Lime
    ----------------------------------------------------------------------------
-   Architecture:
-   - Mantine convention: 10-shade scales (0 lightest → 9 darkest).
-   - Three colour families: gray (warm neutrals), navy (Warp dark surfaces),
-     accent (Warp lime green), plus semantic status (red / amber / sky).
-   - Semantic tokens reference primitives. Components only consume semantic.
-   - Two themes (light, dark) reachable via [data-theme]. One mood by default;
-     [data-mood] hooks remain for future variants without breaking templates.
+   A clean break from the navy + lime combo. Anchor references:
+     • SuperDesign · Glassmorphism Style ("Obsidian & Lime")
+     • SuperDesign · Neon Velocity Countdown ("Laser Green & Navy Black")
+   The brand-green stays. Everything else is rebuilt:
+     • Drop  lumen-navy-* and lumen-sky-*.
+     • Add   lumen-obsidian-* (warm-neutral near-black) + lumen-cream-*.
+     • Retune accent ramp brighter at the top so #4ade80 reads as "laser"
+       against obsidian without shifting the brand value.
+     • Add   glass surface, radial-aurora glow, architectural grid overlay,
+       brutalist hairline frame, mono uppercase tracked labels.
+     • Default theme is DARK (obsidian) — the references are dark-first.
    ============================================================================ */
 
 /* ───────────────────────────  PRIMITIVE PALETTES  ──────────────────────────
-   10-shade Mantine-style scales. Hand-tuned for Warp's identity.
-   - lumen-gray    paper-warm neutral (light mode UI scaffolding)
-   - lumen-navy    Warp's actual production navy ladder (dark mode surfaces)
-   - lumen-accent  Warp lime — THE brand colour, one role only (action/live)
-   - lumen-red / -amber / -sky   semantic status palettes
+   10–11 step ramps, 0 = lightest, 9/10 = deepest. Each family does one job.
 */
 :root {
-  /* ── gray (warm paper) ────────────────────────────────────────────────── */
-  --lumen-gray-0:  #fafaf7;
-  --lumen-gray-1:  #f3f3ee;
-  --lumen-gray-2:  #e8e7df;
-  --lumen-gray-3:  #d3d2c8;
-  --lumen-gray-4:  #b3b1a4;
-  --lumen-gray-5:  #8e8c7e;
-  --lumen-gray-6:  #6f6c5f;
-  --lumen-gray-7:  #514f44;
-  --lumen-gray-8:  #34332b;
-  --lumen-gray-9:  #1c1b16;
+  /* ── obsidian — the canvas ramp. NOT navy. ────────────────────────────── */
+  --lumen-obsidian-0:  #f1f1ee;   /* cream-leaning paper for light theme    */
+  --lumen-obsidian-1:  #d9d9d4;
+  --lumen-obsidian-2:  #b6b6b0;
+  --lumen-obsidian-3:  #84848c;   /* tertiary text on dark                   */
+  --lumen-obsidian-4:  #56565e;   /* dim text on dark                        */
+  --lumen-obsidian-5:  #2f2f37;
+  --lumen-obsidian-6:  #1d1d24;   /* glass card body, dark                   */
+  --lumen-obsidian-7:  #14141a;   /* raised surface, dark                    */
+  --lumen-obsidian-8:  #0a0a0d;   /* canvas, dark — DEFAULT                  */
+  --lumen-obsidian-9:  #06060a;   /* void / scrim base                       */
+  --lumen-obsidian-10: #020203;   /* deepest                                 */
 
-  /* ── navy (Warp's production dark ladder, mantine-shaped) ─────────────── */
-  --lumen-navy-0:  #f0f2f5;       /* Warp --warp-text          */
-  --lumen-navy-1:  #c1c9d4;
-  --lumen-navy-2:  #98a3b4;
-  --lumen-navy-3:  #b0b8c4;       /* Warp --warp-text-muted    */
-  --lumen-navy-4:  #7a8494;       /* Warp --warp-text-dim      */
-  --lumen-navy-5:  #4a5260;
-  --lumen-navy-6:  #334155;       /* Warp --warp-border-strong */
-  --lumen-navy-7:  #253040;       /* Warp --warp-border        */
-  --lumen-navy-8:  #1a2332;       /* Warp --warp-surface-2     */
-  --lumen-navy-9:  #131c2a;       /* Warp --warp-bg            */
-  --lumen-navy-10: #0c121d;       /* deepest, used for shadows on dark */
+  /* ── cream — warm paper ramp for light theme + cream accents on dark ── */
+  --lumen-cream-0:  #fdfcf7;
+  --lumen-cream-1:  #f6f4ea;
+  --lumen-cream-2:  #ebe7d5;
+  --lumen-cream-3:  #d6d0b6;
+  --lumen-cream-4:  #b6ad8c;
+  --lumen-cream-5:  #908668;
+  --lumen-cream-6:  #6f664c;
+  --lumen-cream-7:  #514b34;
+  --lumen-cream-8:  #34301f;
+  --lumen-cream-9:  #1a1812;
 
-  /* ── accent (Warp lime green ramp) ────────────────────────────────────── */
-  --lumen-accent-0:  #f0fdf4;
-  --lumen-accent-1:  #dcfce7;
-  --lumen-accent-2:  #bbf7d0;
-  --lumen-accent-3:  #86efac;
-  --lumen-accent-4:  #4ade80;     /* THE brand value (--warp-accent #4ade80) */
-  --lumen-accent-5:  #34c977;     /* hover (observed in Warp CSS)            */
-  --lumen-accent-6:  #22c55e;     /* press / success                         */
-  --lumen-accent-7:  #16a34a;     /* accent-on-light text (4.7:1 on white)   */
+  /* ── accent — Warp lime, retuned to read as "laser" on obsidian ────────
+     Brand value (#4ade80) stays at accent-4. Lighter shades at 1–3 push toward
+     a brighter neon green. Darker shades stay AAA-on-light usable.
+  */
+  --lumen-accent-0:  #effff2;
+  --lumen-accent-1:  #d8ffe1;
+  --lumen-accent-2:  #b6ffc6;
+  --lumen-accent-3:  #82f5a3;     /* the "laser" highlight                    */
+  --lumen-accent-4:  #4ade80;     /* THE brand value — never moved            */
+  --lumen-accent-5:  #34c977;     /* hover                                    */
+  --lumen-accent-6:  #22c55e;     /* press / success                          */
+  --lumen-accent-7:  #16a34a;     /* accent text on light (4.7:1 on white)    */
   --lumen-accent-8:  #15803d;
   --lumen-accent-9:  #14532d;
-  --lumen-accent-fg: #06120a;     /* near-black-green text on accent button  */
+  --lumen-accent-fg: #06120a;     /* near-black-green on accent button        */
 
-  /* ── status palettes (Mantine-tuned, slightly desaturated) ────────────── */
+  /* ── status (kept, slightly desaturated for the calmer aesthetic) ───── */
   --lumen-red-0: #fef1f1; --lumen-red-1: #fcdcdc; --lumen-red-2: #f9b8b8;
   --lumen-red-3: #f48b8b; --lumen-red-4: #ed5e5e; --lumen-red-5: #e23b3b;
   --lumen-red-6: #c92626; --lumen-red-7: #a31b1b; --lumen-red-8: #7a1414; --lumen-red-9: #4d0c0c;
@@ -67,46 +70,58 @@
   --lumen-amber-3: #f5c25b; --lumen-amber-4: #ecaa2c; --lumen-amber-5: #d68a10;
   --lumen-amber-6: #ad6c08; --lumen-amber-7: #835005; --lumen-amber-8: #5a3603; --lumen-amber-9: #2e1b00;
 
-  --lumen-sky-0: #ebf5ff; --lumen-sky-1: #cfe4fc; --lumen-sky-2: #a5cdf8;
-  --lumen-sky-3: #71b0f2; --lumen-sky-4: #4592e8; --lumen-sky-5: #2575d8;
-  --lumen-sky-6: #195db4; --lumen-sky-7: #14488a; --lumen-sky-8: #0e3261; --lumen-sky-9: #081d3a;
+  /* ── alpha overlays ───────────────────────────────────────────────────── */
+  --lumen-ink-a04: rgba(10, 10, 13, 0.04);
+  --lumen-ink-a06: rgba(10, 10, 13, 0.06);
+  --lumen-ink-a08: rgba(10, 10, 13, 0.08);
+  --lumen-ink-a12: rgba(10, 10, 13, 0.12);
+  --lumen-ink-a16: rgba(10, 10, 13, 0.16);
+  --lumen-ink-a24: rgba(10, 10, 13, 0.24);
+  --lumen-ink-a40: rgba(10, 10, 13, 0.40);
+  --lumen-ink-a60: rgba(10, 10, 13, 0.60);
+  --lumen-ink-a80: rgba(10, 10, 13, 0.80);
 
-  /* ── alpha overlays (precision, not vibes) ────────────────────────────── */
-  --lumen-ink-a04: rgba(20, 22, 28, 0.04);
-  --lumen-ink-a06: rgba(20, 22, 28, 0.06);
-  --lumen-ink-a08: rgba(20, 22, 28, 0.08);
-  --lumen-ink-a12: rgba(20, 22, 28, 0.12);
-  --lumen-ink-a16: rgba(20, 22, 28, 0.16);
-  --lumen-ink-a24: rgba(20, 22, 28, 0.24);
-  --lumen-ink-a40: rgba(20, 22, 28, 0.40);
-  --lumen-ink-a60: rgba(20, 22, 28, 0.60);
-
+  --lumen-paper-a04: rgba(255, 255, 255, 0.04);
   --lumen-paper-a06: rgba(255, 255, 255, 0.06);
   --lumen-paper-a08: rgba(255, 255, 255, 0.08);
+  --lumen-paper-a10: rgba(255, 255, 255, 0.10);
   --lumen-paper-a12: rgba(255, 255, 255, 0.12);
   --lumen-paper-a16: rgba(255, 255, 255, 0.16);
   --lumen-paper-a24: rgba(255, 255, 255, 0.24);
+  --lumen-paper-a40: rgba(255, 255, 255, 0.40);
   --lumen-paper-a72: rgba(255, 255, 255, 0.72);
   --lumen-paper-a86: rgba(255, 255, 255, 0.86);
 
-  --lumen-accent-a08: rgba(74, 222, 128, 0.08);
-  --lumen-accent-a14: rgba(74, 222, 128, 0.14);
-  --lumen-accent-a24: rgba(74, 222, 128, 0.24);   /* the signature green-glow */
-  --lumen-accent-a32: rgba(74, 222, 128, 0.32);   /* focus ring               */
+  /* lime alphas — the signature ambient glow stack */
+  --lumen-lime-a08:  rgba(74, 222, 128, 0.08);
+  --lumen-lime-a14:  rgba(74, 222, 128, 0.14);
+  --lumen-lime-a24:  rgba(74, 222, 128, 0.24);
+  --lumen-lime-a32:  rgba(74, 222, 128, 0.32);
+  --lumen-lime-a40:  rgba(74, 222, 128, 0.40);
+  --lumen-lime-a64:  rgba(74, 222, 128, 0.64);
+  /* legacy aliases preserved for any straggler refs in older components */
+  --lumen-accent-a08: var(--lumen-lime-a08);
+  --lumen-accent-a14: var(--lumen-lime-a14);
+  --lumen-accent-a24: var(--lumen-lime-a24);
+  --lumen-accent-a32: var(--lumen-lime-a32);
 
   /* ───────────────────────  TYPOGRAPHY  ─────────────────────────────────
      next/font/local writes --font-satoshi; next/font/google writes --font-jetbrains.
-     We compose them into --font-sans / --font-mono with system fallbacks here.
-     CRITICAL: never write --font-sans referring to itself; CSS resolves
-     a self-ref var as invalid and silently drops back to UA serif.
+     We compose them into --font-sans / --font-mono with system fallbacks.
+     CRITICAL: never write --font-sans referring to itself; CSS resolves a
+     self-ref var as invalid and silently drops back to UA serif.
   */
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, "SF Mono",
     Menlo, Consolas, "Liberation Mono", monospace;
+  /* Optional editorial italic slot — falls back to Satoshi italic / system serif */
+  --font-italic-display: var(--font-satoshi), "Source Serif 4", "New York", "Iowan Old Style",
+    Georgia, "Times New Roman", serif;
 
-  /* type scale — 1.25 (Major Third) at 16px, with extra steps for precision */
+  /* type scale — 1.25 (Major Third) at 16px, with extra steps for precision.
+     v0.4 pushes the display ceiling to mirror the brutalist references. */
   --type-11: 0.6875rem;
   --type-12: 0.75rem;
   --type-13: 0.8125rem;
@@ -128,10 +143,14 @@
   --type-61: 3.8125rem;
   --type-72: 4.5rem;
   --type-76: 4.75rem;
+  --type-84: 5.25rem;          /* v0.4 — brutalist headline                    */
+  --type-96: 6rem;
+  --type-112: 7rem;            /* v0.4 — hero countdown numerals               */
+  --type-128: 8rem;            /* v0.4 — "STOP RE-DESIGNING" scale             */
 
   --leading-flat:    1.0;
-  --leading-tight:   1.10;
-  --leading-snug:    1.25;
+  --leading-tight:   1.05;     /* tightened for v0.4 brutalist headlines       */
+  --leading-snug:    1.18;
   --leading-normal:  1.5;
   --leading-relaxed: 1.65;
 
@@ -142,6 +161,7 @@
   --tracking-wide:     0.012em;
   --tracking-wider:    0.04em;
   --tracking-widest:   0.10em;
+  --tracking-mono-cap: 0.16em;     /* v0.4 — uppercase mono labels             */
 
   --weight-light:    300;
   --weight-regular:  400;
@@ -151,20 +171,15 @@
   --weight-black:    900;
 
   /* ───────────────────────  GEOMETRY · 8pt SOFT GRID  ────────────────────
-     Lumen runs on an 8-point soft grid (Apple HIG / Material / Atlassian
-     convention). Base unit is 8px. Everything STRUCTURAL — section spacing,
-     control heights, card paddings, gaps between siblings — snaps to 8s.
-     SOFT exceptions in 4px halves are allowed for fine optical work
-     (icon-to-label gaps, badge insets, dense tables). 2px quarters reserved
-     for hairline alignment only (focus rings, dot indicators, borders).
-     Decorative pixels — border-radius, focus glow, tooltip arrows — stay
-     free of the grid; they're optical, not structural.
+     Lumen v0.4 keeps the v0.3 8-point soft grid intact — it's the structural
+     spine. Everything STRUCTURAL snaps to 8s. SOFT 4px halves stay legal
+     for fine optical work; 2px quarters reserved for hairlines and dots.
+     Decorative pixels (radius, glow blur, tooltip arrows) stay free.
   */
-  --grid-unit: 8px;             /* base */
-  --grid-half: 4px;              /* allowed in dense rows / icons */
-  --grid-quarter: 2px;           /* hairlines / dots only */
+  --grid-unit: 8px;
+  --grid-half: 4px;
+  --grid-quarter: 2px;
 
-  /* Snap-to-grid rhythm. Use these for spacing, padding, gaps, margins. */
   --grid-1:   8px;
   --grid-2:  16px;
   --grid-3:  24px;
@@ -176,62 +191,65 @@
   --grid-12: 96px;
   --grid-16: 128px;
   --grid-20: 160px;
+  --grid-24: 192px;
+  --grid-32: 256px;
 
-  /* Semantic control heights — all on grid (4u/5u/6u). xs is the only soft
-     exception at 28px (3.5u), kept for dense data-table rows where 24px
-     would feel cramped and 32px would dilute information density. */
   --height-ctrl-xs: 28px;        /* 3.5u soft — dense rows only */
   --height-ctrl-sm: 32px;        /* 4u — toolbars */
   --height-ctrl-md: 40px;        /* 5u — DEFAULT */
   --height-ctrl-lg: 48px;        /* 6u — primary CTA */
-  --height-touch:   44px;        /* iOS touch target — 5.5u soft */
+  --height-ctrl-xl: 56px;        /* 7u — hero CTA, v0.4 */
+  --height-touch:   44px;        /* iOS soft */
 
-  /* Spacing — alphas track the grid. 0.5/1.5/2.5/3.5 are soft exceptions
-     reserved for icon padding, badge insets, and 1-step adjustments. */
+  /* Spacing — half/quarter steps reserved for soft optical adjustments. */
   --space-px: 1px;
   --space-0:   0px;
-  --space-0_5: 2px;              /* quarter — hairline only */
-  --space-1:   4px;              /* half — soft */
-  --space-1_5: 6px;              /* tooltip arrow / focus offset */
-  --space-2:   8px;              /* GRID 1 */
-  --space-2_5: 10px;             /* soft — chip insets */
-  --space-3:   12px;             /* half — soft */
-  --space-3_5: 14px;             /* soft — control insets */
-  --space-4:   16px;             /* GRID 2 */
-  --space-5:   20px;             /* soft */
-  --space-6:   24px;             /* GRID 3 */
-  --space-7:   28px;             /* soft — section internal */
-  --space-8:   32px;             /* GRID 4 */
-  --space-10:  40px;             /* GRID 5 */
-  --space-12:  48px;             /* GRID 6 */
-  --space-14:  56px;             /* GRID 7 */
-  --space-16:  64px;             /* GRID 8 */
-  --space-20:  80px;             /* GRID 10 */
-  --space-24:  96px;             /* GRID 12 */
-  --space-32:  128px;            /* GRID 16 */
-  --space-40:  160px;            /* GRID 20 */
+  --space-0_5: 2px;
+  --space-1:   4px;
+  --space-1_5: 6px;
+  --space-2:   8px;     /* GRID 1 */
+  --space-2_5: 10px;
+  --space-3:   12px;
+  --space-3_5: 14px;
+  --space-4:   16px;    /* GRID 2 */
+  --space-5:   20px;
+  --space-6:   24px;    /* GRID 3 */
+  --space-7:   28px;
+  --space-8:   32px;    /* GRID 4 */
+  --space-10:  40px;    /* GRID 5 */
+  --space-12:  48px;    /* GRID 6 */
+  --space-14:  56px;    /* GRID 7 */
+  --space-16:  64px;    /* GRID 8 */
+  --space-20:  80px;    /* GRID 10 */
+  --space-24:  96px;    /* GRID 12 */
+  --space-32:  128px;   /* GRID 16 */
+  --space-40:  160px;   /* GRID 20 */
 
+  /* Radius — modestly rounder in v0.4 to read as "modern" against obsidian,
+     with full pill (radius-full) reserved for nav and primary CTAs.
+  */
   --radius-xs:  3px;
-  --radius-sm:  5px;
-  --radius-md:  7px;
-  --radius-lg:  10px;
-  --radius-xl:  14px;
-  --radius-2xl: 18px;
-  --radius-3xl: 24px;
-  --radius-4xl: 32px;
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-xl:  16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 28px;
+  --radius-4xl: 36px;
   --radius-full: 9999px;
 
   /* ───────────────────────  MOTION  ─────────────────────────────────────── */
   --motion-instant: 0ms;
   --motion-micro:   80ms;
   --motion-fast:    140ms;
-  --motion-base:    180ms;
-  --motion-soft:    220ms;
-  --motion-slow:    280ms;
-  --motion-slower:  420ms;
-  --motion-deliberate: 640ms;
+  --motion-base:    200ms;
+  --motion-soft:    240ms;
+  --motion-slow:    320ms;
+  --motion-slower:  480ms;
+  --motion-deliberate: 720ms;
+  --motion-aurora-fade-in: 1200ms;   /* v0.4 — radial glow ambient entrance */
+  --motion-glow-pulse:     2400ms;   /* v0.4 — live-status pulse           */
 
-  /* easings — productive (Apple/Google ish) */
   --easing-standard:    cubic-bezier(0.2, 0.0, 0.0, 1.0);
   --easing-decelerate:  cubic-bezier(0.0, 0.0, 0.2, 1.0);
   --easing-accelerate:  cubic-bezier(0.4, 0.0, 1.0, 1.0);
@@ -239,58 +257,149 @@
   --easing-spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1.0);
   --easing-snap:        cubic-bezier(0.16, 1.0, 0.3, 1.0);
 
-  /* z-layers */
   --z-base: 0; --z-raised: 10; --z-sticky: 100;
   --z-overlay: 1000; --z-modal: 1100; --z-toast: 1200; --z-tooltip: 1300;
 }
 
-/* ──────────────────────────  THEME · LIGHT  ──────────────────────────────
-   Apple-grade light surface ladder. Paper warm-white, subtle ladder of
-   surfaces, hairline borders, multi-layer shadows.
+/* ──────────────────────────  THEME · DARK (DEFAULT)  ─────────────────────
+   v0.4 default. The obsidian canvas is the brand stage. Hairline borders,
+   glass surfaces, lime glow as ambient signature. Multi-layer shadows tuned
+   for "soft on the eyes" — never a hard edge against the dark.
 */
-[data-theme="light"], :root:not([data-theme]) {
-  /* surfaces */
-  --surface-canvas:     var(--lumen-gray-0);
-  --surface-page:       var(--lumen-gray-0);
+[data-theme="dark"], :root:not([data-theme]) {
+  --surface-canvas:     var(--lumen-obsidian-8);
+  --surface-page:       var(--lumen-obsidian-8);
+  --surface-raised:     var(--lumen-obsidian-7);
+  --surface-sunken:     var(--lumen-obsidian-9);
+  --surface-overlay:    rgba(10, 10, 13, 0.86);
+  --surface-popover:    var(--lumen-obsidian-6);
+  --surface-glass:      rgba(20, 20, 26, 0.62);
+  --surface-glass-strong: rgba(20, 20, 26, 0.86);
+  --surface-scrim:      rgba(2, 2, 3, 0.72);
+  --surface-inverse:    var(--lumen-cream-0);
+  --surface-tint-accent: var(--lumen-lime-a14);
+  --surface-tint-strong: var(--lumen-lime-a24);
+
+  --text-primary:    #f5f5f3;
+  --text-secondary:  var(--lumen-obsidian-3);
+  --text-tertiary:   var(--lumen-obsidian-4);
+  --text-disabled:   var(--lumen-obsidian-5);
+  --text-inverse:    #0a0a0c;
+  --text-accent:     var(--lumen-accent-3);
+  --text-link:       #f5f5f3;
+  --text-on-accent:  var(--lumen-accent-fg);
+
+  --border-hairline: var(--lumen-paper-a06);
+  --border-subtle:   var(--lumen-paper-a08);
+  --border-default:  var(--lumen-paper-a12);
+  --border-strong:   var(--lumen-paper-a24);
+  --border-frame:    var(--lumen-paper-a40);   /* v0.4 — brutalist frame    */
+  --border-focus:    var(--lumen-accent-4);
+  --border-accent:   var(--lumen-lime-a40);    /* lime-tinted hairline       */
+
+  --status-success-bg: rgba(22, 163, 74, 0.16);
+  --status-success-fg: var(--lumen-accent-3);
+  --status-warning-bg: rgba(173, 108, 8, 0.18);
+  --status-warning-fg: var(--lumen-amber-3);
+  --status-danger-bg:  rgba(201, 38, 38, 0.18);
+  --status-danger-fg:  var(--lumen-red-3);
+  --status-info-bg:    rgba(74, 222, 128, 0.10);
+  --status-info-fg:    var(--lumen-accent-3);
+  --status-neutral-bg: var(--lumen-obsidian-7);
+  --status-neutral-fg: var(--lumen-obsidian-3);
+
+  /* multi-layer shadows — softer on dark than ink-on-light because there's
+     less contrast headroom. Glow shadows replace hard drops on hero CTAs. */
+  --shadow-xs: 0 1px 1px rgba(0,0,0,0.32);
+  --shadow-sm:
+    0 1px 2px rgba(0,0,0,0.34),
+    0 1px 1px rgba(0,0,0,0.20);
+  --shadow-md:
+    0 1px 2px rgba(0,0,0,0.32),
+    0 4px 12px -2px rgba(0,0,0,0.42);
+  --shadow-lg:
+    0 1px 2px rgba(0,0,0,0.32),
+    0 8px 24px -4px rgba(0,0,0,0.46),
+    0 16px 48px -12px rgba(0,0,0,0.56);
+  --shadow-xl:
+    0 2px 4px rgba(0,0,0,0.34),
+    0 12px 32px -4px rgba(0,0,0,0.50),
+    0 24px 64px -16px rgba(0,0,0,0.64);
+  --shadow-2xl:
+    0 2px 4px rgba(0,0,0,0.36),
+    0 16px 40px -4px rgba(0,0,0,0.56),
+    0 40px 96px -20px rgba(0,0,0,0.72);
+  --shadow-popover:
+    0 1px 1px rgba(0,0,0,0.34),
+    0 4px 8px -2px rgba(0,0,0,0.46),
+    0 12px 28px -8px rgba(0,0,0,0.60);
+  --shadow-modal:
+    0 4px 8px -2px rgba(0,0,0,0.46),
+    0 24px 48px -8px rgba(0,0,0,0.60),
+    0 48px 96px -24px rgba(0,0,0,0.78);
+  --shadow-glass:
+    inset 0 1px 0 0 var(--lumen-paper-a10),
+    inset 0 -1px 0 0 rgba(0,0,0,0.32),
+    0 16px 48px -12px rgba(0,0,0,0.56);
+  --shadow-inset: inset 0 1px 0 0 var(--lumen-paper-a08);
+  --shadow-focus: 0 0 0 3.5px var(--lumen-lime-a40);
+  --shadow-glow-accent: 0 14px 40px -8px var(--lumen-lime-a40);
+  --shadow-glow-accent-strong:
+    0 0 0 1px var(--lumen-lime-a32),
+    0 8px 28px -4px var(--lumen-lime-a40),
+    0 24px 72px -12px var(--lumen-lime-a24);
+
+  --aurora-glow-color: var(--lumen-lime-a32);
+
+  color-scheme: dark;
+}
+
+/* ──────────────────────────  THEME · LIGHT  ──────────────────────────────
+   Cream paper base. Same lime green, AAA-tuned. Glass surfaces shift to
+   off-white tint. Borders lean ink-warm.
+*/
+[data-theme="light"] {
+  --surface-canvas:     var(--lumen-cream-0);
+  --surface-page:       var(--lumen-cream-0);
   --surface-raised:     #ffffff;
-  --surface-sunken:     var(--lumen-gray-1);
+  --surface-sunken:     var(--lumen-cream-1);
   --surface-overlay:    var(--lumen-paper-a86);
   --surface-popover:    #ffffff;
   --surface-glass:      rgba(255, 255, 255, 0.72);
+  --surface-glass-strong: rgba(255, 255, 255, 0.92);
   --surface-scrim:      var(--lumen-ink-a40);
-  --surface-inverse:    var(--lumen-navy-9);
-  --surface-tint-accent: var(--lumen-accent-a08);
+  --surface-inverse:    var(--lumen-obsidian-8);
+  --surface-tint-accent: var(--lumen-lime-a08);
+  --surface-tint-strong: var(--lumen-lime-a14);
 
-  /* text */
   --text-primary:    #14110f;
-  --text-secondary:  var(--lumen-gray-7);
-  --text-tertiary:   var(--lumen-gray-6);
-  --text-disabled:   var(--lumen-gray-4);
-  --text-inverse:    var(--lumen-navy-0);
+  --text-secondary:  var(--lumen-cream-7);
+  --text-tertiary:   var(--lumen-cream-6);
+  --text-disabled:   var(--lumen-cream-4);
+  --text-inverse:    var(--lumen-cream-0);
   --text-accent:     var(--lumen-accent-7);
   --text-link:       #14110f;
   --text-on-accent:  var(--lumen-accent-fg);
 
-  /* borders */
   --border-hairline:  var(--lumen-ink-a06);
   --border-subtle:    var(--lumen-ink-a08);
   --border-default:   var(--lumen-ink-a12);
   --border-strong:    var(--lumen-ink-a24);
+  --border-frame:     var(--lumen-ink-a40);
   --border-focus:     var(--lumen-accent-4);
+  --border-accent:    var(--lumen-accent-7);
 
-  /* status — bg/fg pairs validated for AA contrast */
   --status-success-bg: #ecfdf3;
   --status-success-fg: var(--lumen-accent-8);
   --status-warning-bg: var(--lumen-amber-0);
   --status-warning-fg: var(--lumen-amber-7);
   --status-danger-bg:  #fef1ee;
   --status-danger-fg:  var(--lumen-red-7);
-  --status-info-bg:    var(--lumen-sky-0);
-  --status-info-fg:    var(--lumen-sky-7);
-  --status-neutral-bg: var(--lumen-gray-1);
-  --status-neutral-fg: var(--lumen-gray-7);
+  --status-info-bg:    var(--lumen-accent-1);
+  --status-info-fg:    var(--lumen-accent-8);
+  --status-neutral-bg: var(--lumen-cream-1);
+  --status-neutral-fg: var(--lumen-cream-7);
 
-  /* multi-layer shadows — Apple-style depth, never one-shadow blobs */
   --shadow-xs: 0 1px 1px var(--lumen-ink-a04);
   --shadow-sm:
     0 1px 2px var(--lumen-ink-a06),
@@ -318,87 +427,21 @@
     0 4px 8px -2px var(--lumen-ink-a08),
     0 24px 48px -8px var(--lumen-ink-a16),
     0 48px 96px -24px var(--lumen-ink-a24);
+  --shadow-glass:
+    inset 0 1px 0 0 rgba(255,255,255,0.8),
+    inset 0 -1px 0 0 var(--lumen-ink-a04),
+    0 16px 40px -12px var(--lumen-ink-a16);
   --shadow-inset: inset 0 1px 0 0 rgba(255,255,255,0.6);
-  --shadow-focus: 0 0 0 3.5px var(--lumen-accent-a32);
-  --shadow-glow-accent: 0 14px 34px -8px var(--lumen-accent-a24);
+  --shadow-focus: 0 0 0 3.5px var(--lumen-lime-a32);
+  --shadow-glow-accent: 0 14px 34px -8px var(--lumen-lime-a24);
+  --shadow-glow-accent-strong:
+    0 0 0 1px var(--lumen-lime-a24),
+    0 8px 28px -4px var(--lumen-lime-a32),
+    0 24px 72px -12px var(--lumen-lime-a14);
+
+  --aurora-glow-color: var(--lumen-lime-a24);
 
   color-scheme: light;
-}
-
-/* ──────────────────────────  THEME · DARK  ────────────────────────────────
-   Warp's actual production navy ladder, expressed through the same semantic
-   keys. NOT a tonal inversion — dark mode is its own surface system.
-*/
-[data-theme="dark"] {
-  --surface-canvas:     var(--lumen-navy-9);
-  --surface-page:       var(--lumen-navy-9);
-  --surface-raised:     var(--lumen-navy-8);
-  --surface-sunken:     var(--lumen-navy-10);
-  --surface-overlay:    rgba(19, 28, 42, 0.86);
-  --surface-popover:    var(--lumen-navy-7);
-  --surface-glass:      rgba(26, 35, 50, 0.72);
-  --surface-scrim:      rgba(0, 0, 0, 0.6);
-  --surface-inverse:    var(--lumen-gray-0);
-  --surface-tint-accent: var(--lumen-accent-a14);
-
-  --text-primary:    var(--lumen-navy-0);
-  --text-secondary:  var(--lumen-navy-3);
-  --text-tertiary:   var(--lumen-navy-4);
-  --text-disabled:   var(--lumen-navy-5);
-  --text-inverse:    #14110f;
-  --text-accent:     var(--lumen-accent-3);
-  --text-link:       var(--lumen-navy-0);
-  --text-on-accent:  var(--lumen-accent-fg);
-
-  --border-hairline: var(--lumen-paper-a06);
-  --border-subtle:   var(--lumen-paper-a08);
-  --border-default:  var(--lumen-navy-7);
-  --border-strong:   var(--lumen-navy-6);
-  --border-focus:    var(--lumen-accent-4);
-
-  --status-success-bg: rgba(22, 163, 74, 0.16);
-  --status-success-fg: var(--lumen-accent-3);
-  --status-warning-bg: rgba(173, 108, 8, 0.18);
-  --status-warning-fg: var(--lumen-amber-3);
-  --status-danger-bg:  rgba(201, 38, 38, 0.18);
-  --status-danger-fg:  var(--lumen-red-3);
-  --status-info-bg:    rgba(25, 93, 180, 0.20);
-  --status-info-fg:    var(--lumen-sky-3);
-  --status-neutral-bg: var(--lumen-navy-8);
-  --status-neutral-fg: var(--lumen-navy-3);
-
-  --shadow-xs: 0 1px 1px rgba(0,0,0,0.30);
-  --shadow-sm:
-    0 1px 2px rgba(0,0,0,0.32),
-    0 1px 1px rgba(0,0,0,0.20);
-  --shadow-md:
-    0 1px 2px rgba(0,0,0,0.30),
-    0 4px 12px -2px rgba(0,0,0,0.40);
-  --shadow-lg:
-    0 1px 2px rgba(0,0,0,0.30),
-    0 8px 24px -4px rgba(0,0,0,0.42),
-    0 16px 48px -12px rgba(0,0,0,0.52);
-  --shadow-xl:
-    0 2px 4px rgba(0,0,0,0.32),
-    0 12px 32px -4px rgba(0,0,0,0.46),
-    0 24px 64px -16px rgba(0,0,0,0.60);
-  --shadow-2xl:
-    0 2px 4px rgba(0,0,0,0.36),
-    0 16px 40px -4px rgba(0,0,0,0.52),
-    0 40px 96px -20px rgba(0,0,0,0.68);
-  --shadow-popover:
-    0 1px 1px rgba(0,0,0,0.32),
-    0 4px 8px -2px rgba(0,0,0,0.42),
-    0 12px 28px -8px rgba(0,0,0,0.56);
-  --shadow-modal:
-    0 4px 8px -2px rgba(0,0,0,0.42),
-    0 24px 48px -8px rgba(0,0,0,0.56),
-    0 48px 96px -24px rgba(0,0,0,0.74);
-  --shadow-inset: inset 0 1px 0 0 rgba(255,255,255,0.04);
-  --shadow-focus: 0 0 0 3.5px rgba(74, 222, 128, 0.40);
-  --shadow-glow-accent: 0 14px 34px -8px rgba(74, 222, 128, 0.34);
-
-  color-scheme: dark;
 }
 
 /* ────────────────────────  TAILWIND v4 @theme  ───────────────────────────
@@ -412,9 +455,11 @@
   --color-sunken:        var(--surface-sunken);
   --color-popover:       var(--surface-popover);
   --color-glass:         var(--surface-glass);
+  --color-glass-strong:  var(--surface-glass-strong);
   --color-overlay:       var(--surface-overlay);
   --color-inverse:       var(--surface-inverse);
   --color-tint-accent:   var(--surface-tint-accent);
+  --color-tint-strong:   var(--surface-tint-strong);
 
   --color-fg:            var(--text-primary);
   --color-fg-muted:      var(--text-secondary);
@@ -428,12 +473,15 @@
   --color-border-subtle:   var(--border-subtle);
   --color-border-default:  var(--border-default);
   --color-border-strong:   var(--border-strong);
+  --color-border-frame:    var(--border-frame);
   --color-border-focus:    var(--border-focus);
+  --color-border-accent:   var(--border-accent);
 
   --color-accent:         var(--lumen-accent-4);
   --color-accent-hover:   var(--lumen-accent-5);
   --color-accent-press:   var(--lumen-accent-6);
   --color-accent-soft:    var(--lumen-accent-1);
+  --color-accent-laser:   var(--lumen-accent-3);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -453,6 +501,7 @@
   --shadow-lg:  var(--shadow-lg);
   --shadow-xl:  var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+  --shadow-glass: var(--shadow-glass);
 }
 
 /* ───────────────────────────  RESET  ─────────────────────────────────────── */
@@ -472,7 +521,7 @@ html, body {
 }
 
 ::selection {
-  background: var(--lumen-accent-a24);
+  background: var(--lumen-lime-a32);
   color: var(--text-primary);
 }
 
@@ -488,13 +537,13 @@ a { color: inherit; text-decoration: none; }
 .lumen-card {
   background: var(--surface-raised);
   border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
 }
 .lumen-card-flat {
   background: var(--surface-raised);
   border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
 }
 .lumen-row-divider > * + * {
   border-top: 1px solid var(--border-hairline);
@@ -514,6 +563,20 @@ a { color: inherit; text-decoration: none; }
   text-transform: uppercase;
   color: var(--text-tertiary);
   font-weight: var(--weight-semibold);
+}
+/* v0.4 — mono uppercase tracked label, the hallmark "system metadata" voice
+   used in both reference designs ("AI-POWERED INTERFACE GENERATOR",
+   "@ DIGITAL HQ / GLOBAL ACCESS", "INVITES IN:"). */
+.lumen-mono-cap {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1;
+  font-size: var(--type-11);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-mono-cap);
+  text-transform: uppercase;
+}
+.lumen-mono-cap--accent {
+  color: var(--text-accent);
 }
 .lumen-link {
   color: var(--text-link);
@@ -540,13 +603,61 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-sm);
   line-height: 1;
 }
+/* v0.4 — pill controls. Used for nav, hero CTA, signal badges. */
+.lumen-pill {
+  border-radius: var(--radius-full);
+}
+
+/* v0.4 — the brutalist hairline frame. Wraps a single statement headline
+   with no shadow and no radius. Reference: "STOP RE-DESIGNING" treatment.
+*/
+.lumen-frame-brutalist {
+  border: 1px solid var(--border-frame);
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem);
+}
+
+/* v0.4 — glass surface. backdrop-filter for the floating shells (top nav,
+   popover, sheet, hero device preview). Always paired with hairline border. */
+.lumen-glass {
+  background: var(--surface-glass);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-glass);
+}
+.lumen-glass-strong {
+  background: var(--surface-glass-strong);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-glass);
+}
+
+/* v0.4 — architectural grid background. A whisper-faint 1px lattice
+   that gives the canvas an "instrument panel" texture without screaming.
+*/
+.lumen-grid-architectural {
+  background-image:
+    linear-gradient(to right,  var(--border-hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-hairline) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+.lumen-grid-architectural-fine {
+  background-image:
+    linear-gradient(to right,  var(--border-hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-hairline) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Legacy: 8pt grid demo overlays. Demos in /foundations#grid */
 .lumen-stripe-grid {
   background-image:
     linear-gradient(to right, var(--border-hairline) 1px, transparent 1px),
     linear-gradient(to bottom, var(--border-hairline) 1px, transparent 1px);
   background-size: 24px 24px;
 }
-/* 8pt grid overlay — debug-only, demos in /foundations#grid */
 .lumen-grid-8 {
   background-image:
     linear-gradient(to right,  color-mix(in oklab, var(--lumen-accent-4) 14%, transparent) 1px, transparent 1px),
@@ -562,6 +673,64 @@ a { color: inherit; text-decoration: none; }
   background-size: 8px 8px, 8px 8px, 64px 64px, 64px 64px;
 }
 
+/* v0.4 — the radial lime aurora. The brand's signature lighting gesture.
+   Render once, fixed at the top center of the canvas, behind everything.
+*/
+.lumen-aurora {
+  position: relative;
+}
+.lumen-aurora::before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  width: 120%;
+  height: 80%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(ellipse at center top,
+      var(--aurora-glow-color) 0%,
+      transparent 55%);
+  pointer-events: none;
+  filter: blur(40px);
+  z-index: 0;
+  opacity: 0;
+  animation: lumen-aurora-fade-in var(--motion-aurora-fade-in) var(--easing-decelerate) 200ms forwards;
+}
+.lumen-aurora > * { position: relative; z-index: 1; }
+
+@keyframes lumen-aurora-fade-in {
+  to { opacity: 1; }
+}
+
+/* v0.4 — pulse for live/active dots, mirrors both references' "SYSTEM LIVE" idiom */
+.lumen-dot-pulse {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--lumen-accent-4);
+}
+.lumen-dot-pulse::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--radius-full);
+  background: var(--lumen-lime-a40);
+  opacity: 0;
+  animation: lumen-dot-pulse var(--motion-glow-pulse) var(--easing-standard) infinite;
+}
+@keyframes lumen-dot-pulse {
+  0%   { opacity: 0.6; transform: scale(0.6); }
+  100% { opacity: 0;   transform: scale(2.4); }
+}
+
+/* v0.4 — lime-glow CTA halo. For primary hero actions only. */
+.lumen-glow-cta {
+  box-shadow: var(--shadow-glow-accent-strong);
+}
+
 /* ─────────────────────────  REDUCED MOTION  ─────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -570,6 +739,10 @@ a { color: inherit; text-decoration: none; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  /* Aurora: skip the entrance, render at full opacity immediately. */
+  .lumen-aurora::before { opacity: 1; animation: none; }
+  /* Dot pulse: hold steady. */
+  .lumen-dot-pulse::after { animation: none; opacity: 0.4; transform: scale(1.2); }
 }
 
 /* ─────────────────────────  SCROLLBAR (subtle)  ─────────────────────────── */

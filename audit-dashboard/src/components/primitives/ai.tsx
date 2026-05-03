@@ -154,7 +154,7 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
       {!isYou && (
         <span className={[
           "h-7 w-7 shrink-0 rounded-full inline-flex items-center justify-center text-[var(--type-11)] font-semibold lumen-mono text-white",
-          from === "ai" ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--lumen-navy-7)]",
+          from === "ai" ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--lumen-obsidian-7)]",
         ].join(" ")}>
           {from === "ai" ? <Sparkles size={12} /> : "DS"}
         </span>
@@ -224,13 +224,13 @@ export function NotificationItem({
   tone?: "info" | "warn" | "danger" | "success";
 }) {
   const toneBg: Record<string, string> = {
-    info: "var(--lumen-sky-1)",
+    info: "var(--lumen-cream-1)",
     warn: "var(--lumen-amber-1)",
     danger: "var(--lumen-red-1)",
     success: "var(--lumen-accent-1)",
   };
   const toneFg: Record<string, string> = {
-    info: "var(--lumen-sky-7)",
+    info: "var(--lumen-cream-7)",
     warn: "var(--lumen-amber-7)",
     danger: "var(--lumen-red-7)",
     success: "var(--lumen-accent-7)",
@@ -303,7 +303,7 @@ export function CommentThread() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4 max-w-[420px]">
       <div className="flex gap-3 mb-3">
-        <span className="h-7 w-7 rounded-full bg-[var(--lumen-navy-7)] text-white inline-flex items-center justify-center text-[var(--type-11)] lumen-mono font-semibold shrink-0">DS</span>
+        <span className="h-7 w-7 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center text-[var(--type-11)] lumen-mono font-semibold shrink-0">DS</span>
         <div className="flex-1">
           <div className="text-[var(--type-13)]">
             <span className="font-semibold tracking-[var(--tracking-tight)]">Daniel Sokolovsky</span>

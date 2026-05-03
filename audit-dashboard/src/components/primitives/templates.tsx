@@ -131,7 +131,7 @@ export function TestimonialCard() {
         "Lumen replaced four spreadsheets and three Slack threads. We can see the day."
       </div>
       <div className="flex items-center gap-3 mt-5">
-        <span className="h-10 w-10 rounded-full bg-[var(--lumen-navy-7)] text-white inline-flex items-center justify-center lumen-mono text-[var(--type-13)] font-semibold">JR</span>
+        <span className="h-10 w-10 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center lumen-mono text-[var(--type-13)] font-semibold">JR</span>
         <div>
           <div className="text-[var(--type-13)] font-medium">Jamie Rivera</div>
           <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">Director of Logistics, Sterling LTL</div>
@@ -153,7 +153,7 @@ export function StatStrip() {
       ].map((s) => (
         <div key={s.v}>
           <div className="lumen-tnum text-[var(--type-39)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{s.k}</div>
-          <div className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[var(--lumen-navy-3)] mt-1.5">{s.v}</div>
+          <div className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[var(--lumen-obsidian-3)] mt-1.5">{s.v}</div>
         </div>
       ))}
     </div>

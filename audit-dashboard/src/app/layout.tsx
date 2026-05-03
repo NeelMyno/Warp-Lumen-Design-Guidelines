@@ -32,7 +32,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Lumen — Warp Design System Audit",
   description:
-    "Visual audit dashboard for Lumen, the Warp design system. Switch project types and moods to review the system end-to-end.",
+    "Visual audit dashboard for Lumen, the Warp design system. v0.4 Obsidian Lime — switch project types to review the system end-to-end.",
 };
 
 export default function RootLayout({
@@ -44,11 +44,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${satoshi.variable} ${jetbrains.variable} h-full antialiased`}
-      data-mood="quiet-industrial"
-      data-theme="light"
+      data-mood="obsidian-lime"
+      data-theme="dark"
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-[var(--surface-page)] text-[var(--text-primary)] font-sans">
+      <body className="min-h-full bg-[var(--surface-canvas)] text-[var(--text-primary)] font-sans">
         <DashboardShell>{children}</DashboardShell>
       </body>
     </html>

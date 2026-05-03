@@ -320,7 +320,7 @@ export function PasswordInput({
 export function PasswordStrength({ value }: { value: string }) {
   const score = scorePassword(value);
   const segs = [0, 1, 2, 3];
-  const colors = ["var(--lumen-red-5)", "var(--lumen-amber-5)", "var(--lumen-sky-5)", "var(--lumen-accent-6)"];
+  const colors = ["var(--lumen-red-5)", "var(--lumen-amber-5)", "var(--lumen-cream-5)", "var(--lumen-accent-6)"];
   const labels = ["Too weak", "Weak", "Decent", "Strong"];
   return (
     <div className="flex flex-col gap-1.5">

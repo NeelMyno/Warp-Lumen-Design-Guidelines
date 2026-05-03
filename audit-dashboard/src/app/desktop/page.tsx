@@ -14,7 +14,7 @@ export default function DesktopPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 7 of 7 · Native desktop"
+        eyebrow="Tab 8 of 8 · Native desktop"
         title="Native Desktop"
         description="macOS and Windows frames side-by-side. Same Lumen visual language with platform-native chrome — traffic-light + sidebar with vibrancy on Mac; Mica titlebar + segmented sidebar on Windows."
       />

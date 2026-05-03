@@ -18,16 +18,16 @@ export function PhoneFrame({
       className={[
         "relative w-[320px] mx-auto rounded-[40px] border bg-[var(--surface-canvas)] overflow-hidden shadow-[var(--shadow-2xl)]",
         os === "ios"
-          ? "border-[var(--lumen-navy-9)]"
-          : "border-[var(--lumen-gray-7)]",
+          ? "border-[var(--lumen-obsidian-9)]"
+          : "border-[var(--lumen-cream-7)]",
       ].join(" ")}
       style={{ height, padding: "10px" }}
     >
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-center pointer-events-none">
         {os === "ios" ? (
-          <div className="mt-2 h-7 w-[112px] rounded-full bg-[var(--lumen-navy-10)]" />
+          <div className="mt-2 h-7 w-[112px] rounded-full bg-[var(--lumen-obsidian-10)]" />
         ) : (
-          <div className="mt-3 h-3 w-3 rounded-full border border-[var(--lumen-gray-4)] bg-[var(--lumen-navy-9)]" />
+          <div className="mt-3 h-3 w-3 rounded-full border border-[var(--lumen-cream-4)] bg-[var(--lumen-obsidian-9)]" />
         )}
       </div>
       <div
@@ -231,13 +231,13 @@ export function KeyboardAccessoryBar() {
 /* ─────────────────────────  COACH MARK  ───────────────────────── */
 export function CoachMark() {
   return (
-    <div className="rounded-[var(--radius-md)] bg-[var(--lumen-navy-9)] text-white p-3 max-w-[260px] shadow-[var(--shadow-modal)]">
+    <div className="rounded-[var(--radius-md)] bg-[var(--lumen-obsidian-9)] text-white p-3 max-w-[260px] shadow-[var(--shadow-modal)]">
       <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)]">New: Quick rates</div>
-      <p className="text-[var(--type-12)] text-[var(--lumen-navy-2)] mt-1 leading-[var(--leading-snug)]">
+      <p className="text-[var(--type-12)] text-[var(--lumen-obsidian-2)] mt-1 leading-[var(--leading-snug)]">
         Quote a lane in three taps. Swipe up from the bottom edge to begin.
       </p>
       <div className="flex items-center justify-between mt-3 text-[var(--type-11)]">
-        <span className="lumen-mono text-[var(--lumen-navy-3)]">Step 2 of 4</span>
+        <span className="lumen-mono text-[var(--lumen-obsidian-3)]">Step 2 of 4</span>
         <button className="bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] px-3 h-7 rounded-[var(--radius-sm)] font-semibold">Got it</button>
       </div>
     </div>

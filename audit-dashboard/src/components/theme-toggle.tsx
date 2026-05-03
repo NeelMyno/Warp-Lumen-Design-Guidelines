@@ -4,17 +4,21 @@ import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
+/**
+ * Lumen v0.4 defaults to DARK (the obsidian canvas is the brand stage).
+ * If the user has a stored preference, that wins; otherwise we honour the
+ * OS preference; otherwise we land on dark.
+ */
 function readInitialTheme(): Theme {
-  if (typeof window === "undefined") return "light";
+  if (typeof window === "undefined") return "dark";
   const stored = window.localStorage.getItem("lumen-theme") as Theme | null;
   if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  if (window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
+  return "dark";
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -25,7 +29,7 @@ export function ThemeToggle() {
   }, []);
 
   function toggle() {
-    const next: Theme = theme === "light" ? "dark" : "light";
+    const next: Theme = theme === "dark" ? "light" : "dark";
     setTheme(next);
     document.documentElement.dataset.theme = next;
     window.localStorage.setItem("lumen-theme", next);
@@ -35,10 +39,10 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-full)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
     >
-      {mounted ? (theme === "light" ? <SunIcon /> : <MoonIcon />) : <SunIcon />}
+      {mounted ? (theme === "dark" ? <MoonIcon /> : <SunIcon />) : <MoonIcon />}
     </button>
   );
 }

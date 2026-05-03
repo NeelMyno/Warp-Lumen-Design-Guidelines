@@ -54,7 +54,7 @@ const satoshi = localFont({
 
 ### 5. Set the data attributes
 On `<html>`:
-- `data-mood="quiet-industrial"` (or one of the alternates)
+- `data-mood="obsidian-lime"` (or one of the alternates)
 - `data-theme="light"` or `"dark"` (toggle from a client component)
 
 ## Components

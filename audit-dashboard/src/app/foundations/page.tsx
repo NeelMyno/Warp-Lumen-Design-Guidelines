@@ -1,4 +1,4 @@
-import { PageHeader, Section, SubSection } from "@/components/section";
+import { Section, SubSection } from "@/components/section";
 import { Swatch, SwatchGrid, SwatchRamp } from "@/components/primitives/swatch";
 import { Stat, StatGrid, Sparkline } from "@/components/primitives/stat";
 import { LiveDot } from "@/components/primitives/live-dot";
@@ -28,63 +28,86 @@ export const metadata = { title: "Foundations · Lumen" };
 
 export default function FoundationsPage() {
   return (
-    <div className="grid gap-12 lg:grid-cols-[1fr_180px] lg:gap-x-12">
+    <div className="grid gap-12 lg:grid-cols-[1fr_200px] lg:gap-x-12">
       <article className="min-w-0">
-        <PageHeader
-          eyebrow="Tab 1 of 7 · System primitives"
-          title="Foundations"
-          description="Color, typography, spacing, geometry, elevation, motion, iconography, and the components Warp's instrument panel is built from. The whole system on one page — composed in the same restraint it asks of every consumer."
-          meta={<Badge status="accent" leadingDot>v0.2.0 · Quiet Industrial</Badge>}
-        />
+        {/* HERO — brutalist hairline frame, mono-cap eyebrow, italic display accent */}
+        <header className="mb-16 md:mb-24">
+          <div className="flex items-center gap-3 mb-6 lumen-mono-cap text-[var(--text-tertiary)]">
+            <span className="lumen-dot-pulse" aria-hidden />
+            <span>Tab 01 · system primitives</span>
+            <span aria-hidden>·</span>
+            <span className="text-[var(--text-accent)]">obsidian-lime · v0.4</span>
+          </div>
+          <div className="lumen-frame-brutalist">
+            <h1 className="text-[var(--type-56)] sm:text-[var(--type-72)] lg:text-[var(--type-96)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)] text-[var(--text-primary)]">
+              Foundations.{" "}
+              <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
+                Lit.
+              </em>
+            </h1>
+          </div>
+          <p className="mt-8 max-w-[60ch] text-[var(--type-17)] md:text-[var(--type-18)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+            Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.4 strips the navy ladder, lifts the lime, and lets the obsidian canvas breathe. One mood — Obsidian Lime — assembled from the same restraint it asks of every consumer.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Badge status="accent" leadingDot>v0.4.0 · Obsidian Lime</Badge>
+            <Badge status="neutral">8-point soft grid</Badge>
+            <Badge status="neutral">Satoshi · JetBrains Mono</Badge>
+            <Badge status="neutral">WCAG 2.2 AA</Badge>
+          </div>
+        </header>
 
         {/* COLOR */}
         <Section
           id="color"
           eyebrow="01 · Foundations"
           title="Color"
-          description="Mantine-shaped 10-shade scales tuned for Warp. Three families do the work: warm gray (light surfaces), navy (Warp's production dark ladder), accent (the lime green that plays exactly one role)."
+          description="Three families do the work — obsidian (canvas), cream (paper + warm neutrals), accent (Warp lime, the only loud color). Status hues stay polite. v0.4 drops the navy ramp entirely."
         >
-          <SubSection title="Gray · warm paper neutrals" description="Light-mode scaffolding. Click any swatch to copy its token.">
-            <SwatchRamp prefix="gray" family="lumen-gray" />
+          <SubSection title="Obsidian · the canvas ramp" description="11 stops from cream-paper to void. Slightly cool-warm balanced — never navy. The dark-mode silhouette and the deep-ink moments in light mode.">
+            <SwatchRamp prefix="obsidian" family="lumen-obsidian" />
           </SubSection>
 
-          <SubSection title="Navy · Warp's production dark ladder" description="Verbatim from Warp's compiled CSS. The page-bg through hover-surface progression that defines the dark-mode silhouette.">
-            <SwatchRamp prefix="navy" family="lumen-navy" />
+          <SubSection title="Cream · warm paper + warm neutrals" description="Light-mode canvas, warm-tinted neutrals on dark. Replaces the v0.3 'gray' family.">
+            <SwatchRamp prefix="cream" family="lumen-cream" />
           </SubSection>
 
-          <SubSection title="Accent · Warp lime — the only loud color" description="Used for action / live / success. Never decorative. Adding a second loud color is a brand violation.">
+          <SubSection title="Accent · Warp lime — the only loud color" description="Reads as 'laser' against obsidian without leaving the brand. Used for action / live / success. Never decorative. Adding a second loud color is a brand violation.">
             <SwatchRamp prefix="accent" family="lumen-accent" />
           </SubSection>
 
           <SubSection title="Status palettes" description="Used as bg/fg pairs on badges, banners, toasts. Always paired with a label or shape — never color alone.">
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               <StatusRamp family="lumen-red"   />
               <StatusRamp family="lumen-amber" />
-              <StatusRamp family="lumen-sky"   />
             </div>
           </SubSection>
 
-          <SubSection title="Surface roles" description="The semantic ladder consumers reach for. Theme-aware (these change between light + dark).">
+          <SubSection title="Surface roles" description="The semantic ladder consumers reach for. Theme-aware (these change between dark + light).">
             <SwatchGrid>
-              <Swatch name="surface.page"     cssVar="--surface-page"     role="canvas" />
-              <Swatch name="surface.raised"   cssVar="--surface-raised"   role="cards, panels" />
-              <Swatch name="surface.sunken"   cssVar="--surface-sunken"   role="inputs, hover" />
-              <Swatch name="surface.popover"  cssVar="--surface-popover"  role="menus, popovers" />
-              <Swatch name="surface.inverse"  cssVar="--surface-inverse"  role="contrast moments" />
+              <Swatch name="surface.canvas"     cssVar="--surface-canvas"     role="page background" />
+              <Swatch name="surface.raised"     cssVar="--surface-raised"     role="cards, panels" />
+              <Swatch name="surface.sunken"     cssVar="--surface-sunken"     role="inputs, hover" />
+              <Swatch name="surface.popover"    cssVar="--surface-popover"    role="menus, popovers" />
+              <Swatch name="surface.glass"      cssVar="--surface-glass"      role="floating shells" />
               <Swatch name="surface.tint-accent" cssVar="--surface-tint-accent" role="accent hover bg" />
+              <Swatch name="surface.tint-strong" cssVar="--surface-tint-strong" role="accent emphasis bg" />
+              <Swatch name="surface.inverse"    cssVar="--surface-inverse"    role="contrast moments" />
             </SwatchGrid>
           </SubSection>
 
           <SubSection title="Text & border roles">
             <SwatchGrid>
-              <Swatch name="text.primary"   cssVar="--text-primary"   role="body, titles" />
-              <Swatch name="text.secondary" cssVar="--text-secondary" role="captions" />
-              <Swatch name="text.tertiary"  cssVar="--text-tertiary"  role="hints (≥18px)" />
-              <Swatch name="text.accent"    cssVar="--text-accent"    role="emphasis text" />
-              <Swatch name="border.hairline" cssVar="--border-hairline" role="card edges" />
-              <Swatch name="border.default" cssVar="--border-default" role="controls" />
-              <Swatch name="border.strong"  cssVar="--border-strong"  role="emphasis" />
-              <Swatch name="border.focus"   cssVar="--border-focus"   role="focus ring" />
+              <Swatch name="text.primary"     cssVar="--text-primary"   role="body, titles" />
+              <Swatch name="text.secondary"   cssVar="--text-secondary" role="captions" />
+              <Swatch name="text.tertiary"    cssVar="--text-tertiary"  role="hints (≥18px)" />
+              <Swatch name="text.accent"      cssVar="--text-accent"    role="emphasis text" />
+              <Swatch name="border.hairline"  cssVar="--border-hairline" role="card edges" />
+              <Swatch name="border.default"   cssVar="--border-default" role="controls" />
+              <Swatch name="border.strong"    cssVar="--border-strong"  role="emphasis" />
+              <Swatch name="border.frame"     cssVar="--border-frame"   role="brutalist frames" />
+              <Swatch name="border.accent"    cssVar="--border-accent"  role="lime hairline" />
+              <Swatch name="border.focus"     cssVar="--border-focus"   role="focus ring" />
             </SwatchGrid>
           </SubSection>
 
@@ -113,21 +136,22 @@ export default function FoundationsPage() {
           id="typography"
           eyebrow="02 · Foundations"
           title="Typography"
-          description="Satoshi for UI and display. JetBrains Mono for any number, ID, money, or code. 1.25 modular scale on a 16 px base — clean integer steps that map cleanly to iOS Dynamic Type and Material 3."
+          description="Satoshi for UI and display. JetBrains Mono for any number, ID, money, or code. v0.4 pushes the display ceiling so brutalist headlines breathe at hero scale. Italic accents reserved for one signature word."
         >
           <Card padding="lg">
             <div className="flex flex-col gap-7 lumen-row-divider">
-              <TypeRow role="display.xl" sample="Operations as instruments." cls="text-[var(--type-72)] md:text-[var(--type-76)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)]" px="76 / 4.75rem" weight="700" />
-              <TypeRow role="display.lg" sample="The freight network for builders." cls="text-[var(--type-49)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="49 / 3.06rem" weight="700" />
-              <TypeRow role="display.md" sample="Same routes. Lower cost per pallet." cls="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="39 / 2.44rem" weight="700" />
-              <TypeRow role="heading.h1" sample="Shipments dashboard" cls="text-[var(--type-31)] font-bold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="31 / 1.94rem" weight="700" />
-              <TypeRow role="heading.h2" sample="Active lanes" cls="text-[var(--type-25)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="25 / 1.56rem" weight="600" />
-              <TypeRow role="heading.h3" sample="Recent activity" cls="text-[var(--type-20)] font-medium leading-[var(--leading-snug)]" px="20 / 1.25rem" weight="500" />
-              <TypeRow role="body.lg"    sample="One command quotes. One books. JSON out, pipes in." cls="text-[var(--type-18)] leading-[var(--leading-normal)]" px="18 / 1.13rem" weight="400" />
-              <TypeRow role="body.md"    sample="Stop logging into 10 carrier portals every morning." cls="text-[var(--type-16)] leading-[var(--leading-normal)]" px="16 / 1.00rem" weight="400" />
-              <TypeRow role="body.sm"    sample="Auto-save will retry every 12 seconds while offline." cls="text-[var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
-              <TypeRow role="caption"    sample="Updated 4 minutes ago by Sokolovsky" cls="text-[var(--type-13)] text-[var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
-              <TypeRow role="micro"      sample="ETA · BOL · DOT" cls="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]" px="12 / 0.75rem" weight="500" />
+              <TypeRow role="display.xxl" sample="Stop re-designing." cls="text-[var(--type-96)] md:text-[var(--type-128)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)]" px="128 / 8rem" weight="700" />
+              <TypeRow role="display.xl"  sample="Operations as instruments." cls="text-[var(--type-72)] md:text-[var(--type-84)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]" px="84 / 5.25rem" weight="700" />
+              <TypeRow role="display.lg"  sample={<>The freight network for <em className="not-italic text-[var(--text-accent)]">builders</em>.</>} cls="text-[var(--type-49)] md:text-[var(--type-56)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="56 / 3.5rem" weight="700" />
+              <TypeRow role="display.md"  sample="Same routes. Lower cost per pallet." cls="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="39 / 2.44rem" weight="700" />
+              <TypeRow role="heading.h1"  sample="Shipments dashboard" cls="text-[var(--type-31)] font-bold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="31 / 1.94rem" weight="700" />
+              <TypeRow role="heading.h2"  sample="Active lanes" cls="text-[var(--type-25)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="25 / 1.56rem" weight="600" />
+              <TypeRow role="heading.h3"  sample="Recent activity" cls="text-[var(--type-20)] font-medium leading-[var(--leading-snug)]" px="20 / 1.25rem" weight="500" />
+              <TypeRow role="body.lg"     sample="One command quotes. One books. JSON out, pipes in." cls="text-[var(--type-18)] leading-[var(--leading-normal)]" px="18 / 1.13rem" weight="400" />
+              <TypeRow role="body.md"     sample="Stop logging into 10 carrier portals every morning." cls="text-[var(--type-16)] leading-[var(--leading-normal)]" px="16 / 1.00rem" weight="400" />
+              <TypeRow role="body.sm"     sample="Auto-save will retry every 12 seconds while offline." cls="text-[var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
+              <TypeRow role="caption"     sample="Updated 4 minutes ago by Sokolovsky" cls="text-[var(--type-13)] text-[var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
+              <TypeRow role="mono.cap"    sample="@ DIGITAL HQ · GLOBAL ACCESS · SYSTEM V0.4 LIVE" cls="lumen-mono-cap text-[var(--text-accent)]" px="11 · +0.16em" weight="500" />
             </div>
           </Card>
 
@@ -135,24 +159,24 @@ export default function FoundationsPage() {
             <Card padding="lg">
               <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 <div>
-                  <div className="lumen-eyebrow mb-1.5">money</div>
+                  <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">money</div>
                   <div className="lumen-mono lumen-tnum text-[var(--type-31)] font-bold text-[var(--text-primary)]">$1,243.50</div>
                 </div>
                 <div>
-                  <div className="lumen-eyebrow mb-1.5">lane code</div>
+                  <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">lane code</div>
                   <div className="lumen-mono text-[var(--type-31)] font-bold text-[var(--text-primary)]">LAX→SFO</div>
                 </div>
                 <div>
-                  <div className="lumen-eyebrow mb-1.5">eta</div>
-                  <div className="lumen-mono lumen-tnum text-[var(--type-31)] font-bold text-[var(--text-primary)]">04:18</div>
+                  <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">countdown</div>
+                  <div className="lumen-mono lumen-tnum text-[var(--type-31)] font-bold text-[var(--text-primary)]">12.02.05</div>
                 </div>
                 <div>
-                  <div className="lumen-eyebrow mb-1.5">command</div>
+                  <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">command</div>
                   <pre className="lumen-mono text-[var(--type-13)] text-[var(--text-secondary)] whitespace-pre">{`$ warp quote --from=LAX \\
        --to=SFO --weight=520lb`}</pre>
                 </div>
                 <div className="md:col-span-2">
-                  <div className="lumen-eyebrow mb-1.5">payload</div>
+                  <div className="lumen-mono-cap mb-2 text-[var(--text-tertiary)]">payload</div>
                   <pre className="lumen-mono text-[var(--type-13)] text-[var(--text-secondary)] whitespace-pre">{`{ "lane": "LAX-SFO",
   "rate": 262,
   "carrier_count": 14,
@@ -166,7 +190,7 @@ export default function FoundationsPage() {
             <Card padding="none">
               <ul className="lumen-row-divider">
                 <PairRow primary="Satoshi" secondary="JetBrains Mono" use="Default — UI + numerics + code. The recommended pair." note="ITF-FFL + OFL · free for commercial use" />
-                <PairRow primary="Satoshi" secondary="Source Serif 4" use="Editorial — long-form blog, marketing essays." note="OFL · variable optical-size axis" />
+                <PairRow primary="Satoshi" secondary="Source Serif 4" use="Editorial — long-form blog, marketing essays, italic display moments." note="OFL · variable optical-size axis" />
                 <PairRow primary="Inter"   secondary="JetBrains Mono" use="Plan B — if Satoshi licensing or Windows ClearType ever blocks." note="OFL · widest hinting on Windows" />
               </ul>
             </Card>
@@ -178,7 +202,7 @@ export default function FoundationsPage() {
           id="spacing"
           eyebrow="03 · Foundations"
           title="Spacing & 8-point soft grid"
-          description="Lumen runs on an 8pt soft grid. The base unit is 8 — every section gap, control height, gap, and padding snaps to multiples of 8. 4-pixel halves are allowed in dense rows; 2-pixel quarters reserved for hairlines and dot indicators. Decorative pixels (border-radius, focus glow) stay free of the grid — they're optical, not structural."
+          description="Lumen runs on an 8pt soft grid. Base unit is 8 — section gaps, control heights, paddings, gaps between siblings all snap to multiples of 8. 4-pixel halves are allowed in dense rows; 2-pixel quarters reserved for hairlines and dot indicators. Decorative pixels (border-radius, glow, tooltip arrows) stay free of the grid."
         >
           <SubSection title="Grid ladder · structural multiples of 8">
             <Card padding="lg">
@@ -232,8 +256,8 @@ export default function FoundationsPage() {
 
           <SubSection title="Grid overlay · what 'on grid' looks like" description="An 8 × 8 grid with major lines every 64 px. Use the visual to test whether a layout's spacing rhythm holds.">
             <Card padding="md" className="overflow-hidden">
-              <div className="lumen-grid-8-major rounded-[var(--radius-sm)] p-6 bg-[var(--surface-canvas)]">
-                <div className="rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] p-6 flex items-center justify-between gap-4 shadow-[var(--shadow-sm)]">
+              <div className="lumen-grid-8-major rounded-[var(--radius-lg)] p-6 bg-[var(--surface-canvas)]">
+                <div className="rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--surface-raised)] p-6 flex items-center justify-between gap-4 shadow-[var(--shadow-sm)]">
                   <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-[var(--radius-sm)] bg-[var(--lumen-accent-4)]" />
                     <div className="flex flex-col gap-1">
@@ -257,6 +281,7 @@ export default function FoundationsPage() {
                 <HeightSpec h={32} label="sm · 32" sub="4u" />
                 <HeightSpec h={40} label="md · 40" sub="5u · default" />
                 <HeightSpec h={48} label="lg · 48" sub="6u" />
+                <HeightSpec h={56} label="xl · 56" sub="7u · hero" />
                 <HeightSpec h={44} label="touch · 44" sub="5.5u soft · iOS" tone="soft" />
               </div>
             </Card>
@@ -268,13 +293,13 @@ export default function FoundationsPage() {
           id="radius"
           eyebrow="04 · Foundations"
           title="Radius"
-          description="Soft but disciplined. Inputs at 7 px, cards at 10–14, hero surfaces at 18–24. Pills only for status badges and counters."
+          description="v0.4 nudges the radius scale rounder to read as 'modern' against obsidian. Inputs at 8, cards at 12–16, hero surfaces at 20–28. Pills (radius.full) reserved for nav and primary CTAs."
         >
           <div className="grid gap-3 grid-cols-3 sm:grid-cols-5 lg:grid-cols-9">
             {[
-              ["xs",  "3px"], ["sm",  "5px"], ["md",  "7px"],
-              ["lg",  "10px"], ["xl",  "14px"], ["2xl", "18px"],
-              ["3xl", "24px"], ["4xl", "32px"], ["full","∞"],
+              ["xs",  "3px"], ["sm",  "6px"], ["md",  "8px"],
+              ["lg",  "12px"], ["xl",  "16px"], ["2xl", "20px"],
+              ["3xl", "28px"], ["4xl", "36px"], ["full","∞"],
             ].map(([name, px]) => (
               <Card key={name} className="flex flex-col items-center gap-3" padding="md">
                 <div
@@ -295,13 +320,13 @@ export default function FoundationsPage() {
           id="elevation"
           eyebrow="05 · Foundations"
           title="Elevation"
-          description="Hairline borders do most of the surface separation work in Lumen. Shadows are multi-layer, reserved for genuine lift — popovers, drawers, modals, toasts."
+          description="Hairline borders do most of the surface separation work. Shadows are multi-layer, reserved for genuine lift — popovers, drawers, modals, toasts. Glow shadows (lime-tinted) carry hero CTAs and live-status."
         >
           <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             {(["xs", "sm", "md", "lg", "xl", "2xl"] as const).map((level) => (
               <div
                 key={level}
-                className="bg-[var(--surface-raised)] rounded-[var(--radius-lg)] border border-[var(--border-hairline)] p-5 flex flex-col items-center gap-2"
+                className="bg-[var(--surface-raised)] rounded-[var(--radius-xl)] border border-[var(--border-hairline)] p-5 flex flex-col items-center gap-2"
                 style={{ boxShadow: `var(--shadow-${level})` }}
               >
                 <div className="text-[var(--type-13)] font-medium text-[var(--text-primary)]">{level}</div>
@@ -311,22 +336,135 @@ export default function FoundationsPage() {
               </div>
             ))}
           </div>
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-3 mt-4">
+            <div className="lumen-glass rounded-[var(--radius-2xl)] p-6 flex flex-col items-start gap-2">
+              <span className="lumen-mono-cap text-[var(--text-tertiary)]">shadow.glass</span>
+              <span className="text-[var(--type-15)] font-semibold">Floating shell</span>
+              <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">backdrop-blur 20 · saturate 140 · hairline</span>
+            </div>
+            <div
+              className="rounded-[var(--radius-2xl)] border border-[var(--border-accent)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
+              style={{ boxShadow: "var(--shadow-glow-accent-strong)" }}
+            >
+              <span className="lumen-mono-cap text-[var(--text-accent)]">shadow.glow-accent</span>
+              <span className="text-[var(--type-15)] font-semibold">Hero CTA halo</span>
+              <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">3-layer lime ambient · primary actions only</span>
+            </div>
+            <div
+              className="rounded-[var(--radius-2xl)] border border-[var(--border-default)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
+              style={{ boxShadow: "var(--shadow-focus)" }}
+            >
+              <span className="lumen-mono-cap text-[var(--text-tertiary)]">shadow.focus</span>
+              <span className="text-[var(--type-15)] font-semibold">Focus ring</span>
+              <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">3.5px lime alpha-40 · WCAG-visible on every surface</span>
+            </div>
+          </div>
+        </Section>
+
+        {/* SURFACES */}
+        <Section
+          id="surfaces"
+          eyebrow="06 · Foundations"
+          title="Surfaces"
+          description="Canvas, raised, glass, glow. Cards stay flat with a hairline by default; reach for glass when something genuinely floats; reach for glow when something is the brand's voice."
+        >
+          <SubSection title="Canvas + architectural grid" description="The page background. A whisper-faint 64px lattice gives the obsidian an instrument-panel texture without screaming.">
+            <div className="lumen-grid-architectural rounded-[var(--radius-2xl)] border border-[var(--border-hairline)] p-12 bg-[var(--surface-canvas)] flex items-center justify-center">
+              <div className="lumen-mono-cap text-[var(--text-tertiary)]">canvas · grid 64px hairline</div>
+            </div>
+          </SubSection>
+
+          <SubSection title="Glass surface — the floating shell" description="backdrop-filter blur 20px + saturate 140% + hairline border. Reserved for nav, popovers, sheets, hero device shells. Never used as a fashion statement.">
+            <div className="relative rounded-[var(--radius-2xl)] border border-[var(--border-hairline)] p-12 overflow-hidden lumen-grid-architectural-fine bg-[var(--surface-canvas)]">
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 80% at 30% 30%, var(--lumen-lime-a32), transparent 60%), radial-gradient(ellipse 60% 60% at 80% 70%, rgba(255,255,255,0.06), transparent 60%)",
+                  filter: "blur(40px)",
+                }}
+              />
+              <div className="relative grid gap-4 md:grid-cols-2">
+                <div className="lumen-glass rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
+                  <div className="lumen-mono-cap text-[var(--text-tertiary)]">surface.glass</div>
+                  <div className="text-[var(--type-20)] font-semibold">Floating shell</div>
+                  <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">
+                    Hairline border. Soft inner highlight. Sits ON canvas.
+                  </div>
+                </div>
+                <div className="lumen-glass-strong rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
+                  <div className="lumen-mono-cap text-[var(--text-tertiary)]">surface.glass-strong</div>
+                  <div className="text-[var(--type-20)] font-semibold">Modal / sheet</div>
+                  <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">
+                    blur 28 · saturate 160. For overlays that must read.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SubSection>
+
+          <SubSection title="Aurora — radial lime ambient" description="The brand's signature lighting gesture. A radial green glow eases in over 1.2s when a hero section enters; honours prefers-reduced-motion.">
+            <div
+              className="relative rounded-[var(--radius-3xl)] border border-[var(--border-hairline)] overflow-hidden bg-[var(--surface-canvas)] lumen-aurora"
+              style={{ minHeight: "260px" }}
+            >
+              <div className="relative h-full p-12 flex flex-col items-center justify-center gap-4 text-center">
+                <span className="lumen-mono-cap text-[var(--text-accent)]">SYSTEM V0.4 · LIVE</span>
+                <h3 className="text-[var(--type-44)] md:text-[var(--type-56)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]">
+                  Lit from above.
+                </h3>
+                <p className="max-w-[40ch] text-[var(--type-14)] text-[var(--text-tertiary)]">
+                  One ambient light source. The brand's only theatrical move.
+                </p>
+              </div>
+            </div>
+          </SubSection>
+
+          <SubSection title="Card variants" description="Hairline by default. Hover lifts a notch; popover surfaces carry the soft multi-layer shadow.">
+            <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+              <Card padding="lg" elevation="flat">
+                <CardHeader title="Flat" description="Border only — content blocks" />
+                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                  Used for content that sits IN the page, not on top of it.
+                </p>
+              </Card>
+              <Card padding="lg" elevation="card">
+                <CardHeader title="Card" description="Default · hairline + shadow.sm" />
+                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                  Workhorse surface. KPI tiles, list rows, panels.
+                </p>
+              </Card>
+              <Card padding="lg" elevation="lifted">
+                <CardHeader title="Lifted" description="Hover state on interactive cards" />
+                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                  Reach when the card needs to feel like it left the plane.
+                </p>
+              </Card>
+              <Card padding="lg" elevation="popover">
+                <CardHeader title="Popover" description="Floating menus, dropdowns, tooltips" />
+                <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
+                  Multi-layer shadow + border-subtle for off-canvas surfaces.
+                </p>
+              </Card>
+            </div>
+          </SubSection>
         </Section>
 
         {/* MOTION */}
         <Section
           id="motion"
-          eyebrow="06 · Foundations"
+          eyebrow="07 · Foundations"
           title="Motion"
-          description="Decelerate, don't bounce. Hover the play button to fire each duration; click to replay. The standard easing carries 95% of UI motion. The pulse on LiveDot and the marquee on RateTicker are the only signature loops."
+          description="Decelerate, don't bounce. Hover the play button to fire each duration; click to replay. Standard easing carries 95% of UI motion. The pulse on LiveDot, the marquee on RateTicker, and the radial aurora fade-in are the only signature loops."
         >
           <Card padding="lg">
             <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
               <MotionDemo token="micro" ms="80ms" />
               <MotionDemo token="fast" ms="140ms" />
-              <MotionDemo token="base" ms="180ms" />
-              <MotionDemo token="slow" ms="280ms" />
-              <MotionDemo token="slower" ms="420ms" />
+              <MotionDemo token="base" ms="200ms" />
+              <MotionDemo token="slow" ms="320ms" />
+              <MotionDemo token="slower" ms="480ms" />
             </div>
           </Card>
         </Section>
@@ -334,7 +472,7 @@ export default function FoundationsPage() {
         {/* ICONOGRAPHY */}
         <Section
           id="iconography"
-          eyebrow="07 · Foundations"
+          eyebrow="08 · Foundations"
           title="Iconography"
           description="Single 1.5 px stroke, 24 px grid, rounded ends, no fills. Custom logistics set sits inside the same drawing language."
         >
@@ -350,7 +488,7 @@ export default function FoundationsPage() {
                 const I = Ico as React.ComponentType<{ size?: number }>;
                 return (
                   <Tooltip key={name as string} content={`icon.${name as string}`}>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors">
                       <I size={18} />
                     </div>
                   </Tooltip>
@@ -360,16 +498,55 @@ export default function FoundationsPage() {
           </Card>
         </Section>
 
+        {/* VOICE */}
+        <Section
+          id="voice"
+          eyebrow="09 · Foundations"
+          title="Voice"
+          description="The system's typographic idiom. Brutalist hairline frames around statement headlines. Mono uppercase tracked-out labels for system metadata. Italic accents reserved for one signature word per hero."
+        >
+          <SubSection title="Brutalist frame" description="A 1px hairline border at border.frame opacity, generous internal padding, no shadow. Wraps a single statement headline. Reference: 'STOP RE-DESIGNING'.">
+            <div className="lumen-frame-brutalist text-center">
+              <h3 className="text-[var(--type-49)] md:text-[var(--type-72)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)] uppercase">
+                Stop re-designing.
+              </h3>
+            </div>
+          </SubSection>
+
+          <SubSection title="Mono uppercase tracked labels" description="Every system metadata line uses .lumen-mono-cap — JetBrains Mono, +0.16em tracking, uppercase. Reads as 'instrument-panel signal'.">
+            <Card padding="lg">
+              <div className="flex flex-col gap-3 lumen-mono-cap text-[var(--text-tertiary)]">
+                <div>SYSTEM V0.4 · LIVE</div>
+                <div className="text-[var(--text-accent)]">@ DIGITAL HQ · GLOBAL ACCESS</div>
+                <div>HOURS · MINS · SECS</div>
+                <div>AI-POWERED INTERFACE GENERATOR</div>
+                <div>INVITES IN: 12.02.05</div>
+                <div className="text-[var(--text-accent)]">01 · OBSIDIAN-LIME · OBSIDIAN-LIME · OBSIDIAN-LIME</div>
+              </div>
+            </Card>
+          </SubSection>
+
+          <SubSection title="Italic accent" description="One word per hero gets the italic treatment, in lime accent. Used to break the otherwise tight, brutalist sans rhythm. Never two words. Never on body copy.">
+            <Card padding="lg">
+              <div className="text-[var(--type-49)] md:text-[var(--type-72)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]">
+                Design at the{" "}
+                <em className="font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">Speed</em>{" "}
+                of Thought.
+              </div>
+            </Card>
+          </SubSection>
+        </Section>
+
         {/* CONTROLS */}
         <Section
           id="controls"
-          eyebrow="08 · Components"
+          eyebrow="10 · Components"
           title="Controls"
           description="Inputs, switches, sliders, and the form scaffolding around them. Every control honours focus visibility and screen-reader semantics."
         >
           <div className="grid gap-6 lg:grid-cols-2">
             <Card padding="lg">
-              <CardHeader title="Buttons" description="Five intents · four sizes · loading + disabled states" />
+              <CardHeader title="Buttons" description="Five intents · five sizes · loading + disabled states" />
               <div className="flex flex-col gap-4">
                 <div className="flex flex-wrap gap-2">
                   <Button intent="primary"   leadingIcon={<Plus size={14} />}>Primary</Button>
@@ -436,7 +613,7 @@ export default function FoundationsPage() {
         {/* DISPLAY */}
         <Section
           id="display"
-          eyebrow="09 · Components"
+          eyebrow="11 · Components"
           title="Display"
           description="Identity, presence, status, and the placeholders that stand in while data loads."
         >
@@ -490,7 +667,7 @@ export default function FoundationsPage() {
         {/* NAVIGATION */}
         <Section
           id="navigation"
-          eyebrow="10 · Components"
+          eyebrow="12 · Components"
           title="Navigation"
           description="Inline tabs, breadcrumbs, and the patterns that orient users without taking the page over."
         >
@@ -533,9 +710,9 @@ export default function FoundationsPage() {
         {/* LIVE DATA */}
         <Section
           id="live-data"
-          eyebrow="11 · Warp signatures"
+          eyebrow="13 · Warp signatures"
           title="Live-data signatures"
-          description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. Without them, Lumen would be just another competent SaaS system."
+          description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. v0.4 keeps these intact; the 8pt grid + lime-glow ambient amplifies them."
         >
           <SubSection title="Stat — big bold number, mono unit, optional delta + sparkline">
             <Card padding="lg">
@@ -567,7 +744,7 @@ export default function FoundationsPage() {
                 <LiveDot label="Quote refreshing" />
                 <LiveDot color="var(--lumen-amber-5)" label="Network slow" />
                 <LiveDot color="var(--lumen-red-5)"   label="Carrier offline" />
-                <LiveDot color="var(--lumen-sky-5)"   label="Beta channel" />
+                <LiveDot color="var(--lumen-cream-5)" label="Beta channel" />
               </div>
             </Card>
           </SubSection>
@@ -576,65 +753,31 @@ export default function FoundationsPage() {
             <RateTicker />
           </SubSection>
         </Section>
-
-        {/* SURFACES */}
-        <Section
-          id="surfaces"
-          eyebrow="12 · Components"
-          title="Surfaces"
-          description="The card system. Hairline border by default; reach for shadow only when the surface is genuinely lifting."
-        >
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-            <Card padding="lg" elevation="flat">
-              <CardHeader title="Flat" description="Border only — content blocks" />
-              <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
-                Used for content that sits IN the page, not on top of it.
-              </p>
-            </Card>
-            <Card padding="lg" elevation="card">
-              <CardHeader title="Card" description="Default · hairline + shadow.sm" />
-              <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
-                Workhorse surface. KPI tiles, list rows, panels.
-              </p>
-            </Card>
-            <Card padding="lg" elevation="lifted">
-              <CardHeader title="Lifted" description="Hover state on interactive cards" />
-              <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
-                Reach when the card needs to feel like it left the plane.
-              </p>
-            </Card>
-            <Card padding="lg" elevation="popover">
-              <CardHeader title="Popover" description="Floating menus, dropdowns, tooltips" />
-              <p className="text-[var(--type-13)] text-[var(--text-secondary)]">
-                Multi-layer shadow + border-subtle for off-canvas surfaces.
-              </p>
-            </Card>
-          </div>
-        </Section>
       </article>
 
       {/* ON-PAGE NAV */}
       <aside className="hidden lg:block">
         <nav className="sticky top-32 flex flex-col gap-1.5 text-[var(--type-12)]">
-          <div className="lumen-eyebrow mb-2">On this page</div>
+          <div className="lumen-mono-cap mb-3 text-[var(--text-tertiary)]">On this page</div>
           {[
             ["color", "Color"],
             ["typography", "Typography"],
-            ["spacing", "Spacing"],
+            ["spacing", "Spacing & grid"],
             ["radius", "Radius"],
             ["elevation", "Elevation"],
+            ["surfaces", "Surfaces"],
             ["motion", "Motion"],
             ["iconography", "Iconography"],
+            ["voice", "Voice"],
             ["controls", "Controls"],
             ["display", "Display"],
             ["navigation", "Navigation"],
             ["live-data", "Live data"],
-            ["surfaces", "Surfaces"],
           ].map(([id, label]) => (
             <a
               key={id}
               href={`#${id}`}
-              className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors py-1 border-l border-transparent hover:border-[var(--border-strong)] pl-3 -ml-3"
+              className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors py-1 border-l border-transparent hover:border-[var(--border-accent)] pl-3 -ml-3"
             >
               {label}
             </a>
@@ -649,7 +792,7 @@ export default function FoundationsPage() {
 
 function TypeRow({
   role, sample, cls, px, weight,
-}: { role: string; sample: string; cls: string; px: string; weight: string }) {
+}: { role: string; sample: React.ReactNode; cls: string; px: string; weight: string }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-[160px_1fr_120px_56px] items-baseline gap-2 md:gap-6">
       <code className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-widest)] font-semibold">{role}</code>
@@ -715,3 +858,6 @@ function HeightSpec({ h, label, sub, tone = "grid" }: { h: number; label: string
     </div>
   );
 }
+
+// PageHeader is intentionally unused on this page — the v0.4 hero is custom (brutalist frame).
+// Other pages still import PageHeader directly from "@/components/section".

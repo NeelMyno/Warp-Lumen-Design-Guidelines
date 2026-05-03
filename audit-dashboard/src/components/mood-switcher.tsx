@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { MOODS, type MoodId } from "@/lib/moods";
 
-const DEFAULT_MOOD: MoodId = "quiet-industrial";
+const DEFAULT_MOOD: MoodId = "obsidian-lime";
 
 export function MoodSwitcher() {
   const [mood, setMood] = useState<MoodId>(DEFAULT_MOOD);

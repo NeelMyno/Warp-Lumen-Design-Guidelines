@@ -74,5 +74,5 @@ Add a theme toggle component (Stencil supports them via Page Builder customizati
 ## Things to know
 
 - BigCommerce caches CSS aggressively. Bump version on `theme.json` to bust cache.
-- Stencil's `theme.json` defines the customizable variables exposed in Page Builder. Add Lumen mood as a custom theme variable so merchants can switch Quiet Industrial / Soft Luminous / etc. from the UI.
+- Stencil's `theme.json` defines the customizable variables exposed in Page Builder. Add Lumen mood as a custom theme variable. v0.4 ships only `obsidian-lime`; future mood alternates would live behind the same hook without breaking templates.
 - For checkout: BigCommerce supports custom checkout theming on Plus accounts. Apply Lumen tokens there too.

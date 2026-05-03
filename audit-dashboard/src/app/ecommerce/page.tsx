@@ -15,7 +15,7 @@ export default function EcommercePage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 5 of 7 · Storefront surface"
+        eyebrow="Tab 6 of 8 · Storefront surface"
         title="E-commerce"
         description="Storefront patterns suitable for Shopify, BigCommerce, or WooCommerce themes. Product detail, related items, drawer cart — held to the same Lumen typographic discipline."
       />

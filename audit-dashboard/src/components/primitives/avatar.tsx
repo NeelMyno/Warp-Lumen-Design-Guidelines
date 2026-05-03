@@ -35,11 +35,11 @@ function initials(name: string): string {
 function paletteFor(seed: string): { bg: string; fg: string } {
   const families = [
     { bg: "var(--lumen-accent-2)", fg: "var(--lumen-accent-9)" },
-    { bg: "var(--lumen-sky-2)",    fg: "var(--lumen-sky-9)"    },
+    { bg: "var(--lumen-cream-2)",    fg: "var(--lumen-cream-9)"    },
     { bg: "var(--lumen-amber-2)",  fg: "var(--lumen-amber-9)"  },
     { bg: "var(--lumen-red-2)",    fg: "var(--lumen-red-9)"    },
-    { bg: "var(--lumen-gray-3)",   fg: "var(--lumen-gray-9)"   },
-    { bg: "var(--lumen-navy-2)",   fg: "var(--lumen-navy-9)"   },
+    { bg: "var(--lumen-cream-3)",   fg: "var(--lumen-cream-9)"   },
+    { bg: "var(--lumen-obsidian-2)",   fg: "var(--lumen-obsidian-9)"   },
   ];
   let h = 0;
   for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;

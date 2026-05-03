@@ -1,6 +1,8 @@
 # Tokens — Lumen
 
 > **Critical for any LLM agent reading this:** Lumen has three layers of tokens. **Engineers and LLMs only consume the SEMANTIC layer.** Touching primitives directly is a violation enforced by lint. If you need a value that doesn't have a semantic alias, the answer is to add a semantic alias, not to import a primitive. When in doubt, use the matching `--surface-*` / `--text-*` / `--border-*` / `--space-*` / `--radius-*` / `--shadow-*` / `--motion-*` semantic.
+>
+> **v0.4 (Obsidian Lime)** retunes the dark canvas (no more navy), introduces glass surfaces, brutalist hairline frames, and a radial lime aurora as the ambient signature. The brand-green (`#4ade80`) is unchanged. See [`research/lumen-v04-direction.md`](../../research/lumen-v04-direction.md) for the full direction brief.
 
 ## Layers
 
@@ -39,8 +41,8 @@ Composite types (`typography`, `shadow`, `border`, `gradient`, `transition`) bun
 
 `color.{mode}.tokens.json` files are **siblings**, not nested. The same key paths exist in each, with different `$value` references. Modes:
 
-- `color.light.tokens.json` — default light
-- `color.dark.tokens.json` — default dark (Warp navy ladder)
+- `color.dark.tokens.json` — default dark (obsidian ramp — Lumen v0.4 default)
+- `color.light.tokens.json` — default light (cream paper inverse)
 - `color.hc-light.tokens.json` — high-contrast light (forced colors / WCAG AAA push)
 - `color.hc-dark.tokens.json` — high-contrast dark
 
@@ -108,8 +110,11 @@ If you are an AI coding agent and you need a token, here is the cheat sheet. Do 
 | `color.surface.page` | The canvas of a page |
 | `color.surface.raised` | A card on the canvas |
 | `color.surface.sunken` | An input bg, a row hover, a sidebar |
-| `color.surface.overlay` | A floating popover or sticky header (translucent) |
+| `color.surface.popover` | A floating popover, dropdown, or menu surface |
+| `color.surface.glass` | **v0.4** · floating shell — pair with `backdrop-filter: blur(20px) saturate(140%)` + a hairline border |
+| `color.surface.overlay` | A translucent backdrop for sticky chrome |
 | `color.surface.inverse` | Dark surface in light mode (or vice versa) for contrast moments |
+| `color.surface.tint-accent` | **v0.4** · subtle lime tint for hover / selection backgrounds |
 
 ### Text
 | Token | Use |
@@ -125,9 +130,12 @@ If you are an AI coding agent and you need a token, here is the cheat sheet. Do 
 ### Borders
 | Token | Use |
 |---|---|
-| `color.border.subtle` | The default hairline (cards, table rows) |
+| `color.border.hairline` | **v0.4** · the canonical 1px hairline (cards, table rows) |
+| `color.border.subtle` | A step softer — used on glass surfaces |
 | `color.border.default` | Standard control border (inputs, buttons-secondary) |
 | `color.border.strong` | Emphasis dividers, strong delineations |
+| `color.border.frame` | **v0.4** · brutalist hairline frame around hero headlines |
+| `color.border.accent` | **v0.4** · lime-tinted hairline for active states / hero CTAs |
 | `color.border.focus` | Focus ring color (only used in `--shadow-focus`) |
 
 ### Action / accent
@@ -163,17 +171,18 @@ If you are an AI coding agent and you need a token, here is the cheat sheet. Do 
 | `space.24` | 96 | Hero spacing |
 | `space.32` | 128 | Outer page padding (rare) |
 
-### Radius
+### Radius (v0.4 retuned — slightly rounder against obsidian)
 | Token | px | Use |
 |---|---|---|
-| `radius.xs` | 2 | Hairline accents |
-| `radius.sm` | 4 | Small chips |
-| `radius.md` | 6 | Inputs, buttons |
-| `radius.lg` | 10 | Cards (default) |
-| `radius.xl` | 14 | Cards (lifted) |
-| `radius.2xl` | 20 | Hero surfaces |
-| `radius.3xl` | 28 | Marketing surfaces, modal sheets |
-| `radius.full` | 9999 | Pills, dots, avatars |
+| `radius.xs` | 3 | Hairline accents |
+| `radius.sm` | 6 | Small chips |
+| `radius.md` | 8 | Inputs, buttons |
+| `radius.lg` | 12 | Cards (default) |
+| `radius.xl` | 16 | Cards (lifted) |
+| `radius.2xl` | 20 | Glass surfaces |
+| `radius.3xl` | 28 | Hero / marketing surfaces, modal sheets |
+| `radius.4xl` | 36 | Brutalist hero frames |
+| `radius.full` | 9999 | Pills, nav, primary CTAs, avatars, dots |
 
 ### Elevation
 | Token | Use |
@@ -186,6 +195,17 @@ If you are an AI coding agent and you need a token, here is the cheat sheet. Do 
 | `shadow.2xl` | Floating action surface |
 | `shadow.inset` | Inset feel for a pressed control |
 | `shadow.focus` | The standard focus ring (not a real shadow, just the API surface) |
+| `shadow.glass` | **v0.4** · inset highlight + soft drop for floating glass surfaces |
+| `shadow.glow-accent` | **v0.4** · single-layer lime ambient under hero CTAs |
+| `shadow.glow-accent-strong` | **v0.4** · 3-layer lime halo for the most prominent CTAs |
+
+### v0.4 — aurora + voice
+| Token | Use |
+|---|---|
+| `color.aurora.color` | The radial-glow rgba used by `.lumen-aurora` ambient lighting at hero |
+| `color.aurora.core` | The hot-core rgba — slightly more saturated for inner edge of the radial gradient |
+| `lumen-mono-cap` | (CSS utility) JetBrains Mono · uppercase · +0.16em tracking — the v0.4 system metadata voice |
+| `lumen-frame-brutalist` | (CSS utility) 1px hairline frame around a single statement headline; no shadow |
 
 ### Motion
 | Token | ms | Use |

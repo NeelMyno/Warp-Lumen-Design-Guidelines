@@ -2,29 +2,35 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "SEMANTIC color tokens — light mode. Engineers and LLMs consume these. Mode parity required: same key paths exist in color.dark.tokens.json with different values.",
+    "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.4). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of obsidian-lime: cream paper + obsidian ink + the same lime accent.",
     "surface": {
-      "page":    { "$value": "{color.warm.50}",  "$description": "The page canvas. Paper-warm white." },
+      "page":    { "$value": "{color.warm.50}",  "$description": "Cream paper canvas." },
       "raised":  { "$value": "#ffffff",           "$description": "Cards, panels, raised surfaces." },
       "sunken":  { "$value": "{color.warm.100}", "$description": "Inputs background, table row hover, sidebar." },
-      "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome / popovers." },
+      "popover": { "$value": "#ffffff",           "$description": "Floating popover surface." },
+      "glass":   { "$value": "rgba(255,255,255,0.72)", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%)" },
+      "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome." },
       "scrim":   { "$value": "{color.alpha.ink.40}",   "$description": "Modal backdrop." },
-      "inverse": { "$value": "{color.brand.900}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." }
+      "inverse": { "$value": "{color.brand.800}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." },
+      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds." }
     },
     "text": {
       "primary":   { "$value": "{color.brand.900}", "$description": "Body and titles. Contrast 14.6:1 on surface.page." },
-      "secondary": { "$value": "{color.brand.500}", "$description": "Captions, descriptions. Contrast 7.4:1." },
-      "tertiary":  { "$value": "{color.brand.400}", "$description": "Hints, eyebrow labels. Contrast 4.6:1 — use on >=18px only or non-essential text." },
-      "disabled":  { "$value": "{color.brand.300}", "$description": "Disabled control text." },
-      "inverse":   { "$value": "{color.warm.50}",   "$description": "Text on inverse surfaces." },
+      "secondary": { "$value": "{color.warm.700}", "$description": "Captions, descriptions." },
+      "tertiary":  { "$value": "{color.warm.600}", "$description": "Hints, eyebrow labels." },
+      "disabled":  { "$value": "{color.warm.400}" },
+      "inverse":   { "$value": "{color.warm.50}" },
       "accent":    { "$value": "{color.accent.800}","$description": "Accent text on light surfaces. Contrast 4.7:1+." },
-      "link":      { "$value": "{color.brand.900}", "$description": "Hyperlinks. Lumen uses primary text + underline rather than a link color." }
+      "link":      { "$value": "{color.brand.900}" }
     },
     "border": {
-      "subtle":  { "$value": "{color.alpha.ink.06}", "$description": "Default hairline. Cards, table rows, dividers." },
-      "default": { "$value": "{color.alpha.ink.12}", "$description": "Standard control border." },
-      "strong":  { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
-      "focus":   { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with --shadow.focus." }
+      "hairline": { "$value": "{color.alpha.ink.06}",  "$description": "Default hairline. Cards, table rows, dividers." },
+      "subtle":   { "$value": "rgba(10,10,13,0.08)" },
+      "default":  { "$value": "{color.alpha.ink.12}", "$description": "Standard control border." },
+      "strong":   { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
+      "frame":    { "$value": "{color.alpha.ink.40}", "$description": "v0.4 — brutalist hairline frame border" },
+      "accent":   { "$value": "{color.accent.700}",   "$description": "Accent hairline (deeper green for AAA on light)" },
+      "focus":    { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with --shadow.focus." }
     },
     "action": {
       "primary": {
@@ -65,7 +71,12 @@
       "success": { "bg": { "$value": "{color.status.success.50}" }, "fg": { "$value": "{color.status.success.700}" } },
       "warning": { "bg": { "$value": "{color.status.warning.50}" }, "fg": { "$value": "{color.status.warning.700}" } },
       "danger":  { "bg": { "$value": "{color.status.danger.50}"  }, "fg": { "$value": "{color.status.danger.700}"  } },
-      "info":    { "bg": { "$value": "{color.status.info.50}"    }, "fg": { "$value": "{color.status.info.700}"    } }
+      "info":    { "bg": { "$value": "{color.accent.50}"         }, "fg": { "$value": "{color.accent.800}"         } }
+    },
+    "aurora": {
+      "$description": "Radial lime ambient glow — softer in light mode (the cream paper carries less contrast headroom).",
+      "color":  { "$value": "{color.alpha.accent.24}" },
+      "core":   { "$value": "{color.alpha.accent.40}" }
     }
   }
 }

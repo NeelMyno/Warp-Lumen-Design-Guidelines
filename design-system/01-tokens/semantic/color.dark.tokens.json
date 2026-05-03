@@ -2,29 +2,35 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "SEMANTIC color tokens — dark mode. Mirrors color.light.tokens.json key paths with Warp's actual navy ladder values.",
+    "$description": "SEMANTIC color tokens — DARK mode (Lumen v0.4 default). Mirrors color.light.tokens.json key paths with the obsidian ramp. Glass + glow utilities are exposed as separate semantic keys for clarity.",
     "surface": {
-      "page":    { "$value": "{color.brand.900}", "$description": "Warp --warp-bg #131c2a" },
-      "raised":  { "$value": "{color.brand.700}", "$description": "Warp --warp-surface-2 #1a2332" },
-      "sunken":  { "$value": "{color.brand.800}", "$description": "Warp --warp-surface-1 #141c2b" },
-      "overlay": { "$value": "rgba(26,35,50,0.86)" },
-      "scrim":   { "$value": "rgba(0,0,0,0.6)" },
-      "inverse": { "$value": "{color.warm.50}" }
+      "page":    { "$value": "{color.brand.800}", "$description": "Obsidian canvas #0a0a0d" },
+      "raised":  { "$value": "{color.brand.700}", "$description": "Raised surface #14141a" },
+      "sunken":  { "$value": "{color.brand.900}", "$description": "Sunken / scrim base #06060a" },
+      "popover": { "$value": "{color.brand.600}", "$description": "Floating popover surface #1d1d24" },
+      "glass":   { "$value": "rgba(20,20,26,0.62)", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%)" },
+      "overlay": { "$value": "rgba(10,10,13,0.86)" },
+      "scrim":   { "$value": "rgba(2,2,3,0.72)" },
+      "inverse": { "$value": "{color.warm.50}" },
+      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds" }
     },
     "text": {
-      "primary":   { "$value": "#f0f2f5", "$description": "Warp --warp-text" },
-      "secondary": { "$value": "#b0b8c4", "$description": "Warp --warp-text-muted" },
-      "tertiary":  { "$value": "#7a8494", "$description": "Warp --warp-text-dim" },
+      "primary":   { "$value": "#f5f5f3", "$description": "Body and titles." },
+      "secondary": { "$value": "{color.brand.300}", "$description": "Captions, descriptions." },
+      "tertiary":  { "$value": "{color.brand.400}", "$description": "Hints, eyebrow labels." },
       "disabled":  { "$value": "{color.brand.500}" },
-      "inverse":   { "$value": "{color.brand.900}" },
-      "accent":    { "$value": "{color.accent.400}", "$description": "Brighter green works on dark." },
-      "link":      { "$value": "#f0f2f5" }
+      "inverse":   { "$value": "{color.brand.800}", "$description": "Text on inverse cream surfaces." },
+      "accent":    { "$value": "{color.accent.300}", "$description": "Brighter laser-lime works on dark." },
+      "link":      { "$value": "#f5f5f3" }
     },
     "border": {
-      "subtle":  { "$value": "rgba(255,255,255,0.06)" },
-      "default": { "$value": "{color.brand.600}", "$description": "Warp --warp-border #253040" },
-      "strong":  { "$value": "{color.brand.500}", "$description": "Warp --warp-border-strong #334155" },
-      "focus":   { "$value": "{color.accent.400}" }
+      "hairline": { "$value": "{color.alpha.paper.06}", "$description": "Default hairline at 6% white." },
+      "subtle":   { "$value": "rgba(255,255,255,0.08)" },
+      "default":  { "$value": "{color.alpha.paper.12}" },
+      "strong":   { "$value": "rgba(255,255,255,0.24)" },
+      "frame":    { "$value": "{color.alpha.paper.40}", "$description": "v0.4 — brutalist hairline frame border, hairline-strong" },
+      "accent":   { "$value": "{color.alpha.accent.40}", "$description": "Lime-tinted hairline for accent surfaces" },
+      "focus":    { "$value": "{color.accent.400}" }
     },
     "action": {
       "primary": {
@@ -42,8 +48,8 @@
           "hover": { "$value": "{color.brand.600}" },
           "press": { "$value": "{color.brand.600}" }
         },
-        "fg":     { "$value": "#f0f2f5" },
-        "border": { "$value": "{color.brand.600}" }
+        "fg":     { "$value": "#f5f5f3" },
+        "border": { "$value": "{color.alpha.paper.12}" }
       },
       "tertiary": {
         "bg": {
@@ -51,7 +57,7 @@
           "hover": { "$value": "rgba(255,255,255,0.06)" },
           "press": { "$value": "rgba(255,255,255,0.06)" }
         },
-        "fg": { "$value": "#f0f2f5" }
+        "fg": { "$value": "#f5f5f3" }
       },
       "danger": {
         "bg": {
@@ -65,7 +71,12 @@
       "success": { "bg": { "$value": "{color.status.success.900}" }, "fg": { "$value": "{color.accent.300}" } },
       "warning": { "bg": { "$value": "{color.status.warning.900}" }, "fg": { "$value": "#f3d8a4" } },
       "danger":  { "bg": { "$value": "{color.status.danger.900}"  }, "fg": { "$value": "#f4c0bb" } },
-      "info":    { "bg": { "$value": "{color.status.info.900}"    }, "fg": { "$value": "#b9d0ff" } }
+      "info":    { "bg": { "$value": "{color.alpha.accent.12}"    }, "fg": { "$value": "{color.accent.300}" } }
+    },
+    "aurora": {
+      "$description": "Radial lime ambient glow — the brand's signature lighting gesture. Render as a fixed/absolute pseudo-element behind the page hero with backdrop-filter: blur and the values below.",
+      "color":  { "$value": "{color.alpha.accent.32}" },
+      "core":   { "$value": "{color.alpha.accent.64}" }
     }
   }
 }

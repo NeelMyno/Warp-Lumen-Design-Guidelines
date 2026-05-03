@@ -183,8 +183,8 @@ export function InventoryStatus({ status }: { status: "in-stock" | "low-stock" |
   const config: Record<typeof status, { label: string; color: string }> = {
     "in-stock": { label: "In stock", color: "var(--lumen-accent-7)" },
     "low-stock": { label: "Low stock — 3 left", color: "var(--lumen-amber-7)" },
-    "backorder": { label: "Backorder · ships in 2 weeks", color: "var(--lumen-sky-7)" },
-    "preorder": { label: "Preorder · arrives May 19", color: "var(--lumen-sky-7)" },
+    "backorder": { label: "Backorder · ships in 2 weeks", color: "var(--lumen-cream-7)" },
+    "preorder": { label: "Preorder · arrives May 19", color: "var(--lumen-cream-7)" },
     "sold-out": { label: "Sold out", color: "var(--lumen-red-7)" },
   };
   const c = config[status];
@@ -208,7 +208,7 @@ export function ProductGallery({ count = 5 }: { count?: number }) {
             onClick={() => setActive(i)}
             className={[
               "h-16 w-16 rounded-[var(--radius-md)] border bg-[var(--surface-sunken)] overflow-hidden transition-[border-color,box-shadow]",
-              i === active ? "border-[var(--lumen-navy-9)]" : "border-[var(--border-hairline)] hover:border-[var(--border-strong)]",
+              i === active ? "border-[var(--lumen-obsidian-9)]" : "border-[var(--border-hairline)] hover:border-[var(--border-strong)]",
             ].join(" ")}
           >
             <div className="lumen-stripe-grid h-full w-full" />
@@ -400,7 +400,7 @@ export function ColorSwatchSelector({
             aria-label={o.label}
             className={[
               "relative h-8 w-8 rounded-full border-2 transition-transform",
-              value === o.color ? "border-[var(--lumen-navy-9)] scale-110" : "border-transparent ring-1 ring-[var(--border-default)] hover:scale-110",
+              value === o.color ? "border-[var(--lumen-obsidian-9)] scale-110" : "border-transparent ring-1 ring-[var(--border-default)] hover:scale-110",
             ].join(" ")}
             style={{ background: o.color }}
           />

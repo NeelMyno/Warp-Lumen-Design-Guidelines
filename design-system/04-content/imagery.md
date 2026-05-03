@@ -15,7 +15,7 @@ related: [./illustration.md, ./iconography.md, ../00-foundations/principles.md]
 In order of preference:
 
 ### 1. Product screenshots
-- The product UI as it actually exists, in dark navy mood, with subtle drop shadow and `radius-2xl` corners.
+- The product UI as it actually exists, in the obsidian-lime mood, with a soft hairline frame, optional radial-lime ambient glow, and `radius-2xl` corners.
 - Always real data, never lorem ipsum.
 - For marketing, screenshots may be lightly retouched (re-anonymized customer names) but never invented.
 - Hero placement: full-bleed or centered with `space.16` margin.

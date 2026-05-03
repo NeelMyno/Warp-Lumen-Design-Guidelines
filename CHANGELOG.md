@@ -10,6 +10,64 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.4.0] — 2026-05-02 — Obsidian Lime
+
+A clean break from the navy + lime mood. Anchor references: SuperDesign · Glassmorphism Style and SuperDesign · Neon Velocity Countdown. The brand-green stays — everything else is rebuilt around an obsidian canvas, generous whitespace, glass surfaces, and a radial lime ambient glow as the brand's signature lighting gesture.
+
+### Changed
+
+- **Default mood is now `obsidian-lime`** (replaces `quiet-industrial`). `lib/moods.ts` and `[data-mood]` updated accordingly.
+- **Default theme is now `dark`** (the obsidian canvas is the brand stage). Light mode is the cream-paper inverse and remains a first-class citizen.
+- **Color primitives retuned** in `01-tokens/primitives/color.tokens.json`:
+  - `color.brand.*` retuned to the **obsidian** ramp — warm-leaning near-black, never navy.
+  - `color.warm.*` retuned to the **cream** ramp — warm paper for light mode.
+  - `color.accent.*` keeps `#4ade80` at 400/500 (brand value unchanged); ramp top brightened so the lime reads "laser" against obsidian.
+  - `color.status.info.*` shifts off sky-blue to a warm cream tone — no second loud color, no navy partnership.
+  - `color.alpha.accent.40` and `.64` added for ambient-glow stops.
+- **Semantic dark/light tokens** (`color.dark.tokens.json`, `color.light.tokens.json`) updated to match: new `surface.glass`, `surface.tint-accent`, `border.hairline`, `border.frame`, `border.accent`, `aurora.color`, `aurora.core` keys.
+- **Audit dashboard** (`audit-dashboard/src/`):
+  - `globals.css` rewritten — drops the navy ramp; introduces obsidian, cream, lime alphas, glass utilities, architectural grid, radial aurora, brutalist frame, mono uppercase tracked label.
+  - `dashboard-shell.tsx` rebuilt with a glass pill nav, a fixed architectural grid behind the canvas, and the radial aurora over hero content.
+  - `tab-nav.tsx` rebuilt as glass-pill chips with lime hairline + tint on active.
+  - `theme-toggle.tsx` defaults to dark.
+  - `foundations/page.tsx` rebuilt — brutalist-frame hero, `voice` section, glass + glow + grid surfaces, 13 navigable sections with a sticky right-rail TOC.
+  - `landing/page.tsx` hero refreshed: italic lime accent on "builders.", pill XL CTAs with `glow`, architectural grid + aurora canvas.
+  - `library/client.tsx` hero badge bumped to v0.4.0.
+- **Primitives**:
+  - `Card` — added `glass` and `glow` elevations, added `hero` padding, default radius bumped to `radius-xl`.
+  - `Button` — added `xl` size (h-14 pill), `glow` boolean for hero halo, `pill` boolean for radius-full override.
+  - `Tooltip` — surface upgraded to `lumen-glass-strong`.
+  - Avatar / Charts / Display / Feedback / AI / Inputs / Mobile / Commerce / Templates — every direct primitive reference (`lumen-navy-*`, `lumen-sky-*`, `lumen-gray-*`) replaced with the v0.4 vocabulary (`lumen-obsidian-*`, `lumen-cream-*`).
+- **Radius scale** — slightly rounder: `xs=3 sm=6 md=8 lg=12 xl=16 2xl=20 3xl=28 4xl=36 full=∞`. The 8-point soft grid is unchanged; only the optical radius dial moved.
+- **Type scale** — display ceiling pushed to 84 / 96 / 112 / 128 px to support brutalist hero treatments. Existing scale steps unchanged below 76 px.
+- **Motion tokens** — added `--motion-aurora-fade-in` (1200ms) and `--motion-glow-pulse` (2400ms) for the new ambient signatures. Existing eases unchanged. `prefers-reduced-motion` honoured throughout.
+
+### Added
+
+- **Direction brief** — `research/lumen-v04-direction.md` documenting the references, the v0.4 axioms, and the cascade plan.
+- **`.lumen-glass`, `.lumen-glass-strong`** utilities — glass surfaces with backdrop-filter for floating shells.
+- **`.lumen-aurora`** utility — fixed radial-lime ambient glow with reduced-motion fallback.
+- **`.lumen-grid-architectural`** utility — whisper-faint 64px lattice for canvas texture.
+- **`.lumen-frame-brutalist`** utility — hairline frame around statement headlines, no shadow.
+- **`.lumen-mono-cap`** utility — JetBrains Mono · uppercase · +0.16em tracking. The v0.4 system-metadata voice.
+- **`.lumen-dot-pulse`** utility — replaces ad-hoc pulse styles; signature loop for live-status dots.
+
+### Removed
+
+- **`color.brand` namespace as "Warp navy"** — same JSON path, but values are now obsidian. Token consumers using semantic aliases (`color.surface.page`, `color.border.default`, etc.) need no changes.
+- **`lumen-navy-*`** CSS primitives — gone. Replaced with `lumen-obsidian-*`.
+- **`lumen-sky-*`** CSS primitives — gone. v0.4 doesn't use a sky-blue family. Components that referenced sky now use cream or accent.
+- **`lumen-gray-*`** CSS primitives — gone. Replaced with `lumen-cream-*` (warm paper neutrals are the v0.4 'gray' family).
+- **Mood: Quiet Industrial** — superseded. Mood-switcher hides itself when `MOODS.length <= 1`.
+
+### Notes
+
+- The v0.3 `95fdd3d` 8-point soft grid migration carries forward intact — every structural pixel still snaps to 8s with 4-pixel halves and 2-pixel quarters as exceptions.
+- Component spec docs in `02-components/{name}/component.md` still describe v0.3 sizing and v0.3 token vocabulary in places — bringing those to full v0.4 parity is the obvious next wave.
+- No localhost dev server (kernel watchdog crashes documented through v0.1–v0.3). View on Vercel only.
+
+---
+
 ## [0.1.0] — 2026-05-02
 
 The initial Lumen drop. Audit baseline.

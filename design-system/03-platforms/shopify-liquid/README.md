@@ -39,7 +39,7 @@ Drop the woff2 files in `assets/` and reference via `asset_url`.
 <!doctype html>
 <html
   lang="{{ request.locale.iso_code }}"
-  data-mood="quiet-industrial"
+  data-mood="obsidian-lime"
   data-theme="light"
 >
 ```

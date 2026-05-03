@@ -20,7 +20,7 @@ export default function SaaSPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 2 of 7 · Application surface"
+        eyebrow="Tab 3 of 8 · Application surface"
         title="SaaS Dashboard"
         description="Internal product UI: navigation, KPI grid, live table, side panel. The pattern Warp uses for its operator portal — dense, scannable, instrument-panel."
         meta={<Badge status="accent" leadingDot>Live · 1,284 today</Badge>}

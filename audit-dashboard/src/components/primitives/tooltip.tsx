@@ -47,10 +47,9 @@ export function Tooltip({
           role="tooltip"
           className={[
             "absolute z-[var(--z-tooltip)] pointer-events-none",
-            "px-2 py-1 rounded-[var(--radius-sm)] whitespace-nowrap",
-            "bg-[var(--surface-inverse)] text-[var(--text-inverse)]",
+            "px-2.5 py-1 rounded-[var(--radius-md)] whitespace-nowrap",
+            "lumen-glass-strong text-[var(--text-primary)]",
             "text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]",
-            "shadow-[var(--shadow-popover)]",
             "animate-[tt-in_120ms_cubic-bezier(0.2,0,0,1)_both]",
             placement[side],
           ].join(" ")}

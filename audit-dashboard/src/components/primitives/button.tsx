@@ -1,7 +1,7 @@
 import { ReactNode, ButtonHTMLAttributes, forwardRef } from "react";
 
 type Intent = "primary" | "secondary" | "tertiary" | "danger" | "ghost";
-type Size = "xs" | "sm" | "md" | "lg";
+type Size = "xs" | "sm" | "md" | "lg" | "xl";
 
 const INTENT: Record<Intent, string> = {
   primary: [
@@ -39,13 +39,15 @@ const INTENT: Record<Intent, string> = {
  *   xs = 28 (3.5u soft) — dense data-table rows
  *   sm = 32 (4u)         — toolbars, secondary controls
  *   md = 40 (5u)         — DEFAULT
- *   lg = 48 (6u)         — primary CTA / hero
+ *   lg = 48 (6u)         — primary CTA
+ *   xl = 56 (7u)         — hero CTA, often paired with glow halo
  */
 const SIZE: Record<Size, string> = {
   xs: "h-7  px-2 text-[var(--type-12)] gap-1.5 rounded-[var(--radius-sm)]",
   sm: "h-8  px-3 text-[var(--type-13)] gap-2   rounded-[var(--radius-md)]",
   md: "h-10 px-4 text-[var(--type-14)] gap-2   rounded-[var(--radius-md)]",
   lg: "h-12 px-6 text-[var(--type-15)] gap-2   rounded-[var(--radius-lg)]",
+  xl: "h-14 px-8 text-[var(--type-16)] gap-2.5 rounded-[var(--radius-full)]",
 };
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -55,6 +57,10 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   trailingIcon?: ReactNode;
   fullWidth?: boolean;
   loading?: boolean;
+  /** v0.4 — strengthen the lime ambient glow on this button (hero CTAs only). */
+  glow?: boolean;
+  /** v0.4 — render as a pill regardless of size. Pairs naturally with hero. */
+  pill?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -65,6 +71,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     trailingIcon,
     fullWidth,
     loading,
+    glow,
+    pill,
     disabled,
     className,
     children,
@@ -91,6 +99,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         SIZE[size],
         INTENT[intent],
         fullWidth ? "w-full" : "",
+        pill ? "!rounded-[var(--radius-full)]" : "",
+        glow && intent === "primary" ? "lumen-glow-cta" : "",
         className ?? "",
       ].join(" ")}
     >
@@ -134,6 +144,7 @@ export function IconButton({
     size === "xs" ? "!h-7  !w-7"  :
     size === "sm" ? "!h-8  !w-8"  :
     size === "lg" ? "!h-12 !w-12" :
+    size === "xl" ? "!h-14 !w-14" :
                     "!h-10 !w-10";
   return (
     <Button

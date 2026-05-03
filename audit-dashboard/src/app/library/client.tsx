@@ -122,7 +122,7 @@ export function LibraryClient() {
           eyebrow="Tab 2 of 8 · Component library"
           title="Library"
           description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian as reference points — then tuned to Lumen's restraint. Click any section in the right rail to jump."
-          meta={<Badge status="accent" leadingDot>v0.3.0 · 25 sections · 250+ components</Badge>}
+          meta={<Badge status="accent" leadingDot>v0.4.0 · 25 sections · 250+ components</Badge>}
         />
 
         {/* OVERVIEW */}
@@ -749,9 +749,9 @@ export function LibraryClient() {
               <Showcase label="Bar (horizontal)"><BarChart data={[820, 642, 514, 380, 290]} labels={["Sterling LTL","Saia","Estes","ABF","OD"]} horizontal /></Showcase>
               <Showcase label="Histogram"><Histogram bins={[2,5,8,14,22,28,32,28,22,16,10,6,3]} /></Showcase>
               <Showcase label="Stacked bar (segments)"><div className="w-full"><StackedBar rows={[
-                { label: "Q1", segments: [{ value: 42, color: "var(--lumen-accent-5)" }, { value: 24, color: "var(--lumen-sky-5)" }, { value: 18, color: "var(--lumen-amber-5)" }] },
-                { label: "Q2", segments: [{ value: 50, color: "var(--lumen-accent-5)" }, { value: 18, color: "var(--lumen-sky-5)" }, { value: 22, color: "var(--lumen-amber-5)" }] },
-                { label: "Q3", segments: [{ value: 56, color: "var(--lumen-accent-5)" }, { value: 14, color: "var(--lumen-sky-5)" }, { value: 28, color: "var(--lumen-amber-5)" }] },
+                { label: "Q1", segments: [{ value: 42, color: "var(--lumen-accent-5)" }, { value: 24, color: "var(--lumen-cream-5)" }, { value: 18, color: "var(--lumen-amber-5)" }] },
+                { label: "Q2", segments: [{ value: 50, color: "var(--lumen-accent-5)" }, { value: 18, color: "var(--lumen-cream-5)" }, { value: 22, color: "var(--lumen-amber-5)" }] },
+                { label: "Q3", segments: [{ value: 56, color: "var(--lumen-accent-5)" }, { value: 14, color: "var(--lumen-cream-5)" }, { value: 28, color: "var(--lumen-amber-5)" }] },
               ]} /></div></Showcase>
             </div>
           </SubSection>
@@ -1134,7 +1134,7 @@ export function LibraryClient() {
                 <MenuList items={[
                   { kind: "label", label: "Workspaces" },
                   { kind: "item", label: "Acme Logistics", icon: <span className="h-4 w-4 rounded-full bg-[var(--lumen-accent-4)]" /> },
-                  { kind: "item", label: "Sterling LTL", icon: <span className="h-4 w-4 rounded-full bg-[var(--lumen-sky-5)]" /> },
+                  { kind: "item", label: "Sterling LTL", icon: <span className="h-4 w-4 rounded-full bg-[var(--lumen-cream-5)]" /> },
                   { kind: "item", label: "Estes Express", icon: <span className="h-4 w-4 rounded-full bg-[var(--lumen-amber-5)]" /> },
                   { kind: "divider" },
                   { kind: "item", label: "Create workspace", icon: <Plus size={13} /> },
@@ -1392,7 +1392,7 @@ export function Hero() {
         </Section>
 
         <div className="mt-20 text-center text-[var(--type-12)] text-[var(--text-tertiary)]">
-          End of library — last refreshed v0.3.0
+          End of library — last refreshed v0.4.0
         </div>
       </article>
 

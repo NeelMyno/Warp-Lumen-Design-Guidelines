@@ -8,7 +8,7 @@ type TagTone = "neutral" | "accent" | "info" | "warn" | "danger" | "success";
 const TAG_TONE: Record<TagTone, string> = {
   neutral: "bg-[var(--surface-sunken)] text-[var(--text-secondary)] border-[var(--border-hairline)]",
   accent: "bg-[var(--lumen-accent-1)] text-[var(--lumen-accent-8)] border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]",
-  info: "bg-[var(--lumen-sky-0)] text-[var(--lumen-sky-7)] border-[var(--lumen-sky-2)]",
+  info: "bg-[var(--lumen-cream-0)] text-[var(--lumen-cream-7)] border-[var(--lumen-cream-2)]",
   warn: "bg-[var(--lumen-amber-0)] text-[var(--lumen-amber-7)] border-[var(--lumen-amber-2)]",
   danger: "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)] border-[var(--lumen-red-2)]",
   success: "bg-[#ecfdf3] text-[var(--lumen-accent-8)] border-[var(--lumen-accent-2)]",
@@ -45,9 +45,9 @@ export function StatusPill({
   pulse?: boolean;
 }) {
   const dotColor: Record<TagTone, string> = {
-    neutral: "var(--lumen-gray-5)",
+    neutral: "var(--lumen-cream-5)",
     accent: "var(--lumen-accent-5)",
-    info: "var(--lumen-sky-5)",
+    info: "var(--lumen-cream-5)",
     warn: "var(--lumen-amber-5)",
     danger: "var(--lumen-red-5)",
     success: "var(--lumen-accent-6)",
@@ -89,7 +89,7 @@ export function Trend({ delta, suffix = "" }: { delta: number; suffix?: string }
 /* ─────────────────────────  SEVERITY / PRIORITY  ───────────────────────── */
 export function Severity({ level }: { level: "low" | "med" | "high" | "critical" }) {
   const colors: Record<typeof level, [string, string, string]> = {
-    low: ["var(--lumen-sky-1)", "var(--lumen-sky-7)", "Low"],
+    low: ["var(--lumen-cream-1)", "var(--lumen-cream-7)", "Low"],
     med: ["var(--lumen-amber-1)", "var(--lumen-amber-7)", "Medium"],
     high: ["var(--lumen-amber-2)", "var(--lumen-amber-8)", "High"],
     critical: ["var(--lumen-red-1)", "var(--lumen-red-7)", "Critical"],
@@ -418,7 +418,7 @@ export function Carousel({ items }: { items: { title: string; subtitle?: string;
         style={{ scrollbarWidth: "thin" }}>
         {items.map((it, i) => (
           <div key={i} className="snap-start shrink-0 w-[260px] rounded-[var(--radius-lg)] overflow-hidden border border-[var(--border-hairline)] bg-[var(--surface-raised)] shadow-[var(--shadow-sm)]">
-            <div className="h-32" style={{ background: it.bg ?? "linear-gradient(135deg, var(--lumen-navy-9), var(--lumen-navy-6))" }} />
+            <div className="h-32" style={{ background: it.bg ?? "linear-gradient(135deg, var(--lumen-obsidian-9), var(--lumen-obsidian-6))" }} />
             <div className="p-3">
               <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{it.title}</div>
               {it.subtitle && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-0.5">{it.subtitle}</div>}
@@ -517,7 +517,7 @@ export function Presence({ status = "online" }: { status?: "online" | "away" | "
     online: "var(--lumen-accent-5)",
     away: "var(--lumen-amber-5)",
     dnd: "var(--lumen-red-5)",
-    offline: "var(--lumen-gray-4)",
+    offline: "var(--lumen-cream-4)",
   };
   return <span className="inline-block h-2 w-2 rounded-full ring-2 ring-[var(--surface-raised)]" style={{ background: colors[status] }} aria-label={status} />;
 }

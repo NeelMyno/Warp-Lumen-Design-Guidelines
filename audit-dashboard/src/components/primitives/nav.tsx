@@ -236,7 +236,7 @@ export function NavbarDemo() {
           <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]">
             <Bell size={15} />
           </button>
-          <span className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-[var(--lumen-navy-9)] text-white text-[var(--type-12)] lumen-mono font-semibold">NT</span>
+          <span className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-[var(--lumen-obsidian-9)] text-white text-[var(--type-12)] lumen-mono font-semibold">NT</span>
         </div>
       </div>
     </div>
