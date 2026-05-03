@@ -1,5 +1,6 @@
 export type TabSlug =
   | "foundations"
+  | "library"
   | "saas"
   | "landing"
   | "tool"
@@ -24,6 +25,15 @@ export const TABS: Tab[] = [
     shortLabel: "Foundations",
     description:
       "Color, typography, spacing, radius, elevation, motion, and iconography — the primitives the rest of the system stands on.",
+    group: "system",
+  },
+  {
+    slug: "library",
+    href: "/library",
+    label: "Component Library",
+    shortLabel: "Library",
+    description:
+      "Every component, state, and pattern in one navigable surface. Apple HIG / Material / Polaris-grade coverage, Lumen-tuned.",
     group: "system",
   },
   {

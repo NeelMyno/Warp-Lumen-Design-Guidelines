@@ -1,0 +1,441 @@
+"use client";
+
+import { ReactNode, useState } from "react";
+import { Cart as CartIcon, Plus, X, Check, Search as SearchIcon } from "./icon";
+import { Stars } from "./display";
+
+/* ─────────────────────────  PRICING CARD  ───────────────────────── */
+export function PricingCard({
+  name,
+  description,
+  price,
+  period = "mo",
+  features,
+  recommended,
+  cta = "Get started",
+}: {
+  name: string;
+  description?: string;
+  price: string;
+  period?: string;
+  features: string[];
+  recommended?: boolean;
+  cta?: string;
+}) {
+  return (
+    <div
+      className={[
+        "relative rounded-[var(--radius-xl)] p-5 flex flex-col gap-4 border",
+        recommended
+          ? "border-[var(--lumen-accent-4)] bg-[var(--surface-tint-accent)] shadow-[var(--shadow-glow-accent)]"
+          : "border-[var(--border-hairline)] bg-[var(--surface-raised)] shadow-[var(--shadow-xs)]",
+      ].join(" ")}
+    >
+      {recommended && (
+        <span className="absolute -top-2.5 left-5 inline-flex items-center gap-1 h-5 px-2 rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]">
+          Most popular
+        </span>
+      )}
+      <div>
+        <div className="text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{name}</div>
+        {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>}
+      </div>
+      <div className="flex items-baseline gap-1">
+        <span className="lumen-tnum text-[var(--type-44)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{price}</span>
+        <span className="text-[var(--type-13)] text-[var(--text-tertiary)]">/{period}</span>
+      </div>
+      <ul className="flex flex-col gap-2">
+        {features.map((f) => (
+          <li key={f} className="flex items-start gap-2 text-[var(--type-13)] text-[var(--text-secondary)]">
+            <span className="mt-0.5 text-[var(--lumen-accent-6)]"><Check size={13} /></span>
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      <button
+        className={[
+          "h-10 rounded-[var(--radius-md)] text-[var(--type-13)] font-semibold transition-colors",
+          recommended
+            ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] hover:bg-[var(--lumen-accent-5)]"
+            : "border border-[var(--border-default)] bg-[var(--surface-raised)] hover:bg-[var(--surface-sunken)]",
+        ].join(" ")}
+      >
+        {cta}
+      </button>
+    </div>
+  );
+}
+
+/* ─────────────────────────  PRICING TOGGLE (M/Y)  ───────────────────────── */
+export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"; onChange: (v: "monthly" | "yearly") => void }) {
+  return (
+    <div className="inline-flex items-center gap-3">
+      <span className={["text-[var(--type-13)]", value === "monthly" ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>Monthly</span>
+      <button
+        onClick={() => onChange(value === "monthly" ? "yearly" : "monthly")}
+        className="relative h-6 w-11 rounded-full bg-[var(--surface-sunken)] border border-[var(--border-default)] transition-colors"
+        aria-pressed={value === "yearly"}
+      >
+        <span
+          className={[
+            "absolute top-0.5 h-4.5 w-4.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] transition-transform shadow-[var(--shadow-xs)]",
+            value === "yearly" ? "translate-x-[22px]" : "translate-x-0.5",
+          ].join(" ")}
+        />
+      </button>
+      <span className={["text-[var(--type-13)]", value === "yearly" ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>
+        Yearly <span className="text-[var(--lumen-accent-7)] lumen-mono text-[var(--type-11)]">−2 mo</span>
+      </span>
+    </div>
+  );
+}
+
+/* ─────────────────────────  PAYMENT BUTTONS  ───────────────────────── */
+export function ApplePay() {
+  return (
+    <button className="h-11 px-5 rounded-[var(--radius-md)] bg-[#000] text-white inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-semibold w-full">
+      <ApplePayLogo /> <span>Pay</span>
+    </button>
+  );
+}
+export function GooglePay() {
+  return (
+    <button className="h-11 px-5 rounded-[var(--radius-md)] bg-[#000] text-white inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-semibold w-full">
+      <span className="lumen-mono font-bold">G</span> Pay
+    </button>
+  );
+}
+export function ShopPay() {
+  return (
+    <button className="h-11 rounded-[var(--radius-md)] bg-[#5a31f4] text-white inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-semibold w-full">
+      <span className="lumen-mono font-bold">shop</span> Pay
+    </button>
+  );
+}
+export function PayPal() {
+  return (
+    <button className="h-11 rounded-[var(--radius-md)] bg-[#ffc439] text-[#003087] inline-flex items-center justify-center gap-2 text-[var(--type-13)] font-bold tracking-tight w-full">
+      <i style={{ fontStyle: "italic" }}>Pay</i><span className="text-[#0070ba] -ml-0.5">Pal</span>
+    </button>
+  );
+}
+export function Klarna() {
+  return (
+    <button className="h-11 rounded-[var(--radius-md)] bg-[#ffa8cd] text-[#17120c] inline-flex items-center justify-center text-[var(--type-13)] font-semibold w-full">
+      Klarna
+    </button>
+  );
+}
+export function Afterpay() {
+  return (
+    <button className="h-11 rounded-[var(--radius-md)] bg-[#b2fce4] text-[#08263a] inline-flex items-center justify-center text-[var(--type-13)] font-semibold w-full">
+      afterpay
+    </button>
+  );
+}
+function ApplePayLogo() {
+  return <svg width="34" height="14" viewBox="0 0 34 14" fill="white" aria-hidden><path d="M5.7 4.6c-.4.5-1 .9-1.6.8-.1-.6.2-1.3.6-1.8.4-.5 1-.9 1.6-1 .1.7-.1 1.4-.6 2zm1.1 0c-.9-.1-1.7.5-2.2.5s-1.1-.5-1.9-.5c-1 0-1.9.6-2.4 1.5-1 1.7-.3 4.3.7 5.7.5.7 1 1.5 1.8 1.5.7 0 1-.5 1.9-.5s1.1.5 1.9.5c.8 0 1.3-.7 1.8-1.4.5-.8.8-1.6.8-1.6 0 0-1.5-.6-1.5-2.4 0-1.5 1.3-2.2 1.3-2.3-.7-1-1.8-1.1-2.2-1.1z" /></svg>;
+}
+
+/* ─────────────────────────  RATING + STARS  ───────────────────────── */
+export function RatingBlock({ value = 4.6, count = 1284 }: { value?: number; count?: number }) {
+  return (
+    <div className="inline-flex items-center gap-2">
+      <Stars value={Math.floor(value)} />
+      <span className="lumen-tnum text-[var(--type-15)] font-semibold tracking-[var(--tracking-tight)]">{value.toFixed(1)}</span>
+      <span className="text-[var(--type-12)] text-[var(--text-tertiary)]">({count.toLocaleString()} reviews)</span>
+    </div>
+  );
+}
+
+/* ─────────────────────────  COUPON INPUT  ───────────────────────── */
+export function CouponInput() {
+  const [code, setCode] = useState("");
+  const [applied, setApplied] = useState<string | null>(null);
+  return (
+    <div className="flex flex-col gap-2 w-[320px]">
+      <div className="flex gap-2">
+        <input
+          value={code}
+          onChange={(e) => setCode(e.target.value.toUpperCase())}
+          placeholder="Discount code"
+          className="flex-1 h-9 px-3 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-13)] lumen-mono uppercase placeholder:text-[var(--text-tertiary)] placeholder:normal-case focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
+        />
+        <button
+          onClick={() => { if (code) setApplied(code); }}
+          className="h-9 px-3 rounded-[var(--radius-md)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-13)] font-medium hover:opacity-90"
+        >
+          Apply
+        </button>
+      </div>
+      {applied && (
+        <div className="text-[var(--type-12)] text-[var(--lumen-accent-7)] flex items-center gap-1.5">
+          <Check size={12} />
+          Code <span className="lumen-mono">{applied}</span> applied — 12% off
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ─────────────────────────  INVENTORY STATUS  ───────────────────────── */
+export function InventoryStatus({ status }: { status: "in-stock" | "low-stock" | "backorder" | "preorder" | "sold-out" }) {
+  const config: Record<typeof status, { label: string; color: string }> = {
+    "in-stock": { label: "In stock", color: "var(--lumen-accent-7)" },
+    "low-stock": { label: "Low stock — 3 left", color: "var(--lumen-amber-7)" },
+    "backorder": { label: "Backorder · ships in 2 weeks", color: "var(--lumen-sky-7)" },
+    "preorder": { label: "Preorder · arrives May 19", color: "var(--lumen-sky-7)" },
+    "sold-out": { label: "Sold out", color: "var(--lumen-red-7)" },
+  };
+  const c = config[status];
+  return (
+    <span className="inline-flex items-center gap-1.5 text-[var(--type-12)] font-medium" style={{ color: c.color }}>
+      <span className="h-1.5 w-1.5 rounded-full" style={{ background: c.color }} />
+      {c.label}
+    </span>
+  );
+}
+
+/* ─────────────────────────  PRODUCT GALLERY  ───────────────────────── */
+export function ProductGallery({ count = 5 }: { count?: number }) {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="grid grid-cols-[64px_1fr] gap-3">
+      <div className="flex flex-col gap-2">
+        {Array.from({ length: count }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className={[
+              "h-16 w-16 rounded-[var(--radius-md)] border bg-[var(--surface-sunken)] overflow-hidden transition-[border-color,box-shadow]",
+              i === active ? "border-[var(--lumen-navy-9)]" : "border-[var(--border-hairline)] hover:border-[var(--border-strong)]",
+            ].join(" ")}
+          >
+            <div className="lumen-stripe-grid h-full w-full" />
+          </button>
+        ))}
+      </div>
+      <div className="aspect-[4/5] rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] overflow-hidden">
+        <div className="lumen-stripe-grid h-full w-full flex items-center justify-center">
+          <span className="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">Product image {active + 1}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────  CART DRAWER  ───────────────────────── */
+export function CartDrawer() {
+  const items = [
+    { name: "Aero Trail Runner v2", variant: "Granite · 10.5", qty: 1, price: 168 },
+    { name: "Heather Wool Tee", variant: "Pebble · M", qty: 2, price: 64 },
+    { name: "Trail Sock — 3 Pack", variant: "Charcoal", qty: 1, price: 24 },
+  ];
+  const subtotal = items.reduce((s, i) => s + i.qty * i.price, 0);
+  return (
+    <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-raised)] border border-[var(--border-default)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col">
+      <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
+        <span className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] flex items-center gap-2"><CartIcon size={14} /> Your bag <span className="lumen-mono text-[var(--text-tertiary)]">({items.length})</span></span>
+        <button aria-label="Close cart" className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"><X size={14} /></button>
+      </div>
+      <div className="p-4 flex flex-col gap-4 overflow-auto">
+        {items.map((it) => (
+          <div key={it.name} className="flex items-center gap-3">
+            <div className="h-14 w-14 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] lumen-stripe-grid" />
+            <div className="flex-1 min-w-0">
+              <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{it.name}</div>
+              <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{it.variant}</div>
+              <div className="flex items-center gap-2 mt-1.5">
+                <div className="inline-flex items-center h-7 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-raised)] overflow-hidden text-[var(--type-12)]">
+                  <button className="px-2 hover:bg-[var(--surface-sunken)]">−</button>
+                  <span className="px-2 lumen-mono">{it.qty}</span>
+                  <button className="px-2 hover:bg-[var(--surface-sunken)]">+</button>
+                </div>
+                <button className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Remove</button>
+              </div>
+            </div>
+            <span className="lumen-tnum text-[var(--type-13)] font-medium">${(it.qty * it.price).toFixed(2)}</span>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-[var(--border-hairline)] p-4 space-y-2">
+        <div className="flex items-center justify-between text-[var(--type-13)]">
+          <span className="text-[var(--text-secondary)]">Subtotal</span>
+          <span className="lumen-tnum">${subtotal.toFixed(2)}</span>
+        </div>
+        <div className="flex items-center justify-between text-[var(--type-12)] text-[var(--text-tertiary)]">
+          <span>Shipping calculated at checkout</span>
+        </div>
+        <button className="w-full h-11 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-13)] font-semibold mt-2">Checkout</button>
+        <button className="w-full h-9 rounded-[var(--radius-md)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Continue shopping</button>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────  ORDER SUMMARY  ───────────────────────── */
+export function OrderSummary() {
+  return (
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4">
+      <div className="text-[var(--type-13)] font-semibold tracking-[var(--tracking-tight)] mb-3">Order summary</div>
+      <div className="flex flex-col gap-1.5 text-[var(--type-13)]">
+        <Row label="Subtotal" value="$256.00" />
+        <Row label="Shipping" value="$8.50" />
+        <Row label="Tax (8.875%)" value="$23.49" />
+        <Row label="Discount · WELCOME12" value="−$30.72" tone="success" />
+        <hr className="border-[var(--border-hairline)] my-2" />
+        <Row label={<span className="font-semibold">Total</span>} value={<span className="lumen-tnum text-[var(--type-17)] font-semibold">$257.27</span>} />
+      </div>
+    </div>
+  );
+}
+function Row({ label, value, tone }: { label: ReactNode; value: ReactNode; tone?: "success" }) {
+  return (
+    <div className="flex items-center justify-between">
+      <span className={tone === "success" ? "text-[var(--lumen-accent-7)]" : "text-[var(--text-secondary)]"}>{label}</span>
+      <span className={["lumen-tnum", tone === "success" ? "text-[var(--lumen-accent-7)]" : "text-[var(--text-primary)]"].join(" ")}>{value}</span>
+    </div>
+  );
+}
+
+/* ─────────────────────────  CHECKOUT PROGRESS  ───────────────────────── */
+export function CheckoutProgress() {
+  return (
+    <div className="flex items-center gap-2 text-[var(--type-12)]">
+      {["Cart", "Information", "Shipping", "Payment", "Confirm"].map((s, i) => (
+        <span key={s} className="flex items-center gap-2">
+          <span
+            className={[
+              "h-5 w-5 inline-flex items-center justify-center rounded-full text-[10px] font-semibold lumen-mono",
+              i < 2 ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]" : i === 2 ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)]" : "bg-[var(--surface-sunken)] text-[var(--text-tertiary)]",
+            ].join(" ")}
+          >
+            {i < 2 ? <Check size={10} /> : i + 1}
+          </span>
+          <span className={i === 2 ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"}>{s}</span>
+          {i < 4 && <span className="h-px w-6 bg-[var(--border-default)]" />}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/* ─────────────────────────  FEATURE COMPARISON TABLE  ───────────────────────── */
+export function ComparisonTable() {
+  const features = [
+    { name: "Live carrier rates", starter: true, growth: true, scale: true },
+    { name: "Multi-stop quoting", starter: false, growth: true, scale: true },
+    { name: "API access", starter: false, growth: true, scale: true },
+    { name: "Dedicated account manager", starter: false, growth: false, scale: true },
+    { name: "SLA · 99.95% uptime", starter: false, growth: false, scale: true },
+    { name: "SOC 2 audit assistance", starter: false, growth: false, scale: true },
+  ];
+  return (
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
+      <table className="w-full text-[var(--type-13)]">
+        <thead>
+          <tr className="border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">
+            <th className="px-4 py-3 text-left font-medium">Feature</th>
+            <th className="px-4 py-3 text-center font-medium">Starter</th>
+            <th className="px-4 py-3 text-center font-medium bg-[var(--surface-tint-accent)] text-[var(--text-accent)]">Growth</th>
+            <th className="px-4 py-3 text-center font-medium">Scale</th>
+          </tr>
+        </thead>
+        <tbody>
+          {features.map((f) => (
+            <tr key={f.name} className="border-b border-[var(--border-hairline)] last:border-0">
+              <td className="px-4 py-3 text-[var(--text-secondary)]">{f.name}</td>
+              <td className="px-4 py-3 text-center">{f.starter ? <Check size={14} className="inline text-[var(--lumen-accent-6)]" /> : <span className="text-[var(--text-disabled)]">—</span>}</td>
+              <td className="px-4 py-3 text-center bg-[var(--surface-tint-accent)]/40">{f.growth ? <Check size={14} className="inline text-[var(--lumen-accent-6)]" /> : <span className="text-[var(--text-disabled)]">—</span>}</td>
+              <td className="px-4 py-3 text-center">{f.scale ? <Check size={14} className="inline text-[var(--lumen-accent-6)]" /> : <span className="text-[var(--text-disabled)]">—</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/* ─────────────────────────  TRUST BADGE STRIP  ───────────────────────── */
+export function TrustStrip() {
+  const items = ["SOC 2 Type II", "ISO 27001", "GDPR-ready", "HIPAA-eligible", "PCI DSS"];
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      {items.map((b) => (
+        <span key={b} className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">
+          <span className="h-1.5 w-1.5 rounded-[1px] bg-[var(--lumen-accent-5)]" />
+          {b}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/* ─────────────────────────  COLOR SWATCH SELECTOR  ───────────────────────── */
+export function ColorSwatchSelector({
+  value,
+  onChange,
+  options = [
+    { color: "#1c1b16", label: "Charcoal" },
+    { color: "#b3b1a4", label: "Pebble" },
+    { color: "#4592e8", label: "Sky" },
+    { color: "#22c55e", label: "Pine" },
+    { color: "#e23b3b", label: "Brick" },
+  ],
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  options?: { color: string; label: string }[];
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="text-[var(--type-12)] text-[var(--text-secondary)]">
+        Color: <span className="text-[var(--text-primary)] font-medium">{options.find((o) => o.color === value)?.label}</span>
+      </div>
+      <div className="flex items-center gap-2">
+        {options.map((o) => (
+          <button
+            key={o.color}
+            onClick={() => onChange(o.color)}
+            aria-label={o.label}
+            className={[
+              "relative h-8 w-8 rounded-full border-2 transition-transform",
+              value === o.color ? "border-[var(--lumen-navy-9)] scale-110" : "border-transparent ring-1 ring-[var(--border-default)] hover:scale-110",
+            ].join(" ")}
+            style={{ background: o.color }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────  SIZE SELECTOR  ───────────────────────── */
+export function SizeSelector({
+  sizes = ["6", "7", "8", "9", "10", "10.5", "11", "12", "13"],
+  value,
+  onChange,
+}: {
+  sizes?: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {sizes.map((s) => (
+        <button
+          key={s}
+          onClick={() => onChange(s)}
+          className={[
+            "min-w-[44px] h-9 px-3 rounded-[var(--radius-md)] text-[var(--type-13)] lumen-mono transition-[background-color,border-color]",
+            s === value
+              ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)] border border-[var(--surface-inverse)]"
+              : "bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-strong)]",
+          ].join(" ")}
+        >
+          {s}
+        </button>
+      ))}
+    </div>
+  );
+}
