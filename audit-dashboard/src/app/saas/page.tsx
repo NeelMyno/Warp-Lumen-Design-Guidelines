@@ -30,7 +30,7 @@ export default function SaaSPage() {
         description="Internal product UI: navigation, KPI grid, live tables, status, and inspector. The pattern Warp uses for its operator portal — dense, scannable, instrument-panel."
       />
 
-      <div className="dash-card overflow-hidden">
+      <div className="lumen-card overflow-hidden">
         <div className="grid grid-cols-[220px_1fr]">
           <Sidebar />
           <div className="flex flex-col min-w-0 bg-[var(--surface-page)]">
@@ -75,7 +75,7 @@ function Sidebar() {
   return (
     <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-subtle)] py-4 flex flex-col gap-5 min-h-[760px]">
       <div className="flex items-center gap-2 px-4">
-        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--accent-500)] grid place-items-center text-[var(--accent-fg)] dash-mono text-[var(--type-13)] font-bold">
+        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-13)] font-bold">
           W
         </div>
         <div className="flex flex-col leading-tight">
@@ -89,7 +89,7 @@ function Sidebar() {
       <div className="flex flex-col gap-5 px-2">
         {sections.map((s) => (
           <div key={s.title} className="flex flex-col">
-            <div className="dash-eyebrow px-2 mb-1.5">{s.title}</div>
+            <div className="lumen-eyebrow px-2 mb-1.5">{s.title}</div>
             {s.items.map((item) => {
               const I = item.icon;
               return (
@@ -100,14 +100,14 @@ function Sidebar() {
                     "flex items-center gap-2.5 px-2 py-1.5 rounded-[var(--radius-md)]",
                     "text-[var(--type-14)]",
                     item.active
-                      ? "bg-[color-mix(in_oklab,var(--accent-500)_12%,transparent)] text-[var(--text-primary)] font-medium"
+                      ? "bg-[color-mix(in_oklab,var(--color-accent)_12%,transparent)] text-[var(--text-primary)] font-medium"
                       : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)]",
                   ].join(" ")}
                 >
                   <I size={16} />
                   <span className="flex-1">{item.label}</span>
                   {item.badge && (
-                    <span className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+                    <span className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
                       {item.badge}
                     </span>
                   )}
@@ -120,7 +120,7 @@ function Sidebar() {
 
       <div className="mt-auto px-3 py-3 mx-3 mb-2 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] flex flex-col gap-1.5">
         <LiveDot label="API healthy" />
-        <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+        <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
           v2.18.4 · 12ms p50
         </div>
       </div>
@@ -144,7 +144,7 @@ function TopBar() {
             placeholder="Search shipments, lanes, quotes…"
             className="bg-transparent flex-1 outline-none text-[var(--type-14)]"
           />
-          <kbd className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)] border border-[var(--border-subtle)] px-1.5 rounded">
+          <kbd className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] border border-[var(--border-subtle)] px-1.5 rounded">
             ⌘K
           </kbd>
         </div>
@@ -222,7 +222,7 @@ function ShipmentsTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-[var(--type-14)]">
           <thead>
-            <tr className="text-left text-[var(--text-tertiary)] dash-eyebrow">
+            <tr className="text-left text-[var(--text-tertiary)] lumen-eyebrow">
               <Th>ID</Th>
               <Th>Lane</Th>
               <Th>Carrier</Th>
@@ -238,7 +238,7 @@ function ShipmentsTable() {
                 key={r.id}
                 className="border-t border-[var(--border-subtle)] hover:bg-[var(--surface-sunken)] transition-colors duration-[var(--motion-fast)]"
               >
-                <Td><code className="dash-mono">{r.id}</code></Td>
+                <Td><code className="lumen-mono">{r.id}</code></Td>
                 <Td>{r.lane}</Td>
                 <Td className="text-[var(--text-secondary)]">{r.carrier}</Td>
                 <Td align="right" mono>{r.eta}</Td>
@@ -279,7 +279,7 @@ function Td({
       className={[
         "px-4 py-2.5",
         align === "right" ? "text-right" : "",
-        mono ? "dash-mono dash-tnum" : "",
+        mono ? "lumen-mono lumen-tnum" : "",
         className,
       ].join(" ")}
     >
@@ -293,7 +293,7 @@ function SidePanel() {
     <aside className="flex flex-col gap-4">
       <Card>
         <CardHeader title="Activity" description="Last 24 h" />
-        <ul className="dash-row-divider">
+        <ul className="lumen-row-divider">
           {[
             { icon: <Truck size={14} />,  who: "Sterling LTL", what: "picked up at LAX",  when: "12 min ago" },
             { icon: <Box size={14} />,    who: "Estes",        what: "tendered ORD → ATL", when: "27 min ago" },
@@ -307,7 +307,7 @@ function SidePanel() {
                   <span className="font-medium">{a.who}</span>{" "}
                   <span className="text-[var(--text-secondary)]">{a.what}</span>
                 </div>
-                <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{a.when}</div>
+                <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{a.when}</div>
               </div>
             </li>
           ))}

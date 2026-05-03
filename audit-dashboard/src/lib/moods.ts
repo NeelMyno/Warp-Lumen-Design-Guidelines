@@ -1,8 +1,4 @@
-export type MoodId =
-  | "quiet-industrial"
-  | "soft-luminous"
-  | "mono-editorial"
-  | "premium-glass";
+export type MoodId = "quiet-industrial";
 
 export type Mood = {
   id: MoodId;
@@ -11,31 +7,20 @@ export type Mood = {
   recommended?: boolean;
 };
 
+/**
+ * Lumen v0.2 ships a single fully-developed mood: Quiet Industrial. The mood
+ * switcher hides itself when MOODS.length <= 1; alternates can be introduced
+ * later by adding a new entry here AND the matching CSS-variable block in
+ * globals.css under [data-mood="..."]. The architecture supports it; the
+ * audit baseline does not need to expose it.
+ */
 export const MOODS: Mood[] = [
   {
     id: "quiet-industrial",
     label: "Quiet Industrial",
     oneLiner:
-      "Rams-inflected. Paper-white/near-black, one disciplined accent, hairlines, instrument-panel feel.",
+      "Rams-inflected, Apple-disciplined. Paper-warm white in light, Warp's navy ladder in dark, one disciplined lime accent.",
     recommended: true,
-  },
-  {
-    id: "soft-luminous",
-    label: "Soft Luminous Minimal",
-    oneLiner:
-      "Apple-leaning. Off-white surfaces, subtle warm gradients, 6 desaturated category hues.",
-  },
-  {
-    id: "mono-editorial",
-    label: "Mono-Type Editorial",
-    oneLiner:
-      "Two colors plus one signal. Type does almost everything; Swiss/Vitsoe rhythm.",
-  },
-  {
-    id: "premium-glass",
-    label: "Premium Glass Operations",
-    oneLiner:
-      "Apple iOS-leaning. Vibrancy on overlays, branded blue. Best for mobile operator app.",
   },
 ];
 

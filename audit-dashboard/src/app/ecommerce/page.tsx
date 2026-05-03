@@ -25,7 +25,7 @@ export default function EcommercePage() {
         description="Storefront patterns suitable for Shopify, BigCommerce, or WooCommerce themes. Product detail, related items, drawer cart, and checkout — held to the same Lumen typographic discipline."
       />
 
-      <div className="dash-card overflow-hidden">
+      <div className="lumen-card overflow-hidden">
         <StoreHeader />
         <Announcement />
 
@@ -52,12 +52,12 @@ export default function EcommercePage() {
         <section className="bg-[var(--surface-page)] px-8 py-10">
           <div className="grid gap-8 md:grid-cols-[260px_1fr]">
             <div className="flex flex-col gap-2">
-              <div className="dash-eyebrow">Rating</div>
+              <div className="lumen-eyebrow">Rating</div>
               <div className="flex items-baseline gap-2">
-                <span className="text-[var(--type-49)] font-bold tracking-[var(--tracking-tighter)] dash-tnum">
+                <span className="text-[var(--type-49)] font-bold tracking-[var(--tracking-tighter)] lumen-tnum">
                   4.8
                 </span>
-                <span className="dash-mono text-[var(--type-14)] text-[var(--text-tertiary)]">/5 · 184 reviews</span>
+                <span className="lumen-mono text-[var(--type-14)] text-[var(--text-tertiary)]">/5 · 184 reviews</span>
               </div>
               <Stars value={4.8} />
               <div className="mt-3 flex flex-col gap-1.5">
@@ -73,7 +73,7 @@ export default function EcommercePage() {
                     <div className="text-[var(--type-15)] font-semibold">{r.title}</div>
                     <Stars value={r.rating} size={12} />
                   </div>
-                  <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)] mb-2">
+                  <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] mb-2">
                     {r.author} · {r.when}
                   </div>
                   <p className="text-[var(--type-14)] text-[var(--text-secondary)]">{r.body}</p>
@@ -85,7 +85,7 @@ export default function EcommercePage() {
 
         {/* Related */}
         <section className="bg-[var(--surface-page)] px-8 pb-12">
-          <div className="dash-eyebrow mb-4">You may also like</div>
+          <div className="lumen-eyebrow mb-4">You may also like</div>
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
             {RELATED.map((p) => (
               <Card key={p.name} padding="none" className="overflow-hidden">
@@ -98,7 +98,7 @@ export default function EcommercePage() {
                 />
                 <div className="p-3">
                   <div className="text-[var(--type-14)] font-medium">{p.name}</div>
-                  <div className="dash-mono text-[var(--type-13)] dash-tnum text-[var(--text-secondary)]">
+                  <div className="lumen-mono text-[var(--type-13)] lumen-tnum text-[var(--text-secondary)]">
                     {p.price}
                   </div>
                 </div>
@@ -139,14 +139,14 @@ function Announcement() {
   return (
     <div className="bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-13)] py-2 text-center">
       Free freight on orders over $200 — handled by{" "}
-      <span className="text-[var(--accent-400)] dash-mono">@warp</span>
+      <span className="text-[var(--lumen-accent-3)] lumen-mono">@warp</span>
     </div>
   );
 }
 
 function Breadcrumbs() {
   return (
-    <nav className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)] flex items-center gap-1.5">
+    <nav className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] flex items-center gap-1.5">
       Shop / Collections / Workhorse / <span className="text-[var(--text-primary)]">Field Jacket Mk II</span>
     </nav>
   );
@@ -184,13 +184,13 @@ function Buy() {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <div className="dash-eyebrow mb-1">Workhorse Series</div>
+        <div className="lumen-eyebrow mb-1">Workhorse Series</div>
         <h1 className="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]">
           Field Jacket Mk II
         </h1>
         <div className="mt-2 flex items-baseline gap-3">
-          <span className="dash-mono dash-tnum text-[var(--type-25)] font-semibold">$248</span>
-          <span className="dash-mono dash-tnum text-[var(--type-15)] text-[var(--text-tertiary)] line-through">$320</span>
+          <span className="lumen-mono lumen-tnum text-[var(--type-25)] font-semibold">$248</span>
+          <span className="lumen-mono lumen-tnum text-[var(--type-15)] text-[var(--text-tertiary)] line-through">$320</span>
           <Badge status="accent">22% off</Badge>
         </div>
       </div>
@@ -200,7 +200,7 @@ function Buy() {
       </p>
 
       <div>
-        <div className="dash-eyebrow mb-2">Color · Olive Drab</div>
+        <div className="lumen-eyebrow mb-2">Color · Olive Drab</div>
         <div className="flex gap-2">
           {[
             ["#525c44", "Olive Drab"],
@@ -219,7 +219,7 @@ function Buy() {
       </div>
 
       <div>
-        <div className="dash-eyebrow mb-2">Size</div>
+        <div className="lumen-eyebrow mb-2">Size</div>
         <div className="grid grid-cols-6 gap-1.5">
           {sizes.map((s) => (
             <button
@@ -300,11 +300,11 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
 function Bar({ stars, pct }: { stars: number; pct: number }) {
   return (
     <div className="flex items-center gap-2 text-[var(--type-12)]">
-      <span className="w-3 dash-mono text-[var(--text-tertiary)]">{stars}</span>
+      <span className="w-3 lumen-mono text-[var(--text-tertiary)]">{stars}</span>
       <div className="flex-1 h-1.5 rounded-full bg-[var(--surface-sunken)] overflow-hidden">
         <div className="h-full bg-[var(--text-primary)]" style={{ width: `${pct}%` }} />
       </div>
-      <span className="w-8 text-right dash-mono text-[var(--text-tertiary)]">{pct}%</span>
+      <span className="w-8 text-right lumen-mono text-[var(--text-tertiary)]">{pct}%</span>
     </div>
   );
 }

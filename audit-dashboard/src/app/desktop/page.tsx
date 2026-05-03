@@ -56,7 +56,7 @@ function Frame({
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <div className="dash-eyebrow mb-1">{os}</div>
+        <div className="lumen-eyebrow mb-1">{os}</div>
         <p className="text-[var(--type-13)] text-[var(--text-secondary)]">{notes}</p>
       </div>
       {children}
@@ -80,7 +80,7 @@ function MacFrame() {
       <div className="grid grid-cols-[200px_1fr]" style={{ minHeight: 460 }}>
         {/* Sidebar — translucent / vibrancy feel */}
         <aside className="bg-[color-mix(in_oklab,var(--surface-sunken)_85%,white)] border-r border-[var(--border-subtle)] py-3 px-2 flex flex-col gap-3">
-          <div className="dash-eyebrow px-2">Operate</div>
+          <div className="lumen-eyebrow px-2">Operate</div>
           {[
             { I: Home, label: "Today", active: true },
             { I: Truck, label: "Shipments", badge: "12" },
@@ -93,14 +93,14 @@ function MacFrame() {
               className={[
                 "flex items-center gap-2.5 px-2 py-1.5 rounded-[var(--radius-md)] text-[var(--type-14)]",
                 active
-                  ? "bg-[color-mix(in_oklab,var(--accent-500)_18%,transparent)] text-[var(--text-primary)] font-medium"
+                  ? "bg-[color-mix(in_oklab,var(--color-accent)_18%,transparent)] text-[var(--text-primary)] font-medium"
                   : "text-[var(--text-secondary)] hover:bg-[var(--surface-raised)]",
               ].join(" ")}
             >
               <I size={16} />
               <span className="flex-1 text-left">{label}</span>
               {badge && (
-                <span className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+                <span className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
                   {badge}
                 </span>
               )}
@@ -108,7 +108,7 @@ function MacFrame() {
           ))}
           <div className="mt-auto px-2 py-2 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]">
             <LiveDot label="API healthy" />
-            <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">
+            <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">
               v2.18.4
             </div>
           </div>
@@ -124,7 +124,7 @@ function MacFrame() {
             <div className="flex items-center gap-2 bg-[var(--surface-sunken)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] px-2 h-7 text-[var(--type-13)] text-[var(--text-tertiary)]">
               <Search size={12} />
               Search…
-              <kbd className="dash-mono text-[var(--type-12)] border border-[var(--border-subtle)] rounded px-1 ml-1">⌘K</kbd>
+              <kbd className="lumen-mono text-[var(--type-12)] border border-[var(--border-subtle)] rounded px-1 ml-1">⌘K</kbd>
             </div>
           </header>
           <main className="p-4 flex flex-col gap-3 flex-1">
@@ -133,21 +133,21 @@ function MacFrame() {
               <Stat label="On time" value="98.2" unit="%" size="sm" />
               <Stat label="Avg cost" value="$42" size="sm" />
             </div>
-            <div className="dash-card flex-1 p-3">
+            <div className="lumen-card flex-1 p-3">
               <div className="flex items-center justify-between mb-2">
-                <div className="dash-eyebrow">Recent</div>
+                <div className="lumen-eyebrow">Recent</div>
                 <Badge status="accent">
                   <LiveDot color="currentColor" /> Live
                 </Badge>
               </div>
-              <ul className="dash-row-divider">
+              <ul className="lumen-row-divider">
                 {[
                   ["WRP-9824", "LAX → SFO", "Sterling LTL"],
                   ["WRP-9825", "ORD → ATL", "Estes"],
                   ["WRP-9826", "DFW → PHX", "Saia"],
                 ].map(([id, lane, c]) => (
                   <li key={id} className="flex items-center justify-between py-1.5 text-[var(--type-13)]">
-                    <span className="dash-mono text-[var(--text-tertiary)]">{id}</span>
+                    <span className="lumen-mono text-[var(--text-tertiary)]">{id}</span>
                     <span>{lane}</span>
                     <span className="text-[var(--text-secondary)]">{c}</span>
                   </li>
@@ -172,11 +172,11 @@ function WindowsFrame() {
         className="flex items-center gap-2 px-3 py-2 border-b border-[var(--border-subtle)]"
         style={{
           background:
-            "linear-gradient(180deg, var(--surface-raised) 0%, color-mix(in oklab, var(--surface-page) 88%, var(--accent-500)) 100%)",
+            "linear-gradient(180deg, var(--surface-raised) 0%, color-mix(in oklab, var(--surface-page) 88%, var(--color-accent)) 100%)",
         }}
       >
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-[3px] bg-[var(--accent-500)] grid place-items-center text-[var(--accent-fg)] text-[8px] font-bold">
+          <div className="h-4 w-4 rounded-[3px] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] text-[8px] font-bold">
             W
           </div>
           <span className="text-[var(--type-13)] font-medium">Warp Operator</span>
@@ -217,7 +217,7 @@ function WindowsFrame() {
 
         {/* Secondary nav */}
         <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-subtle)] py-3 px-2 flex flex-col gap-1">
-          <div className="dash-eyebrow px-2 mb-1">Today</div>
+          <div className="lumen-eyebrow px-2 mb-1">Today</div>
           {[
             { name: "Overview", active: true },
             { name: "Active shipments" },
@@ -228,7 +228,7 @@ function WindowsFrame() {
               key={item.name}
               className={[
                 "text-left px-2.5 py-1.5 rounded-[4px] text-[var(--type-13)]",
-                item.active ? "bg-[color-mix(in_oklab,var(--accent-500)_18%,transparent)] text-[var(--text-primary)] font-medium" : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
+                item.active ? "bg-[color-mix(in_oklab,var(--color-accent)_18%,transparent)] text-[var(--text-primary)] font-medium" : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
               ].join(" ")}
             >
               {item.name}
@@ -249,9 +249,9 @@ function WindowsFrame() {
             <Stat label="On time" value="98.2" unit="%" size="sm" />
             <Stat label="Avg cost" value="$42" size="sm" />
           </div>
-          <div className="dash-card flex-1 p-3">
-            <div className="dash-eyebrow mb-2">Live activity</div>
-            <ul className="dash-row-divider">
+          <div className="lumen-card flex-1 p-3">
+            <div className="lumen-eyebrow mb-2">Live activity</div>
+            <ul className="lumen-row-divider">
               {[
                 { who: "Sterling LTL",  what: "picked up at LAX", when: "12 min ago" },
                 { who: "Estes",         what: "tendered ORD → ATL", when: "27 min ago" },
@@ -260,7 +260,7 @@ function WindowsFrame() {
                 <li key={a.when} className="flex items-baseline gap-3 py-1.5 text-[var(--type-13)]">
                   <span className="font-medium">{a.who}</span>
                   <span className="text-[var(--text-secondary)] flex-1">{a.what}</span>
-                  <span className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{a.when}</span>
+                  <span className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{a.when}</span>
                 </li>
               ))}
             </ul>

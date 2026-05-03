@@ -55,7 +55,7 @@ function DeviceColumn({
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <div className="dash-eyebrow mb-1">{name}</div>
+        <div className="lumen-eyebrow mb-1">{name}</div>
         <p className="text-[var(--type-13)] text-[var(--text-secondary)]">{notes}</p>
       </div>
       <div className="flex justify-center">{children}</div>
@@ -75,11 +75,11 @@ function IOSFrame() {
       >
         {/* Status bar */}
         <div className="flex items-center justify-between px-6 py-2 text-[var(--type-13)] font-semibold">
-          <span className="dash-mono dash-tnum">9:41</span>
+          <span className="lumen-mono lumen-tnum">9:41</span>
           <div className="absolute left-1/2 -translate-x-1/2 mt-1 w-24 h-6 rounded-full bg-black" aria-hidden />
           <div className="flex items-center gap-1.5">
-            <span className="dash-mono dash-tnum text-[var(--type-12)]">5G</span>
-            <span className="dash-mono dash-tnum text-[var(--type-12)]">100%</span>
+            <span className="lumen-mono lumen-tnum text-[var(--type-12)]">5G</span>
+            <span className="lumen-mono lumen-tnum text-[var(--type-12)]">100%</span>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ function IOSFrame() {
 
         {/* List */}
         <div className="px-6 mt-3 flex flex-col gap-2 flex-1 overflow-y-auto">
-          <div className="dash-eyebrow mt-1">Active</div>
+          <div className="lumen-eyebrow mt-1">Active</div>
           {[
             { id: "WRP-9824", lane: "LAX → SFO", status: "On time" },
             { id: "WRP-9825", lane: "ORD → ATL", status: "Pickup" },
@@ -126,7 +126,7 @@ function IOSFrame() {
             >
               <div className="flex flex-col">
                 <span className="text-[var(--type-15)] font-semibold">{s.lane}</span>
-                <code className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{s.id}</code>
+                <code className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">{s.id}</code>
               </div>
               <Badge
                 status={
@@ -186,8 +186,8 @@ function AndroidFrame() {
       >
         {/* Status bar */}
         <div className="flex items-center justify-between px-5 py-2 text-[var(--type-13)] font-medium">
-          <span className="dash-mono dash-tnum">9:41</span>
-          <div className="flex items-center gap-1.5 dash-mono text-[var(--type-12)]">
+          <span className="lumen-mono lumen-tnum">9:41</span>
+          <div className="flex items-center gap-1.5 lumen-mono text-[var(--type-12)]">
             <span>5G</span>
             <span>•</span>
             <span>100%</span>
@@ -204,14 +204,14 @@ function AndroidFrame() {
 
         {/* FAB-style primary action band */}
         <div className="px-5 mt-3">
-          <button className="w-full h-12 rounded-[var(--radius-2xl)] bg-[var(--accent-500)] text-[var(--accent-fg)] font-medium flex items-center justify-center gap-2 shadow-[var(--accent-glow)]">
+          <button className="w-full h-12 rounded-[var(--radius-2xl)] bg-[var(--color-accent)] text-[var(--text-on-accent)] font-medium flex items-center justify-center gap-2 shadow-[var(--shadow-glow-accent)]">
             <Plus size={16} /> New shipment
           </button>
         </div>
 
         {/* Section header */}
         <div className="px-5 mt-4 flex items-center justify-between">
-          <div className="dash-eyebrow">Active · 12</div>
+          <div className="lumen-eyebrow">Active · 12</div>
           <button className="text-[var(--type-13)] text-[var(--text-secondary)] flex items-center gap-1">
             All <ArrowRight size={12} />
           </button>
@@ -235,7 +235,7 @@ function AndroidFrame() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-[var(--type-15)] font-medium truncate">{s.lane}</div>
-                <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+                <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
                   {s.id} · {s.eta}
                 </div>
               </div>
@@ -272,7 +272,7 @@ function AndroidFrame() {
               <span
                 className={[
                   "h-7 w-14 rounded-full grid place-items-center transition-colors",
-                  active ? "bg-[color-mix(in_oklab,var(--accent-500)_22%,transparent)]" : "",
+                  active ? "bg-[color-mix(in_oklab,var(--color-accent)_22%,transparent)]" : "",
                 ].join(" ")}
               >
                 <I size={18} />

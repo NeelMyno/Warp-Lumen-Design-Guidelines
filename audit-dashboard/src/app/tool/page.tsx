@@ -26,11 +26,11 @@ export default function ToolPage() {
         description="A single-purpose utility surface. Centered canvas, focused control panel, output result. The pattern for any internal calculator, simulator, or one-shot job."
       />
 
-      <div className="dash-card overflow-hidden">
+      <div className="lumen-card overflow-hidden">
         {/* Tool top bar */}
         <header className="flex items-center justify-between gap-3 px-4 py-2.5 border-b border-[var(--border-subtle)] bg-[var(--surface-raised)]">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--accent-500)] grid place-items-center text-[var(--accent-fg)] dash-mono text-[var(--type-12)] font-bold">
+            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-12)] font-bold">
               W
             </div>
             <span className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">
@@ -49,7 +49,7 @@ export default function ToolPage() {
         <div className="grid grid-cols-[260px_1fr_320px] min-h-[640px]">
           {/* Left: presets */}
           <aside className="border-r border-[var(--border-subtle)] bg-[var(--surface-raised)] p-3 flex flex-col gap-2">
-            <div className="dash-eyebrow px-2 mb-1">Presets</div>
+            <div className="lumen-eyebrow px-2 mb-1">Presets</div>
             {[
               { name: "Standard LTL", active: true },
               { name: "Refrigerated" },
@@ -62,7 +62,7 @@ export default function ToolPage() {
                 className={[
                   "text-left px-2.5 py-2 rounded-[var(--radius-md)] text-[var(--type-14)]",
                   p.active
-                    ? "bg-[color-mix(in_oklab,var(--accent-500)_12%,transparent)] text-[var(--text-primary)] font-medium"
+                    ? "bg-[color-mix(in_oklab,var(--color-accent)_12%,transparent)] text-[var(--text-primary)] font-medium"
                     : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
                 ].join(" ")}
               >
@@ -88,7 +88,7 @@ export default function ToolPage() {
 
             <Card padding="lg">
               <CardHeader title="Cargo" description="One commodity per row" />
-              <div className="dash-row-divider">
+              <div className="lumen-row-divider">
                 <Row weight="520 lb" pieces="2 pallets" class="65" stackable />
                 <Row weight="180 lb" pieces="1 carton" class="100" />
                 <Row weight="2,100 lb" pieces="4 pallets" class="55" stackable />
@@ -115,7 +115,7 @@ export default function ToolPage() {
             </Card>
 
             <div className="flex items-center justify-between gap-3 pt-2">
-              <div className="dash-mono text-[var(--type-13)] text-[var(--text-tertiary)]">
+              <div className="lumen-mono text-[var(--type-13)] text-[var(--text-tertiary)]">
                 <LiveDot label="Auto-saving every 4s" />
               </div>
               <Button intent="primary" size="lg" trailingIcon={<ArrowRight size={16} />}>
@@ -127,17 +127,17 @@ export default function ToolPage() {
           {/* Right: output */}
           <aside className="border-l border-[var(--border-subtle)] bg-[var(--surface-raised)] p-4 flex flex-col gap-4 overflow-y-auto">
             <div className="flex items-center justify-between">
-              <div className="dash-eyebrow">Live preview</div>
+              <div className="lumen-eyebrow">Live preview</div>
               <Button intent="tertiary" size="sm" leadingIcon={<Filter size={14} />}>
                 Filter
               </Button>
             </div>
 
-            <Card padding="md" className="!border-[var(--accent-500)]">
+            <Card padding="md" className="!border-[var(--color-accent)]">
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div>
                   <div className="text-[var(--type-15)] font-semibold">Sterling LTL</div>
-                  <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+                  <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
                     LAX → SFO · 1d transit
                   </div>
                 </div>
@@ -160,11 +160,11 @@ export default function ToolPage() {
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex flex-col min-w-0">
                     <div className="text-[var(--type-14)] font-medium truncate">{q.c}</div>
-                    <div className="dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+                    <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
                       {q.days} · LAX → SFO
                     </div>
                   </div>
-                  <div className="dash-mono dash-tnum text-[var(--type-16)] font-semibold">
+                  <div className="lumen-mono lumen-tnum text-[var(--type-16)] font-semibold">
                     {q.price}
                   </div>
                 </div>
@@ -178,7 +178,7 @@ export default function ToolPage() {
         </div>
 
         {/* Footer with shortcuts */}
-        <footer className="border-t border-[var(--border-subtle)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 dash-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+        <footer className="border-t border-[var(--border-subtle)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
           <span><kbd className="border border-[var(--border-subtle)] rounded px-1">⌘ ↵</kbd> Quote</span>
           <span><kbd className="border border-[var(--border-subtle)] rounded px-1">⌘ S</kbd> Save preset</span>
           <span><kbd className="border border-[var(--border-subtle)] rounded px-1">?</kbd> Help</span>
@@ -200,13 +200,13 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="dash-eyebrow">{label}</span>
+      <span className="lumen-eyebrow">{label}</span>
       <input
         defaultValue={value}
         className={[
           "h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] px-3",
           "text-[var(--type-15)] focus-visible:border-[var(--border-focus)] outline-none",
-          mono ? "dash-mono dash-tnum" : "",
+          mono ? "lumen-mono lumen-tnum" : "",
         ].join(" ")}
       />
     </label>
@@ -231,17 +231,17 @@ function Row({
       </div>
       <div className="grid grid-cols-3 gap-3 flex-1 text-[var(--type-14)]">
         <div>
-          <div className="dash-eyebrow">Weight</div>
-          <div className="dash-mono dash-tnum">{weight}</div>
+          <div className="lumen-eyebrow">Weight</div>
+          <div className="lumen-mono lumen-tnum">{weight}</div>
         </div>
         <div>
-          <div className="dash-eyebrow">Pieces</div>
+          <div className="lumen-eyebrow">Pieces</div>
           <div>{pieces}</div>
         </div>
         <div>
-          <div className="dash-eyebrow">Class · Stackable</div>
+          <div className="lumen-eyebrow">Class · Stackable</div>
           <div className="flex items-center gap-2">
-            <span className="dash-mono">{cls}</span>
+            <span className="lumen-mono">{cls}</span>
             {stackable && <Badge status="success" leadingDot>Yes</Badge>}
           </div>
         </div>
@@ -256,7 +256,7 @@ function Toggle({ label, checked }: { label: string; checked: boolean }) {
       <span
         className={[
           "h-5 w-9 rounded-full transition-colors duration-[var(--motion-fast)] relative",
-          checked ? "bg-[var(--accent-500)]" : "bg-[var(--border-strong)]",
+          checked ? "bg-[var(--color-accent)]" : "bg-[var(--border-strong)]",
         ].join(" ")}
       >
         <span

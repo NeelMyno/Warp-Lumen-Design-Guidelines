@@ -1,20 +1,26 @@
 /**
- * LiveDot — Warp's signature pulsing dot. Green by default; pass color to override.
- * Renders an 8px filled dot with a 2px ring that pulses outward on a 3s loop.
+ * LiveDot — Warp signature primitive.
+ * Filled dot + 1.5 px ring that pulses outward on a 3s loop.
+ * The ring fades and scales 1 → 2.4 over 3 s with ease-out — slow enough
+ * to never trigger flash thresholds, fast enough to read as "alive".
+ *
+ * Honors prefers-reduced-motion (ring becomes static).
  */
 export function LiveDot({
   label,
-  color = "var(--accent-500)",
+  color = "var(--color-accent)",
   size = 8,
+  hideLabel = false,
 }: {
   label?: string;
   color?: string;
   size?: number;
+  hideLabel?: boolean;
 }) {
   return (
-    <span className="inline-flex items-center gap-2">
+    <span className="inline-flex items-center gap-2 align-middle">
       <span
-        className="relative inline-block"
+        className="relative inline-block shrink-0"
         style={{ width: size, height: size }}
       >
         <span
@@ -22,25 +28,28 @@ export function LiveDot({
           style={{ background: color }}
         />
         <span
-          className="absolute inset-0 rounded-full live-dot-pulse"
+          aria-hidden
+          className="absolute inset-0 rounded-full lumen-live-dot-pulse"
           style={{
             border: `1.5px solid ${color}`,
           }}
-          aria-hidden
         />
       </span>
-      {label && (
-        <span className="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-secondary)] font-medium">
+      {label && !hideLabel && (
+        <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-secondary)] font-semibold whitespace-nowrap">
           {label}
         </span>
       )}
       <style>{`
-        @keyframes live-dot-pulse-kf {
+        @keyframes lumen-live-dot {
           0%   { transform: scale(1);   opacity: 0.7; }
           100% { transform: scale(2.4); opacity: 0;   }
         }
-        .live-dot-pulse {
-          animation: live-dot-pulse-kf 3s cubic-bezier(0,0,0.2,1) infinite;
+        .lumen-live-dot-pulse {
+          animation: lumen-live-dot 3s cubic-bezier(0,0,0.2,1) infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .lumen-live-dot-pulse { animation: none; }
         }
       `}</style>
     </span>

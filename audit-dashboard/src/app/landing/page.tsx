@@ -18,7 +18,7 @@ export default function LandingPage() {
         description="Public marketing surfaces. Type-led hero, screenshot-as-proof, live data ticker, customer logos, FAQ. Built to read as Apple-disciplined and Warp-substantive at the same time."
       />
 
-      <div className="dash-card overflow-hidden">
+      <div className="lumen-card overflow-hidden">
         {/* Browser frame */}
         <BrowserChrome url="warp.example.com" />
 
@@ -42,7 +42,7 @@ export default function LandingPage() {
                 Read the docs
               </Button>
             </div>
-            <div className="dash-mono text-[var(--type-13)] text-[var(--text-tertiary)] pt-1">
+            <div className="lumen-mono text-[var(--type-13)] text-[var(--text-tertiary)] pt-1">
               <span className="text-[var(--text-secondary)]">$</span> npx warp quote --from=LAX --to=SFO
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function LandingPage() {
         {/* Trust strip */}
         <section className="bg-[var(--surface-page)] px-10 py-10 border-t border-[var(--border-subtle)]">
           <div className="max-w-[1100px] mx-auto flex flex-col gap-4">
-            <div className="dash-eyebrow">Trusted by operators at</div>
+            <div className="lumen-eyebrow">Trusted by operators at</div>
             <div className="flex flex-wrap items-center gap-x-10 gap-y-3 text-[var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
                 <div key={c} className="text-[var(--type-18)] font-semibold tracking-[var(--tracking-tight)]">
@@ -81,7 +81,7 @@ export default function LandingPage() {
         <section className="bg-[var(--surface-page)] px-10 py-16">
           <div className="max-w-[1100px] mx-auto flex flex-col gap-12">
             <header className="max-w-[640px]">
-              <div className="dash-eyebrow mb-2">What you get</div>
+              <div className="lumen-eyebrow mb-2">What you get</div>
               <h2 className="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]">
                 Every layer, no portal sprawl.
               </h2>
@@ -110,7 +110,7 @@ export default function LandingPage() {
         <section className="bg-[var(--surface-page)] px-10 py-16 border-t border-[var(--border-subtle)]">
           <div className="max-w-[1100px] mx-auto flex flex-col gap-8">
             <header className="max-w-[640px]">
-              <div className="dash-eyebrow mb-2">Pricing</div>
+              <div className="lumen-eyebrow mb-2">Pricing</div>
               <h2 className="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]">
                 Pay for shipments, not seats.
               </h2>
@@ -143,12 +143,12 @@ export default function LandingPage() {
         <section className="bg-[var(--surface-sunken)] px-10 py-16 border-t border-[var(--border-subtle)]">
           <div className="max-w-[820px] mx-auto flex flex-col gap-6">
             <header>
-              <div className="dash-eyebrow mb-2">FAQ</div>
+              <div className="lumen-eyebrow mb-2">FAQ</div>
               <h2 className="text-[var(--type-31)] font-bold tracking-[var(--tracking-tighter)]">
                 Common questions
               </h2>
             </header>
-            <div className="dash-card divide-y divide-[var(--border-subtle)]">
+            <div className="lumen-card divide-y divide-[var(--border-subtle)]">
               {[
                 { q: "Do I need to integrate with each carrier?", a: "No. We hold every contract and route the right one for the lane and weight." },
                 { q: "Can my ERP push shipments in?", a: "Yes — every action is an API call. We have ready integrations for NetSuite, SAP, Brightpearl, and Cin7." },
@@ -197,7 +197,7 @@ export default function LandingPage() {
                 ["Company", ["About", "Careers", "Contact"]],
               ].map(([h, items]) => (
                 <div key={h as string}>
-                  <div className="dash-eyebrow mb-2" style={{ color: "var(--text-inverse)", opacity: 0.7 }}>{h as string}</div>
+                  <div className="lumen-eyebrow mb-2" style={{ color: "var(--text-inverse)", opacity: 0.7 }}>{h as string}</div>
                   <ul className="flex flex-col gap-1.5">
                     {(items as string[]).map((it) => <li key={it}>{it}</li>)}
                   </ul>
@@ -241,7 +241,7 @@ function PriceCard({
       padding="lg"
       className={[
         "flex flex-col gap-4",
-        highlighted ? "!border-[var(--accent-500)] !shadow-[var(--shadow-md)]" : "",
+        highlighted ? "!border-[var(--color-accent)] !shadow-[var(--shadow-md)]" : "",
       ].join(" ")}
     >
       <div className="flex items-center justify-between">
@@ -249,7 +249,7 @@ function PriceCard({
         {highlighted && <Badge status="accent">Most popular</Badge>}
       </div>
       <div className="flex items-baseline gap-1">
-        <div className="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] dash-tnum">{price}</div>
+        <div className="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] lumen-tnum">{price}</div>
         <div className="text-[var(--type-13)] text-[var(--text-tertiary)]">{period}</div>
       </div>
       <ul className="flex flex-col gap-2">
@@ -276,7 +276,7 @@ function BrowserChrome({ url }: { url: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
       </div>
       <div className="flex-1 mx-3 max-w-md">
-        <div className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] px-3 h-7 flex items-center text-[var(--type-12)] text-[var(--text-secondary)] dash-mono">
+        <div className="bg-[var(--surface-raised)] border border-[var(--border-subtle)] rounded-[var(--radius-md)] px-3 h-7 flex items-center text-[var(--type-12)] text-[var(--text-secondary)] lumen-mono">
           {url}
         </div>
       </div>
