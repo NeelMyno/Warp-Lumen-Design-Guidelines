@@ -80,7 +80,7 @@ export default function FoundationsPage() {
             Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.11 evolves Obsidian Lime to Obsidian Mint — Spring Green accent, obsidian-mint canvas, cool-neutral paper. Seven principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. One mood, assembled from the same restraint it asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Badge status="accent" leadingDot>v0.11.5 · Obsidian Mint</Badge>
+            <Badge status="accent" leadingDot>v0.11.6 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>

@@ -10,6 +10,46 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.6] — 2026-05-04 — Premium polish layer · grain + scroll-reveal + halo + library grouping
+
+A second visual-audit pass against the deployed v0.11.5 site, anchored on two community design-prompt references (`superdesign.dev/library/neon-velocity-countdown` + `superdesign.dev/library/glassmorphism-style`). Both prompts describe a system effectively identical to Lumen v0.11 — but they call out three premium-signalling elements Lumen didn't yet ship: grain texture, scroll-driven reveals, and a wider accent halo on hover. v0.11.6 adds all three, plus parallel right-rail grouping on `/library` (matching the v0.11.5 grouping shipped on `/foundations`).
+
+### Added
+
+- **`.lumen-grain` global overlay** in `globals.css` — fixed-position SVG fractalNoise (240×240 tile, ~2% opacity), mode-aware blend (`screen` on dark, `multiply` on light). Sits ABOVE the architectural grid (-z-10) but BELOW the sticky header (z-sticky), pointer-events none, aria-hidden, `user-select: none`. Hidden when `prefers-reduced-transparency: reduce`. Wired into `dashboard-shell.tsx` as a sibling of the architectural grid. The "scratchy paper" texture every premium dark UI ships (Linear, Vercel, Stripe, Arc).
+- **`.lumen-reveal` and `.lumen-reveal-rise`** scroll-driven reveal animations — pure CSS via `animation-timeline: view()` (Chrome 115+, Edge 115+, Safari TP). No JS, no IntersectionObserver. Sections fade-and-slide into place as they enter viewport. Wrapped in `@supports (animation-timeline: view())` so older browsers gracefully fall back to immediate-visible. Honours `prefers-reduced-motion: reduce` with `!important` reset to fully visible. Applied to every `Section` via `components/section.tsx` — instant cross-cutting effect.
+- **Wider halo on `.lumen-btn-primary:hover`** — layers a 24 px + 48 px diffuse spring-green drop-shadow on top of the standard glow ladder. `.lumen-glow-cta` variant gets 32 px + 64 px. Gated behind `@media (hover: hover) and (prefers-reduced-motion: no-preference)` so touch devices don't paint a halo on tap, and reduced-motion users keep the steady-glow rest state. Premium "lit" moment when a visitor hovers a primary CTA.
+- **Library right-rail grouped into 7 categories** (`audit-dashboard/src/app/library/client.tsx`): Overview · Layout & nav · Inputs & forms · Data & viz · Feedback · Surfaces · Reference. Mono-cap subheadings with `opacity: 0.7`, parallel to the v0.11.5 foundations grouping. 25 jump links now scan by category instead of serially.
+
+### Changed
+
+- **`dashboard-shell.tsx` brand pill** — bumped to `v0.11.6`.
+- **`foundations/page.tsx` chip strip** — first chip text bumped to `v0.11.6 · Obsidian Mint`.
+- **`library/client.tsx` chip + footer** — both bumped to `v0.11.6` (was `v0.11.0` and "last refreshed v0.11.0").
+- **`tool/page.tsx` Quote Builder badge + page meta badge** — both bumped to `v0.11.6` (were `v0.11`).
+
+### Architectural improvements
+
+- **The premium-signal layer is now declarative.** Adding `.lumen-grain` to a single div in dashboard-shell adds the texture site-wide; adding `.lumen-reveal` to the Section component cascades to every section on every page. Future pages opt-in by composing these classes — no per-page wiring.
+- **No JS for reveals.** `animation-timeline: view()` is a 2024 CSS spec that lands the same effect IntersectionObserver gives, but with zero JS, zero hydration, and zero layout-shift risk. The graceful fallback (immediate-visible on older browsers) means there's no "broken-in-Safari" failure mode.
+- **Hover-only halo**, not tap-active. Honouring `(hover: hover)` keeps the Premium Psychology micro-interaction targeted at the desktop "I just hovered something interesting" moment without lighting up every tap on mobile.
+
+### Deferred (carried forward from r1 + new r2 items)
+
+- **P0-2 r1** — Mobile reflow of nested demo mockups (landing browser-frame, saas dashboard, tool quote builder, commerce storefront). Same as r1 — needs container queries + per-mockup breakpoints. Not regressed by v0.11.6.
+- **r2 new** — Type-scale sweep across the system (12 unique font sizes still on /foundations including off-major-third 13 px and 15 px). Touches the type-presets foundation; needs a small ADR.
+- **r2 new** — Bento-grid hero showcase. The /library landing 4×3 cards is already bento-flavoured; could push further on /foundations with an irregular grid that spans 2-col swatches + 1-col specimens + tall typography column.
+- **r2 new** — Apply `.lumen-reveal-rise` (vs the standard `.lumen-reveal`) to hero `<header>` blocks for a slightly more premium entrance. Currently only Sections animate; heroes remain static.
+
+### Verification
+
+- `audit-dashboard/` `tsc --noEmit` clean.
+- All 8 routes still resolve.
+- Round-2 capture artifacts under `.audit-runs/2026-05-04-visual-audit-r2/` — 16 dark-mode + 3 hover screenshots of the v0.11.5 baseline (the audit input).
+- Browser support for `animation-timeline: view()` checked: Chrome 115+ ✅, Edge 115+ ✅, Safari TP ✅, Firefox behind flag (graceful fallback to immediate-visible).
+
+---
+
 ## [0.11.5] — 2026-05-04 — Premium Psychology pass · audit-dashboard chrome polish
 
 A live visual audit against the deployed `https://warp-lumen-design-guidelines.vercel.app/` site, against the Premium Psychology rubric encoded in v0.11's three new foundations (`hierarchy.md`, `first-impression.md`, `micro-interactions.md`). Eight routes captured at desktop + mobile + dark + light via Playwright (Chromium 1217). Sixteen issues catalogued, eight shipped in this patch — full audit log in `.audit-runs/2026-05-04-visual-audit/NOTES.md`.

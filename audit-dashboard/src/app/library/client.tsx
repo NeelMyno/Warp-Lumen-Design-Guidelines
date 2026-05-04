@@ -123,7 +123,7 @@ export function LibraryClient() {
           eyebrow="Tab 2 of 8 · Component library"
           title="Library"
           description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian as reference points — then tuned to Lumen's restraint. Click any section in the right rail to jump."
-          meta={<Badge status="accent" leadingDot>v0.11.0 · 25 sections · 250+ components</Badge>}
+          meta={<Badge status="accent" leadingDot>v0.11.6 · 25 sections · 250+ components</Badge>}
         />
 
         {/* OVERVIEW */}
@@ -1409,24 +1409,44 @@ export function Hero() {
 
         {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
         <div className="mt-20 text-center text-[var(--type-12)] text-[var(--text-tertiary)]">
-          End of library — last refreshed v0.11.0
+          End of library — last refreshed v0.11.6
         </div>
       </article>
 
-      {/* Right rail · sticky on-page nav */}
+      {/* Right rail · sticky on-page nav. v0.11.6 — grouped into 7 quiet
+          categories with mono-cap subheadings, parallel to the foundations
+          right-rail grouping shipped in v0.11.5. Aggressive hierarchy: 25
+          jump links scan by category instead of serially. */}
       <aside className="hidden lg:block">
-        <nav className="sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-auto pr-2">
-          <div className="lumen-eyebrow text-[10px] mb-2">On this page</div>
-          {/* lumen-lint-allow: typography — type-12 plain right-rail nav; no semantic preset for 12 regular */}
-          <ul className="flex flex-col gap-1 text-[var(--type-12)]">
-            {SECTIONS.map((s) => (
-              <li key={s.id}>
-                <a href={`#${s.id}`} className="block px-2 py-1 rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors">
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+        {/* lumen-lint-allow: typography — type-12 plain right-rail nav; no semantic preset for 12 regular */}
+        <nav className="sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-auto pr-2 flex flex-col gap-5 text-[var(--type-12)]">
+          <div className="lumen-mono-cap text-[var(--text-tertiary)]">On this page</div>
+          {[
+            { label: "Overview", ids: ["overview"] },
+            { label: "Layout & nav", ids: ["layout", "navigation"] },
+            { label: "Inputs & forms", ids: ["buttons", "inputs", "selection", "pickers", "uploads"] },
+            { label: "Data & viz", ids: ["data", "tables", "charts", "kpi"] },
+            { label: "Feedback", ids: ["feedback", "overlays", "notifications"] },
+            { label: "Surfaces", ids: ["navigation-mobile", "commerce", "auth", "ai", "editor"] },
+            { label: "Reference", ids: ["states", "templates", "trust", "marketing", "spec"] },
+          ].map((group) => {
+            const items = group.ids.map((id) => SECTIONS.find((s) => s.id === id)).filter(Boolean) as typeof SECTIONS;
+            if (items.length === 0) return null;
+            return (
+              <div key={group.label} className="flex flex-col gap-1">
+                <div className="lumen-mono-cap text-[var(--text-tertiary)] opacity-70 mb-1">{group.label}</div>
+                {items.map((s) => (
+                  <a
+                    key={s.id}
+                    href={`#${s.id}`}
+                    className="block px-2 py-1 rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors"
+                  >
+                    {s.label}
+                  </a>
+                ))}
+              </div>
+            );
+          })}
         </nav>
       </aside>
     </div>

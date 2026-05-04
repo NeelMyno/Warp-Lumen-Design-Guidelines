@@ -46,7 +46,7 @@ export function Section({
   return (
     <section
       id={id}
-      className="scroll-mt-32 border-t border-[var(--border-hairline)] pt-12 md:pt-16"
+      className="lumen-reveal scroll-mt-32 border-t border-[var(--border-hairline)] pt-12 md:pt-16"
     >
       <div className="mb-8 md:mb-10 flex flex-col gap-2">
         {eyebrow && <div className="lumen-eyebrow mb-1">{eyebrow}</div>}
