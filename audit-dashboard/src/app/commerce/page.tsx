@@ -15,9 +15,9 @@ export default function CommercePage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 6 of 8 · Storefront surface"
+        eyebrow="Storefront surface"
         title="Commerce"
-        description="Storefront patterns suitable for Shopify, BigCommerce, or WooCommerce themes. Product detail, related items, drawer cart — held to the same Lumen typographic discipline."
+        description="Storefront patterns for Shopify, BigCommerce, WooCommerce. Product detail, related items, drawer cart — held to the same Lumen typographic discipline."
       />
 
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">

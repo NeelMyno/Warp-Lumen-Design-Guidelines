@@ -120,9 +120,9 @@ export function LibraryClient() {
     <div className="grid gap-12 lg:grid-cols-[1fr_220px] lg:gap-x-12">
       <article className="min-w-0">
         <PageHeader
-          eyebrow="Tab 2 of 8 · Component library"
+          eyebrow="Component library"
           title="Library"
-          description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian as reference points — then tuned to Lumen's restraint. Click any section in the right rail to jump."
+          description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian — then tuned to Lumen's restraint."
           meta={<Badge status="accent" leadingDot>v0.11.6 · 25 sections · 250+ components</Badge>}
         />
 
@@ -138,12 +138,15 @@ export function LibraryClient() {
               <a
                 key={s.id}
                 href={`#${s.id}`}
-                className="group rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-inset-md hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] transition-[border-color,box-shadow]"
+                className="group relative rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-inset-md hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] hover:bg-[var(--surface-tint-accent)]/40 transition-[border-color,box-shadow,background-color] duration-[var(--motion-base)]"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-3">
                   <span className="text-heading-h6 text-[var(--text-primary)]">{s.label}</span>
                   {/* lumen-lint-allow: typography — mono regular at 11 section index; no semantic preset for 11px mono */}
-                  <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] group-hover:text-[var(--text-accent)] group-hover:opacity-0 transition-opacity duration-[var(--motion-base)]">{String(i + 1).padStart(2, "0")}</span>
+                  <span aria-hidden className="absolute right-4 text-[var(--text-accent)] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--motion-base)]">
+                    <ArrowRight size={14} />
+                  </span>
                 </div>
               </a>
             ))}

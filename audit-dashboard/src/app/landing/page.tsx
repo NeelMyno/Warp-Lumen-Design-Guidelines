@@ -15,9 +15,9 @@ export default function LandingPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 4 of 8 · Marketing surface"
+        eyebrow="Marketing surface"
         title="Marketing & Landing"
-        description="Public marketing surfaces. Type-led hero, screenshot-as-proof, live rate ticker, customer logos, FAQ. Reads as Apple-disciplined and Warp-substantive at the same time."
+        description="Type-led hero, screenshot-as-proof, live rate ticker, customer logos, FAQ. Apple-disciplined chrome on Warp-substantive content."
       />
 
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
@@ -133,14 +133,26 @@ export default function LandingPage() {
 
         {/* TESTIMONIAL */}
         <section className="bg-[var(--surface-sunken)] px-10 py-20 border-t border-[var(--border-hairline)]">
-          <div className="max-w-[820px] mx-auto flex flex-col gap-7 text-center">
+          <div className="max-w-[820px] mx-auto flex flex-col gap-6 text-center">
+            <div
+              aria-hidden
+              className="mx-auto leading-none font-bold select-none"
+              style={{
+                fontSize: "96px",
+                color: "var(--lumen-accent-4)",
+                opacity: 0.18,
+                marginBottom: "-24px",
+              }}
+            >
+              &ldquo;
+            </div>
             <div className="lumen-eyebrow">From an operator</div>
             <blockquote className="text-heading-h1 md:text-display-md font-semibold text-[var(--text-primary)]">
-              &ldquo;Same routes. Lower cost per pallet. AI keeps it dropping. We've stopped logging into 10 carrier portals every morning.&rdquo;
+              Same routes. Lower cost per pallet. AI keeps it dropping. We&apos;ve stopped logging into 10 carrier portals every morning.
             </blockquote>
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-3 mt-2">
               <Avatar name="J Park" size="md" />
-              <div className="flex flex-col leading-tight">
+              <div className="flex flex-col leading-tight text-left">
                 <span className="text-body-sm font-semibold">Jay Park</span>
                 <span className="text-body-xs text-[var(--text-tertiary)]">VP Operations · Faherty</span>
               </div>
@@ -175,18 +187,25 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="bg-[var(--surface-inverse)] px-10 py-20 border-t border-[var(--border-hairline)]">
+        {/* CTA — light-mode preview band. Labeled so the mode swap reads as
+            intentional ("here's the same surface in light mode"), not jarring. */}
+        <section className="bg-[var(--surface-inverse)] px-10 pt-12 pb-20 border-t border-[var(--border-hairline)]">
           <div className="max-w-default mx-auto flex flex-col items-start gap-7">
+            <div
+              className="lumen-mono-cap"
+              style={{ color: "var(--text-inverse)", opacity: 0.5 }}
+            >
+              Light mode preview · same tokens, inverted surfaces
+            </div>
             <h2
-              className="text-display-lg md:text-display-2xl"
+              className="text-display-lg md:text-display-2xl mt-2"
               style={{ color: "var(--text-inverse)" }}
             >
               Ship freight without
               <br />
               <span style={{ color: "var(--lumen-accent-3)" }}>leaving your terminal.</span>
             </h2>
-            <Button intent="primary" size="lg" trailingIcon={<ArrowRight size={16} />}>
+            <Button intent="primary" size="xl" pill trailingIcon={<ArrowRight size={16} />}>
               Get started
             </Button>
           </div>

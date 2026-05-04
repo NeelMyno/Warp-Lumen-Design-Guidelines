@@ -20,9 +20,9 @@ export default function SaaSPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 3 of 8 · Application surface"
+        eyebrow="Application surface"
         title="SaaS Dashboard"
-        description="Internal product UI: navigation, KPI grid, live table, side panel. The pattern Warp uses for its operator portal — dense, scannable, instrument-panel."
+        description="Navigation, KPI grid, live table, side panel. The operator-portal pattern — dense, scannable, instrument-panel."
         meta={<Badge status="accent" leadingDot>Live · 1,284 today</Badge>}
       />
 
@@ -188,13 +188,13 @@ function KpiRow() {
   return (
     <Card padding="lg">
       <StatGrid cols={4} divided>
-        <Stat label="Shipments today" value="1,284" delta="+12.4% wow" trend="up"
+        <Stat label="Shipments today" value="1,284" delta="+12.4% wow" trend="up" size="lg"
           spark={<Sparkline data={[3,4,3,5,6,5,7,8,7,9,10,12]} />} />
-        <Stat label="On time" value="98.2" unit="%" delta="+0.4 pts" trend="up"
+        <Stat label="On time" value="98.2" unit="%" delta="+0.4 pts" trend="up" size="lg"
           spark={<Sparkline data={[95,96,96,97,97,98,98,98,98,98,98,98]} />} />
-        <Stat label="Avg cost / pallet" value="$42.10" delta="-3.6%" trend="down"
+        <Stat label="Avg cost / pallet" value="$42.10" delta="-3.6%" trend="down" size="lg"
           spark={<Sparkline data={[48,47,46,45,46,44,43,43,42,42,42,42]} tone="success" />} />
-        <Stat label="Active lanes" value="1,547" delta="+18 wk" trend="up"
+        <Stat label="Active lanes" value="1,547" delta="+18 wk" trend="up" size="lg"
           spark={<Sparkline data={[1480,1490,1495,1500,1510,1520,1525,1530,1535,1540,1545,1547]} />} />
       </StatGrid>
     </Card>

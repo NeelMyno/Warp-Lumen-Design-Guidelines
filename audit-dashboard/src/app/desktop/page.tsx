@@ -14,9 +14,9 @@ export default function DesktopPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 8 of 8 · Native desktop"
+        eyebrow="Native desktop"
         title="Native Desktop"
-        description="macOS and Windows frames side-by-side. Same Lumen visual language with platform-native chrome — traffic-light + sidebar with vibrancy on Mac; Mica titlebar + segmented sidebar on Windows."
+        description="macOS and Windows, side-by-side. Same Lumen visual language with platform-native chrome — traffic-light + vibrancy on Mac; Mica titlebar + segmented sidebar on Windows."
       />
 
       <div className="grid gap-10 lg:grid-cols-2 items-start">

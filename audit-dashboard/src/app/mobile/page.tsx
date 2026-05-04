@@ -14,9 +14,9 @@ export default function MobilePage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 7 of 8 · Mobile surfaces"
+        eyebrow="Mobile surfaces"
         title="Mobile"
-        description="iOS and Android frames side-by-side. Same Lumen visual language; platform-native chrome — HIG nav bar + tab bar on iOS, Material 3 top app bar + bottom navigation on Android."
+        description="iOS and Android, side-by-side. Same Lumen visual language; platform-native chrome — HIG on iOS, Material 3 on Android."
       />
 
       <div className="grid gap-10 lg:grid-cols-2 items-start">

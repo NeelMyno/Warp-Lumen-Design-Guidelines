@@ -37,7 +37,7 @@ export default function FoundationsPage() {
             not on an empty card. */}
         <header>
           <div className="flex items-center gap-3 mb-6 lumen-mono-cap text-[var(--text-tertiary)]">
-            <span>Tab 01 · system primitives</span>
+            <span>System primitives</span>
             <span aria-hidden>·</span>
             <span className="text-[var(--text-accent)]">obsidian-mint</span>
           </div>
@@ -46,12 +46,12 @@ export default function FoundationsPage() {
               Foundations.{" "}
               {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
               <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
-                Lit.
+                Tuned.
               </em>
             </h1>
-            {/* v0.11.5 — system-at-a-glance row inside the brutalist frame.
+            {/* v0.11.6 — system-at-a-glance row inside the brutalist frame.
                 Color stops + motion (live dot) + type specimen, separated by
-                hairline rule-offs. Replaces the v0.11 empty-card hero. */}
+                hairline rule-offs. */}
             <div className="mt-10 pt-8 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-6">
               {/* Brand color stops */}
               <div className="flex items-center gap-2" aria-label="Color anchors">
@@ -76,11 +76,14 @@ export default function FoundationsPage() {
             </div>
           </div>
           {/* lumen-lint-allow: typography — type-17 mobile lead; intermediate body density between body-md (16) and body-lg (18) */}
-          <p className="mt-8 max-w-[60ch] text-[var(--type-17)] md:text-body-lg text-[var(--text-secondary)] leading-[var(--leading-snug)]">
-            Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.11 evolves Obsidian Lime to Obsidian Mint — Spring Green accent, obsidian-mint canvas, cool-neutral paper. Seven principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. One mood, assembled from the same restraint it asks of every consumer.
+          <p className="mt-8 max-w-[58ch] text-[var(--type-17)] md:text-body-lg text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+            One mood. One mark. Seven principles. Color, typography, spacing, motion — assembled from the same restraint Lumen asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Badge status="accent" leadingDot>v0.11.6 · Obsidian Mint</Badge>
+            <Button intent="primary" size="md" pill trailingIcon={<ArrowRight size={14} />}>
+              Browse foundations
+            </Button>
+            <Badge status="neutral" leadingDot>v0.11.6 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>

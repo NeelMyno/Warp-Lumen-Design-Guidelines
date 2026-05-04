@@ -18,9 +18,9 @@ export default function ToolPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Tab 5 of 8 · Single-purpose surface"
+        eyebrow="Single-purpose surface"
         title="Web Tool"
-        description="A single-purpose utility surface. Centered canvas, focused control panel, output result. The pattern for any internal calculator, simulator, or one-shot job."
+        description="Centered canvas, focused control panel, output result. The pattern for any calculator, simulator, or one-shot job."
         meta={<Badge status="neutral">v0.11.6 · beta</Badge>}
       />
 
