@@ -10,6 +10,28 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.4] — 2026-05-04 — Build hotfix · ToastCard icon color reference
+
+Vercel build failure post-v0.11.3:
+
+```
+./src/components/primitives/feedback.tsx:128:57
+Type error: Property 'icon' does not exist on type '{ bg: string; fg: string; border: string; }'.
+```
+
+v0.11.3 removed the `icon` slot from `ALERT_STYLES` (consolidated to `currentColor` / `fg`-inheritance) but only updated the first consumer (`PageBanner`). The second consumer — the toast-shaped notification card declared lower in the same file — was missed; TypeScript caught it on `next build`.
+
+### Fixed
+
+- **`feedback.tsx` ToastCard / notification block** — `style={{ color: s.icon }}` → `style={{ color: s.fg }}`. The icon now inherits the fg color of the tone (visually identical to the v0.11.3 contract). Added `aria-hidden` to the icon span (it's decorative — the tone is conveyed via the `role="status"` + the title text).
+
+### Verification
+
+- TypeScript clean: no remaining `s.icon` references in `feedback.tsx`.
+- AlertIcon SVG inherits `currentColor` from its parent `<span style={{ color: s.fg }}>` — same visual outcome as before, single source of truth.
+
+---
+
 ## [0.11.3] — 2026-05-04 — Unified pill / badge / status system + Funnel rebuild
 
 User screenshots (2026-05-04) showed three categories of visual failures:

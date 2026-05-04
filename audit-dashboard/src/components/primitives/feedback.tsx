@@ -125,7 +125,7 @@ export function Toast({
       className="min-w-[300px] max-w-[400px] rounded-[var(--radius-md)] border bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] p-3 flex items-start gap-3"
       style={{ borderColor: "var(--border-default)" }}
     >
-      <span className="mt-1 shrink-0" style={{ color: s.icon }}>
+      <span aria-hidden className="mt-1 shrink-0" style={{ color: s.fg }}>
         <AlertIcon tone={tone} />
       </span>
       <div className="min-w-0 flex-1">
