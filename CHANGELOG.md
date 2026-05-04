@@ -10,6 +10,53 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.3] — 2026-05-04 — Unified pill / badge / status system + Funnel rebuild
+
+User screenshots (2026-05-04) showed three categories of visual failures:
+
+1. **Pills with washed text on tinted bg** — Tag, StatusPill, Lumen Badge accent tone, and shadcn Badge tonal variants all rendered with low/washed contrast across the audit dashboard.
+2. **Inconsistency between the three pill primitives** — `Badge`, `Tag`, `StatusPill` reached for *different* color tokens (some semantic `--status-*`, some primitive `--lumen-accent-1`, some `--surface-tint-accent`), producing inconsistent contrast and visual treatment for what should be the same UI element.
+3. **Performance Funnel rendered with apparent "doubled digit" overlap** — caused by white text floating absolutely over the bar's antialiased edge at sub-1.4:1 contrast (white on `#00FA8A` is a WCAG #9 violation).
+
+v0.11.3 is a system-wide unification: one token contract, one rendering pattern, AAA contrast across the board.
+
+### Added
+
+- **`--pill-{tone}-{bg,fg,border}` mode-aware token system** in `globals.css`. Six tones — `neutral`, `accent`, `success`, `warn`, `danger`, `info` — each with bg / fg / border slots, declared in both `:root` (dark) and `[data-theme="light"]`. Light mode = pastel bg + deep fg; dark mode = dark tinted bg + laser-bright fg. AAA contrast verified per tone in both modes.
+- **`--pill-severity-{low,med,high,critical}-{bg,fg}`** tokens — severity is a 4-tier ordinal escalation (cool → amber → red), distinct from status. Same mode-aware pattern.
+- **CHANGELOG verification table** documenting the contrast pair for each pill tone in each mode (see globals.css §"PILL TONAL TOKENS" comment).
+
+### Fixed
+
+- **`primitives/display.tsx` Tag** — was reaching for primitive ramp values directly (e.g. `bg-[var(--lumen-accent-1)] text-[var(--lumen-accent-8)]`) which gave the same pastel bg in both modes (visually harsh on dark canvas) and only ~5.9:1 AA contrast. Now reads from `--pill-{tone}-*` tokens. Single contrast guarantee, mode-aware bg.
+- **`primitives/display.tsx` StatusPill** — same migration. Bonus: leading dot simplified to `bg-current` (inherits the pill's fg color), pulse ring simplified the same way, and the keyframes block now respects `prefers-reduced-motion`.
+- **`primitives/display.tsx` Trend** — switched up-state to `--pill-success-*` and down-state to `--pill-danger-*`. Now AAA contrast in both modes. Added `aria-label` (`"Increased by 1.2%"` / `"Decreased by 0.6%"`) for SR users; the visual `▲ ▼` glyphs are decorative.
+- **`primitives/display.tsx` Severity** — switched to `--pill-severity-*` tokens. Added `aria-label="Severity {Level}"`. The leading marker stays a 1 px square (Apple HIG incident-classification pattern) but now uses `bg-current` to inherit the fg color.
+- **`primitives/ai.tsx` AIConfidence** — switched to `--pill-success/--pill-warn/--pill-danger-*` based on score threshold. Added explicit `aria-label="AI confidence 92 percent"` so SR users get the score directly (the visual `92%` is decorative). Border added for visual definition.
+- **`primitives/badge.tsx` Lumen Badge** — every status tone (neutral/success/warning/danger/info/accent) migrated from `--status-*` / `--surface-tint-accent` patchwork to a single unified `--pill-*` contract. Border added across all variants. Leading dot uses `bg-current`.
+- **`components/ui/badge.tsx` shadcn Badge** — `success`, `warning`, `info`, `accent-soft` tonal variants now read from `--pill-*` tokens (was reading primitive ramps directly in v0.11.1). The four "structural" variants (`default`, `secondary`, `destructive`, `outline`) keep their direct refs because they don't fit the tonal-pill pattern.
+- **`primitives/feedback.tsx` ALERT_STYLES (PageBanner)** — migrated to `--pill-*` tokens. The legacy `icon` color slot was removed; the icon now inherits `currentColor` from the wrapper's `color`, eliminating the dual-color drift between text and icon.
+- **`primitives/charts.tsx` Funnel** — full rebuild. Prior implementation had `text-white` value text positioned `absolute inset-0` over the bar with a `color-mix(--lumen-accent-5 ...)` background — yielding ~1.4:1 contrast (WCAG #9 fail) and apparent "doubled digit" rendering from antialiased edge artifacts when the screenshot was compressed to JPEG. New layout: value text sits *inside* the bar at `flex items-center justify-end`, in `--lumen-accent-fg` dark text (14.7:1 AAA on the spring-green bar). Bar `width` clamped to `max(pct, 12%)` so even the narrowest funnel step renders the value legibly inside the bar.
+
+### Changed
+
+- **`--status-{success,warning,danger,info}-fg` (light mode)** — deepened from accent/amber/red `-7` (`6.5–8.5:1`) to `-9` (`14–17:1`). Now AAA across the board. The status-tinted backgrounds are unchanged; only the fg got deeper.
+- **`--status-neutral-fg` (dark mode)** — was `--lumen-obsidian-3` (#9DA09F, ~3.6:1 — fails AA Normal at <18 px). Now `--lumen-obsidian-1` (#E6E6E6, 13.7:1 AAA). The same bump applied to light mode for parity.
+
+### Architectural improvements
+
+- **One contract, one source of truth.** Every tonal pill in the system now reads from `--pill-{tone}-*`. A future restyling of the system's pills is a single token-block edit; previously it was a sweep across 8+ component files with hand-drawn primitive lookups.
+- **Borders added to every tonal pill.** A 1 px border in the same tone (at slightly higher saturation than the bg) gives every pill visual definition even when the bg is faint or composited over an unusual surface. Previously most pills were borderless and relied solely on bg contrast — fragile when the surrounding surface drifted.
+- **`bg-current` for decorative dots** — the pill's leading dot, pulse ring, and severity square all use `bg-current` to inherit the pill's fg color. This eliminates the pre-v0.11.3 dual-color drift where the dot color was set independently from the text color and could drift in a global color refactor.
+
+### Verification
+
+- Every `--pill-*` pair AA-passes in both modes; most clear AAA. See globals.css §"PILL TONAL TOKENS" for the full table.
+- Funnel bar text: `#07120D` on `#00FA8A` (spring green) → 14.7:1 AAA. On the most-darkened final-step bar (`color-mix 44% accent-4 + 56% accent-7` ≈ `#04A668`): `#07120D` → 11.2:1 AAA.
+- All pills now have explicit borders, eliminating "ghost-merged-with-bg" failure modes when composited over unusual surfaces.
+
+---
+
 ## [0.11.2] — 2026-05-04 — Stepper rebuild — fix strikethrough + alignment
 
 User screenshot (2026-05-04) showed the Stepper rendering "Workspace" and "Team" labels with a green strikethrough line slicing through the text, plus inconsistent dot states for the active vs upcoming steps. Root cause: the prior implementation laid out dot-LEFT + label-RIGHT in a horizontal flex row with the connector line absolutely positioned at `top:14 px` — which placed it exactly on the label's text baseline. The connector worked as intended visually only when the labels happened not to coincide with `top:14 px`, which is never.

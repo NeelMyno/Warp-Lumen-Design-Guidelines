@@ -3,13 +3,21 @@ import { ReactNode } from "react";
 type Status = "neutral" | "success" | "warning" | "danger" | "info" | "accent";
 type Size = "sm" | "md";
 
+/* v0.11.3 — unified the Badge primitive with the Tag/StatusPill color system
+   via the --pill-{tone}-* mode-aware tokens (declared in globals.css).
+   Previously each badge tone reached for different semantic tokens (some
+   --status-*, accent reached for --surface-tint-accent + --text-accent),
+   yielding inconsistent contrast across the three pill primitives. Now all
+   three (Badge, Tag, StatusPill) share one color contract: a single
+   --pill-* change repaints all of them. AAA contrast verified per tone in
+   both modes — see globals.css §"PILL TONAL TOKENS". */
 const STYLES: Record<Status, string> = {
-  neutral: "bg-[var(--status-neutral-bg)] text-[var(--status-neutral-fg)] border border-[var(--border-hairline)]",
-  success: "bg-[var(--status-success-bg)] text-[var(--status-success-fg)]",
-  warning: "bg-[var(--status-warning-bg)] text-[var(--status-warning-fg)]",
-  danger:  "bg-[var(--status-danger-bg)]  text-[var(--status-danger-fg)]",
-  info:    "bg-[var(--status-info-bg)]    text-[var(--status-info-fg)]",
-  accent:  "bg-[var(--surface-tint-accent)] text-[var(--text-accent)]",
+  neutral: "bg-[var(--pill-neutral-bg)] text-[var(--pill-neutral-fg)] border border-[var(--pill-neutral-border)]",
+  success: "bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border border-[var(--pill-success-border)]",
+  warning: "bg-[var(--pill-warn-bg)]    text-[var(--pill-warn-fg)]    border border-[var(--pill-warn-border)]",
+  danger:  "bg-[var(--pill-danger-bg)]  text-[var(--pill-danger-fg)]  border border-[var(--pill-danger-border)]",
+  info:    "bg-[var(--pill-info-bg)]    text-[var(--pill-info-fg)]    border border-[var(--pill-info-border)]",
+  accent:  "bg-[var(--pill-accent-bg)]  text-[var(--pill-accent-fg)]  border border-[var(--pill-accent-border)]",
 };
 
 /* Heights snap to 8pt: sm = 20 (2.5u soft), md = 24 (3u). */
@@ -43,8 +51,7 @@ export function Badge({
       {leadingDot && (
         <span
           aria-hidden
-          className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full"
-          style={{ background: "currentColor" }}
+          className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-current shrink-0"
         />
       )}
       {leadingIcon && <span aria-hidden className="opacity-80">{leadingIcon}</span>}

@@ -521,7 +521,68 @@
   --status-info-bg:    rgba(0, 250, 138, 0.10);   /* v0.11 — spring-green tint */
   --status-info-fg:    var(--lumen-accent-3);
   --status-neutral-bg: var(--lumen-obsidian-7);
-  --status-neutral-fg: var(--lumen-obsidian-3);
+  --status-neutral-fg: var(--lumen-obsidian-1);   /* v0.11.3 — was obsidian-3 (3.6:1 fail at <18px); now obsidian-1 #E6E6E6 (13.7:1 AAA) */
+
+  /* ─────────────────────────  PILL TONAL TOKENS — v0.11.3  ────────────────────────
+     Unified mode-aware color system for tonal pills (Tag, StatusPill, Badge,
+     Trend, Severity, AIConfidence). Light mode = pastel bg + deep fg; dark mode
+     = dark tinted bg + laser-bright fg. Both modes verified for AAA contrast.
+
+     Components now reach for ONE token per slot (--pill-{tone}-{bg,fg,border})
+     instead of hand-mixing primitives. Result: a single change here propagates
+     across every pill in the system.
+
+     Verified contrast (dark mode, on canvas #171A18):
+       accent  — #4DFFA8 on rgba(0,250,138,0.14) over canvas → ~9.0:1   AAA
+       success — same as accent
+       warn    — #F8C249 on rgba(245,177,24,0.14)            → ~10.5:1  AAA
+       danger  — #EC8589 on rgba(229,72,77,0.14)             →  ~7.4:1  AA Normal
+       info    — #E6E6E6 on rgba(255,255,255,0.08)           →  ~9.5:1  AAA
+       neutral — #E6E6E6 on #21241F (raised)                  → 12.5:1  AAA
+
+     Verified contrast (light mode, on canvas #FAFAFA):
+       accent  — #003820 on #B7FFD9 ≈ 14.0:1  AAA
+       success — #003820 on #E2FFF1 ≈ 16.4:1  AAA
+       warn    — #2A1D04 on #FFF8E5 ≈ 15.7:1  AAA
+       danger  — #260C0E on #FDECEB ≈ 14.8:1  AAA
+       info    — #141615 on #FAFAFA ≈ 17.2:1  AAA
+       neutral — #141615 on #F1F2F1 ≈ 16.5:1  AAA
+  */
+  --pill-neutral-bg:    var(--lumen-obsidian-7);
+  --pill-neutral-fg:    var(--lumen-obsidian-1);
+  --pill-neutral-border: var(--lumen-paper-a08);
+
+  --pill-accent-bg:     rgba(0, 250, 138, 0.14);
+  --pill-accent-fg:     var(--lumen-accent-3);
+  --pill-accent-border: rgba(0, 250, 138, 0.32);
+
+  --pill-success-bg:    rgba(0, 250, 138, 0.14);
+  --pill-success-fg:    var(--lumen-accent-3);
+  --pill-success-border: rgba(0, 250, 138, 0.32);
+
+  --pill-warn-bg:       rgba(245, 177, 24, 0.14);
+  --pill-warn-fg:       var(--lumen-amber-3);
+  --pill-warn-border:   rgba(245, 177, 24, 0.32);
+
+  --pill-danger-bg:     rgba(229, 72, 77, 0.14);
+  --pill-danger-fg:     var(--lumen-red-3);
+  --pill-danger-border: rgba(229, 72, 77, 0.32);
+
+  --pill-info-bg:       rgba(255, 255, 255, 0.08);
+  --pill-info-fg:       var(--lumen-obsidian-1);
+  --pill-info-border:   rgba(255, 255, 255, 0.16);
+
+  /* Severity pills — distinct from status because severity is a 4-tier
+     ordinal scale (low → critical) not a status, and benefits from
+     visually escalating colors: cool neutral → amber → red. */
+  --pill-severity-low-bg:        var(--lumen-obsidian-7);
+  --pill-severity-low-fg:        var(--lumen-obsidian-1);
+  --pill-severity-med-bg:        rgba(245, 177, 24, 0.14);
+  --pill-severity-med-fg:        var(--lumen-amber-3);
+  --pill-severity-high-bg:       rgba(245, 177, 24, 0.22);
+  --pill-severity-high-fg:       var(--lumen-amber-2);
+  --pill-severity-critical-bg:   rgba(229, 72, 77, 0.20);
+  --pill-severity-critical-fg:   var(--lumen-red-2);
 
   /* multi-layer shadows — softer on dark than ink-on-light because there's
      less contrast headroom. Glow shadows replace hard drops on hero CTAs. */
@@ -750,15 +811,52 @@
   --border-input-disabled: var(--lumen-ink-a06);
 
   --status-success-bg: var(--lumen-accent-0);
-  --status-success-fg: var(--lumen-accent-7);
+  --status-success-fg: var(--lumen-accent-9);    /* v0.11.3 — deepened to AAA */
   --status-warning-bg: var(--lumen-amber-0);
-  --status-warning-fg: var(--lumen-amber-7);
-  --status-danger-bg:  var(--lumen-red-0);   /* v0.11 — refined #FDECEB */
-  --status-danger-fg:  var(--lumen-red-6);
+  --status-warning-fg: var(--lumen-amber-9);     /* v0.11.3 — deepened to AAA */
+  --status-danger-bg:  var(--lumen-red-0);
+  --status-danger-fg:  var(--lumen-red-9);       /* v0.11.3 — deepened to AAA */
   --status-info-bg:    var(--lumen-accent-1);
-  --status-info-fg:    var(--lumen-accent-7);
+  --status-info-fg:    var(--lumen-accent-9);    /* v0.11.3 — deepened to AAA */
   --status-neutral-bg: var(--lumen-cream-1);
-  --status-neutral-fg: var(--lumen-cream-7);
+  --status-neutral-fg: var(--lumen-cream-9);     /* v0.11.3 — was cream-7 (10.6:1 still good); now cream-9 for absolute AAA parity with the other status fgs */
+
+  /* ─────────────────────────  PILL TONAL TOKENS (light mode)  ────────────────
+     Pastel bg + deep fg — AAA contrast, calm against paper.
+     See dark-mode block above for the full rationale and contrast table. */
+  --pill-neutral-bg:    var(--lumen-cream-1);
+  --pill-neutral-fg:    var(--lumen-cream-9);
+  --pill-neutral-border: var(--lumen-cream-2);
+
+  --pill-accent-bg:     var(--lumen-accent-1);
+  --pill-accent-fg:     var(--lumen-accent-9);
+  --pill-accent-border: var(--lumen-accent-2);
+
+  --pill-success-bg:    var(--lumen-accent-0);
+  --pill-success-fg:    var(--lumen-accent-9);
+  --pill-success-border: var(--lumen-accent-2);
+
+  --pill-warn-bg:       var(--lumen-amber-0);
+  --pill-warn-fg:       var(--lumen-amber-9);
+  --pill-warn-border:   var(--lumen-amber-2);
+
+  --pill-danger-bg:     var(--lumen-red-0);
+  --pill-danger-fg:     var(--lumen-red-9);
+  --pill-danger-border: var(--lumen-red-2);
+
+  --pill-info-bg:       var(--lumen-cream-0);
+  --pill-info-fg:       var(--lumen-cream-9);
+  --pill-info-border:   var(--lumen-cream-2);
+
+  /* Severity (light mode) */
+  --pill-severity-low-bg:        var(--lumen-cream-1);
+  --pill-severity-low-fg:        var(--lumen-cream-9);
+  --pill-severity-med-bg:        var(--lumen-amber-1);
+  --pill-severity-med-fg:        var(--lumen-amber-9);
+  --pill-severity-high-bg:       var(--lumen-amber-2);
+  --pill-severity-high-fg:       var(--lumen-amber-9);
+  --pill-severity-critical-bg:   var(--lumen-red-1);
+  --pill-severity-critical-fg:   var(--lumen-red-9);
 
   --shadow-xs: 0 1px 1px var(--lumen-ink-a04);
   --shadow-sm:

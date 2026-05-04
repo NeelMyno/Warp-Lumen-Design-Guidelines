@@ -5,25 +5,23 @@ import { File as FileIconLucide, Folder as FolderIconLucide, Star as StarIconLuc
 import { ChevronDown, Check, X, Plus, Search as SearchIcon } from "./icon";
 
 /* ─────────────────────────  TAG / CHIP  ─────────────────────────
-   v0.11 — Tag/Chip rendering. Each tone is a (bg, fg, border) trio bound to
-   primitive ramp variables so it renders consistently across theme modes.
-   The accent border uses color-mix to build a faint spring-green hairline
-   (30% accent over transparent) that reads as "tagged" without competing.
-   Verified contrast for v0.11:
-     accent  — fg #00633A on bg #B7FFD9 ≈ 5.9:1 — AA Normal
-     info    — fg #383A39 on bg #FAFAFA ≈ 12.0:1 — AAA
-     warn    — fg #7A5408 on bg #FFF8E5 ≈ 9.2:1 — AAA
-     danger  — fg #931620 on bg #FDECEB ≈ 9.6:1 — AAA
-     success — fg #00633A on bg #E2FFF1 ≈ 6.4:1 — AA Normal
+   v0.11.3 — unified tonal pill system. Now reads from --pill-{tone}-{bg,fg,border}
+   tokens declared in globals.css. Both light and dark modes get AAA contrast
+   without inline color-mix logic. See globals.css §"PILL TONAL TOKENS" for
+   the full contrast table.
+
+   The component now only describes shape + size + ornament; color is fully
+   delegated to tokens. A single change in globals.css repaints every pill
+   in the system.
 */
 type TagTone = "neutral" | "accent" | "info" | "warn" | "danger" | "success";
 const TAG_TONE: Record<TagTone, string> = {
-  neutral: "bg-[var(--surface-sunken)] text-[var(--text-secondary)] border-[var(--border-hairline)]",
-  accent: "bg-[var(--lumen-accent-1)] text-[var(--lumen-accent-8)] border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]",
-  info: "bg-[var(--lumen-cream-0)] text-[var(--lumen-cream-7)] border-[var(--lumen-cream-2)]",
-  warn: "bg-[var(--lumen-amber-0)] text-[var(--lumen-amber-7)] border-[var(--lumen-amber-2)]",
-  danger: "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)] border-[var(--lumen-red-2)]",
-  success: "bg-[var(--lumen-accent-0)] text-[var(--lumen-accent-8)] border-[var(--lumen-accent-2)]",
+  neutral: "bg-[var(--pill-neutral-bg)] text-[var(--pill-neutral-fg)] border-[var(--pill-neutral-border)]",
+  accent:  "bg-[var(--pill-accent-bg)]  text-[var(--pill-accent-fg)]  border-[var(--pill-accent-border)]",
+  info:    "bg-[var(--pill-info-bg)]    text-[var(--pill-info-fg)]    border-[var(--pill-info-border)]",
+  warn:    "bg-[var(--pill-warn-bg)]    text-[var(--pill-warn-fg)]    border-[var(--pill-warn-border)]",
+  danger:  "bg-[var(--pill-danger-bg)]  text-[var(--pill-danger-fg)]  border-[var(--pill-danger-border)]",
+  success: "bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border-[var(--pill-success-border)]",
 };
 export function Tag({
   children,
@@ -46,7 +44,12 @@ export function Tag({
   );
 }
 
-/* ─────────────────────────  STATUS PILL / DOT  ───────────────────────── */
+/* ─────────────────────────  STATUS PILL / DOT  ─────────────────────────
+   v0.11.3 — leading dot inherits `currentColor` so it always matches the
+   pill's fg tone (the WAI-ARIA recommended pattern: the dot is a visual
+   companion to the colored text, not an independent color decision). The
+   pulse ring also inherits currentColor. Honors prefers-reduced-motion via
+   the global `*` reset in globals.css. */
 export function StatusPill({
   tone = "neutral",
   children,
@@ -56,65 +59,70 @@ export function StatusPill({
   children: ReactNode;
   pulse?: boolean;
 }) {
-  const dotColor: Record<TagTone, string> = {
-    neutral: "var(--lumen-cream-5)",
-    accent: "var(--lumen-accent-5)",
-    info: "var(--lumen-cream-5)",
-    warn: "var(--lumen-amber-5)",
-    danger: "var(--lumen-red-5)",
-    success: "var(--lumen-accent-6)",
-  };
   return (
     <span className={["inline-flex items-center gap-[var(--space-1_5)] h-6 px-2 rounded-[var(--radius-full)] text-[var(--type-12)] font-medium border", TAG_TONE[tone]].join(" ")}>
-      <span className="relative inline-flex">
-        <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full" style={{ background: dotColor[tone] }} />
+      <span className="relative inline-flex shrink-0">
+        <span
+          aria-hidden
+          className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-current"
+        />
         {pulse && (
           <span
-            className="absolute inset-0 rounded-full"
-            style={{ background: dotColor[tone], animation: "lumen-pulse-ring 1.6s ease-out infinite" }}
             aria-hidden
+            className="absolute inset-0 rounded-full bg-current"
+            style={{ animation: "lumen-pulse-ring 1.6s ease-out infinite" }}
           />
         )}
       </span>
       {children}
-      <style>{`@keyframes lumen-pulse-ring { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.4); opacity: 0; } }`}</style>
+      <style>{`@keyframes lumen-pulse-ring { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.4); opacity: 0; } } @media (prefers-reduced-motion: reduce) { .lumen-pulse-ring { animation: none !important; } }`}</style>
     </span>
   );
 }
 
 /* ─────────────────────────  TREND INDICATOR  ─────────────────────────
-   v0.11 — uses primitive ramp variables (no hardcoded hex). Up trend uses
-   accent-0 (pastel mint #E2FFF1) + accent-8 (deep #00633A) ≈ 6.4:1 AA Normal.
-   Down trend uses red-0 + red-7 ≈ 9.6:1 AAA.
-*/
+   v0.11.3 — switched to --pill-success/--pill-danger tokens for AAA mode-
+   aware contrast. Up = success tone, Down = danger tone. */
 export function Trend({ delta, suffix = "" }: { delta: number; suffix?: string }) {
   const up = delta >= 0;
   return (
     <span
       className={[
-        "inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[var(--type-11)] font-medium lumen-mono",
-        up ? "bg-[var(--lumen-accent-0)] text-[var(--lumen-accent-8)]" : "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)]",
+        "inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[var(--type-11)] font-semibold lumen-mono border",
+        up
+          ? "bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border-[var(--pill-success-border)]"
+          : "bg-[var(--pill-danger-bg)] text-[var(--pill-danger-fg)] border-[var(--pill-danger-border)]",
       ].join(" ")}
+      aria-label={`${up ? "Increased" : "Decreased"} by ${Math.abs(delta).toFixed(1)}${suffix || "%"}`}
     >
       <span aria-hidden>{up ? "▲" : "▼"}</span>
-      {Math.abs(delta).toFixed(1)}{suffix || "%"}
+      <span aria-hidden>{Math.abs(delta).toFixed(1)}{suffix || "%"}</span>
     </span>
   );
 }
 
-/* ─────────────────────────  SEVERITY / PRIORITY  ───────────────────────── */
+/* ─────────────────────────  SEVERITY / PRIORITY  ─────────────────────────
+   v0.11.3 — uses --pill-severity-{level}-{bg,fg} mode-aware tokens. Low →
+   neutral, med → soft amber, high → stronger amber, critical → red.
+   The leading marker is a small filled square (not a circle) — distinguishes
+   severity from status at a glance, matches Apple HIG's "incident classification"
+   pattern. */
 export function Severity({ level }: { level: "low" | "med" | "high" | "critical" }) {
-  const colors: Record<typeof level, [string, string, string]> = {
-    low: ["var(--lumen-cream-1)", "var(--lumen-cream-7)", "Low"],
-    med: ["var(--lumen-amber-1)", "var(--lumen-amber-7)", "Medium"],
-    high: ["var(--lumen-amber-2)", "var(--lumen-amber-8)", "High"],
-    critical: ["var(--lumen-red-1)", "var(--lumen-red-7)", "Critical"],
+  const meta: Record<typeof level, { bg: string; fg: string; border: string; label: string }> = {
+    low:      { bg: "var(--pill-severity-low-bg)",      fg: "var(--pill-severity-low-fg)",      border: "var(--pill-neutral-border)", label: "Low" },
+    med:      { bg: "var(--pill-severity-med-bg)",      fg: "var(--pill-severity-med-fg)",      border: "var(--pill-warn-border)",    label: "Medium" },
+    high:     { bg: "var(--pill-severity-high-bg)",     fg: "var(--pill-severity-high-fg)",     border: "var(--pill-warn-border)",    label: "High" },
+    critical: { bg: "var(--pill-severity-critical-bg)", fg: "var(--pill-severity-critical-fg)", border: "var(--pill-danger-border)",  label: "Critical" },
   };
-  const [bg, fg, label] = colors[level];
+  const m = meta[level];
   return (
-    <span className="inline-flex items-center gap-[var(--space-1_5)] px-2 h-5 rounded-[4px] text-[var(--type-11)] font-semibold uppercase tracking-[var(--tracking-wider)]" style={{ background: bg, color: fg }}>
-      <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-[1px]" style={{ background: fg }} />
-      {label}
+    <span
+      className="inline-flex items-center gap-[var(--space-1_5)] px-2 h-5 rounded-[var(--radius-sm)] text-[var(--type-11)] font-semibold uppercase tracking-[var(--tracking-wider)] border"
+      style={{ background: m.bg, color: m.fg, borderColor: m.border }}
+      aria-label={`Severity ${m.label}`}
+    >
+      <span aria-hidden className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-[1px] bg-current" />
+      {m.label}
     </span>
   );
 }

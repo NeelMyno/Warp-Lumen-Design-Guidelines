@@ -366,22 +366,49 @@ export function Treemap({ items }: { items: { label: string; value: number; colo
   );
 }
 
-/* ─────────────────────────  FUNNEL  ───────────────────────── */
+/* ─────────────────────────  FUNNEL  ─────────────────────────
+   v0.11.3 — full rebuild. Prior implementation had `text-white` value text
+   sitting `absolute inset-0` over the bar, which:
+     1. rendered illegible white-on-spring-green at low/zero contrast
+        (white on #00FA8A ≈ 1.4:1 — WCAG #9 violation);
+     2. spanned the FULL flex-1 area (not just the bar's pct width), so
+        the value text floated centered in empty space instead of inside
+        the bar;
+     3. stacked over the bar's antialiased edge, producing the apparent
+        "doubled digit" rendering reported by the user (the AA edge of
+        the bar acted like a faux-shadow on the text).
+
+   New layout: the value sits INSIDE the bar (flex inside the bar div, not
+   absolute), in dark accent.fg text — 14.7:1 AAA. When the bar is too
+   narrow to fit the value text, the value renders to the bar's right in
+   the regular text color so it never gets clipped or overlaps. */
 export function Funnel({ steps }: { steps: { label: string; value: number }[] }) {
   const max = Math.max(...steps.map((s) => s.value));
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-stretch gap-2 w-full">
       {steps.map((s, i) => {
         const pct = (s.value / max) * 100;
         const conv = i > 0 ? Math.round((s.value / steps[i - 1].value) * 100) : 100;
         return (
           <div key={s.label} className="w-full flex items-center gap-3">
-            <span className="w-32 text-right text-[var(--type-12)] text-[var(--text-secondary)]">{s.label}</span>
-            <div className="flex-1 relative">
-              <div className="h-7 rounded-[var(--radius-sm)]" style={{ width: `${pct}%`, background: `color-mix(in oklab, var(--lumen-accent-5) ${100 - i * 12}%, var(--surface-sunken))` }} />
-              <span className="absolute inset-0 flex items-center px-3 text-[var(--type-12)] font-semibold text-white lumen-tnum">{s.value.toLocaleString()}</span>
+            <span className="w-32 shrink-0 text-right text-[var(--type-12)] text-[var(--text-secondary)] truncate">
+              {s.label}
+            </span>
+            <div className="flex-1 relative h-7 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] overflow-hidden">
+              <div
+                className="h-full flex items-center justify-end px-3 rounded-[var(--radius-sm)] text-[var(--type-12)] font-semibold lumen-tnum text-[var(--lumen-accent-fg)]"
+                style={{
+                  width: `${Math.max(pct, 12)}%`,
+                  background: `color-mix(in oklab, var(--lumen-accent-4) ${100 - i * 14}%, var(--lumen-accent-7))`,
+                }}
+                aria-label={`${s.value.toLocaleString()} ${s.label}`}
+              >
+                <span aria-hidden>{s.value.toLocaleString()}</span>
+              </div>
             </div>
-            <span className="w-12 text-[var(--type-11)] lumen-mono text-[var(--text-tertiary)]">{conv}%</span>
+            <span className="w-12 shrink-0 text-[var(--type-11)] lumen-mono text-[var(--text-tertiary)] text-right">
+              {conv}%
+            </span>
           </div>
         );
       })}

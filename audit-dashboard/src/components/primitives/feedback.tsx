@@ -57,13 +57,15 @@ export function Alert({
   );
 }
 
-/* legacy export — kept for any straggler imports */
-const ALERT_STYLES: Record<AlertTone, { bg: string; fg: string; border: string; icon: string }> = {
-  info:    { bg: "var(--lumen-cream-0)",   fg: "var(--lumen-cream-7)",  border: "var(--lumen-cream-2)",  icon: "var(--lumen-cream-5)" },
-  warn:    { bg: "var(--lumen-amber-0)",   fg: "var(--lumen-amber-7)",  border: "var(--lumen-amber-2)",  icon: "var(--lumen-amber-5)" },
-  danger:  { bg: "var(--lumen-red-0)",     fg: "var(--lumen-red-7)",    border: "var(--lumen-red-2)",    icon: "var(--lumen-red-5)" },
-  success: { bg: "var(--lumen-accent-0)",  fg: "var(--lumen-accent-8)", border: "var(--lumen-accent-2)", icon: "var(--lumen-accent-6)" },
-  neutral: { bg: "var(--surface-sunken)",  fg: "var(--text-secondary)", border: "var(--border-hairline)", icon: "var(--text-tertiary)" },
+/* v0.11.3 — switched to --pill-{tone}-* mode-aware tokens for AAA contrast
+   in both modes. PageBanner reads from this map; the icon color uses
+   currentColor so it inherits the fg automatically. */
+const ALERT_STYLES: Record<AlertTone, { bg: string; fg: string; border: string }> = {
+  info:    { bg: "var(--pill-info-bg)",    fg: "var(--pill-info-fg)",    border: "var(--pill-info-border)" },
+  warn:    { bg: "var(--pill-warn-bg)",    fg: "var(--pill-warn-fg)",    border: "var(--pill-warn-border)" },
+  danger:  { bg: "var(--pill-danger-bg)",  fg: "var(--pill-danger-fg)",  border: "var(--pill-danger-border)" },
+  success: { bg: "var(--pill-success-bg)", fg: "var(--pill-success-fg)", border: "var(--pill-success-border)" },
+  neutral: { bg: "var(--pill-neutral-bg)", fg: "var(--pill-neutral-fg)", border: "var(--pill-neutral-border)" },
 };
 function AlertIcon({ tone }: { tone: AlertTone }) {
   const Icon = ToneIcon[tone];
@@ -88,7 +90,7 @@ export function PageBanner({
       className="rounded-[var(--radius-md)] border px-4 h-12 flex items-center gap-3"
       style={{ background: s.bg, borderColor: s.border, color: s.fg }}
     >
-      <span style={{ color: s.icon }}>
+      <span aria-hidden className="shrink-0">
         <AlertIcon tone={tone} />
       </span>
       <div className="text-[var(--type-13)] flex-1 min-w-0 truncate">{children}</div>

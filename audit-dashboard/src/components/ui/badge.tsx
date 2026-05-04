@@ -11,18 +11,19 @@ const badgeVariants = cva(
       variant: {
         /* v0.8.1 — Direct token refs, mirrors the Button fix. See ui/button.tsx.
            v0.11 — Added success / warning / info / accent-soft variants. Destructive
-           bg deepened red.5 → red.7 to clear AA Normal (white-on-red.7 = 5.4:1; the
-           v0.10.x white-on-red.5 pair was 3.94:1 — same fix as the danger button
-           per ADR 0016). */
+           bg deepened red.5 → red.7 to clear AA Normal.
+           v0.11.3 — All tonal variants now read from --pill-{tone}-* mode-aware
+           tokens, unifying with Tag/StatusPill/Lumen Badge. AAA contrast
+           verified per tone in both modes — see globals.css §"PILL TONAL TOKENS". */
         default: "border-transparent bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]",
         secondary: "border-transparent bg-[var(--surface-sunken)] text-[var(--text-secondary)]",
         destructive: "border-transparent bg-[var(--lumen-red-7)] text-white",
         outline: "border-[var(--border-default)] text-[var(--text-primary)]",
-        /* Tonal status variants — pastel bg + deep fg. Verified for v0.11. */
-        success: "border-[var(--lumen-accent-2)] bg-[var(--lumen-accent-0)] text-[var(--lumen-accent-8)]",
-        warning: "border-[var(--lumen-amber-2)] bg-[var(--lumen-amber-0)] text-[var(--lumen-amber-7)]",
-        info: "border-[var(--lumen-cream-2)] bg-[var(--lumen-cream-0)] text-[var(--lumen-cream-7)]",
-        "accent-soft": "border-[var(--lumen-accent-2)] bg-[var(--lumen-accent-1)] text-[var(--lumen-accent-8)]",
+        /* Tonal status variants — read from --pill-* tokens. */
+        success: "border-[var(--pill-success-border)] bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)]",
+        warning: "border-[var(--pill-warn-border)] bg-[var(--pill-warn-bg)] text-[var(--pill-warn-fg)]",
+        info: "border-[var(--pill-info-border)] bg-[var(--pill-info-bg)] text-[var(--pill-info-fg)]",
+        "accent-soft": "border-[var(--pill-accent-border)] bg-[var(--pill-accent-bg)] text-[var(--pill-accent-fg)]",
       },
     },
     defaultVariants: { variant: "default" },

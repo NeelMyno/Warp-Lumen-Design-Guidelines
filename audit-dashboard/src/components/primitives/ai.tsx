@@ -36,12 +36,29 @@ export function AIThinking() {
   );
 }
 
-/* ─────────────────────────  AI CONFIDENCE LABEL  ───────────────────────── */
+/* ─────────────────────────  AI CONFIDENCE LABEL  ─────────────────────────
+   v0.11.3 — switched to --pill-{success,warn,danger}-* tokens for AAA mode-
+   aware contrast. ≥80% = success tone, 50–79% = warn tone, <50% = danger tone.
+   The aria-label spells out the score for screen readers (the visual % glyph
+   is decorative). */
 export function AIConfidence({ score }: { score: number }) {
-  const tone = score >= 0.8 ? ["var(--lumen-accent-7)", "var(--lumen-accent-1)"] : score >= 0.5 ? ["var(--lumen-amber-7)", "var(--lumen-amber-1)"] : ["var(--lumen-red-7)", "var(--lumen-red-1)"];
+  const pct = Math.round(score * 100);
+  const cls =
+    score >= 0.8
+      ? "bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border-[var(--pill-success-border)]"
+      : score >= 0.5
+      ? "bg-[var(--pill-warn-bg)] text-[var(--pill-warn-fg)] border-[var(--pill-warn-border)]"
+      : "bg-[var(--pill-danger-bg)] text-[var(--pill-danger-fg)] border-[var(--pill-danger-border)]";
   return (
-    <span className="inline-flex items-center gap-[var(--space-1_5)] h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]" style={{ color: tone[0], background: tone[1] }}>
-      <span className="lumen-mono">{Math.round(score * 100)}%</span> confidence
+    <span
+      className={[
+        "inline-flex items-center gap-[var(--space-1_5)] h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)] border",
+        cls,
+      ].join(" ")}
+      aria-label={`AI confidence ${pct} percent`}
+    >
+      <span className="lumen-mono" aria-hidden>{pct}%</span>
+      <span aria-hidden>confidence</span>
     </span>
   );
 }
