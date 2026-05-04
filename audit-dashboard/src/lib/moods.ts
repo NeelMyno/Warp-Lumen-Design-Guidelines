@@ -1,4 +1,4 @@
-export type MoodId = "obsidian-lime";
+export type MoodId = "obsidian-mint";
 
 export type Mood = {
   id: MoodId;
@@ -8,22 +8,23 @@ export type Mood = {
 };
 
 /**
- * Lumen v0.4 — single canonical mood.
+ * Lumen v0.11 — single canonical mood.
  *
- * "Obsidian Lime" replaces the v0.1–v0.3 "Quiet Industrial" mood. Anchor
- * references: SuperDesign · Glassmorphism Style ("Obsidian & Lime") and
- * SuperDesign · Neon Velocity Countdown ("Laser Green & Navy Black").
+ * "Obsidian Mint" is the v0.11 evolution of v0.4's "Obsidian Lime". Anchored
+ * on three user-fixed brand values: accent #00FA8A (Spring Green), dark
+ * #171A18 (obsidian-mint canvas, faint green undertone), and #E6E6E6 (the
+ * neutral light, also used as primary text on the dark canvas).
  *
  * The mood switcher hides itself when MOODS.length <= 1; alternates can be
  * introduced later by adding a new entry here AND a [data-mood="…"] block
- * in globals.css. The architecture supports it; v0.4 ships only one.
+ * in globals.css. The architecture supports it; v0.11 ships only one.
  */
 export const MOODS: Mood[] = [
   {
-    id: "obsidian-lime",
-    label: "Obsidian Lime",
+    id: "obsidian-mint",
+    label: "Obsidian Mint",
     oneLiner:
-      "Near-black obsidian canvas, warm cream paper in light, lime as the only loud color, glass surfaces and a radial green ambient glow.",
+      "Obsidian-mint near-black canvas, cool-neutral paper in light, Spring Green as the only loud color, glass surfaces and a radial spring-green ambient glow.",
     recommended: true,
   },
 ];

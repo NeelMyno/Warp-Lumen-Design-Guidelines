@@ -28,7 +28,7 @@ const satoshi = localFont({
 export const metadata: Metadata = {
   title: "Lumen — Warp Design System Audit",
   description:
-    "Visual audit dashboard for Lumen, the Warp design system. v0.4 Obsidian Lime — switch project types to review the system end-to-end.",
+    "Visual audit dashboard for Lumen, the Warp design system. v0.11 Premium Psychology · Obsidian Mint — switch project types to review the system end-to-end.",
 };
 
 export default function RootLayout({
@@ -40,7 +40,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${satoshi.variable} h-full antialiased`}
-      data-mood="obsidian-lime"
+      data-mood="obsidian-mint"
       data-theme="dark"
       suppressHydrationWarning
     >

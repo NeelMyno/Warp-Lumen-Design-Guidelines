@@ -36,7 +36,7 @@ export default function FoundationsPage() {
             <span className="lumen-dot-pulse" aria-hidden />
             <span>Tab 01 · system primitives</span>
             <span aria-hidden>·</span>
-            <span className="text-[var(--text-accent)]">obsidian-lime · v0.4</span>
+            <span className="text-[var(--text-accent)]">obsidian-mint · v0.11</span>
           </div>
           <div className="lumen-frame-brutalist">
             <h1 className="text-display-lg sm:text-display-2xl lg:text-display-2xl text-[var(--text-primary)]">
@@ -49,10 +49,10 @@ export default function FoundationsPage() {
           </div>
           {/* lumen-lint-allow: typography — type-17 mobile lead; intermediate body density between body-md (16) and body-lg (18) */}
           <p className="mt-8 max-w-[60ch] text-[var(--type-17)] md:text-body-lg text-[var(--text-secondary)] leading-[var(--leading-snug)]">
-            Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.4 strips the navy ladder, lifts the lime, and lets the obsidian canvas breathe. One mood — Obsidian Lime — assembled from the same restraint it asks of every consumer.
+            Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.11 evolves Obsidian Lime to Obsidian Mint — Spring Green accent, obsidian-mint canvas, cool-neutral paper. Seven principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. One mood, assembled from the same restraint it asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Badge status="accent" leadingDot>v0.4.0 · Obsidian Lime</Badge>
+            <Badge status="accent" leadingDot>v0.11.0 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">Satoshi · single-typeface system</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
@@ -64,7 +64,7 @@ export default function FoundationsPage() {
           id="color"
           eyebrow="01 · Foundations"
           title="Color"
-          description="Three families do the work — obsidian (canvas), cream (paper + warm neutrals), accent (Warp lime, the only loud color). Status hues stay polite. v0.4 drops the navy ramp entirely."
+          description="Three families do the work — obsidian-mint (canvas, faint green undertone), neutral (paper + cool grays), accent (Spring Green #00FA8A, the only loud color). Status hues stay polite. v0.11 retunes from v0.4 lime to spring green; the single-accent discipline is unchanged."
         >
           <SubSection title="Obsidian · the canvas ramp" description="11 stops from cream-paper to void. Slightly cool-warm balanced — never navy. The dark-mode silhouette and the deep-ink moments in light mode.">
             <SwatchRamp prefix="obsidian" family="lumen-obsidian" />
@@ -74,7 +74,7 @@ export default function FoundationsPage() {
             <SwatchRamp prefix="cream" family="lumen-cream" />
           </SubSection>
 
-          <SubSection title="Accent · Warp lime — the only loud color" description="Reads as 'laser' against obsidian without leaving the brand. Used for action / live / success. Never decorative. Adding a second loud color is a brand violation.">
+          <SubSection title="Accent · Spring Green — the only loud color" description="Reads as 'laser' against obsidian-mint without leaving the brand. Used for action / live / success. Never decorative. Adding a second loud color is a brand violation. v0.11 retunes from Warp lime #4ade80 to Spring Green #00FA8A; the discipline is unchanged.">
             <SwatchRamp prefix="accent" family="lumen-accent" />
           </SubSection>
 
@@ -156,7 +156,7 @@ export default function FoundationsPage() {
               <TypeRow role="body.md"     sample="Stop logging into 10 carrier portals every morning." cls="text-[var(--type-16)] leading-[var(--leading-normal)]" px="16 / 1.00rem" weight="400" />
               <TypeRow role="body.sm"     sample="Auto-save will retry every 12 seconds while offline." cls="text-[var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
               <TypeRow role="caption"     sample="Updated 4 minutes ago by Sokolovsky" cls="text-[var(--type-13)] text-[var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
-              <TypeRow role="mono.cap"    sample="@ DIGITAL HQ · GLOBAL ACCESS · SYSTEM V0.4 LIVE" cls="lumen-mono-cap text-[var(--text-accent)]" px="11 · +0.16em" weight="500" />
+              <TypeRow role="mono.cap"    sample="@ DIGITAL HQ · GLOBAL ACCESS · SYSTEM V0.11 LIVE" cls="lumen-mono-cap text-[var(--text-accent)]" px="11 · +0.16em" weight="500" />
               {/* lumen-lint-allow-end: typography */}
             </div>
           </Card>
@@ -305,7 +305,7 @@ export default function FoundationsPage() {
           id="radius"
           eyebrow="04 · Foundations"
           title="Radius"
-          description="v0.4 nudges the radius scale rounder to read as 'modern' against obsidian. Inputs at 8, cards at 12–16, hero surfaces at 20–28. Pills (radius.full) reserved for nav and primary CTAs."
+          description="The radius scale reads as 'modern' against obsidian-mint. Inputs at 8, cards at 12–16, hero surfaces at 20–28. Pills (radius.full) reserved for nav and primary CTAs. v0.11 keeps the v0.4 ratio intact."
         >
           <div className="grid gap-3 grid-cols-3 sm:grid-cols-5 lg:grid-cols-9">
             {[
@@ -409,13 +409,13 @@ export default function FoundationsPage() {
             </div>
           </SubSection>
 
-          <SubSection title="Brand voice on canvas — flat surface" description="The hero panel: flat obsidian, hairline border, hero scale typography. v0.4 prefers calm restraint over decorative gradients on surfaces.">
+          <SubSection title="Brand voice on canvas — flat surface" description="The hero panel: flat obsidian-mint, hairline border, hero-scale typography. Lumen prefers calm restraint over decorative gradients on surfaces — per principle 3 (less, but better) and the Premium-Psychology halo contract.">
             <div
               className="relative rounded-[var(--radius-3xl)] border border-[var(--border-hairline)] overflow-hidden bg-[var(--surface-canvas)]"
               style={{ minHeight: "260px" }}
             >
               <div className="relative h-full p-12 flex flex-col items-center justify-center gap-4 text-center">
-                <span className="lumen-mono-cap text-[var(--text-accent)]">SYSTEM V0.4 · LIVE</span>
+                <span className="lumen-mono-cap text-[var(--text-accent)]">SYSTEM V0.11 · LIVE</span>
                 <h3 className="text-display-md md:text-display-lg">
                   Calm and lit from within.
                 </h3>
@@ -521,7 +521,7 @@ export default function FoundationsPage() {
           <SubSection title="Mono uppercase tracked labels" description="Every system metadata line uses .lumen-mono-cap — Satoshi at +0.16em tracking, uppercase, calt off, tnum on. Reads as 'instrument-panel signal' without a second typeface.">
             <Card padding="lg">
               <div className="flex flex-col gap-3 lumen-mono-cap text-[var(--text-tertiary)]">
-                <div>SYSTEM V0.4 · LIVE</div>
+                <div>SYSTEM V0.11 · LIVE</div>
                 <div className="text-[var(--text-accent)]">@ DIGITAL HQ · GLOBAL ACCESS</div>
                 <div>HOURS · MINS · SECS</div>
                 <div>AI-POWERED INTERFACE GENERATOR</div>
@@ -731,7 +731,7 @@ export default function FoundationsPage() {
           id="live-data"
           eyebrow="13 · Warp signatures"
           title="Live-data signatures"
-          description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. v0.4 keeps these intact; the 8pt grid + lime-glow ambient amplifies them."
+          description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. v0.11 keeps these intact; the 8 pt grid + spring-green-glow ambient amplifies them."
         >
           <SubSection title="Stat — big bold number, mono unit, optional delta + sparkline">
             <Card padding="lg">

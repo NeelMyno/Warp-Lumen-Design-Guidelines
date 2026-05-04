@@ -10,6 +10,49 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.1] — 2026-05-04 — Audit-dashboard rendering sweep · v0.11 cleanup
+
+User feedback after v0.11.0 deployed: status pills, primary buttons, and tier badges across the audit dashboard rendered with washed/illegible text on accent surfaces, plus the brand chip still showed `v0.5` and the mood label still said `obsidian-lime`. v0.11.0 retuned tokens but didn't sweep the audit-dashboard's component code or the user-facing version labels. v0.11.1 closes those gaps.
+
+### Fixed
+
+- **Brand chip drift.** `dashboard-shell.tsx` showed `v0.5` (3 places) and `obsidian-lime` in the footer; updated to `v0.11`, `v0.11.0 · audit preview`, and `obsidian-mint`.
+- **Mono-cap version labels.** `foundations/page.tsx` had `SYSTEM V0.4 LIVE` / `SYSTEM V0.4 · LIVE` (3 places); updated to `SYSTEM V0.11 LIVE` / `SYSTEM V0.11 · LIVE`.
+- **`v0.4 · beta` / `v0.4` badges.** `tool/page.tsx` had two `<Badge status="neutral">v0.4…</Badge>` instances; bumped to `v0.11`.
+- **Library page version meta.** `library/client.tsx` `v0.4.0 · 25 sections · 250+ components` and `End of library — last refreshed v0.4.0` → `v0.11.0`.
+- **Landing hero version line.** `landing/page.tsx` `system v0.4 live` → `system v0.11 live` in the brutalist hero eyebrow.
+- **Layout metadata description.** `app/layout.tsx` "v0.4 Obsidian Lime" → "v0.11 Premium Psychology · Obsidian Mint". `data-mood="obsidian-lime"` → `data-mood="obsidian-mint"`.
+- **Mood definitions.** `lib/moods.ts` MoodId, MOODS array, and labels updated from `obsidian-lime` to `obsidian-mint`. Default mood in `mood-switcher.tsx` updated to match.
+- **Foundations descriptions.** Color-section, radius-section, hero-section, signature-primitives section descriptions all rewritten to reflect Spring Green / Obsidian Mint framing instead of the v0.4 lime / cream framing. The "Accent · Warp lime" SubSection title is now "Accent · Spring Green".
+- **Stale rgba in `globals.css` status bgs (dark mode):**
+  - `--status-success-bg: rgba(22, 163, 74, 0.16)` (old lime RGB) → `rgba(0, 250, 138, 0.16)` (spring green at 16%).
+  - `--status-warning-bg: rgba(173, 108, 8, 0.18)` (old amber RGB) → `rgba(245, 177, 24, 0.16)` (refined amber at 16%).
+  - `--status-danger-bg: rgba(183, 29, 42, 0.18)` (old danger.700 RGB) → `rgba(229, 72, 77, 0.16)` (refined danger.500 at 16%).
+- **Hardcoded `#ecfdf3` (old success-50) replaced with `var(--lumen-accent-0)`** in three places:
+  - `display.tsx` Trend up-state bg.
+  - `display.tsx` TAG_TONE.success bg.
+  - `feedback.tsx` ALERT_STYLES.success bg.
+- **Comment on the Lumen brand mark** (`dashboard-shell.tsx`) updated implicitly via the obsidian-mint footer label.
+
+### Changed
+
+- **`components/ui/badge.tsx`** — extended from 4 → 8 variants. Added `success` (lime tonal), `warning` (amber tonal), `info` (cool-neutral tonal), `accent-soft` (mid-tint accent for in-table status pills). The `destructive` variant deepened from `--lumen-red-5` to `--lumen-red-7` (`#931620`) so white-on-red clears AA Normal at 10.9:1 — same fix as the danger button per ADR 0016.
+- **Foundations source-comment annotation** — landing-page hero comment updated to reference `first-impression.md` and the 50ms halo contract (cosmetic; no behavior change).
+
+### Verification
+
+- All status pill / badge tonal pairs verified for v0.11:
+  - accent: `#00633A` on `#B7FFD9` ≈ 5.9:1 — AA Normal
+  - success: `#00633A` on `#E2FFF1` ≈ 6.4:1 — AA Normal
+  - warning: `#7A5408` on `#FFF8E5` ≈ 9.2:1 — AAA
+  - danger: `#931620` on `#FDECEB` ≈ 9.6:1 — AAA
+  - info: `#383A39` on `#FAFAFA` ≈ 12.0:1 — AAA
+  - destructive (filled): `#FFFFFF` on `#931620` ≈ 10.9:1 — AAA
+- Wide grep confirms zero remaining user-facing `v0.4` / `v0.5` / `Warp lime` / `obsidian-lime` references; only historical CSS / TSX header comments retain those (intentional record).
+- `.lumen-btn-primary` cascade verified intact: `var(--color-action-primary-bg-rest)` → `var(--lumen-accent-4)` = `#00FA8A`; `var(--color-action-primary-fg)` → `var(--lumen-accent-fg)` = `#07120D` (14.7:1 AAA).
+
+---
+
 ## [0.11.0] — 2026-05-04 — Premium Psychology · Obsidian Mint recolor · seven principles
 
 User brief (2026-05-04, condensed):

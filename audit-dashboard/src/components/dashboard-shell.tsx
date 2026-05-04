@@ -39,7 +39,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 Lumen
               </span>
               <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[var(--text-accent)] normal-case">
-                v0.5
+                v0.11
               </span>
             </Link>
 
@@ -59,7 +59,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-3">
               <span className="hidden lg:inline-flex items-center gap-2 text-[var(--text-tertiary)] lumen-mono-cap">
                 <span className="lumen-dot-pulse" aria-hidden />
-                <span>System v0.5 live</span>
+                <span>System v0.11 live</span>
               </span>
               <MoodSwitcher />
               <ThemeToggle />
@@ -82,11 +82,11 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-3">
             <LumenMark size={14} />
             <span className="lumen-mono-cap">
-              Lumen · Warp design system · obsidian-lime
+              Lumen · Warp design system · obsidian-mint
             </span>
           </div>
           <div className="flex items-center gap-4 lumen-mono-cap">
-            <span>v0.5.0 · audit preview</span>
+            <span>v0.11.0 · audit preview</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-[var(--border-strong)]" />
             <a className="lumen-link normal-case tracking-normal" href="https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines">
               github

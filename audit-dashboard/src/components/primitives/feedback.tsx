@@ -62,7 +62,7 @@ const ALERT_STYLES: Record<AlertTone, { bg: string; fg: string; border: string; 
   info:    { bg: "var(--lumen-cream-0)",   fg: "var(--lumen-cream-7)",  border: "var(--lumen-cream-2)",  icon: "var(--lumen-cream-5)" },
   warn:    { bg: "var(--lumen-amber-0)",   fg: "var(--lumen-amber-7)",  border: "var(--lumen-amber-2)",  icon: "var(--lumen-amber-5)" },
   danger:  { bg: "var(--lumen-red-0)",     fg: "var(--lumen-red-7)",    border: "var(--lumen-red-2)",    icon: "var(--lumen-red-5)" },
-  success: { bg: "#ecfdf3",                fg: "var(--lumen-accent-8)", border: "var(--lumen-accent-2)", icon: "var(--lumen-accent-6)" },
+  success: { bg: "var(--lumen-accent-0)",  fg: "var(--lumen-accent-8)", border: "var(--lumen-accent-2)", icon: "var(--lumen-accent-6)" },
   neutral: { bg: "var(--surface-sunken)",  fg: "var(--text-secondary)", border: "var(--border-hairline)", icon: "var(--text-tertiary)" },
 };
 function AlertIcon({ tone }: { tone: AlertTone }) {

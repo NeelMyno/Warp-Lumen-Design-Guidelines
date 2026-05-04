@@ -23,12 +23,12 @@ export default function LandingPage() {
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
         <BrowserChrome url="warp.example.com" />
 
-        {/* HERO — v0.4 obsidian-lime: architectural grid + brutalist headline (gradients stripped) */}
+        {/* HERO — v0.11 obsidian-mint: architectural grid + brutalist headline (gradients stripped). Per first-impression.md the 50ms halo contract: branded chrome, single focal point, no layout shift. */}
         <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural overflow-hidden">
           <div className="relative max-w-default mx-auto flex flex-col gap-7">
             <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
               <span className="lumen-dot-pulse" aria-hidden />
-              <span>Now in private beta · Spring 2026 · system v0.4 live</span>
+              <span>Now in private beta · Spring 2026 · system v0.11 live</span>
             </div>
 
             <h1 className="text-display-xl sm:text-display-2xl md:text-display-2xl text-[var(--text-primary)]">

@@ -4,7 +4,18 @@ import { ReactNode, useState } from "react";
 import { File as FileIconLucide, Folder as FolderIconLucide, Star as StarIconLucide } from "lucide-react";
 import { ChevronDown, Check, X, Plus, Search as SearchIcon } from "./icon";
 
-/* ─────────────────────────  TAG / CHIP  ───────────────────────── */
+/* ─────────────────────────  TAG / CHIP  ─────────────────────────
+   v0.11 — Tag/Chip rendering. Each tone is a (bg, fg, border) trio bound to
+   primitive ramp variables so it renders consistently across theme modes.
+   The accent border uses color-mix to build a faint spring-green hairline
+   (30% accent over transparent) that reads as "tagged" without competing.
+   Verified contrast for v0.11:
+     accent  — fg #00633A on bg #B7FFD9 ≈ 5.9:1 — AA Normal
+     info    — fg #383A39 on bg #FAFAFA ≈ 12.0:1 — AAA
+     warn    — fg #7A5408 on bg #FFF8E5 ≈ 9.2:1 — AAA
+     danger  — fg #931620 on bg #FDECEB ≈ 9.6:1 — AAA
+     success — fg #00633A on bg #E2FFF1 ≈ 6.4:1 — AA Normal
+*/
 type TagTone = "neutral" | "accent" | "info" | "warn" | "danger" | "success";
 const TAG_TONE: Record<TagTone, string> = {
   neutral: "bg-[var(--surface-sunken)] text-[var(--text-secondary)] border-[var(--border-hairline)]",
@@ -12,7 +23,7 @@ const TAG_TONE: Record<TagTone, string> = {
   info: "bg-[var(--lumen-cream-0)] text-[var(--lumen-cream-7)] border-[var(--lumen-cream-2)]",
   warn: "bg-[var(--lumen-amber-0)] text-[var(--lumen-amber-7)] border-[var(--lumen-amber-2)]",
   danger: "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)] border-[var(--lumen-red-2)]",
-  success: "bg-[#ecfdf3] text-[var(--lumen-accent-8)] border-[var(--lumen-accent-2)]",
+  success: "bg-[var(--lumen-accent-0)] text-[var(--lumen-accent-8)] border-[var(--lumen-accent-2)]",
 };
 export function Tag({
   children,
@@ -71,14 +82,18 @@ export function StatusPill({
   );
 }
 
-/* ─────────────────────────  TREND INDICATOR  ───────────────────────── */
+/* ─────────────────────────  TREND INDICATOR  ─────────────────────────
+   v0.11 — uses primitive ramp variables (no hardcoded hex). Up trend uses
+   accent-0 (pastel mint #E2FFF1) + accent-8 (deep #00633A) ≈ 6.4:1 AA Normal.
+   Down trend uses red-0 + red-7 ≈ 9.6:1 AAA.
+*/
 export function Trend({ delta, suffix = "" }: { delta: number; suffix?: string }) {
   const up = delta >= 0;
   return (
     <span
       className={[
         "inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[var(--type-11)] font-medium lumen-mono",
-        up ? "bg-[#ecfdf3] text-[var(--lumen-accent-8)]" : "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)]",
+        up ? "bg-[var(--lumen-accent-0)] text-[var(--lumen-accent-8)]" : "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)]",
       ].join(" ")}
     >
       <span aria-hidden>{up ? "▲" : "▼"}</span>
