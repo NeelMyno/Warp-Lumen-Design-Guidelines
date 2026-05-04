@@ -1,12 +1,13 @@
 ---
 name: Spacing
 type: foundation
-version: 2.0.0
-last_updated: 2026-05-03
+version: 2.1.0
+last_updated: 2026-05-04
 audience: [designer, engineer, llm-agent]
 related:
   - ./principles.md
   - ./typography.md
+  - ./hierarchy.md
   - ./density.md
   - ./forms-and-inputs.md
   - ./accessibility.md
@@ -14,11 +15,15 @@ related:
   - ../01-tokens/semantic/space.tokens.json
   - ../01-tokens/primitives/radius.tokens.json
   - ../../_meta/decisions/0014-spacing-rebuild-v08.md
+  - ../../_meta/decisions/0018-premium-psychology-recolor.md
 ---
 
 # Lumen Spacing
 
-> Lumen runs on a **4-point base grid** with an 8-point soft alignment. Every structural pixel snaps to 4 (most things to 8). The semantic space ladder is what consumers reach for; the primitive `dimension.*` table is what Style Dictionary emits to it. Whitespace lives **inside** sections, not between them — per [`principles.md`](./principles.md) §5.
+> Lumen runs on a **4-point base grid** with an 8-point soft alignment. Every structural pixel snaps to 4 (most things to 8). The semantic space ladder is what consumers reach for; the primitive `dimension.*` table is what Style Dictionary emits to it.
+
+> [!note]
+> **v0.11 — Whitespace as confidence.** The v0.1 principle "density is dense, not airy" was reabsorbed in v0.11 into [`principles.md`](./principles.md) §3 (less, but better) + §4 (cognitive fluency). The marketing-vs-operator surface split is **mandatory**, not optional: marketing surfaces breathe (96 px hero rhythm), operator surfaces stay dense (24 px section rhythm). Both express the same calm-confidence — just at different cadences. *White space is confidence*, never laziness — but on operator pages the user's confidence comes from speed, not from atmosphere.
 
 This is the canonical reference. Primitives are in [`01-tokens/primitives/dimension.tokens.json`](../01-tokens/primitives/dimension.tokens.json). Semantic aliases are in [`01-tokens/semantic/space.tokens.json`](../01-tokens/semantic/space.tokens.json). Radius (sibling system) is in [`01-tokens/primitives/radius.tokens.json`](../01-tokens/primitives/radius.tokens.json).
 

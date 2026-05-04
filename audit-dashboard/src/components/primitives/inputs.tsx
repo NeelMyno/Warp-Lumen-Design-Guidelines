@@ -480,7 +480,7 @@ export function TagsInput({
 export function ColorPicker({
   value,
   onChange,
-  swatches = ["#4ade80", "#34c977", "#22c55e", "#4592e8", "#ecaa2c", "#e23b3b", "#9333ea", "#1c1b16"],
+  swatches = ["#00FA8A", "#00D675", "#00B062", "#4592e8", "#F5B118", "#E5484D", "#9333ea", "#171A18"],
 }: {
   value: string;
   onChange: (v: string) => void;

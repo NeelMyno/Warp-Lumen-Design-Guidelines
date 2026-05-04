@@ -1,6 +1,6 @@
 # Lumen — Warp's Design System
 
-> Lumen is Warp's vertically-integrated UI design system spanning web (Next.js 16 + Tailwind v4 + shadcn), React Native, native iOS/Android, native desktop (macOS/Windows), and e-commerce themes (Shopify Liquid, BigCommerce Stencil, WooCommerce). Tokens are DTCG JSON; build pipeline is Style Dictionary v5; component contracts follow the shadcn registry spec. Visual mood: **Quiet Industrial** — paper-warm white in light, Warp's actual navy ladder in dark, one disciplined Warp lime green accent (`#4ade80`) used for action / live / success only.
+> Lumen is Warp's vertically-integrated UI design system spanning web (Next.js 16 + Tailwind v4 + shadcn), React Native, native iOS/Android, native desktop (macOS/Windows), and e-commerce themes (Shopify Liquid, BigCommerce Stencil, WooCommerce). Tokens are DTCG JSON; build pipeline is Style Dictionary v5; component contracts follow the shadcn registry spec. Visual mood (v0.11 Premium Psychology — Obsidian Mint): **cool-neutral paper white in light, obsidian-mint `#171A18` in dark, one disciplined Spring Green accent `#00FA8A`** used for action / live / success only. Primary text on dark is `#E6E6E6` (the user-fixed brand light), not pure white. Seven design principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule.
 
 If you are an AI coding agent, read these in order:
 
@@ -10,9 +10,16 @@ If you are an AI coding agent, read these in order:
 - [Token taxonomy](/design-system/01-tokens/README.md): Three-layer system (primitives → semantic → component). Engineers and LLMs only consume semantic.
 - [Component schema](/design-system/02-components/_schema/component.schema.json): JSON schema every component contract validates against.
 - [Synthesised brief](/research/lumen-brief.md): Why every major decision was made.
+- [ADR 0018 — v0.11 Premium Psychology recolor](/_meta/decisions/0018-premium-psychology-recolor.md): The current visual contract.
 
 ## Foundations
-- [Principles](/design-system/00-foundations/principles.md): The five operating principles.
+- [Principles](/design-system/00-foundations/principles.md): The seven operating principles (v0.11 grew from 5 to 7).
+- [Hierarchy](/design-system/00-foundations/hierarchy.md): v0.11 — aggressive hierarchy / one focal point per section.
+- [First impression](/design-system/00-foundations/first-impression.md): v0.11 — 50ms halo, hero anatomy, cold-load contract.
+- [Micro-interactions](/design-system/00-foundations/micro-interactions.md): v0.11 — peak-end rule, the catalog of moments.
+- [Color](/design-system/00-foundations/color.md): The four-color floor — accent #00FA8A, dark #171A18, light #E6E6E6, paper #FAFAFA.
+- [Typography](/design-system/00-foundations/typography.md): Satoshi-only single-typeface system.
+- [Spacing](/design-system/00-foundations/spacing.md): 4-pt base / 8-pt soft grid; marketing-vs-operator section split.
 - [Voice & tone](/design-system/00-foundations/voice-and-tone.md): How Lumen sounds.
 - [Accessibility](/design-system/00-foundations/accessibility.md): WCAG 2.2 AA floor — non-negotiable.
 - [Motion language](/design-system/00-foundations/motion-language.md): Timing tokens, easing, choreography.

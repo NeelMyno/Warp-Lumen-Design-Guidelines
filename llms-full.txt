@@ -2,12 +2,14 @@
 
 > Inlined version of llms.txt for agents that do a single fetch. Combines llms.txt index with the contents of AGENTS.md, the principles, the token quick-ref, and the brand brief.
 
+> **v0.11 — Premium Psychology — Obsidian Mint.** Brand anchors: Spring Green `#00FA8A` (accent), Obsidian Mint `#171A18` (dark canvas), `#E6E6E6` (light anchor / primary text on dark). Seven principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. Three new foundations (hierarchy, first-impression, micro-interactions) operationalize these. See ADR 0018.
+
 ## Index (same as llms.txt)
 
 - AGENTS.md — universal agent rules
 - CLAUDE.md — Claude-specific addenda
 - llms.txt — discovery index
-- design-system/00-foundations/ — principles, voice, a11y, motion-language
+- design-system/00-foundations/ — principles, hierarchy, first-impression, micro-interactions, voice, a11y, motion-language, color, typography, spacing
 - design-system/01-tokens/ — DTCG JSON (primitives → semantic → component)
 - design-system/02-components/ — component.md + component.json per component
 - design-system/03-platforms/ — per-platform consumption guides
@@ -19,49 +21,48 @@
 
 ## Inlined: principles (from design-system/00-foundations/principles.md)
 
-Five operating principles, in priority order when in conflict:
+**Seven** operating principles (v0.11 grew from 5 to 7), in priority order when in conflict:
 
-1. **Less, but better.** Restraint is a constraint, not a style. Cut until removing one more thing breaks meaning. One primary action per view, one disciplined accent in the system, no second loud color, no decorative gradients.
-
-2. **Care is total or it is performance.** The empty state, the error toast, the disabled button, the focus ring, the 404 page get the same attention as the marquee dashboard.
-
-3. **Color is supplement, not signal.** Status meaning never lives only in hue. Pair color with a label or shape. The accent green is reserved for action / live / success.
-
-4. **Decelerate, don't bounce.** Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI feedback ≤ 180 ms; state changes ≤ 260 ms. The LiveDot pulse is the one signature recurring animation. Honor `prefers-reduced-motion`.
-
-5. **Density is dense, not airy.** Long single-column scrolls, ~1100–1200 px content widths, FAQ accordions are fine. Whitespace lives inside sections. Apple's calm comes from typographic discipline and 1px hairlines, not emptiness.
+1. **Engineer the first impression.** A visitor judges in 50ms; the halo effect colors everything after. Heroes answer what/who/why, ship one focal point, and pass the cold-load contract (no shift, branded chrome on first paint).
+2. **Lead the eye — one focal point per section.** Aggressive hierarchy: decisively unequal visual weight, primary tier 1.5–2× the support tier. Five things at the same volume = the user hears nothing.
+3. **Less, but better.** Restraint is a constraint, not a style. Cut until removing one more thing breaks meaning. One primary action per view, one disciplined accent in the system, no second loud color, no decorative gradients.
+4. **Cognitive fluency over decoration.** The brain rewards what's easy to process. Easy-to-read = trustworthy = premium. Predictable layouts > clever layouts. Tabular numerics. Reading copy capped at 60–75 ch.
+5. **Care is total — peak moments, end moments, every state.** The empty state, the error toast, the disabled button, the focus ring, the 404 get the same attention as the hero. Peak-end rule: people remember peaks and endings.
+6. **Color is supplement, not signal.** Status meaning never lives only in hue. Pair color with a label or shape. The accent (Spring Green) is reserved for action / live / success.
+7. **Decelerate; motion serves comprehension.** Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI feedback ≤ 180 ms; state changes ≤ 260 ms. The LiveDot pulse is the one signature recurring animation. Honor `prefers-reduced-motion`.
 
 ## Inlined: AGENTS.md hard rules
 
 1. Never invent tokens. Add semantic aliases, never import primitives.
-2. Always reference SEMANTIC tokens. `color.surface.default`, never `color.warm.50`.
+2. Always reference SEMANTIC tokens. `color.surface.default`, never `color.neutral.50`.
 3. Component contracts validate against `_schema/component.schema.json`.
 4. Every component ships a `component.json` machine contract.
 5. Accessibility is WCAG 2.2 AA. Hard floor.
 6. Use platform-appropriate code templates from `02-components/{name}/examples/`.
-7. The Warp lime green plays exactly one role: action / live / success.
+7. The Spring Green accent (#00FA8A) plays exactly one role: action / live / success.
 8. Honor `prefers-reduced-motion` everywhere.
+9. Never render white or near-white text on the spring-green accent surface — use `color.accent.fg` (#07120D, 14.7:1 AAA on #00FA8A).
 
 ## Inlined: token quick reference
 
 ### Surfaces
-- `color.surface.page` — page canvas (paper-warm white in light, Warp navy in dark)
-- `color.surface.raised` — cards (white in light, lifted navy in dark)
-- `color.surface.sunken` — inputs, table row hover
+- `color.surface.page` — page canvas (paper-clean off-white #FAFAFA in light, obsidian-mint #171A18 in dark)
+- `color.surface.raised` — cards (white in light, raised obsidian-mint #21241F in dark)
+- `color.surface.sunken` — inputs, table row hover (anchored to user-fixed #E6E6E6 in light)
 - `color.surface.overlay` — translucent sticky chrome
 - `color.surface.inverse` — dark surface for contrast moments
 
 ### Text
-- `color.text.primary` — body and titles (14.6:1 contrast)
-- `color.text.secondary` — captions (7.4:1)
-- `color.text.tertiary` — hints (4.6:1, ≥18px only)
+- `color.text.primary` — body and titles (17.2:1 light / 13.7:1 dark)
+- `color.text.secondary` — captions (10.5:1 / 6.4:1)
+- `color.text.tertiary` — hints (5.4:1 / 3.6:1 ≥18px only)
 - `color.text.inverse` — text on inverse surfaces
 - `color.text.accent` — emphasis text matching accent
 
 ### Action
-- `color.action.primary.bg.{rest,hover,press}` — Warp green button background
-- `color.action.primary.fg` — near-black-green text on accent
-- `color.action.primary.glow` — signature green-glow under primary CTAs (`0 14px 34px rgba(74,222,128,0.24)`)
+- `color.action.primary.bg.{rest,hover,press}` — Spring Green button background
+- `color.action.primary.fg` — near-black-mint text on accent (#07120D)
+- `color.action.primary.glow` — signature spring-green glow under primary CTAs (`0 14px 34px rgba(0,250,138,0.24)`)
 
 ### Status
 - `color.status.{success,warning,danger,info}.{bg,fg}` — always paired with label or shape, never color alone
@@ -95,33 +96,39 @@ Five operating principles, in priority order when in conflict:
 - `type.caption` (13 px) — metadata
 - `type.micro` (12 px) — eyebrows, badges
 - `type.label.{sm,eyebrow}` — UI labels
-- `type.code.{inline,block}` — JetBrains Mono
+- `type.code.{inline,block}` — Satoshi with `calt 1, liga 1, zero 1` (v0.10 — JetBrains Mono retired)
 
-## Inlined: brand brief decisions
+## Inlined: brand brief decisions (v0.11 current)
 
 ### D-001 Visual mood
-Quiet Industrial. Warp's substance + Apple's typographic discipline. Paper-warm white light, Warp navy dark.
+Quiet Industrial — Obsidian Mint (v0.11). Warp's substance + Apple's typographic discipline + Premium Psychology principles. Paper-clean off-white in light, obsidian-mint near-black in dark.
 
-### D-002 Color
-Warp lime green `#4ade80` as the only loud color, role: action / live / success. Hover `#34c977`, press `#22c55e`. Light mode canvas `#fafaf7`. Dark mode canvas `#131c2a` (Warp's actual `--warp-bg`).
+### D-002 Color (v0.11 — Premium Psychology recolor)
+Spring Green `#00FA8A` as the only loud color, role: action / live / success. Hover `#00D675`, press `#00B062`. Light mode canvas `#FAFAFA` (paper-clean). Dark mode canvas `#171A18` (obsidian-mint, the user-fixed brand dark). Primary text on dark = `#E6E6E6` (the user-fixed brand light), not pure white. Status hues refined: danger `#E5484D`, warning `#F5B118`. See ADR 0018.
 
-### D-003 Typography
-Satoshi (UI/display) + JetBrains Mono (numerics/code). 1.25 modular scale on 16 px base. Editorial pair: Source Serif 4. Plan B: Inter.
+### D-003 Typography (v0.10 current)
+Satoshi alone. UI, display, body, numerics, code, editorial — single typeface, separated by weight/size/tracking + OpenType feature flags. 1.25 modular scale on 16 px base. (v0.10 retired JetBrains Mono, Source Serif 4, Inter — see ADR 0017.)
 
 ### D-004 Spacing & geometry
-4-based spacing scale. Radius 2/4/6/10/14/20/28/9999. Hairline borders do most surface separation.
+4-based spacing scale, 8-pt soft grid. Radius 2/4/6/10/14/20/28/9999. Hairline borders do most surface separation. Marketing breathes (96 px hero rhythm) · Operator stays dense (24 px section rhythm).
 
 ### D-005 Motion
-Decelerate, don't bounce. Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI ≤ 180 ms. The LiveDot pulse is the one signature loop.
+Decelerate, don't bounce. Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI ≤ 180 ms. The LiveDot pulse is the one signature loop. Peak-end rule guides the micro-interaction catalog (see `micro-interactions.md`).
 
 ### D-006 Imagery
-No stock photography. Marketing: product screenshots first, documentary second. No mascots, no illustrated scenes. Iconography: 1.5 px stroke, 24 px grid, rounded ends.
+No stock photography. Marketing: product screenshots first, documentary second. No mascots, no illustrated scenes. Iconography: Lucide, 1.5 px stroke, 24 px grid, rounded ends.
 
-### D-007 Density
-Dense over airy. 1100 px primary content width. Tables compact 32 px rows.
+### D-007 Density (v0.11)
+Marketing surfaces breathe; operator surfaces stay dense. 1100 px primary marketing width, 1440–1920 px operator width. Tables compact 32 px rows. Both express calm-confidence — at different cadences.
 
-### D-008 Live-data signature primitives
-Three: `Stat` (big tabular numeric + small mono unit), `LiveDot` (8 px green dot with 2 px pulsing ring), `RateTicker` (horizontal scrolling lane rates).
+### D-008 Hierarchy (v0.11 new)
+Aggressive — one focal point per section, primary tier 1.5–2× the support tier. Equal-weight noise reads cheap.
+
+### D-009 First impression (v0.11 new)
+Engineered. The 50ms contract: hero answers what/who/why and passes three halo checks (branded chrome, single focal point, no layout shift) before the user scrolls.
+
+### D-010 Live-data signature primitives
+Three: `Stat` (big tabular numeric + small unit), `LiveDot` (8 px spring-green dot with 2 px pulsing ring), `RateTicker` (horizontal scrolling lane rates).
 
 ### D-009 Architecture
 DTCG JSON tokens → Style Dictionary v5 → 8 platform outputs. Three-layer taxonomy. Two-file-per-component (md + json). shadcn registry distribution. Layered LLM contract.

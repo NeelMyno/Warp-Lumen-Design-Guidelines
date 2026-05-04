@@ -1,11 +1,12 @@
 ---
 name: Typography
 type: foundation
-version: 0.10.0
-last_updated: 2026-05-03
+version: 0.11.0
+last_updated: 2026-05-04
 audience: [designer, engineer, writer, llm-agent]
 related:
   - ./principles.md
+  - ./hierarchy.md
   - ./voice-and-tone.md
   - ./accessibility.md
   - ../01-tokens/primitives/typography.tokens.json
@@ -14,11 +15,15 @@ related:
   - ../../_meta/decisions/0006-satoshi-jetbrains-pairing.md
   - ../../_meta/decisions/0010-typography-v05.md
   - ../../_meta/decisions/0017-satoshi-only-typography-v010.md
+  - ../../_meta/decisions/0018-premium-psychology-recolor.md
 ---
 
 # Lumen Typography
 
 > Lumen is the typographic spine of Warp's UI. Every word the user reads — KPI, error, lane name, button — is set in this system. The principles are simple: **type does the hierarchy, numbers align in columns, and one italic word is allowed per page.** Everything else is restraint.
+
+> [!note]
+> v0.11 — small edits to align with the [Premium Psychology principles](./principles.md). Single-typeface discipline (Satoshi alone) directly serves principle 3 (*less, but better*) — premium reads as confidence, and confidence reads as restraint. The "type does the hierarchy" rule is operationalized in the new [`hierarchy.md`](./hierarchy.md) foundation.
 
 This is the canonical reference. Tokens are in [`01-tokens/primitives/typography.tokens.json`](../01-tokens/primitives/typography.tokens.json) and [`01-tokens/semantic/type.tokens.json`](../01-tokens/semantic/type.tokens.json). The research that shaped these decisions lives in [`research/satoshi-typography.md`](../../research/satoshi-typography.md). The why is in [ADR 0010](../../_meta/decisions/0010-typography-v05.md) (the v0.5 scale + curves + presets) and [ADR 0017](../../_meta/decisions/0017-satoshi-only-typography-v010.md) (the v0.10 collapse to a single typeface). [ADR 0006](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md) is the historical pairing decision and is now superseded.
 
@@ -422,11 +427,14 @@ If you're doing it right, the page should read like a senior operator's slide de
 
 ## Related
 
-- [Principles](./principles.md) — the five constraints that shaped this system
+- [Principles](./principles.md) — the seven constraints that shape this system (v0.11 grew from 5 to 7)
+- [Hierarchy](./hierarchy.md) — v0.11 — operationalizes "type does the hierarchy"
+- [First impression](./first-impression.md) — v0.11 — hero anatomy and cold-load contract
 - [Voice and tone](./voice-and-tone.md) — how Lumen sounds; numbers contract
 - [Accessibility](./accessibility.md) — WCAG 2.2 AA floor; contrast pairs
 - [Motion language](./motion-language.md) — type doesn't move; only state pulses
 - [ADR 0017 — Satoshi-only typography (v0.10)](../../_meta/decisions/0017-satoshi-only-typography-v010.md) — current state
+- [ADR 0018 — v0.11 Premium Psychology recolor](../../_meta/decisions/0018-premium-psychology-recolor.md) — the brand recolor + principles rewrite
 - [ADR 0010 — Typography v0.5 system upgrade](../../_meta/decisions/0010-typography-v05.md) — the scale, curves, and presets (still in force)
 - [ADR 0006 — Satoshi + JetBrains Mono pairing](../../_meta/decisions/0006-satoshi-jetbrains-pairing.md) — superseded; historical record of the four-family era
 - [Typography research](../../research/satoshi-typography.md)

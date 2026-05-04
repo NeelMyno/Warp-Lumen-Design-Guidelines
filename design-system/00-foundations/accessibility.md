@@ -47,7 +47,7 @@ These are AAA or beyond. Lumen pushes for them by default; missing them does not
 
 ## Primary action contrast — explicit
 
-The **lime accent surface** (`color.accent.500` = `#4ade80`) requires `color.accent.fg` (`#0a0a0d`) on top — that pair clears 12.6:1 (AAA). White-on-lime is 1.66:1 (AA fail) and **forbidden by Hard rule #9 in [`AGENTS.md`](../../AGENTS.md)**.
+The **Spring Green accent surface** (`color.accent.500` = `#00FA8A`) requires `color.accent.fg` (`#07120D`) on top — that pair clears 14.7:1 (AAA). White-on-spring-green is ~1.4:1 (AA fail) and **forbidden by Hard rule #9 in [`AGENTS.md`](../../AGENTS.md)**.
 
 Why this needs its own rule: in Tailwind v4, the shadcn token bridge (`bg-primary` + `text-primary-foreground` resolving via `:root` → `--primary-foreground` → `--text-on-accent` → `--lumen-accent-fg`) has been observed to drop those utility classes from compiled CSS. The button then inherits `--text-primary` (near-white in dark theme) and renders the AA-failing pair. Two enforcement layers protect against this:
 

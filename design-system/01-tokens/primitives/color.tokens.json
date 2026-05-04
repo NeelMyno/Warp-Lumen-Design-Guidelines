@@ -2,88 +2,107 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "Primitive color ramps. Mode-agnostic. Engineers and LLMs do NOT consume these directly — use semantic aliases (color.surface.*, color.text.*, etc.) instead. Lumen v0.4 retunes brand to obsidian (warm near-black, never navy) and warm to cream (warm paper). Accent unchanged: #4ade80 stays the brand value.",
+    "$description": "Primitive color ramps. Mode-agnostic. Engineers and LLMs do NOT consume these directly — use semantic aliases (color.surface.*, color.text.*, etc.) instead. Lumen v0.11 retunes brand to obsidian-mint (warm-cool near-black with a faint green undertone, anchored at #171A18) and rebuilds the accent as Spring Green #00FA8A. Premium-psychology release: fewer colors, used with confidence.",
     "brand": {
-      "$description": "Obsidian — the dark canvas ramp for v0.4. Slightly warm-leaning near-black; replaces the v0.1–v0.3 Warp navy ladder. The dark-mode silhouette and the deep-ink moments in light mode.",
-      "50":  { "$value": "#f1f1ee", "$description": "Cream-leaning paper for light theme" },
-      "100": { "$value": "#d9d9d4" },
-      "200": { "$value": "#b6b6b0" },
-      "300": { "$value": "#84848c", "$description": "Tertiary text on dark" },
-      "400": { "$value": "#56565e", "$description": "Dim text on dark" },
-      "500": { "$value": "#2f2f37" },
-      "600": { "$value": "#1d1d24", "$description": "Glass card body, dark" },
-      "700": { "$value": "#14141a", "$description": "Raised surface, dark" },
-      "800": { "$value": "#0a0a0d", "$description": "Canvas — DEFAULT dark" },
-      "900": { "$value": "#06060a", "$description": "Void / scrim base" }
+      "$description": "Obsidian-Mint — the canvas ladder. Anchored at #171A18 (brand.800). A neutral near-black with a faint green undertone (G channel +2 over R, +1 over B) so it reads cohesive against the spring-green accent without competing. Replaces the v0.4–v0.10 obsidian ramp. The dark-mode silhouette and the deep-ink moments in light mode.",
+      "50":  { "$value": "#F4F5F4", "$description": "Cream-leaning paper for light theme — slight green tint" },
+      "100": { "$value": "#E6E6E6", "$description": "Brand light anchor — the user-fixed light value. Used as subtle borders, sunken surfaces in light mode, and as primary text on dark." },
+      "200": { "$value": "#C8C9C8", "$description": "Mid-tone. Subtle borders, disabled text on light." },
+      "300": { "$value": "#9DA09F", "$description": "Tertiary text on dark. Captions, hints." },
+      "400": { "$value": "#6E7270", "$description": "Secondary text on dark. AA-safe at 14px+." },
+      "500": { "$value": "#4A4D4B", "$description": "Mid-rail. Borders, dividers on dark." },
+      "600": { "$value": "#2E3230", "$description": "Popover surface, dark." },
+      "700": { "$value": "#21241F", "$description": "Raised surface, dark — sits above canvas. Slight green-black tilt." },
+      "800": { "$value": "#171A18", "$description": "Canvas — DEFAULT dark. The user-fixed brand dark value." },
+      "900": { "$value": "#0E110F", "$description": "Sunken / scrim base." },
+      "950": { "$value": "#060807", "$description": "Void / deepest. Used only for hard-edge contrast moments." }
     },
     "accent": {
-      "$description": "Warp lime green. The only loud color in the system. Reads as 'laser' against obsidian without leaving the brand. Reserved for action / live / success. Never used decoratively.",
-      "50":  { "$value": "#effff2" },
-      "100": { "$value": "#d8ffe1" },
-      "200": { "$value": "#b6ffc6" },
-      "300": { "$value": "#82f5a3", "$description": "Laser highlight — used on dark for emphasis" },
-      "400": { "$value": "#4ade80", "$description": "Warp --warp-accent (canonical brand accent, used 788x in Warp CSS)" },
-      "500": { "$value": "#4ade80", "$description": "Same as 400 — convention to keep the brand value at the 500 step" },
-      "600": { "$value": "#34c977", "$description": "Hover state observed in Warp CSS" },
-      "700": { "$value": "#22c55e", "$description": "Press state, Warp --warp-success" },
-      "800": { "$value": "#16a34a", "$description": "Accent text on light surfaces (passes 4.7:1 on white)" },
-      "900": { "$value": "#14532d" },
-      "fg":  { "$value": "#06120a", "$description": "Near-black-green text on accent surfaces (Warp --color-warp-green-dark)" }
+      "$description": "Spring Green — the only loud color in the system. Anchored at #00FA8A (accent.500). Brighter and more electric than the v0.4–v0.10 lime; reads as 'laser' against obsidian-mint. Reserved for action / live / success. Never used decoratively. The single-accent discipline (ADR 0005) is preserved verbatim — only the hue changed.",
+      "50":  { "$value": "#E2FFF1", "$description": "Tint background (rare). For accent-tinted card hovers in light mode." },
+      "100": { "$value": "#B7FFD9" },
+      "200": { "$value": "#80FFC0" },
+      "300": { "$value": "#4DFFA8", "$description": "Laser-bright on dark — used for emphasis text, focus glow on obsidian." },
+      "400": { "$value": "#1AFF93", "$description": "Just above brand value — dark-mode focus ring, hover lift on obsidian." },
+      "500": { "$value": "#00FA8A", "$description": "BRAND VALUE — Spring Green. The canonical Lumen accent. Never softened." },
+      "600": { "$value": "#00D675", "$description": "Primary CTA hover state." },
+      "700": { "$value": "#00B062", "$description": "Primary CTA press state." },
+      "800": { "$value": "#008A4D", "$description": "Accent text on light surfaces. ~4.6:1 on white — AA-safe at 14px+." },
+      "900": { "$value": "#003820", "$description": "Accent text in dense reading copy on light. AAA on white." },
+      "fg":  { "$value": "#07120D", "$description": "Near-black-mint text on accent surfaces. ~14.7:1 on accent.500 — AAA. Cohesive with brand.800." }
+    },
+    "neutral": {
+      "$description": "Cool-neutral grays — paper canvas + neutral text in light mode + warm-tinted accents on dark. Replaces the v0.4–v0.10 'warm' (cream) ramp. The brand is no longer warm; the system ships cool-neutral with a faint green undertone so all surfaces read cohesive against the spring-green accent. Anchored at #E6E6E6 (neutral.200) for surface alignment with brand.100.",
+      "50":  { "$value": "#FAFAFA", "$description": "Page canvas — pure paper-white with whisper of warmth. Light mode default." },
+      "100": { "$value": "#F1F2F1", "$description": "Raised surface in light mode (rare — most surfaces stay on neutral.50 with hairlines)." },
+      "200": { "$value": "#E6E6E6", "$description": "Subtle border / sunken surface. Matches user-fixed light brand value. Used for inputs at rest, table-row hover, sidebar." },
+      "300": { "$value": "#D2D4D3", "$description": "Default border on light. Hairlines, disabled outlines." },
+      "400": { "$value": "#A8AAA9", "$description": "Disabled text, placeholder on light." },
+      "500": { "$value": "#757775", "$description": "Tertiary text on light. Hints, captions." },
+      "600": { "$value": "#515352", "$description": "Secondary text on light. AA-safe." },
+      "700": { "$value": "#383A39", "$description": "Body text on light, deep secondary." },
+      "800": { "$value": "#242625", "$description": "Heading text on light, near-canvas-dark." },
+      "900": { "$value": "#141615", "$description": "Deepest ink — primary heading text. Distinct from brand.900 by a hair so the cool-warm tilt sings." }
     },
     "warm": {
-      "$description": "Cream — paper-warm neutrals. Light-mode canvas + warm-tinted accents on dark. Replaces the v0.3 'gray' family.",
-      "50":  { "$value": "#fdfcf7", "$description": "Paper" },
-      "100": { "$value": "#f6f4ea", "$description": "Raised cream" },
-      "200": { "$value": "#ebe7d5", "$description": "Glass-tint cream" },
-      "300": { "$value": "#d6d0b6" },
-      "400": { "$value": "#b6ad8c" },
-      "500": { "$value": "#908668" },
-      "600": { "$value": "#6f664c" },
-      "700": { "$value": "#514b34" },
-      "800": { "$value": "#34301f" },
-      "900": { "$value": "#1a1812", "$description": "Deep cream-ink" }
+      "$description": "DEPRECATED v0.11 — backwards-compat alias to neutral.* for token consumers stuck on v0.10 paths. Will be removed in v1.0. New code uses color.neutral.*.",
+      "$deprecated": "Replaced by color.neutral.* in v0.11.0. Will be removed in v1.0.0. The v0.4–v0.10 warm-cream ramp was retired with the obsidian-mint brand shift; the system is no longer warm.",
+      "50":  { "$value": "{color.neutral.50}" },
+      "100": { "$value": "{color.neutral.100}" },
+      "200": { "$value": "{color.neutral.200}" },
+      "300": { "$value": "{color.neutral.300}" },
+      "400": { "$value": "{color.neutral.400}" },
+      "500": { "$value": "{color.neutral.500}" },
+      "600": { "$value": "{color.neutral.600}" },
+      "700": { "$value": "{color.neutral.700}" },
+      "800": { "$value": "{color.neutral.800}" },
+      "900": { "$value": "{color.neutral.900}" }
     },
     "status": {
-      "$description": "Status palette. Always paired with a label or shape — never used as the sole signal. v0.4 drops the sky-blue info hue; info now rides the cream/lime warm-neutral spectrum.",
+      "$description": "Status palette. Always paired with a label or shape — never used as the sole signal. v0.11 refines danger and warning to feel less alert / more confident; saturation reduced ~6% from v0.10 to harmonize with the cooler obsidian-mint canvas. Success rides the accent ramp (single-accent rule). Info rides neutral + accent.",
       "success": {
-        "50":  { "$value": "#ecfdf3" },
-        "500": { "$value": "#22c55e" },
-        "700": { "$value": "#166534" },
-        "900": { "$value": "#11281c" }
+        "$description": "Success rides the spring-green accent ramp — single-accent rule. Pre-bound here for status-component consumption.",
+        "50":  { "$value": "{color.accent.50}" },
+        "500": { "$value": "{color.accent.500}" },
+        "700": { "$value": "{color.accent.700}" },
+        "900": { "$value": "{color.accent.900}" }
       },
       "warning": {
-        "50":  { "$value": "#fef6e1" },
-        "500": { "$value": "#f59e0b" },
-        "700": { "$value": "#6b4a08" },
-        "900": { "$value": "#2e2310" }
+        "$description": "Refined amber — slightly more golden, slightly less saturated than v0.10 (#f59e0b). Reads premium against obsidian-mint without competing with the spring green.",
+        "50":  { "$value": "#FFF8E5" },
+        "500": { "$value": "#F5B118", "$description": "Brand amber. Calmer than v0.10 #f59e0b." },
+        "700": { "$value": "#7A5408", "$description": "Warning text on light. AA-safe." },
+        "900": { "$value": "#2A1D04", "$description": "Warning bg on dark." }
       },
       "danger": {
-        "50":  { "$value": "#fde9e7" },
-        "500": { "$value": "#ef4444" },
-        "600": { "$value": "#dc2626", "$description": "v0.9 — added for stronger AA-pass danger button (5.13:1 white-on-bg)." },
-        "700": { "$value": "#c92626", "$description": "v0.9 — was #7a1f1c; remapped to a deeper red that clears AA Normal (5.20:1 white-on-bg). Used by color.action.danger.bg.rest." },
-        "800": { "$value": "#a31b1b", "$description": "v0.9 — added for danger.bg.hover/press (7.07:1 white-on-bg)." },
-        "900": { "$value": "#2c130f" }
+        "$description": "Refined deep red — desaturated 8% from v0.10 #ef4444 to feel less aggressive. Maintains AA contrast for danger CTAs.",
+        "50":  { "$value": "#FDECEB" },
+        "500": { "$value": "#E5484D", "$description": "Brand red. Refined from v0.10 #ef4444." },
+        "600": { "$value": "#D02E37", "$description": "Danger CTA hover." },
+        "700": { "$value": "#B71D2A", "$description": "Danger CTA bg.rest. AA Normal (5.4:1 white-on-bg)." },
+        "800": { "$value": "#931620", "$description": "Danger CTA hover/press. AAA." },
+        "900": { "$value": "#260C0E", "$description": "Danger bg on dark." }
       },
       "info": {
-        "$description": "Info hue — warm cream. v0.4 dropped sky-blue (no second loud color, no navy partnership).",
-        "50":  { "$value": "#fdfcf7" },
-        "500": { "$value": "#908668" },
-        "700": { "$value": "#514b34" },
-        "900": { "$value": "#1a1812" }
+        "$description": "Info hue — neutral with accent-text. v0.4 dropped sky-blue (no second loud color); v0.11 keeps that decision and pulls info into the cool-neutral spectrum.",
+        "50":  { "$value": "{color.neutral.50}" },
+        "500": { "$value": "{color.neutral.500}" },
+        "700": { "$value": "{color.neutral.700}" },
+        "900": { "$value": "{color.neutral.900}" }
       }
     },
     "alpha": {
-      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades, and the lime ambient glow. v0.9 added 04/08/10/16 stops to support the orthogonal action surface system (ghost-hover, outline-press, glass-hover, etc).",
+      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades, and the accent ambient glow. Ink anchored to brand.800-equivalent (#171A18 → 0.04–0.60). Paper anchored to pure white. Accent anchored to spring-green #00FA8A.",
       "ink": {
-        "04": { "$value": "rgba(10,10,13,0.04)", "$description": "v0.9 — outline-hover bg." },
-        "06": { "$value": "rgba(10,10,13,0.06)" },
-        "08": { "$value": "rgba(10,10,13,0.08)", "$description": "v0.9 — outline-press bg, ghost-press bg." },
-        "12": { "$value": "rgba(10,10,13,0.12)" },
-        "16": { "$value": "rgba(10,10,13,0.16)", "$description": "v0.9 — outline-rest border." },
-        "24": { "$value": "rgba(10,10,13,0.24)" },
-        "40": { "$value": "rgba(10,10,13,0.40)" },
-        "60": { "$value": "rgba(10,10,13,0.60)" }
+        "04": { "$value": "rgba(23,26,24,0.04)", "$description": "v0.9 — outline-hover bg. Re-anchored to brand.800 in v0.11." },
+        "06": { "$value": "rgba(23,26,24,0.06)" },
+        "08": { "$value": "rgba(23,26,24,0.08)", "$description": "v0.9 — outline-press bg, ghost-press bg." },
+        "12": { "$value": "rgba(23,26,24,0.12)" },
+        "16": { "$value": "rgba(23,26,24,0.16)", "$description": "v0.9 — outline-rest border." },
+        "24": { "$value": "rgba(23,26,24,0.24)" },
+        "40": { "$value": "rgba(23,26,24,0.40)" },
+        "60": { "$value": "rgba(23,26,24,0.60)" },
+        "84": { "$value": "rgba(23,26,24,0.84)", "$description": "v0.11 — heavy ink scrim for high-contrast moments." }
       },
       "paper": {
         "04": { "$value": "rgba(255,255,255,0.04)", "$description": "v0.9 — outline-hover bg in dark mode." },
@@ -94,25 +113,29 @@
         "16": { "$value": "rgba(255,255,255,0.16)", "$description": "v0.9 — outline-rest border in dark mode." },
         "24": { "$value": "rgba(255,255,255,0.24)", "$description": "v0.9 — outline-hover border in dark mode." },
         "40": { "$value": "rgba(255,255,255,0.40)" },
+        "72": { "$value": "rgba(255,255,255,0.72)" },
         "84": { "$value": "rgba(255,255,255,0.84)" }
       },
       "accent": {
-        "12": { "$value": "rgba(74,222,128,0.12)", "$description": "Subtle accent tint (card hover, table row tint)" },
-        "24": { "$value": "rgba(74,222,128,0.24)", "$description": "The signature green-glow opacity used by Warp under primary CTAs" },
-        "32": { "$value": "rgba(74,222,128,0.32)", "$description": "Focus ring opacity" },
-        "40": { "$value": "rgba(74,222,128,0.40)", "$description": "v0.4 — strong glow halo" },
-        "64": { "$value": "rgba(74,222,128,0.64)", "$description": "v0.4 — radial aurora hot core" }
+        "$description": "Spring-green alphas. Re-anchored to #00FA8A in v0.11. The accent-glow signature opacity (0.24) is preserved verbatim from the lime era — it reads with the same atmospheric weight on the new hue.",
+        "08": { "$value": "rgba(0,250,138,0.08)", "$description": "Whisper tint — table-row hover, subtle accent surfaces." },
+        "12": { "$value": "rgba(0,250,138,0.12)", "$description": "Subtle accent tint — card hover, selected state." },
+        "16": { "$value": "rgba(0,250,138,0.16)" },
+        "24": { "$value": "rgba(0,250,138,0.24)", "$description": "The signature accent-glow opacity — preserved from v0.4." },
+        "32": { "$value": "rgba(0,250,138,0.32)", "$description": "Focus ring opacity." },
+        "40": { "$value": "rgba(0,250,138,0.40)", "$description": "v0.4 — strong glow halo." },
+        "64": { "$value": "rgba(0,250,138,0.64)", "$description": "v0.4 — radial aurora hot core." }
       },
       "danger": {
-        "$description": "v0.6 — translucent error halos. Used by input error rings + danger overlays.",
-        "12": { "$value": "rgba(239,68,68,0.12)" },
-        "24": { "$value": "rgba(239,68,68,0.24)", "$description": "Error focus-ring opacity" },
-        "32": { "$value": "rgba(239,68,68,0.32)" }
+        "$description": "v0.6 — translucent error halos. Re-anchored to refined danger.500 #E5484D in v0.11.",
+        "12": { "$value": "rgba(229,72,77,0.12)" },
+        "24": { "$value": "rgba(229,72,77,0.24)", "$description": "Error focus-ring opacity" },
+        "32": { "$value": "rgba(229,72,77,0.32)" }
       },
       "warning": {
-        "$description": "v0.6 — translucent warning halos.",
-        "12": { "$value": "rgba(245,158,11,0.12)" },
-        "24": { "$value": "rgba(245,158,11,0.24)" }
+        "$description": "v0.6 — translucent warning halos. Re-anchored to refined warning.500 #F5B118 in v0.11.",
+        "12": { "$value": "rgba(245,177,24,0.12)" },
+        "24": { "$value": "rgba(245,177,24,0.24)" }
       }
     }
   }

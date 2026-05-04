@@ -1,8 +1,12 @@
-# ADR 0005 — Warp lime green is the system's only loud accent
+# ADR 0005 — The accent is the system's only loud color
 
-- **Date:** 2026-05-02
-- **Status:** Accepted
+- **Date:** 2026-05-02 (original — Warp lime `#4ade80`)
+- **Status:** Accepted (amended 2026-05-04)
 - **Deciders:** Lumen working group
+- **Amended by:** [ADR 0018 — v0.11 Premium Psychology recolor](./0018-premium-psychology-recolor.md) — accent hue changed from Warp lime `#4ade80` to Spring Green `#00FA8A`. The single-accent rule is preserved verbatim; only the hue changed.
+
+> [!note]
+> **v0.11 amendment.** The accent value is now `#00FA8A` (Spring Green). Everywhere this ADR mentions `#4ade80` or "Warp lime green," substitute `#00FA8A` or "Spring Green" for the current state. The original lime references are preserved as the historical record of *why* the discipline was adopted in v0.4. The discipline itself — one loud color, one role, no decoration — is unchanged.
 
 ## Context
 

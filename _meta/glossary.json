@@ -1,17 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Lumen glossary",
-  "description": "Term -> canonical definition. Used by AI agents for disambiguation when working in this repo. Last refreshed for v0.10 (2026-05-03) — covers the v0.5 typography rebuild, v0.6 forms layer, v0.9 button rebuild, and the v0.10 Satoshi-only typography collapse (ADR 0017).",
+  "description": "Term -> canonical definition. Used by AI agents for disambiguation when working in this repo. Last refreshed for v0.11 (2026-05-04) — Premium Psychology recolor, three new foundations (hierarchy, first-impression, micro-interactions), seven principles.",
   "terms": {
     "Lumen":           "The name of Warp's design system. Not 'Warp Design System' — that's ambiguous with Warp Terminal. Always 'Lumen'.",
     "Warp":            "The freight network company at wearewarp.com. NOT to be confused with Warp Terminal (warp.dev). When this repo says 'Warp', it means the freight company.",
-    "Quiet Industrial":"The default visual mood. Paper-warm white in light, Warp navy ladder in dark, one disciplined Warp lime green accent.",
+    "Quiet Industrial":"The default visual mood. v0.11 — cool-neutral paper white in light, obsidian-mint canvas in dark, one disciplined Spring Green accent.",
+    "Obsidian Mint":   "The v0.11 evolution of the Quiet Industrial mood. The dark canvas (#171A18) carries a faint green undertone (+2 G channel) so it reads cohesive against the spring-green accent without competing.",
     "Soft Luminous":   "An alternate mood — Apple-leaning. Off-white surfaces, warm undertones, 6 desaturated category hues. Best for editorial/blog surfaces.",
     "Mono Editorial":  "An alternate mood — type-led, ink + paper, one signal red used very sparingly.",
     "Premium Glass":   "An alternate mood — iOS-leaning. Vibrancy, branded blue. Best fit for the mobile operator app.",
-    "Obsidian Lime":   "The v0.4 visual direction — strip the navy, lift the lime, breathe more. The current Quiet Industrial mood inherits this look.",
-    "Warp green":      "The Lumen accent. #4ade80 (token: color.accent.500). Used 788x in Warp's production CSS. Plays exactly one role: action/live/success.",
-    "accent-glow":     "The signature green-glow shadow under primary CTAs. Token: shadow.accent-glow. Verbatim from Warp production CSS: 0 14px 34px rgba(74,222,128,0.24).",
+    "Obsidian Lime":   "The v0.4–v0.10 visual direction — strip the navy, lift the lime, breathe more. Superseded by Obsidian Mint in v0.11. The discipline of one accent + parallel modes carries forward; only hues changed.",
+    "Spring Green":    "The Lumen accent (v0.11). #00FA8A (token: color.accent.500). The user-fixed brand value. Plays exactly one role: action/live/success. Replaces the v0.4 Warp lime #4ade80.",
+    "Warp green":      "The pre-v0.11 accent. #4ade80 (was token: color.accent.500). Retired in v0.11 — the accent shifted to Spring Green #00FA8A. Historical note only; new code uses 'Spring Green' or just 'the accent'.",
+    "accent-glow":     "The signature accent-green glow shadow under primary CTAs. Token: shadow.accent-glow. v0.11 RGB re-anchored to spring green: 0 14px 34px rgba(0,250,138,0.24). Same atmospheric weight as v0.4–v0.10 lime — only hue changed.",
     "LiveDot":         "Warp signature primitive. 8px green dot with a 2px ring that pulses on a 3s loop. The system's one allowed recurring decorative animation.",
     "Stat":            "Warp signature primitive. Big bold tabular numeric + small mono unit + optional delta. Used in marketing stats, KPIs, mobile tiles.",
     "RateTicker":      "Warp signature primitive. Horizontal marquee of freight lane rates (LAX → SFO  $262), 60s linear loop.",
@@ -59,6 +61,13 @@
     "ValidationMessage": "Form-level summary primitive. Renders at the top of a Form on submit failure with anchor links to each invalid field. Uses aria-live=polite by default; assertive only for critical errors.",
     "slot":            "Decorative content inside a field shell. Three slot kinds: `[data-slot=\"leading\"]` (icon, currency, country code, search glyph), `[data-slot=\"trailing\"]` (clear button, password reveal, validation icon, dropdown caret), `[data-slot=\"addon\"]` (unit chip — lb / STD / %). Decorative by default (pointer-events: none); interactive children opt in via `data-interactive`.",
     "autofill recipe": "The Chrome yellow-flash defeat. `-webkit-box-shadow: inset 0 0 0 1000px var(--surface-input-rest)` paints the field bg via inset shadow; `-webkit-text-fill-color` keeps the text the right color; the 5000 s transition outlasts the flash. Defined in globals.css §FORMS.",
-    "field-sizing auto-grow": "The v0.6 textarea pattern. CSS `field-sizing: content` (Chrome 128+, Safari TP) lets a textarea grow with its content automatically. Falls back to `min-h` + the user resize handle on older browsers."
+    "field-sizing auto-grow": "The v0.6 textarea pattern. CSS `field-sizing: content` (Chrome 128+, Safari TP) lets a textarea grow with its content automatically. Falls back to `min-h` + the user resize handle on older browsers.",
+    "halo effect":     "v0.11 — Cognitive bias where a first impression of one attribute (visual quality of a UI) colors all subsequent judgments (perceived trustworthiness, professionalism, value of the product). Lumen's principle 1 (engineer the first impression) is the operational response. Source: Thorndike 1920; Lindgaard et al. 2006 (50ms web judgment).",
+    "cognitive fluency": "v0.11 — Processing fluency. The brain rewards what's easy to process; easy-to-process design reads as more trustworthy, more premium. Lumen principle 4. Source: Reber, Schwarz, Winkielman 2004.",
+    "peak-end rule":   "v0.11 — People remember experiences as their most intense moments (peaks) and how they ended, not as the average of all moments. Lumen principle 5; operationalized in micro-interactions.md. Source: Daniel Kahneman.",
+    "aggressive hierarchy": "v0.11 — One dominant focal point per section, decisively unequal visual weight (1.5–2× gap to support tier). The opposite of equal-weight noise. Lumen principle 2; operationalized in hierarchy.md.",
+    "the four-color floor": "v0.11 — Lumen's color discipline expressed as four anchor values: Spring Green #00FA8A (accent), Obsidian Mint #171A18 (dark), #E6E6E6 (light), #FAFAFA (paper). All ramps and semantic surfaces derive from these.",
+    "the 50ms contract": "v0.11 — The first impression spec from first-impression.md: in the first viewport, the surface answers what/who/why and passes three halo checks (branded chrome, single focal point, no layout shift) within 50ms of cold load.",
+    "the peak audit":  "v0.11 — Walk through a feature's user actions and identify the moments that have visible system response. Strong UIs have many peaks; weak UIs have few. Operationalized in micro-interactions.md §6."
   }
 }

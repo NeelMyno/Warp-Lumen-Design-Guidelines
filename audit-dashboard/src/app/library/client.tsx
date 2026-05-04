@@ -1391,7 +1391,7 @@ export function Hero() {
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4">
               <CodeBlock language="json" code={`{
   "color": {
-    "accent":   "#4ade80",
+    "accent":   "#00FA8A",
     "fg":       "var(--text-primary)",
     "bg":       "var(--surface-page)",
     "muted":    "var(--text-tertiary)"
@@ -1449,7 +1449,7 @@ function TagsInputWrapper() {
 }
 
 function ColorPickerWrapper() {
-  const [c, setC] = useState("#4ade80");
+  const [c, setC] = useState("#00FA8A");
   return <ColorPicker value={c} onChange={setC} />;
 }
 

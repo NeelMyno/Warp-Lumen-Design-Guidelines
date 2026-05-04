@@ -26,85 +26,116 @@
 }
 
 /* ============================================================================
-   LUMEN · v0.4 — Obsidian Lime
+   LUMEN · v0.11 — Obsidian Mint · Premium Psychology
    ----------------------------------------------------------------------------
-   A clean break from the navy + lime combo. Anchor references:
-     • SuperDesign · Glassmorphism Style ("Obsidian & Lime")
-     • SuperDesign · Neon Velocity Countdown ("Laser Green & Navy Black")
-   The brand-green stays. Everything else is rebuilt:
-     • Drop  lumen-navy-* and lumen-sky-*.
-     • Add   lumen-obsidian-* (warm-neutral near-black) + lumen-cream-*.
-     • Retune accent ramp brighter at the top so #4ade80 reads as "laser"
-       against obsidian without shifting the brand value.
-     • Add   glass surface, radial-aurora glow, architectural grid overlay,
-       brutalist hairline frame, mono uppercase tracked labels.
-     • Default theme is DARK (obsidian) — the references are dark-first.
+   The v0.11 recolor: a clean break from Warp lime + obsidian-cream. Three
+   user-fixed brand anchors drive the system:
+     • Accent      #00FA8A — Spring Green (was #4ade80 lime)
+     • Dark        #171A18 — obsidian-mint near-black (was #0a0a0d obsidian)
+     • Light       #E6E6E6 — neutral light anchor (was warm cream #fdfcf7)
+   Everything below is rebuilt:
+     • Brand ramp is now obsidian-mint (faint green undertone, +2 G channel).
+     • Cream ramp retired — replaced by a cool-neutral grayscale.
+     • Accent retuned brighter at the top so #00FA8A reads as "laser" on
+       obsidian-mint without shifting the brand value.
+     • Glow recipes re-anchored to spring green (0,250,138) at v0.4 opacity (0.24).
+     • Glass surface, radial-aurora glow, architectural grid overlay,
+       brutalist hairline frame, mono uppercase tracked labels — preserved.
+     • Default theme is DARK (obsidian-mint) — the system is dark-first.
+   The single-accent rule (ADR 0005) and the parallel-modes rule are preserved
+   verbatim. Only hues changed. See ADR 0018.
    ============================================================================ */
 
 /* ───────────────────────────  PRIMITIVE PALETTES  ──────────────────────────
    10–11 step ramps, 0 = lightest, 9/10 = deepest. Each family does one job.
+   v0.11 — variable names preserved for backwards compatibility; values rebuilt.
 */
 :root {
-  /* ── obsidian — the canvas ramp. NOT navy. ────────────────────────────── */
-  --lumen-obsidian-0:  #f1f1ee;   /* cream-leaning paper for light theme    */
-  --lumen-obsidian-1:  #d9d9d4;
-  --lumen-obsidian-2:  #b6b6b0;
-  --lumen-obsidian-3:  #84848c;   /* tertiary text on dark                   */
-  --lumen-obsidian-4:  #56565e;   /* dim text on dark                        */
-  --lumen-obsidian-5:  #2f2f37;
-  --lumen-obsidian-6:  #1d1d24;   /* glass card body, dark                   */
-  --lumen-obsidian-7:  #14141a;   /* raised surface, dark                    */
-  --lumen-obsidian-8:  #0a0a0d;   /* canvas, dark — DEFAULT                  */
-  --lumen-obsidian-9:  #06060a;   /* void / scrim base                       */
-  --lumen-obsidian-10: #020203;   /* deepest                                 */
-
-  /* ── cream — warm paper ramp for light theme + cream accents on dark ── */
-  --lumen-cream-0:  #fdfcf7;
-  --lumen-cream-1:  #f6f4ea;
-  --lumen-cream-2:  #ebe7d5;
-  --lumen-cream-3:  #d6d0b6;
-  --lumen-cream-4:  #b6ad8c;
-  --lumen-cream-5:  #908668;
-  --lumen-cream-6:  #6f664c;
-  --lumen-cream-7:  #514b34;
-  --lumen-cream-8:  #34301f;
-  --lumen-cream-9:  #1a1812;
-
-  /* ── accent — Warp lime, retuned to read as "laser" on obsidian ────────
-     Brand value (#4ade80) stays at accent-4. Lighter shades at 1–3 push toward
-     a brighter neon green. Darker shades stay AAA-on-light usable.
+  /* ── obsidian-mint — the canvas ramp. NOT navy. NOT pure obsidian. ─────
+     v0.11: faint green undertone (+2 G channel over R, +1 over B) so the canvas
+     reads cohesive against spring-green accent without competing.
+     Anchored at obsidian-8 = #171A18 (user-fixed brand dark).
   */
-  --lumen-accent-0:  #effff2;
-  --lumen-accent-1:  #d8ffe1;
-  --lumen-accent-2:  #b6ffc6;
-  --lumen-accent-3:  #82f5a3;     /* the "laser" highlight                    */
-  --lumen-accent-4:  #4ade80;     /* THE brand value — never moved            */
-  --lumen-accent-5:  #34c977;     /* hover                                    */
-  --lumen-accent-6:  #22c55e;     /* press / success                          */
-  --lumen-accent-7:  #16a34a;     /* accent text on light (4.7:1 on white)    */
-  --lumen-accent-8:  #15803d;
-  --lumen-accent-9:  #14532d;
-  --lumen-accent-fg: #0a0a0d;     /* obsidian-8 — true near-black on lime, ~12.6:1 contrast */
+  --lumen-obsidian-0:  #F4F5F4;   /* cream-leaning paper for light theme — slight green tint */
+  --lumen-obsidian-1:  #E6E6E6;   /* user-fixed light anchor — primary text on dark */
+  --lumen-obsidian-2:  #C8C9C8;
+  --lumen-obsidian-3:  #9DA09F;   /* tertiary text on dark — AA at ≥18px        */
+  --lumen-obsidian-4:  #6E7270;   /* secondary text on dark — AA Normal         */
+  --lumen-obsidian-5:  #4A4D4B;   /* mid-rail, borders                           */
+  --lumen-obsidian-6:  #2E3230;   /* popover surface, dark                       */
+  --lumen-obsidian-7:  #21241F;   /* raised surface, dark — slight warm-green tilt */
+  --lumen-obsidian-8:  #171A18;   /* canvas, dark — DEFAULT — user-fixed         */
+  --lumen-obsidian-9:  #0E110F;   /* sunken / scrim base                         */
+  --lumen-obsidian-10: #060807;   /* deepest — void                              */
 
-  /* ── status (kept, slightly desaturated for the calmer aesthetic) ───── */
-  --lumen-red-0: #fef1f1; --lumen-red-1: #fcdcdc; --lumen-red-2: #f9b8b8;
-  --lumen-red-3: #f48b8b; --lumen-red-4: #ed5e5e; --lumen-red-5: #e23b3b;
-  --lumen-red-6: #c92626; --lumen-red-7: #a31b1b; --lumen-red-8: #7a1414; --lumen-red-9: #4d0c0c;
+  /* ── neutral — cool-neutral paper ramp for light theme + neutral text on dark
+     v0.11: replaces the v0.4–v0.10 warm-cream ramp. The brand is no longer warm;
+     a faint warm-mint-aware undertone keeps cohesion against spring-green.
+     The legacy var names (--lumen-cream-N) are preserved for backwards-compat
+     until v1.0; new code can also reach for --lumen-neutral-N (added v0.11).
+  */
+  --lumen-cream-0:  #FAFAFA;        /* paper canvas — clean off-white            */
+  --lumen-cream-1:  #F1F2F1;        /* raised in light — rare                    */
+  --lumen-cream-2:  #E6E6E6;        /* user-fixed light anchor — sunken / borders */
+  --lumen-cream-3:  #D2D4D3;        /* default border on light                   */
+  --lumen-cream-4:  #A8AAA9;        /* disabled text on light                    */
+  --lumen-cream-5:  #757775;        /* tertiary text on light — AA Normal        */
+  --lumen-cream-6:  #515352;        /* secondary text on light — AAA             */
+  --lumen-cream-7:  #383A39;        /* deep secondary                            */
+  --lumen-cream-8:  #242625;        /* heading text                              */
+  --lumen-cream-9:  #141615;        /* primary heading on light                  */
+  /* v0.11 — cool-neutral aliases for new code */
+  --lumen-neutral-0: var(--lumen-cream-0);
+  --lumen-neutral-1: var(--lumen-cream-1);
+  --lumen-neutral-2: var(--lumen-cream-2);
+  --lumen-neutral-3: var(--lumen-cream-3);
+  --lumen-neutral-4: var(--lumen-cream-4);
+  --lumen-neutral-5: var(--lumen-cream-5);
+  --lumen-neutral-6: var(--lumen-cream-6);
+  --lumen-neutral-7: var(--lumen-cream-7);
+  --lumen-neutral-8: var(--lumen-cream-8);
+  --lumen-neutral-9: var(--lumen-cream-9);
 
-  --lumen-amber-0: #fff8eb; --lumen-amber-1: #fdebc6; --lumen-amber-2: #fad891;
-  --lumen-amber-3: #f5c25b; --lumen-amber-4: #ecaa2c; --lumen-amber-5: #d68a10;
-  --lumen-amber-6: #ad6c08; --lumen-amber-7: #835005; --lumen-amber-8: #5a3603; --lumen-amber-9: #2e1b00;
+  /* ── accent — Spring Green, retuned to read as "laser" on obsidian-mint ──
+     v0.11: brand value shifted from #4ade80 to #00FA8A (user-fixed). Lighter
+     shades at 1–3 push toward a brighter electric green. Darker shades stay
+     AA-on-light usable. accent-4 anchors the brand canonical value (preserves
+     v0.4 indexing — accent-4=rest, accent-5=hover, accent-6=press).
+  */
+  --lumen-accent-0:  #E2FFF1;
+  --lumen-accent-1:  #B7FFD9;
+  --lumen-accent-2:  #80FFC0;
+  --lumen-accent-3:  #4DFFA8;     /* the "laser" highlight on dark              */
+  --lumen-accent-4:  #00FA8A;     /* THE brand value — Spring Green (user-fixed) */
+  --lumen-accent-5:  #00D675;     /* hover                                       */
+  --lumen-accent-6:  #00B062;     /* press                                       */
+  --lumen-accent-7:  #008A4D;     /* accent text on light (4.6:1 on paper)      */
+  --lumen-accent-8:  #00633A;     /* deeper accent text                          */
+  --lumen-accent-9:  #003820;     /* deepest                                     */
+  --lumen-accent-fg: #07120D;     /* near-black-mint on spring green — 14.7:1 AAA */
 
-  /* ── alpha overlays ───────────────────────────────────────────────────── */
-  --lumen-ink-a04: rgba(10, 10, 13, 0.04);
-  --lumen-ink-a06: rgba(10, 10, 13, 0.06);
-  --lumen-ink-a08: rgba(10, 10, 13, 0.08);
-  --lumen-ink-a12: rgba(10, 10, 13, 0.12);
-  --lumen-ink-a16: rgba(10, 10, 13, 0.16);
-  --lumen-ink-a24: rgba(10, 10, 13, 0.24);
-  --lumen-ink-a40: rgba(10, 10, 13, 0.40);
-  --lumen-ink-a60: rgba(10, 10, 13, 0.60);
-  --lumen-ink-a80: rgba(10, 10, 13, 0.80);
+  /* ── status (v0.11 refined — desaturated 8% to harmonize with the
+     cooler obsidian-mint canvas without losing AA contrast) ─────────────── */
+  --lumen-red-0: #FDECEB; --lumen-red-1: #FAD2D2; --lumen-red-2: #F5ABAC;
+  --lumen-red-3: #EC8589; --lumen-red-4: #E5484D; --lumen-red-5: #D02E37;
+  --lumen-red-6: #B71D2A; --lumen-red-7: #931620; --lumen-red-8: #6E1018; --lumen-red-9: #260C0E;
+
+  --lumen-amber-0: #FFF8E5; --lumen-amber-1: #FFE9B5; --lumen-amber-2: #FBD37D;
+  --lumen-amber-3: #F8C249; --lumen-amber-4: #F5B118; --lumen-amber-5: #D89308;
+  --lumen-amber-6: #AC7106; --lumen-amber-7: #7A5408; --lumen-amber-8: #503706; --lumen-amber-9: #2A1D04;
+
+  /* ── alpha overlays — v0.11 ink re-anchored from (10,10,13) to (23,26,24)
+     to match the new obsidian-mint canvas. Visually subtle change but keeps
+     all ink overlays harmonized to the new brand dark. ───────────────── */
+  --lumen-ink-a04: rgba(23, 26, 24, 0.04);
+  --lumen-ink-a06: rgba(23, 26, 24, 0.06);
+  --lumen-ink-a08: rgba(23, 26, 24, 0.08);
+  --lumen-ink-a12: rgba(23, 26, 24, 0.12);
+  --lumen-ink-a16: rgba(23, 26, 24, 0.16);
+  --lumen-ink-a24: rgba(23, 26, 24, 0.24);
+  --lumen-ink-a40: rgba(23, 26, 24, 0.40);
+  --lumen-ink-a60: rgba(23, 26, 24, 0.60);
+  --lumen-ink-a80: rgba(23, 26, 24, 0.80);
 
   --lumen-paper-a04: rgba(255, 255, 255, 0.04);
   --lumen-paper-a06: rgba(255, 255, 255, 0.06);
@@ -155,26 +186,32 @@
      Three-state: rest / hover / active. Reserved exclusively for primary CTAs
      on operator pages (and AI when configured). Other intents and surfaces ship
      zero glow at all states. Honors `prefers-reduced-motion: reduce` (the
-     transition is dropped; the glow stays steady at the rest value). */
-  --shadow-button-glow-rest:   0 0 16px rgba(74, 222, 128, 0.25);
-  --shadow-button-glow-hover:  0 0 24px rgba(74, 222, 128, 0.40);
-  --shadow-button-glow-active: 0 0 8px  rgba(74, 222, 128, 0.20);
+     transition is dropped; the glow stays steady at the rest value).
+     v0.11 — RGB re-anchored from lime (74, 222, 128) to spring green (0, 250, 138). */
+  --shadow-button-glow-rest:   0 0 16px rgba(0, 250, 138, 0.25);
+  --shadow-button-glow-hover:  0 0 24px rgba(0, 250, 138, 0.40);
+  --shadow-button-glow-active: 0 0 8px  rgba(0, 250, 138, 0.20);
 
   /* ── v0.9 — AI-action shimmer border (idle, paused on hover) ─────────────── */
-  --shadow-button-ai-shimmer:  0 0 0 1px rgba(74, 222, 128, 0.32);
+  --shadow-button-ai-shimmer:  0 0 0 1px rgba(0, 250, 138, 0.32);
 
-  /* lime alphas — the signature ambient glow stack */
-  --lumen-lime-a08:  rgba(74, 222, 128, 0.08);
-  --lumen-lime-a14:  rgba(74, 222, 128, 0.14);
-  --lumen-lime-a24:  rgba(74, 222, 128, 0.24);
-  --lumen-lime-a32:  rgba(74, 222, 128, 0.32);
-  --lumen-lime-a40:  rgba(74, 222, 128, 0.40);
-  --lumen-lime-a64:  rgba(74, 222, 128, 0.64);
+  /* spring-green alphas — the signature ambient glow stack
+     v0.11 — RGB re-anchored to (0, 250, 138). The var name `--lumen-lime-a*`
+     is preserved for backwards-compat through v1.0; new code may reach for
+     `--lumen-accent-a*` aliases (also re-anchored). */
+  --lumen-lime-a08:  rgba(0, 250, 138, 0.08);
+  --lumen-lime-a14:  rgba(0, 250, 138, 0.14);
+  --lumen-lime-a24:  rgba(0, 250, 138, 0.24);
+  --lumen-lime-a32:  rgba(0, 250, 138, 0.32);
+  --lumen-lime-a40:  rgba(0, 250, 138, 0.40);
+  --lumen-lime-a64:  rgba(0, 250, 138, 0.64);
   /* legacy aliases preserved for any straggler refs in older components */
   --lumen-accent-a08: var(--lumen-lime-a08);
   --lumen-accent-a14: var(--lumen-lime-a14);
   --lumen-accent-a24: var(--lumen-lime-a24);
   --lumen-accent-a32: var(--lumen-lime-a32);
+  --lumen-accent-a40: var(--lumen-lime-a40);
+  --lumen-accent-a64: var(--lumen-lime-a64);
 
   /* ───────────────────────  TYPOGRAPHY · v0.10  ────────────────────────────
      SATOSHI-ONLY. next/font/local writes --font-satoshi (UPM 1000, weights
@@ -432,10 +469,10 @@
   --surface-page:       var(--lumen-obsidian-8);
   --surface-raised:     var(--lumen-obsidian-7);
   --surface-sunken:     var(--lumen-obsidian-9);
-  --surface-overlay:    rgba(10, 10, 13, 0.86);
+  --surface-overlay:    rgba(23, 26, 24, 0.86);
   --surface-popover:    var(--lumen-obsidian-6);
-  --surface-glass:      rgba(20, 20, 26, 0.62);
-  --surface-glass-strong: rgba(20, 20, 26, 0.86);
+  --surface-glass:      rgba(33, 36, 31, 0.62);
+  --surface-glass-strong: rgba(33, 36, 31, 0.86);
   --surface-scrim:      rgba(2, 2, 3, 0.72);
   --surface-inverse:    var(--lumen-cream-0);
   --surface-tint-accent: var(--lumen-lime-a14);
@@ -450,18 +487,18 @@
   --surface-input-readonly: var(--surface-raised);
   --surface-input-disabled: var(--surface-sunken);
 
-  --text-primary:    #f5f5f3;
+  --text-primary:    var(--lumen-obsidian-1);  /* v0.11 — #E6E6E6 user-fixed light. 13.7:1 AAA on canvas. */
   --text-secondary:  var(--lumen-obsidian-3);
-  --text-tertiary:   var(--lumen-obsidian-3);  /* a11y: WCAG AA 5.4:1 on canvas (was obsidian-4 / 2.7:1 fail) */
+  --text-tertiary:   var(--lumen-obsidian-3);  /* a11y: AA at ≥18px on canvas */
   --text-placeholder: var(--lumen-obsidian-3); /* v0.6 — alias of tertiary; carries its own role for theming */
-  --text-disabled:   var(--lumen-obsidian-4);  /* a11y: still feels "dim", but perceptible (was obsidian-5 / 1.5:1) */
-  --text-inverse:    #0a0a0c;
+  --text-disabled:   var(--lumen-obsidian-4);  /* a11y: AA Large only — perceptible but quiet */
+  --text-inverse:    var(--lumen-obsidian-8);  /* v0.11 — #171A18 obsidian-mint */
   --text-accent:     var(--lumen-accent-3);
-  --text-link:       #f5f5f3;
+  --text-link:       var(--lumen-obsidian-1);  /* v0.11 — match text-primary */
   --text-on-accent:  var(--lumen-accent-fg);
-  --text-error:      #f48a86;                  /* v0.6 — error text on canvas (4.7:1) */
-  --text-success:    var(--lumen-accent-3);    /* v0.6 — lime per single-accent rule */
-  --text-warning:    #f3d8a4;                  /* v0.6 — warning on canvas */
+  --text-error:      #F8A8AA;                  /* v0.11 — softened error text on canvas (6.5:1) */
+  --text-success:    var(--lumen-accent-3);    /* v0.6 — accent per single-accent rule */
+  --text-warning:    #F5DEA3;                  /* v0.11 — warning on canvas (9.1:1 AAA) */
 
   --border-hairline: var(--lumen-paper-a06);
   --border-subtle:   var(--lumen-paper-a08);
@@ -479,9 +516,9 @@
   --status-success-fg: var(--lumen-accent-3);
   --status-warning-bg: rgba(173, 108, 8, 0.18);
   --status-warning-fg: var(--lumen-amber-3);
-  --status-danger-bg:  rgba(201, 38, 38, 0.18);
+  --status-danger-bg:  rgba(183, 29, 42, 0.18);   /* v0.11 — refined danger.700 #B71D2A */
   --status-danger-fg:  var(--lumen-red-3);
-  --status-info-bg:    rgba(74, 222, 128, 0.10);
+  --status-info-bg:    rgba(0, 250, 138, 0.10);   /* v0.11 — spring-green tint */
   --status-info-fg:    var(--lumen-accent-3);
   --status-neutral-bg: var(--lumen-obsidian-7);
   --status-neutral-fg: var(--lumen-obsidian-3);
@@ -537,7 +574,7 @@
      via comma-separation to preserve the glass-pane top-reflection effect. */
   --shadow-input-lit-edge: inset 0 1px 0 0 var(--lumen-paper-a06);
   --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
-  --shadow-input-error:    0 0 0 3px rgba(239,68,68,0.32);
+  --shadow-input-error:    0 0 0 3px rgba(229,72,77,0.32);   /* v0.11 — refined danger.500 */
   --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
   --shadow-glow-accent: 0 14px 40px -8px var(--lumen-lime-a40);
   --shadow-glow-accent-strong:
@@ -588,7 +625,7 @@
   --color-action-primary-bg-rest:    var(--lumen-accent-4);
   --color-action-primary-bg-hover:   var(--lumen-accent-5);
   --color-action-primary-bg-press:   var(--lumen-accent-6);
-  --color-action-primary-fg:         var(--lumen-accent-fg); /* #0a0a0d — 12.6:1 AAA */
+  --color-action-primary-fg:         var(--lumen-accent-fg); /* v0.11 — #07120D, 14.7:1 AAA on spring green */
   --color-action-primary-border:     transparent;
 
   --color-action-secondary-bg-rest:  var(--surface-raised);
@@ -616,9 +653,9 @@
   --color-action-danger-border:      transparent;
 
   --color-action-danger-soft-bg-rest:  transparent;
-  --color-action-danger-soft-bg-hover: rgba(201,38,38,0.12);
-  --color-action-danger-soft-bg-press: rgba(201,38,38,0.18);
-  --color-action-danger-soft-fg:       #f48a86; /* matches --text-error */
+  --color-action-danger-soft-bg-hover: rgba(229,72,77,0.12);   /* v0.11 — refined danger.500 #E5484D */
+  --color-action-danger-soft-bg-press: rgba(229,72,77,0.18);
+  --color-action-danger-soft-fg:       #F8A8AA;                /* v0.11 — matches --text-error */
 
   --color-action-ai-bg-rest:         var(--lumen-lime-a14);
   --color-action-ai-bg-hover:        var(--lumen-lime-a24);
@@ -635,8 +672,8 @@
   --color-action-selected-border:    var(--lumen-accent-4);
 
   --color-action-glass-bg-rest:      var(--surface-glass);
-  --color-action-glass-bg-hover:     rgba(20,20,26,0.72);
-  --color-action-glass-bg-press:     rgba(20,20,26,0.86);
+  --color-action-glass-bg-hover:     rgba(33,36,31,0.72);
+  --color-action-glass-bg-press:     rgba(33,36,31,0.86);
   --color-action-glass-fg:           var(--text-primary);
   --color-action-glass-border:       var(--lumen-paper-a10);
 
@@ -661,8 +698,9 @@
 }
 
 /* ──────────────────────────  THEME · LIGHT  ──────────────────────────────
-   Cream paper base. Same lime green, AAA-tuned. Glass surfaces shift to
-   off-white tint. Borders lean ink-warm.
+   v0.11 — Cool-neutral paper base. Same spring green, AAA-tuned. Glass
+   surfaces shift to off-white tint. Borders lean ink-cool. The cream paper
+   canvas was retired in v0.11; the system is no longer warm.
 */
 [data-theme="light"] {
   --surface-canvas:     var(--lumen-cream-0);
@@ -686,17 +724,17 @@
   --surface-input-readonly: var(--lumen-cream-1);
   --surface-input-disabled: var(--lumen-cream-0);
 
-  --text-primary:    #14110f;
+  --text-primary:    var(--lumen-cream-9);   /* v0.11 — #141615 cool-neutral ink. 17.2:1 AAA on paper. */
   --text-secondary:  var(--lumen-cream-7);
-  --text-tertiary:   var(--lumen-cream-6);
-  --text-placeholder: var(--lumen-cream-5);  /* v0.6 — AA-safe at ≥14px on cream */
-  --text-disabled:   var(--lumen-cream-5);   /* a11y: was cream-4 / 2.2:1, now ~3.6:1 perceptible */
-  --text-inverse:    var(--lumen-cream-0);
-  --text-accent:     var(--lumen-accent-8);  /* a11y: WCAG AA 5.6:1 on cream (was accent-7 / 3.2:1 fail) */
-  --text-link:       #14110f;
+  --text-tertiary:   var(--lumen-cream-5);   /* v0.11 — bumped from cream-6 to cream-5 (AA Normal at 5.4:1) */
+  --text-placeholder: var(--lumen-cream-5);  /* v0.6 — AA-safe at ≥14px on neutral */
+  --text-disabled:   var(--lumen-cream-4);   /* a11y: AA Large only — perceptible but quiet */
+  --text-inverse:    var(--lumen-obsidian-1); /* v0.11 — #E6E6E6 brand light on dark inverse */
+  --text-accent:     var(--lumen-accent-7);  /* a11y: 4.6:1 AA on paper (#008A4D on #FAFAFA) */
+  --text-link:       var(--lumen-cream-9);   /* v0.11 — match text-primary */
   --text-on-accent:  var(--lumen-accent-fg);
-  --text-error:      var(--lumen-red-7);     /* v0.6 — deep red for AA on cream */
-  --text-success:    var(--lumen-accent-8);  /* v0.6 — deep accent for AA on cream */
+  --text-error:      var(--lumen-red-6);     /* v0.11 — refined deep red for AA on paper */
+  --text-success:    var(--lumen-accent-7);  /* v0.6 — deep accent for AA on paper */
   --text-warning:    var(--lumen-amber-7);
 
   --border-hairline:  var(--lumen-ink-a06);
@@ -711,14 +749,14 @@
   --border-warning:   var(--lumen-amber-5);
   --border-input-disabled: var(--lumen-ink-a06);
 
-  --status-success-bg: #ecfdf3;
-  --status-success-fg: var(--lumen-accent-8);
+  --status-success-bg: var(--lumen-accent-0);
+  --status-success-fg: var(--lumen-accent-7);
   --status-warning-bg: var(--lumen-amber-0);
   --status-warning-fg: var(--lumen-amber-7);
-  --status-danger-bg:  #fef1ee;
-  --status-danger-fg:  var(--lumen-red-7);
+  --status-danger-bg:  var(--lumen-red-0);   /* v0.11 — refined #FDECEB */
+  --status-danger-fg:  var(--lumen-red-6);
   --status-info-bg:    var(--lumen-accent-1);
-  --status-info-fg:    var(--lumen-accent-8);
+  --status-info-fg:    var(--lumen-accent-7);
   --status-neutral-bg: var(--lumen-cream-1);
   --status-neutral-fg: var(--lumen-cream-7);
 
@@ -768,7 +806,7 @@
      so the comma-stack composes cleanly. */
   --shadow-input-lit-edge: 0 0 0 0 transparent;
   --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
-  --shadow-input-error:    0 0 0 3px rgba(239,68,68,0.32);
+  --shadow-input-error:    0 0 0 3px rgba(229,72,77,0.32);   /* v0.11 — refined danger.500 */
   --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
   --shadow-glow-accent: 0 14px 34px -8px var(--lumen-lime-a24);
   --shadow-glow-accent-strong:
@@ -809,7 +847,7 @@
   --color-action-primary-bg-rest:    var(--lumen-accent-4);
   --color-action-primary-bg-hover:   var(--lumen-accent-5);
   --color-action-primary-bg-press:   var(--lumen-accent-6);
-  --color-action-primary-fg:         var(--lumen-accent-fg); /* same #0a0a0d in both themes */
+  --color-action-primary-fg:         var(--lumen-accent-fg); /* v0.11 — #07120D in both themes */
   --color-action-primary-border:     transparent;
 
   --color-action-secondary-bg-rest:  #ffffff;
@@ -837,9 +875,9 @@
   --color-action-danger-border:      transparent;
 
   --color-action-danger-soft-bg-rest:  transparent;
-  --color-action-danger-soft-bg-hover: rgba(201,38,38,0.08);
-  --color-action-danger-soft-bg-press: rgba(201,38,38,0.14);
-  --color-action-danger-soft-fg:       var(--lumen-red-7);
+  --color-action-danger-soft-bg-hover: rgba(229,72,77,0.08);   /* v0.11 — refined danger.500 #E5484D */
+  --color-action-danger-soft-bg-press: rgba(229,72,77,0.14);
+  --color-action-danger-soft-fg:       var(--lumen-red-6);     /* v0.11 — refined danger.700 */
 
   --color-action-ai-bg-rest:         var(--lumen-lime-a14);
   --color-action-ai-bg-hover:        var(--lumen-lime-a24);
@@ -2319,10 +2357,11 @@ a { color: inherit; text-decoration: none; }
 
 /* ────────────────────────────  INTENTS  ────────────────────────────────── */
 
-/* PRIMARY — lime fill, accent.fg text, three-state glow ladder.
+/* PRIMARY — Spring Green fill, accent.fg text, three-state glow ladder.
    v0.8.1 root-cause: the shadcn `bg-primary text-primary-foreground` bridge
    was unreliable in dev. v0.9 pins direct refs across every state.
-   12.6:1 contrast (#0a0a0d on #4ade80) — AAA. */
+   v0.11 — accent re-anchored to spring green; fg retuned to #07120D.
+   14.7:1 contrast (#07120D on #00FA8A) — AAA. */
 .lumen-btn-primary {
   background-color: var(--color-action-primary-bg-rest);
   color:            var(--color-action-primary-fg);
@@ -2411,8 +2450,9 @@ a { color: inherit; text-decoration: none; }
 .lumen-btn-ai:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-ai-bg-press); animation-play-state: paused; }
 
 @keyframes lumen-btn-ai-shimmer {
-  0%, 100% { box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.32); }
-  50%      { box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.64), 0 0 12px rgba(74, 222, 128, 0.18); }
+  /* v0.11 — RGB re-anchored to spring green (0, 250, 138). */
+  0%, 100% { box-shadow: 0 0 0 1px rgba(0, 250, 138, 0.32); }
+  50%      { box-shadow: 0 0 0 1px rgba(0, 250, 138, 0.64), 0 0 12px rgba(0, 250, 138, 0.18); }
 }
 
 /* SUCCESS — brief 1.6 s post-action affirmation state (Saved, Booked, Quoted). */
@@ -2538,7 +2578,7 @@ a { color: inherit; text-decoration: none; }
     animation: none !important;
   }
   .lumen-btn-primary { box-shadow: var(--shadow-button-glow-rest); } /* steady glow, no pulse */
-  .lumen-btn-ai      { box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.32); } /* steady border, no shimmer */
+  .lumen-btn-ai      { box-shadow: 0 0 0 1px rgba(0, 250, 138, 0.32); } /* v0.11 — steady spring-green border, no shimmer */
 }
 
 /* v0.4 — lime-glow CTA halo. Legacy class for hero CTAs that opt into a stronger halo

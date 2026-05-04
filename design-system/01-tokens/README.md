@@ -2,7 +2,9 @@
 
 > **Critical for any LLM agent reading this:** Lumen has three layers of tokens. **Engineers and LLMs only consume the SEMANTIC layer.** Touching primitives directly is a violation enforced by lint. If you need a value that doesn't have a semantic alias, the answer is to add a semantic alias, not to import a primitive. When in doubt, use the matching `--surface-*` / `--text-*` / `--border-*` / `--space-*` / `--radius-*` / `--shadow-*` / `--motion-*` semantic.
 >
-> **v0.4 (Obsidian Lime)** retunes the dark canvas (no more navy), introduces glass surfaces, brutalist hairline frames, and a radial lime aurora as the ambient signature. The brand-green (`#4ade80`) is unchanged. See [`research/lumen-v04-direction.md`](../../research/lumen-v04-direction.md) for the full direction brief.
+> **v0.11 (Premium Psychology — Obsidian Mint)** recolors the system around three user-fixed brand anchors: accent `#00FA8A` (Spring Green), dark `#171A18` (obsidian-mint canvas), light `#E6E6E6` (neutral light anchor / primary text on dark). Cool-neutral paper replaces the v0.4 cream paper. The single-accent rule and parallel-modes rule are preserved verbatim — only hues changed. See [ADR 0018](../../_meta/decisions/0018-premium-psychology-recolor.md).
+>
+> **v0.4 (Obsidian Lime — historical)** retuned the dark canvas (no more navy), introduced glass surfaces, brutalist hairline frames, and a radial accent aurora as the ambient signature. v0.4 used `#4ade80` lime; v0.11 evolved this to spring green. See [`research/lumen-v04-direction.md`](../../research/lumen-v04-direction.md) for the v0.4 brief.
 
 ## Layers
 

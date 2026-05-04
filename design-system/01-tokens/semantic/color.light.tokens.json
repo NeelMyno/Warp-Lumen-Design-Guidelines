@@ -2,50 +2,50 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.4). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of obsidian-lime: cream paper + obsidian ink + the same lime accent.",
+    "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.11). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of obsidian-mint: clean paper-white + obsidian-mint ink + the same spring-green accent. v0.11 retired the warm-cream paper canvas in favor of cool-neutral paper, anchored to the user-fixed light value (#E6E6E6) used as subtle borders / sunken surfaces.",
     "surface": {
-      "page":    { "$value": "{color.warm.50}",  "$description": "Cream paper canvas." },
-      "raised":  { "$value": "#ffffff",           "$description": "Cards, panels, raised surfaces." },
-      "sunken":  { "$value": "{color.warm.100}", "$description": "Inputs background, table row hover, sidebar." },
-      "popover": { "$value": "#ffffff",           "$description": "Floating popover surface." },
+      "page":    { "$value": "{color.neutral.50}",  "$description": "Paper canvas #FAFAFA — clean off-white with whisper of warmth. Replaces v0.10 cream paper #fdfcf7." },
+      "raised":  { "$value": "#FFFFFF",              "$description": "Cards, panels, raised surfaces. Pure white pops above paper canvas." },
+      "sunken":  { "$value": "{color.neutral.200}", "$description": "Inputs, table-row hover, sidebar — anchored to user-fixed #E6E6E6." },
+      "popover": { "$value": "#FFFFFF",              "$description": "Floating popover surface." },
       "glass":   { "$value": "rgba(255,255,255,0.72)", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%)" },
       "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome." },
       "scrim":   { "$value": "{color.alpha.ink.40}",   "$description": "Modal backdrop." },
       "inverse": { "$value": "{color.brand.800}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." },
-      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Lime tint for hover / selection backgrounds." },
+      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Spring-green tint for hover / selection backgrounds." },
       "input": {
-        "$description": "v0.6 — input field surfaces (light mode). Uses sunken cream so the field reads as inset on the paper canvas.",
-        "rest":     { "$value": "{color.warm.100}", "$description": "Sunken cream — inset feel against paper." },
-        "hover":    { "$value": "{color.warm.100}" },
-        "focus":    { "$value": "#ffffff", "$description": "Pop to paper-white on focus." },
-        "readOnly": { "$value": "{color.warm.100}" },
-        "disabled": { "$value": "{color.warm.50}", "$description": "Even quieter than rest." }
+        "$description": "v0.6 — input field surfaces (light mode). Uses sunken neutral so the field reads as inset on the paper canvas.",
+        "rest":     { "$value": "{color.neutral.200}", "$description": "Sunken neutral — inset feel against paper. v0.11 anchored to user-fixed #E6E6E6." },
+        "hover":    { "$value": "{color.neutral.200}" },
+        "focus":    { "$value": "#FFFFFF", "$description": "Pop to paper-white on focus — cognitive-fluency cue: 'you have my attention'." },
+        "readOnly": { "$value": "{color.neutral.200}" },
+        "disabled": { "$value": "{color.neutral.50}", "$description": "Even quieter than rest." }
       }
     },
     "text": {
-      "primary":   { "$value": "{color.brand.900}", "$description": "Body and titles. Contrast 14.6:1 on surface.page." },
-      "secondary": { "$value": "{color.warm.700}", "$description": "Captions, descriptions." },
-      "tertiary":  { "$value": "{color.warm.600}", "$description": "Hints, eyebrow labels." },
-      "placeholder": { "$value": "{color.warm.500}", "$description": "Input placeholder. AA-safe at 14px+. Distinct alias from tertiary so it can theme independently." },
-      "disabled":  { "$value": "{color.warm.400}" },
-      "inverse":   { "$value": "{color.warm.50}" },
-      "accent":    { "$value": "{color.accent.800}","$description": "Accent text on light surfaces. Contrast 4.7:1+." },
+      "primary":   { "$value": "{color.neutral.900}", "$description": "Body and titles — #141615. Contrast 17.2:1 on paper canvas." },
+      "secondary": { "$value": "{color.neutral.700}", "$description": "Captions, descriptions. ~10.5:1 — AAA." },
+      "tertiary":  { "$value": "{color.neutral.500}", "$description": "Hints, eyebrow labels. ~5.4:1 — AA Normal." },
+      "placeholder": { "$value": "{color.neutral.500}", "$description": "Input placeholder. AA-safe at 14px+. Distinct alias from tertiary so it can theme independently." },
+      "disabled":  { "$value": "{color.neutral.400}" },
+      "inverse":   { "$value": "{color.brand.100}" },
+      "accent":    { "$value": "{color.accent.800}","$description": "Spring-green text on light surfaces. 4.6:1 on paper — AA at 14px+." },
       "error":     { "$value": "{color.status.danger.700}", "$description": "v0.6 — error text on light surface. Deep red for AA." },
-      "success":   { "$value": "{color.status.success.700}", "$description": "v0.6 — success text. Deep green for AA." },
+      "success":   { "$value": "{color.status.success.700}", "$description": "v0.6 — success text. Deep accent for AA." },
       "warning":   { "$value": "{color.status.warning.700}", "$description": "v0.6 — warning text. Deep amber for AA." },
-      "link":      { "$value": "{color.brand.900}" }
+      "link":      { "$value": "{color.neutral.900}" }
     },
     "border": {
-      "hairline": { "$value": "{color.alpha.ink.06}",  "$description": "Default hairline. Cards, table rows, dividers." },
-      "subtle":   { "$value": "rgba(10,10,13,0.08)" },
+      "hairline": { "$value": "{color.alpha.ink.06}",  "$description": "Default hairline. Cards, table rows, dividers. The breathing-room separator (per principles §1, §3)." },
+      "subtle":   { "$value": "rgba(23,26,24,0.08)" },
       "default":  { "$value": "{color.alpha.ink.12}", "$description": "Standard control border." },
       "strong":   { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
       "frame":    { "$value": "{color.alpha.ink.40}", "$description": "v0.4 — brutalist hairline frame border" },
       "accent":   { "$value": "{color.accent.700}",   "$description": "Accent hairline (deeper green for AAA on light)" },
-      "focus":    { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with --shadow.focus." },
-      "error":    { "$value": "{color.status.danger.500}", "$description": "v0.6 — input error border. Saturated red for AA stroke contrast." },
-      "success":  { "$value": "{color.accent.500}",   "$description": "v0.6 — input success border. Lime; only after explicit validation." },
-      "warning":  { "$value": "{color.status.warning.500}", "$description": "v0.6 — input warning border. Amber." },
+      "focus":    { "$value": "{color.accent.500}",   "$description": "Focus ring color. Always paired with shadow.focus." },
+      "error":    { "$value": "{color.status.danger.500}", "$description": "v0.6 — input error border. Refined red for AA stroke contrast." },
+      "success":  { "$value": "{color.accent.500}",   "$description": "v0.6 — input success border. Spring green; only after explicit validation." },
+      "warning":  { "$value": "{color.status.warning.500}", "$description": "v0.6 — input warning border. Refined amber." },
       "disabled": { "$value": "{color.alpha.ink.06}", "$description": "v0.6 — input disabled border. Muted; no hover/focus." }
     },
     "action": {
@@ -55,27 +55,27 @@
           "hover": { "$value": "{color.accent.600}" },
           "press": { "$value": "{color.accent.700}" }
         },
-        "fg":     { "$value": "{color.accent.fg}", "$description": "Same #0a0a0d on lime as dark mode — 12.6:1 AAA. Single-source for both themes." },
+        "fg":     { "$value": "{color.accent.fg}", "$description": "Near-black-mint #07120D on spring green — 14.7:1 AAA. Single-source for both themes." },
         "border": { "$value": "transparent" },
         "glow":   { "$value": "{shadow.accent-glow}" }
       },
       "secondary": {
         "bg": {
-          "rest":  { "$value": "#ffffff" },
-          "hover": { "$value": "{color.warm.100}" },
-          "press": { "$value": "{color.warm.100}" }
+          "rest":  { "$value": "#FFFFFF" },
+          "hover": { "$value": "{color.neutral.100}" },
+          "press": { "$value": "{color.neutral.100}" }
         },
-        "fg":     { "$value": "{color.brand.900}" },
+        "fg":     { "$value": "{color.neutral.900}" },
         "border": { "$value": "{color.alpha.ink.12}" }
       },
       "tertiary": {
         "$description": "v0.9 alias of ghost — kept for backwards compatibility.",
         "bg": {
           "rest":  { "$value": "transparent" },
-          "hover": { "$value": "{color.warm.100}" },
-          "press": { "$value": "{color.warm.100}" }
+          "hover": { "$value": "{color.neutral.100}" },
+          "press": { "$value": "{color.neutral.100}" }
         },
-        "fg":     { "$value": "{color.brand.900}" }
+        "fg":     { "$value": "{color.neutral.900}" }
       },
       "ghost": {
         "$description": "v0.9 — neutral × ghost. No chrome at rest, subtle hover tint.",
@@ -84,7 +84,7 @@
           "hover": { "$value": "{color.alpha.ink.06}" },
           "press": { "$value": "{color.alpha.ink.08}" }
         },
-        "fg":     { "$value": "{color.brand.900}" }
+        "fg":     { "$value": "{color.neutral.900}" }
       },
       "outline": {
         "$description": "v0.9 — hairline pill / rect (transparent fill + 1px ink hairline). Neutral × outline surface.",
@@ -93,39 +93,39 @@
           "hover": { "$value": "{color.alpha.ink.04}" },
           "press": { "$value": "{color.alpha.ink.08}" }
         },
-        "fg":     { "$value": "{color.brand.900}" },
+        "fg":     { "$value": "{color.neutral.900}" },
         "border": {
           "rest":  { "$value": "{color.alpha.ink.16}" },
           "hover": { "$value": "{color.alpha.ink.24}" }
         }
       },
       "danger": {
-        "$description": "v0.9 — bg deepened red.500→.700 to clear WCAG AA Normal (4.5:1).",
+        "$description": "v0.11 — danger CTA. bg deepened red.500→.700 to clear WCAG AA Normal.",
         "bg": {
           "rest":  { "$value": "{color.status.danger.700}" },
           "hover": { "$value": "{color.status.danger.800}" },
           "press": { "$value": "{color.status.danger.800}" }
         },
-        "fg":     { "$value": "#ffffff" },
+        "fg":     { "$value": "#FFFFFF" },
         "border": { "$value": "transparent" }
       },
       "danger-soft": {
         "$description": "v0.9 — danger × ghost. Carbon's `danger-ghost` pattern.",
         "bg": {
           "rest":  { "$value": "transparent" },
-          "hover": { "$value": "rgba(201,38,38,0.08)" },
-          "press": { "$value": "rgba(201,38,38,0.14)" }
+          "hover": { "$value": "rgba(229,72,77,0.08)" },
+          "press": { "$value": "rgba(229,72,77,0.14)" }
         },
         "fg": { "$value": "{color.status.danger.700}" }
       },
       "ai": {
-        "$description": "v0.9 — AI-action variant. Lime tonal + sparkle leading icon. Sparingly applied.",
+        "$description": "v0.9 — AI-action variant. Spring-green tonal + sparkle leading icon. Sparingly applied.",
         "bg": {
           "rest":  { "$value": "{color.alpha.accent.12}" },
           "hover": { "$value": "{color.alpha.accent.24}" },
           "press": { "$value": "{color.alpha.accent.32}" }
         },
-        "fg":     { "$value": "{color.accent.800}", "$description": "Deep accent on cream — 5.6:1 AA pass." },
+        "fg":     { "$value": "{color.accent.800}", "$description": "Deep accent on neutral — 4.6:1 AA pass." },
         "border": { "$value": "{color.alpha.accent.40}" }
       },
       "success": {
@@ -137,7 +137,7 @@
       "selected": {
         "$description": "v0.9 — aria-pressed=true state for ToggleButton / Segmented option.",
         "bg":     { "$value": "{color.alpha.accent.12}" },
-        "fg":     { "$value": "{color.brand.900}" },
+        "fg":     { "$value": "{color.neutral.900}" },
         "border": { "$value": "{color.accent.500}" }
       },
       "glass": {
@@ -147,18 +147,18 @@
           "hover": { "$value": "rgba(255,255,255,0.84)" },
           "press": { "$value": "rgba(255,255,255,0.94)" }
         },
-        "fg":     { "$value": "{color.brand.900}" },
+        "fg":     { "$value": "{color.neutral.900}" },
         "border": { "$value": "{color.alpha.ink.12}" }
       }
     },
     "status": {
-      "success": { "bg": { "$value": "{color.status.success.50}" }, "fg": { "$value": "{color.status.success.700}" } },
-      "warning": { "bg": { "$value": "{color.status.warning.50}" }, "fg": { "$value": "{color.status.warning.700}" } },
-      "danger":  { "bg": { "$value": "{color.status.danger.50}"  }, "fg": { "$value": "{color.status.danger.700}"  } },
-      "info":    { "bg": { "$value": "{color.accent.50}"         }, "fg": { "$value": "{color.accent.800}"         } }
+      "success": { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } },
+      "warning": { "bg": { "$value": "{color.status.warning.50}"    }, "fg": { "$value": "{color.status.warning.700}" } },
+      "danger":  { "bg": { "$value": "{color.status.danger.50}"     }, "fg": { "$value": "{color.status.danger.700}"  } },
+      "info":    { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } }
     },
     "aurora": {
-      "$description": "Radial lime ambient glow — softer in light mode (the cream paper carries less contrast headroom).",
+      "$description": "Radial spring-green ambient glow — softer in light mode (paper canvas carries less contrast headroom).",
       "color":  { "$value": "{color.alpha.accent.24}" },
       "core":   { "$value": "{color.alpha.accent.40}" }
     }

@@ -3,14 +3,19 @@
 > Lumen is Warp's vertically integrated UI design system. **LLM-first, human-second.** Single source of truth for every UI surface Warp's product/software-builder team ships — web, mobile, native desktop, e-commerce themes.
 
 ```
-Visual mood:        Obsidian Lime · glassmorphism + brutalist hairline frames + radial lime aurora
-Accent:             Warp lime green #4ade80 — action / live / success only
-Typography:         Satoshi (UI + display) + JetBrains Mono (numerics + system metadata)
-Density:            Generous breathing room. Operator-readable.
+Visual mood:        Obsidian Mint · cool-neutral paper + obsidian-mint canvas + radial spring-green aurora
+Accent:             Spring Green #00FA8A — action / live / success only
+Dark canvas:        Obsidian Mint #171A18 — warm-cool near-black, faint green undertone
+Light anchor:       #E6E6E6 — neutral light, also used as primary text on dark canvas
+Typography:         Satoshi (single typeface — UI, display, body, numerics, code, editorial)
+Hierarchy:          Aggressive — one focal point per section, 1.5–2× weight gap to support tier
+First impression:   Engineered — 50ms halo contract, three-question hero, restrained chrome
+Micro-interactions: Peak-end rule — hover, focus, validation, success — short, decelerating
+Density:            Marketing breathes (96 px hero rhythm) · Operator stays dense (24 px section rhythm)
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors
-Status:             v0.8.0 · spacing rebuild · 4-pt base / 8-pt soft / cozy density / marketing-vs-operator section split
+Status:             v0.11.0 · Premium Psychology recolor · 7 principles · 3 new foundations
 ```
 
 ## What this repo is
@@ -114,8 +119,8 @@ See [`/design-system/03-platforms/`](./design-system/03-platforms/) for the full
 
 ## What makes Lumen different
 
-- **Apple discipline + Warp substance.** Apple typographic rigor (1.25 scale, hairlines, decelerate motion) on Warp's actual material (paper/navy ladder, lime green accent, dense operator surfaces).
-- **One disciplined accent.** Warp lime green `#4ade80` plays exactly one role across the entire system: action / live / success. Adding a second loud color is a brand violation.
+- **Apple discipline + Warp substance + premium psychology.** Apple typographic rigor (1.25 scale, hairlines, decelerate motion) + the v0.11 psychology principles (50ms halo, aggressive hierarchy, cognitive fluency, peak-end rule) on Warp's material (cool-neutral paper / obsidian-mint canvas, spring-green accent, contextual density).
+- **One disciplined accent.** Spring Green `#00FA8A` plays exactly one role across the entire system: action / live / success. Adding a second loud color is a brand violation.
 - **Three Warp-signature primitives.** `Stat` (big tabular number), `LiveDot` (pulsing 8px green dot), `RateTicker` (scrolling lane rates). These three carry the operator-console mood.
 - **LLM-first, human-second.** Two-file-per-component contract (md for humans, json for agents). Layered LLM contract surfaces (llms.txt, AGENTS.md, CLAUDE.md, tool-specific mirrors). Lint enforces semantic-only token references.
 - **No stock anything.** No stock photography, no AI-generated images, no character mascots, no isometric scenes. Product screenshots first, documentary second, monoline diagrams for abstract concepts.
@@ -140,18 +145,18 @@ Seven tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## Open questions for v0.1 audit
+## Open questions (post-v0.11)
 
-These are the decisions we want feedback on before locking v0.1:
+These are the decisions left open after the v0.11 Premium Psychology recolor:
 
-1. **Mood lock-in.** Quiet Industrial as system default — confirmed?
-2. **Accent green calibration.** `#4ade80` verbatim from Warp's CSS. Right intensity, or soften slightly for marketing?
-3. **Mono companion.** JetBrains Mono (free) vs Berkeley Mono (~$200, premium signature)?
-4. **Photography policy.** No photography at all (current default), or accept documentary photography for marketing?
-5. **E-commerce template direction.** Aspirational (future Warp merch shop) or for client work?
-6. **Mobile mood.** Quiet Industrial, or Premium Glass for the mobile operator app?
+1. **Mood lock-in.** Quiet Industrial — Obsidian Mint as system default — confirmed.
+2. **Accent calibration.** `#00FA8A` is the user-fixed brand value. AAA contrast verified. Locked.
+3. **Photography policy.** No photography at all (current default), or accept documentary photography for marketing? — open.
+4. **E-commerce template direction.** Aspirational (future Warp merch shop) or for client work? — open.
+5. **Mobile mood.** Quiet Industrial — Obsidian Mint, or Premium Glass for the mobile operator app? — open.
+6. **Component coverage.** v0.11 retunes color across all 30 components; visual regression sweep remaining.
 
-See [`/research/lumen-brief.md`](./research/lumen-brief.md) § "Open questions for user audit" for full context.
+See [ADR 0018](./_meta/decisions/0018-premium-psychology-recolor.md) for the full v0.11 rationale and [`/research/lumen-brief.md`](./research/lumen-brief.md) for older open questions.
 
 ## License
 

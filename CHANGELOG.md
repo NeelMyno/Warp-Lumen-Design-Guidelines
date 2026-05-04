@@ -10,6 +10,76 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.0] — 2026-05-04 — Premium Psychology · Obsidian Mint recolor · seven principles
+
+User brief (2026-05-04, condensed):
+
+> "I have finalized a few colors for the brand: Accent #00FA8A, Dark #171A18, Light #E6E6E6. You can use these to create other shades. Font remains Satoshi. Pay extra attention to element spacing, white spacing, minimalism, UI cleanliness — basically whatever is in the Psychology of Premium Websites transcript. You have complete independence to change anything. Iterate boldly."
+
+The Premium-Psychology brief synthesizes Thorndike's halo effect (1920) + Lindgaard et al. (2006) on 50ms visual judgment + Reber/Schwarz/Winkielman (2004) on cognitive fluency + Kahneman's peak-end rule + the canonical Linear/Stripe/Apple "aggressive hierarchy" pattern + the "restraint as confidence" rule from luxury design (Hermès, Aesop, Bottega Veneta). v0.11 encodes these as first-class principles — the recolor is the visible half; the foundations rewrite is the structural half. See [ADR 0018](_meta/decisions/0018-premium-psychology-recolor.md).
+
+### Added
+
+- **Three new foundations** (operationalize the new principles):
+  - **[`design-system/00-foundations/hierarchy.md`](design-system/00-foundations/hierarchy.md)** — Aggressive hierarchy. Three-tier rule (primary / secondary / tertiary), 1.5–2× weight rule, visual-weight calculator, per-surface patterns (hero, KPI, card, section header, pricing tier, operator dashboard), single-focal-point checklist.
+  - **[`design-system/00-foundations/first-impression.md`](design-system/00-foundations/first-impression.md)** — The 50ms contract. Three questions (what / who / why), three checks (branded chrome on first paint, single focal point, no layout shift), three canonical hero patterns (type-led, product-led, stat-led), above-the-fold rules, skeleton + empty-state first impressions, the cold-load technical contract, the halo-audit checklist.
+  - **[`design-system/00-foundations/micro-interactions.md`](design-system/00-foundations/micro-interactions.md)** — Peak-end rule. The standard responses catalog (button, input, card, toggle, tab, modal/drawer/popover, toast, scroll fade-in, page transition, LiveDot), the reduced-motion contract, the "approximate" anti-pattern, the peak audit.
+- **[ADR 0018](_meta/decisions/0018-premium-psychology-recolor.md)** — full rationale for the v0.11 shift. Amends ADR 0004 (mood) and ADR 0005 (single accent — hue only, discipline preserved).
+- **`color.alpha.accent.08` and `color.alpha.accent.16`** — added to round out the alpha ladder (08 for whisper-tint hovers, 16 for slightly stronger surface tints).
+- **`color.brand.950`** primitive — the deepest void step (`#060807`). Replaces the v0.10 11-step `--lumen-obsidian-10`.
+- **`color.alpha.ink.84`** — heavy ink scrim for high-contrast moments (e.g. modal backdrops on light mode where `.40` reads too quiet).
+- **`--lumen-neutral-N` aliases** (CSS) — semantic alternative to `--lumen-cream-N` for new code. Same underlying values; the brand is no longer warm so the new name is more honest.
+- **`--lumen-accent-aN` aliases** (CSS) — re-exposed at 08/14/24/32/40/64 stops. Same as `--lumen-lime-aN` (preserved for backwards-compat); both resolve to the same spring-green RGB.
+- Glossary additions: *halo effect*, *cognitive fluency*, *peak-end rule*, *aggressive hierarchy*, *the four-color floor*, *the 50ms contract*, *the peak audit*, *Spring Green*, *Obsidian Mint*.
+
+### Changed
+
+- **The accent**. Brand canonical shifted from Warp lime `#4ade80` → Spring Green `#00FA8A`. The single-accent rule (ADR 0005) is preserved verbatim — only the hue changed. All lime-RGB rgba values across `globals.css` re-anchored to (0, 250, 138):
+  - `--shadow-button-glow-{rest,hover,active}` — RGB shifted, opacities preserved (0.25 / 0.40 / 0.20).
+  - `--shadow-button-ai-shimmer` — RGB shifted, opacity preserved (0.32).
+  - `--lumen-lime-a{08,14,24,32,40,64}` — RGB shifted (var name preserved for back-compat).
+  - `@keyframes lumen-btn-ai-shimmer` — RGB shifted.
+  - The accent-glow recipe `0 14px 34px rgba(accent, 0.24)` reads with the same atmospheric weight on the new hue.
+- **The dark canvas**. `color.surface.page` (dark) shifted from obsidian `#0a0a0d` → obsidian-mint `#171A18` (the user-fixed brand dark). Faint green undertone (G channel +2 over R, +1 over B) reads cohesive against the spring-green accent without competing. Raised surface `#21241F`, sunken `#0E110F`, popover `#2E3230` retuned to match.
+- **The light canvas**. `color.surface.page` (light) shifted from cream paper `#fdfcf7` → cool paper `#FAFAFA`. The brand is no longer warm; the system is cool-neutral with a faint warm-mint awareness so all surfaces harmonize against the spring-green accent.
+- **Primary text on dark**. Shifted from off-white `#f5f5f3` → user-fixed light `#E6E6E6`. Pure white on dark canvas reads harsh and fatigues the eye on long-scroll pages; the user-fixed light value is calmer and more readable. Contrast 13.7:1 — AAA. Documented in [`color.md`](design-system/00-foundations/color.md) §3.
+- **`color.accent.fg`** — retuned from `#0a0a0d` → `#07120D` for 14.7:1 AAA on the new spring-green accent.
+- **Status palette refined**:
+  - `status.danger.500` `#ef4444` → `#E5484D` (8% desat — feels less alert, more considered).
+  - `status.warning.500` `#f59e0b` → `#F5B118` (slightly more golden, slightly less saturated).
+  - `status.danger.{600,700,800}` retuned for AA contrast under the new red.
+  - `--shadow-input-error` rgba re-anchored from `(239,68,68)` → `(229,72,77)`.
+  - `--color-action-danger-soft-bg-{hover,press}` re-anchored from `(201,38,38)` → `(229,72,77)`.
+- **`color.text.{error,warning}` (dark)** — retuned to harmonize with the new canvas: error `#F8A8AA` (was `#f48a86`), warning `#F5DEA3` (was `#f3d8a4`).
+- **`color.alpha.ink.*`** — re-anchored from `(10,10,13)` → `(23,26,24)` to match the new obsidian-mint canvas. Visually subtle change but keeps all ink overlays harmonized to the new brand dark.
+- **`color.surface.glass`** (dark) — re-anchored from `rgba(20,20,26,0.62)` → `rgba(33,36,31,0.62)` to match the new raised surface.
+- **`principles.md`** — rewritten. Grew from 5 to 7 principles. New: principle 1 (Engineer the first impression), principle 2 (Lead the eye — one focal point per section), principle 4 (Cognitive fluency over decoration). Reframed: principle 5 (Care is total — peak moments, end moments, every state). Retired: "Density is dense, not airy" (reabsorbed into principles 3 + 4; marketing-vs-operator surface split now lives explicitly in `spacing.md` §3).
+- **`color.md`** — rewritten. Opens with the four-color floor (accent / dark / soft light / paper). Documents the obsidian-mint and neutral-grayscale ramps. Retains the parallel-modes rule and the single-accent discipline.
+- **`spacing.md`** — header note added clarifying that the v0.1 "density is dense" principle was reabsorbed into 3 + 4. The marketing-vs-operator section split is mandatory, not optional.
+- **`motion-language.md`** — added principle 6 ("Spend on peaks, save on decoration") and cross-references to `micro-interactions.md`.
+- **`typography.md`** — header note + cross-refs aligning with the new principles. Single-typeface discipline (Satoshi alone) is now framed as serving principle 3 directly — premium reads as confidence, confidence reads as restraint.
+- **`button/component.json`** — accent.fg description updated; v0.11 changelog entry added.
+- **`AGENTS.md`** hard rule #7 (single accent) and #9 (white-on-accent forbidden) — values updated to spring green / `#07120D`. Hard rule itself unchanged.
+- **`CLAUDE.md`** — new cross-cutting concern bullets pointing at hierarchy.md, first-impression.md, micro-interactions.md.
+- **`README.md`** — visual-mood summary box updated for v0.11. Open questions list re-pruned post-v0.11.
+- **`llms.txt`** + **`llms-full.txt`** — v0.11 brand summary, new foundations, principles list updated 5 → 7, single-accent rule rephrased to spring green.
+- **`accessibility.md`** §"Primary action contrast" — accent values updated.
+- **`audit-dashboard/src/components/primitives/inputs.tsx`** ColorPicker default swatches — first three colors updated to the new brand ramp; misc swatch refresh.
+- **`audit-dashboard/src/app/library/client.tsx`** ColorPicker demo state — `#4ade80` → `#00FA8A`.
+
+### Deprecated
+
+- **`color.warm.*` (primitive)** — replaced by `color.neutral.*`. The `color.warm.*` paths remain as backwards-compat aliases resolving through to `color.neutral.*` until v1.0. The brand is no longer warm; the system ships cool-neutral with a faint warm-mint awareness.
+- **The terminology "Warp lime green" / "Warp green"** — replaced by "Spring Green" or just "the accent" in all new copy. The old terminology is preserved in historical ADRs (0004, 0005) as the record of when the discipline was adopted.
+
+### Verification
+
+- Contrast pairs verified for v0.11 — all ≥ 4.5:1 AA Normal; most clear AAA. See [ADR 0018 § Verification](_meta/decisions/0018-premium-psychology-recolor.md#verification).
+- Token files validated via `grep` for broken `{…}` references (none).
+- Audit-dashboard visual sweep pending — flagged as v0.11.1 cleanup.
+
+---
+
 ## [0.10.3] — 2026-05-03 — Mockup typography rebuild · semantic presets, no more lint bypasses
 
 User feedback on `/mobile`: "looks awful, so it Dashboard and all the other mockups. Improve them. Stick to the design system and focus on the typography. Right now the line height and other nuances are all messed up." The mockups had drifted into ~30 raw `text-[var(--type-N)]` arbitrary-value chains, each annotated with a `lumen-lint-allow: typography` directive. The directives were a tell: every "no semantic preset for this size" comment was the system being asked to do something the system explicitly disallows (11 px outside kbd/overline, 15 px between body-sm and body-md, 18 px semibold for app bar titles). Plus `leading-tight` (1.05, display tier) was being applied to body-tier list rows, cramping line rhythm where snug-body (1.30) belongs.

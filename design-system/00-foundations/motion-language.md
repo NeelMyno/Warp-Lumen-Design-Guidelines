@@ -1,23 +1,30 @@
 ---
 name: Motion language
 type: foundation
-version: 1.0.0
-last_updated: 2026-05-02
+version: 1.1.0
+last_updated: 2026-05-04
 audience: [designer, engineer, llm-agent]
-related: [./principles.md, ../01-tokens/primitives/motion.tokens.json]
+related:
+  - ./principles.md
+  - ./micro-interactions.md
+  - ../01-tokens/primitives/motion.tokens.json
 ---
 
 # Motion language
 
-> Motion serves comprehension. It tells the user where something came from or where it is going. It is short, decelerating, and respects `prefers-reduced-motion` everywhere.
+> Motion serves comprehension. It tells the user where something came from or where it is going. It is short, decelerating, and respects `prefers-reduced-motion` everywhere. **Subtle motion is alive; gimmicky motion is exhausting.**
+
+> [!note]
+> v0.11 — small edits to align with the [Premium Psychology principles](./principles.md) §5 (peak-end rule) and the new [`micro-interactions.md`](./micro-interactions.md) catalog. The duration / easing tokens and the signature LiveDot loop are unchanged. Cross-references to `micro-interactions.md` were added; that doc is the operational *what to animate*; this doc is the *how to time it.*
 
 ## Principles
 
 1. **Decelerate, don't bounce.** Default easing is `ease-out`. No springs, no overshoot. The one signature exception is the `LiveDot` pulse.
 2. **Short.** UI feedback ≤ 180 ms. State transitions ≤ 260 ms. Page transitions ≤ 320 ms. Anything longer must justify itself.
 3. **Continuous through space.** When something appears, it appears from where it makes sense (a panel slides in from the side it's anchored to). Cross-fade only when there is no spatial relationship.
-4. **One signature loop.** The pulsing green `LiveDot` is the recurring motion that signals "this is live." Nothing else loops.
+4. **One signature loop.** The pulsing Spring-Green `LiveDot` is the recurring motion that signals "this is live." Nothing else loops.
 5. **Reduced motion is real motion.** When the user opts out, the system goes still — not "subtle." Crossfade is replaced with snap; pulse is replaced with steady; marquee is replaced with static.
+6. **Spend on peaks, save on decoration.** Per principle 5 (care is total) + the peak-end rule: micro-interactions on hover, focus, validation, and success are the moments people remember. Decorative parallax, scroll-jacked sections, and "wow" animations spend the budget on nothing. See [`micro-interactions.md`](./micro-interactions.md) for the catalog.
 
 ## Tokens
 
@@ -146,7 +153,8 @@ Every animation:
 
 ## Related
 
-- [Principles](./principles.md) — principle 4 (decelerate, don't bounce)
+- [Principles](./principles.md) — principle 7 (decelerate; motion serves comprehension) + principle 5 (peak-end care)
+- [Micro-interactions](./micro-interactions.md) — v0.11 — the catalog of moments to design (hover, focus, validation, success)
 - [Accessibility](./accessibility.md) — reduced motion section
 - [Motion tokens](../01-tokens/primitives/motion.tokens.json)
 - [LiveDot component](../02-components/live-dot/component.md)

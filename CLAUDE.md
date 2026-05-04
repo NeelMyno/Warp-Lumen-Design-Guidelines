@@ -2,6 +2,9 @@
 
 > Read [AGENTS.md](./AGENTS.md) first. Everything in AGENTS.md applies. This file adds Claude-specific instructions on top.
 
+> [!note]
+> **v0.11 — Premium Psychology recolor (current).** Brand anchors: Spring Green `#00FA8A` (accent), Obsidian Mint `#171A18` (dark canvas), `#E6E6E6` (light anchor / primary text on dark), `#FAFAFA` (paper). Three new foundations: [`hierarchy.md`](design-system/00-foundations/hierarchy.md), [`first-impression.md`](design-system/00-foundations/first-impression.md), [`micro-interactions.md`](design-system/00-foundations/micro-interactions.md). Principles grew from 5 to 7. See [ADR 0018](_meta/decisions/0018-premium-psychology-recolor.md) for rationale.
+
 ## Skill priority for this repo
 
 When working in this repo, use these skills (when available):
@@ -48,6 +51,9 @@ When asked to create a new component:
 - **License.** Satoshi is ITF-FFL — free for commercial use, must self-host, must NOT redistribute the font files in any public repo. Don't commit the font files to a public git repo.
 - **Vault context.** This is a Warp internal repo, not the user's Obsidian vault. The vault rules in user's global CLAUDE.md don't apply unless the user explicitly invokes a vault skill.
 - **Privacy.** No customer names in tokens, comments, or examples. Use generic ones (Sterling LTL, Estes Express are real carrier names; safe to use as examples).
+- **v0.11 hierarchy first.** Before generating any new section, page, or component layout: read [`hierarchy.md`](design-system/00-foundations/hierarchy.md) and apply the three-tier rule + the 1.5–2× weight rule. Equal-weight noise is the most common failure mode of LLM-generated UI; principle 2 is the cure.
+- **v0.11 hero first.** Any landing or hero surface flows through [`first-impression.md`](design-system/00-foundations/first-impression.md) — three questions answered (what/who/why), three checks passed (branded chrome, single focal point, no layout shift), in 50ms.
+- **v0.11 micro-interaction catalog.** Hover, focus, validation, success — read [`micro-interactions.md`](design-system/00-foundations/micro-interactions.md) before designing any state change. Spend motion budget on functional moments; save it from decoration.
 
 ## Working with the audit dashboard
 

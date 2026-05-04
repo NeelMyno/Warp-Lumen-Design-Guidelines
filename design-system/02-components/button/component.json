@@ -164,7 +164,7 @@
       "Don't disable a button without explaining why nearby.",
       "Don't put icons on both sides of a short label. Pick one.",
       "Don't use intent='primary' for a destructive action — that's intent='danger'.",
-      "Don't render white or near-white text on the lime accent surface. The primary action surface is bound to color.action.primary.fg ({color.accent.fg} = #0a0a0d, 12.6:1 AAA). White on lime is 1.66:1 — a WCAG AA fail. Lint rule lint-no-white-on-accent enforces this.",
+      "Don't render white or near-white text on the Spring Green accent surface. The primary action surface is bound to color.action.primary.fg ({color.accent.fg} = #07120D, 14.7:1 AAA). White on spring green is ~1.4:1 — a WCAG AA fail. Lint rule lint-no-white-on-accent enforces this.",
       "Don't use the shadcn token-bridge utilities (`bg-primary text-primary-foreground` etc.) in product code. They're unreliable in Tailwind v4 (ADR 0015). Use the .lumen-btn-* defensive classes or direct semantic refs.",
       "Don't translate or scale the button on press. Press feedback is filter brightness(0.92) + glow ladder shrink. Decelerate, don't bounce.",
       "Don't use intent='ai' for non-AI actions. The sparkle + tonal lime is reserved for AI affordances; over-using it dilutes the signal.",
@@ -177,12 +177,13 @@
   "related": ["IconButton", "ButtonGroup", "SplitButton", "CommandPaletteButton", "FAB", "Toggle", "Segmented", "Link"],
   "changelog": [
     { "version": "0.1.0", "type": "Added", "note": "Initial release. Four intents, three sizes, loading, full-width, leading/trailing icons." },
-    { "version": "0.4.0", "type": "Added", "note": "Pill shape (via `pill` prop). Glow halo (`glow` prop) for hero CTAs. xl size (56 px hero). Accent.fg pinned to obsidian #0a0a0d for 12.6:1 AAA on lime." },
+    { "version": "0.4.0", "type": "Added", "note": "Pill shape (via `pill` prop). Glow halo (`glow` prop) for hero CTAs. xl size (56 px hero). Accent.fg pinned to obsidian #0a0a0d for 12.6:1 AAA on lime. (v0.11 retunes accent.fg to #07120D for 14.7:1 AAA on spring green #00FA8A.)" },
     { "version": "0.8.0", "type": "Changed", "note": "Heights re-bound to `size.control.*` semantic tokens. Padding migrated from raw px to `space.inset.squish.*` semantic refs (Curtis 2016 / Atlassian compositional pattern)." },
     { "version": "0.8.1", "type": "Fixed", "note": "Primary intent — pinned bg/fg to direct Lumen-token refs to bypass the shadcn bridge fragility in Tailwind v4. See ADR 0015." },
     { "version": "0.9.0", "type": "Added", "note": "Eight intents (added ghost, outline, danger-soft, ai, glass; tertiary kept as alias of ghost). Five sizes (added xs=24 for table inline). Three shapes (rect/pill/round). Three-state glow ladder for primary (rest 16/0.25 → hover 24/0.4 → active 8/0.2). Dual-ring focus indicator on lime accent surfaces (Atlassian 2024 fix; WCAG 2.4.13). New props: shape, success (transient checkmark+verb), pressed (aria-pressed). Press feedback dropped translate-y; replaced with filter brightness(0.92)." },
     { "version": "0.9.0", "type": "Changed", "note": "Danger bg deepened red.500 → red.600 (#c92626) to clear WCAG AA Normal. White on red.600 = 5.2:1." },
     { "version": "0.9.0", "type": "Changed", "note": "Implementation moved from cva inline-Tailwind utilities to globals.css `.lumen-btn-*` defensive classes. The cva button now composes class names (not Tailwind arbitrary values), guaranteeing dev/prod parity in Tailwind v4. See ADR 0016." },
-    { "version": "0.9.0", "type": "Deprecated", "note": "`intent='tertiary'` is now an alias of `intent='ghost'`. Both work; ghost is the new canonical name. Tertiary will be removed in v1.0." }
+    { "version": "0.9.0", "type": "Deprecated", "note": "`intent='tertiary'` is now an alias of `intent='ghost'`. Both work; ghost is the new canonical name. Tertiary will be removed in v1.0." },
+    { "version": "0.11.0", "type": "Changed", "note": "Recolored — primary surface re-anchored from Warp lime #4ade80 to Spring Green #00FA8A. Accent.fg retuned from #0a0a0d to #07120D for 14.7:1 AAA on the new hue. Glow ladder RGB shifted from (74,222,128) to (0,250,138). Danger bg refined: status.danger.500 #ef4444 → #E5484D and CTA bg.rest = status.danger.700 (#B71D2A) for AA Normal. No API surface change. See ADR 0018." }
   ]
 }

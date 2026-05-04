@@ -6,6 +6,9 @@
 
 Lumen is the source of truth for Warp's UI. It contains design tokens (DTCG JSON), component contracts (Markdown + JSON sidecars), and platform consumption guides. It does NOT contain shipped product code — product code lives in consumer repos and pulls Lumen via shadcn registry / Swift Package / Compose module / etc.
 
+> [!note]
+> **v0.11 — Premium Psychology recolor.** Brand anchors: accent `#00FA8A` (Spring Green), dark `#171A18` (obsidian-mint canvas), light `#E6E6E6` (neutral light). Three new foundations: [`hierarchy.md`](design-system/00-foundations/hierarchy.md), [`first-impression.md`](design-system/00-foundations/first-impression.md), [`micro-interactions.md`](design-system/00-foundations/micro-interactions.md). Principles grew from 5 to 7 to encode 50ms halo effect + cognitive fluency + peak-end rule. See [ADR 0018](_meta/decisions/0018-premium-psychology-recolor.md).
+
 Repo root tree (orient yourself):
 
 ```
@@ -45,11 +48,11 @@ Repo root tree (orient yourself):
 
 6. **Use the platform-appropriate code template** from `02-components/{name}/examples/`. Do not invent new patterns when one exists.
 
-7. **The Warp lime green (`color.accent.500` = `#4ade80`) plays exactly ONE role**: action / live / success. Never decorative. Never as a second accent. Never on non-action chrome. Adding a second loud color to the system is a brand violation.
+7. **The Spring Green accent (`color.accent.500` = `#00FA8A`) plays exactly ONE role**: action / live / success. Never decorative. Never as a second accent. Never on non-action chrome. Adding a second loud color to the system is a brand violation. (v0.11 evolved the accent from lime `#4ade80` to spring green `#00FA8A`; the single-accent discipline is unchanged. See [ADR 0018](_meta/decisions/0018-premium-psychology-recolor.md).)
 
 8. **Honor `prefers-reduced-motion`** in everything that animates. Motion that doesn't respect this fails CI.
 
-9. **Never render white or near-white text on the lime accent surface.** The accent foreground is bound to `color.accent.fg` (`#0a0a0d`, ~12.6:1 AAA on `#4ade80`). White on lime is ≈1.66:1 — a WCAG AA fail. Specifically:
+9. **Never render white or near-white text on the Spring Green accent surface.** The accent foreground is bound to `color.accent.fg` (`#07120D`, ~14.7:1 AAA on `#00FA8A`). White on spring green is ≈1.4:1 — a WCAG AA fail. Specifically:
    - Do NOT use the shadcn token-bridge utilities (`bg-primary`, `text-primary-foreground`, `bg-card`, `text-card-foreground`, `bg-popover`, `text-popover-foreground`, etc.) in product code. They resolve through `:root` → `--primary-foreground` → `--text-on-accent` → `--lumen-accent-fg`, and Tailwind v4's content scanner has been observed to drop those classes, leaving the element to inherit `--text-primary` (near-white).
    - DO use the v0.9 `.lumen-btn-*` defensive class family (declared in `audit-dashboard/src/app/globals.css`) for any button surface — `.lumen-btn-primary`, `.lumen-btn-secondary`, `.lumen-btn-ghost`, etc. compose statically and ship every time.
    - DO use direct semantic refs for one-off surfaces: `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]` (audit-dashboard) or `bg-[var(--color-action-primary-bg-rest)] text-[var(--color-action-primary-fg)]` (canonical via the v0.9 action-surface bridge).
