@@ -100,7 +100,7 @@ Web Components is the cleanest way:
 
 ## E-commerce-specific patterns
 
-- **Product detail:** see audit dashboard `/ecommerce` route for the canonical layout.
+- **Product detail:** see audit dashboard `/commerce` route for the canonical layout.
 - **Cart drawer:** anchored right, 400 px wide, Lumen `Drawer` pattern.
 - **Checkout:** Shopify checkout is hard-locked to their own theme — Lumen styles only the storefront, not Shopify Checkout. Customizing checkout requires Shopify Plus + Checkout Extensibility.
 - **Trust strip + Live ticker:** highly compatible with Warp brand if the merchant is freight-adjacent.

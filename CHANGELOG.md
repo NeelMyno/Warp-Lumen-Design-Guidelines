@@ -10,6 +10,49 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.5] — 2026-05-04 — Premium Psychology pass · audit-dashboard chrome polish
+
+A live visual audit against the deployed `https://warp-lumen-design-guidelines.vercel.app/` site, against the Premium Psychology rubric encoded in v0.11's three new foundations (`hierarchy.md`, `first-impression.md`, `micro-interactions.md`). Eight routes captured at desktop + mobile + dark + light via Playwright (Chromium 1217). Sixteen issues catalogued, eight shipped in this patch — full audit log in `.audit-runs/2026-05-04-visual-audit/NOTES.md`.
+
+### Fixed
+
+- **`audit-dashboard/src/components/theme-toggle.tsx`** — theme defaults now ASSERT the brand instead of inheriting `prefers-color-scheme`. Dark + obsidian-mint is the deterministic first impression every visitor lands on; the user's stored preference (set via the toggle, persisted in `localStorage`) is the only override. Premium Psychology principle 1 (50ms halo) — half the audience was getting light mode and never seeing the canonical canvas the system is named after.
+- **`audit-dashboard/src/components/tab-nav.tsx` mobile overflow** — the 8 nav tabs silently truncated to 4 on a 390 px viewport. Now: horizontal scroll with `snap-x snap-mandatory`, `[scrollbar-width:none]` cross-engine hiding, and a right-edge `mask-image` linear-gradient fade so the cut reveals "there's more behind here" without painting a visible affordance. Each tab carries `snap-start` so flick-scrolling lands cleanly on the next chip. (P0)
+- **`audit-dashboard/src/components/dashboard-shell.tsx` header redundancy** — "V0.11" appeared 4–5× above the fold (brand pill, "System v0.11 live" status, breadcrumb suffix, page chip). The "System v0.11 live" caption is removed; the pulsing dot stays, attached to the brand pill, with `aria-label="System live"`. Brand pill bumped to `v0.11.5`. Footer "v0.11.0 · audit preview" → "v0.11.5 · reference implementation" — the live URL IS the reference, not a preview. (P1)
+- **`audit-dashboard/src/app/foundations/page.tsx` empty hero** — the brutalist frame around the `Foundations. Lit.` H1 was an empty card frame with 80 px of padding around 2 words; the card edge competed with the headline as the focal point. The frame now also hosts a system-at-a-glance row inside it: 5 brand color stops (canvas, raised, accent, warning, danger) → live-dot + "Live" mono-cap → Satoshi `Aa` specimen + OpenType caption. Premium Psychology principle 1 fix — the most expensive real estate now PROVES the system instead of labelling itself. (P0)
+- **`audit-dashboard/src/app/foundations/page.tsx` right-rail nav** — the on-page nav was a flat list of 13 jump links of equal weight. Refactored into 4 quiet groups with mono-cap subheadings: Visual primitives (color/typography/spacing/radius/elevation/surfaces), Visual language (motion/iconography/voice), Component patterns (controls/display/navigation), Live signals (live-data). Premium Psychology principle 2 (cognitive fluency) — readers now scan by category instead of serially. (P1)
+- **`audit-dashboard/src/app/foundations/page.tsx` eyebrow trim** — the breadcrumb eyebrow read `Tab 01 · system primitives · obsidian-mint · v0.11`. Trailing `· v0.11` removed (already on the brand pill + the chip strip), and the leading `lumen-dot-pulse` removed (the brand pill carries it now). Result: cleaner one-line eyebrow. Chip strip simplified from 4 to 3 chips — the redundant Satoshi chip is removed (the typography section header already says it). (P1)
+- **`audit-dashboard/src/app/{ecommerce → commerce}/` route rename + label parity** — the tab nav showed "Commerce" but routed to `/ecommerce`; a user typing `/commerce` in the URL bar got a Next.js default 404. Renamed: route folder `app/ecommerce/` → `app/commerce/`, slug `ecommerce` → `commerce`, label "E-commerce" → "Commerce", page H1 "E-commerce" → "Commerce", page metadata title likewise. Also updated `design-system/03-platforms/shopify-liquid/README.md` route reference and `_meta/glossary.json` audit-dashboard tab list. URL = visible label = page H1 = single canonical word. (P2)
+
+### Changed
+
+- **`_registry/registry.json` description** — "Quiet Industrial mood, Satoshi typography, Warp lime green accent" → "Obsidian Mint mood, Satoshi single-typeface system, Spring Green (#00FA8A) action-only accent". The shadcn registry consumer-facing string is now v0.11-correct (it had been stale since v0.5/v0.6). (P3)
+
+### Architectural improvements
+
+- **The chrome is now load-bearing.** The dashboard shell + tab nav + theme toggle are now correct on every viewport (mobile, tablet, desktop) and assert the brand identity (dark + obsidian-mint) deterministically. Pages no longer rely on the user's OS preference to land on the canonical canvas.
+- **The audit-dashboard's hero pages prove the system, not just label it.** Foundations went from "empty frame around 2 words" to "frame around 2 words PLUS a 5-color, motion, typography specimen row." Future page-hero patterns can compose against this anchor.
+
+### Deferred to a focused mobile sprint
+
+These were catalogued in the audit but deferred to a dedicated mobile sweep (each is a non-trivial refactor):
+
+- **P0-2** Mobile reflow of nested demo mockups — `/landing` browser-frame hero, `/saas` operator dashboard, `/tool` quote builder, `/commerce` storefront all retain desktop dimensions on a 390 px viewport (text clipped, layout broken). Fix is per-mockup container queries + selective hide-below-`md:` with a "view on desktop" affordance.
+- **P3-13** Avatar stack on `/saas` overlaps awkwardly on mobile.
+- **P2-12** Dark wrapper + light demo content (`/saas`, `/tool`, `/commerce`, `/landing`) feels accidental — needs either a styled "light-mode preview" frame or per-demo dark variants.
+- **P2-11** `/commerce` PDP gallery uses 3 empty gray-square placeholders — needs monoline product illustrations matching `04-content/iconography.md`.
+- **P1-7** Hero chip-strip simplification across non-foundations routes (matching the foundations 4-chip → 3-chip restraint cut).
+- **P1-8** Type-scale audit — 12 unique font sizes on `/foundations` including 13 px (101 instances) and 15 px (26 instances) that are off the Major-Third scale. Either add to documented presets in `typography.md` or migrate to canonical 12/14.
+
+### Verification
+
+- `next build` clean from the `audit-dashboard/` workspace — no TypeScript errors after the route rename, no missing module imports.
+- `lib/tabs.ts` `TabSlug` union updated; nothing else in the codebase references `"ecommerce"` (verified via repo-wide grep). Historical references in ADRs 0010, 0014, 0017 left intact (records of past decisions, not current truth).
+- All 8 routes resolve correctly: `/foundations`, `/library`, `/saas`, `/landing`, `/tool`, `/commerce`, `/mobile`, `/desktop`.
+- The audit run, all screenshots (34), the forensic JS audit script, and the capture scripts are committed to `.audit-runs/2026-05-04-visual-audit/` for traceability and to seed the next audit pass.
+
+---
+
 ## [0.11.4] — 2026-05-04 — Build hotfix · ToastCard icon color reference
 
 Vercel build failure post-v0.11.3:

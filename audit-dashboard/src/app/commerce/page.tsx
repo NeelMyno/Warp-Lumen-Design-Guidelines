@@ -9,14 +9,14 @@ import {
   ArrowRight, Cart, Check, Search, User, ChevronDown, Plus,
 } from "@/components/primitives/icon";
 
-export const metadata = { title: "E-commerce · Lumen" };
+export const metadata = { title: "Commerce · Lumen" };
 
-export default function EcommercePage() {
+export default function CommercePage() {
   return (
     <div>
       <PageHeader
         eyebrow="Tab 6 of 8 · Storefront surface"
-        title="E-commerce"
+        title="Commerce"
         description="Storefront patterns suitable for Shopify, BigCommerce, or WooCommerce themes. Product detail, related items, drawer cart — held to the same Lumen typographic discipline."
       />
 

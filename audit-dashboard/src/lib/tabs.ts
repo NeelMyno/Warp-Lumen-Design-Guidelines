@@ -4,7 +4,7 @@ export type TabSlug =
   | "saas"
   | "landing"
   | "tool"
-  | "ecommerce"
+  | "commerce"
   | "mobile"
   | "desktop";
 
@@ -64,9 +64,9 @@ export const TABS: Tab[] = [
     group: "platform",
   },
   {
-    slug: "ecommerce",
-    href: "/ecommerce",
-    label: "E-commerce",
+    slug: "commerce",
+    href: "/commerce",
+    label: "Commerce",
     shortLabel: "Commerce",
     description:
       "Product detail, cart, collections, account — Shopify / BigCommerce / WooCommerce theme patterns.",

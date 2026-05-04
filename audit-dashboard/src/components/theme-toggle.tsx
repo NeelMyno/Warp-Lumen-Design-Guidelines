@@ -6,15 +6,15 @@ import { Moon, Sun } from "lucide-react";
 type Theme = "light" | "dark";
 
 /**
- * Lumen v0.4 defaults to DARK (the obsidian canvas is the brand stage).
- * If the user has a stored preference, that wins; otherwise we honour the
- * OS preference; otherwise we land on dark.
+ * Lumen v0.11.5 — Obsidian Mint is the brand stage. Dark is default; the OS
+ * preference is intentionally ignored so every first impression lands on the
+ * canonical canvas the system is named after. A user override (via the toggle)
+ * persists in localStorage and wins on every subsequent visit.
  */
 function readInitialTheme(): Theme {
   if (typeof window === "undefined") return "dark";
   const stored = window.localStorage.getItem("lumen-theme") as Theme | null;
   if (stored === "light" || stored === "dark") return stored;
-  if (window.matchMedia("(prefers-color-scheme: light)").matches) return "light";
   return "dark";
 }
 

@@ -5,22 +5,27 @@ import { usePathname } from "next/navigation";
 import { TABS } from "@/lib/tabs";
 
 /**
- * v0.4 tab strip — glass pill chips. Active tab gets a lime hairline border
- * and a soft lime-tint background. Hover only nudges color/opacity; no
- * jarring shifts. Mono-cap voice on the active label is reserved for hero
- * eyebrows; tabs stay title-case for natural reading.
+ * v0.11.5 tab strip — same glass pill chips, now mobile-correct.
+ *
+ * Three behaviours: (1) horizontal scroll on overflow, (2) right-edge fade
+ * mask reveals there's more behind the cut, (3) scroll-snap snaps each tab
+ * to the start so flick-scrolling lands clean. Scrollbar is hidden across
+ * all engines. Active tab still gets the lime hairline + tint surface.
  */
 export function TabNav() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Project type" className="overflow-x-auto">
+    <nav
+      aria-label="Project type"
+      className="overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,black_0%,black_calc(100%-32px),transparent_100%)]"
+    >
       <ul className="mx-auto flex w-full max-w-max items-stretch gap-1 px-4 py-2">
         {TABS.map((tab) => {
           const isActive =
             pathname === tab.href ||
             (pathname === "/" && tab.slug === "foundations");
           return (
-            <li key={tab.slug} className="flex">
+            <li key={tab.slug} className="flex snap-start">
               <Link
                 href={tab.href}
                 aria-current={isActive ? "page" : undefined}

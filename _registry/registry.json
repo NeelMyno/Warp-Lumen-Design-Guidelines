@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "lumen",
   "homepage": "https://lumen.warp.dev",
-  "description": "Lumen — Warp's vertically integrated design system. Quiet Industrial mood, Satoshi typography, Warp lime green accent. Install: `npx shadcn@latest add <registry-url>/<name>`.",
+  "description": "Lumen — Warp's vertically integrated design system. Obsidian Mint mood, Satoshi single-typeface system, Spring Green (#00FA8A) action-only accent. Install: `npx shadcn@latest add <registry-url>/<name>`.",
   "items": [
     {
       "$ref": "./button.json"

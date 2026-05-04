@@ -44,6 +44,9 @@ coverage
 *.output
 .agent-runs/
 
+# Visual audit artifacts (commit notes + scripts; ignore captured PNGs — regenerate by running capture.mjs)
+.audit-runs/*/screenshots/
+
 # Claude Code session-local state (never commit)
 .claude/scheduled_tasks.lock
 .claude/sessions/

@@ -29,7 +29,7 @@
     "Inter":           "Retired by ADR 0017 (v0.10). Was the Plan B sans wired via `html[data-font=\"inter\"]` for a hostile-rendering swap. No longer wired; the override block is gone from globals.css. If a future swap is ever needed, raise a new ADR.",
     "FFL":             "Indian Type Foundry Free Font License. Free for personal and commercial use; cannot redistribute or modify the font files.",
     "WCAG 2.2 AA":     "The accessibility floor for everything Lumen ships. Hard floor — no exceptions.",
-    "audit-dashboard": "The reference Next.js 16 implementation at /audit-dashboard/. Shows every component pattern across 8 project templates (foundations, landing, saas, tool, ecommerce, mobile, desktop, library) with a mood switcher.",
+    "audit-dashboard": "The reference Next.js 16 implementation at /audit-dashboard/. Shows every component pattern across 8 project templates (foundations, landing, saas, tool, commerce, mobile, desktop, library) with a mood switcher.",
     "operator":        "The Warp persona. A logistics operator at a customer using the freight platform. Designed for clarity, density, instrument-panel scannability.",
     "lane":            "Freight industry term. A specific origin-to-destination route (e.g. 'LAX → SFO'). Lumen primitives use this as the canonical sample data.",
     "BOL":             "Bill of Lading. Common abbreviation in freight — used in Lumen iconography and copy.",

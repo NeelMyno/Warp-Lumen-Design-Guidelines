@@ -30,13 +30,16 @@ export default function FoundationsPage() {
   return (
     <div className="grid gap-12 lg:grid-cols-[1fr_200px] lg:gap-x-12">
       <article className="min-w-0">
-        {/* HERO — brutalist hairline frame, mono-cap eyebrow, italic display accent */}
+        {/* HERO — brutalist hairline frame; v0.11.5 fills the frame with a
+            system-at-a-glance row so the most expensive real estate proves the
+            system instead of just labelling itself. Premium Psychology
+            principle 1 (50ms halo) lands on color + motion + type primitives,
+            not on an empty card. */}
         <header>
           <div className="flex items-center gap-3 mb-6 lumen-mono-cap text-[var(--text-tertiary)]">
-            <span className="lumen-dot-pulse" aria-hidden />
             <span>Tab 01 · system primitives</span>
             <span aria-hidden>·</span>
-            <span className="text-[var(--text-accent)]">obsidian-mint · v0.11</span>
+            <span className="text-[var(--text-accent)]">obsidian-mint</span>
           </div>
           <div className="lumen-frame-brutalist">
             <h1 className="text-display-lg sm:text-display-2xl lg:text-display-2xl text-[var(--text-primary)]">
@@ -46,15 +49,39 @@ export default function FoundationsPage() {
                 Lit.
               </em>
             </h1>
+            {/* v0.11.5 — system-at-a-glance row inside the brutalist frame.
+                Color stops + motion (live dot) + type specimen, separated by
+                hairline rule-offs. Replaces the v0.11 empty-card hero. */}
+            <div className="mt-10 pt-8 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-6">
+              {/* Brand color stops */}
+              <div className="flex items-center gap-2" aria-label="Color anchors">
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--surface-canvas)" }} title="surface.canvas" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--surface-raised)" }} title="surface.raised" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)]" style={{ background: "var(--lumen-accent-4)" }} title="accent.500 · #00FA8A" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--lumen-amber-5)" }} title="status.warning" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--lumen-red-5)" }} title="status.danger" />
+              </div>
+              <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
+              {/* Live indicator */}
+              <div className="flex items-center gap-2 lumen-mono-cap text-[var(--text-tertiary)]">
+                <span className="lumen-dot-pulse" aria-hidden />
+                <span className="text-[var(--text-accent)]">Live</span>
+              </div>
+              <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
+              {/* Satoshi specimen */}
+              <div className="flex items-baseline gap-3">
+                <span className="text-display-md font-bold text-[var(--text-primary)] leading-none">Aa</span>
+                <span className="lumen-mono text-body-xs text-[var(--text-tertiary)]">Satoshi · 300–900 · OpenType</span>
+              </div>
+            </div>
           </div>
           {/* lumen-lint-allow: typography — type-17 mobile lead; intermediate body density between body-md (16) and body-lg (18) */}
           <p className="mt-8 max-w-[60ch] text-[var(--type-17)] md:text-body-lg text-[var(--text-secondary)] leading-[var(--leading-snug)]">
             Color, typography, spacing, geometry, elevation, motion, surfaces, voice. Lumen v0.11 evolves Obsidian Lime to Obsidian Mint — Spring Green accent, obsidian-mint canvas, cool-neutral paper. Seven principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. One mood, assembled from the same restraint it asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Badge status="accent" leadingDot>v0.11.0 · Obsidian Mint</Badge>
+            <Badge status="accent" leadingDot>v0.11.5 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
-            <Badge status="neutral">Satoshi · single-typeface system</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
         </header>
@@ -774,33 +801,48 @@ export default function FoundationsPage() {
         </Section>
       </article>
 
-      {/* ON-PAGE NAV */}
+      {/* ON-PAGE NAV — v0.11.5 grouped into 4 quiet categories. Aggressive
+          hierarchy: a single H4-quiet group label organises 13 jump links so
+          the reader scans by category instead of serially. */}
       <aside className="hidden lg:block">
         {/* lumen-lint-allow: typography — type-12 sidebar nav links; no semantic preset for 12 regular */}
-        <nav className="sticky top-32 flex flex-col gap-[var(--space-1_5)] text-[var(--type-12)]">
-          <div className="lumen-mono-cap mb-3 text-[var(--text-tertiary)]">On this page</div>
+        <nav className="sticky top-32 flex flex-col gap-6 text-[var(--type-12)]">
+          <div className="lumen-mono-cap text-[var(--text-tertiary)]">On this page</div>
           {[
-            ["color", "Color"],
-            ["typography", "Typography"],
-            ["spacing", "Spacing & grid"],
-            ["radius", "Radius"],
-            ["elevation", "Elevation"],
-            ["surfaces", "Surfaces"],
-            ["motion", "Motion"],
-            ["iconography", "Iconography"],
-            ["voice", "Voice"],
-            ["controls", "Controls"],
-            ["display", "Display"],
-            ["navigation", "Navigation"],
-            ["live-data", "Live data"],
-          ].map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors py-1 border-l border-transparent hover:border-[var(--border-accent)] pl-3 -ml-3"
-            >
-              {label}
-            </a>
+            { label: "Visual primitives", items: [
+              ["color", "Color"],
+              ["typography", "Typography"],
+              ["spacing", "Spacing & grid"],
+              ["radius", "Radius"],
+              ["elevation", "Elevation"],
+              ["surfaces", "Surfaces"],
+            ] },
+            { label: "Visual language", items: [
+              ["motion", "Motion"],
+              ["iconography", "Iconography"],
+              ["voice", "Voice"],
+            ] },
+            { label: "Component patterns", items: [
+              ["controls", "Controls"],
+              ["display", "Display"],
+              ["navigation", "Navigation"],
+            ] },
+            { label: "Live signals", items: [
+              ["live-data", "Live data"],
+            ] },
+          ].map((group) => (
+            <div key={group.label} className="flex flex-col gap-[var(--space-1_5)]">
+              <div className="lumen-mono-cap text-[var(--text-tertiary)] opacity-70 mb-1">{group.label}</div>
+              {group.items.map(([id, label]) => (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)] transition-colors py-1 border-l border-transparent hover:border-[var(--border-accent)] pl-3 -ml-3"
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
           ))}
         </nav>
       </aside>
