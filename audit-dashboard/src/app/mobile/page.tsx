@@ -123,6 +123,7 @@ function IOSFrame() {
             { id: "WRP-9825", lane: "ORD → ATL", status: "Pickup",  carrier: "Estes" },
             { id: "WRP-9826", lane: "DFW → PHX", status: "At risk", carrier: "Saia" },
             { id: "WRP-9827", lane: "SEA → DEN", status: "On time", carrier: "ODFL" },
+            { id: "WRP-9828", lane: "MIA → JFK", status: "Late",    carrier: "FedEx" },
           ].map((s) => (
             <div
               key={s.id}
@@ -140,6 +141,7 @@ function IOSFrame() {
                 status={
                   s.status === "On time"  ? "success" :
                   s.status === "At risk"  ? "warning" :
+                  s.status === "Late"     ? "danger"  :
                                             "info"
                 }
                 leadingDot

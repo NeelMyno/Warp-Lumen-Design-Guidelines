@@ -2275,11 +2275,15 @@ a { color: inherit; text-decoration: none; }
 
 /* v0.4 — the brutalist hairline frame. Wraps a single statement headline
    with no shadow and no radius. Reference: "STOP RE-DESIGNING" treatment.
+   v0.11.8 — vertical max trimmed from 5rem (80px) to 4rem (64px) to tighten
+   the hero card's total height; combined with the v0.11.8 divider rhythm
+   change (mt-8/pt-6) the chip row reads as part of the headline group, not
+   a stranded second tier of content with a stretching gap below it.
 */
 .lumen-frame-brutalist {
   border: 1px solid var(--border-frame);
   border-radius: var(--radius-xl);
-  padding: clamp(2rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem);
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3.5rem);
 }
 
 /* v0.4 — glass surface. backdrop-filter for the floating shells (top nav,

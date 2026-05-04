@@ -68,7 +68,7 @@ function MacFrame() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[210px_1fr]" style={{ minHeight: 480 }}>
+      <div className="grid grid-cols-[210px_1fr]" style={{ minHeight: 440 }}>
         {/* Sidebar — vibrancy feel */}
         <aside
           className="border-r border-[var(--border-hairline)] py-3 px-2 flex flex-col gap-3"
@@ -148,6 +148,8 @@ function MacFrame() {
                   ["WRP-9825", "ORD → ATL", "Estes"],
                   ["WRP-9826", "DFW → PHX", "Saia"],
                   ["WRP-9827", "SEA → DEN", "ODFL"],
+                  ["WRP-9828", "MIA → JFK", "FedEx Freight"],
+                  ["WRP-9829", "BOS → CLT", "ABF"],
                 ].map(([id, lane, c]) => (
                   <li key={id} className="flex items-center justify-between gap-3 px-3 py-2 text-body-xs">
                     <code className="lumen-mono text-[var(--text-tertiary)]">{id}</code>
@@ -188,7 +190,7 @@ function WindowsFrame() {
         </div>
       </div>
 
-      <div className="grid grid-cols-[56px_210px_1fr]" style={{ minHeight: 480 }}>
+      <div className="grid grid-cols-[56px_210px_1fr]" style={{ minHeight: 440 }}>
         {/* Nav rail */}
         <aside className="bg-[var(--surface-sunken)] flex flex-col gap-1 py-2 items-center border-r border-[var(--border-hairline)]">
           {[
@@ -265,6 +267,8 @@ function WindowsFrame() {
                 { who: "Estes",        what: "tendered ORD → ATL",  when: "27 min ago" },
                 { who: "ODFL",         what: "scanned at SLC hub",  when: "48 min ago" },
                 { who: "Quote engine", what: "reduced 16 lanes",    when: "2 h ago" },
+                { who: "Saia Motor",   what: "delivered DFW → PHX", when: "3 h ago" },
+                { who: "Carrier API",  what: "23 new rates",        when: "4 h ago" },
               ].map((a) => (
                 <li key={a.when} className="flex items-baseline gap-2 px-3 py-[var(--space-1_5)] text-body-xs">
                   <span className="font-medium text-[var(--text-primary)]">{a.who}</span>

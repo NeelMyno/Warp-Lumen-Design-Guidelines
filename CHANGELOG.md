@@ -10,6 +10,37 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.8] — 2026-05-04 — Spacing audit pass · column balance + hero rhythm + orphan repair
+
+A nit-picky pixel-spacing audit against the deployed v0.11.6 site (Chrome MCP, 1440 viewport, dark mode), focused entirely on **spacing** — paddings, gaps, column heights, content density, orphan wrapping. v0.11.8 lands six concrete fixes that close the most visible "feels off" moments. The site's premium-psychology contract (50ms halo · cognitive fluency · peak-end rule) only holds when spacing rhythm is consistent across surfaces; this pass repairs the most visible breaks.
+
+### Fixed
+
+- **`/saas` middle column void** — the dashboard mock's middle column (KPI grid + shipments table) ended ~180 px above the right side panel's bottom edge, leaving a dead band inside the bordered mock. Removed the sidebar's `min-h-[760px]` cap (it was forcing the grid to a fixed height that the middle column couldn't fill) and added a new **Lane performance · 7d** stat band below the table — 4 lane-level micro-stats with sparklines that read as the natural "telemetry strip" pattern, parallel to the KPI row above. Heights now match without empty enforcement.
+- **`/desktop` macOS + Windows panel voids** — both `Recent` (macOS) and `Live activity` (Windows) lists had only 4 items inside a `flex-1` panel forced to 480 px min-height, leaving the panels half-empty. Reduced `minHeight` from 480 → 440 px and extended each list to 6 items. Both panels now read as full active feeds, not stubbed placeholders.
+- **`/mobile` iOS list parity with Android** — iOS frame had 4 shipment cards while Android showed 5 row entries, so the iOS list area had a visibly larger void above the tab bar. Added one more shipment (`WRP-9828 · MIA → JFK · Late`) so both frames carry the same density. Also wired `Late` → `danger` Badge mapping that was missing from the iOS status switch (would have fallen through to `info` blue).
+- **`/foundations` Accent in context — orphan badge** — the buttons + badges row inside `<Card>` packed 5 buttons + a vertical divider + 6 status badges into a single `flex-wrap` line. At 1440 px it broke after `Picked up`, leaving `Delivered` orphaned on a stand-alone second line. Split into two intentional rows (actions, then status) so the wrap is structural, not accidental. Removed the now-unused `VerticalDivider` separator.
+- **`/foundations` hero brutalist frame rhythm** — the at-a-glance row inside `Foundations. Tuned.` sat 72 px below the headline (`mt-10` + `pt-8`) inside a frame whose own padding ran up to 80 px vertical (`clamp(2rem, 6vw, 5rem)`). Total card was ~360 px tall with the chip row floating in a stretched lower half. Tightened the divider rhythm to 56 px (`mt-8` / `pt-6` / `gap-y-5`) and trimmed the brutalist-frame max vertical padding to `clamp(2rem, 5vw, 4rem)`. The chip row now reads as the second tier of the headline group, not a stranded specimen at the bottom of an empty frame.
+- **`/library` Carrier contact form alignment** — the validation form group was constrained to `max-w-[560px]` but left-aligned, leaving a wide empty right gutter inside the SubSection column. Added `mx-auto` so it sits centered like every other constrained-width example on the page.
+
+### Changed
+
+- **`dashboard-shell.tsx`, `foundations/page.tsx`, `library/client.tsx`, `tool/page.tsx`** — version chips, footer line, and badge labels bumped from `v0.11.6` → `v0.11.8`. Internal v0.11.6 ADR-style comments preserved (they document when each layer was added, not the current release).
+- **`package.json`** — version bumped 0.11.6 → 0.11.8.
+
+### Architectural notes
+
+- **Why all six fixes were spacing, not visual or typographic.** The surfaces all read as intentional individually — each component honours its tokens — but the *composition* failed at the column level. The pattern across all six bugs is the same: a fixed-height container (`min-h`, `minHeight`, brutalist-frame clamp) that didn't track its actual content. The fix is to either remove the cap and let content drive height, or to extend the content to match an intentional cap. v0.11.8 picks the right one per surface — extend the content where the dashboard mock genuinely *should* feel "full" (saas, desktop, mobile), tighten the cap where a hero card needs to sit at headline density (foundations brutalist frame).
+- **Premium Psychology · principle 3 (peak-end rule).** Per the source (`The Psychology of Premium Websites.md`): "people subconsciously judge the quality of something by how much care is put into said thing… When [details] are wrong — when buttons are slightly off centre, when the spacing between sections is inconsistent, when elements look like they were placed approximately — then people do notice." The six fixes target exactly the "approximately placed" feel.
+
+### Verification
+
+- `audit-dashboard/` `tsc --noEmit` clean.
+- `pnpm lint` — 14 errors / 39 warnings, all pre-existing (unused imports, react/no-unescaped-entities in pre-existing copy, theme-toggle setState-in-effect). Zero new lint debt from this pass.
+- All 8 routes still resolve in source. Live verification deferred to deploy.
+
+---
+
 ## [0.11.6] — 2026-05-04 — Premium polish layer · grain + scroll-reveal + halo + library grouping
 
 A second visual-audit pass against the deployed v0.11.5 site, anchored on two community design-prompt references (`superdesign.dev/library/neon-velocity-countdown` + `superdesign.dev/library/glassmorphism-style`). Both prompts describe a system effectively identical to Lumen v0.11 — but they call out three premium-signalling elements Lumen didn't yet ship: grain texture, scroll-driven reveals, and a wider accent halo on hover. v0.11.6 adds all three, plus parallel right-rail grouping on `/library` (matching the v0.11.5 grouping shipped on `/foundations`).

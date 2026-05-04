@@ -33,8 +33,11 @@ export default function SaaSPage() {
             <TopBar />
             <main className="flex-1 p-6 flex flex-col gap-6 bg-[var(--surface-page)]">
               <KpiRow />
-              <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-                <ShipmentsTable />
+              <div className="grid gap-6 lg:grid-cols-[1fr_320px] items-start">
+                <div className="flex flex-col gap-6 min-w-0">
+                  <ShipmentsTable />
+                  <LanePerf />
+                </div>
                 <SidePanel />
               </div>
             </main>
@@ -78,7 +81,7 @@ function Sidebar() {
     },
   ];
   return (
-    <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5 min-h-[760px]">
+    <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5">
       {/* workspace switcher */}
       <button className="mx-3 flex items-center gap-inline-sm px-2 py-[var(--space-1_5)] rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
         <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-label-sm font-bold">
@@ -411,5 +414,38 @@ function SidePanel() {
         </div>
       </Card>
     </aside>
+  );
+}
+
+/* ──────────────────  LANE PERF  ──────────────────
+   Below-table footer band that fills the middle column to height-match
+   the right SidePanel (4 stacked cards). 4 micro-stats with a sparkline
+   each — reads as the "telemetry strip" pattern used across operator
+   portals. Same Stat primitive as KpiRow above, dialed down a step.
+*/
+
+function LanePerf() {
+  return (
+    <Card padding="lg">
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex flex-col gap-1">
+          <div className="lumen-eyebrow">Lane performance · 7d</div>
+          <div className="text-body-xs text-[var(--text-tertiary)]">
+            Top 4 lanes by volume — quote acceptance vs market floor.
+          </div>
+        </div>
+        <Badge status="neutral">Refreshed 12 s ago</Badge>
+      </div>
+      <StatGrid cols={4} divided>
+        <Stat label="LAX → SFO" value="98" unit="%" delta="+1.2 pts" trend="up" size="md"
+          spark={<Sparkline data={[92,93,94,94,95,96,97,98]} />} />
+        <Stat label="ORD → ATL" value="94" unit="%" delta="+0.4 pts" trend="up" size="md"
+          spark={<Sparkline data={[91,91,92,93,93,94,94,94]} />} />
+        <Stat label="DFW → PHX" value="89" unit="%" delta="-0.8 pts" trend="down" size="md"
+          spark={<Sparkline data={[91,90,90,89,89,89,89,89]} tone="danger" />} />
+        <Stat label="SEA → DEN" value="96" unit="%" delta="+0.6 pts" trend="up" size="md"
+          spark={<Sparkline data={[94,94,95,95,96,96,96,96]} />} />
+      </StatGrid>
+    </Card>
   );
 }

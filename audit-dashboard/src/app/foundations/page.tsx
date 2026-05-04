@@ -18,7 +18,7 @@ import { Checkbox } from "@/components/primitives/checkbox";
 import { InlineTabs } from "@/components/primitives/tabs-inline";
 import { Tooltip } from "@/components/primitives/tooltip";
 import { Breadcrumb } from "@/components/primitives/breadcrumb";
-import { Divider, VerticalDivider } from "@/components/primitives/divider";
+import { Divider } from "@/components/primitives/divider";
 import {
   ArrowRight, Plus, Search, Truck, Box, Bell, Home, Settings,
   MapPin, Inbox, Filter, Code, Cart, User, Check, X, ChevronDown,
@@ -51,8 +51,11 @@ export default function FoundationsPage() {
             </h1>
             {/* v0.11.6 — system-at-a-glance row inside the brutalist frame.
                 Color stops + motion (live dot) + type specimen, separated by
-                hairline rule-offs. */}
-            <div className="mt-10 pt-8 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-6">
+                hairline rule-offs. v0.11.8 — tightened headline→divider→row
+                rhythm from mt-10/pt-8 (72px) to mt-8/pt-6 (56px); the
+                brutalist-frame outer padding (up to 80px) made the original
+                gap read as oversized empty space. */}
+            <div className="mt-8 pt-6 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-5">
               {/* Brand color stops */}
               <div className="flex items-center gap-2" aria-label="Color anchors">
                 <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--surface-canvas)" }} title="surface.canvas" />
@@ -83,7 +86,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="md" pill trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.11.6 · Obsidian Mint</Badge>
+            <Badge status="neutral" leadingDot>v0.11.8 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
@@ -145,19 +148,27 @@ export default function FoundationsPage() {
 
           <SubSection title="Accent in context" description="The green appears precisely where action happens — and nowhere else.">
             <Card padding="lg">
-              <div className="flex flex-wrap items-center gap-3">
-                <Button intent="primary" trailingIcon={<ArrowRight size={14} />}>Get rates</Button>
-                <Button intent="secondary">View shipments</Button>
-                <Button intent="tertiary" leadingIcon={<Plus size={14} />}>New lane</Button>
-                <Button intent="ghost">Filter</Button>
-                <Button intent="danger">Cancel order</Button>
-                <VerticalDivider height="20px" />
-                <Badge status="accent" leadingDot>Live</Badge>
-                <Badge status="success" leadingDot>On time</Badge>
-                <Badge status="warning" leadingDot>At risk</Badge>
-                <Badge status="danger"  leadingDot>Late</Badge>
-                <Badge status="info"    leadingDot>Picked up</Badge>
-                <Badge status="neutral">Delivered</Badge>
+              {/* v0.11.8 — split into two visual rows: actions, then status. The
+                  combined wrapping row left "Delivered" orphaned on a second
+                  line at common viewport widths. Splitting matches the
+                  hierarchy rule (one focal action group per row) and removes
+                  the orphan. */}
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button intent="primary" trailingIcon={<ArrowRight size={14} />}>Get rates</Button>
+                  <Button intent="secondary">View shipments</Button>
+                  <Button intent="tertiary" leadingIcon={<Plus size={14} />}>New lane</Button>
+                  <Button intent="ghost">Filter</Button>
+                  <Button intent="danger">Cancel order</Button>
+                </div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <Badge status="accent" leadingDot>Live</Badge>
+                  <Badge status="success" leadingDot>On time</Badge>
+                  <Badge status="warning" leadingDot>At risk</Badge>
+                  <Badge status="danger"  leadingDot>Late</Badge>
+                  <Badge status="info"    leadingDot>Picked up</Badge>
+                  <Badge status="neutral">Delivered</Badge>
+                </div>
               </div>
             </Card>
           </SubSection>
