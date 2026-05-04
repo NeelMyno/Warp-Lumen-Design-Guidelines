@@ -63,7 +63,35 @@ function PageBtn({ children, disabled, onClick }: { children: ReactNode; disable
   );
 }
 
-/* ─────────────────────────  STEPPER (multi-step indicator)  ───────────────────────── */
+/* ─────────────────────────  STEPPER (multi-step indicator)  ─────────────────────────
+   v0.11.2 — full rebuild. Prior implementation laid out dot-LEFT + label-RIGHT
+   with an absolute connector at top:14px, which placed the connector exactly
+   on the label's text baseline → visible strikethrough through "Workspace" /
+   "Team" labels (per user screenshot 2026-05-04). Rewritten to the canonical
+   wizard pattern:
+
+     ●─────●─────●─────○─────○
+     Step  Step  Step  Step  Step
+     desc  desc  desc  desc  desc
+
+   Dot row is its own flex container; the connector flows in the same line as
+   the dot at items-center, never crossing label text. Labels sit BELOW the
+   dot, left-aligned to the dot's left edge (so they read in a familiar
+   left-to-right wizard rhythm).
+
+   States:
+     done    — Spring-Green filled circle + check glyph; connector to next dot
+               is Spring-Green.
+     active  — surface-page fill + Spring-Green 2 px ring + soft accent glow;
+               connector to next dot is hairline (next isn't earned yet).
+     upcoming — surface-sunken fill + hairline border + tertiary text;
+                connector is hairline.
+
+   Accessibility:
+     - <ol aria-label="Progress"> — semantic ordered list.
+     - <li aria-current="step"> on the active step (WAI-ARIA recommended pattern).
+     - Visually-hidden status string per step ("complete" / "current" / "upcoming")
+       so SR users get linear context. */
 export function Stepper({
   steps,
   current,
@@ -72,44 +100,73 @@ export function Stepper({
   current: number;
 }) {
   return (
-    <ol className="flex items-start gap-0 w-full">
+    <ol className="flex w-full items-start" aria-label="Progress">
       {steps.map((s, i) => {
         const done = i < current;
         const active = i === current;
+        const isLast = i === steps.length - 1;
         return (
-          <li key={s.label} className="flex-1 flex items-start gap-3 relative">
-            <div className="flex flex-col items-center">
+          <li
+            key={s.label}
+            className="flex-1 flex flex-col items-start min-w-0"
+            aria-current={active ? "step" : undefined}
+          >
+            {/* Dot + connector live in one row at items-center so the line
+                aligns with the dot's vertical center, never with text. */}
+            <div className="flex items-center w-full">
               <span
+                aria-hidden
                 className={[
-                  "h-7 w-7 inline-flex items-center justify-center rounded-full text-[var(--type-12)] font-semibold lumen-mono transition-colors",
+                  "relative z-[1] h-7 w-7 inline-flex items-center justify-center rounded-full text-[var(--type-12)] font-semibold lumen-mono transition-[background-color,color,box-shadow] duration-[var(--motion-base)] shrink-0",
                   done
                     ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]"
                     : active
-                    ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)] shadow-[var(--shadow-glow-accent)]"
+                    ? "bg-[var(--surface-page)] text-[var(--text-primary)] shadow-[0_0_0_2px_var(--lumen-accent-4),var(--shadow-glow-accent)]"
                     : "bg-[var(--surface-sunken)] text-[var(--text-tertiary)] border border-[var(--border-default)]",
                 ].join(" ")}
               >
-                {done ? <Check size={13} /> : i + 1}
+                {done ? <Check size={14} /> : i + 1}
               </span>
-              {i < steps.length - 1 && (
-                <span className={["mt-2 h-px w-px relative -z-0", done ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--border-default)]"].join(" ")} />
+              {!isLast && (
+                <span
+                  aria-hidden
+                  className={[
+                    "flex-1 h-px mx-2 transition-colors",
+                    done
+                      ? "bg-[var(--lumen-accent-4)]"
+                      : "bg-[var(--border-default)]",
+                  ].join(" ")}
+                />
               )}
             </div>
-            <div className="flex-1 pt-1 pb-3 pr-2">
-              <div className={["text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]", active ? "text-[var(--text-primary)]" : done ? "text-[var(--text-secondary)]" : "text-[var(--text-tertiary)]"].join(" ")}>
+            {/* Label + description — sit under the dot, left-aligned to the
+                dot's left edge. pr-3 keeps long labels off the next dot. */}
+            <div className="mt-3 flex flex-col gap-0.5 pr-3 min-w-0">
+              <div
+                className={[
+                  "text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate",
+                  active
+                    ? "text-[var(--text-primary)]"
+                    : done
+                    ? "text-[var(--text-secondary)]"
+                    : "text-[var(--text-tertiary)]",
+                ].join(" ")}
+              >
                 {s.label}
               </div>
               {s.description && (
-                <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">{s.description}</div>
+                <div className="text-body-xs text-[var(--text-tertiary)] leading-[var(--leading-snug)] truncate">
+                  {s.description}
+                </div>
               )}
             </div>
-            {i < steps.length - 1 && (
-              <span
-                aria-hidden
-                // lumen-lint-allow: off-grid — 14 px stepper-rail offset to align with step-circle vertical center.
-                className={["absolute left-7 top-3.5 right-2 h-px", done ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--border-hairline)]"].join(" ")}
-              />
-            )}
+            <span className="sr-only">
+              {done
+                ? `Step ${i + 1} of ${steps.length}, complete.`
+                : active
+                ? `Step ${i + 1} of ${steps.length}, current.`
+                : `Step ${i + 1} of ${steps.length}, upcoming.`}
+            </span>
           </li>
         );
       })}

@@ -301,25 +301,59 @@ function Row({ label, value, tone }: { label: ReactNode; value: ReactNode; tone?
   );
 }
 
-/* ─────────────────────────  CHECKOUT PROGRESS  ───────────────────────── */
+/* ─────────────────────────  CHECKOUT PROGRESS  ─────────────────────────
+   v0.11.2 — connector now goes Spring-Green for completed segments and
+   neutral hairline for the rest, mirroring the Stepper logic. Active step
+   gets a Spring-Green ring (subtle on a 20 px dot — 1 px ring instead of
+   the Stepper's 2 px). aria-current="step" added for SR users. */
 export function CheckoutProgress() {
+  const current = 2;
+  const steps = ["Cart", "Information", "Shipping", "Payment", "Confirm"];
   return (
-    <div className="flex items-center gap-2 text-[var(--type-12)]">
-      {["Cart", "Information", "Shipping", "Payment", "Confirm"].map((s, i) => (
-        <span key={s} className="flex items-center gap-2">
-          <span
-            className={[
-              "h-5 w-5 inline-flex items-center justify-center rounded-full text-[10px] font-semibold lumen-mono",
-              i < 2 ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]" : i === 2 ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)]" : "bg-[var(--surface-sunken)] text-[var(--text-tertiary)]",
-            ].join(" ")}
-          >
-            {i < 2 ? <Check size={10} /> : i + 1}
-          </span>
-          <span className={i === 2 ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"}>{s}</span>
-          {i < 4 && <span className="h-px w-6 bg-[var(--border-default)]" />}
-        </span>
-      ))}
-    </div>
+    <ol className="flex items-center gap-2 text-[var(--type-12)]" aria-label="Checkout progress">
+      {steps.map((s, i) => {
+        const done = i < current;
+        const active = i === current;
+        const isLast = i === steps.length - 1;
+        return (
+          <li key={s} className="flex items-center gap-2" aria-current={active ? "step" : undefined}>
+            <span
+              aria-hidden
+              className={[
+                "h-5 w-5 inline-flex items-center justify-center rounded-full text-[10px] font-semibold lumen-mono shrink-0",
+                done
+                  ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]"
+                  : active
+                  ? "bg-[var(--surface-page)] text-[var(--text-primary)] shadow-[0_0_0_1.5px_var(--lumen-accent-4)]"
+                  : "bg-[var(--surface-sunken)] text-[var(--text-tertiary)] border border-[var(--border-default)]",
+              ].join(" ")}
+            >
+              {done ? <Check size={10} /> : i + 1}
+            </span>
+            <span
+              className={[
+                active
+                  ? "text-[var(--text-primary)] font-medium"
+                  : done
+                  ? "text-[var(--text-secondary)]"
+                  : "text-[var(--text-tertiary)]",
+              ].join(" ")}
+            >
+              {s}
+            </span>
+            {!isLast && (
+              <span
+                aria-hidden
+                className={[
+                  "h-px w-6 shrink-0",
+                  done ? "bg-[var(--lumen-accent-4)]" : "bg-[var(--border-default)]",
+                ].join(" ")}
+              />
+            )}
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 

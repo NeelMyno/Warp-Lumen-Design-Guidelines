@@ -10,6 +10,35 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.2] — 2026-05-04 — Stepper rebuild — fix strikethrough + alignment
+
+User screenshot (2026-05-04) showed the Stepper rendering "Workspace" and "Team" labels with a green strikethrough line slicing through the text, plus inconsistent dot states for the active vs upcoming steps. Root cause: the prior implementation laid out dot-LEFT + label-RIGHT in a horizontal flex row with the connector line absolutely positioned at `top:14 px` — which placed it exactly on the label's text baseline. The connector worked as intended visually only when the labels happened not to coincide with `top:14 px`, which is never.
+
+### Fixed
+
+- **`primitives/nav.tsx` Stepper** — full rebuild to the canonical wizard pattern (dot-ABOVE, label-BELOW, connector flowing horizontally between dots at the dot's vertical center, never crossing label text). Stripe / shadcn / Material UI / Tailwind UI all converge on this layout for the same reason. The connector now lives in the same flex row as the dot under `items-center`; the label/description column sits in `mt-3` below.
+- **Active state** — was `bg-[var(--surface-inverse)] text-[var(--text-inverse)] shadow-[var(--shadow-glow-accent)]` (paper-colored fill with subtle glow that read identically to the upcoming-step fill). Now `bg-[var(--surface-page)] text-[var(--text-primary)] shadow-[0_0_0_2px_var(--lumen-accent-4),var(--shadow-glow-accent)]` — Spring-Green 2 px ring + soft accent glow. The active dot now visually pops out of the row.
+- **Done-segment connector** — was `bg-[var(--lumen-accent-5)]` (Spring-Green hover state). Now `bg-[var(--lumen-accent-4)]` (the brand value at rest). Matches the rule that connector color reflects step status, not interaction state.
+- **`primitives/commerce.tsx` CheckoutProgress** — same upgrade: connector segments now go Spring-Green for completed segments, neutral hairline for upcoming. Active step gets a 1.5 px Spring-Green ring (subtle on the 20 px dot — half the Stepper's 2 px ring to scale with the smaller component).
+
+### Changed
+
+- **Stepper accessibility**:
+  - `<ol aria-label="Progress">` semantic ordered list.
+  - `<li aria-current="step">` on the active step (WAI-ARIA recommended pattern for progress indicators).
+  - Visually-hidden `<span className="sr-only">` per step announcing "Step N of total, complete | current | upcoming" for SR linearization.
+- **CheckoutProgress accessibility** — same pattern: `<ol aria-label="Checkout progress">`, `aria-current="step"` on active, decorative dot/connector marked `aria-hidden`.
+- **Stepper micro-detail** — dot transitions added (`transition-[background-color,color,box-shadow] duration-[var(--motion-base)]`) so a `current` prop change animates the state shift instead of snapping. Honors `prefers-reduced-motion` via the global `*` reset in `globals.css`.
+
+### Verification
+
+- Done dot + check glyph: Spring Green `#00FA8A` filled, `#07120D` glyph — 14.7:1 AAA.
+- Active dot ring: `#00FA8A` 2 px ring around `#171A18` (canvas) bg with `#E6E6E6` text — 13.7:1 AAA on text; ring contrast 4.1:1 on canvas (passes 3:1 for non-text UI components).
+- Upcoming dot: `#0E110F` (sunken) bg + hairline border + `#9DA09F` tertiary text — 4.0:1 AA on text at 14 px+.
+- Connector colors verify against background canvas (Spring-Green 4.1:1 / hairline 3:1+).
+
+---
+
 ## [0.11.1] — 2026-05-04 — Audit-dashboard rendering sweep · v0.11 cleanup
 
 User feedback after v0.11.0 deployed: status pills, primary buttons, and tier badges across the audit dashboard rendered with washed/illegible text on accent surfaces, plus the brand chip still showed `v0.5` and the mood label still said `obsidian-lime`. v0.11.0 retuned tokens but didn't sweep the audit-dashboard's component code or the user-facing version labels. v0.11.1 closes those gaps.
