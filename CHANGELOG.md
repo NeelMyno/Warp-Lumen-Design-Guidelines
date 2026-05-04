@@ -10,6 +10,32 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.11.9] — 2026-05-04 — ListGroup primitive redesign · premium row pattern + leading element + tnum trailing
+
+The `/library` `List · Tree view · Timeline` row showed the weakest list pattern in the system: 48 px rows squashing two-line content, a 12 px tertiary mono trailing meta that buried the *price* (the focal data point) beneath the secondary lane label, and no leading element so every row read as three siblings competing at equal weight. Premium list patterns elsewhere in the system — the `/tool` Quote Builder carrier rows, the `/saas` SidePanel Activity feed, the `/mobile` shipment cards — all share three traits: leading anchor (avatar or icon-in-tile), title stacked over a mono micro caption, and a *primary-weight* trailing data point in tabular numerals. v0.11.9 brings the `ListGroup` primitive up to that bar and applies the same lift to the `/desktop` Recent list.
+
+### Changed
+
+- **`ListGroup` primitive (`components/primitives/display.tsx`)** — full row redesign. Each row is now `min-h-[60px]` with `py-3` so two-line content can breathe; auto-derives an `Avatar` leading element from `title` (matching the carrier-row pattern in `/tool`); renders `meta` at `lumen-mono lumen-tnum text-body-sm font-semibold text-primary` (was `--type-12` tertiary mono) so the price reads as the focal data point, not a footnote; description drops to `lumen-mono text-micro` for the instrument-panel feel; hover state lifts the row with `hover:bg-[var(--surface-sunken)]`; cursor goes to pointer when `interactive` (default `true`).
+- **API additions** — all backwards-compatible: `leading?: ReactNode` opts into a custom leading node (icon, status dot, brand mark — used by the API-key call site); `noLeading?: boolean` opts out of the leading column entirely (useful when the title isn't a person/entity); `interactive?: boolean` toggles hover + cursor for static lists. Existing `{title, meta, description, trailing}` call sites render with the new look automatically.
+- **`/library` `List · Tree view · Timeline` SubSection** — switched to `items-start` on the parent grid so the three cards size to their own content (was stretching the shorter `ListGroup` and `TreeView` to the taller `Timeline`'s height, painting the void in the user's screenshot). Repetitive `Lane TX-CA-014` placeholder description on every row replaced with varied transit-time data so the secondary column actually carries information.
+- **`/library` API key table** — passes a custom `leading` (24 × 32 px tile with `lk` / `tk` mono initials, tinted accent for live keys, sunken for idle/sandbox) so the auto-Avatar doesn't render meaningless initials from `Production · default`.
+- **`/desktop` macOS Recent list** — added a leading `Avatar` (carrier-tinted, `size="xs"`) and reordered columns from `id · lane · carrier` to `avatar · lane · carrier · id-mono` so the row reads in the natural Operator scan order (who → where → reference) instead of three siblings at equal visual weight. Hierarchy-rule alignment: a leading element is the eyeline anchor; without one, every column has to pull its own weight and the hierarchy collapses.
+- Version chips bumped `v0.11.8` → `v0.11.9` across `dashboard-shell.tsx`, `foundations/page.tsx`, `library/client.tsx`, `tool/page.tsx`. `package.json` 0.11.8 → 0.11.9.
+
+### Architectural notes
+
+- **Why a leading element is non-negotiable for premium list patterns.** Crawford's "approximately placed" framing applies to lists harder than almost any other component. A list of N rows is N opportunities to feel polished — one weak row (no leading anchor, weak hierarchy, no hover) compounds across the column. Every other premium list pattern in this system already had a leading element; the `ListGroup` primitive was the holdout. Auto-deriving from `title` means consumers don't have to remember to pass an avatar — the default does the right thing for carrier/customer/person lists, and `leading` / `noLeading` cover the abstract cases (API keys, settings, files).
+- **The trailing data point should always carry weight.** A list-of-prices reads top-to-bottom for *prices*, not for names. Putting the price at 12 px tertiary mono inverted that scan path; the user had to read the *names* first to know what they were comparing. Rendering at `text-body-sm` primary mono-tnum puts the focal data point in the focal weight slot.
+
+### Verification
+
+- `audit-dashboard/` `tsc --noEmit` clean.
+- `pnpm lint` — no new lint debt.
+- The two existing `ListGroup` call sites in `/library` (carrier list, API keys) verified — the carrier list now leads with auto-Avatars, the API keys with the custom `leading` slot.
+
+---
+
 ## [0.11.8] — 2026-05-04 — Spacing audit pass · column balance + hero rhythm + orphan repair
 
 A nit-picky pixel-spacing audit against the deployed v0.11.6 site (Chrome MCP, 1440 viewport, dark mode), focused entirely on **spacing** — paddings, gaps, column heights, content density, orphan wrapping. v0.11.8 lands six concrete fixes that close the most visible "feels off" moments. The site's premium-psychology contract (50ms halo · cognitive fluency · peak-end rule) only holds when spacing rhythm is consistent across surfaces; this pass repairs the most visible breaks.

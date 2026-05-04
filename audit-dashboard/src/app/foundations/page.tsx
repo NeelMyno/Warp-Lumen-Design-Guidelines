@@ -86,7 +86,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="md" pill trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.11.8 · Obsidian Mint</Badge>
+            <Badge status="neutral" leadingDot>v0.11.9 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>

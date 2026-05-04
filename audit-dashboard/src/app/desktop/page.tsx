@@ -142,6 +142,12 @@ function MacFrame() {
                 <div className="lumen-eyebrow">Recent</div>
                 <Badge status="accent" size="sm" leadingDot>Live</Badge>
               </div>
+              {/* v0.11.9 — added leading carrier avatar so the row reads
+                  as "who → where → ID" (the natural Operator scan order)
+                  instead of three siblings competing at the same weight.
+                  Premium-list contract: a leading element is the eyeline
+                  anchor; without one, every column has to pull its own
+                  weight and hierarchy collapses. */}
               <ul className="lumen-row-divider -mx-3">
                 {[
                   ["WRP-9824", "LAX → SFO", "Sterling LTL"],
@@ -151,10 +157,11 @@ function MacFrame() {
                   ["WRP-9828", "MIA → JFK", "FedEx Freight"],
                   ["WRP-9829", "BOS → CLT", "ABF"],
                 ].map(([id, lane, c]) => (
-                  <li key={id} className="flex items-center justify-between gap-3 px-3 py-2 text-body-xs">
-                    <code className="lumen-mono text-[var(--text-tertiary)]">{id}</code>
+                  <li key={id} className="flex items-center gap-2 px-3 py-2 text-body-xs">
+                    <Avatar name={c} size="xs" />
                     <span className="font-medium text-[var(--text-primary)]">{lane}</span>
-                    <span className="text-[var(--text-secondary)] flex-1 text-right">{c}</span>
+                    <span className="text-[var(--text-secondary)] flex-1 truncate">{c}</span>
+                    <code className="lumen-mono text-micro text-[var(--text-tertiary)]">{id}</code>
                   </li>
                 ))}
               </ul>

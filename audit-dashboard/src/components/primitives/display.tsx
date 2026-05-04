@@ -3,6 +3,7 @@
 import { ReactNode, useState } from "react";
 import { File as FileIconLucide, Folder as FolderIconLucide, Star as StarIconLucide } from "lucide-react";
 import { ChevronDown, Check, X, Plus, Search as SearchIcon } from "./icon";
+import { Avatar } from "./avatar";
 
 /* ─────────────────────────  TAG / CHIP  ─────────────────────────
    v0.11.3 — unified tonal pill system. Now reads from --pill-{tone}-{bg,fg,border}
@@ -224,22 +225,82 @@ export function CodeBlock({
   );
 }
 
-/* ─────────────────────────  LIST  ───────────────────────── */
-export function ListGroup({ items, dividers = true }: { items: { title: string; meta?: string; trailing?: ReactNode; description?: string }[]; dividers?: boolean }) {
+/* ─────────────────────────  LIST  ─────────────────────────
+   v0.11.9 — full row redesign. The previous ListGroup squashed two-line
+   content into a 48 px row, rendered the trailing meta as 12 px tertiary
+   mono (so the *price* — the focal data point — read as a footnote), and
+   shipped no leading element (every premium list pattern in the system
+   leads with an avatar or icon). The new row matches the /tool Quote
+   Builder carrier-row pattern: avatar (auto-derived from title) → title
+   stack → tabular-nums trailing meta at primary weight → optional chevron.
+   Hover state lifts the row with a sunken-tint bg.
+
+   API additions (all backwards-compatible — old `{title, meta, description}`
+   call sites still render correctly):
+   - `leading` slot   — replace the auto-derived avatar with a custom node
+                        (icon, status dot, brand-mark, etc.)
+   - `noLeading`      — opt out of the leading column entirely
+   - `trailing`       — replaces the meta string with a custom node (badge,
+                        button, anything). When both `meta` and `trailing`
+                        are passed, `trailing` wins.
+   - `interactive`    — adds hover bg + cursor-pointer; used when the row
+                        navigates somewhere or opens a sheet. Default true.
+*/
+
+export type ListGroupItem = {
+  title: string;
+  meta?: string;
+  trailing?: ReactNode;
+  description?: string;
+  leading?: ReactNode;
+  noLeading?: boolean;
+};
+
+export function ListGroup({
+  items,
+  dividers = true,
+  interactive = true,
+}: {
+  items: ListGroupItem[];
+  dividers?: boolean;
+  interactive?: boolean;
+}) {
   return (
     <div className={["rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden", dividers ? "divide-y divide-[var(--border-hairline)]" : ""].join(" ")}>
-      {items.map((i, idx) => (
-        <div key={idx} className="flex items-center justify-between gap-4 px-4 h-12">
-          <div className="min-w-0 flex flex-col">
-            <span className="text-[var(--type-13)] text-[var(--text-primary)] truncate">{i.title}</span>
-            {i.description && <span className="text-[var(--type-12)] text-[var(--text-tertiary)] truncate">{i.description}</span>}
+      {items.map((i, idx) => {
+        const leading =
+          i.noLeading ? null
+          : i.leading ?? <Avatar name={i.title} size="sm" />;
+        const trailing =
+          i.trailing ??
+          (i.meta ? (
+            <span className="lumen-mono lumen-tnum text-body-sm font-semibold text-[var(--text-primary)] tabular-nums">
+              {i.meta}
+            </span>
+          ) : null);
+        return (
+          <div
+            key={idx}
+            className={[
+              "flex items-center gap-3 px-4 py-3 min-h-[60px]",
+              interactive ? "cursor-pointer transition-colors duration-[var(--motion-fast)] hover:bg-[var(--surface-sunken)]" : "",
+            ].join(" ")}
+          >
+            {leading && <span className="shrink-0">{leading}</span>}
+            <div className="min-w-0 flex flex-col gap-[2px] flex-1">
+              <span className="text-label-md text-[var(--text-primary)] truncate leading-[var(--leading-snug)]">
+                {i.title}
+              </span>
+              {i.description && (
+                <span className="lumen-mono text-micro text-[var(--text-tertiary)] truncate">
+                  {i.description}
+                </span>
+              )}
+            </div>
+            {trailing && <span className="shrink-0">{trailing}</span>}
           </div>
-          <div className="flex items-center gap-2 shrink-0 text-[var(--type-12)] text-[var(--text-tertiary)] lumen-mono">
-            {i.meta && <span>{i.meta}</span>}
-            {i.trailing}
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -123,7 +123,7 @@ export function LibraryClient() {
           eyebrow="Component library"
           title="Library"
           description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian — then tuned to Lumen's restraint."
-          meta={<Badge status="accent" leadingDot>v0.11.8 · 25 sections · 250+ components</Badge>}
+          meta={<Badge status="accent" leadingDot>v0.11.9 · 25 sections · 250+ components</Badge>}
         />
 
         {/* OVERVIEW */}
@@ -420,7 +420,7 @@ export function LibraryClient() {
           </SubSection>
 
           <SubSection title="Form group · validation">
-            {/* v0.11.8 — added mx-auto so the constrained form group sits
+            {/* v0.11.9 — added mx-auto so the constrained form group sits
                 centered in its column instead of left-aligned with a wide
                 empty right gutter. The form is a self-contained example, so
                 centering is the cleaner read. */}
@@ -625,12 +625,17 @@ export function LibraryClient() {
           </SubSection>
 
           <SubSection title="List · Tree view · Timeline">
-            <div className="grid gap-3 lg:grid-cols-3">
+            {/* v0.11.9 — items-start so each card sizes to its own content
+                instead of stretching the shorter ones to the tallest column.
+                The repetitive "Lane TX-CA-014" placeholder description was
+                replaced with varied lane + transit-time data so the
+                secondary column actually carries information. */}
+            <div className="grid gap-3 lg:grid-cols-3 items-start">
               <ListGroup items={[
-                { title: "Sterling LTL", meta: "$1,840", description: "Lane TX-CA-014" },
-                { title: "Saia", meta: "$1,932", description: "Lane TX-CA-014" },
-                { title: "Estes Express", meta: "$2,104", description: "Lane TX-CA-014" },
-                { title: "ABF Freight", meta: "$2,221", description: "Lane TX-CA-014" },
+                { title: "Sterling LTL",  meta: "$1,840", description: "TX → CA · 1d transit" },
+                { title: "Saia Motor",    meta: "$1,932", description: "TX → CA · 1d transit" },
+                { title: "Estes Express", meta: "$2,104", description: "TX → CA · 2d transit" },
+                { title: "ABF Freight",   meta: "$2,221", description: "TX → CA · 2d transit" },
               ]} />
               <TreeView />
               <Timeline />
@@ -1164,10 +1169,29 @@ export function LibraryClient() {
               </Showcase>
               <Showcase label="API key table">
                 <div className="w-full">
+                  {/* v0.11.9 — API keys are not people/carriers, so the
+                      auto-derived avatar would render meaningless initials.
+                      Pass `leading` with a small key-shaped indicator dot
+                      coloured by tier (live=accent, sandbox=info). */}
                   <ListGroup items={[
-                    { title: "Production · default", description: "lk_live_••••••••pX5F · created Apr 12", trailing: <Tag tone="accent">Active</Tag> },
-                    { title: "Production · backup", description: "lk_live_••••••••aJ2H · created Mar 31", trailing: <Tag tone="neutral">Idle</Tag> },
-                    { title: "Sandbox", description: "lk_test_••••••••wQ9k · created Mar 14", trailing: <Tag tone="info">Sandbox</Tag> },
+                    {
+                      title: "Production · default",
+                      description: "lk_live_••••••••pX5F · created Apr 12",
+                      trailing: <Tag tone="accent">Active</Tag>,
+                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-tint-accent)] text-[var(--text-accent)] lumen-mono text-[var(--type-11)] font-semibold">lk</span>,
+                    },
+                    {
+                      title: "Production · backup",
+                      description: "lk_live_••••••••aJ2H · created Mar 31",
+                      trailing: <Tag tone="neutral">Idle</Tag>,
+                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-sunken)] text-[var(--text-tertiary)] lumen-mono text-[var(--type-11)] font-semibold">lk</span>,
+                    },
+                    {
+                      title: "Sandbox",
+                      description: "lk_test_••••••••wQ9k · created Mar 14",
+                      trailing: <Tag tone="info">Sandbox</Tag>,
+                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-sunken)] text-[var(--text-secondary)] lumen-mono text-[var(--type-11)] font-semibold">tk</span>,
+                    },
                   ]} />
                 </div>
               </Showcase>
@@ -1416,7 +1440,7 @@ export function Hero() {
 
         {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
         <div className="mt-20 text-center text-[var(--type-12)] text-[var(--text-tertiary)]">
-          End of library — last refreshed v0.11.8
+          End of library — last refreshed v0.11.9
         </div>
       </article>
 
