@@ -81,16 +81,14 @@ function Sidebar() {
     <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5 min-h-[760px]">
       {/* workspace switcher */}
       <button className="mx-3 flex items-center gap-inline-sm px-2 py-[var(--space-1_5)] rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
-        {/* lumen-lint-allow: typography — type-13 mono bold avatar mark; no semantic preset for mono+bold at 13 */}
-        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-13)] font-bold">
+        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-label-sm font-bold">
           A
         </div>
-        <div className="flex flex-col leading-tight min-w-0 text-left">
+        <div className="flex flex-col min-w-0 text-left gap-[2px]">
           <span className="text-heading-h6 truncate">
             Acme Logistics
           </span>
-          {/* lumen-lint-allow: typography — type-11 plain workspace caption; no semantic preset for 11px regular */}
-          <span className="text-[var(--type-11)] text-[var(--text-tertiary)]">Workspace</span>
+          <span className="text-micro text-[var(--text-tertiary)]">Workspace</span>
         </div>
         <span className="ml-auto text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]">⌃</span>
       </button>
@@ -117,8 +115,7 @@ function Sidebar() {
                   <I size={15} />
                   <span className="flex-1">{item.label}</span>
                   {item.badge && (
-                    /* lumen-lint-allow: typography — type-11 mono tabular nav badge; no semantic preset for 11px tabular */
-                    <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
+                    <span className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">
                       {item.badge}
                     </span>
                   )}
@@ -132,8 +129,7 @@ function Sidebar() {
       {/* status footer */}
       <div className="mt-auto mx-3 mb-2 px-3 py-2 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-sunken)] flex flex-col gap-[var(--space-1_5)]">
         <LiveDot label="API healthy" />
-        {/* lumen-lint-allow: typography — type-11 mono tabular status footer; no semantic preset for 11px tabular */}
-        <div className="flex items-center justify-between lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
+        <div className="flex items-center justify-between lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">
           <span>v2.18.4</span>
           <span>12 ms p50</span>
         </div>
@@ -148,13 +144,11 @@ function TopBar() {
   return (
     <header className="flex items-center gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-6 h-14">
       <div className="flex items-center gap-3 min-w-0">
-        {/* lumen-lint-allow: typography — type-18 semibold app bar title; no preset between body-lg (regular) and heading-h3 (20) */}
-        <h1 className="text-[var(--type-18)] font-semibold tracking-[var(--tracking-tight)] truncate">
+        <h1 className="text-heading-h3 text-[var(--text-primary)] truncate">
           Today
         </h1>
         <Badge status="accent" leadingDot size="md">Live</Badge>
-        {/* lumen-lint-allow: typography — type-12 plain top-bar meta; no semantic preset for 12 regular */}
-        <span className="text-[var(--type-12)] text-[var(--text-tertiary)] hidden md:inline">
+        <span className="text-micro text-[var(--text-tertiary)] hidden md:inline">
           Friday · May 2 · UTC
         </span>
       </div>
@@ -302,8 +296,7 @@ function ShipmentsTable() {
           </tbody>
         </table>
       </div>
-      {/* lumen-lint-allow: typography — type-12 plain pagination meta footer; no semantic preset for 12 regular */}
-      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[var(--type-12)] text-[var(--text-tertiary)]">
+      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-micro text-[var(--text-tertiary)]">
         <span>7 of 1,284 · refreshed 12 s ago</span>
         <div className="flex items-center gap-1">
           <Button intent="tertiary" size="xs">Prev</Button>
@@ -367,12 +360,11 @@ function SidePanel() {
                 {a.icon}
               </span>
               <div className="flex-1 min-w-0">
-                <div className="text-body-xs text-[var(--text-primary)] leading-snug">
+                <div className="text-body-xs text-[var(--text-primary)]">
                   <span className="font-medium">{a.who}</span>{" "}
                   <span className="text-[var(--text-secondary)]">{a.what}</span>
                 </div>
-                {/* lumen-lint-allow: typography — mono regular at 11 activity timestamp; no semantic preset for 11px mono */}
-                <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] mt-1">{a.when}</div>
+                <div className="lumen-mono text-micro text-[var(--text-tertiary)] mt-1">{a.when}</div>
               </div>
             </li>
           ))}
@@ -398,14 +390,11 @@ function SidePanel() {
         <div className="flex items-center gap-4">
           <ProgressRing value={98} tone="success" size={64} stroke={5} />
           <div className="flex flex-col gap-1">
-            {/* lumen-lint-allow: typography — type-12 plain ring meta; no semantic preset for 12 regular */}
-            <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">vs last period</div>
-            {/* lumen-lint-allow: typography — type-15 mono tabular semibold delta; intermediate density between 14 and 16 */}
-            <div className="lumen-mono lumen-tnum text-[var(--type-15)] font-semibold text-[var(--status-success-fg)]">
+            <div className="text-micro text-[var(--text-tertiary)]">vs last period</div>
+            <div className="lumen-mono lumen-tnum text-data-md font-semibold text-[var(--status-success-fg)]">
               ▲ +0.4 pts
             </div>
-            {/* lumen-lint-allow: typography — type-12 plain ring meta; no semantic preset for 12 regular */}
-            <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">target 97%</div>
+            <div className="text-micro text-[var(--text-tertiary)]">target 97%</div>
           </div>
         </div>
       </Card>

@@ -55,8 +55,7 @@ export default function LandingPage() {
               </Button>
             </div>
 
-            {/* lumen-lint-allow: typography — type-13 mono CLI prompt mock; no semantic preset for mono+regular at 13 */}
-            <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-[var(--type-13)] self-start">
+            <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-body-xs self-start">
               <span style={{ color: "var(--lumen-accent-4)" }}>$</span>
               npx warp quote --from=LAX --to=SFO
               <LiveDot />
@@ -72,8 +71,7 @@ export default function LandingPage() {
             <div className="lumen-eyebrow">Trusted by operators at</div>
             <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
-                /* lumen-lint-allow: typography — type-18 bold trust-logo wordmark; no preset for 18/bold */
-                <div key={c} className="text-[var(--type-18)] font-bold tracking-[var(--tracking-tight)] hover:text-[var(--text-secondary)] transition-colors cursor-default">
+                <div key={c} className="text-body-lg font-bold tracking-[var(--tracking-tight)] hover:text-[var(--text-secondary)] transition-colors cursor-default">
                   {c}
                 </div>
               ))}
@@ -170,8 +168,7 @@ export default function LandingPage() {
                     <span>{item.q}</span>
                     <span className="text-[var(--text-tertiary)] group-open:rotate-180 transition-transform duration-[var(--motion-base)]">▾</span>
                   </summary>
-                  {/* lumen-lint-allow: typography — type-15 FAQ answer; intermediate body density between 14 and 16 */}
-                  <p className="mt-3 text-[var(--type-15)] text-[var(--text-secondary)] leading-snug">{item.a}</p>
+                  <p className="mt-3 text-body-md text-[var(--text-secondary)]">{item.a}</p>
                 </details>
               ))}
             </div>
@@ -240,8 +237,7 @@ function Feature({ icon, title, copy }: { icon: React.ReactNode; title: string; 
         {icon}
       </div>
       <div className="text-heading-h3">{title}</div>
-      {/* lumen-lint-allow: typography — type-15 feature copy; intermediate body density between 14 and 16 */}
-      <p className="text-[var(--type-15)] text-[var(--text-secondary)] leading-[var(--leading-snug)]">{copy}</p>
+      <p className="text-body-md text-[var(--text-secondary)]">{copy}</p>
     </Card>
   );
 }
@@ -292,8 +288,7 @@ function BrowserChrome({ url }: { url: string }) {
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
       </div>
       <div className="flex-1 mx-3 max-w-md">
-        {/* lumen-lint-allow: typography — type-12 mono URL bar mock; no semantic preset for mono+regular at 12 */}
-        <div className="bg-[var(--surface-raised)] border border-[var(--border-hairline)] rounded-[var(--radius-md)] px-3 h-7 flex items-center gap-2 text-[var(--type-12)] text-[var(--text-secondary)] lumen-mono">
+        <div className="bg-[var(--surface-raised)] border border-[var(--border-hairline)] rounded-[var(--radius-md)] px-3 h-7 flex items-center gap-2 text-micro text-[var(--text-secondary)] lumen-mono">
           <Dot size={16} strokeWidth={4} className="text-[var(--text-accent)]" aria-hidden focusable={false} />
           {url}
         </div>

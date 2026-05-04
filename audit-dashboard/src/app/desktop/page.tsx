@@ -105,8 +105,7 @@ function MacFrame() {
                 <I size={14} />
                 <span className="flex-1 text-left">{label}</span>
                 {badge && (
-                  /* lumen-lint-allow: typography — type-11 mono tabular badge; no semantic preset for 11px tabular numerals */
-                  <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{badge}</span>
+                  <span className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">{badge}</span>
                 )}
               </button>
             ))}
@@ -114,8 +113,7 @@ function MacFrame() {
 
           <div className="mt-auto px-2 py-2 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] bg-[var(--surface-raised)]">
             <LiveDot label="API healthy" />
-            {/* lumen-lint-allow: typography — type-11 mono tabular status footer; no semantic preset for 11px tabular numerals */}
-            <div className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)] mt-1">
+            <div className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)] mt-1">
               v2.18.4 · 12 ms
             </div>
           </div>
@@ -124,15 +122,13 @@ function MacFrame() {
         {/* Content */}
         <div className="flex flex-col">
           <header className="flex items-center gap-3 border-b border-[var(--border-hairline)] px-4 h-11 bg-[var(--surface-raised)]">
-            {/* lumen-lint-allow: typography — type-14 semibold heading; no preset for 14/semibold pairing */}
-            <h2 className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">Today</h2>
+            <h2 className="text-heading-h6 text-[var(--text-primary)]">Today</h2>
             <Badge status="accent" size="sm" leadingDot>Live</Badge>
             <div className="flex-1" />
-            {/* lumen-lint-allow: typography — type-12 search-bar placeholder; no plain 12 regular preset (micro is medium, caption is 13) */}
-            <div className="flex items-center gap-[var(--space-1_5)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-[var(--type-12)] text-[var(--text-tertiary)]">
+            <div className="flex items-center gap-[var(--space-1_5)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-micro text-[var(--text-tertiary)]">
               <Search size={11} />
               Search…
-              <kbd className="lumen-kbd ml-1 text-[10px]">⌘K</kbd>
+              <kbd className="lumen-kbd ml-1">⌘K</kbd>
             </div>
           </header>
           <main className="p-4 flex flex-col gap-3 flex-1">
@@ -153,10 +149,9 @@ function MacFrame() {
                   ["WRP-9826", "DFW → PHX", "Saia"],
                   ["WRP-9827", "SEA → DEN", "ODFL"],
                 ].map(([id, lane, c]) => (
-                  /* lumen-lint-allow: typography — type-12 list row plain; no plain 12 regular preset */
-                  <li key={id} className="flex items-center justify-between gap-3 px-3 py-2 text-[var(--type-12)]">
+                  <li key={id} className="flex items-center justify-between gap-3 px-3 py-2 text-body-xs">
                     <code className="lumen-mono text-[var(--text-tertiary)]">{id}</code>
-                    <span className="font-medium">{lane}</span>
+                    <span className="font-medium text-[var(--text-primary)]">{lane}</span>
                     <span className="text-[var(--text-secondary)] flex-1 text-right">{c}</span>
                   </li>
                 ))}
@@ -243,8 +238,7 @@ function WindowsFrame() {
             >
               <span className="flex-1 text-left">{item.name}</span>
               {item.badge && (
-                /* lumen-lint-allow: typography — type-11 mono tabular badge; no semantic preset for 11px tabular numerals */
-                <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">{item.badge}</span>
+                <span className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">{item.badge}</span>
               )}
             </button>
           ))}
@@ -253,8 +247,7 @@ function WindowsFrame() {
         {/* Content */}
         <main className="p-4 flex flex-col gap-3">
           <header className="flex items-center justify-between gap-3">
-            {/* lumen-lint-allow: typography — type-16 semibold heading; no preset for 16/semibold pairing */}
-            <h2 className="text-[var(--type-16)] font-semibold tracking-[var(--tracking-tight)]">Overview</h2>
+            <h2 className="text-heading-h4 text-[var(--text-primary)]">Overview</h2>
             <Button intent="primary" size="sm" leadingIcon={<Plus size={13} />}>
               New shipment
             </Button>
@@ -273,12 +266,10 @@ function WindowsFrame() {
                 { who: "ODFL",         what: "scanned at SLC hub",  when: "48 min ago" },
                 { who: "Quote engine", what: "reduced 16 lanes",    when: "2 h ago" },
               ].map((a) => (
-                /* lumen-lint-allow: typography — activity row uses 12 plain + 11 mono; no presets at those sizes */
-                <li key={a.when} className="flex items-baseline gap-2 px-3 py-[var(--space-1_5)] text-[var(--type-12)]">
-                  <span className="font-medium">{a.who}</span>
+                <li key={a.when} className="flex items-baseline gap-2 px-3 py-[var(--space-1_5)] text-body-xs">
+                  <span className="font-medium text-[var(--text-primary)]">{a.who}</span>
                   <span className="text-[var(--text-secondary)] flex-1">{a.what}</span>
-                  {/* lumen-lint-allow: typography — mono regular at 11; no semantic preset */}
-                  <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{a.when}</span>
+                  <span className="lumen-mono text-micro text-[var(--text-tertiary)]">{a.when}</span>
                 </li>
               ))}
             </ul>

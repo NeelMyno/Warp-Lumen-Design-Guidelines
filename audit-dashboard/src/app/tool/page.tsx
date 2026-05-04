@@ -28,12 +28,10 @@ export default function ToolPage() {
         {/* TITLE BAR */}
         <header className="flex items-center justify-between gap-3 px-4 h-12 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
           <div className="flex items-center gap-inline-sm">
-            {/* lumen-lint-allow: typography — type-11 mono bold app icon mark; no semantic preset for mono+bold at 11 */}
-            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-[var(--type-11)] font-bold">
+            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-micro font-bold">
               W
             </div>
-            {/* lumen-lint-allow: typography — type-14 semibold app title; no preset for 14/semibold */}
-            <span className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">
+            <span className="text-heading-h6 text-[var(--text-primary)]">
               Quote Builder
             </span>
             <Badge status="neutral" size="sm">v0.4</Badge>
@@ -76,8 +74,7 @@ export default function ToolPage() {
 
             <div className="mt-auto px-2 pt-3 border-t border-[var(--border-hairline)]">
               <div className="lumen-eyebrow mb-2">Templates</div>
-              {/* lumen-lint-allow: typography — type-12 plain templates helper; no semantic preset for 12 regular */}
-              <p className="text-[var(--type-12)] text-[var(--text-tertiary)] leading-snug">
+              <p className="text-micro text-[var(--text-tertiary)]">
                 Saved presets persist across sessions and sync to teammates with the same workspace.
               </p>
             </div>
@@ -121,8 +118,7 @@ export default function ToolPage() {
             </Card>
 
             <div className="flex items-center justify-between gap-3 pt-2">
-              {/* lumen-lint-allow: typography — type-12 mono regular auto-save status; no semantic preset for mono+regular at 12 */}
-              <div className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)] flex items-center gap-2">
+              <div className="lumen-mono text-micro text-[var(--text-tertiary)] flex items-center gap-2">
                 <LiveDot /> Auto-saving every 4 s
               </div>
               <div className="flex items-center gap-2">
@@ -146,11 +142,9 @@ export default function ToolPage() {
               <div className="flex items-start justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2">
                   <Avatar name="Sterling LTL" size="xs" />
-                  <div>
-                    {/* lumen-lint-allow: typography — type-14 semibold carrier name in highlighted card; no preset for 14/semibold */}
-                    <div className="text-[var(--type-14)] font-semibold">Sterling LTL</div>
-                    {/* lumen-lint-allow: typography — mono regular at 11 lane meta; no semantic preset for 11px mono */}
-                    <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
+                  <div className="flex flex-col gap-[2px]">
+                    <div className="text-heading-h6 text-[var(--text-primary)]">Sterling LTL</div>
+                    <div className="lumen-mono text-micro text-[var(--text-tertiary)]">
                       LAX → SFO · 1d transit
                     </div>
                   </div>
@@ -174,16 +168,14 @@ export default function ToolPage() {
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
                     <Avatar name={q.c} size="xs" />
-                    <div className="flex flex-col min-w-0">
+                    <div className="flex flex-col min-w-0 gap-[2px]">
                       <div className="text-label-sm truncate">{q.c}</div>
-                      {/* lumen-lint-allow: typography — mono regular at 11 lane meta; no semantic preset for 11px mono */}
-                      <div className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
+                      <div className="lumen-mono text-micro text-[var(--text-tertiary)]">
                         {q.days} · LAX → SFO
                       </div>
                     </div>
                   </div>
-                  {/* lumen-lint-allow: typography — type-15 mono tabular semibold price; intermediate density between 14 and 16 */}
-                  <div className="lumen-mono lumen-tnum text-[var(--type-15)] font-semibold">
+                  <div className="lumen-mono lumen-tnum text-data-md font-semibold">
                     {q.price}
                   </div>
                 </div>
@@ -191,16 +183,14 @@ export default function ToolPage() {
             ))}
 
             <ProgressBar value={6 / 14 * 100} tone="accent" size="sm" />
-            {/* lumen-lint-allow: typography — type-11 plain regular progress meta; no semantic preset for 11px regular */}
-            <div className="text-[var(--type-11)] text-[var(--text-tertiary)] -mt-1">
+            <div className="text-micro text-[var(--text-tertiary)] -mt-1">
               Showing 6 of 14 carriers · refreshes every 60 s
             </div>
           </aside>
         </div>
 
         {/* FOOTER — keyboard shortcut bar */}
-        {/* lumen-lint-allow: typography — type-11 mono regular keyboard shortcut bar; no semantic preset for 11px mono */}
-        <footer className="border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">
+        <footer className="border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 lumen-mono text-micro text-[var(--text-tertiary)]">
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">↵</kbd> Quote</span>
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">S</kbd> Save preset</span>
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">/</kbd> Find</span>

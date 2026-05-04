@@ -10,6 +10,44 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.10.3] — 2026-05-03 — Mockup typography rebuild · semantic presets, no more lint bypasses
+
+User feedback on `/mobile`: "looks awful, so it Dashboard and all the other mockups. Improve them. Stick to the design system and focus on the typography. Right now the line height and other nuances are all messed up." The mockups had drifted into ~30 raw `text-[var(--type-N)]` arbitrary-value chains, each annotated with a `lumen-lint-allow: typography` directive. The directives were a tell: every "no semantic preset for this size" comment was the system being asked to do something the system explicitly disallows (11 px outside kbd/overline, 15 px between body-sm and body-md, 18 px semibold for app bar titles). Plus `leading-tight` (1.05, display tier) was being applied to body-tier list rows, cramping line rhythm where snug-body (1.30) belongs.
+
+### Changed
+
+- **`audit-dashboard/src/app/mobile/page.tsx`** — full rewrite of both iOS and Android frames.
+  - iOS status bar / 5G chip: `text-heading-h6` + `text-[var(--type-12)]` → `text-label-sm lumen-tnum` + `text-micro lumen-mono lumen-tnum` (consistent 13/12 tier across the row instead of 13/12 mismatch).
+  - iOS large title block: gives the `Today` eyebrow a 6 px gap to the 31 px Bold `Shipments` so the heading-h1 leading (`compact` 1.16) reads correctly.
+  - Stat cards: bumped from `size="xs"` (20 px value) to `size="sm"` (25 px value) so the 360 px-wide phone frame doesn't underweight the metrics.
+  - List rows: lane title was `text-heading-h5 leading-tight` (15 px Semibold at 1.05 — display-tier leading on body content). Now `text-label-md` (14 Medium with snug-body 1.30) — Apple HIG list-row weight + correct body leading. WRP-id below: `text-[var(--type-11)] mono` → `lumen-mono text-micro` (12 Medium tabular). Avatar bumped from `xs` to `sm` for matching presence.
+  - Tab labels: `text-[var(--type-11)]` → `text-micro` (12 Medium). One step up from iOS HIG's 10–11 pt, deliberately, to honor Lumen's 12 px UI floor.
+  - Android top app bar title: `text-[var(--type-18)] font-semibold` → `text-heading-h3` (20 Semibold) — closer to M3 Title Large's 22 sp.
+  - Android FAB-style button: explicit `text-label-md` (14 Medium) instead of inheriting an unsized weight-only override.
+  - Android list rows: same lane-title fix (`text-[var(--type-15)] leading-tight` → `text-label-md`); WRP-id meta `text-[var(--type-11)] mono` → `lumen-mono text-micro`. Truncate added so longer ETAs don't break layout.
+  - All decorative icons size-bumped (Search/Bell from 18 → 20) for app-bar density parity.
+- **`audit-dashboard/src/app/saas/page.tsx`** — top bar `<h1>` `text-[var(--type-18)] font-semibold` → `text-heading-h3` (20 Semibold). Sidebar workspace switcher avatar mark `text-[var(--type-13)]` → `text-label-sm`; "Workspace" caption `text-[var(--type-11)]` → `text-micro`. Nav item count badges, status footer (v2.18.4 · 12 ms p50), pagination meta, ProgressRing meta lines: every `text-[var(--type-11)]` and `text-[var(--type-12)]` → `text-micro`. Side-panel delta value `text-[var(--type-15)] mono semibold` → `text-data-md font-semibold` (uses the actual data semantic preset, 16 px tnum).
+- **`audit-dashboard/src/app/tool/page.tsx`** — Quote Builder header app icon mark + title (`text-[var(--type-11)] mono bold` + `text-[var(--type-14)] font-semibold`) → `text-micro mono bold` + `text-heading-h6` (13 Semibold). Best-value carrier name + lane meta + per-row carrier metadata: bumped from arbitrary 11/14 to `text-heading-h6` + `text-micro`. Per-row price `text-[var(--type-15)] mono semibold` → `text-data-md font-semibold`. Auto-save status, progress meta, footer kbd bar all unified at `text-micro`.
+- **`audit-dashboard/src/app/landing/page.tsx`** — CLI prompt mock `text-[var(--type-13)] mono` → `text-body-xs mono` (semantic preset). Trust-row wordmarks `text-[var(--type-18)] font-bold` → `text-body-lg font-bold` (uses the body-lg 18 px size token while keeping the bold override for the wordmark feel). FAQ answer `text-[var(--type-15)] leading-snug` → `text-body-md` (16, comfortable). Feature card copy: same. Browser-chrome URL bar `text-[var(--type-12)]` → `text-micro`.
+- **`audit-dashboard/src/app/desktop/page.tsx`** — both macOS and Windows frames. Sidebar nav badges, vertion/latency footer, search-bar placeholder, list-row plain text: all `text-[var(--type-11/12)]` → `text-micro` or `text-body-xs` depending on tier. macOS title-bar `<h2>` `text-[var(--type-14)] font-semibold` → `text-heading-h6` (13 Semibold). Windows content header `<h2>` `text-[var(--type-16)] font-semibold` → `text-heading-h4` (17 Semibold). Activity rows: `text-[var(--type-12)] + text-[var(--type-11)] mono` → `text-body-xs + lumen-mono text-micro`.
+- **`audit-dashboard/src/app/ecommerce/page.tsx`** — brand wordmark `text-[var(--type-18)] font-bold` → `text-body-lg font-bold`. Buy panel price `text-[var(--type-25)] mono semibold` → `text-heading-h2 mono` (uses the actual h2 preset's weight + tracking + leading). Strikethrough comparison price → `text-body-md mono`. Product description, Materials & care / Shipping & returns summaries: dropped `text-[var(--type-15)]` for `text-body-md` / `text-label-lg`. Review author `text-[var(--type-12)] mono` → `lumen-mono text-micro`. "/5 · 184 reviews" + related-card price → `text-body-xs mono`. Announcement bar + size-guide link + rating bar percentages → `text-micro`.
+
+### Removed
+
+- **24+ `lumen-lint-allow: typography` bypass directives** across the six mockup pages. Each was a workaround for "I want to use a size or weight the system doesn't have a preset for" — now resolved by either nudging to the closest preset (most cases) or by accepting a one-step size adjustment (11 px nav badges → 12 px micro, 15 px body density → 16 px body-md, etc.). One legitimate directive remains in `landing/page.tsx` for the brutalist italic-word-per-hero accent override on the display headline; that is the documented brand pattern.
+
+### Why the small bumps
+
+Lumen's typography contract (ADR 0010, foundations/typography.md § 2) declares 12 px as the UI floor. The pre-v0.10.3 mockups violated that floor in 18 places (every nav badge, mobile tab label, status footer, activity timestamp). The v0.10.3 sweep raises those to 12 px (`text-micro`) — one notch up from iOS HIG's 10–11 pt and Material 3's 11 sp Label Small, but in line with what Lumen's own typography.md actually prescribes. The result reads slightly more breathable on a phone or sidebar, with no loss of "instrument-panel" density because the surrounding leading + tracking are tuned for it.
+
+### Verification
+
+- ✅ `audit-dashboard` `next build` — TypeScript clean, 12 static pages prerender.
+- ✅ `grep -rn 'text-\[var(--type-' audit-dashboard/src/app/{mobile,saas,tool,landing,desktop,ecommerce}` → 0 hits.
+- ✅ `grep -rn 'lumen-lint-allow' audit-dashboard/src/app/{mobile,saas,tool,landing,desktop,ecommerce}` → 1 hit (landing italic-accent display override; intentional).
+
+---
+
 ## [0.10.2] — 2026-05-03 — Lucide is the only icon system
 
 User directive: **"Replace all the icons and use Lucide icons, everywhere in the design system."** Most of the audit-dashboard already used Lucide via the central `@/components/primitives/icon` wrapper (`primitives/icon.tsx` re-exports 18 lucide-react icons with a Lumen-consistent `strokeWidth={1.5}` + `aria-hidden` defaulting). v0.10.2 retires every hand-rolled inline-SVG icon that hadn't yet migrated and pins lucide-react as the only icon source.

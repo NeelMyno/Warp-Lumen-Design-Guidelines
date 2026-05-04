@@ -56,8 +56,7 @@ export default function EcommercePage() {
                 <span className="text-metric-xl lumen-tnum">
                   4.8
                 </span>
-                {/* lumen-lint-allow: typography — mono regular at 13; no semantic preset for mono+regular at this size */}
-                <span className="lumen-mono text-[var(--type-13)] text-[var(--text-tertiary)]">
+                <span className="lumen-mono text-body-xs text-[var(--text-tertiary)]">
                   /5 · 184 reviews
                 </span>
               </div>
@@ -79,8 +78,7 @@ export default function EcommercePage() {
                   </div>
                   <div className="flex items-center gap-2 mb-3">
                     <Avatar name={r.author} size="xs" />
-                    {/* lumen-lint-allow: typography — mono regular at 12; no semantic preset for mono+regular at this size */}
-                    <span className="lumen-mono text-[var(--type-12)] text-[var(--text-tertiary)]">
+                    <span className="lumen-mono text-micro text-[var(--text-tertiary)]">
                       {r.author} · {r.when}
                     </span>
                   </div>
@@ -109,10 +107,9 @@ export default function EcommercePage() {
                     </IconButton>
                   </div>
                 </div>
-                <div className="p-3">
+                <div className="p-3 flex flex-col gap-[2px]">
                   <div className="text-label-md truncate">{p.name}</div>
-                  {/* lumen-lint-allow: typography — mono tabular regular at 13 price; no semantic preset for mono+regular at this size */}
-                  <div className="lumen-mono lumen-tnum text-[var(--type-13)] text-[var(--text-secondary)]">
+                  <div className="lumen-mono lumen-tnum text-body-xs text-[var(--text-secondary)]">
                     {p.price}
                   </div>
                 </div>
@@ -129,8 +126,7 @@ function StoreHeader() {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-8 h-14">
       <div className="flex items-center gap-8">
-        {/* lumen-lint-allow: typography — 18px bold brand wordmark; no preset for 18/bold (body-lg is regular, display-sm is 25) */}
-        <div className="text-[var(--type-18)] font-bold tracking-[var(--tracking-tight)]">
+        <div className="text-body-lg font-bold tracking-[var(--tracking-tight)]">
           Foundry
         </div>
         <nav className="hidden md:flex items-center gap-6 text-body-sm text-[var(--text-secondary)]">
@@ -152,8 +148,7 @@ function StoreHeader() {
 
 function Announcement() {
   return (
-    /* lumen-lint-allow: typography — type-12 plain announcement bar with wide tracking; no semantic preset for 12 regular */
-    <div className="bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-12)] py-2 text-center tracking-[var(--tracking-wide)]">
+    <div className="bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-micro py-2 text-center">
       Free freight on orders over $200 — handled by{" "}
       <span className="lumen-mono" style={{ color: "var(--lumen-accent-3)" }}>@warp</span>
     </div>
@@ -200,16 +195,13 @@ function Buy() {
           Field Jacket Mk II
         </h1>
         <div className="mt-3 flex items-baseline gap-3">
-          {/* lumen-lint-allow: typography — mono tabular semibold at 25 price; no semantic preset for mono at heading-h2 size */}
-          <span className="lumen-mono lumen-tnum text-[var(--type-25)] font-semibold">$248</span>
-          {/* lumen-lint-allow: typography — type-15 mono tabular strikethrough; intermediate size has no semantic preset */}
-          <span className="lumen-mono lumen-tnum text-[var(--type-15)] text-[var(--text-tertiary)] line-through">$320</span>
+          <span className="lumen-mono lumen-tnum text-heading-h2">$248</span>
+          <span className="lumen-mono lumen-tnum text-body-md text-[var(--text-tertiary)] line-through">$320</span>
           <Badge status="accent">22% off</Badge>
         </div>
       </div>
 
-      {/* lumen-lint-allow: typography — type-15 intermediate body density; no semantic preset between body-sm (14) and body-md (16) */}
-      <p className="text-[var(--type-15)] text-[var(--text-secondary)] leading-[var(--leading-snug)] max-w-[52ch]">
+      <p className="text-body-md text-[var(--text-secondary)] max-w-[52ch]">
         Waxed organic cotton, branched seams, two-way main zip. Built to take a beating and to age the way good things do.
       </p>
 
@@ -240,8 +232,7 @@ function Buy() {
       <div>
         <div className="flex items-baseline justify-between mb-3">
           <div className="lumen-eyebrow">Size</div>
-          {/* lumen-lint-allow: typography — type-12 plain link in size selector; no semantic preset for 12 regular */}
-          <a href="#" className="text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] underline underline-offset-2">Size guide</a>
+          <a href="#" className="text-micro text-[var(--text-tertiary)] hover:text-[var(--text-primary)] underline underline-offset-2">Size guide</a>
         </div>
         <div className="grid grid-cols-6 gap-[var(--space-1_5)]">
           {sizes.map((s) => (
@@ -273,22 +264,20 @@ function Buy() {
       </div>
 
       <details className="border-t border-[var(--border-hairline)] pt-4 group">
-        {/* lumen-lint-allow: typography — type-15 medium intermediate density; no preset between label-sm (13) and label-md (14) and label-lg (16) */}
-        <summary className="flex justify-between cursor-pointer text-[var(--type-15)] font-medium tracking-[var(--tracking-tight)]">
+        <summary className="flex justify-between cursor-pointer text-label-lg">
           Materials & care
           <ChevronDown size={14} className="group-open:rotate-180 transition-transform" />
         </summary>
-        <p className="mt-2 text-body-sm text-[var(--text-secondary)] leading-snug">
+        <p className="mt-2 text-body-sm text-[var(--text-secondary)]">
           11oz organic cotton, beeswax-finished. Spot clean. Re-wax annually with our Tin No. 4.
         </p>
       </details>
       <details className="border-t border-[var(--border-hairline)] pt-4 group">
-        {/* lumen-lint-allow: typography — type-15 medium intermediate density; no preset for 15px medium */}
-        <summary className="flex justify-between cursor-pointer text-[var(--type-15)] font-medium tracking-[var(--tracking-tight)]">
+        <summary className="flex justify-between cursor-pointer text-label-lg">
           Shipping & returns
           <ChevronDown size={14} className="group-open:rotate-180 transition-transform" />
         </summary>
-        <p className="mt-2 text-body-sm text-[var(--text-secondary)] leading-snug">
+        <p className="mt-2 text-body-sm text-[var(--text-secondary)]">
           Free freight on orders over $200, fulfilled by Warp. 30-day no-questions returns.
         </p>
       </details>
@@ -324,8 +313,7 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
 
 function Bar({ stars, pct }: { stars: number; pct: number }) {
   return (
-    /* lumen-lint-allow: typography — type-12 review bar row plain; no semantic preset for 12 regular */
-    <div className="flex items-center gap-2 text-[var(--type-12)]">
+    <div className="flex items-center gap-2 text-micro">
       <span className="w-3 lumen-mono text-[var(--text-tertiary)]">{stars}</span>
       <div className="flex-1 h-[var(--space-1_5)] rounded-full bg-[var(--surface-sunken)] overflow-hidden">
         <div className="h-full bg-[var(--text-primary)]" style={{ width: `${pct}%` }} />
