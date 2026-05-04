@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, ReactNode, KeyboardEvent } from "react";
+import { Calendar } from "lucide-react";
 import { Search as SearchIcon, ChevronDown, Plus, X, Minus } from "./icon";
 
 import { cn } from "@/lib/utils";
@@ -633,7 +634,7 @@ export function DatePicker({ value }: { value?: string }) {
   return (
     <div className="lumen-field" data-mono="true" style={{ width: "auto" }}>
       <span data-slot="leading" aria-hidden>
-        <CalendarSm />
+        <Calendar size={14} strokeWidth={1.5} aria-hidden focusable={false} />
       </span>
       <input
         readOnly
@@ -744,12 +745,3 @@ export function Segmented({
   );
 }
 
-/* small helper */
-function CalendarSm() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <rect x="3" y="5" width="18" height="16" rx="2" />
-      <path d="M3 10h18M8 3v4M16 3v4" />
-    </svg>
-  );
-}

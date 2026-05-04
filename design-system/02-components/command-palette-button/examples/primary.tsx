@@ -1,7 +1,10 @@
 // Lumen CommandPaletteButton — Web React example (v0.9)
 // Search-styled trigger with platform-aware kbd hint.
+//
+// Icons via lucide-react (the Lumen icon system as of v0.10.2).
 
 import { ButtonHTMLAttributes, ReactNode, useEffect, useState } from "react";
+import { Search } from "lucide-react";
 
 type Size = "sm" | "md" | "lg";
 
@@ -37,21 +40,12 @@ export function CommandPaletteButton({
         className ?? "",
       ].filter(Boolean).join(" ")}
     >
-      <SearchIcon />
+      <Search size={14} strokeWidth={2} aria-hidden focusable={false} />
       <span style={{ color: "var(--text-tertiary)", flex: 1, textAlign: "left" }}>{hint}</span>
       <span className="lumen-cmd-button-kbd" aria-hidden>
         <kbd>{mod}</kbd>
         <kbd>{shortcutKey}</kbd>
       </span>
     </button>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <circle cx="11" cy="11" r="7" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
   );
 }

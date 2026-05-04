@@ -10,6 +10,43 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.10.2] — 2026-05-03 — Lucide is the only icon system
+
+User directive: **"Replace all the icons and use Lucide icons, everywhere in the design system."** Most of the audit-dashboard already used Lucide via the central `@/components/primitives/icon` wrapper (`primitives/icon.tsx` re-exports 18 lucide-react icons with a Lumen-consistent `strokeWidth={1.5}` + `aria-hidden` defaulting). v0.10.2 retires every hand-rolled inline-SVG icon that hadn't yet migrated and pins lucide-react as the only icon source.
+
+### Changed
+
+- **`audit-dashboard` UI affordance icons → Lucide.** Hand-rolled inline SVGs replaced with their lucide-react equivalents:
+  - [`components/theme-toggle.tsx`](audit-dashboard/src/components/theme-toggle.tsx) — `SunIcon` / `MoonIcon` → `Sun` / `Moon`.
+  - [`components/primitives/templates.tsx`](audit-dashboard/src/components/primitives/templates.tsx) — `KeyIcon` (Passkey button) → `Key`; the inline wrench SVG inside `MaintenanceCard` → `Wrench`.
+  - [`components/primitives/mobile.tsx`](audit-dashboard/src/components/primitives/mobile.tsx) — phone status-bar icons (`SignalIcon`, `WifiIcon`, `BatteryIcon`) → `SignalHigh`, `Wifi`, `BatteryFull`. The pull-to-refresh spinner → `Loader2` with `animate-spin`. Face ID prompt's `FaceIcon` → `ScanFace`.
+  - [`components/primitives/inputs.tsx`](audit-dashboard/src/components/primitives/inputs.tsx) — `CalendarSm` → `Calendar`.
+  - [`components/primitives/display.tsx`](audit-dashboard/src/components/primitives/display.tsx) — `FolderIcon` / `FileIcon` (file-tree leaves) → `Folder` / `File`. `Stars` rating SVG → `Star` from lucide-react with binary fill/stroke driven by `value`.
+  - [`components/primitives/spinner.tsx`](audit-dashboard/src/components/primitives/spinner.tsx) — the dual-arc spinner → `Loader2` (preserves `lumen-spinner` className + 0.9 s animation duration so the rest of the system that styles by class continues to work).
+  - [`components/primitives/ai.tsx`](audit-dashboard/src/components/primitives/ai.tsx) — the local `Sparkles` SVG → `Sparkles` from lucide-react (consumed by `AIBadge` and `AIThinking`).
+  - [`app/library/client.tsx`](audit-dashboard/src/app/library/client.tsx) — `UploadRow` file SVG → `FileText`.
+  - [`app/landing/page.tsx`](audit-dashboard/src/app/landing/page.tsx) — the `●` unicode "live" indicator inside the URL-bar mock → `Dot` (icon-shaped, color-bound to `--text-accent`).
+- **Design-system component examples → Lucide.** The example `.tsx` files that ship to consumers via the shadcn registry now reference `lucide-react` directly instead of inlining icon paths:
+  - [`02-components/split-button/examples/primary.tsx`](design-system/02-components/split-button/examples/primary.tsx) — `ChevronDown` SVG → `ChevronDown`.
+  - [`02-components/toast/examples/primary.tsx`](design-system/02-components/toast/examples/primary.tsx) — `StatusIcon` (success / warning / danger / info / neutral) → `Check`, `AlertCircle`, `Info`. `CloseIcon` → `X`.
+  - [`02-components/command-palette-button/examples/primary.tsx`](design-system/02-components/command-palette-button/examples/primary.tsx) — `SearchIcon` SVG → `Search`.
+  - [`02-components/button/examples/primary.tsx`](design-system/02-components/button/examples/primary.tsx) — `Spinner` SVG → `Loader2`.
+
+### Kept (intentionally not migrated)
+
+- **Brand logos** stay as inline SVG with their original brand colors: Google G + Microsoft 4-square ([templates.tsx](audit-dashboard/src/components/primitives/templates.tsx)) and Apple ([commerce.tsx](audit-dashboard/src/components/primitives/commerce.tsx)). Lucide does not ship brand marks, and the brand colors must stay literal — these are not UI icons.
+- **Data-driven SVG geometry** stays as inline SVG: `charts.tsx` (line / area / donut / bar charts), `stat.tsx` sparklines, `progress.tsx` circular progress, `display.tsx` semicircle gauge, `app/ecommerce/page.tsx` partial-fill rating stars (linearGradient stop offsets driven by `value`). These are charts, not icons — Lucide cannot represent them.
+- **Decorative empty-state illustrations** stay as inline SVG: `templates.tsx`'s `NoDataIllustration`, `display.tsx`'s `DefaultEmpty`, and `02-components/empty-state/examples/primary.tsx`'s `DefaultIcon`. These are stylized placeholders, not icons.
+- **`primitives/icon.tsx` central wrapper** is unchanged — its 18 wrapped exports (`ArrowRight`, `Check`, `Plus`, `Minus`, `Search`, `Truck`, `MapPin`, `Box`, `Settings`, `Bell`, `Home`, `Filter`, `ChevronDown`, `Cart`, `User`, `X`, `Inbox`, `Code`) all already source from lucide-react. Files that need an icon outside that 18 import from `lucide-react` directly per the wrapper's own guidance.
+
+### Verification
+
+- ✅ `audit-dashboard` `next build` — TypeScript clean, all 12 static pages prerender.
+- ✅ `grep -rn '<svg' audit-dashboard/src design-system/02-components` returns only the intentional keeps above (brand logos, charts, decorative illustrations).
+- ✅ Every replacement uses Lumen-consistent props: `strokeWidth={1.5}` (matching the wrapper's default) or `2` for status-bar/keyboard-affordance density, `aria-hidden focusable={false}` on every decorative icon.
+
+---
+
 ## [0.10.1] — 2026-05-03 — Card slot alignment fix
 
 User reported visual misalignment in `/foundations` § Card variants — title and bare-`<p>` body text inside the same `<Card>` rendered at different x positions, with the body paragraph appearing 24 px further left than the `<CardHeader>` title and description. The same offset showed up everywhere a Card mixed a `<CardHeader />` with bare body content (the pattern is repeated 25 times across `/foundations` and `/library`).

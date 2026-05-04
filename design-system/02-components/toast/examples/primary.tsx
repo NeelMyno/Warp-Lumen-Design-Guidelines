@@ -11,6 +11,7 @@
 
 "use client";
 
+import { AlertCircle, Check, Info, X as XIcon } from "lucide-react";
 import {
   ReactNode,
   useEffect,
@@ -172,36 +173,18 @@ export function ToastRegion({
   );
 }
 
-/* ───────── icons (SVG hex exempt from the no-primitives lint) ───────── */
+/* ───────── icons (lucide-react — Lumen v0.10.2 single-icon-system) ───────── */
 
 function StatusIcon({ status }: { status: Status }) {
   if (status === "success") {
-    return (
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M5 12l4 4 10-10" />
-      </svg>
-    );
+    return <Check size={12} strokeWidth={3} aria-hidden focusable={false} />;
   }
   if (status === "warning" || status === "danger") {
-    return (
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M12 8v5" />
-        <circle cx="12" cy="17" r="0.5" />
-      </svg>
-    );
+    return <AlertCircle size={12} strokeWidth={2.5} aria-hidden focusable={false} />;
   }
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M12 11v6" />
-      <circle cx="12" cy="7" r="0.5" />
-    </svg>
-  );
+  return <Info size={12} strokeWidth={2.5} aria-hidden focusable={false} />;
 }
 
 function CloseIcon() {
-  return (
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <path d="M6 6l12 12M18 6l-12 12" />
-    </svg>
-  );
+  return <XIcon size={12} strokeWidth={2.5} aria-hidden focusable={false} />;
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { Key, Wrench } from "lucide-react";
 import { Search as SearchIcon } from "./icon";
 
 /* ─────────────────────────  ERROR / STATE PAGES  ───────────────────────── */
@@ -42,7 +43,7 @@ export function LoginCard() {
       <div className="mt-5 space-y-3">
         <SocialBtn label="Continue with Google" icon={<GoogleG />} />
         <SocialBtn label="Continue with Microsoft" icon={<MsLogo />} />
-        <SocialBtn label="Continue with Passkey" icon={<KeyIcon />} />
+        <SocialBtn label="Continue with Passkey" icon={<Key size={14} strokeWidth={1.5} aria-hidden focusable={false} />} />
         <div className="flex items-center gap-3 my-2">
           <span className="h-px flex-1 bg-[var(--border-hairline)]" />
           <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">or</span>
@@ -70,10 +71,6 @@ function GoogleG() {
 function MsLogo() {
   return <svg width="13" height="13" viewBox="0 0 18 18" aria-hidden><rect width="8" height="8" fill="#f25022" /><rect x="10" width="8" height="8" fill="#7fba00" /><rect y="10" width="8" height="8" fill="#00a4ef" /><rect x="10" y="10" width="8" height="8" fill="#ffb900" /></svg>;
 }
-function KeyIcon() {
-  return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden><circle cx="8" cy="12" r="4" /><path d="M12 12h10M18 8v4M22 12v4" /></svg>;
-}
-
 /* ─────────────────────────  HERO + TRUST ROW  ───────────────────────── */
 export function HeroBlock() {
   return (
@@ -165,7 +162,7 @@ export function MaintenanceCard() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-12 text-center max-w-[480px] mx-auto">
       <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-[var(--surface-tint-accent)] flex items-center justify-center text-[var(--text-accent)]">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4L15 12l-3-3 2.7-2.7z" /></svg>
+        <Wrench size={20} strokeWidth={1.5} aria-hidden focusable={false} />
       </div>
       <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Scheduled maintenance</div>
       <p className="text-body-xs text-[var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">

@@ -1,23 +1,16 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { Sparkles } from "lucide-react";
 import { ChevronDown, Plus, Search as SearchIcon, Bell, Inbox, Check, X, Code } from "./icon";
 
 /* ─────────────────────────  AI BADGE  ───────────────────────── */
 export function AIBadge({ label = "AI generated" }: { label?: string }) {
   return (
     <span className="inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)] text-[var(--text-accent)] bg-[var(--surface-tint-accent)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]">
-      <Sparkles size={10} />
+      <Sparkles size={10} strokeWidth={2} aria-hidden focusable={false} />
       {label}
     </span>
-  );
-}
-function Sparkles({ size = 12 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 2l1.6 5.2L18.8 9l-5.2 1.6L12 16l-1.6-5.4L5.2 9l5.2-1.8z" />
-      <path d="M19 16l.8 2 2 .8-2 .8L19 22l-.8-2-2-.8 2-.8z" opacity="0.7" />
-    </svg>
   );
 }
 
@@ -26,7 +19,7 @@ export function AIThinking() {
   return (
     <div className="inline-flex items-center gap-2 text-body-xs text-[var(--text-tertiary)]">
       <span className="relative inline-flex h-4 w-4">
-        <Sparkles size={14} />
+        <Sparkles size={14} strokeWidth={2} aria-hidden focusable={false} />
       </span>
       <span>Thinking</span>
       <span className="inline-flex items-end gap-1">

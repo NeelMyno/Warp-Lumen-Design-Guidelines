@@ -1,7 +1,10 @@
 // Lumen SplitButton — Web React example (v0.9)
 // Primary action half + dropdown trigger half, joined.
+//
+// Icons via lucide-react (the Lumen icon system as of v0.10.2).
 
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
 
 type Intent = "primary" | "secondary" | "outline" | "ghost" | "danger" | "ai";
 type Size = "sm" | "md" | "lg" | "xl";
@@ -68,16 +71,8 @@ export function SplitButton({
         onClick={onMenuOpen}
         disabled={disabled || loading}
       >
-        <ChevronDown />
+        <ChevronDown size={14} strokeWidth={2} aria-hidden focusable={false} />
       </button>
     </div>
-  );
-}
-
-function ChevronDown() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-      <path d="m6 9 6 6 6-6" />
-    </svg>
   );
 }

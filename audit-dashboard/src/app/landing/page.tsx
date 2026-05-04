@@ -6,6 +6,7 @@ import { Badge } from "@/components/primitives/badge";
 import { Button } from "@/components/primitives/button";
 import { RateTicker } from "@/components/primitives/rate-ticker";
 import { Avatar } from "@/components/primitives/avatar";
+import { Dot } from "lucide-react";
 import { ArrowRight, Check, Truck, Box, MapPin, Code } from "@/components/primitives/icon";
 
 export const metadata = { title: "Marketing & Landing · Lumen" };
@@ -293,7 +294,7 @@ function BrowserChrome({ url }: { url: string }) {
       <div className="flex-1 mx-3 max-w-md">
         {/* lumen-lint-allow: typography — type-12 mono URL bar mock; no semantic preset for mono+regular at 12 */}
         <div className="bg-[var(--surface-raised)] border border-[var(--border-hairline)] rounded-[var(--radius-md)] px-3 h-7 flex items-center gap-2 text-[var(--type-12)] text-[var(--text-secondary)] lumen-mono">
-          <span className="text-[var(--text-accent)]">●</span>
+          <Dot size={16} strokeWidth={4} className="text-[var(--text-accent)]" aria-hidden focusable={false} />
           {url}
         </div>
       </div>

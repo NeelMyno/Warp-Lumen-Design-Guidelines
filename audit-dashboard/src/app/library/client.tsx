@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FileText } from "lucide-react";
 import { PageHeader, Section, SubSection } from "@/components/section";
 import { Button, IconButton } from "@/components/primitives/button";
 import { Badge } from "@/components/primitives/badge";
@@ -1515,7 +1516,7 @@ function UploadRow({ name, pct }: { name: string; pct: number }) {
   return (
     <div className="flex items-center gap-3">
       <span className="h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--text-secondary)]">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z M14 3l6 6h-6V3z" /></svg>
+        <FileText size={14} strokeWidth={1.5} aria-hidden focusable={false} />
       </span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-3">

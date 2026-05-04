@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { BatteryFull, Loader2, ScanFace, SignalHigh, Wifi } from "lucide-react";
 import { Search as SearchIcon, Bell, ChevronDown, X, Plus, Check, Home, Cart, User } from "./icon";
 
 /* ─────────────────────────  PHONE FRAME  ───────────────────────── */
@@ -46,21 +47,12 @@ export function StatusBar({ time = "9:41", carrier = "Verizon" }: { time?: strin
       <span>{time}</span>
       <div className="flex items-center gap-[var(--space-1_5)]">
         <span className="hidden sm:inline">{carrier}</span>
-        <SignalIcon />
-        <WifiIcon />
-        <BatteryIcon />
+        <SignalHigh size={14} strokeWidth={2} aria-hidden focusable={false} />
+        <Wifi size={14} strokeWidth={2} aria-hidden focusable={false} />
+        <BatteryFull size={18} strokeWidth={1.5} aria-hidden focusable={false} />
       </div>
     </div>
   );
-}
-function SignalIcon() {
-  return <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden><rect x="0" y="6" width="2" height="4" rx="0.5" fill="currentColor" /><rect x="3.5" y="4" width="2" height="6" rx="0.5" fill="currentColor" /><rect x="7" y="2" width="2" height="8" rx="0.5" fill="currentColor" /><rect x="10.5" y="0" width="2" height="10" rx="0.5" fill="currentColor" /></svg>;
-}
-function WifiIcon() {
-  return <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden><path d="M2 4a8 8 0 0 1 10 0" /><path d="M4 6a5 5 0 0 1 6 0" /><circle cx="7" cy="8.5" r="1" fill="currentColor" /></svg>;
-}
-function BatteryIcon() {
-  return <svg width="22" height="10" viewBox="0 0 22 10" aria-hidden><rect x="0.5" y="0.5" width="18" height="9" rx="2" fill="none" stroke="currentColor" strokeWidth="1" /><rect x="2" y="2" width="14" height="6" rx="1" fill="currentColor" /><rect x="19.5" y="3.5" width="2" height="3" rx="0.6" fill="currentColor" /></svg>;
 }
 
 /* ─────────────────────────  BOTTOM SHEET  ───────────────────────── */
@@ -148,9 +140,7 @@ export function PermissionPrompt({
 export function PullToRefresh() {
   return (
     <div className="flex items-center justify-center gap-2 py-3 text-[var(--type-12)] text-[var(--text-tertiary)]">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
-        <path d="M3 12a9 9 0 0 1 15.5-6.5L21 8" /><path d="M21 4v4h-4" />
-      </svg>
+      <Loader2 size={14} strokeWidth={2} className="animate-spin" aria-hidden focusable={false} />
       Refreshing…
     </div>
   );
@@ -202,16 +192,13 @@ export function FaceIDPrompt() {
     <div className="absolute inset-0 bg-black/40 flex items-end justify-center pb-6">
       <div className="w-[260px] rounded-[14px] bg-[var(--surface-popover)] p-4 text-center">
         <div className="mx-auto h-12 w-12 rounded-full bg-[var(--surface-sunken)] flex items-center justify-center mb-2">
-          <FaceIcon />
+          <ScanFace size={24} strokeWidth={1.5} aria-hidden focusable={false} />
         </div>
         <div className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">Face ID</div>
         <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">Authenticate to continue</div>
       </div>
     </div>
   );
-}
-function FaceIcon() {
-  return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 8V6a1 1 0 0 1 1-1h2M19 8V6a1 1 0 0 0-1-1h-2M5 16v2a1 1 0 0 0 1 1h2M19 16v2a1 1 0 0 1-1 1h-2M9 9.5v1M15 9.5v1M9 15c1.7 1.5 4.3 1.5 6 0M12 9v4l-1 1" /></svg>;
 }
 
 /* ─────────────────────────  KEYBOARD ACCESSORY  ───────────────────────── */

@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { File as FileIconLucide, Folder as FolderIconLucide, Star as StarIconLucide } from "lucide-react";
 import { ChevronDown, Check, X, Plus, Search as SearchIcon } from "./icon";
 
 /* ─────────────────────────  TAG / CHIP  ───────────────────────── */
@@ -348,7 +349,24 @@ export function TreeView() {
           ) : (
             <span className="w-3" />
           )}
-          {hasKids ? <FolderIcon /> : <FileIcon />}
+          {hasKids ? (
+            <FolderIconLucide
+              size={12}
+              strokeWidth={1.5}
+              fill="var(--lumen-amber-3)"
+              stroke="var(--lumen-amber-3)"
+              aria-hidden
+              focusable={false}
+            />
+          ) : (
+            <FileIconLucide
+              size={12}
+              strokeWidth={1.5}
+              stroke="var(--text-tertiary)"
+              aria-hidden
+              focusable={false}
+            />
+          )}
           <span>{node.label}</span>
         </div>
         {hasKids && open && (
@@ -365,13 +383,6 @@ export function TreeView() {
     </div>
   );
 }
-function FolderIcon() {
-  return <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--lumen-amber-3)" aria-hidden><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></svg>;
-}
-function FileIcon() {
-  return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="1.5" aria-hidden><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z M14 3l6 6h-6V3z" /></svg>;
-}
-
 /* ─────────────────────────  TIMELINE  ───────────────────────── */
 export function Timeline() {
   const events = [
@@ -456,9 +467,15 @@ export function Stars({ value = 4, total = 5, size = 14 }: { value?: number; tot
   return (
     <span className="inline-flex items-center gap-1" aria-label={`Rating ${value} of ${total}`}>
       {Array.from({ length: total }).map((_, i) => (
-        <svg key={i} width={size} height={size} viewBox="0 0 24 24" fill={i < value ? "var(--lumen-amber-4)" : "var(--surface-sunken)"} stroke={i < value ? "var(--lumen-amber-5)" : "var(--border-default)"} strokeWidth="1.5" strokeLinejoin="round">
-          <path d="M12 2.6l3 6.5 7 1-5 5 1.2 7L12 18.7 5.8 22.1 7 15.1 2 10.1l7-1z" />
-        </svg>
+        <StarIconLucide
+          key={i}
+          size={size}
+          strokeWidth={1.5}
+          fill={i < value ? "var(--lumen-amber-4)" : "var(--surface-sunken)"}
+          stroke={i < value ? "var(--lumen-amber-5)" : "var(--border-default)"}
+          aria-hidden
+          focusable={false}
+        />
       ))}
     </span>
   );
