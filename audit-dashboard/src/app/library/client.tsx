@@ -123,7 +123,7 @@ export function LibraryClient() {
           eyebrow="Component library"
           title="Library"
           description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian — then tuned to Lumen's restraint."
-          meta={<Badge status="accent" leadingDot>v0.11.10 · 25 sections · 250+ components</Badge>}
+          meta={<Badge status="accent" leadingDot>v0.11.11 · 25 sections · 250+ components</Badge>}
         />
 
         {/* OVERVIEW */}
@@ -1440,7 +1440,7 @@ export function Hero() {
 
         {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
         <div className="mt-20 text-center text-[var(--type-12)] text-[var(--text-tertiary)]">
-          End of library — last refreshed v0.11.10
+          End of library — last refreshed v0.11.11
         </div>
       </article>
 

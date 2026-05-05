@@ -11,8 +11,8 @@
       "300": { "$value": "#9DA09F", "$description": "Tertiary text on dark. Captions, hints." },
       "400": { "$value": "#6E7270", "$description": "Secondary text on dark. AA-safe at 14px+." },
       "500": { "$value": "#4A4D4B", "$description": "Mid-rail. Borders, dividers on dark." },
-      "600": { "$value": "#2E3230", "$description": "Popover surface, dark." },
-      "700": { "$value": "#21241F", "$description": "Raised surface, dark — sits above canvas. Slight green-black tilt." },
+      "600": { "$value": "#232624", "$description": "Popover surface, dark. v0.11.11 retune (was #2E3230) — mint tilt scaled from G+4 to G+3 so the canvas anchor is the only stop carrying visible undertone." },
+      "700": { "$value": "#1B1E1C", "$description": "Raised surface, dark — sits subtly above canvas with restrained mint tilt. v0.11.11 retune (was #21241F) — darker (lightness ~11% vs canvas 9.7%) and tilt scaled from G+5 to G+3 so panels read as 'a card on canvas' rather than 'a brighter green surface above canvas.'" },
       "800": { "$value": "#171A18", "$description": "Canvas — DEFAULT dark. The user-fixed brand dark value." },
       "900": { "$value": "#0E110F", "$description": "Sunken / scrim base." },
       "950": { "$value": "#060807", "$description": "Void / deepest. Used only for hard-edge contrast moments." }

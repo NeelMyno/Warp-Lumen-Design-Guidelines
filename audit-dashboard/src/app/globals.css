@@ -55,6 +55,12 @@
      v0.11: faint green undertone (+2 G channel over R, +1 over B) so the canvas
      reads cohesive against spring-green accent without competing.
      Anchored at obsidian-8 = #171A18 (user-fixed brand dark).
+     v0.11.11 — mid-stops (6, 7) retuned darker with the green tilt scaled back
+     from G+5/+4 to G+3 so the mint character lives at the canvas only. The
+     "weird green" cast on raised + popover panels in v0.11.0–v0.11.10 was the
+     Bezold-Brücke shift in action: the same green offset reads near-neutral at
+     canvas lightness (~9.7%) but visibly minty at raised lightness (~13%).
+     Scaling tilt down at the lighter stops fixes the perceptual imbalance.
   */
   --lumen-obsidian-0:  #F4F5F4;   /* cream-leaning paper for light theme — slight green tint */
   --lumen-obsidian-1:  #E6E6E6;   /* user-fixed light anchor — primary text on dark */
@@ -62,8 +68,8 @@
   --lumen-obsidian-3:  #9DA09F;   /* tertiary text on dark — AA at ≥18px        */
   --lumen-obsidian-4:  #6E7270;   /* secondary text on dark — AA Normal         */
   --lumen-obsidian-5:  #4A4D4B;   /* mid-rail, borders                           */
-  --lumen-obsidian-6:  #2E3230;   /* popover surface, dark                       */
-  --lumen-obsidian-7:  #21241F;   /* raised surface, dark — slight warm-green tilt */
+  --lumen-obsidian-6:  #232624;   /* popover surface, dark — v0.11.11 (was #2E3230, mint tilt scaled to G+3) */
+  --lumen-obsidian-7:  #1B1E1C;   /* raised surface, dark — v0.11.11 (was #21241F, darker, mint tilt scaled to G+3) */
   --lumen-obsidian-8:  #171A18;   /* canvas, dark — DEFAULT — user-fixed         */
   --lumen-obsidian-9:  #0E110F;   /* sunken / scrim base                         */
   --lumen-obsidian-10: #060807;   /* deepest — void                              */
@@ -471,8 +477,8 @@
   --surface-sunken:     var(--lumen-obsidian-9);
   --surface-overlay:    rgba(23, 26, 24, 0.86);
   --surface-popover:    var(--lumen-obsidian-6);
-  --surface-glass:      rgba(33, 36, 31, 0.62);
-  --surface-glass-strong: rgba(33, 36, 31, 0.86);
+  --surface-glass:      rgba(23, 26, 24, 0.62);   /* v0.11.11 — re-anchored to canvas (was raised RGB; now matches dark.tokens.json which already declared canvas-anchoring) */
+  --surface-glass-strong: rgba(23, 26, 24, 0.86); /* v0.11.11 — re-anchored to canvas */
   --surface-scrim:      rgba(2, 2, 3, 0.72);
   --surface-inverse:    var(--lumen-cream-0);
   --surface-tint-accent: var(--lumen-lime-a14);
@@ -538,7 +544,7 @@
        warn    — #F8C249 on rgba(245,177,24,0.14)            → ~10.5:1  AAA
        danger  — #EC8589 on rgba(229,72,77,0.14)             →  ~7.4:1  AA Normal
        info    — #E6E6E6 on rgba(255,255,255,0.08)           →  ~9.5:1  AAA
-       neutral — #E6E6E6 on #21241F (raised)                  → 12.5:1  AAA
+       neutral — #E6E6E6 on #1B1E1C (raised, v0.11.11)        → 13.5:1  AAA
 
      Verified contrast (light mode, on canvas #FAFAFA):
        accent  — #003820 on #B7FFD9 ≈ 14.0:1  AAA
@@ -733,8 +739,8 @@
   --color-action-selected-border:    var(--lumen-accent-4);
 
   --color-action-glass-bg-rest:      var(--surface-glass);
-  --color-action-glass-bg-hover:     rgba(33,36,31,0.72);
-  --color-action-glass-bg-press:     rgba(33,36,31,0.86);
+  --color-action-glass-bg-hover:     rgba(23,26,24,0.72);   /* v0.11.11 — canvas-anchored to match --surface-glass */
+  --color-action-glass-bg-press:     rgba(23,26,24,0.86);   /* v0.11.11 — canvas-anchored to match --surface-glass-strong */
   --color-action-glass-fg:           var(--text-primary);
   --color-action-glass-border:       var(--lumen-paper-a10);
 

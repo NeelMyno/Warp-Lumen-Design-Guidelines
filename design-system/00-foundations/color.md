@@ -110,10 +110,10 @@ Primary text is `color.text.primary` = `{color.neutral.900}` = `#141615` on pape
 | Surface | Token | Value | Notes |
 |---|---|---|---|
 | Page canvas | `color.surface.page` | `{color.brand.800}` = `#171A18` | Obsidian-mint canvas. The user-fixed brand dark. |
-| Raised | `color.surface.raised` | `{color.brand.700}` = `#21241F` | Cards, panels. Sits a hair above canvas with a faint warm-green tilt. |
+| Raised | `color.surface.raised` | `{color.brand.700}` = `#1B1E1C` | Cards, panels. Sits subtly above canvas with restrained mint tilt. v0.11.11 retune from `#21241F` so panels read coherent with canvas, not as standalone green surfaces. |
 | Sunken | `color.surface.sunken` | `{color.brand.900}` = `#0E110F` | Scrim base, deep wells. |
-| Popover | `color.surface.popover` | `{color.brand.600}` = `#2E3230` | Floating popover surface. |
-| Glass | `color.surface.glass` | `rgba(23,26,24,0.62)` | Pair with `backdrop-filter: blur(20px) saturate(140%)` |
+| Popover | `color.surface.popover` | `{color.brand.600}` = `#232624` | Floating popover surface. v0.11.11 retune from `#2E3230`. |
+| Glass | `color.surface.glass` | `rgba(23,26,24,0.62)` | Pair with `backdrop-filter: blur(20px) saturate(140%)`. v0.11.11 — runtime now matches this DTCG value (was raised-anchored). |
 
 Primary text is `color.text.primary` = `{color.brand.100}` = `#E6E6E6` on canvas. Contrast 13.7:1 — AAA. **Not pure white.** Per the premium-psychology brief: pure white on dark canvas is harsh and fatigues the eye on long-scroll pages. The user-fixed light value `#E6E6E6` is calmer, more readable, and pairs cohesively with the canvas (the same hue, gently lifted).
 

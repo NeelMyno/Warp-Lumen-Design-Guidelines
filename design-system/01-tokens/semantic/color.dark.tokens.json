@@ -5,9 +5,9 @@
     "$description": "SEMANTIC color tokens — DARK mode (Lumen v0.11 default — Obsidian Mint). Mirrors color.light.tokens.json key paths with the obsidian-mint ramp + spring-green accent. Glass + glow utilities are exposed as separate semantic keys for clarity.",
     "surface": {
       "page":    { "$value": "{color.brand.800}", "$description": "Obsidian-mint canvas #171A18 — user-fixed brand dark." },
-      "raised":  { "$value": "{color.brand.700}", "$description": "Raised surface #21241F — sits a hair above canvas with a faint warm-green tilt." },
+      "raised":  { "$value": "{color.brand.700}", "$description": "Raised surface #1B1E1C — sits subtly above canvas with restrained mint tilt. v0.11.11 retune from #21241F (darker + tilt scaled to G+3) so panels read as a card on canvas, not a brighter surface." },
       "sunken":  { "$value": "{color.brand.900}", "$description": "Sunken / scrim base #0E110F." },
-      "popover": { "$value": "{color.brand.600}", "$description": "Floating popover surface #2E3230." },
+      "popover": { "$value": "{color.brand.600}", "$description": "Floating popover surface #232624. v0.11.11 retune from #2E3230 — darker, mint tilt restrained to match the rest of the ramp." },
       "glass":   { "$value": "rgba(23,26,24,0.62)", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%). Re-anchored to brand.800 in v0.11." },
       "overlay": { "$value": "rgba(23,26,24,0.86)" },
       "scrim":   { "$value": "rgba(6,8,7,0.72)" },
@@ -144,8 +144,8 @@
         "$description": "v0.9 — translucent surface for floating overlays. Composes with backdrop-filter: blur(12px). Not a default primary.",
         "bg": {
           "rest":  { "$value": "{color.surface.glass}" },
-          "hover": { "$value": "rgba(33,36,31,0.72)" },
-          "press": { "$value": "rgba(33,36,31,0.86)" }
+          "hover": { "$value": "rgba(23,26,24,0.72)", "$description": "v0.11.11 — canvas-anchored to match surface.glass." },
+          "press": { "$value": "rgba(23,26,24,0.86)", "$description": "v0.11.11 — canvas-anchored to match surface.glass-strong." }
         },
         "fg":     { "$value": "{color.brand.100}" },
         "border": { "$value": "{color.alpha.paper.10}" }
