@@ -163,9 +163,14 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
   return (
     <div className={["flex gap-2 max-w-[80%]", isYou ? "ml-auto flex-row-reverse" : ""].join(" ")}>
       {!isYou && (
+        /* v0.11.13.3 — fg color is conditional. AI variant (lime bg) gets the
+            canonical accent-fg (#07120D); the obsidian-7 variant keeps white.
+            No more white-on-lime — see ADR 0016. */
         <span className={[
-          "h-7 w-7 shrink-0 rounded-full inline-flex items-center justify-center text-[var(--type-11)] font-semibold lumen-mono text-white",
-          from === "ai" ? "bg-[var(--lumen-accent-5)]" : "bg-[var(--lumen-obsidian-7)]",
+          "h-7 w-7 shrink-0 rounded-full inline-flex items-center justify-center text-[var(--type-11)] font-semibold lumen-mono",
+          from === "ai"
+            ? "bg-[var(--lumen-accent-5)] text-[color:var(--lumen-accent-fg)]"
+            : "bg-[var(--lumen-obsidian-7)] text-white",
         ].join(" ")}>
           {from === "ai" ? <Sparkles size={12} /> : "DS"}
         </span>
