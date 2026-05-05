@@ -110,8 +110,15 @@ export function ProgressRing({
           }}
         />
       </svg>
-      <span className="absolute inset-0 flex items-center justify-center text-heading-h6 lumen-tnum">
-        {Math.round(pct)}<span className="text-[var(--text-tertiary)] text-[10px]">%</span>
+      {/* v0.11.12 — bumped centre value from heading-h6 (~16 px) to type-22
+         (22 px), font-bold + tracking-tighter, lumen-tnum. The donut IS
+         the metric; pre-fix the ring carried a number ~25 % of its
+         diameter, which read as "the value is shy." 22 px on a 56 px ring
+         brings the digit-to-ring ratio to ~ 39 %, the common ratio for
+         "this number is the point" (Apple Health rings, Stripe billing
+         donuts). The "%" suffix stays small so the digit leads. */}
+      <span className="absolute inset-0 flex items-center justify-center text-[var(--type-22)] font-bold tracking-[var(--tracking-tighter)] leading-none lumen-tnum text-[var(--text-primary)]">
+        {Math.round(pct)}<span className="text-[var(--text-tertiary)] text-[var(--type-11)] font-medium ml-[1px] -mb-[2px]">%</span>
       </span>
     </div>
   );

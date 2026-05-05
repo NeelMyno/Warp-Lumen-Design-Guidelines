@@ -1,6 +1,6 @@
 import { Section, SubSection } from "@/components/section";
 import { Swatch, SwatchGrid, SwatchRamp } from "@/components/primitives/swatch";
-import { Stat, StatGrid, Sparkline } from "@/components/primitives/stat";
+import { Stat, StatGrid } from "@/components/primitives/stat";
 import { LiveDot } from "@/components/primitives/live-dot";
 import { RateTicker } from "@/components/primitives/rate-ticker";
 import { Button, IconButton } from "@/components/primitives/button";
@@ -91,7 +91,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="md" pill trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.11.11 · Obsidian Mint</Badge>
+            <Badge status="neutral" leadingDot>v0.11.12 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
@@ -780,16 +780,17 @@ export default function FoundationsPage() {
           description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. v0.11 keeps these intact; the 8 pt grid + spring-green-glow ambient amplifies them."
         >
           <SubSection title="Stat — big bold number, mono unit, optional delta + sparkline">
-            <Card padding="lg">
+            <Card padding="lg" className="lumen-stat-card">
               <StatGrid cols={4} divided>
                 <Stat label="Shipments today"   value="1,284"  delta="+12.4% wow" trend="up"
-                  spark={<Sparkline data={[3,4,3,5,6,5,7,8,7,9,10,12]} />} />
+                  sparkData={[3,4,3,5,6,5,7,8,7,9,10,12]} />
                 <Stat label="On-time %"         value="98.2"   unit="%" delta="+0.4 pts"  trend="up"
-                  spark={<Sparkline data={[95,96,96,97,97,98,98,98,98,98,98,98]} />} />
+                  sparkData={[95,96,96,97,97,98,98,98,98,98,98,98]} />
                 <Stat label="Avg cost / pallet" value="$42.10" delta="-3.6%"      trend="down"
-                  spark={<Sparkline data={[48,47,46,45,46,44,43,43,42,42,42,42]} tone="success" />} />
+                  polarity="good-down"
+                  sparkData={[48,47,46,45,46,44,43,43,42,42,42,42]} />
                 <Stat label="Active lanes"      value="1,547"  delta="+18 wk"     trend="up"
-                  spark={<Sparkline data={[1480,1490,1495,1500,1510,1520,1525,1530,1535,1540,1545,1547]} />} />
+                  sparkData={[1480,1490,1495,1500,1510,1520,1525,1530,1535,1540,1545,1547]} />
               </StatGrid>
             </Card>
 

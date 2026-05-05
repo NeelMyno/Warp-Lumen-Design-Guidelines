@@ -215,12 +215,17 @@ export function DonutChart({
           })}
         </g>
         {centerValue && (
-          <text x={size / 2} y={size / 2 - 2} textAnchor="middle" fontSize="20" fontWeight="600" fill="var(--text-primary)" fontFamily="var(--font-sans)">
+          /* v0.11.12 — bumped from 20→24, weight 600→700, tightened tracking.
+             The donut IS the metric; the centre value should command the eye,
+             not whisper. */
+          <text x={size / 2} y={size / 2} textAnchor="middle" dominantBaseline="central" fontSize="24" fontWeight="700" fill="var(--text-primary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums", letterSpacing: "-0.02em" }}>
             {centerValue}
           </text>
         )}
         {centerLabel && (
-          <text x={size / 2} y={size / 2 + 12} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }} letterSpacing="0.04em">
+          /* Tightened y-offset 12→14 so label sits flush under the value
+             without crowding it. Eyebrow casing handles emphasis. */
+          <text x={size / 2} y={size / 2 + 14} textAnchor="middle" fontSize="9" fill="var(--text-tertiary)" fontFamily="var(--font-sans)" style={{ fontVariantNumeric: "tabular-nums" }} letterSpacing="0.04em">
             {centerLabel.toUpperCase()}
           </text>
         )}
@@ -344,21 +349,39 @@ export function Radar({ axes, values }: { axes: string[]; values: number[] }) {
   );
 }
 
-/* ─────────────────────────  TREEMAP  ───────────────────────── */
+/* ─────────────────────────  TREEMAP  ─────────────────────────
+   v0.11.12 — switched tile foreground from `text-white` to a per-tile
+   contrast-aware foreground. White on `var(--lumen-accent-5)` (Spring
+   Green #00FA8A) renders at ~1.4:1 — a WCAG #9 violation and the exact
+   pattern ADR 0018 banned. Tiles backed by spring green now use
+   `accent-fg` (#07120D, AAA on the accent); other CHART_PALETTE entries
+   are dark enough that white still passes, but we route them through
+   the same helper so the rule lives in one place. */
+function chartFgFor(bg: string): string {
+  // Spring-green-anchored palette stops; anything resolving to those
+  // CSS vars must use the dark accent foreground.
+  if (bg.includes("--lumen-accent-5") || bg.includes("--lumen-accent-4") || bg.includes("--lumen-accent-3")) {
+    return "var(--lumen-accent-fg)";
+  }
+  return "var(--text-on-dark, #ffffff)";
+}
+
 export function Treemap({ items }: { items: { label: string; value: number; color?: string }[] }) {
   const total = items.reduce((s, i) => s + i.value, 0);
   return (
     <div className="grid grid-cols-4 gap-1 h-[160px]">
       {items.map((i, idx) => {
         const span = Math.max(1, Math.round((i.value / total) * 4));
+        const bg = i.color ?? CHART_PALETTE[idx % CHART_PALETTE.length];
+        const fg = chartFgFor(bg);
         return (
           <div
             key={idx}
             className="rounded-[var(--radius-xs)] px-2 py-[var(--space-1_5)] flex flex-col justify-end"
-            style={{ background: i.color ?? CHART_PALETTE[idx % CHART_PALETTE.length], gridColumn: `span ${span}` }}
+            style={{ background: bg, color: fg, gridColumn: `span ${span}` }}
           >
-            <div className="text-[var(--type-11)] font-semibold text-white tracking-[var(--tracking-tight)] truncate">{i.label}</div>
-            <div className="text-[10px] text-white/80 lumen-mono">{Math.round((i.value / total) * 100)}%</div>
+            <div className="text-[var(--type-11)] font-semibold tracking-[var(--tracking-tight)] truncate">{i.label}</div>
+            <div className="text-[10px] opacity-80 lumen-mono">{Math.round((i.value / total) * 100)}%</div>
           </div>
         );
       })}
@@ -516,7 +539,15 @@ export function KpiCard({
   );
 }
 
-/* ─────────────────────────  COHORT GRID  ───────────────────────── */
+/* ─────────────────────────  COHORT GRID  ─────────────────────────
+   v0.11.12 — cells used `text-white` over a green-fading-to-sunken
+   ramp. At high retention (cell value ≥ 70%), the bg is mostly
+   `--lumen-accent-6` and white text fails WCAG (~1.4:1). Below ~30%,
+   the bg fades into `--surface-sunken` (dark mode → near-black, light
+   mode → off-white) where white text breaks again on light theme.
+   New rule: when bg leans accent (≥ 50%), use `accent-fg`; below 50%,
+   use the system text-primary so the cell respects whichever theme is
+   active. Same readability logic across light + dark. */
 export function Cohort() {
   const cohorts = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
   const r = rng(42);
@@ -539,16 +570,23 @@ export function Cohort() {
           {rows.map((r, i) => (
             <tr key={i}>
               <td className="px-2 py-[var(--space-1_5)] text-[var(--text-secondary)]">{r.label}</td>
-              {r.cells.map((c, j) => (
-                <td key={j} className="px-1 py-1">
-                  <span
-                    className="block w-9 h-7 rounded-[3px] flex items-center justify-center text-[10px] font-semibold text-white"
-                    style={{ background: `color-mix(in oklab, var(--lumen-accent-6) ${Math.round(c)}%, var(--surface-sunken))` }}
-                  >
-                    {Math.round(c)}
-                  </span>
-                </td>
-              ))}
+              {r.cells.map((c, j) => {
+                const pct = Math.round(c);
+                const onAccent = pct >= 50;
+                return (
+                  <td key={j} className="px-1 py-1">
+                    <span
+                      className="block w-9 h-7 rounded-[3px] flex items-center justify-center text-[10px] font-semibold"
+                      style={{
+                        background: `color-mix(in oklab, var(--lumen-accent-6) ${pct}%, var(--surface-sunken))`,
+                        color: onAccent ? "var(--lumen-accent-fg)" : "var(--text-primary)",
+                      }}
+                    >
+                      {pct}
+                    </span>
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
@@ -557,15 +595,23 @@ export function Cohort() {
   );
 }
 
-/* ─────────────────────────  CHART LEGEND  ───────────────────────── */
+/* ─────────────────────────  CHART LEGEND  ─────────────────────────
+   v0.11.12 — items render as button-shaped surfaces with a hover tint
+   so the legend telegraphs "this is interactive" even when filter
+   wiring isn't installed. Per peak-end rule: the smallest hover gives
+   the dashboard a pulse of life. */
 export function ChartLegend({ items }: { items: { label: string; color: string }[] }) {
   return (
-    <div className="inline-flex flex-wrap items-center gap-3">
+    <div className="inline-flex flex-wrap items-center gap-1">
       {items.map((i) => (
-        <span key={i.label} className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)] text-[var(--text-secondary)]">
-          <span className="h-2 w-2 rounded-[1px]" style={{ background: i.color }} />
+        <button
+          type="button"
+          key={i.label}
+          className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)] text-[var(--text-secondary)] px-2 h-6 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] transition-colors duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
+        >
+          <span className="h-2 w-2 rounded-[1px] shrink-0" style={{ background: i.color }} />
           {i.label}
-        </span>
+        </button>
       ))}
     </div>
   );

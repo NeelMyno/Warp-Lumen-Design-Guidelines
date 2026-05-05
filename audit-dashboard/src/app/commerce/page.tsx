@@ -311,14 +311,33 @@ function Stars({ value, size = 16 }: { value: number; size?: number }) {
   );
 }
 
+/* v0.11.12 — rating histogram bars now carry a sentiment-aware tint:
+   5★ → accent (positive lead), 4★ → mid-accent, 3★ → neutral text,
+   2★ → mid-amber, 1★ → red. Magnitude still shines through bar
+   length (which is the primary cue); colour just amplifies the
+   "did this jacket make people happy?" read at a glance. Bars
+   bumped from 1.5px → 2px height for clearer visual hits, and the
+   percentage reads into type-12 mono (was micro) so it earns its
+   place at this hero-rating scale. */
+const RATING_BAR_TONE: Record<number, string> = {
+  5: "var(--lumen-accent-5)",
+  4: "var(--lumen-accent-7)",
+  3: "var(--text-tertiary)",
+  2: "var(--lumen-amber-5)",
+  1: "var(--lumen-red-5)",
+};
+
 function Bar({ stars, pct }: { stars: number; pct: number }) {
   return (
     <div className="flex items-center gap-2 text-micro">
       <span className="w-3 lumen-mono text-[var(--text-tertiary)]">{stars}</span>
-      <div className="flex-1 h-[var(--space-1_5)] rounded-full bg-[var(--surface-sunken)] overflow-hidden">
-        <div className="h-full bg-[var(--text-primary)]" style={{ width: `${pct}%` }} />
+      <div className="flex-1 h-2 rounded-full bg-[var(--surface-sunken)] overflow-hidden">
+        <div
+          className="h-full rounded-full transition-[width] duration-[var(--motion-medium,320ms)]"
+          style={{ width: `${pct}%`, background: RATING_BAR_TONE[stars] }}
+        />
       </div>
-      <span className="w-8 text-right lumen-mono text-[var(--text-tertiary)]">{pct}%</span>
+      <span className="w-9 text-right lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-secondary)]">{pct}%</span>
     </div>
   );
 }

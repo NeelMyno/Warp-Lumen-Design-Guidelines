@@ -35,10 +35,13 @@ export function RateTicker({
               {r.price}
             </span>
             {r.trend && (
+              /* v0.11.12 — bumped 10→11 px and added font-medium so the
+                 ▲▼ glyph reads cleanly at marquee scale. At 10 px the
+                 arrow nearly disappeared next to a 13-px price. */
               <span
                 aria-hidden
                 className={[
-                  "text-[10px] leading-none",
+                  "text-[var(--type-11)] font-medium leading-none ml-[1px]",
                   r.trend === "up"
                     ? "text-[var(--status-success-fg)]"
                     : "text-[var(--status-danger-fg)]",

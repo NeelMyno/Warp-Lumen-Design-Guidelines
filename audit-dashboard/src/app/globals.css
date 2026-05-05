@@ -2828,3 +2828,46 @@ a { color: inherit; text-decoration: none; }
       0 0 64px rgba(0, 250, 138, 0.14);
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   v0.11.12 — DATA VIZ MICRO-INTERACTIONS
+   ----------------------------------------------------------------------------
+   Two affordances that turn flat dashboard chrome into "live telemetry":
+
+   1. .lumen-spark-pulse — soft breathing dot at the last data point of a
+      Sparkline. The peak-end rule says we remember the moments of delight,
+      not the average. A 3px halo expanding to 4px and fading back is just
+      enough to signal "live, not snapshot" without competing with the
+      number. Frozen for prefers-reduced-motion.
+
+   2. .lumen-stat-card — give a Card containing KPI Stats a hover lift.
+      Keeps them feeling interactive (operator portals open detail on
+      click). Border tints toward `border-default`, surface lifts to
+      `surface-raised`. No transform — premium ≠ bouncy.
+   ════════════════════════════════════════════════════════════════════════════ */
+@keyframes lumen-spark-pulse {
+  0%   { r: 3;   opacity: 0.30; }
+  60%  { r: 6;   opacity: 0;    }
+  100% { r: 6;   opacity: 0;    }
+}
+.lumen-spark-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lumen-spark-pulse 2.4s var(--easing-standard, cubic-bezier(0.2,0,0,1)) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lumen-spark-pulse { animation: none; opacity: 0.30; }
+}
+
+.lumen-stat-card {
+  transition:
+    background-color var(--motion-fast, 160ms) var(--easing-standard, cubic-bezier(0.2,0,0,1)),
+    border-color     var(--motion-fast, 160ms) var(--easing-standard, cubic-bezier(0.2,0,0,1)),
+    box-shadow       var(--motion-fast, 160ms) var(--easing-standard, cubic-bezier(0.2,0,0,1));
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .lumen-stat-card:hover {
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-md);
+  }
+}

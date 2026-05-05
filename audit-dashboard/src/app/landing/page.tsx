@@ -79,14 +79,28 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* STAT BAND */}
+        {/* STAT BAND
+            v0.11.12 — went from 4 cold marketing numbers to 4 numbers
+            with deltas + live sparklines. Per the halo / first-impression
+            principle: visitors form their opinion in 50 ms, and "real
+            live data" sells trust harder than bare claims do.
+            Demoted hero→xl so the sparkline + delta pill don't fight the
+            value for breathing room. */}
         <section className="bg-[var(--surface-sunken)] px-10 py-section-xl border-y border-[var(--border-hairline)]">
           <div className="max-w-default mx-auto">
             <StatGrid cols={4} divided>
-              <Stat label="Shipments routed" value="655K+" size="hero" />
-              <Stat label="On-time"          value="98.2"  unit="%" size="hero" />
-              <Stat label="Cost reduction"   value="27"    unit="%" size="hero" />
-              <Stat label="Lanes covered"    value="1,547" size="hero" />
+              <Stat label="Shipments routed" value="655K+" size="xl"
+                trend="up" delta="+18% qoq"
+                sparkData={[480,510,535,560,590,610,635,655]} />
+              <Stat label="On-time"          value="98.2"  unit="%" size="xl"
+                trend="up" delta="+0.4 pts"
+                sparkData={[97.4,97.6,97.8,97.9,98.0,98.1,98.1,98.2]} />
+              <Stat label="Cost reduction"   value="27"    unit="%" size="xl"
+                trend="up" delta="+2 pts"
+                sparkData={[20,21,23,24,25,26,26,27]} />
+              <Stat label="Lanes covered"    value="1,547" size="xl"
+                trend="up" delta="+18 wk"
+                sparkData={[1450,1470,1485,1500,1515,1525,1535,1547]} />
             </StatGrid>
           </div>
         </section>

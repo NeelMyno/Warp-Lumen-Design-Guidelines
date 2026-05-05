@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/section";
 import { Card, CardHeader } from "@/components/primitives/card";
-import { Stat, StatGrid, Sparkline } from "@/components/primitives/stat";
+import { Stat, StatGrid } from "@/components/primitives/stat";
 import { LiveDot } from "@/components/primitives/live-dot";
 import { Badge } from "@/components/primitives/badge";
 import { Button, IconButton } from "@/components/primitives/button";
@@ -188,17 +188,23 @@ function TopBar() {
 /* ──────────────────  KPI ROW  ────────────────── */
 
 function KpiRow() {
+  /* v0.11.12 — every Stat now uses the new sparkData / polarity API.
+     The AVG COST card carries `polarity="good-down"` so falling cost
+     reads as success in BOTH the trend pill and the sparkline (prior
+     to the fix the pill was red while the spark was green — visible
+     contradiction). All sparks now show a live endpoint pulse. */
   return (
-    <Card padding="lg">
+    <Card padding="lg" className="lumen-stat-card">
       <StatGrid cols={4} divided>
         <Stat label="Shipments today" value="1,284" delta="+12.4% wow" trend="up" size="lg"
-          spark={<Sparkline data={[3,4,3,5,6,5,7,8,7,9,10,12]} />} />
+          sparkData={[3,4,3,5,6,5,7,8,7,9,10,12]} />
         <Stat label="On time" value="98.2" unit="%" delta="+0.4 pts" trend="up" size="lg"
-          spark={<Sparkline data={[95,96,96,97,97,98,98,98,98,98,98,98]} />} />
+          sparkData={[95,96,96,97,97,98,98,98,98,98,98,98]} />
         <Stat label="Avg cost / pallet" value="$42.10" delta="-3.6%" trend="down" size="lg"
-          spark={<Sparkline data={[48,47,46,45,46,44,43,43,42,42,42,42]} tone="success" />} />
+          polarity="good-down"
+          sparkData={[48,47,46,45,46,44,43,43,42,42,42,42]} />
         <Stat label="Active lanes" value="1,547" delta="+18 wk" trend="up" size="lg"
-          spark={<Sparkline data={[1480,1490,1495,1500,1510,1520,1525,1530,1535,1540,1545,1547]} />} />
+          sparkData={[1480,1490,1495,1500,1510,1520,1525,1530,1535,1540,1545,1547]} />
       </StatGrid>
     </Card>
   );
@@ -388,7 +394,7 @@ function SidePanel() {
         </div>
       </Card>
 
-      <Card>
+      <Card className="lumen-stat-card">
         <CardHeader title="On-time index" description="14-day rolling average" />
         <div className="flex items-center gap-4">
           <ProgressRing value={98} tone="success" size={64} stroke={5} />
@@ -425,8 +431,11 @@ function SidePanel() {
 */
 
 function LanePerf() {
+  /* v0.11.12 — sparkData drives auto-tone + endpoint pulse.
+     DFW → PHX is the only lane with negative trend; auto-derived
+     danger tone matches the red pill on its own. */
   return (
-    <Card padding="lg">
+    <Card padding="lg" className="lumen-stat-card">
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex flex-col gap-1">
           <div className="lumen-eyebrow">Lane performance · 7d</div>
@@ -438,13 +447,13 @@ function LanePerf() {
       </div>
       <StatGrid cols={4} divided>
         <Stat label="LAX → SFO" value="98" unit="%" delta="+1.2 pts" trend="up" size="md"
-          spark={<Sparkline data={[92,93,94,94,95,96,97,98]} />} />
+          sparkData={[92,93,94,94,95,96,97,98]} />
         <Stat label="ORD → ATL" value="94" unit="%" delta="+0.4 pts" trend="up" size="md"
-          spark={<Sparkline data={[91,91,92,93,93,94,94,94]} />} />
+          sparkData={[91,91,92,93,93,94,94,94]} />
         <Stat label="DFW → PHX" value="89" unit="%" delta="-0.8 pts" trend="down" size="md"
-          spark={<Sparkline data={[91,90,90,89,89,89,89,89]} tone="danger" />} />
+          sparkData={[91,90,90,89,89,89,89,89]} />
         <Stat label="SEA → DEN" value="96" unit="%" delta="+0.6 pts" trend="up" size="md"
-          spark={<Sparkline data={[94,94,95,95,96,96,96,96]} />} />
+          sparkData={[94,94,95,95,96,96,96,96]} />
       </StatGrid>
     </Card>
   );
