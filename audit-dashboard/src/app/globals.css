@@ -2938,40 +2938,37 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* 3. ─────────────  SCROLL REVEAL (staggered, JS-driven)  ──────────────────
+/* 3. ─────────────  SCROLL REVEAL (CSS-driven stagger)  ────────────────────
    Per micro-interactions.md §3 — fade-in once, never replay, honor reduced
-   motion. The `data-revealed` attribute is set by the observer in
-   primitives/scroll-reveal.tsx.
+   motion. v0.11.13.2 — switched from JS-driven (IntersectionObserver +
+   setTimeout) to a pure-CSS animation gated by a `--reveal-delay` custom
+   property. See primitives/scroll-reveal.tsx for the why (TL;DR: hidden-tab
+   throttling broke the IO+timeout path on first paint).
 
-   v0.11.13.1 — class renamed from .lumen-reveal → .lumen-reveal-stagger to
-   avoid colliding with the existing CSS scroll-timeline implementation
-   (lines 2773–2811) that runs natively on supporting browsers. The two
-   systems serve different needs:
-
-     .lumen-reveal           — CSS scroll-timeline, no JS, no per-child
-                                stagger control. Above-the-fold elements
-                                land at end-state instantly.
-     .lumen-reveal-stagger   — JS IntersectionObserver + requestAnimationFrame
-                                or setTimeout(delay). The only path to
-                                staggered children with explicit delays. */
+   Two systems coexist:
+     .lumen-reveal           — CSS scroll-timeline (animation-timeline:view()),
+                                runs as the element scrolls into view. No
+                                per-child stagger.
+     .lumen-reveal-stagger   — CSS animation that fires on mount with a
+                                per-instance --reveal-delay. The only path to
+                                staggered above-the-fold children. */
 .lumen-reveal-stagger {
-  opacity: 0;
-  transform: translate3d(0, 12px, 0);
-  transition:
-    opacity   var(--motion-slow, 260ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1)),
-    transform var(--motion-slow, 260ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1));
+  /* `forwards` keeps the end-state after the animation completes. The
+     animation fires immediately on mount; `--reveal-delay` shifts the start
+     per child for stagger effects. */
+  animation: lumen-reveal-stagger-anim var(--motion-slow, 260ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1)) var(--reveal-delay, 0ms) both;
   will-change: opacity, transform;
 }
-.lumen-reveal-stagger[data-revealed] {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+@keyframes lumen-reveal-stagger-anim {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .lumen-reveal-stagger {
-    /* Snap to end-state. No transition. */
+    /* Snap to end-state. No animation. */
+    animation: none !important;
     opacity: 1 !important;
     transform: none !important;
-    transition: none !important;
   }
 }
 
