@@ -45,7 +45,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 Lumen
               </span>
               <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[var(--text-accent)] normal-case">
-                v0.11.9
+                v0.11.10
               </span>
               {/* v0.11.6 — pulsing dot replaces the "System v0.11 live" caption.
                   The version is already on the pill; the dot is the only signal that needs to pulse. */}
@@ -97,7 +97,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             </span>
           </div>
           <div className="flex items-center gap-4 lumen-mono-cap">
-            <span>v0.11.9 · reference implementation</span>
+            <span>v0.11.10 · reference implementation</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-[var(--border-strong)]" />
             <a className="lumen-link normal-case tracking-normal" href="https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines">
               github

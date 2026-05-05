@@ -56,13 +56,18 @@ export default function FoundationsPage() {
                 brutalist-frame outer padding (up to 80px) made the original
                 gap read as oversized empty space. */}
             <div className="mt-8 pt-6 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-5">
-              {/* Brand color stops */}
+              {/* Brand color stops — v0.11.10: equal-weight specimens for the
+                  50ms halo. All five tiles get a consistent border-default so
+                  the canvas+raised pair is recognisable as a specimen (not a
+                  ghost outline) and the row reads as five equal anchors of
+                  the system rather than three saturated colours plus two
+                  faint outlines. */}
               <div className="flex items-center gap-2" aria-label="Color anchors">
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--surface-canvas)" }} title="surface.canvas" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--surface-raised)" }} title="surface.raised" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)]" style={{ background: "var(--lumen-accent-4)" }} title="accent.500 · #00FA8A" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--lumen-amber-5)" }} title="status.warning" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-hairline)]" style={{ background: "var(--lumen-red-5)" }} title="status.danger" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--surface-canvas)" }} title="surface.canvas" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--surface-raised)" }} title="surface.raised" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-accent-4)" }} title="accent.500 · #00FA8A" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-amber-5)" }} title="status.warning" />
+                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-red-5)" }} title="status.danger" />
               </div>
               <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
               {/* Live indicator */}
@@ -86,7 +91,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="md" pill trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.11.9 · Obsidian Mint</Badge>
+            <Badge status="neutral" leadingDot>v0.11.10 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
@@ -99,12 +104,12 @@ export default function FoundationsPage() {
           title="Color"
           description="Three families do the work — obsidian-mint (canvas, faint green undertone), neutral (paper + cool grays), accent (Spring Green #00FA8A, the only loud color). Status hues stay polite. v0.11 retunes from v0.4 lime to spring green; the single-accent discipline is unchanged."
         >
-          <SubSection title="Obsidian · the canvas ramp" description="11 stops from cream-paper to void. Slightly cool-warm balanced — never navy. The dark-mode silhouette and the deep-ink moments in light mode.">
+          <SubSection title="Obsidian · the canvas ramp" description="11 stops from paper to void. Faint warm-mint undertone — never navy, never cool gray. The dark-mode silhouette and the deep-ink moments in light mode.">
             <SwatchRamp prefix="obsidian" family="lumen-obsidian" />
           </SubSection>
 
-          <SubSection title="Cream · warm paper + warm neutrals" description="Light-mode canvas, warm-tinted neutrals on dark. Replaces the v0.3 'gray' family.">
-            <SwatchRamp prefix="cream" family="lumen-cream" />
+          <SubSection title="Neutral · paper + cool grays" description="Light-mode canvas and cool-neutral grays on dark. v0.11 retired the warm-cream ramp; the v0.11 alias `--lumen-neutral-N` resolves to the underlying `--lumen-cream-N` ramp until v1.0 retires the legacy name.">
+            <SwatchRamp prefix="neutral" family="lumen-neutral" />
           </SubSection>
 
           <SubSection title="Accent · Spring Green — the only loud color" description="Reads as 'laser' against obsidian-mint without leaving the brand. Used for action / live / success. Never decorative. Adding a second loud color is a brand violation. v0.11 retunes from Warp lime #4ade80 to Spring Green #00FA8A; the discipline is unchanged.">
