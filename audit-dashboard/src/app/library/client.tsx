@@ -1440,7 +1440,7 @@ export function Hero() {
 
         {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
         <div className="mt-20 text-center text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
-          End of library — last refreshed v0.11.12
+          End of library — last refreshed v0.11.13
         </div>
       </article>
 

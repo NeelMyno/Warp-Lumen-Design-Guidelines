@@ -5,10 +5,10 @@
     "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.11). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of obsidian-mint: clean paper-white + obsidian-mint ink + the same spring-green accent. v0.11 retired the warm-cream paper canvas in favor of cool-neutral paper, anchored to the user-fixed light value (#E6E6E6) used as subtle borders / sunken surfaces.",
     "surface": {
       "page":    { "$value": "{color.neutral.50}",  "$description": "Paper canvas #FAFAFA — clean off-white with whisper of warmth. Replaces v0.10 cream paper #fdfcf7." },
-      "raised":  { "$value": "#FFFFFF",              "$description": "Cards, panels, raised surfaces. Pure white pops above paper canvas." },
+      "raised":  { "$value": "{color.absolute.white}", "$description": "Cards, panels, raised surfaces. Pure white pops above paper canvas. v0.11.13 — references {color.absolute.white}." },
       "sunken":  { "$value": "{color.neutral.200}", "$description": "Inputs, table-row hover, sidebar — anchored to user-fixed #E6E6E6." },
-      "popover": { "$value": "#FFFFFF",              "$description": "Floating popover surface." },
-      "glass":   { "$value": "rgba(255,255,255,0.72)", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%)" },
+      "popover": { "$value": "{color.absolute.white}", "$description": "Floating popover surface. v0.11.13 — references {color.absolute.white}." },
+      "glass":   { "$value": "{color.alpha.paper.72}", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%). v0.11.13 — references {color.alpha.paper.72}." },
       "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome." },
       "scrim":   { "$value": "{color.alpha.ink.40}",   "$description": "Modal backdrop." },
       "inverse": { "$value": "{color.brand.800}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." },
@@ -17,7 +17,7 @@
         "$description": "v0.6 — input field surfaces (light mode). Uses sunken neutral so the field reads as inset on the paper canvas.",
         "rest":     { "$value": "{color.neutral.200}", "$description": "Sunken neutral — inset feel against paper. v0.11 anchored to user-fixed #E6E6E6." },
         "hover":    { "$value": "{color.neutral.200}" },
-        "focus":    { "$value": "#FFFFFF", "$description": "Pop to paper-white on focus — cognitive-fluency cue: 'you have my attention'." },
+        "focus":    { "$value": "{color.absolute.white}", "$description": "Pop to paper-white on focus — cognitive-fluency cue: 'you have my attention'. v0.11.13 — references {color.absolute.white}." },
         "readOnly": { "$value": "{color.neutral.200}" },
         "disabled": { "$value": "{color.neutral.50}", "$description": "Even quieter than rest." }
       }
@@ -37,7 +37,7 @@
     },
     "border": {
       "hairline": { "$value": "{color.alpha.ink.06}",  "$description": "Default hairline. Cards, table rows, dividers. The breathing-room separator (per principles §1, §3)." },
-      "subtle":   { "$value": "rgba(23,26,24,0.08)" },
+      "subtle":   { "$value": "{color.alpha.ink.08}",  "$description": "v0.11.13 — references {color.alpha.ink.08} (was inlined rgba(23,26,24,0.08))." },
       "default":  { "$value": "{color.alpha.ink.12}", "$description": "Standard control border." },
       "strong":   { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
       "frame":    { "$value": "{color.alpha.ink.40}", "$description": "v0.4 — brutalist hairline frame border" },
@@ -61,7 +61,7 @@
       },
       "secondary": {
         "bg": {
-          "rest":  { "$value": "#FFFFFF" },
+          "rest":  { "$value": "{color.absolute.white}", "$description": "v0.11.13 — references {color.absolute.white}." },
           "hover": { "$value": "{color.neutral.100}" },
           "press": { "$value": "{color.neutral.100}" }
         },
@@ -106,15 +106,15 @@
           "hover": { "$value": "{color.status.danger.800}" },
           "press": { "$value": "{color.status.danger.800}" }
         },
-        "fg":     { "$value": "#FFFFFF" },
+        "fg":     { "$value": "{color.absolute.white}", "$description": "v0.11.13 — references {color.absolute.white}." },
         "border": { "$value": "transparent" }
       },
       "danger-soft": {
-        "$description": "v0.9 — danger × ghost. Carbon's `danger-ghost` pattern.",
+        "$description": "v0.9 — danger × ghost. Carbon's `danger-ghost` pattern. v0.11.13 — bg.hover/press now reference {color.alpha.danger.08}/{14} primitives.",
         "bg": {
           "rest":  { "$value": "transparent" },
-          "hover": { "$value": "rgba(229,72,77,0.08)" },
-          "press": { "$value": "rgba(229,72,77,0.14)" }
+          "hover": { "$value": "{color.alpha.danger.08}" },
+          "press": { "$value": "{color.alpha.danger.14}" }
         },
         "fg": { "$value": "{color.status.danger.700}" }
       },
@@ -141,11 +141,11 @@
         "border": { "$value": "{color.accent.500}" }
       },
       "glass": {
-        "$description": "v0.9 — translucent surface for floating overlays. Light mode keeps a paper-tinted glass.",
+        "$description": "v0.9 — translucent surface for floating overlays. Light mode keeps a paper-tinted glass. v0.11.13 — hover/press now reference {color.alpha.paper.84}/{94} primitives.",
         "bg": {
           "rest":  { "$value": "{color.surface.glass}" },
-          "hover": { "$value": "rgba(255,255,255,0.84)" },
-          "press": { "$value": "rgba(255,255,255,0.94)" }
+          "hover": { "$value": "{color.alpha.paper.84}" },
+          "press": { "$value": "{color.alpha.paper.94}" }
         },
         "fg":     { "$value": "{color.neutral.900}" },
         "border": { "$value": "{color.alpha.ink.12}" }

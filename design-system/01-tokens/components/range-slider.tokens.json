@@ -1,7 +1,7 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "rangeSlider": {
-    "$description": "v0.7 — Single + dual-handle range slider. Two overlaid <input type='range'> for dual mode. The track is sunken; the active range fills lime; thumbs are white circles with a hairline border for grip affordance.",
+    "$description": "v0.7 — Single + dual-handle range slider. Two overlaid <input type='range'> for dual mode. The track is sunken; the active range fills with the spring-green accent; thumbs are pure-white circles with a hairline border for grip affordance. v0.11.13 — thumb.background now references {color.absolute.white} (was inlined #ffffff).",
     "track": {
       "$description": "The full-width 1 px-tall sunken bar behind the active range.",
       "height":     { "$value": "{dimension.1}", "$description": "4 px — readable but thin." },
@@ -16,7 +16,7 @@
       "$description": "The drag handle. White circle with hairline border. Cursor changes to grab/grabbing on press.",
       "size":       { "$value": "{dimension.4}", "$description": "16 px — meets minimum touch target with hover-area extension." },
       "radius":     { "$value": "{radius.full}" },
-      "background": { "$value": "#ffffff" },
+      "background": { "$value": "{color.absolute.white}", "$description": "v0.11.13 — references {color.absolute.white} (was inlined #ffffff)." },
       "border":     { "$value": "{color.border.strong}" },
       "shadow":     { "$value": "{shadow.sm}" },
       "ringFocus":  { "$value": "{shadow.focus}", "$description": "Lime focus ring around the thumb when keyboard-focused." }

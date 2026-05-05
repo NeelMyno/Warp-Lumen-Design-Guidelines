@@ -1,6 +1,7 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "shadow": {
+    "$description": "Semantic shadow aliases. v0.11.13 — every accent-coloured shadow now references the spring-green {color.alpha.accent.*} primitives. Pre-v0.11.13 the focus rings, button glows, ai-shimmer, input focus + success halos all hardcoded v0.4 lime rgba(74,222,128,X) and so silently bypassed the v0.11 brand recolor. With this rewiring, any future accent retune cascades through every shadow alias automatically. Input.error references {color.alpha.danger.32} (refined v0.11 #E5484D) so the error halo inherits the danger primitive — pre-v0.11.13 it was inlined at the v0.10 #ef4444 RGB.",
     "card": {
       "$value": "{shadow.sm}",
       "$description": "Cards default to a hairline border with this very subtle shadow. Reach for shadow.lifted only when card is genuinely lifting."
@@ -13,12 +14,12 @@
     "floating": { "$value": "{shadow.2xl}" },
     "focus": {
       "$value": [
-        { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+        { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
       ],
-      "$description": "Single-ring focus indicator — fine for surfaces where the button background is NOT lime. For lime-bg surfaces (primary intent), use shadow.focus.dual instead (Atlassian 2024 pattern)."
+      "$description": "Single-ring focus indicator — fine for surfaces where the button background is NOT the spring-green accent. For accent-bg surfaces (primary intent), use shadow.focus.dual instead (Atlassian 2024 pattern). v0.11.13 — colour references the spring-green alpha primitive."
     },
     "focus.dual": {
-      "$description": "v0.9 — Dual-ring focus indicator for lime accent surfaces. Inner 2 px neutral ring separates the focus halo from the lime button so the outer ring maintains 3:1 contrast against the surface (WCAG 2.4.13). Atlassian's 2024 fix — needed because a colored ring on a same-colored surface fails the 3:1 floor.",
+      "$description": "v0.9 — Dual-ring focus indicator for accent surfaces. Inner 2 px neutral ring separates the focus halo from the button so the outer ring maintains 3:1 contrast against the surface (WCAG 2.4.13). Atlassian's 2024 fix — needed because a colored ring on a same-colored surface fails the 3:1 floor.",
       "inner": {
         "$value": [
           { "color": "var(--surface-canvas)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" }
@@ -36,36 +37,36 @@
           { "color": "var(--surface-canvas)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
           { "color": "var(--lumen-accent-4)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
         ],
-        "$description": "v0.9 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible."
+        "$description": "v0.9 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible. Note: the var() refs above are the published runtime CSS-var names so both designers and engineers can render this composed value identically; the underlying source-of-truth is color.surface.page (inner) and color.accent.500 (outer)."
       }
     },
     "button": {
-      "$description": "v0.9 — primary-button glow ladder. Three-state ambient halo: rest → hover → active. Reserved exclusively for primary intent (the lime CTA). Other intents and surfaces ship zero glow.",
+      "$description": "v0.9 — primary-button glow ladder. Three-state ambient halo: rest → hover → active. Reserved exclusively for primary intent (the spring-green CTA). Other intents and surfaces ship zero glow. v0.11.13 — colours migrated from inline lime rgba(74,222,128,X) to the spring-green {color.alpha.accent.*} primitives so the brand recolor cascades.",
       "glow": {
         "rest": {
           "$value": [
-            { "color": "rgba(74,222,128,0.25)", "offsetX": "0px", "offsetY": "0px", "blur": "16px", "spread": "0px" }
+            { "color": "{color.alpha.accent.25}", "offsetX": "0px", "offsetY": "0px", "blur": "16px", "spread": "0px" }
           ],
           "$description": "Default ambient halo on a primary CTA. Soft and steady; signals 'live' without competing with hover."
         },
         "hover": {
           "$value": [
-            { "color": "rgba(74,222,128,0.4)", "offsetX": "0px", "offsetY": "0px", "blur": "24px", "spread": "0px" }
+            { "color": "{color.alpha.accent.40}", "offsetX": "0px", "offsetY": "0px", "blur": "24px", "spread": "0px" }
           ],
           "$description": "Hover halo — wider blur + higher alpha. The Glassmorphism reference's 20→30 doubling, scaled for operator density."
         },
         "active": {
           "$value": [
-            { "color": "rgba(74,222,128,0.2)", "offsetX": "0px", "offsetY": "0px", "blur": "8px", "spread": "0px" }
+            { "color": "{color.alpha.accent.20}", "offsetX": "0px", "offsetY": "0px", "blur": "8px", "spread": "0px" }
           ],
           "$description": "Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale."
         }
       },
       "ai-shimmer": {
         "$value": [
-          { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
+          { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
         ],
-        "$description": "v0.9 — AI-action variant idle border (1 px lime accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`."
+        "$description": "v0.9 — AI-action variant idle border (1 px accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`."
       }
     },
     "accent-glow": {
@@ -73,28 +74,28 @@
       "$description": "Optional outer glow under primary CTAs. Warp signature."
     },
     "input": {
-      "$description": "v0.6 — input field shell shadows. Composed: lit-edge (rest) + focus/error halo (active state). Apply to .lumen-field wrapper, never to the inner <input>.",
+      "$description": "v0.6 — input field shell shadows. Composed: lit-edge (rest) + focus/error halo (active state). Apply to .lumen-field wrapper, never to the inner <input>. v0.11.13 — focus + success refs to spring-green primitives, error refs to refined v0.11 danger primitive.",
       "lit-edge": {
         "$value": [
-          { "color": "rgba(255,255,255,0.06)", "offsetX": "0px", "offsetY": "1px", "blur": "0px", "spread": "0px", "inset": true }
+          { "color": "{color.alpha.paper.06}", "offsetX": "0px", "offsetY": "1px", "blur": "0px", "spread": "0px", "inset": true }
         ],
-        "$description": "1px lit top edge — steals the glass-pane reflection trick from glassmorphism without committing to full glass. Dark mode only; no-op on light."
+        "$description": "1px lit top edge — steals the glass-pane reflection trick from glassmorphism without committing to full glass. Dark mode only; no-op on light. v0.11.13 — references color.alpha.paper.06."
       },
       "focus": {
         "$value": [
-          { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+          { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
         ],
         "$description": "v0.6 — focus halo on .lumen-field wrapper. Same recipe as shadow.focus, namespaced for inputs so future theming can diverge."
       },
       "error": {
         "$value": [
-          { "color": "rgba(239,68,68,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+          { "color": "{color.alpha.danger.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
         ],
-        "$description": "v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus."
+        "$description": "v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus. v0.11.13 — colour now references {color.alpha.danger.32} (refined #E5484D) instead of the inlined v0.10 #ef4444."
       },
       "success": {
         "$value": [
-          { "color": "rgba(74,222,128,0.32)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+          { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
         ],
         "$description": "v0.6 — success halo. Reuses the focus recipe; reserved for explicit post-validation success affordances."
       }

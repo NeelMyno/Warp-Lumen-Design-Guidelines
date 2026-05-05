@@ -66,7 +66,7 @@ Defined in [`01-tokens/primitives/elevation.tokens.json`](../01-tokens/primitive
 | `shadow.xl` | Two-stop: 0 8px 16px @ 6% + 0 24px 48px @ 8% | Modals — the floating-above-page modal-card recipe. |
 | `shadow.2xl` | Two-stop: 0 16px 32px @ 6% + 0 40px 80px @ 10% | Heavy floating — large overlays, hero pop-ins. |
 | `shadow.inset` | Inset 0 1px 1px @ 4% | Pressed-button feel; rarely needed at the surface tier. |
-| `shadow.accent-glow` | `0 14px 34px rgba(74,222,128,0.24)` | **Warp signature green-glow under primary CTAs.** Verbatim from Warp production CSS. |
+| `shadow.accent-glow` | `0 14px 34px rgba(0,250,138,0.24)` | **Warp signature green-glow under primary CTAs.** v0.11 — re-anchored to spring green; opacity preserved verbatim from the v0.4 lime era. v0.11.13 — token now references `{color.alpha.accent.24}` so any future accent retune cascades automatically. |
 
 > [!note]
 > Each tier is a **two-stop composite** (except `xs` and `inset`). The first stop is a tight, dark shadow that defines the edge; the second is a longer, softer shadow that gives the lift. Single-stop shadows look harsh; two-stop produces the natural-light feel that pairs with hairline borders.
@@ -84,7 +84,7 @@ Defined in [`01-tokens/semantic/shadow.tokens.json`](../01-tokens/semantic/shado
 | `shadow.modal` | `shadow.xl` | Modal dialog. |
 | `shadow.toast` | `shadow.lg` | Corner toast. |
 | `shadow.floating` | `shadow.2xl` | Heavy floating overlay. |
-| `shadow.focus` | 3 px lime ring at 32% alpha | Focus ring around any focused control. |
+| `shadow.focus` | 3 px spring-green ring at 32% alpha | Focus ring around any focused control. v0.11 — ring is spring green (`#00FA8A` at 0.32), inheriting `{color.alpha.accent.32}`. |
 | `shadow.accent-glow` | Verbatim Warp recipe | Optional outer glow under primary CTAs. |
 
 ### v0.6 input shadows
@@ -94,9 +94,9 @@ Per [CHANGELOG v0.6](../../CHANGELOG.md), inputs gained their own namespace unde
 | Token | Recipe | Use |
 |---|---|---|
 | `shadow.input.lit-edge` | `inset 0 1px 0 var(--lumen-paper-a06)` (dark mode only; no-op on light) | The lit top edge — the glass-pane reflection trick. See §5. |
-| `shadow.input.focus` | `0 0 0 3px rgba(74,222,128,0.32)` | Focus halo on the wrapper. Same recipe as `shadow.focus`. |
-| `shadow.input.error` | `0 0 0 3px rgba(239,68,68,0.32)` | Error halo. Painted on focus when `[data-invalid=true]`; replaces `shadow.input.focus`. |
-| `shadow.input.success` | `0 0 0 3px rgba(74,222,128,0.32)` | Success halo. Reuses focus recipe; reserved for explicit post-validation success affordances. |
+| `shadow.input.focus` | `0 0 0 3px rgba(0,250,138,0.32)` | Focus halo on the wrapper. Same recipe as `shadow.focus`. v0.11.13 — references `{color.alpha.accent.32}`. |
+| `shadow.input.error` | `0 0 0 3px rgba(229,72,77,0.32)` | Error halo. Painted on focus when `[data-invalid=true]`; replaces `shadow.input.focus`. v0.11.13 — references `{color.alpha.danger.32}` (refined `#E5484D`); was inlined at v0.10's `#ef4444`. |
+| `shadow.input.success` | `0 0 0 3px rgba(0,250,138,0.32)` | Success halo. Reuses focus recipe; reserved for explicit post-validation success affordances. |
 
 ---
 
@@ -143,13 +143,13 @@ box-shadow: inset 0 1px 0 var(--lumen-paper-a06);
 
 ## 6. The accent glow — Warp's signature
 
-The primary-CTA green-glow is Lumen's most recognizable lighting gesture. Verbatim from Warp production CSS:
+The primary-CTA green-glow is Lumen's most recognizable lighting gesture. v0.11 — re-anchored to spring green:
 
 ```
-shadow.accent-glow = 0 14px 34px rgba(74,222,128,0.24)
+shadow.accent-glow = 0 14px 34px rgba(0,250,138,0.24)
 ```
 
-Token path: `shadow.accent-glow` (primitive) and `shadow.accent-glow` (semantic alias). Opacity `0.24` matches `color.alpha.accent.24`. Y-offset `14px` and blur `34px` are the Warp values, **unchanged across versions**.
+Token path: `shadow.accent-glow` (primitive) and `shadow.accent-glow` (semantic alias). v0.11.13 — both now reference `{color.alpha.accent.24}` directly so the colour cascades from the accent ramp; pre-v0.11.13 the colour was inlined as the v0.4 lime literal `rgba(74,222,128,0.24)`, creating a master-child drift between the brand recolor and the shadow source. Opacity `0.24` is preserved verbatim from the v0.4 lime era — it reads with the same atmospheric weight on the new hue. Y-offset `14px` and blur `34px` are the Warp values, **unchanged across versions**.
 
 ### When to apply
 
@@ -172,14 +172,14 @@ The `Card` primitive's `glow` elevation (added v0.4) is a related-but-distinct t
 The focus ring is a single recipe across the system. Per [`accessibility.md`](./accessibility.md) §Hard floor:
 
 ```
-shadow.focus = 0 0 0 3px rgba(74,222,128,0.32)
+shadow.focus = 0 0 0 3px rgba(0,250,138,0.32)
 ```
 
 The recipe is:
 - **3 px spread** — visible-focus minimum per WCAG 2.4.13.
 - **0 px blur** — sharp ring, not a halo. Reads as a deliberate state, not ambient glow.
 - **0 px offset** — sits flush against the control border.
-- **`color.alpha.accent.32`** — 32% lime, distinct enough on cream paper and obsidian canvas alike.
+- **`color.alpha.accent.32`** — 32% spring green (v0.11; was 32% lime pre-v0.11). Distinct enough on paper canvas and obsidian-mint alike.
 
 Per the `:focus-visible` rule in `audit-dashboard/src/app/globals.css`, this shadow is painted on every focusable control by default. The `.lumen-field` wrapper (v0.6) overrides this — the wrapper paints the ring, and the inner `<input>` suppresses its own. See [`forms-and-inputs.md`](./forms-and-inputs.md) §Focus model.
 
@@ -197,8 +197,8 @@ On dark mode (obsidian canvas):
 - **Shadows are subtler.** A black-on-black shadow has nowhere to read against. `shadow.sm` and `shadow.md` use the same primitive recipe in both modes; the visual effect on dark is intentionally quieter.
 - **Lit edge does the lifting.** The 1 px white inset on dark surfaces is what separates a card from the page when the shadow is barely visible.
 - **Hairlines flip from ink-alpha to paper-alpha.** `color.alpha.ink.06` (light) becomes `color.alpha.paper.06` (dark). Same opacity step, opposite color.
-- **The accent glow stays the same.** `rgba(74,222,128,0.24)` reads identically on cream and obsidian — lime is a luminous color and carries its own visibility.
-- **Focus ring stays the same.** Lime at 32% reads on both canvases.
+- **The accent glow stays the same across modes.** `rgba(0,250,138,0.24)` reads identically on paper and obsidian-mint — spring green is a luminous color and carries its own visibility. (v0.11 retuned the hue from lime to spring green; the opacity and recipe are preserved verbatim.)
+- **Focus ring stays the same across modes.** Spring green at 32% reads on both canvases.
 
 The `audit-dashboard/src/app/globals.css` semantic shadow definitions make this concrete: `--shadow-card-dark` etc. are explicit overrides, not `1 - light`.
 

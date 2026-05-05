@@ -3,6 +3,11 @@
   "color": {
     "$type": "color",
     "$description": "Primitive color ramps. Mode-agnostic. Engineers and LLMs do NOT consume these directly — use semantic aliases (color.surface.*, color.text.*, etc.) instead. Lumen v0.11 retunes brand to obsidian-mint (warm-cool near-black with a faint green undertone, anchored at #171A18) and rebuilds the accent as Spring Green #00FA8A. Premium-psychology release: fewer colors, used with confidence.",
+    "absolute": {
+      "$description": "v0.11.13 — Pure black + pure white. Reserved for components that must paint a colour-mode-invariant white or black (range-slider thumb, danger-CTA foreground, light-mode raised + popover surfaces). Use sparingly — most surfaces should reach for a semantic alias (color.surface.*, color.text.*) so light + dark themes can diverge.",
+      "white": { "$value": "#FFFFFF", "$description": "Pure paper. Appears as fixed value on tokens that don't theme-flip (range-slider thumb, danger-CTA fg)." },
+      "black": { "$value": "#000000", "$description": "Pure ink. Reserved for sentinel use (rare). Most ink moments should reach color.brand.900/950 instead." }
+    },
     "brand": {
       "$description": "Obsidian-Mint — the canvas ladder. Anchored at #171A18 (brand.800). A neutral near-black with a faint green undertone (G channel +2 over R, +1 over B) so it reads cohesive against the spring-green accent without competing. Replaces the v0.4–v0.10 obsidian ramp. The dark-mode silhouette and the deep-ink moments in light mode.",
       "50":  { "$value": "#F4F5F4", "$description": "Cream-leaning paper for light theme — slight green tint" },
@@ -70,6 +75,7 @@
       "warning": {
         "$description": "Refined amber — slightly more golden, slightly less saturated than v0.10 (#f59e0b). Reads premium against obsidian-mint without competing with the spring green.",
         "50":  { "$value": "#FFF8E5" },
+        "300": { "$value": "#F5DEA3", "$description": "v0.11.13 — soft warm-gold for warning text on the dark obsidian-mint canvas. ~9.1:1 — AAA. The semantic color.text.warning consumes this stop." },
         "500": { "$value": "#F5B118", "$description": "Brand amber. Calmer than v0.10 #f59e0b." },
         "700": { "$value": "#7A5408", "$description": "Warning text on light. AA-safe." },
         "900": { "$value": "#2A1D04", "$description": "Warning bg on dark." }
@@ -77,6 +83,7 @@
       "danger": {
         "$description": "Refined deep red — desaturated 8% from v0.10 #ef4444 to feel less aggressive. Maintains AA contrast for danger CTAs.",
         "50":  { "$value": "#FDECEB" },
+        "300": { "$value": "#F8A8AA", "$description": "v0.11.13 — softened error text on the dark obsidian-mint canvas. ~6.5:1 — AA Normal. The semantic color.text.error and color.action.danger-soft.fg both consume this stop." },
         "500": { "$value": "#E5484D", "$description": "Brand red. Refined from v0.10 #ef4444." },
         "600": { "$value": "#D02E37", "$description": "Danger CTA hover." },
         "700": { "$value": "#B71D2A", "$description": "Danger CTA bg.rest. AA Normal (5.4:1 white-on-bg)." },
@@ -92,7 +99,7 @@
       }
     },
     "alpha": {
-      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades, and the accent ambient glow. Ink anchored to brand.800-equivalent (#171A18 → 0.04–0.60). Paper anchored to pure white. Accent anchored to spring-green #00FA8A.",
+      "$description": "Translucent overlays. Used for scrims, blurred chrome, ticker fades, and the accent ambient glow. Ink anchored to brand.800-equivalent (#171A18 → 0.04–0.86). Paper anchored to pure white. Accent anchored to spring-green #00FA8A. Void anchored to brand.950 (#060807) for the deepest scrim. Shadow anchored to a fixed neutral (#0E1219) — distinct from the obsidian-mint ramp so dark-mode shadows stay subtle but readable. Danger anchored to refined red.500 (#E5484D).",
       "ink": {
         "04": { "$value": "rgba(23,26,24,0.04)", "$description": "v0.9 — outline-hover bg. Re-anchored to brand.800 in v0.11." },
         "06": { "$value": "rgba(23,26,24,0.06)" },
@@ -102,7 +109,10 @@
         "24": { "$value": "rgba(23,26,24,0.24)" },
         "40": { "$value": "rgba(23,26,24,0.40)" },
         "60": { "$value": "rgba(23,26,24,0.60)" },
-        "84": { "$value": "rgba(23,26,24,0.84)", "$description": "v0.11 — heavy ink scrim for high-contrast moments." }
+        "62": { "$value": "rgba(23,26,24,0.62)", "$description": "v0.11.13 — dark-mode glass surface alpha. Pair with backdrop-filter blur(20px) saturate(140%)." },
+        "72": { "$value": "rgba(23,26,24,0.72)", "$description": "v0.11.13 — dark-mode glass-strong surface alpha. The dark glass-action hover stop." },
+        "84": { "$value": "rgba(23,26,24,0.84)", "$description": "v0.11 — heavy ink scrim for high-contrast moments." },
+        "86": { "$value": "rgba(23,26,24,0.86)", "$description": "v0.11.13 — dark-mode floating overlay alpha. The dark glass-action press stop." }
       },
       "paper": {
         "04": { "$value": "rgba(255,255,255,0.04)", "$description": "v0.9 — outline-hover bg in dark mode." },
@@ -113,22 +123,42 @@
         "16": { "$value": "rgba(255,255,255,0.16)", "$description": "v0.9 — outline-rest border in dark mode." },
         "24": { "$value": "rgba(255,255,255,0.24)", "$description": "v0.9 — outline-hover border in dark mode." },
         "40": { "$value": "rgba(255,255,255,0.40)" },
-        "72": { "$value": "rgba(255,255,255,0.72)" },
-        "84": { "$value": "rgba(255,255,255,0.84)" }
+        "60": { "$value": "rgba(255,255,255,0.60)", "$description": "v0.11.13 — light-mode glass-shadow inset highlight (inner). Used by --shadow-inset on the light theme." },
+        "72": { "$value": "rgba(255,255,255,0.72)", "$description": "Light-mode glass surface alpha. The action.glass.bg.rest stop in light mode." },
+        "80": { "$value": "rgba(255,255,255,0.80)", "$description": "v0.11.13 — light-mode glass-shadow inset highlight (outer). Used by --shadow-glass top edge on the light theme." },
+        "84": { "$value": "rgba(255,255,255,0.84)", "$description": "Light-mode glass-action hover alpha." },
+        "94": { "$value": "rgba(255,255,255,0.94)", "$description": "v0.11.13 — light-mode glass-action press alpha." }
+      },
+      "void": {
+        "$description": "v0.11.13 — alphas anchored to brand.950 (#060807, the deepest stop on the obsidian-mint ramp). Reserved for surfaces that must read deeper than canvas — modal scrims in dark mode where canvas-anchored ink would visually merge with the dark canvas underneath.",
+        "72": { "$value": "rgba(6,8,7,0.72)", "$description": "Dark-mode modal scrim. Reads ~18% darker than alpha.ink.72, which makes the floating modal content feel held above a darker plate." }
+      },
+      "shadow": {
+        "$description": "v0.11.13 — alphas anchored to a fixed neutral (#0E1219, RGB 14,18,25). Distinct from the obsidian-mint brand ramp because shadows want a steady neutral cast independent of brand-color shifts. Used by every shadow.* primitive. Pulled out of inline shadow declarations into this primitive family in v0.11.13 so the shadow color anchor is a single point of maintenance.",
+        "04": { "$value": "rgba(14,18,25,0.04)" },
+        "05": { "$value": "rgba(14,18,25,0.05)" },
+        "06": { "$value": "rgba(14,18,25,0.06)" },
+        "08": { "$value": "rgba(14,18,25,0.08)" },
+        "10": { "$value": "rgba(14,18,25,0.10)" }
       },
       "accent": {
         "$description": "Spring-green alphas. Re-anchored to #00FA8A in v0.11. The accent-glow signature opacity (0.24) is preserved verbatim from the lime era — it reads with the same atmospheric weight on the new hue.",
         "08": { "$value": "rgba(0,250,138,0.08)", "$description": "Whisper tint — table-row hover, subtle accent surfaces." },
         "12": { "$value": "rgba(0,250,138,0.12)", "$description": "Subtle accent tint — card hover, selected state." },
         "16": { "$value": "rgba(0,250,138,0.16)" },
+        "20": { "$value": "rgba(0,250,138,0.20)", "$description": "v0.11.13 — primary-button glow active stop. Press collapse — narrower halo than rest." },
         "24": { "$value": "rgba(0,250,138,0.24)", "$description": "The signature accent-glow opacity — preserved from v0.4." },
+        "25": { "$value": "rgba(0,250,138,0.25)", "$description": "v0.11.13 — primary-button glow rest stop. Soft and steady ambient halo." },
         "32": { "$value": "rgba(0,250,138,0.32)", "$description": "Focus ring opacity." },
-        "40": { "$value": "rgba(0,250,138,0.40)", "$description": "v0.4 — strong glow halo." },
+        "40": { "$value": "rgba(0,250,138,0.40)", "$description": "v0.4 — strong glow halo. Also the primary-button glow hover stop." },
         "64": { "$value": "rgba(0,250,138,0.64)", "$description": "v0.4 — radial aurora hot core." }
       },
       "danger": {
-        "$description": "v0.6 — translucent error halos. Re-anchored to refined danger.500 #E5484D in v0.11.",
-        "12": { "$value": "rgba(229,72,77,0.12)" },
+        "$description": "v0.6 — translucent error halos. Re-anchored to refined danger.500 #E5484D in v0.11. v0.11.13 added the 08/14/18 stops to back the danger-soft × ghost surface in light + dark.",
+        "08": { "$value": "rgba(229,72,77,0.08)", "$description": "v0.11.13 — light-mode danger-soft hover bg." },
+        "12": { "$value": "rgba(229,72,77,0.12)", "$description": "Dark-mode danger-soft hover bg." },
+        "14": { "$value": "rgba(229,72,77,0.14)", "$description": "v0.11.13 — light-mode danger-soft press bg." },
+        "18": { "$value": "rgba(229,72,77,0.18)", "$description": "v0.11.13 — dark-mode danger-soft press bg." },
         "24": { "$value": "rgba(229,72,77,0.24)", "$description": "Error focus-ring opacity" },
         "32": { "$value": "rgba(229,72,77,0.32)" }
       },

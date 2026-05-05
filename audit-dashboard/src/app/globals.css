@@ -151,8 +151,56 @@
   --lumen-paper-a16: rgba(255, 255, 255, 0.16);
   --lumen-paper-a24: rgba(255, 255, 255, 0.24);
   --lumen-paper-a40: rgba(255, 255, 255, 0.40);
+  --lumen-paper-a60: rgba(255, 255, 255, 0.60);  /* v0.11.13 — added so --shadow-inset (light mode) can reference a primitive instead of inlining 0.6. */
   --lumen-paper-a72: rgba(255, 255, 255, 0.72);
+  --lumen-paper-a80: rgba(255, 255, 255, 0.80);  /* v0.11.13 — added so --shadow-glass (light mode) inset highlight can reference a primitive instead of inlining 0.8. */
+  --lumen-paper-a84: rgba(255, 255, 255, 0.84);
   --lumen-paper-a86: rgba(255, 255, 255, 0.86);
+  --lumen-paper-a94: rgba(255, 255, 255, 0.94);
+
+  /* ── v0.11.13 — pure anchors + extended alpha stops ─────────────────────
+     Mirrors the new primitives in design-system/01-tokens/primitives/color.tokens.json
+     (color.absolute.*, color.alpha.ink.62/72/86, color.alpha.paper.94, color.alpha.void.72,
+      color.alpha.danger.*, color.alpha.warning.*, color.alpha.accent.10/16/20/25,
+      color.status.danger.300, color.status.warning.300).
+
+     With these declared here, every runtime var that previously inlined an rgba literal
+     references a single primitive — the same master→child chain as DTCG. When the brand
+     accent retunes, every halo, glow, pill, and status surface inherits automatically.
+  */
+  --lumen-paper-pure: #FFFFFF;
+  --lumen-ink-pure:   #000000;
+
+  /* Canvas-anchored ink alphas (brand.800 = #171A18). 04–86 ladder. */
+  --lumen-ink-a62: rgba(23, 26, 24, 0.62);
+  --lumen-ink-a72: rgba(23, 26, 24, 0.72);
+  --lumen-ink-a86: rgba(23, 26, 24, 0.86);
+
+  /* Void-anchored alphas (brand.950 = #060807). For the deepest scrim
+     beneath modal sheets, where canvas-anchored alpha visually merges. */
+  --lumen-void-a72: rgba(6, 8, 7, 0.72);
+
+  /* Refined-red alphas — anchored at danger.500 #E5484D. */
+  --lumen-red-a08: rgba(229, 72, 77, 0.08);
+  --lumen-red-a12: rgba(229, 72, 77, 0.12);
+  --lumen-red-a14: rgba(229, 72, 77, 0.14);
+  --lumen-red-a16: rgba(229, 72, 77, 0.16);
+  --lumen-red-a18: rgba(229, 72, 77, 0.18);
+  --lumen-red-a20: rgba(229, 72, 77, 0.20);
+  --lumen-red-a24: rgba(229, 72, 77, 0.24);
+  --lumen-red-a32: rgba(229, 72, 77, 0.32);
+
+  /* Refined-amber alphas — anchored at warning.500 #F5B118. */
+  --lumen-amber-a14: rgba(245, 177, 24, 0.14);
+  --lumen-amber-a16: rgba(245, 177, 24, 0.16);
+  --lumen-amber-a22: rgba(245, 177, 24, 0.22);
+  --lumen-amber-a32: rgba(245, 177, 24, 0.32);
+
+  /* Soft text tones — match DTCG status.danger.300 / status.warning.300.
+     Drive --text-error and --text-warning on the dark canvas. Distinct from
+     status.danger.fg / warning.fg which are the badge fg on a tinted bg. */
+  --lumen-red-soft:   #F8A8AA;
+  --lumen-amber-soft: #F5DEA3;
 
   /* ── v0.9 — Button anatomy: per-size paddings, gaps, icon dims, label types ────
      Bound here so the Tailwind arbitrary-value scanner emits direct utilities and
@@ -194,20 +242,26 @@
      zero glow at all states. Honors `prefers-reduced-motion: reduce` (the
      transition is dropped; the glow stays steady at the rest value).
      v0.11 — RGB re-anchored from lime (74, 222, 128) to spring green (0, 250, 138). */
-  --shadow-button-glow-rest:   0 0 16px rgba(0, 250, 138, 0.25);
-  --shadow-button-glow-hover:  0 0 24px rgba(0, 250, 138, 0.40);
-  --shadow-button-glow-active: 0 0 8px  rgba(0, 250, 138, 0.20);
+  --shadow-button-glow-rest:   0 0 16px var(--lumen-lime-a25);  /* v0.11.13 — was rgba(0,250,138,0.25). */
+  --shadow-button-glow-hover:  0 0 24px var(--lumen-lime-a40);  /* v0.11.13 — was rgba(0,250,138,0.40). */
+  --shadow-button-glow-active: 0 0 8px  var(--lumen-lime-a20);  /* v0.11.13 — was rgba(0,250,138,0.20). */
 
   /* ── v0.9 — AI-action shimmer border (idle, paused on hover) ─────────────── */
-  --shadow-button-ai-shimmer:  0 0 0 1px rgba(0, 250, 138, 0.32);
+  --shadow-button-ai-shimmer:  0 0 0 1px var(--lumen-lime-a32); /* v0.11.13 — was rgba(0,250,138,0.32). */
 
   /* spring-green alphas — the signature ambient glow stack
      v0.11 — RGB re-anchored to (0, 250, 138). The var name `--lumen-lime-a*`
      is preserved for backwards-compat through v1.0; new code may reach for
      `--lumen-accent-a*` aliases (also re-anchored). */
   --lumen-lime-a08:  rgba(0, 250, 138, 0.08);
+  --lumen-lime-a10:  rgba(0, 250, 138, 0.10);
   --lumen-lime-a14:  rgba(0, 250, 138, 0.14);
+  --lumen-lime-a16:  rgba(0, 250, 138, 0.16);
+  --lumen-lime-a18:  rgba(0, 250, 138, 0.18);
+  --lumen-lime-a20:  rgba(0, 250, 138, 0.20);
   --lumen-lime-a24:  rgba(0, 250, 138, 0.24);
+  --lumen-lime-a25:  rgba(0, 250, 138, 0.25);
+  --lumen-lime-a28:  rgba(0, 250, 138, 0.28);
   --lumen-lime-a32:  rgba(0, 250, 138, 0.32);
   --lumen-lime-a40:  rgba(0, 250, 138, 0.40);
   --lumen-lime-a64:  rgba(0, 250, 138, 0.64);
@@ -475,11 +529,11 @@
   --surface-page:       var(--lumen-obsidian-8);
   --surface-raised:     var(--lumen-obsidian-7);
   --surface-sunken:     var(--lumen-obsidian-9);
-  --surface-overlay:    rgba(23, 26, 24, 0.86);
+  --surface-overlay:    var(--lumen-ink-a86);   /* v0.11.13 — was rgba(23,26,24,0.86) */
   --surface-popover:    var(--lumen-obsidian-6);
-  --surface-glass:      rgba(23, 26, 24, 0.62);   /* v0.11.11 — re-anchored to canvas (was raised RGB; now matches dark.tokens.json which already declared canvas-anchoring) */
-  --surface-glass-strong: rgba(23, 26, 24, 0.86); /* v0.11.11 — re-anchored to canvas */
-  --surface-scrim:      rgba(2, 2, 3, 0.72);
+  --surface-glass:      var(--lumen-ink-a62);   /* v0.11.13 — was rgba(23,26,24,0.62). Canvas-anchored alpha; matches DTCG dark.surface.glass. */
+  --surface-glass-strong: var(--lumen-ink-a86); /* v0.11.13 — was rgba(23,26,24,0.86). */
+  --surface-scrim:      var(--lumen-void-a72);  /* v0.11.13 — re-anchored to brand.950 (#060807) so the scrim reads ~18% deeper than canvas-alpha. Was rgba(2,2,3,0.72) which was the v0.4 obsidian-derived literal; new value matches DTCG dark.surface.scrim. */
   --surface-inverse:    var(--lumen-cream-0);
   --surface-tint-accent: var(--lumen-lime-a14);
   --surface-tint-strong: var(--lumen-lime-a24);
@@ -502,9 +556,9 @@
   --text-accent:     var(--lumen-accent-3);
   --text-link:       var(--lumen-obsidian-1);  /* v0.11 — match text-primary */
   --text-on-accent:  var(--lumen-accent-fg);
-  --text-error:      #F8A8AA;                  /* v0.11 — softened error text on canvas (6.5:1) */
+  --text-error:      var(--lumen-red-soft);    /* v0.11.13 — references --lumen-red-soft (#F8A8AA, matches DTCG status.danger.300). 6.5:1 AA Normal on canvas. */
   --text-success:    var(--lumen-accent-3);    /* v0.6 — accent per single-accent rule */
-  --text-warning:    #F5DEA3;                  /* v0.11 — warning on canvas (9.1:1 AAA) */
+  --text-warning:    var(--lumen-amber-soft);  /* v0.11.13 — references --lumen-amber-soft (#F5DEA3, matches DTCG status.warning.300). 9.1:1 AAA on canvas. */
 
   --border-hairline: var(--lumen-paper-a06);
   --border-subtle:   var(--lumen-paper-a08);
@@ -518,13 +572,13 @@
   --border-warning:  var(--lumen-amber-5);     /* v0.6 — input warning border */
   --border-input-disabled: var(--lumen-paper-a06); /* v0.6 — muted: no hover/focus follow-through */
 
-  --status-success-bg: rgba(0, 250, 138, 0.16);   /* v0.11 — spring green at 16% on canvas */
+  --status-success-bg: var(--lumen-lime-a16);     /* v0.11.13 — was rgba(0,250,138,0.16). */
   --status-success-fg: var(--lumen-accent-3);
-  --status-warning-bg: rgba(245, 177, 24, 0.16);  /* v0.11 — refined amber #F5B118 at 16% */
+  --status-warning-bg: var(--lumen-amber-a16);    /* v0.11.13 — was rgba(245,177,24,0.16). */
   --status-warning-fg: var(--lumen-amber-3);
-  --status-danger-bg:  rgba(229, 72, 77, 0.16);   /* v0.11 — refined danger.500 #E5484D at 16% */
+  --status-danger-bg:  var(--lumen-red-a16);      /* v0.11.13 — was rgba(229,72,77,0.16). */
   --status-danger-fg:  var(--lumen-red-3);
-  --status-info-bg:    rgba(0, 250, 138, 0.10);   /* v0.11 — spring-green tint */
+  --status-info-bg:    var(--lumen-lime-a10);     /* v0.11.13 — was rgba(0,250,138,0.10). */
   --status-info-fg:    var(--lumen-accent-3);
   --status-neutral-bg: var(--lumen-obsidian-7);
   --status-neutral-fg: var(--lumen-obsidian-1);   /* v0.11.3 — was obsidian-3 (3.6:1 fail at <18px); now obsidian-1 #E6E6E6 (13.7:1 AAA) */
@@ -558,36 +612,36 @@
   --pill-neutral-fg:    var(--lumen-obsidian-1);
   --pill-neutral-border: var(--lumen-paper-a08);
 
-  --pill-accent-bg:     rgba(0, 250, 138, 0.14);
+  --pill-accent-bg:     var(--lumen-lime-a14);   /* v0.11.13 — was rgba(0,250,138,0.14). */
   --pill-accent-fg:     var(--lumen-accent-3);
-  --pill-accent-border: rgba(0, 250, 138, 0.32);
+  --pill-accent-border: var(--lumen-lime-a32);   /* v0.11.13 — was rgba(0,250,138,0.32). */
 
-  --pill-success-bg:    rgba(0, 250, 138, 0.14);
+  --pill-success-bg:    var(--lumen-lime-a14);
   --pill-success-fg:    var(--lumen-accent-3);
-  --pill-success-border: rgba(0, 250, 138, 0.32);
+  --pill-success-border: var(--lumen-lime-a32);
 
-  --pill-warn-bg:       rgba(245, 177, 24, 0.14);
+  --pill-warn-bg:       var(--lumen-amber-a14);  /* v0.11.13 — was rgba(245,177,24,0.14). */
   --pill-warn-fg:       var(--lumen-amber-3);
-  --pill-warn-border:   rgba(245, 177, 24, 0.32);
+  --pill-warn-border:   var(--lumen-amber-a32);  /* v0.11.13 — was rgba(245,177,24,0.32). */
 
-  --pill-danger-bg:     rgba(229, 72, 77, 0.14);
+  --pill-danger-bg:     var(--lumen-red-a14);    /* v0.11.13 — was rgba(229,72,77,0.14). */
   --pill-danger-fg:     var(--lumen-red-3);
-  --pill-danger-border: rgba(229, 72, 77, 0.32);
+  --pill-danger-border: var(--lumen-red-a32);    /* v0.11.13 — was rgba(229,72,77,0.32). */
 
-  --pill-info-bg:       rgba(255, 255, 255, 0.08);
+  --pill-info-bg:       var(--lumen-paper-a08);  /* v0.11.13 — was rgba(255,255,255,0.08). */
   --pill-info-fg:       var(--lumen-obsidian-1);
-  --pill-info-border:   rgba(255, 255, 255, 0.16);
+  --pill-info-border:   var(--lumen-paper-a16);  /* v0.11.13 — was rgba(255,255,255,0.16). */
 
   /* Severity pills — distinct from status because severity is a 4-tier
      ordinal scale (low → critical) not a status, and benefits from
      visually escalating colors: cool neutral → amber → red. */
   --pill-severity-low-bg:        var(--lumen-obsidian-7);
   --pill-severity-low-fg:        var(--lumen-obsidian-1);
-  --pill-severity-med-bg:        rgba(245, 177, 24, 0.14);
+  --pill-severity-med-bg:        var(--lumen-amber-a14);   /* v0.11.13 */
   --pill-severity-med-fg:        var(--lumen-amber-3);
-  --pill-severity-high-bg:       rgba(245, 177, 24, 0.22);
+  --pill-severity-high-bg:       var(--lumen-amber-a22);   /* v0.11.13 — was rgba(245,177,24,0.22). */
   --pill-severity-high-fg:       var(--lumen-amber-2);
-  --pill-severity-critical-bg:   rgba(229, 72, 77, 0.20);
+  --pill-severity-critical-bg:   var(--lumen-red-a20);     /* v0.11.13 — was rgba(229,72,77,0.20). */
   --pill-severity-critical-fg:   var(--lumen-red-2);
 
   /* multi-layer shadows — softer on dark than ink-on-light because there's
@@ -641,7 +695,7 @@
      via comma-separation to preserve the glass-pane top-reflection effect. */
   --shadow-input-lit-edge: inset 0 1px 0 0 var(--lumen-paper-a06);
   --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
-  --shadow-input-error:    0 0 0 3px rgba(229,72,77,0.32);   /* v0.11 — refined danger.500 */
+  --shadow-input-error:    0 0 0 3px var(--lumen-red-a32);   /* v0.11.13 — was rgba(229,72,77,0.32). */
   --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
   --shadow-glow-accent: 0 14px 40px -8px var(--lumen-lime-a40);
   --shadow-glow-accent-strong:
@@ -676,7 +730,7 @@
   --accent:             var(--surface-tint-accent);
   --accent-foreground:  var(--text-accent);
   --destructive:        var(--lumen-red-6); /* v0.9 — was red-5 (#e23b3b, 3.94:1 AA fail). Now red-6 (#c92626, ~5.2:1 AA pass). */
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: var(--lumen-paper-pure); /* v0.11.13 — was #ffffff. */
   --border:             var(--border-default);
   --input:              var(--border-default);
   --ring:               var(--border-focus);
@@ -716,13 +770,13 @@
   --color-action-danger-bg-rest:     var(--lumen-red-6);  /* v0.9 — deepened for AA */
   --color-action-danger-bg-hover:    var(--lumen-red-7);
   --color-action-danger-bg-press:    var(--lumen-red-7);
-  --color-action-danger-fg:          #ffffff;
+  --color-action-danger-fg:          var(--lumen-paper-pure);  /* v0.11.13 — was #ffffff. */
   --color-action-danger-border:      transparent;
 
   --color-action-danger-soft-bg-rest:  transparent;
-  --color-action-danger-soft-bg-hover: rgba(229,72,77,0.12);   /* v0.11 — refined danger.500 #E5484D */
-  --color-action-danger-soft-bg-press: rgba(229,72,77,0.18);
-  --color-action-danger-soft-fg:       #F8A8AA;                /* v0.11 — matches --text-error */
+  --color-action-danger-soft-bg-hover: var(--lumen-red-a12);   /* v0.11.13 — was rgba(229,72,77,0.12). */
+  --color-action-danger-soft-bg-press: var(--lumen-red-a18);   /* v0.11.13 — was rgba(229,72,77,0.18). */
+  --color-action-danger-soft-fg:       var(--lumen-red-soft);  /* v0.11.13 — was #F8A8AA inline; now mirrors --text-error. */
 
   --color-action-ai-bg-rest:         var(--lumen-lime-a14);
   --color-action-ai-bg-hover:        var(--lumen-lime-a24);
@@ -739,8 +793,8 @@
   --color-action-selected-border:    var(--lumen-accent-4);
 
   --color-action-glass-bg-rest:      var(--surface-glass);
-  --color-action-glass-bg-hover:     rgba(23,26,24,0.72);   /* v0.11.11 — canvas-anchored to match --surface-glass */
-  --color-action-glass-bg-press:     rgba(23,26,24,0.86);   /* v0.11.11 — canvas-anchored to match --surface-glass-strong */
+  --color-action-glass-bg-hover:     var(--lumen-ink-a72);    /* v0.11.13 — was rgba(23,26,24,0.72). */
+  --color-action-glass-bg-press:     var(--lumen-ink-a86);    /* v0.11.13 — was rgba(23,26,24,0.86). */
   --color-action-glass-fg:           var(--text-primary);
   --color-action-glass-border:       var(--lumen-paper-a10);
 
@@ -772,12 +826,12 @@
 [data-theme="light"] {
   --surface-canvas:     var(--lumen-cream-0);
   --surface-page:       var(--lumen-cream-0);
-  --surface-raised:     #ffffff;
+  --surface-raised:     var(--lumen-paper-pure);   /* v0.11.13 — was #ffffff. */
   --surface-sunken:     var(--lumen-cream-1);
   --surface-overlay:    var(--lumen-paper-a86);
-  --surface-popover:    #ffffff;
-  --surface-glass:      rgba(255, 255, 255, 0.72);
-  --surface-glass-strong: rgba(255, 255, 255, 0.92);
+  --surface-popover:    var(--lumen-paper-pure);   /* v0.11.13 — was #ffffff. */
+  --surface-glass:      var(--lumen-paper-a72);    /* v0.11.13 — was rgba(255,255,255,0.72). */
+  --surface-glass-strong: var(--lumen-paper-a94);  /* v0.11.13 — bumped 0.92 -> 0.94 to match the new --paper-a94 primitive (matches DTCG glass-action.press). */
   --surface-scrim:      var(--lumen-ink-a40);
   --surface-inverse:    var(--lumen-obsidian-8);
   --surface-tint-accent: var(--lumen-lime-a08);
@@ -787,7 +841,7 @@
      feel against the paper canvas; on focus we pop to paper-white. */
   --surface-input-rest:     var(--lumen-cream-1);
   --surface-input-hover:    var(--lumen-cream-1);
-  --surface-input-focus:    #ffffff;
+  --surface-input-focus:    var(--lumen-paper-pure);  /* v0.11.13 — was #ffffff. */
   --surface-input-readonly: var(--lumen-cream-1);
   --surface-input-disabled: var(--lumen-cream-0);
 
@@ -892,10 +946,10 @@
     0 24px 48px -8px var(--lumen-ink-a16),
     0 48px 96px -24px var(--lumen-ink-a24);
   --shadow-glass:
-    inset 0 1px 0 0 rgba(255,255,255,0.8),
+    inset 0 1px 0 0 var(--lumen-paper-a80),  /* v0.11.13 — references --paper-a80 (was inline rgba(255,255,255,0.8)). */
     inset 0 -1px 0 0 var(--lumen-ink-a04),
     0 16px 40px -12px var(--lumen-ink-a16);
-  --shadow-inset: inset 0 1px 0 0 rgba(255,255,255,0.6);
+  --shadow-inset: inset 0 1px 0 0 var(--lumen-paper-a60);  /* v0.11.13 — references --paper-a60 (was inline rgba(255,255,255,0.6)). */
   /* v0.6 — Reconciled with shadow.focus token. Light mode keeps the same
      3px / a32 recipe; the lime stroke + halo read clearly on cream. */
   --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
@@ -910,7 +964,7 @@
      so the comma-stack composes cleanly. */
   --shadow-input-lit-edge: 0 0 0 0 transparent;
   --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
-  --shadow-input-error:    0 0 0 3px rgba(229,72,77,0.32);   /* v0.11 — refined danger.500 */
+  --shadow-input-error:    0 0 0 3px var(--lumen-red-a32);   /* v0.11.13 — was rgba(229,72,77,0.32). */
   --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
   --shadow-glow-accent: 0 14px 34px -8px var(--lumen-lime-a24);
   --shadow-glow-accent-strong:
@@ -939,7 +993,7 @@
   --accent:             var(--surface-tint-accent);
   --accent-foreground:  var(--text-accent);
   --destructive:        var(--lumen-red-6); /* v0.9 — was red-5; deepened for AA Normal pass. */
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: var(--lumen-paper-pure); /* v0.11.13 — was #ffffff. */
   --border:             var(--border-default);
   --input:              var(--border-default);
   --ring:               var(--border-focus);
@@ -954,7 +1008,7 @@
   --color-action-primary-fg:         var(--lumen-accent-fg); /* v0.11 — #07120D in both themes */
   --color-action-primary-border:     transparent;
 
-  --color-action-secondary-bg-rest:  #ffffff;
+  --color-action-secondary-bg-rest:  var(--lumen-paper-pure);  /* v0.11.13 — was #ffffff. */
   --color-action-secondary-bg-hover: var(--lumen-cream-1);
   --color-action-secondary-bg-press: var(--lumen-cream-1);
   --color-action-secondary-fg:       var(--text-primary);
@@ -975,12 +1029,12 @@
   --color-action-danger-bg-rest:     var(--lumen-red-6);
   --color-action-danger-bg-hover:    var(--lumen-red-7);
   --color-action-danger-bg-press:    var(--lumen-red-7);
-  --color-action-danger-fg:          #ffffff;
+  --color-action-danger-fg:          var(--lumen-paper-pure);  /* v0.11.13 — was #ffffff. */
   --color-action-danger-border:      transparent;
 
   --color-action-danger-soft-bg-rest:  transparent;
-  --color-action-danger-soft-bg-hover: rgba(229,72,77,0.08);   /* v0.11 — refined danger.500 #E5484D */
-  --color-action-danger-soft-bg-press: rgba(229,72,77,0.14);
+  --color-action-danger-soft-bg-hover: var(--lumen-red-a08);   /* v0.11.13 — was rgba(229,72,77,0.08). */
+  --color-action-danger-soft-bg-press: var(--lumen-red-a14);   /* v0.11.13 — was rgba(229,72,77,0.14). */
   --color-action-danger-soft-fg:       var(--lumen-red-6);     /* v0.11 — refined danger.700 */
 
   --color-action-ai-bg-rest:         var(--lumen-lime-a14);
@@ -998,8 +1052,8 @@
   --color-action-selected-border:    var(--lumen-accent-4);
 
   --color-action-glass-bg-rest:      var(--surface-glass);
-  --color-action-glass-bg-hover:     rgba(255,255,255,0.84);
-  --color-action-glass-bg-press:     rgba(255,255,255,0.94);
+  --color-action-glass-bg-hover:     var(--lumen-paper-a84);   /* v0.11.13 — was rgba(255,255,255,0.84). */
+  --color-action-glass-bg-press:     var(--lumen-paper-a94);   /* v0.11.13 — was rgba(255,255,255,0.94). */
   --color-action-glass-fg:           var(--text-primary);
   --color-action-glass-border:       var(--lumen-ink-a12);
 
@@ -2558,9 +2612,9 @@ a { color: inherit; text-decoration: none; }
 .lumen-btn-ai:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-ai-bg-press); animation-play-state: paused; }
 
 @keyframes lumen-btn-ai-shimmer {
-  /* v0.11 — RGB re-anchored to spring green (0, 250, 138). */
-  0%, 100% { box-shadow: 0 0 0 1px rgba(0, 250, 138, 0.32); }
-  50%      { box-shadow: 0 0 0 1px rgba(0, 250, 138, 0.64), 0 0 12px rgba(0, 250, 138, 0.18); }
+  /* v0.11 — RGB re-anchored to spring green (0, 250, 138). v0.11.13 — references --lumen-lime-aXX primitives so a future accent retune cascades. */
+  0%, 100% { box-shadow: 0 0 0 1px var(--lumen-lime-a32); }
+  50%      { box-shadow: 0 0 0 1px var(--lumen-lime-a64), 0 0 12px var(--lumen-lime-a18); }
 }
 
 /* SUCCESS — brief 1.6 s post-action affirmation state (Saved, Booked, Quoted). */
@@ -2686,7 +2740,7 @@ a { color: inherit; text-decoration: none; }
     animation: none !important;
   }
   .lumen-btn-primary { box-shadow: var(--shadow-button-glow-rest); } /* steady glow, no pulse */
-  .lumen-btn-ai      { box-shadow: 0 0 0 1px rgba(0, 250, 138, 0.32); } /* v0.11 — steady spring-green border, no shimmer */
+  .lumen-btn-ai      { box-shadow: 0 0 0 1px var(--lumen-lime-a32); } /* v0.11.13 — references primitive (was rgba(0,250,138,0.32)). */
 }
 
 /* v0.4 — lime-glow CTA halo. Legacy class for hero CTAs that opt into a stronger halo
@@ -2818,14 +2872,14 @@ a { color: inherit; text-decoration: none; }
   .lumen-btn-primary:hover {
     box-shadow:
       var(--shadow-button-glow-hover),
-      0 0 24px rgba(0, 250, 138, 0.20),
-      0 0 48px rgba(0, 250, 138, 0.10);
+      0 0 24px var(--lumen-lime-a20),  /* v0.11.13 — was rgba(0,250,138,0.20). */
+      0 0 48px var(--lumen-lime-a10);  /* v0.11.13 — was rgba(0,250,138,0.10). */
   }
   .lumen-btn-primary.lumen-glow-cta:hover {
     box-shadow:
       var(--shadow-glow-accent-strong),
-      0 0 32px rgba(0, 250, 138, 0.28),
-      0 0 64px rgba(0, 250, 138, 0.14);
+      0 0 32px var(--lumen-lime-a28),  /* v0.11.13 — was rgba(0,250,138,0.28). */
+      0 0 64px var(--lumen-lime-a14);  /* v0.11.13 — was rgba(0,250,138,0.14). */
   }
 }
 
@@ -2924,12 +2978,12 @@ a { color: inherit; text-decoration: none; }
    a stronger halo, and the wordmark shifts to the accent text color. */
 .lumen-mark-link:hover .lumen-mark-ring {
   border-color: var(--border-accent);
-  box-shadow: 0 0 0 2px rgba(0, 250, 138, 0.18);
+  box-shadow: 0 0 0 2px var(--lumen-lime-a18);  /* v0.11.13 — was rgba(0,250,138,0.18). */
 }
 .lumen-mark-link:hover .lumen-mark-core {
   box-shadow:
     0 0 12px var(--lumen-lime-a64),
-    0 0 24px rgba(0, 250, 138, 0.32);
+    0 0 24px var(--lumen-lime-a32);  /* v0.11.13 — was rgba(0,250,138,0.32). */
 }
 @media (prefers-reduced-motion: reduce) {
   .lumen-mark-ring,
