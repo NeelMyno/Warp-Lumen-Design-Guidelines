@@ -11,7 +11,7 @@ import { Tooltip } from "@/components/primitives/tooltip";
 import { ProgressRing } from "@/components/primitives/progress";
 import {
   Home, Truck, Box, MapPin, Inbox, Settings, Bell, Search, Plus,
-  Filter, ArrowRight, Code,
+  Filter, ArrowRight, Code, ChevronLeft, ChevronRight,
 } from "@/components/primitives/icon";
 
 export const metadata = { title: "SaaS Dashboard · Lumen" };
@@ -265,8 +265,8 @@ function ShipmentsTable() {
           />
         </div>
         <div className="flex items-center gap-1">
-          <Button intent="tertiary" size="sm" leadingIcon={<Filter size={13} />}>Filter</Button>
-          <Button intent="secondary" size="sm" trailingIcon={<ArrowRight size={13} />}>Open queue</Button>
+          <Button intent="tertiary" size="sm" leadingIcon={<Filter size={12} />}>Filter</Button>
+          <Button intent="secondary" size="sm" trailingIcon={<ArrowRight size={12} />}>Open queue</Button>
         </div>
       </div>
       <div className="overflow-x-auto">
@@ -305,11 +305,26 @@ function ShipmentsTable() {
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-micro text-[color:var(--text-tertiary)]">
-        <span>7 of 1,284 · refreshed 12 s ago</span>
+      {/* v0.11.15 — pagination footer rebuilt:
+          (1) numbers wrapped in lumen-tnum so they don't shift width as the
+              page index advances ("9 of 1,284" should sit on the same column
+              grid as "7 of 1,284"),
+          (2) text tier bumped from text-tertiary to text-secondary so the
+              footer is AA Normal at 12 px on the dark canvas (was 3.6:1 — AA
+              Large only — at the prior tier),
+          (3) Prev / Next gain directional chevron icons so they read as
+              pagination affordances rather than ambiguous tertiary buttons,
+          (4) the freshness clause keeps text-tertiary so the "refreshed N s
+              ago" reads as ambient metadata while the page-of count carries
+              the AA-tier weight. */}
+      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[length:var(--type-12)]">
+        <span className="lumen-tnum text-[color:var(--text-secondary)]">
+          7 of 1,284
+          <span className="text-[color:var(--text-tertiary)]"> · refreshed 12 s ago</span>
+        </span>
         <div className="flex items-center gap-1">
-          <Button intent="tertiary" size="xs">Prev</Button>
-          <Button intent="tertiary" size="xs">Next</Button>
+          <Button intent="tertiary" size="xs" leadingIcon={<ChevronLeft size={12} />}>Prev</Button>
+          <Button intent="tertiary" size="xs" trailingIcon={<ChevronRight size={12} />}>Next</Button>
         </div>
       </div>
     </Card>
@@ -443,7 +458,16 @@ function LanePerf() {
             Top 4 lanes by volume — quote acceptance vs market floor.
           </div>
         </div>
-        <Badge status="neutral">Refreshed 12 s ago</Badge>
+        {/* v0.11.15 — refresh-indicator pattern. The LiveDot prefix communicates
+            that the value auto-updates (per the v0.11.12 live-telemetry signals);
+            without it, a static "Refreshed N s ago" text reads as a snapshot
+            timestamp rather than a live data feed. The "12" is wrapped in
+            lumen-tnum so the column doesn't shift when the freshness counter
+            advances 9 s -> 12 s -> 18 s. */}
+        <Badge status="neutral" size="sm">
+          <LiveDot size={6} hideLabel />
+          Refreshed <span className="lumen-tnum">12</span> s ago
+        </Badge>
       </div>
       <StatGrid cols={4} divided>
         <Stat label="LAX → SFO" value="98" unit="%" delta="+1.2 pts" trend="up" size="md"

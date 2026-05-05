@@ -257,7 +257,7 @@ function WindowsFrame() {
         <main className="p-4 flex flex-col gap-3">
           <header className="flex items-center justify-between gap-3">
             <h2 className="text-heading-h4 text-[color:var(--text-primary)]">Overview</h2>
-            <Button intent="primary" size="sm" leadingIcon={<Plus size={13} />}>
+            <Button intent="primary" size="sm" leadingIcon={<Plus size={12} />}>
               New shipment
             </Button>
           </header>

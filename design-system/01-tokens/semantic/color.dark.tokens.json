@@ -155,7 +155,12 @@
       "success": { "bg": { "$value": "{color.accent.900}" }, "fg": { "$value": "{color.accent.300}" } },
       "warning": { "bg": { "$value": "{color.status.warning.900}" }, "fg": { "$value": "{color.status.warning.300}" } },
       "danger":  { "bg": { "$value": "{color.status.danger.900}"  }, "fg": { "$value": "{color.status.danger.300}"  } },
-      "info":    { "bg": { "$value": "{color.alpha.accent.12}"    }, "fg": { "$value": "{color.accent.300}" } }
+      "info":    { "bg": { "$value": "{color.alpha.accent.12}"    }, "fg": { "$value": "{color.accent.300}" } },
+      "neutral": {
+        "$description": "v0.11.15 — neutral status pill bg + fg. Pre-v0.11.15 the bg ran through {color.brand.700} (raised), which collided with --surface-raised on Card-mounted badges and made the pill visually disappear. Re-anchored to a paper-alpha overlay so the chip reads as a slight lift on every dark surface (canvas, raised, popover, sunken).",
+        "bg": { "$value": "{color.alpha.paper.04}", "$description": "Translucent overlay so the pill reads on any surface; the paper-alpha sits cooler against the obsidian-mint canvas without competing with the spring-green accent." },
+        "fg": { "$value": "{color.brand.100}",      "$description": "User-fixed brand light #E6E6E6 — 13.4:1 on raised surface (AAA)." }
+      }
     },
     "aurora": {
       "$description": "Radial spring-green ambient glow — the brand's signature lighting gesture. Render as a fixed/absolute pseudo-element behind the page hero with backdrop-filter: blur and the values below. v0.11 keeps the v0.4 recipe verbatim — same opacity, new hue.",

@@ -1,13 +1,13 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Badge",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "stable",
   "deprecated": false,
   "summary": "A small pill that labels status, category, or count. Always paired with a label or shape.",
   "props": {
     "status":     { "type": "enum", "values": ["neutral", "accent", "success", "warning", "danger", "info"], "default": "neutral", "optional": true },
-    "leadingDot": { "type": "boolean", "optional": true, "description": "Defaults true for status variants, false for neutral." },
+    "leadingDot": { "type": "boolean", "optional": true, "description": "Defaults true for status variants, false for neutral. For real-time freshness indicators, prefer composing <LiveDot size={6} hideLabel /> as a child instead — leadingDot renders a static dot; LiveDot ring-pulses on a 3 s loop to communicate liveness." },
     "size":       { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true }
   },
   "tokens": {
@@ -20,6 +20,7 @@
       "color.status.warning.bg", "color.status.warning.fg",
       "color.status.danger.bg",  "color.status.danger.fg",
       "color.status.info.bg",    "color.status.info.fg",
+      "color.status.neutral.bg", "color.status.neutral.fg",
       "color.surface.sunken",    "color.surface.tint-accent",
       "color.text.secondary",
       "color.border.subtle",
@@ -39,17 +40,20 @@
     "do": [
       "Always include a label.",
       "Use sentence case.",
-      "Pair with LiveDot for real-time states."
+      "Pair with LiveDot for real-time states (e.g. <Badge status='neutral'><LiveDot size={6} hideLabel />Refreshed 12 s ago</Badge>).",
+      "Wrap any in-badge digits in <span className='lumen-tnum'> so the chip width holds steady as values advance."
     ],
     "dont": [
       "Don't use accent green for non-action statuses.",
       "Don't use red for non-error contexts.",
-      "Don't put 4+ badges in a row — use BadgeGroup."
+      "Don't put 4+ badges in a row — use BadgeGroup.",
+      "Don't pair status='neutral' with bare text on a Card surface and expect chrome — pre-v0.11.15 the bg matched --surface-raised exactly and the pill disappeared. v0.11.15 re-anchored --pill-neutral-bg to a paper-alpha so the chip reads on every surface; if you write a custom badge-shaped chrome locally, mirror this."
     ]
   },
   "examples": { "web-react": "./examples/primary.tsx" },
   "related": ["LiveDot", "Tag", "StatusDot"],
   "changelog": [
-    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+    { "version": "0.1.0", "type": "Added", "note": "Initial release." },
+    { "version": "0.2.0", "type": "Fixed", "note": "v0.11.15 — neutral pill bg re-anchored to a paper-alpha overlay (was --lumen-obsidian-7, identical to --surface-raised, which made the pill chrome invisible on Card surfaces). Border bumped a08 -> a16 so the chip carries visible chrome even when the alpha overlay is at the perceptual floor. Resolved fg contrast on raised: ~13.4:1 — AAA. Static neutral badges with no status now read on canvas, raised, popover, and sunken alike." }
   ]
 }

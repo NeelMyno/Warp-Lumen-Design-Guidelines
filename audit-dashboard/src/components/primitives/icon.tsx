@@ -24,6 +24,8 @@ import {
   Home as LHome,
   Filter as LFilter,
   ChevronDown as LChevronDown,
+  ChevronLeft as LChevronLeft,
+  ChevronRight as LChevronRight,
   ShoppingCart as LCart,
   User as LUser,
   X as LX,
@@ -56,6 +58,8 @@ export const Bell         = wrap(LBell);
 export const Home         = wrap(LHome);
 export const Filter       = wrap(LFilter);
 export const ChevronDown  = wrap(LChevronDown);
+export const ChevronLeft  = wrap(LChevronLeft);
+export const ChevronRight = wrap(LChevronRight);
 export const Cart         = wrap(LCart);
 export const User         = wrap(LUser);
 export const X            = wrap(LX);

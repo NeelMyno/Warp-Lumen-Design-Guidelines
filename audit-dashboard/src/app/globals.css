@@ -580,7 +580,7 @@
   --status-danger-fg:  var(--lumen-red-3);
   --status-info-bg:    var(--lumen-lime-a10);     /* v0.11.13 — was rgba(0,250,138,0.10). */
   --status-info-fg:    var(--lumen-accent-3);
-  --status-neutral-bg: var(--lumen-obsidian-7);
+  --status-neutral-bg: var(--lumen-paper-a06);    /* v0.11.15 — was --lumen-obsidian-7 (#1B1E1C, identical to --surface-raised) which made the neutral pill visually disappear when placed on a Card. Now translucent paper-alpha so the pill carries visible chrome on canvas, raised, popover, and sunken alike. */
   --status-neutral-fg: var(--lumen-obsidian-1);   /* v0.11.3 — was obsidian-3 (3.6:1 fail at <18px); now obsidian-1 #E6E6E6 (13.7:1 AAA) */
 
   /* ─────────────────────────  PILL TONAL TOKENS — v0.11.3  ────────────────────────
@@ -608,9 +608,17 @@
        info    — #141615 on #FAFAFA ≈ 17.2:1  AAA
        neutral — #141615 on #F1F2F1 ≈ 16.5:1  AAA
   */
-  --pill-neutral-bg:    var(--lumen-obsidian-7);
+  /* v0.11.15 — neutral pill bg + border re-anchored so the badge reads on every dark
+     surface. Pre-v0.11.15 the bg was --lumen-obsidian-7 (#1B1E1C) — exactly equal to
+     --surface-raised, so any <Badge status="neutral"> inside a Card visually disappeared
+     (only the text floated; chrome was invisible). Switching the bg to a paper-alpha
+     overlay (4% white) makes the pill a discernible "lift" on canvas (#171A18), raised
+     (#1B1E1C), popover (#232624), and sunken (#0E110F) alike. The border bumps from a08
+     to a16 so the chrome doesn't depend solely on the bg shift. Resolved fg contrast on
+     the pill against a raised card: ~13.4:1 — AAA. */
+  --pill-neutral-bg:    var(--lumen-paper-a04);
   --pill-neutral-fg:    var(--lumen-obsidian-1);
-  --pill-neutral-border: var(--lumen-paper-a08);
+  --pill-neutral-border: var(--lumen-paper-a16);
 
   --pill-accent-bg:     var(--lumen-lime-a14);   /* v0.11.13 — was rgba(0,250,138,0.14). */
   --pill-accent-fg:     var(--lumen-accent-3);

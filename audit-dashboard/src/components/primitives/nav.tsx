@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { Plus, ChevronDown, Search as SearchIcon, Home, Bell, Inbox, Cart, User, Check } from "./icon";
+import { Plus, ChevronDown, ChevronLeft, ChevronRight, Search as SearchIcon, Home, Bell, Inbox, Cart, User, Check } from "./icon";
 import { FAB as LumenFab } from "./fab";
 import { SplitButton as LumenSplitButton } from "./split-button";
 
@@ -25,9 +25,16 @@ export function Pagination({
     if (current < total - 2) items.push("…");
     items.push(total);
   }
+  /* v0.11.15 — Pagination Prev / Next: literal `‹` and `›` chars replaced
+     with proper ChevronLeft / ChevronRight icon components. The literal arrow
+     glyphs were ~6 px wide on most weights of Satoshi (the keyboard arrow
+     chars optical-shrink relative to the text) and read as a thin tail rather
+     than an affordance. The icon components compose into the same space at
+     12 px stroke-1.5, matching the rest of the navigation chrome and the
+     v0.11.15 saas-page pagination footer. */
   return (
     <nav aria-label="Pagination" className="inline-flex items-center gap-1">
-      <PageBtn disabled={current === 1} onClick={() => onChange?.(current - 1)}>‹ Prev</PageBtn>
+      <PageBtn disabled={current === 1} onClick={() => onChange?.(current - 1)} icon="left">Prev</PageBtn>
       {items.map((p, i) =>
         p === "…" ? (
           <span key={`e${i}`} className="px-2 text-[color:var(--text-tertiary)] text-[length:var(--type-13)]">…</span>
@@ -37,7 +44,7 @@ export function Pagination({
             onClick={() => onChange?.(p)}
             aria-current={p === current ? "page" : undefined}
             className={[
-              "h-8 min-w-[32px] px-3 rounded-[var(--radius-sm)] text-[length:var(--type-13)] lumen-mono transition-colors",
+              "h-8 min-w-[32px] px-3 rounded-[var(--radius-sm)] text-[length:var(--type-13)] lumen-mono lumen-tnum transition-colors",
               p === current
                 ? "bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] font-semibold"
                 : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
@@ -47,18 +54,30 @@ export function Pagination({
           </button>
         ),
       )}
-      <PageBtn disabled={current === total} onClick={() => onChange?.(current + 1)}>Next ›</PageBtn>
+      <PageBtn disabled={current === total} onClick={() => onChange?.(current + 1)} icon="right">Next</PageBtn>
     </nav>
   );
 }
-function PageBtn({ children, disabled, onClick }: { children: ReactNode; disabled?: boolean; onClick?: () => void }) {
+function PageBtn({
+  children,
+  disabled,
+  onClick,
+  icon,
+}: {
+  children: ReactNode;
+  disabled?: boolean;
+  onClick?: () => void;
+  icon?: "left" | "right";
+}) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className="h-8 px-3 rounded-[var(--radius-sm)] text-body-xs text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+      className="h-8 px-3 inline-flex items-center gap-[var(--space-1)] rounded-[var(--radius-sm)] text-body-xs text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
     >
+      {icon === "left" && <ChevronLeft size={12} />}
       {children}
+      {icon === "right" && <ChevronRight size={12} />}
     </button>
   );
 }

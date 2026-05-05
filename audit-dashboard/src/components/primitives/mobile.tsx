@@ -225,7 +225,9 @@ export function CoachMark() {
         Quote a lane in three taps. Swipe up from the bottom edge to begin.
       </p>
       <div className="flex items-center justify-between mt-3 text-[length:var(--type-11)]">
-        <span className="lumen-mono text-[color:var(--lumen-obsidian-3)]">Step 2 of 4</span>
+        {/* v0.11.15 — Step counter wrapped in lumen-tnum so the digit column
+            holds steady as the wizard advances 1/4 -> 2/4 -> 3/4 -> 4/4. */}
+        <span className="lumen-mono lumen-tnum text-[color:var(--text-tertiary)]">Step 2 of 4</span>
         <Button intent="primary" size="sm">Got it</Button>
       </div>
     </div>

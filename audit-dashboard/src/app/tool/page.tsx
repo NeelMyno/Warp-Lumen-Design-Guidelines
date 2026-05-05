@@ -21,7 +21,7 @@ export default function ToolPage() {
         eyebrow="Single-purpose surface"
         title="Web Tool"
         description="Centered canvas, focused control panel, output result. The pattern for any calculator, simulator, or one-shot job."
-        meta={<Badge status="neutral">v0.11.14 · beta</Badge>}
+        meta={<Badge status="neutral">v0.11.15 · beta</Badge>}
       />
 
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
@@ -34,13 +34,13 @@ export default function ToolPage() {
             <span className="text-heading-h6 text-[color:var(--text-primary)]">
               Quote Builder
             </span>
-            <Badge status="neutral" size="sm">v0.11.14</Badge>
+            <Badge status="neutral" size="sm">v0.11.15</Badge>
             <LiveDot label="Auto-quoting" />
           </div>
           <div className="flex items-center gap-[var(--space-1_5)]">
-            <Button intent="tertiary" size="sm" leadingIcon={<Code size={13} />}>View JSON</Button>
+            <Button intent="tertiary" size="sm" leadingIcon={<Code size={12} />}>View JSON</Button>
             <Button intent="secondary" size="sm">Save preset</Button>
-            <Button intent="primary" size="sm" trailingIcon={<ArrowRight size={13} />}>Get rates</Button>
+            <Button intent="primary" size="sm" trailingIcon={<ArrowRight size={12} />}>Get rates</Button>
           </div>
         </header>
 
@@ -152,7 +152,7 @@ export default function ToolPage() {
                 <Badge status="accent" leadingDot>Best value</Badge>
               </div>
               <Stat label="Total" value="$262" unit=".00" size="md" />
-              <Button intent="primary" fullWidth size="sm" className="mt-3" trailingIcon={<ArrowRight size={13} />}>
+              <Button intent="primary" fullWidth size="sm" className="mt-3" trailingIcon={<ArrowRight size={12} />}>
                 Book now
               </Button>
             </Card>
@@ -183,8 +183,12 @@ export default function ToolPage() {
             ))}
 
             <ProgressBar value={6 / 14 * 100} tone="accent" size="sm" />
-            <div className="text-micro text-[color:var(--text-tertiary)] -mt-1">
-              Showing 6 of 14 carriers · refreshes every 60 s
+            {/* v0.11.15 — numbers wrapped in lumen-tnum so the count column doesn't
+                shift when the carrier list pagination advances; freshness clause
+                drops to text-tertiary so the page-of count carries the AA weight. */}
+            <div className="text-[length:var(--type-12)] text-[color:var(--text-secondary)] -mt-1 lumen-tnum">
+              Showing 6 of 14 carriers
+              <span className="text-[color:var(--text-tertiary)]"> · refreshes every 60 s</span>
             </div>
           </aside>
         </div>

@@ -155,7 +155,12 @@
       "success": { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } },
       "warning": { "bg": { "$value": "{color.status.warning.50}"    }, "fg": { "$value": "{color.status.warning.700}" } },
       "danger":  { "bg": { "$value": "{color.status.danger.50}"     }, "fg": { "$value": "{color.status.danger.700}"  } },
-      "info":    { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } }
+      "info":    { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } },
+      "neutral": {
+        "$description": "v0.11.15 — neutral status pill bg + fg in light mode. Light mode mirror of the dark fix; raised cream backgrounds already gave neutral pills sufficient contrast pre-v0.11.15, so the value is unchanged in this mode. Declared here for mode parity with the dark token tree.",
+        "bg": { "$value": "{color.neutral.100}", "$description": "Raised neutral surface #F1F2F1 — 16.5:1 on cream-9 ink (AAA)." },
+        "fg": { "$value": "{color.neutral.900}", "$description": "Cool-neutral deep ink #141615." }
+      }
     },
     "aurora": {
       "$description": "Radial spring-green ambient glow — softer in light mode (paper canvas carries less contrast headroom).",
