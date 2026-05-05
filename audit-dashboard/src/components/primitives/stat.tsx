@@ -126,9 +126,23 @@ export function Stat({
         )}
       </div>
       {(delta || renderedSpark) && (
+        /* v0.11.16 — delta-pill + sparkline composition rebuilt for cross-column alignment.
+           Pre-v0.11.16 the row was `flex items-center gap-3 mt-1` and the sparkline trailed
+           directly after the variable-width delta pill (gap-3). Across a StatGrid cols={4},
+           that meant every column's sparkline started at a different X position (one pill
+           said "+12.4% wow" — wide; another said "▼ -3.6%" — narrow), and the sparklines
+           visually scattered with no shared right-edge or left-edge to scan against. The
+           four columns read as four disconnected stats instead of a row of comparable KPIs.
+
+           Fix: keep the delta pill at the row's left edge, push the sparkline to the right
+           edge via ml-auto on its wrapper. Now the sparkline endpoints sit on a consistent
+           grid line — column-edge-aligned across the whole StatGrid — which is the
+           Linear/Stripe/Apple-Health convention. When only one of {delta, spark} is present,
+           ml-auto degenerates correctly: spark-only goes right (column-edge), delta-only
+           goes left (column-start). The visual rhythm holds across every Stat consumer
+           system-wide (KpiRow, LanePerf, side panels, foundations data section). */
         <div className="flex items-center gap-3 mt-1">
           {delta && trend && (
-            /* v0.5: arbitrary-value type — review for semantic preset (type-11 delta pill) */
             <span
               className={[
                 "inline-flex items-center gap-1 px-[var(--space-1_5)] h-[18px] rounded-[var(--radius-full)]",
@@ -143,7 +157,9 @@ export function Stat({
               {delta}
             </span>
           )}
-          {renderedSpark}
+          {renderedSpark && (
+            <div className="ml-auto shrink-0">{renderedSpark}</div>
+          )}
         </div>
       )}
     </div>
