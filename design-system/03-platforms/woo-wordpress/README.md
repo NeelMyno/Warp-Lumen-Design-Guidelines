@@ -2,13 +2,15 @@
 
 > Stack: WordPress 6.5+, WooCommerce 8+, block themes (FSE). Lumen tokens delivered as a `theme.json` patch + a CSS file enqueued via PHP.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit; the enqueued CSS regenerates against the updated primitive → semantic → component graph.
+
 ## Setup
 
 ### 1. Add Lumen tokens to your theme
 
 In your theme folder, create `lumen-tokens.css`:
 ```bash
-curl -L -o lumen-tokens.css "https://cdn.warp.dev/lumen/v0.1.0/css/tokens.css"
+curl -L -o lumen-tokens.css "https://cdn.warp.dev/lumen/v0.11.13/css/tokens.css"
 ```
 
 Enqueue in `functions.php`:
@@ -18,7 +20,7 @@ add_action('wp_enqueue_scripts', function() {
     'lumen-tokens',
     get_stylesheet_directory_uri() . '/lumen-tokens.css',
     [],
-    '0.1.0'
+    '0.11.13'
   );
 });
 ```
@@ -196,7 +198,7 @@ add_action('wp_enqueue_scripts', function() {
     'lumen-field',
     get_stylesheet_directory_uri() . '/lumen-field.css',
     ['lumen-tokens'], // depends on tokens being registered first
-    '0.6.0'
+    '0.11.13'
   );
 });
 ```

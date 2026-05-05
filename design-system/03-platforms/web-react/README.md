@@ -2,6 +2,8 @@
 
 > The default platform. Stack: Next.js 16 App Router, React 19, Tailwind v4, shadcn/ui-style component delivery, Satoshi self-hosted via `next/font/local`.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. The system now ships seven principles (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit so every consumer of these tokens inherits cleanly through primitive → semantic → component layers.
+
 ## Setup
 
 ### 1. Create the app
@@ -15,7 +17,7 @@ Copy the built tokens from `lumen-dist`:
 
 ```bash
 mkdir -p src/styles
-curl -L -o src/styles/lumen.css "https://cdn.warp.dev/lumen/v0.1.0/tailwind/theme.css"
+curl -L -o src/styles/lumen.css "https://cdn.warp.dev/lumen/v0.11.13/tailwind/theme.css"
 ```
 
 Or pull as a registry source via shadcn (see "Components" below).
@@ -54,7 +56,7 @@ const satoshi = localFont({
 
 ### 5. Set the data attributes
 On `<html>`:
-- `data-mood="obsidian-lime"` (or one of the alternates)
+- `data-mood="default"` — the v0.11 system collapsed to a single Obsidian Mint mood (the multi-mood architecture was simplified in the recolor). Set this for forward-compat.
 - `data-theme="light"` or `"dark"` (toggle from a client component)
 
 ## Components
@@ -228,7 +230,7 @@ pnpm dlx shadcn@latest add https://cdn.warp.dev/lumen/registry/checkbox.json
 pnpm dlx shadcn@latest add https://cdn.warp.dev/lumen/registry/textarea.json
 ```
 
-The registry index at `https://cdn.warp.dev/lumen/registry.json` lists all 21 v0.6 component contracts. The CSS recipe layer (the `.lumen-field` block) is bundled with the first form-primitive install and not re-emitted on subsequent ones.
+The registry index at `https://cdn.warp.dev/lumen/registry.json` lists all 35 v0.11.13 component contracts. The CSS recipe layer (the `.lumen-field` block) is bundled with the first form-primitive install and not re-emitted on subsequent ones.
 
 ### React 19 form hook integration
 

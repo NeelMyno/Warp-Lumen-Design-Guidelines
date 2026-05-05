@@ -2,6 +2,8 @@
 
 > Stack: Shopify Online Store 2.0 themes. Lumen tokens delivered as a `.css.liquid` snippet that injects CSS variables; Satoshi loaded via Shopify's font picker workaround (custom font upload).
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit; the Liquid-template defaults below now match v0.11 anchors so Shopify themes don't ship old colours by accident.
+
 ## Setup
 
 ### 1. Add the Lumen tokens snippet
@@ -39,7 +41,7 @@ Drop the woff2 files in `assets/` and reference via `asset_url`.
 <!doctype html>
 <html
   lang="{{ request.locale.iso_code }}"
-  data-mood="obsidian-lime"
+  data-mood="default"
   data-theme="light"
 >
 ```
@@ -200,7 +202,7 @@ Tokens emit as CSS custom properties via `lumen-tokens.css.liquid` — same name
 | `input.padding.x.md` | `input_padding_x_md` (range, 8–20) | Theme Editor → Form & inputs |
 | `input.background.rest` | `input_background_rest` (color picker) | Theme Editor → Form & inputs |
 | `input.border.rest` | `input_border_rest` (color picker) | Theme Editor → Form & inputs |
-| `input.border.focus` | `input_border_focus` (color picker, defaults to Lumen lime) | Theme Editor → Form & inputs |
+| `input.border.focus` | `input_border_focus` (color picker, defaults to Lumen spring green `#00FA8A`) | Theme Editor → Form & inputs |
 | `input.ring.focus` | (not exposed; CSS-managed) | shipped in `lumen.css` |
 | `input.transition` | (not exposed) | shipped |
 
@@ -211,9 +213,9 @@ Wire the schema settings through the snippet:
   :root {
     --size-control-md: {{ settings.input_height_md | default: 40 }}px;
     --space-3:        {{ settings.input_padding_x_md | default: 12 }}px;
-    --surface-input-rest: {{ settings.input_background_rest | default: '#fafaf7' }};
-    --border-default: {{ settings.input_border_rest | default: '#d4d4d0' }};
-    --border-focus:   {{ settings.input_border_focus | default: '#84cc16' }};
+    --surface-input-rest: {{ settings.input_background_rest | default: '#FAFAFA' }};
+    --border-default: {{ settings.input_border_rest | default: '#D2D4D3' }};
+    --border-focus:   {{ settings.input_border_focus | default: '#00FA8A' }};
   }
 {% endstyle %}
 ```

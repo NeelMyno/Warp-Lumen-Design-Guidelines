@@ -1,21 +1,43 @@
 ---
-description: Lumen design system rules for Cursor
+description: Lumen design system rules for Cursor (v0.11.13 — Premium Psychology recolor)
 globs: ["**/*.{ts,tsx,jsx,js,css,scss,md,json,swift,kt,liquid,xml}"]
 alwaysApply: true
 ---
 
 # Lumen design system — Cursor rules
 
-> Mirror of [AGENTS.md](../../AGENTS.md). If the file you're editing references Lumen tokens or components, these rules apply.
+> Mirror of [AGENTS.md](../../AGENTS.md). AGENTS.md is the source of truth — read it for the full 9 hard rules, setup commands, deprecation policy, and trust levels. This file is the short-form Cursor view.
+
+## What this repo is
+
+Lumen is the source of truth for Warp's UI: design tokens (DTCG JSON), component contracts (Markdown + JSON sidecars), and platform consumption guides. No shipped product code lives here — consumers pull Lumen via shadcn registry / Swift Package / Compose module.
+
+## v0.11 — Premium Psychology recolor (current)
+
+Brand anchors:
+
+- Spring Green `#00FA8A` (accent, single role: action / live / success)
+- Obsidian Mint `#171A18` (dark canvas)
+- `#E6E6E6` (light anchor / primary text on dark)
+- `#FAFAFA` (paper)
+
+Single typeface: Satoshi covers UI, display, body, numerics, code, editorial. v0.11 grew principles from 5 → 7 and added three foundations: [`hierarchy.md`](../../design-system/00-foundations/hierarchy.md), [`first-impression.md`](../../design-system/00-foundations/first-impression.md), [`micro-interactions.md`](../../design-system/00-foundations/micro-interactions.md). Brand contract: [ADR 0018](../../_meta/decisions/0018-premium-psychology-recolor.md).
 
 ## Hard rules
 
-1. **Never hardcode tokens.** Use semantic tokens (`var(--color-surface-page)`, `LumenTokens.text.primary`, etc.). Lint catches raw hex/px in component code.
-2. **Use SEMANTIC tokens, not primitives.** `color.surface.default`, not `color.warm.50`.
-3. **Component contracts (`component.json`) must validate against `/design-system/02-components/_schema/component.schema.json`.**
-4. **Accessibility floor: WCAG 2.2 AA.** Visible focus, contrast, keyboard reachability, accessible name.
-5. **Warp green (`accent.500` = `#4ade80`) plays one role only**: action / live / success. Never decorative.
-6. **Honor `prefers-reduced-motion`.**
+1. **Never invent tokens.** No raw hex, px, or font stacks in component code. Need a value? Add a semantic alias via PR + ADR.
+2. **Always reference SEMANTIC tokens, never primitives.** `color.surface.default`, NOT `color.warm.50`. `space.4`, NOT `dimension.4`. `radius.card.default`, NOT `radius.lg`. Lint enforces this.
+3. **Every component contract validates against** `/design-system/02-components/_schema/component.schema.json`. Missing required fields blocks merge.
+4. **Every component ships `component.json` before any code template** — the JSON is what LLMs and the MCP server read.
+5. **WCAG 2.2 AA, hard floor.** Visible focus, ≥ 4.5:1 text contrast (≥ 3:1 large text), keyboard reachability, accessible name. AAA where free.
+6. **Use the platform-appropriate code template** from `02-components/{name}/examples/`. Don't reinvent a pattern that exists.
+7. **Spring Green accent (`color.accent.500` = `#00FA8A`) plays exactly ONE role**: action / live / success. Never decorative. Never a second accent. Never on non-action chrome. (v0.11 evolved accent from lime `#4ade80` to spring green `#00FA8A`; the single-accent discipline is unchanged.)
+8. **Honor `prefers-reduced-motion`** in everything that animates. Failing this fails CI.
+9. **Never render white or near-white text on the spring green accent.** Foreground is bound to `color.accent.fg` (`#07120D`, ~14.7:1 AAA on `#00FA8A`); white-on-spring-green is ≈1.4:1, a WCAG fail.
+   - DO NOT use shadcn token-bridge utilities (`bg-primary`/`text-primary-foreground`, `bg-card`/`text-card-foreground`, `bg-popover`/`text-popover-foreground`, etc.) in product code — Tailwind v4's content scanner has been observed to drop them, leaving inherited near-white.
+   - DO use the `.lumen-btn-*` defensive class family (`.lumen-btn-primary`, `.lumen-btn-secondary`, `.lumen-btn-ghost`, etc.) declared in `audit-dashboard/src/app/globals.css`.
+   - DO use direct semantic refs for one-offs: `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]` (audit-dashboard) or `bg-[var(--color-action-primary-bg-rest)] text-[var(--color-action-primary-fg)]` (canonical via the v0.9 action-surface bridge).
+   - Lint rule `lint:no-white-on-accent` enforces both halves automatically.
 
 ## Token quick reference
 
@@ -27,30 +49,34 @@ alwaysApply: true
 | Secondary text | `color.text.secondary` |
 | Hairline border | `color.border.subtle` |
 | Primary CTA bg | `color.action.primary.bg.rest` |
+| Primary CTA fg | `color.action.primary.fg` |
 | Success bg/fg | `color.status.success.bg` / `.fg` |
 | Default radius (cards) | `radius.card.default` |
 | Default radius (buttons) | `radius.control.md` |
 | Default UI motion | `motion.transition.base` |
 
-## When generating Lumen UI code
+## Generating Lumen UI in Cursor
 
-- Web: Tailwind v4 utilities mapped to Lumen tokens via `@theme`. `bg-page`, `text-fg`, `rounded-lg`, etc.
-- React Native: NativeWind with `@lumen/tokens-rn`.
-- iOS: `LumenTokens.{layer}.{key}` from the Swift Package.
-- Android: `LumenTokens.{Layer}.{key}` from the Compose object.
+- **Web (Tailwind v4 only — no v3 config files).** Theme lives in `_build/tailwind/theme.css` via `@theme`. Use Lumen-mapped utilities (`bg-page`, `text-fg`, `rounded-lg`) or arbitrary semantic refs (`bg-[var(--color-surface-page)]`). Never raw hex like `bg-[#00FA8A]` or legacy `bg-warm-50`.
+- **React Native.** NativeWind with `@lumen/tokens-rn`.
+- **iOS.** `LumenTokens.{layer}.{key}` from the Swift Package. SwiftUI for new code.
+- **Android.** `LumenTokens.{Layer}.{key}` from the Compose object. Jetpack Compose for new code.
+- TypeScript strict, no `any`. Function components + hooks; no class components.
+- File naming: kebab-case for component folders (`live-dot/`, `empty-state/`); PascalCase in code (`LiveDot`, `EmptyState`).
 
 ## Generation workflow
 
 When asked to create a new UI piece:
 
-1. Check `design-system/02-components/` for the closest existing component.
-2. Compose using existing components.
-3. If no fit exists, follow `_meta/prompts/new-component.md`.
-4. Use the voice rules in `design-system/04-content/ui-writing-style.md` for any copy.
+1. Search `design-system/02-components/` for the closest existing component.
+2. Compose using existing components first.
+3. If no fit exists, follow `_meta/prompts/new-component.md`. Create `component.md` + `component.json`, validate against the schema, add ≥ 1 `web-react` example, add `_registry/{name}.json` sidecar, add to `_registry/registry.json`, add a CHANGELOG entry. Surface for human review (DRAFT-PR trust level).
+4. Use the voice rules in `design-system/04-content/ui-writing-style.md` for any copy. Avoid the banned phrases in `design-system/04-content/microcopy.md`.
 5. Cite token paths in inline comments where it adds clarity.
 
 ## When unsure
 
-- Look at `audit-dashboard/src/` for working examples of every component pattern.
-- Read the `component.md` of the closest match.
+- Look at `audit-dashboard/src/` — it's the live reference implementation that exercises every token, primitive, and component pattern.
+- Read the `component.md` AND `component.json` of the closest match together.
+- Check `_meta/decisions/` for an ADR on the topic.
 - Surface the question — don't guess.

@@ -2,6 +2,8 @@
 
 > Stack: BigCommerce Stencil framework, SCSS + Handlebars. Lumen tokens delivered as a SCSS partial generated from `_build/json/tokens.flat.json`.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit; the SCSS partial regenerates against the updated primitive → semantic → component graph.
+
 ## Setup
 
 ### 1. Install Stencil CLI
@@ -13,7 +15,7 @@ npm install -g @bigcommerce/stencil-cli
 ```bash
 mkdir -p assets/scss/lumen
 curl -L -o assets/scss/lumen/_tokens.scss \
-  "https://cdn.warp.dev/lumen/v0.1.0/scss/tokens.scss"
+  "https://cdn.warp.dev/lumen/v0.11.13/scss/tokens.scss"
 ```
 
 In your main SCSS file:
@@ -75,7 +77,7 @@ Add a theme toggle component (Stencil supports them via Page Builder customizati
 ## Things to know
 
 - BigCommerce caches CSS aggressively. Bump version on `theme.json` to bust cache.
-- Stencil's `theme.json` defines the customizable variables exposed in Page Builder. Add Lumen mood as a custom theme variable. v0.4 ships only `obsidian-lime`; future mood alternates would live behind the same hook without breaking templates.
+- Stencil's `theme.json` defines the customizable variables exposed in Page Builder. Add Lumen mood as a custom theme variable. v0.11 ships a single Obsidian Mint mood (the multi-mood architecture was simplified during the Premium Psychology recolor); future mood alternates would live behind the same hook without breaking templates.
 - For checkout: BigCommerce supports custom checkout theming on Plus accounts. Apply Lumen tokens there too.
 
 ## Forms & inputs (v0.6 mapping)
@@ -190,7 +192,7 @@ Tokens emit as CSS custom properties via `assets/scss/lumen/_tokens.scss` — sa
 | `input.padding.x.md` | `input-padding-x-md` | Page Builder → Forms |
 | `input.background.rest` | `input-background-rest` (color) | Page Builder → Forms |
 | `input.border.rest` | `input-border-rest` (color) | Page Builder → Forms |
-| `input.border.focus` | `input-border-focus` (color, defaults to Lumen lime) | Page Builder → Forms |
+| `input.border.focus` | `input-border-focus` (color, defaults to Lumen spring green `#00FA8A`) | Page Builder → Forms |
 | `input.ring.focus` | (not exposed; SCSS-managed) | shipped in `_field.scss` |
 | `input.transition` | (not exposed) | shipped |
 

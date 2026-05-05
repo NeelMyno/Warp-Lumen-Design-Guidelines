@@ -247,7 +247,7 @@ Satoshi ships true italics (separate Variable file, not slanted oblique). `<em>`
 2. **Italic = citation, foreign terms, ship names.** Book titles, untranslated phrases (`façon de parler`), carrier vessel names, scientific genus.
 3. **Italic ≠ system text.** Loading states, error toasts, status pills, button labels, table headers, eyebrows are all upright. Italic on a system message reads as editorial commentary, not system fact.
 
-The display-italic-accent preset enables the brutalist "one italic word per hero" treatment (e.g., italicizing _builders_ in "The freight network for builders."). It renders in `text-accent` (lime). Use at most once per page.
+The display-italic-accent preset enables the brutalist "one italic word per hero" treatment (e.g., italicizing _builders_ in "The freight network for builders."). It renders in `text-accent` (spring green). Use at most once per page.
 
 ---
 

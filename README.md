@@ -15,7 +15,7 @@ Density:            Marketing breathes (96 px hero rhythm) · Operator stays den
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors
-Status:             v0.11.0 · Premium Psychology recolor · 7 principles · 3 new foundations
+Status:             v0.11.13 · DTCG inheritance audit pass · master→child token chain rewired · 7 principles
 ```
 
 ## What this repo is
@@ -23,10 +23,11 @@ Status:             v0.11.0 · Premium Psychology recolor · 7 principles · 3 n
 This repo is the **single source of truth** for Lumen. Everything Warp's team ships should pull tokens, components, and rules from here.
 
 It contains:
-- Design tokens in DTCG JSON (primitives → semantic → component) — 694 tokens across 32 files.
-- Component contracts (Markdown spec + JSON sidecar) for 30 components: 12 v0.1 baseline + 8 v0.6 forms layer + 10 v0.7 deferred-form completion.
+- Design tokens in DTCG JSON (primitives → semantic → component) — 887 tokens across 32 files. v0.11.13 added 24 new primitives to close the master→child inheritance chain.
+- Component contracts (Markdown spec + JSON sidecar) for 35 components: 12 v0.1 baseline + 8 v0.6 forms layer + 10 v0.7 deferred-form completion + 5 added through v0.8–v0.11.
 - Per-platform consumption guides for 9 platforms (each maps the v0.6 field shell + density modes).
-- Content rules (imagery, illustration, motion, voice, microcopy, errors, empty states).
+- Content rules (imagery, illustration, motion, voice, microcopy, errors, empty states) — 8 topical files.
+- 14 foundation docs in `design-system/00-foundations/` (principles, voice, a11y, motion, hierarchy, first-impression, micro-interactions, etc.).
 - An [`/audit-dashboard/`](./audit-dashboard/) — a Next.js 16 reference implementation showing every component pattern across 8 project templates (foundations, landing, saas, tool, ecommerce, mobile, desktop, library).
 - A layered LLM contract so any AI coding tool (Cursor, Claude Code, Codex, Copilot, Devin, Warp Terminal AI) can consume Lumen rules natively.
 
@@ -43,20 +44,20 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.8.0
+├── VERSION                         ← 0.11.13
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
 │
 ├── design-system/                  ← THE ACTUAL SYSTEM
-│   ├── 00-foundations/             ← principles, voice, a11y, motion-language
-│   ├── 01-tokens/                  ← DTCG JSON (primitives, semantic, components)
-│   ├── 02-components/              ← component.md + component.json per component (× 12)
+│   ├── 00-foundations/             ← principles, voice, a11y, motion, hierarchy, first-impression, micro-interactions (× 14)
+│   ├── 01-tokens/                  ← DTCG JSON (primitives, semantic, components) — 887 tokens / 32 files
+│   ├── 02-components/              ← component.md + component.json per component (× 35)
 │   ├── 03-platforms/               ← per-platform consumption guides (× 9)
-│   └── 04-content/                 ← imagery, illustration, microcopy, errors
+│   └── 04-content/                 ← imagery, illustration, microcopy, errors (× 8)
 │
 ├── _registry/                      ← shadcn-compatible registry.json + sidecars
-├── _meta/                          ← glossary, ADRs (× 9), prompt fragments (× 5)
+├── _meta/                          ← glossary, ADRs (× 18), prompt fragments (× 5)
 ├── _build/                         ← gitignored. Style Dictionary outputs.
 │
 ├── audit-dashboard/                ← Next.js 16 + Tailwind v4 reference dashboard
@@ -83,7 +84,7 @@ pnpm install
 pnpm dev                 # http://localhost:3000  ← visual audit dashboard
 ```
 
-Then open the audit dashboard, switch tabs across the seven project types, toggle dark/light mode, and review the system end-to-end. See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to propose changes.
+Then open the audit dashboard, switch tabs across the eight project types, toggle dark/light mode, and review the system end-to-end. See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to propose changes.
 
 ### As an AI coding agent
 
@@ -134,27 +135,38 @@ The single best way to evaluate Lumen is to open the audit dashboard:
 cd audit-dashboard && pnpm dev
 ```
 
-Seven tabs:
+Eight tabs:
 1. **Foundations** — color, type, spacing, radius, elevation, motion, iconography, live-data primitives.
-2. **SaaS Dashboard** — Warp's actual product type. Sidebar nav, KPI grid, shipments table, side panel.
-3. **Marketing & Landing** — type-led hero, live ticker, trust strip, stat band, features, pricing, FAQ, CTA, footer.
+2. **Marketing & Landing** — type-led hero, live ticker, trust strip, stat band, features, pricing, FAQ, CTA, footer.
+3. **SaaS Dashboard** — Warp's actual product type. Sidebar nav, KPI grid, shipments table, side panel.
 4. **Web Tool** — single-purpose utility (quote builder), focused canvas, control panel, output panel.
 5. **E-commerce** — Shopify-style product detail with gallery, buy panel, ratings, related grid.
 6. **Mobile** — iOS and Android frames side-by-side. Same Lumen visual language, platform-native chrome.
 7. **Native Desktop** — macOS and Windows frames side-by-side. Vibrancy / Mica titlebar.
+8. **Library** — full component gallery + every primitive in every state.
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## Open questions (post-v0.11)
+## What's new in v0.11.13
 
-These are the decisions left open after the v0.11 Premium Psychology recolor:
+v0.11.13 (2026-05-05) closed a DTCG inheritance audit — the master→child token chain was rewired across primitives, semantic, component, and runtime layers. Three problems closed:
+
+- **Shadow regression.** `shadow.tokens.json` had inlined v0.4 lime `rgba(74,222,128,X)` literals despite the v0.11 spring-green retune. Shadows now reference `color.alpha.accent.*` and inherit any future accent change.
+- **Semantic-layer leaks.** 18 hardcoded hex/rgba literals in the dark + light semantic colour files were rewired to reference primitives. New `color.absolute.{white,black}` primitives now back every theme-invariant white or black.
+- **Runtime drift.** 30+ inline literals in `audit-dashboard/src/app/globals.css` (pills, status surfaces, glass, button glow ladder, AI shimmer, hero halos, mark-link rings, error/warning text) were rewired to consume tokens.
+
+Net: changing one primitive (`color.accent.500`, `color.status.danger.500`, etc.) now cascades through every alpha, shadow, focus ring, glow, pill, and status surface automatically. Token count grew from 694 to 887. See [CHANGELOG.md](./CHANGELOG.md) v0.11.13 entry for the full breakdown.
+
+## Open questions (post-v0.11.13)
+
+These are the decisions left open after the v0.11 Premium Psychology recolor and the v0.11.13 inheritance-audit pass:
 
 1. **Mood lock-in.** Quiet Industrial — Obsidian Mint as system default — confirmed.
 2. **Accent calibration.** `#00FA8A` is the user-fixed brand value. AAA contrast verified. Locked.
-3. **Photography policy.** No photography at all (current default), or accept documentary photography for marketing? — open.
-4. **E-commerce template direction.** Aspirational (future Warp merch shop) or for client work? — open.
-5. **Mobile mood.** Quiet Industrial — Obsidian Mint, or Premium Glass for the mobile operator app? — open.
-6. **Component coverage.** v0.11 retunes color across all 30 components; visual regression sweep remaining.
+3. **Component coverage.** v0.11 retuned colour across all 35 components; v0.11.13 finished the token-inheritance side. Visual regression sweep against the audit dashboard remains.
+4. **Photography policy.** No photography at all (current default), or accept documentary photography for marketing? — open.
+5. **E-commerce template direction.** Aspirational (future Warp merch shop) or for client work? — open.
+6. **Mobile mood.** Quiet Industrial — Obsidian Mint, or Premium Glass for the mobile operator app? — open.
 
 See [ADR 0018](./_meta/decisions/0018-premium-psychology-recolor.md) for the full v0.11 rationale and [`/research/lumen-brief.md`](./research/lumen-brief.md) for older open questions.
 

@@ -2,12 +2,14 @@
 
 > Stack: WinUI 3 (.NET 8 + C# 12) on Windows 11. Token consumption via XAML resource dictionary generated from Lumen JSON. Mica titlebar, Fluent acrylic surfaces.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit so the WinUI XAML resource dictionary regenerates with clean primitive → semantic → component resolution.
+
 ## Setup
 
 ### 1. Install Lumen tokens for Windows
 Pull the WinUI XAML resource dictionary from `lumen-dist`:
 ```powershell
-Invoke-WebRequest "https://cdn.warp.dev/lumen/v0.1.0/winui/LumenTokens.xaml" -OutFile "LumenTokens.xaml"
+Invoke-WebRequest "https://cdn.warp.dev/lumen/v0.11.13/winui/LumenTokens.xaml" -OutFile "LumenTokens.xaml"
 ```
 
 Add to your project's `Resources` folder.
@@ -93,10 +95,10 @@ WinUI 3 supports `RequestedTheme` on `Window` and `FrameworkElement`. Lumen toke
 ```xml
 <ResourceDictionary.ThemeDictionaries>
   <ResourceDictionary x:Key="Default">
-    <Color x:Key="LumenSurfacePage">#fafaf7</Color>
+    <Color x:Key="LumenSurfacePage">#FAFAFA</Color>
   </ResourceDictionary>
   <ResourceDictionary x:Key="Dark">
-    <Color x:Key="LumenSurfacePage">#131c2a</Color>
+    <Color x:Key="LumenSurfacePage">#171A18</Color>
   </ResourceDictionary>
 </ResourceDictionary.ThemeDictionaries>
 ```
@@ -149,7 +151,7 @@ WinUI 3's `TextBox` ships with its own border + focus visual. The v0.6 pattern a
               <VisualState x:Name="Focused">
                 <VisualState.Setters>
                   <Setter Target="ShellBorder.BorderBrush" Value="{ThemeResource LumenBorderFocus}"/>
-                  <!-- v0.6 lime halo via DropShadow effect -->
+                  <!-- v0.11 spring-green halo (#00FA8A) via DropShadow effect -->
                 </VisualState.Setters>
               </VisualState>
               <VisualState x:Name="Disabled">
@@ -182,11 +184,11 @@ For composed fields (icon + value + addon), wrap the `TextBox` in a `Grid` with 
 | `input.background.rest` | `{ThemeResource LumenSurfaceInputRest}` | resolved via `ThemeDictionaries` |
 | `input.border.rest` | `{ThemeResource LumenBorderDefault}` | |
 | `input.border.focus` | `{ThemeResource LumenBorderFocus}` (via `Focused` VisualState) | |
-| `input.ring.focus` | `Border.Effect = DropShadowEffect { Color = LimeA32, BlurRadius = 6 }` | DropShadow is gaussian; for a sharp 3 px ring, stack two `Border` elements |
+| `input.ring.focus` | `Border.Effect = DropShadowEffect { Color = AccentA32, BlurRadius = 6 }` | DropShadow is gaussian; for a sharp 3 px ring, stack two `Border` elements. `AccentA32` resolves to spring-green `#00FA8A` at 32% in v0.11. |
 | `input.ring.error` | same shape, error red | |
 | `input.transition` | WinUI animates VisualState transitions automatically; override via `<Storyboard>` for finer control | |
 
-**Token I wish existed but doesn't:** WinUI's `DropShadowEffect` is gaussian-blurred; the v0.6 `box-shadow: 0 0 0 3px lime-a32` is a **sharp** outer ring. The cleanest map is a stacked `Border` element with negative `Margin = "-3"` and the lime fill — but that's a per-template patch, not a token. A platform-aware `input.ring.focus.winui` token (mapped to `BorderThickness="3" + LimeA32` on a stacked border) would let Style Dictionary emit clean XAML.
+**Token I wish existed but doesn't:** WinUI's `DropShadowEffect` is gaussian-blurred; the v0.6 `box-shadow: 0 0 0 3px accent-a32` is a **sharp** outer ring. The cleanest map is a stacked `Border` element with negative `Margin = "-3"` and the spring-green fill — but that's a per-template patch, not a token. A platform-aware `input.ring.focus.winui` token (mapped to `BorderThickness="3" + AccentA32` on a stacked border) would let Style Dictionary emit clean XAML.
 
 ### Density modes
 

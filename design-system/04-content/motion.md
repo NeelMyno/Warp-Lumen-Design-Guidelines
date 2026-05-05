@@ -176,6 +176,45 @@ Both run simultaneously, same duration, same easing. Backdrop fades; modal scale
 - New value fades in + slides 4 px from below (`180 ms decelerate`), starting 60 ms after old fade begins.
 - Total: ~ 250 ms.
 
+## Mobile gestures
+
+Touch surfaces have their own motion grammar. The defaults below borrow from iOS HIG and Material 3, then anchor to Lumen tokens so the platforms feel native without going off-system.
+
+### Swipe to delete / archive (in lists)
+- Direction: right-to-left for destructive on iOS; left-to-right for archive on Android per Material patterns.
+- Reveal: the action surface slides in behind the row 1:1 with the finger — never ahead of it.
+- Commit threshold: over-swipe past 50% of row width commits (`motion.duration.slow`, decelerate, then row collapses height to 0). Under-swipe snaps back (`motion.duration.fast`, standard easing).
+- `prefers-reduced-motion`: replace the swipe physics with a tap-to-confirm overlay (action button reveals on long-press, no transform).
+
+### Pull to refresh
+- Overscroll threshold: 60–80 px. Below that, the list rubber-bands back without firing.
+- Indicator: Lumen `LiveDot` at 8 px is the recommended visual; fade in over `motion.duration.base` as the user pulls past threshold.
+- Release-to-refresh fires a soft haptic at the threshold crossing.
+- Don't ship pull-to-refresh on data that doesn't actually refresh — it breaks trust.
+
+### Bottom-sheet pull
+- Drag handle: 36 × 4 px grabber, centered at top, `radius-full`, `color.surface.muted`.
+- Three detents: mini, half, full. Drag-to-resize between them.
+- Snap-to-detent uses `motion.duration.slow` + `motion.easing.spring-soft`.
+- Bottom sheets follow iOS HIG / Material 3 patterns — they are not modal replacements; the underlying content stays interactive at the mini detent.
+- `prefers-reduced-motion`: swap the spring snap for a linear `motion.duration.base` ease and disable rubber-banding past the full detent.
+
+### Long-press
+- Threshold: 500 ms (iOS), 400 ms (Android per Material).
+- At threshold: haptic feedback fires; context menu / preview reveals.
+- Visual: subtle scale on the source element (1.0 → 0.98) over `motion.duration.fast`, standard easing.
+- Use sparingly. Long-press is invisible unless the user discovers it — never the only path to a destructive or critical action.
+
+### Pinch to zoom
+- Allowed on photos, maps, and large-image content only. Never on UI chrome.
+- Anchor at the pinch midpoint.
+- No springiness, no momentum — gesture follows the fingers 1:1 (`motion.duration.instant`).
+
+### Drag to reorder
+- Long-press to lift: source element gets `shadow.lifted` and scales 1.0 → 1.02 over `motion.duration.fast`.
+- Translate to follow the finger 1:1; sibling rows shift to make room over `motion.duration.base`, standard easing.
+- Drop to commit: shadow fades and scale resolves over `motion.duration.base`.
+
 ## Testing checklist
 
 For every animation:

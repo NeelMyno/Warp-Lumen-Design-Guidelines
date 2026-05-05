@@ -1,18 +1,20 @@
 # Lumen — Warp's Design System
 
-> Lumen is Warp's vertically-integrated UI design system spanning web (Next.js 16 + Tailwind v4 + shadcn), React Native, native iOS/Android, native desktop (macOS/Windows), and e-commerce themes (Shopify Liquid, BigCommerce Stencil, WooCommerce). Tokens are DTCG JSON; build pipeline is Style Dictionary v5; component contracts follow the shadcn registry spec. Visual mood (v0.11 Premium Psychology — Obsidian Mint): **cool-neutral paper white in light, obsidian-mint `#171A18` in dark, one disciplined Spring Green accent `#00FA8A`** used for action / live / success only. Primary text on dark is `#E6E6E6` (the user-fixed brand light), not pure white. Seven design principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule.
+> Lumen is Warp's vertically-integrated UI design system spanning web (Next.js 16 + Tailwind v4 + shadcn), React Native, native iOS/Android, native desktop (macOS/Windows), and e-commerce themes (Shopify Liquid, BigCommerce Stencil, WooCommerce). Tokens are DTCG JSON; build pipeline is Style Dictionary v5; component contracts follow the shadcn registry spec. Visual mood (v0.11 Premium Psychology — Obsidian Mint): **cool-neutral paper white in light, obsidian-mint `#171A18` in dark, one disciplined Spring Green accent `#00FA8A`** used for action / live / success only. Primary text on dark is `#E6E6E6` (the user-fixed brand light), not pure white. Seven design principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. Status: v0.11.13 (DTCG inheritance audit pass — master→child token chain rewired).
 
 If you are an AI coding agent, read these in order:
 
 ## Core (read first)
-- [AGENTS.md](/AGENTS.md): Universal agent rules. Highest-priority hard rules for any work in this repo.
+- [AGENTS.md](/AGENTS.md): Universal agent rules. Highest-priority hard rules for any work in this repo. Read first.
 - [CLAUDE.md](/CLAUDE.md): Claude-specific addenda on top of AGENTS.md.
+- [USING-LUMEN.md](/USING-LUMEN.md): Comprehensive end-to-end manual — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern in one document. Read this when you need the unified narrative.
+- [README.md](/README.md): Human-facing front door.
 - [Token taxonomy](/design-system/01-tokens/README.md): Three-layer system (primitives → semantic → component). Engineers and LLMs only consume semantic.
 - [Component schema](/design-system/02-components/_schema/component.schema.json): JSON schema every component contract validates against.
 - [Synthesised brief](/research/lumen-brief.md): Why every major decision was made.
 - [ADR 0018 — v0.11 Premium Psychology recolor](/_meta/decisions/0018-premium-psychology-recolor.md): The current visual contract.
 
-## Foundations
+## Foundations (14 docs)
 - [Principles](/design-system/00-foundations/principles.md): The seven operating principles (v0.11 grew from 5 to 7).
 - [Hierarchy](/design-system/00-foundations/hierarchy.md): v0.11 — aggressive hierarchy / one focal point per section.
 - [First impression](/design-system/00-foundations/first-impression.md): v0.11 — 50ms halo, hero anatomy, cold-load contract.
@@ -20,25 +22,60 @@ If you are an AI coding agent, read these in order:
 - [Color](/design-system/00-foundations/color.md): The four-color floor — accent #00FA8A, dark #171A18, light #E6E6E6, paper #FAFAFA.
 - [Typography](/design-system/00-foundations/typography.md): Satoshi-only single-typeface system.
 - [Spacing](/design-system/00-foundations/spacing.md): 4-pt base / 8-pt soft grid; marketing-vs-operator section split.
+- [Elevation](/design-system/00-foundations/elevation.md): Hairline + two-stop shadows; accent-glow signature.
 - [Voice & tone](/design-system/00-foundations/voice-and-tone.md): How Lumen sounds.
 - [Accessibility](/design-system/00-foundations/accessibility.md): WCAG 2.2 AA floor — non-negotiable.
 - [Motion language](/design-system/00-foundations/motion-language.md): Timing tokens, easing, choreography.
+- [Density](/design-system/00-foundations/density.md): Marketing-vs-operator split.
+- [Buttons](/design-system/00-foundations/buttons.md): The comprehensive button language (5×5×5×3 matrix).
+- [Forms and inputs](/design-system/00-foundations/forms-and-inputs.md): The v0.6 .lumen-field shell architecture.
 
-## Components (machine-readable contracts)
-- [Button](/design-system/02-components/button/component.json)
-- [Input](/design-system/02-components/input/component.json)
-- [Card](/design-system/02-components/card/component.json)
+## Components (35 — machine-readable contracts)
+
+### Foundations
 - [Badge](/design-system/02-components/badge/component.json)
-- [Stat](/design-system/02-components/stat/component.json) — Warp signature primitive
+- [IconButton](/design-system/02-components/icon-button/component.json)
 - [LiveDot](/design-system/02-components/live-dot/component.json) — Warp signature primitive
+- [Stat](/design-system/02-components/stat/component.json) — Warp signature primitive
 - [RateTicker](/design-system/02-components/rate-ticker/component.json) — Warp signature primitive
-- [Table](/design-system/02-components/table/component.json)
-- [Dialog](/design-system/02-components/dialog/component.json)
-- [Toast](/design-system/02-components/toast/component.json)
-- [EmptyState](/design-system/02-components/empty-state/component.json)
-- [Toggle](/design-system/02-components/toggle/component.json)
 
-## Tokens
+### Buttons + actions
+- [Button](/design-system/02-components/button/component.json) — 5 sizes × 5 intents × 5 surfaces × 3 shapes
+- [ButtonGroup](/design-system/02-components/button-group/component.json)
+- [SplitButton](/design-system/02-components/split-button/component.json)
+- [Fab](/design-system/02-components/fab/component.json)
+- [Toggle](/design-system/02-components/toggle/component.json)
+- [Segmented](/design-system/02-components/segmented/component.json)
+- [CommandPaletteButton](/design-system/02-components/command-palette-button/component.json)
+
+### Inputs (the v0.6 forms layer + v0.7 deferred completion)
+- [Input](/design-system/02-components/input/component.json)
+- [Textarea](/design-system/02-components/textarea/component.json)
+- [NumberInput](/design-system/02-components/number-input/component.json)
+- [PasswordInput](/design-system/02-components/password-input/component.json)
+- [OtpInput](/design-system/02-components/otp-input/component.json)
+- [Select](/design-system/02-components/select/component.json)
+- [Combobox](/design-system/02-components/combobox/component.json)
+- [TagsInput](/design-system/02-components/tags-input/component.json)
+- [DatePicker](/design-system/02-components/date-picker/component.json)
+- [TimePicker](/design-system/02-components/time-picker/component.json)
+- [RangeSlider](/design-system/02-components/range-slider/component.json)
+- [FileDropzone](/design-system/02-components/file-dropzone/component.json)
+- [Checkbox](/design-system/02-components/checkbox/component.json)
+- [RadioGroup](/design-system/02-components/radio-group/component.json)
+- [Switch](/design-system/02-components/switch/component.json)
+- [Field](/design-system/02-components/field/component.json) — wrapper primitive; every input goes inside this
+- [ValidationMessage](/design-system/02-components/validation-message/component.json)
+- [Form](/design-system/02-components/form/component.json) — RHF binding wrapper
+
+### Containers + surfaces
+- [Card](/design-system/02-components/card/component.json) — 5 elevations
+- [Dialog](/design-system/02-components/dialog/component.json)
+- [EmptyState](/design-system/02-components/empty-state/component.json)
+- [Table](/design-system/02-components/table/component.json)
+- [Toast](/design-system/02-components/toast/component.json)
+
+## Tokens (DTCG JSON — 887 tokens across 32 source files)
 - [Color (light)](/design-system/01-tokens/semantic/color.light.tokens.json)
 - [Color (dark)](/design-system/01-tokens/semantic/color.dark.tokens.json)
 - [Space](/design-system/01-tokens/semantic/space.tokens.json)
@@ -47,22 +84,25 @@ If you are an AI coding agent, read these in order:
 - [Radius](/design-system/01-tokens/semantic/radius.tokens.json)
 - [Shadow](/design-system/01-tokens/semantic/shadow.tokens.json)
 
-## Platforms
-- [Web · Next.js + React + Tailwind v4](/design-system/03-platforms/web-react/README.md)
-- [React Native](/design-system/03-platforms/react-native/README.md)
-- [iOS native (SwiftUI)](/design-system/03-platforms/ios-native/README.md)
-- [Android native (Compose)](/design-system/03-platforms/android-native/README.md)
-- [macOS desktop](/design-system/03-platforms/desktop-mac/README.md)
-- [Windows desktop (WinUI 3)](/design-system/03-platforms/desktop-windows/README.md)
+## Platforms (9 — per-platform consumption guides)
+- [Web · Next.js + React + Tailwind v4 + shadcn](/design-system/03-platforms/web-react/README.md)
+- [React Native · Expo + NativeWind](/design-system/03-platforms/react-native/README.md)
+- [iOS native · SwiftUI](/design-system/03-platforms/ios-native/README.md)
+- [Android native · Compose](/design-system/03-platforms/android-native/README.md)
+- [macOS desktop · SwiftUI + AppKit](/design-system/03-platforms/desktop-mac/README.md)
+- [Windows desktop · WinUI 3 + XAML](/design-system/03-platforms/desktop-windows/README.md)
 - [Shopify Liquid](/design-system/03-platforms/shopify-liquid/README.md)
 - [BigCommerce Stencil](/design-system/03-platforms/bigcommerce-stencil/README.md)
 - [WooCommerce / WordPress](/design-system/03-platforms/woo-wordpress/README.md)
 
-## Content
+## Patterns (composition guides — design-system/05-patterns/)
+- [Patterns README](/design-system/05-patterns/README.md): Composition patterns — how to compose primitives into recognized UI shapes (marketing landing, SaaS dashboard, settings, mobile primary, e-commerce product page, web tool, auth flow).
+
+## Content (8 rule docs)
 - [Imagery](/design-system/04-content/imagery.md)
 - [Illustration](/design-system/04-content/illustration.md)
 - [Iconography](/design-system/04-content/iconography.md)
-- [Motion (recipes)](/design-system/04-content/motion.md)
+- [Motion (recipes + mobile gestures)](/design-system/04-content/motion.md)
 - [UI writing style](/design-system/04-content/ui-writing-style.md)
 - [Microcopy library](/design-system/04-content/microcopy.md)
 - [Error messages](/design-system/04-content/error-messages.md)
@@ -70,8 +110,8 @@ If you are an AI coding agent, read these in order:
 
 ## Optional (deeper context)
 - [Research reports](/research/) — Warp brand DNA, inspiration brief, Satoshi typography, system architecture
-- [_meta/decisions/](/_meta/decisions/) — Architecture Decision Records
-- [_meta/prompts/](/_meta/prompts/) — Reusable prompt fragments for agent workflows
+- [_meta/decisions/](/_meta/decisions/) — 18 Architecture Decision Records (ADRs 0001–0018)
+- [_meta/prompts/](/_meta/prompts/) — Reusable prompt fragments for agent workflows (new-component, token-update, accessibility-pass, platform-port, audit-dashboard-tab)
 - [_meta/glossary.json](/_meta/glossary.json) — Term disambiguation
-- [Audit dashboard](/audit-dashboard/) — Working Next.js 16 reference implementation of all 7 project templates
+- [Audit dashboard](/audit-dashboard/) — Working Next.js 16 reference implementation across 8 templates (foundations, landing, saas, tool, ecommerce, mobile, desktop, library)
 - [CHANGELOG](/CHANGELOG.md)

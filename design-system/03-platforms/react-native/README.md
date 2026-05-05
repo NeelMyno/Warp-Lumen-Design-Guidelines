@@ -2,6 +2,8 @@
 
 > Stack: Expo SDK 53+, NativeWind v4, react-native-reusables (founded-labs) for component scaffolds. Lumen tokens consumed via NativeWind's `tailwind.config.ts`.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit; the `@lumen/tokens-rn` artifact compiles from the same primitive → semantic → component graph as web.
+
 ## Setup
 
 ### 1. Create the Expo app
@@ -166,7 +168,7 @@ Tokens are consumed via NativeWind utility classes when using Tailwind, or via t
 | `input.ring.error` | same shape, error-tinted | |
 | `input.transition` | `Animated.timing` with `duration: 150`, `easing: Easing.bezier(0.2, 0, 0, 1)` | RN has no CSS transitions; animate explicitly |
 
-**Token I wish existed but doesn't:** an `input.shadow.android.elevation` variant. The `--shadow-input-focus` lime halo composes via CSS box-shadow on web; on Android it requires `elevation` (which casts a black drop shadow only) plus a tinted border. The current single-token mapping leaves a fidelity gap on Android — document it, don't paper over it.
+**Token I wish existed but doesn't:** an `input.shadow.android.elevation` variant. The `--shadow-input-focus` spring-green halo composes via CSS box-shadow on web; on Android it requires `elevation` (which casts a black drop shadow only) plus a tinted border. The current single-token mapping leaves a fidelity gap on Android — document it, don't paper over it.
 
 ### Density modes
 

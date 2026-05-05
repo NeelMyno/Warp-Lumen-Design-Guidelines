@@ -2,6 +2,8 @@
 
 > Stack: Swift 6 + SwiftUI on iOS 17+. Lumen tokens distributed as a Swift Package. Satoshi bundled into the app target.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit so `LumenTokens.color.accent._500` resolves to `#00FA8A` light-mode and the obsidian-mint family in dark mode.
+
 ## Setup
 
 ### 1. Add the Lumen Swift Package
@@ -9,7 +11,7 @@ In Xcode: `File → Add Package Dependencies… → https://github.com/warp/lume
 
 Or in `Package.swift`:
 ```swift
-.package(url: "https://github.com/warp/lumen-ios.git", from: "0.1.0"),
+.package(url: "https://github.com/warp/lumen-ios.git", from: "0.11.13"),
 ```
 
 Then import:
@@ -179,7 +181,7 @@ struct LumenField<Content: View>: View {
         RoundedRectangle(cornerRadius: LumenTokens.radius.control.md)
           .strokeBorder(borderColor, lineWidth: 1)
       )
-      .shadow(color: ringColor, radius: 0, x: 0, y: 0)  // v0.6 lime/red halo
+      .shadow(color: ringColor, radius: 0, x: 0, y: 0)  // v0.11 spring-green / red halo
       .animation(.easeOut(duration: LumenTokens.motion.duration.fast), value: isFocused)
       .disabled(isDisabled)
     }
@@ -192,14 +194,14 @@ struct LumenField<Content: View>: View {
   }
   private var ringColor: Color {
     guard isFocused else { return .clear }
-    return isInvalid ? LumenTokens.color.alpha.danger.32 : LumenTokens.color.accent._500.opacity(0.32)
+    return isInvalid ? LumenTokens.color.alpha.danger.32 : LumenTokens.color.accent._500.opacity(0.32)  // _500 resolves to spring green #00FA8A in v0.11
   }
 }
 ```
 
 The discipline: `textFieldStyle(.plain)` is **non-negotiable** — it strips iOS's default `roundedBorder` so the inner field renders bare. `@FocusState` is SwiftUI's structural equivalent of `:has(:focus-visible)`: the parent observes the inner element's focus state and paints accordingly.
 
-For cases that need real focus-ring depth (the v0.6 `box-shadow` halo doesn't translate cleanly to a SwiftUI single-axis `.shadow`), wrap the `RoundedRectangle` overlay in a stacked second `RoundedRectangle` at +3 pt with the lime tint — the visual is identical to the web halo.
+For cases that need real focus-ring depth (the v0.6 `box-shadow` halo doesn't translate cleanly to a SwiftUI single-axis `.shadow`), wrap the `RoundedRectangle` overlay in a stacked second `RoundedRectangle` at +3 pt with the spring-green tint — the visual is identical to the web halo.
 
 ### Token mapping
 
@@ -212,7 +214,7 @@ For cases that need real focus-ring depth (the v0.6 `box-shadow` halo doesn't tr
 | `input.background.rest` | `RoundedRectangle.fill(LumenTokens.surface.input.rest)` | Color asset resolves light/dark |
 | `input.border.rest` | `.strokeBorder(LumenTokens.color.border.default, lineWidth: 1)` | |
 | `input.border.focus` | `.strokeBorder(LumenTokens.color.border.focus, lineWidth: 1)` (driven by `@FocusState`) | |
-| `input.ring.focus` | `.shadow(color: LumenTokens.color.alpha.lime.32, radius: 0, …)` or stacked overlay | SwiftUI `.shadow` is gaussian-blurred; stacked overlay is the closer match to CSS box-shadow |
+| `input.ring.focus` | `.shadow(color: LumenTokens.color.alpha.accent.32, radius: 0, …)` or stacked overlay | SwiftUI `.shadow` is gaussian-blurred; stacked overlay is the closer match to CSS box-shadow. Alpha tint resolves to spring-green `#00FA8A` at 32% in v0.11. |
 | `input.ring.error` | same shape, `alpha.danger.32` | |
 | `input.transition` | `.animation(.easeOut(duration: 0.15), value: isFocused)` | matches `--motion-fast` |
 

@@ -2,6 +2,8 @@
 
 > Stack: Kotlin 2 + Jetpack Compose on Android API 26+ (Android 8.0). Lumen tokens delivered as a Kotlin module. Satoshi bundled as a font resource.
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit; `LumenTokens.Color.accent._500` now resolves to spring green and the dark-mode surface family rebuilds against obsidian mint.
+
 ## Setup
 
 ### 1. Add Lumen Compose dependency
@@ -9,7 +11,7 @@
 `build.gradle.kts`:
 ```kotlin
 dependencies {
-  implementation("dev.warp:lumen-compose:0.1.0")
+  implementation("dev.warp:lumen-compose:0.11.13")
 }
 ```
 
@@ -218,7 +220,7 @@ Internal apps (operator dashboards): use path (1) for stacked. Consumer-facing a
 | `input.ring.error` | same shape, M3 thickens to error red | |
 | `input.transition` | M3 animates outline color/thickness automatically; duration matches `MaterialTheme.motionScheme` | inherits M3 motion |
 
-**Token I wish existed but doesn't:** the v0.6 `box-shadow` halo (3 px lime ring at 32% alpha) doesn't have a clean M3 equivalent. M3's focus signal is **outline thickening**, not an outer glow. To paint Lumen's lime halo on top of the M3 outline, wrap the `OutlinedTextField` in a `Box` with a `Modifier.drawBehind { drawRoundRect(...) }` that subscribes to the field's `interactionSource.collectIsFocusedAsState()`. A platform-aware `input.ring.focus.android` token (mapped to "outline thickness 2 dp" instead of "box-shadow 3 px") would let Style Dictionary emit the right form per target without consumer-side patching.
+**Token I wish existed but doesn't:** the v0.6 `box-shadow` halo (3 px spring-green ring at 32% alpha — `#00FA8A` in v0.11) doesn't have a clean M3 equivalent. M3's focus signal is **outline thickening**, not an outer glow. To paint Lumen's spring-green halo on top of the M3 outline, wrap the `OutlinedTextField` in a `Box` with a `Modifier.drawBehind { drawRoundRect(...) }` that subscribes to the field's `interactionSource.collectIsFocusedAsState()`. A platform-aware `input.ring.focus.android` token (mapped to "outline thickness 2 dp" instead of "box-shadow 3 px") would let Style Dictionary emit the right form per target without consumer-side patching.
 
 ### Density modes
 

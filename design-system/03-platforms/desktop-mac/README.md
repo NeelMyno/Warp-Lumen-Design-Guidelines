@@ -2,12 +2,14 @@
 
 > Stack: Swift 6 + SwiftUI on macOS 14+. Same Swift Package as iOS — `LumenTokens` works on both. AppKit only when SwiftUI lacks a primitive (rare in 2026).
 
+> **v0.11.13 currency.** This guide reflects the Premium Psychology recolor — anchors are spring green `#00FA8A` (accent), obsidian mint `#171A18` (dark canvas), light anchor `#E6E6E6`, paper `#FAFAFA`. Seven principles now (hierarchy, first-impression, micro-interactions joined the original five) and 35 component contracts. v0.11.13 closes the DTCG inheritance audit; the `LumenMac` target carries the same color resolution as iOS so vibrancy substrates compose cleanly behind obsidian-mint chrome.
+
 ## Setup
 
 Same as iOS — add the `LumenTokens` Swift Package and bundle Satoshi.
 
 ```swift
-.package(url: "https://github.com/warp/lumen-ios.git", from: "0.1.0")
+.package(url: "https://github.com/warp/lumen-ios.git", from: "0.11.13")
 ```
 
 For macOS-specific UIs, add the `LumenMac` target which provides:
@@ -135,7 +137,7 @@ class LumenTextField: NSView {
 
   override func becomeFirstResponder() -> Bool {
     layer?.borderColor = LumenTokens.color.border.focus.cgColor
-    // paint the lime halo as a stacked CALayer
+    // paint the spring-green halo (#00FA8A in v0.11) as a stacked CALayer
     return super.becomeFirstResponder()
   }
 }
