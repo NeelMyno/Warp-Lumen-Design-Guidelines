@@ -2938,11 +2938,23 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* 3. ─────────────  SCROLL REVEAL (the premium scroll gesture)  ──────────── */
-/* Per micro-interactions.md §3 — fade-in once, never replay, honor reduced
+/* 3. ─────────────  SCROLL REVEAL (staggered, JS-driven)  ──────────────────
+   Per micro-interactions.md §3 — fade-in once, never replay, honor reduced
    motion. The `data-revealed` attribute is set by the observer in
-   primitives/scroll-reveal.tsx. */
-.lumen-reveal {
+   primitives/scroll-reveal.tsx.
+
+   v0.11.13.1 — class renamed from .lumen-reveal → .lumen-reveal-stagger to
+   avoid colliding with the existing CSS scroll-timeline implementation
+   (lines 2773–2811) that runs natively on supporting browsers. The two
+   systems serve different needs:
+
+     .lumen-reveal           — CSS scroll-timeline, no JS, no per-child
+                                stagger control. Above-the-fold elements
+                                land at end-state instantly.
+     .lumen-reveal-stagger   — JS IntersectionObserver + requestAnimationFrame
+                                or setTimeout(delay). The only path to
+                                staggered children with explicit delays. */
+.lumen-reveal-stagger {
   opacity: 0;
   transform: translate3d(0, 12px, 0);
   transition:
@@ -2950,12 +2962,12 @@ a { color: inherit; text-decoration: none; }
     transform var(--motion-slow, 260ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1));
   will-change: opacity, transform;
 }
-.lumen-reveal[data-revealed] {
+.lumen-reveal-stagger[data-revealed] {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 @media (prefers-reduced-motion: reduce) {
-  .lumen-reveal {
+  .lumen-reveal-stagger {
     /* Snap to end-state. No transition. */
     opacity: 1 !important;
     transform: none !important;

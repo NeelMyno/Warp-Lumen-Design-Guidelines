@@ -107,13 +107,15 @@ Inactive tabs go from `border-transparent` → `hover:border-[var(--border-subtl
 
 **Fix:** They're showcase logos, not links. Drop the hover. Render as confidence-tier static.
 
-### P2-3. No scroll-reveal on long pages
+### P2-3. Scroll-reveal exists but lacks stagger control
 
-**Where:** every page on every route
+**Where:** `globals.css:2771-2811` (existing); landing/page.tsx hero (added in this commit)
 
-Per `micro-interactions.md` §3 ("Scroll-driven fade-in"): "When a section enters the viewport for the first time, fade-in subtly. Once. Never again." The catalog spec exists; it's not implemented.
+**Original audit finding** (revised): I missed the existing `.lumen-reveal` class in `globals.css` — Lumen v0.11.6 already ships scroll-driven fade-up via native CSS `animation-timeline: view()`. It works in Chrome 115+, falls back gracefully elsewhere, and honors `prefers-reduced-motion`. ✓
 
-**Fix:** Add a `<ScrollReveal>` wrapper using IntersectionObserver, gated by `prefers-reduced-motion`. Apply to landing hero, landing sections, and foundations sections.
+**What it CAN'T do:** per-child stagger delays. The CSS scroll-timeline runs each element on its own scroll position; siblings reveal in unison when they enter the viewport together. For a hero where you want eyebrow → headline → subhead → CTA → caption to land in sequence, you need imperative timing.
+
+**Fix shipped:** new `<ScrollReveal>` component using IntersectionObserver + `setTimeout(delay)`. Renamed CSS class to `.lumen-reveal-stagger` (v0.11.13.1) to avoid colliding with the existing `.lumen-reveal` rule. Wired into the landing hero with 80 / 160 / 240 / 320 ms staggered children.
 
 ### P2-4. Search bar focus halo is ungated
 

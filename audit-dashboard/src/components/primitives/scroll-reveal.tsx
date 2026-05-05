@@ -83,7 +83,7 @@ export function ScrollReveal({
     <Tag
       ref={ref as never}
       data-revealed={revealed || undefined}
-      className={cn("lumen-reveal", className)}
+      className={cn("lumen-reveal-stagger", className)}
       style={style}
     >
       {children}
