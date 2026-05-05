@@ -32,19 +32,19 @@ export default function LandingPage() {
         <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural overflow-hidden">
           <div className="relative max-w-default mx-auto flex flex-col gap-7">
             <ScrollReveal>
-              <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
+              <div className="inline-flex items-center gap-2 lumen-mono-cap text-[color:var(--text-accent)]">
                 <span className="lumen-dot-pulse" aria-hidden />
                 <span>Now in private beta · Spring 2026 · system v0.11 live</span>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={80}>
-              <h1 className="text-display-xl sm:text-display-2xl md:text-display-2xl text-[var(--text-primary)]">
+              <h1 className="text-display-xl sm:text-display-2xl md:text-display-2xl text-[color:var(--text-primary)]">
                 The freight network
                 <br />
                 for{" "}
                 {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
-                <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
+                <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[color:var(--text-accent)]">
                   builders
                 </em>
                 .
@@ -73,7 +73,7 @@ export default function LandingPage() {
             </ScrollReveal>
 
             <ScrollReveal delay={320}>
-              <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-body-xs self-start">
+              <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[color:var(--text-primary)] lumen-mono text-body-xs self-start">
                 <span style={{ color: "var(--lumen-accent-4)" }}>$</span>
                 npx warp quote --from=LAX --to=SFO
                 <LiveDot />
@@ -92,7 +92,7 @@ export default function LandingPage() {
                 pair (P2-2 in 2026-05-04 audit). These are showcase wordmarks,
                 not interactive elements; rendering them static reads as
                 confidence (Hermes / Apple / Stripe convention). */}
-            <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[var(--text-tertiary)]">
+            <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[color:var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
                 <div key={c} className="text-body-lg font-bold tracking-[var(--tracking-tight)] select-none">
                   {c}
@@ -184,14 +184,14 @@ export default function LandingPage() {
               &ldquo;
             </div>
             <div className="lumen-eyebrow">From an operator</div>
-            <blockquote className="text-heading-h1 md:text-display-md font-semibold text-[var(--text-primary)]">
+            <blockquote className="text-heading-h1 md:text-display-md font-semibold text-[color:var(--text-primary)]">
               Same routes. Lower cost per pallet. AI keeps it dropping. We&apos;ve stopped logging into 10 carrier portals every morning.
             </blockquote>
             <div className="flex items-center justify-center gap-3 mt-2">
               <Avatar name="J Park" size="md" />
               <div className="flex flex-col leading-tight text-left">
                 <span className="text-body-sm font-semibold">Jay Park</span>
-                <span className="text-body-xs text-[var(--text-tertiary)]">VP Operations · Faherty</span>
+                <span className="text-body-xs text-[color:var(--text-tertiary)]">VP Operations · Faherty</span>
               </div>
             </div>
           </div>
@@ -215,9 +215,9 @@ export default function LandingPage() {
                 <details key={item.q} className="group p-5">
                   <summary className="flex items-center justify-between cursor-pointer text-label-lg">
                     <span>{item.q}</span>
-                    <span className="text-[var(--text-tertiary)] group-open:rotate-180 transition-transform duration-[var(--motion-base)]">▾</span>
+                    <span className="text-[color:var(--text-tertiary)] group-open:rotate-180 transition-transform duration-[var(--motion-base)]">▾</span>
                   </summary>
-                  <p className="mt-3 text-body-md text-[var(--text-secondary)]">{item.a}</p>
+                  <p className="mt-3 text-body-md text-[color:var(--text-secondary)]">{item.a}</p>
                 </details>
               ))}
             </div>
@@ -289,11 +289,11 @@ export default function LandingPage() {
 function Feature({ icon, title, copy }: { icon: React.ReactNode; title: string; copy: string }) {
   return (
     <Card padding="lg" className="flex flex-col gap-4 hover:shadow-[var(--shadow-md)] transition-shadow duration-[var(--motion-soft)]">
-      <div className="h-11 w-11 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-tint-accent)] grid place-items-center text-[var(--text-accent)]">
+      <div className="h-11 w-11 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-tint-accent)] grid place-items-center text-[color:var(--text-accent)]">
         {icon}
       </div>
       <div className="text-heading-h3">{title}</div>
-      <p className="text-body-md text-[var(--text-secondary)]">{copy}</p>
+      <p className="text-body-md text-[color:var(--text-secondary)]">{copy}</p>
     </Card>
   );
 }
@@ -318,11 +318,11 @@ function PriceCard({
       </div>
       <div className="flex items-baseline gap-[var(--space-1_5)]">
         <div className="text-display-lg lumen-tnum">{price}</div>
-        <div className="text-body-xs text-[var(--text-tertiary)]">{period}</div>
+        <div className="text-body-xs text-[color:var(--text-tertiary)]">{period}</div>
       </div>
       <ul className="flex flex-col gap-stack-sm">
         {features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-body-sm text-[var(--text-secondary)]">
+          <li key={f} className="flex items-start gap-2 text-body-sm text-[color:var(--text-secondary)]">
             <Check size={14} />
             <span>{f}</span>
           </li>
@@ -344,8 +344,8 @@ function BrowserChrome({ url }: { url: string }) {
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
       </div>
       <div className="flex-1 mx-3 max-w-md">
-        <div className="bg-[var(--surface-raised)] border border-[var(--border-hairline)] rounded-[var(--radius-md)] px-3 h-7 flex items-center gap-2 text-micro text-[var(--text-secondary)] lumen-mono">
-          <Dot size={16} strokeWidth={4} className="text-[var(--text-accent)]" aria-hidden focusable={false} />
+        <div className="bg-[var(--surface-raised)] border border-[var(--border-hairline)] rounded-[var(--radius-md)] px-3 h-7 flex items-center gap-2 text-micro text-[color:var(--text-secondary)] lumen-mono">
+          <Dot size={16} strokeWidth={4} className="text-[color:var(--text-accent)]" aria-hidden focusable={false} />
           {url}
         </div>
       </div>

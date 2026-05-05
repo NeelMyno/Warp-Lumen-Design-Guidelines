@@ -52,7 +52,7 @@ export const CommandPaletteButton = forwardRef<HTMLButtonElement, CommandPalette
         className={cn("lumen-cmd-button", className)}
         {...props}
       >
-        <span className="text-[var(--text-tertiary)] flex-1 text-left">{hint}</span>
+        <span className="text-[color:var(--text-tertiary)] flex-1 text-left">{hint}</span>
         <span className="lumen-cmd-button-kbd" aria-hidden>
           <kbd>{mod}</kbd>
           <kbd>{shortcutKey}</kbd>

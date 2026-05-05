@@ -41,7 +41,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-      className="inline-flex h-control-cozy w-[var(--size-control-cozy)] items-center justify-center rounded-[var(--radius-full)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
+      className="inline-flex h-control-cozy w-[var(--size-control-cozy)] items-center justify-center rounded-[var(--radius-full)] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
     >
       {mounted ? (
         theme === "dark" ? (

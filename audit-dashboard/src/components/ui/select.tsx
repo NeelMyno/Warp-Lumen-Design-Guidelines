@@ -29,14 +29,14 @@ function SelectTrigger({
       className={cn(
         // v0.6 — adopts field-shell visual contract. Removed `bg-transparent`
         // that was clobbering the bg color (last-class-wins) in v0.5.
-        "flex w-full items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 py-2 text-body-md text-[var(--text-primary)] whitespace-nowrap outline-none",
-        "data-[placeholder]:text-[var(--text-placeholder)] [&_svg:not([class*='text-'])]:text-[var(--text-tertiary)]",
+        "flex w-full items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 py-2 text-body-md text-[color:var(--text-primary)] whitespace-nowrap outline-none",
+        "data-[placeholder]:text-[color:var(--text-placeholder)] [&_svg:not([class*='text-'])]:text-[color:var(--text-tertiary)]",
         "shadow-[var(--shadow-input-lit-edge)]",
         "transition-[color,box-shadow,border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
         "hover:border-[var(--border-strong)]",
         "focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-input-focus)]",
         "aria-invalid:border-[var(--border-error)] aria-invalid:focus-visible:shadow-[var(--shadow-input-error)]",
-        "disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[var(--text-disabled)] disabled:border-[var(--border-input-disabled)]",
+        "disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[color:var(--text-disabled)] disabled:border-[var(--border-input-disabled)]",
         "data-[size=default]:h-10 data-[size=sm]:h-8",
         "*:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
@@ -63,7 +63,7 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "bg-[var(--surface-popover)] text-[var(--text-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 relative z-[var(--z-overlay)] max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-[var(--radius-md)] border border-[var(--border-default)] shadow-[var(--shadow-popover)]",
+          "bg-[var(--surface-popover)] text-[color:var(--text-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 relative z-[var(--z-overlay)] max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-[var(--radius-md)] border border-[var(--border-default)] shadow-[var(--shadow-popover)]",
           position === "popper" &&
             "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
           className,
@@ -94,7 +94,7 @@ function SelectLabel({
   return (
     <SelectPrimitive.Label
       data-slot="select-label"
-      className={cn("text-[var(--text-tertiary)] px-2 py-1.5 text-xs", className)}
+      className={cn("text-[color:var(--text-tertiary)] px-2 py-1.5 text-xs", className)}
       {...props}
     />
   );
@@ -109,7 +109,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-[var(--surface-tint-accent)] focus:text-[var(--text-primary)] [&_svg:not([class*='text-'])]:text-[var(--text-tertiary)] relative flex w-full cursor-default items-center gap-2 rounded-[var(--radius-xs)] py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "focus:bg-[var(--surface-tint-accent)] focus:text-[color:var(--text-primary)] [&_svg:not([class*='text-'])]:text-[color:var(--text-tertiary)] relative flex w-full cursor-default items-center gap-2 rounded-[var(--radius-xs)] py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,
       )}
       {...props}

@@ -46,7 +46,7 @@ function Frame({
     <div className="flex flex-col gap-5">
       <div>
         <div className="lumen-eyebrow mb-2">{os}</div>
-        <p className="text-body-xs text-[var(--text-tertiary)] leading-snug max-w-[48ch]">{notes}</p>
+        <p className="text-body-xs text-[color:var(--text-tertiary)] leading-snug max-w-[48ch]">{notes}</p>
       </div>
       {children}
     </div>
@@ -63,7 +63,7 @@ function MacFrame() {
         <span className="h-3 w-3 rounded-full bg-[#ff5f57] hover:bg-[#ee5046] transition-colors" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e] hover:bg-[#ed9e25] transition-colors" />
         <span className="h-3 w-3 rounded-full bg-[#28c840] hover:bg-[#20a635] transition-colors" />
-        <div className="absolute left-1/2 -translate-x-1/2 text-label-sm text-[var(--text-secondary)]">
+        <div className="absolute left-1/2 -translate-x-1/2 text-label-sm text-[color:var(--text-secondary)]">
           Warp · Operator
         </div>
       </div>
@@ -80,7 +80,7 @@ function MacFrame() {
           <button className="mx-2 flex items-center gap-2 px-2 py-1 rounded-[var(--radius-sm)] hover:bg-[var(--surface-raised)] transition-colors">
             <Avatar name="Acme Logistics" size="xs" />
             <span className="text-micro font-semibold flex-1 text-left truncate">Acme</span>
-            <span className="text-[var(--text-tertiary)]">⌃</span>
+            <span className="text-[color:var(--text-tertiary)]">⌃</span>
           </button>
 
           <div>
@@ -98,14 +98,14 @@ function MacFrame() {
                   "w-full flex items-center gap-2 px-2 py-1 rounded-[var(--radius-sm)] text-micro",
                   "transition-colors duration-[var(--motion-fast)]",
                   active
-                    ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
-                    : "text-[var(--text-secondary)] hover:bg-[var(--surface-raised)]",
+                    ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)] font-semibold"
+                    : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-raised)]",
                 ].join(" ")}
               >
                 <I size={14} />
                 <span className="flex-1 text-left">{label}</span>
                 {badge && (
-                  <span className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">{badge}</span>
+                  <span className="lumen-mono lumen-tnum text-micro text-[color:var(--text-tertiary)]">{badge}</span>
                 )}
               </button>
             ))}
@@ -113,7 +113,7 @@ function MacFrame() {
 
           <div className="mt-auto px-2 py-2 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] bg-[var(--surface-raised)]">
             <LiveDot label="API healthy" />
-            <div className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)] mt-1">
+            <div className="lumen-mono lumen-tnum text-micro text-[color:var(--text-tertiary)] mt-1">
               v2.18.4 · 12 ms
             </div>
           </div>
@@ -122,10 +122,10 @@ function MacFrame() {
         {/* Content */}
         <div className="flex flex-col">
           <header className="flex items-center gap-3 border-b border-[var(--border-hairline)] px-4 h-11 bg-[var(--surface-raised)]">
-            <h2 className="text-heading-h6 text-[var(--text-primary)]">Today</h2>
+            <h2 className="text-heading-h6 text-[color:var(--text-primary)]">Today</h2>
             <Badge status="accent" size="sm" leadingDot>Live</Badge>
             <div className="flex-1" />
-            <div className="flex items-center gap-[var(--space-1_5)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-micro text-[var(--text-tertiary)]">
+            <div className="flex items-center gap-[var(--space-1_5)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] rounded-[var(--radius-sm)] px-2 h-6 text-micro text-[color:var(--text-tertiary)]">
               <Search size={11} />
               Search…
               <kbd className="lumen-kbd ml-1">⌘K</kbd>
@@ -159,9 +159,9 @@ function MacFrame() {
                 ].map(([id, lane, c]) => (
                   <li key={id} className="flex items-center gap-2 px-3 py-2 text-body-xs">
                     <Avatar name={c} size="xs" />
-                    <span className="font-medium text-[var(--text-primary)]">{lane}</span>
-                    <span className="text-[var(--text-secondary)] flex-1 truncate">{c}</span>
-                    <code className="lumen-mono text-micro text-[var(--text-tertiary)]">{id}</code>
+                    <span className="font-medium text-[color:var(--text-primary)]">{lane}</span>
+                    <span className="text-[color:var(--text-secondary)] flex-1 truncate">{c}</span>
+                    <code className="lumen-mono text-micro text-[color:var(--text-tertiary)]">{id}</code>
                   </li>
                 ))}
               </ul>
@@ -184,13 +184,13 @@ function WindowsFrame() {
       {/* Mica titlebar */}
       <div className="flex items-center gap-inline-sm px-2 h-control-cozy border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 rounded-[2px] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] text-[8px] font-bold">
+          <div className="h-4 w-4 rounded-[2px] bg-[var(--color-accent)] grid place-items-center text-[color:var(--text-on-accent)] text-[8px] font-bold">
             W
           </div>
           <span className="text-micro">Warp Operator</span>
         </div>
         <div className="flex-1" />
-        <div className="flex items-center text-[var(--text-tertiary)]">
+        <div className="flex items-center text-[color:var(--text-tertiary)]">
           <span className="h-7 w-10 grid place-items-center hover:bg-[var(--surface-sunken)] rounded-[2px] cursor-pointer text-[10px]">_</span>
           <span className="h-7 w-10 grid place-items-center hover:bg-[var(--surface-sunken)] rounded-[2px] cursor-pointer text-[10px]">▢</span>
           <span className="h-7 w-10 grid place-items-center hover:bg-[#c42b1c] hover:text-white rounded-[2px] cursor-pointer text-[12px]">×</span>
@@ -213,15 +213,15 @@ function WindowsFrame() {
               className={[
                 "h-control-cozy w-[var(--size-control-cozy)] grid place-items-center rounded-[3px]",
                 i === 0
-                  ? "bg-[var(--surface-raised)] text-[var(--text-primary)] border border-[var(--border-hairline)]"
-                  : "text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)]",
+                  ? "bg-[var(--surface-raised)] text-[color:var(--text-primary)] border border-[var(--border-hairline)]"
+                  : "text-[color:var(--text-tertiary)] hover:bg-[var(--surface-raised)]",
               ].join(" ")}
             >
               <Ico size={16} />
             </button>
           ))}
           <div className="flex-1" />
-          <button aria-label="Settings" className="h-control-cozy w-[var(--size-control-cozy)] grid place-items-center text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
+          <button aria-label="Settings" className="h-control-cozy w-[var(--size-control-cozy)] grid place-items-center text-[color:var(--text-tertiary)] hover:bg-[var(--surface-raised)] rounded-[3px]">
             <Settings size={16} />
           </button>
         </aside>
@@ -241,13 +241,13 @@ function WindowsFrame() {
               className={[
                 "flex items-center gap-2 px-3 py-[var(--space-1_5)] rounded-[3px] text-micro",
                 item.active
-                  ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
-                  : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
+                  ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)] font-semibold"
+                  : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
               ].join(" ")}
             >
               <span className="flex-1 text-left">{item.name}</span>
               {item.badge && (
-                <span className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">{item.badge}</span>
+                <span className="lumen-mono lumen-tnum text-micro text-[color:var(--text-tertiary)]">{item.badge}</span>
               )}
             </button>
           ))}
@@ -256,7 +256,7 @@ function WindowsFrame() {
         {/* Content */}
         <main className="p-4 flex flex-col gap-3">
           <header className="flex items-center justify-between gap-3">
-            <h2 className="text-heading-h4 text-[var(--text-primary)]">Overview</h2>
+            <h2 className="text-heading-h4 text-[color:var(--text-primary)]">Overview</h2>
             <Button intent="primary" size="sm" leadingIcon={<Plus size={13} />}>
               New shipment
             </Button>
@@ -278,9 +278,9 @@ function WindowsFrame() {
                 { who: "Carrier API",  what: "23 new rates",        when: "4 h ago" },
               ].map((a) => (
                 <li key={a.when} className="flex items-baseline gap-2 px-3 py-[var(--space-1_5)] text-body-xs">
-                  <span className="font-medium text-[var(--text-primary)]">{a.who}</span>
-                  <span className="text-[var(--text-secondary)] flex-1">{a.what}</span>
-                  <span className="lumen-mono text-micro text-[var(--text-tertiary)]">{a.when}</span>
+                  <span className="font-medium text-[color:var(--text-primary)]">{a.who}</span>
+                  <span className="text-[color:var(--text-secondary)] flex-1">{a.what}</span>
+                  <span className="lumen-mono text-micro text-[color:var(--text-tertiary)]">{a.when}</span>
                 </li>
               ))}
             </ul>

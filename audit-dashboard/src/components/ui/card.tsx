@@ -7,7 +7,7 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="card"
       className={cn(
         /* v0.8.1 — Direct refs; see ui/button.tsx for context on the bridge fragility. */
-        "bg-[var(--surface-raised)] text-[var(--text-primary)] flex flex-col gap-6 rounded-[var(--radius-xl)] border border-[var(--border-hairline)] py-6 shadow-[var(--shadow-sm)]",
+        "bg-[var(--surface-raised)] text-[color:var(--text-primary)] flex flex-col gap-6 rounded-[var(--radius-xl)] border border-[var(--border-hairline)] py-6 shadow-[var(--shadow-sm)]",
         className,
       )}
       {...props}
@@ -42,7 +42,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
-      className={cn("text-[var(--text-tertiary)] text-sm leading-[var(--leading-snug)]", className)}
+      className={cn("text-[color:var(--text-tertiary)] text-sm leading-[var(--leading-snug)]", className)}
       {...props}
     />
   );

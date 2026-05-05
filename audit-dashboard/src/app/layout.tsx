@@ -44,7 +44,7 @@ export default function RootLayout({
       data-theme="dark"
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-[var(--surface-canvas)] text-[var(--text-primary)] font-sans">
+      <body className="min-h-full bg-[var(--surface-canvas)] text-[color:var(--text-primary)] font-sans">
         <DashboardShell>{children}</DashboardShell>
       </body>
     </html>

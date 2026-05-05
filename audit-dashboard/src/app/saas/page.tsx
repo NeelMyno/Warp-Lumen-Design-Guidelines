@@ -84,16 +84,16 @@ function Sidebar() {
     <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5">
       {/* workspace switcher */}
       <button className="mx-3 flex items-center gap-inline-sm px-2 py-[var(--space-1_5)] rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
-        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-label-sm font-bold">
+        <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[color:var(--text-on-accent)] lumen-mono text-label-sm font-bold">
           A
         </div>
         <div className="flex flex-col min-w-0 text-left gap-[2px]">
           <span className="text-heading-h6 truncate">
             Acme Logistics
           </span>
-          <span className="text-micro text-[var(--text-tertiary)]">Workspace</span>
+          <span className="text-micro text-[color:var(--text-tertiary)]">Workspace</span>
         </div>
-        <span className="ml-auto text-[var(--text-tertiary)] group-hover:text-[var(--text-secondary)]">⌃</span>
+        <span className="ml-auto text-[color:var(--text-tertiary)] group-hover:text-[color:var(--text-secondary)]">⌃</span>
       </button>
 
       <div className="flex flex-col gap-5 px-2">
@@ -111,14 +111,14 @@ function Sidebar() {
                     "text-label-sm",
                     "transition-colors duration-[var(--motion-fast)]",
                     item.active
-                      ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
-                      : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)]",
+                      ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)] font-semibold"
+                      : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)]",
                   ].join(" ")}
                 >
                   <I size={15} />
                   <span className="flex-1">{item.label}</span>
                   {item.badge && (
-                    <span className="lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">
+                    <span className="lumen-mono lumen-tnum text-micro text-[color:var(--text-tertiary)]">
                       {item.badge}
                     </span>
                   )}
@@ -132,7 +132,7 @@ function Sidebar() {
       {/* status footer */}
       <div className="mt-auto mx-3 mb-2 px-3 py-2 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-sunken)] flex flex-col gap-[var(--space-1_5)]">
         <LiveDot label="API healthy" />
-        <div className="flex items-center justify-between lumen-mono lumen-tnum text-micro text-[var(--text-tertiary)]">
+        <div className="flex items-center justify-between lumen-mono lumen-tnum text-micro text-[color:var(--text-tertiary)]">
           <span>v2.18.4</span>
           <span>12 ms p50</span>
         </div>
@@ -147,17 +147,17 @@ function TopBar() {
   return (
     <header className="flex items-center gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-6 h-14">
       <div className="flex items-center gap-3 min-w-0">
-        <h1 className="text-heading-h3 text-[var(--text-primary)] truncate">
+        <h1 className="text-heading-h3 text-[color:var(--text-primary)] truncate">
           Today
         </h1>
         <Badge status="accent" leadingDot size="md">Live</Badge>
-        <span className="text-micro text-[var(--text-tertiary)] hidden md:inline">
+        <span className="text-micro text-[color:var(--text-tertiary)] hidden md:inline">
           Friday · May 2 · UTC
         </span>
       </div>
 
       <div className="flex-1 max-w-md">
-        <button className="w-full flex items-center gap-inline-md h-control-cozy px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] text-[var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] transition-colors">
+        <button className="w-full flex items-center gap-inline-md h-control-cozy px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] transition-colors">
           <Search size={14} />
           <span className="flex-1 text-left">Search shipments, lanes, quotes…</span>
           <span className="flex items-center gap-1">
@@ -272,7 +272,7 @@ function ShipmentsTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-body-xs">
           <thead>
-            <tr className="text-left text-[var(--text-tertiary)]">
+            <tr className="text-left text-[color:var(--text-tertiary)]">
               <Th>ID</Th>
               <Th>Lane</Th>
               <Th>Carrier</Th>
@@ -288,24 +288,24 @@ function ShipmentsTable() {
                 key={r.id}
                 className="border-t border-[var(--border-hairline)] hover:bg-[var(--surface-sunken)] transition-colors duration-[var(--motion-fast)] cursor-pointer"
               >
-                <Td><code className="lumen-mono text-[var(--text-secondary)]">{r.id}</code></Td>
-                <Td><span className="font-medium text-[var(--text-primary)]">{r.lane}</span></Td>
+                <Td><code className="lumen-mono text-[color:var(--text-secondary)]">{r.id}</code></Td>
+                <Td><span className="font-medium text-[color:var(--text-primary)]">{r.lane}</span></Td>
                 <Td>
                   <div className="flex items-center gap-2">
                     <Avatar name={r.carrier} size="xs" />
-                    <span className="text-[var(--text-secondary)]">{r.carrier}</span>
+                    <span className="text-[color:var(--text-secondary)]">{r.carrier}</span>
                   </div>
                 </Td>
                 <Td align="right" mono>{r.eta}</Td>
                 <Td align="right" mono>{r.weight}</Td>
-                <Td align="right" mono className="font-medium text-[var(--text-primary)]">{r.cost}</Td>
+                <Td align="right" mono className="font-medium text-[color:var(--text-primary)]">{r.cost}</Td>
                 <Td>{statusBadge(r.status)}</Td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-micro text-[var(--text-tertiary)]">
+      <div className="flex items-center justify-between gap-2 px-4 py-2 border-t border-[var(--border-hairline)] bg-[var(--surface-raised)] text-micro text-[color:var(--text-tertiary)]">
         <span>7 of 1,284 · refreshed 12 s ago</span>
         <div className="flex items-center gap-1">
           <Button intent="tertiary" size="xs">Prev</Button>
@@ -365,15 +365,15 @@ function SidePanel() {
             { who: "Quote engine", what: "reduced 16 lanes by 4.2%", when: "2 h ago",  icon: <Code size={12} /> },
           ].map((a, i) => (
             <li key={i} className="flex items-start gap-3 px-4 py-2">
-              <span className="mt-1 h-6 w-6 grid place-items-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--text-tertiary)] shrink-0">
+              <span className="mt-1 h-6 w-6 grid place-items-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] shrink-0">
                 {a.icon}
               </span>
               <div className="flex-1 min-w-0">
-                <div className="text-body-xs text-[var(--text-primary)]">
+                <div className="text-body-xs text-[color:var(--text-primary)]">
                   <span className="font-medium">{a.who}</span>{" "}
-                  <span className="text-[var(--text-secondary)]">{a.what}</span>
+                  <span className="text-[color:var(--text-secondary)]">{a.what}</span>
                 </div>
-                <div className="lumen-mono text-micro text-[var(--text-tertiary)] mt-1">{a.when}</div>
+                <div className="lumen-mono text-micro text-[color:var(--text-tertiary)] mt-1">{a.when}</div>
               </div>
             </li>
           ))}
@@ -399,11 +399,11 @@ function SidePanel() {
         <div className="flex items-center gap-4">
           <ProgressRing value={98} tone="success" size={64} stroke={5} />
           <div className="flex flex-col gap-1">
-            <div className="text-micro text-[var(--text-tertiary)]">vs last period</div>
+            <div className="text-micro text-[color:var(--text-tertiary)]">vs last period</div>
             <div className="lumen-mono lumen-tnum text-data-md font-semibold text-[var(--status-success-fg)]">
               ▲ +0.4 pts
             </div>
-            <div className="text-micro text-[var(--text-tertiary)]">target 97%</div>
+            <div className="text-micro text-[color:var(--text-tertiary)]">target 97%</div>
           </div>
         </div>
       </Card>
@@ -411,7 +411,7 @@ function SidePanel() {
       <Card>
         <CardHeader title="No tasks today" />
         <div className="flex flex-col items-start gap-3">
-          <p className="text-body-xs text-[var(--text-tertiary)] leading-snug">
+          <p className="text-body-xs text-[color:var(--text-tertiary)] leading-snug">
             When a shipment needs your attention it appears here. Try creating a new quote.
           </p>
           <Button intent="secondary" size="sm" leadingIcon={<Plus size={14} />}>
@@ -439,7 +439,7 @@ function LanePerf() {
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex flex-col gap-1">
           <div className="lumen-eyebrow">Lane performance · 7d</div>
-          <div className="text-body-xs text-[var(--text-tertiary)]">
+          <div className="text-body-xs text-[color:var(--text-tertiary)]">
             Top 4 lanes by volume — quote acceptance vs market floor.
           </div>
         </div>

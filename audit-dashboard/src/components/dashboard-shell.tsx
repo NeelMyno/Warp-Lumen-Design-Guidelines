@@ -15,7 +15,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* a11y: skip-to-content link. Visually hidden until focused. */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[var(--z-overlay)] focus:rounded-[var(--radius-md)] focus:bg-[var(--surface-raised)] focus:text-[var(--text-primary)] focus:border focus:border-[var(--border-accent)] focus:px-4 focus:py-2 focus:text-label-sm focus:shadow-[var(--shadow-focus)] focus:outline-none"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[var(--z-overlay)] focus:rounded-[var(--radius-md)] focus:bg-[var(--surface-raised)] focus:text-[color:var(--text-primary)] focus:border focus:border-[var(--border-accent)] focus:px-4 focus:py-2 focus:text-label-sm focus:shadow-[var(--shadow-focus)] focus:outline-none"
       >
         Skip to main content
       </a>
@@ -38,13 +38,13 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="mx-auto flex w-full max-w-max items-center gap-4 px-6 h-16">
             <Link
               href="/foundations"
-              className="lumen-mark-link group flex items-center gap-inline-sm text-[var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
+              className="lumen-mark-link group flex items-center gap-inline-sm text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
             >
               <LumenMark />
-              <span className="text-heading-h5 transition-colors duration-[var(--motion-fast)] group-hover:text-[var(--text-accent)]">
+              <span className="text-heading-h5 transition-colors duration-[var(--motion-fast)] group-hover:text-[color:var(--text-accent)]">
                 Lumen
               </span>
-              <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[var(--text-accent)] normal-case transition-[box-shadow,background-color] duration-[var(--motion-fast)] group-hover:bg-[var(--surface-tint-accent)] group-hover:shadow-[var(--shadow-button-glow-rest)]">
+              <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[color:var(--text-accent)] normal-case transition-[box-shadow,background-color] duration-[var(--motion-fast)] group-hover:bg-[var(--surface-tint-accent)] group-hover:shadow-[var(--shadow-button-glow-rest)]">
                 v0.11.13
               </span>
               {/* v0.11.6 — pulsing dot replaces the "System v0.11 live" caption.
@@ -80,7 +80,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       </main>
 
       <footer className="mt-16 border-t border-[var(--border-hairline)] bg-[var(--surface-canvas)]">
-        <div className="mx-auto flex w-full max-w-max flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-6 py-10 text-micro text-[var(--text-tertiary)]">
+        <div className="mx-auto flex w-full max-w-max flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-6 py-10 text-micro text-[color:var(--text-tertiary)]">
           <div className="flex items-center gap-3">
             <LumenMark size={14} />
             <span className="lumen-mono-cap">

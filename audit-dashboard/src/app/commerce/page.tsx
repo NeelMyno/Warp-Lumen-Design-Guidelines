@@ -56,7 +56,7 @@ export default function CommercePage() {
                 <span className="text-metric-xl lumen-tnum">
                   4.8
                 </span>
-                <span className="lumen-mono text-body-xs text-[var(--text-tertiary)]">
+                <span className="lumen-mono text-body-xs text-[color:var(--text-tertiary)]">
                   /5 · 184 reviews
                 </span>
               </div>
@@ -78,11 +78,11 @@ export default function CommercePage() {
                   </div>
                   <div className="flex items-center gap-2 mb-3">
                     <Avatar name={r.author} size="xs" />
-                    <span className="lumen-mono text-micro text-[var(--text-tertiary)]">
+                    <span className="lumen-mono text-micro text-[color:var(--text-tertiary)]">
                       {r.author} · {r.when}
                     </span>
                   </div>
-                  <p className="text-body-sm text-[var(--text-secondary)] leading-snug">
+                  <p className="text-body-sm text-[color:var(--text-secondary)] leading-snug">
                     {r.body}
                   </p>
                 </Card>
@@ -109,7 +109,7 @@ export default function CommercePage() {
                 </div>
                 <div className="p-3 flex flex-col gap-[2px]">
                   <div className="text-label-md truncate">{p.name}</div>
-                  <div className="lumen-mono lumen-tnum text-body-xs text-[var(--text-secondary)]">
+                  <div className="lumen-mono lumen-tnum text-body-xs text-[color:var(--text-secondary)]">
                     {p.price}
                   </div>
                 </div>
@@ -129,9 +129,9 @@ function StoreHeader() {
         <div className="text-body-lg font-bold tracking-[var(--tracking-tight)]">
           Foundry
         </div>
-        <nav className="hidden md:flex items-center gap-6 text-body-sm text-[var(--text-secondary)]">
+        <nav className="hidden md:flex items-center gap-6 text-body-sm text-[color:var(--text-secondary)]">
           {["Shop", "Collections", "Editorial", "Studio", "About"].map((n) => (
-            <a key={n} href="#" className="hover:text-[var(--text-primary)] transition-colors">{n}</a>
+            <a key={n} href="#" className="hover:text-[color:var(--text-primary)] transition-colors">{n}</a>
           ))}
         </nav>
       </div>
@@ -148,7 +148,7 @@ function StoreHeader() {
 
 function Announcement() {
   return (
-    <div className="bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-micro py-2 text-center">
+    <div className="bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] text-micro py-2 text-center">
       Free freight on orders over $200 — handled by{" "}
       <span className="lumen-mono" style={{ color: "var(--lumen-accent-3)" }}>@warp</span>
     </div>
@@ -196,12 +196,12 @@ function Buy() {
         </h1>
         <div className="mt-3 flex items-baseline gap-3">
           <span className="lumen-mono lumen-tnum text-heading-h2">$248</span>
-          <span className="lumen-mono lumen-tnum text-body-md text-[var(--text-tertiary)] line-through">$320</span>
+          <span className="lumen-mono lumen-tnum text-body-md text-[color:var(--text-tertiary)] line-through">$320</span>
           <Badge status="accent">22% off</Badge>
         </div>
       </div>
 
-      <p className="text-body-md text-[var(--text-secondary)] max-w-[52ch]">
+      <p className="text-body-md text-[color:var(--text-secondary)] max-w-[52ch]">
         Waxed organic cotton, branched seams, two-way main zip. Built to take a beating and to age the way good things do.
       </p>
 
@@ -232,7 +232,7 @@ function Buy() {
       <div>
         <div className="flex items-baseline justify-between mb-3">
           <div className="lumen-eyebrow">Size</div>
-          <a href="#" className="text-micro text-[var(--text-tertiary)] hover:text-[var(--text-primary)] underline underline-offset-2">Size guide</a>
+          <a href="#" className="text-micro text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] underline underline-offset-2">Size guide</a>
         </div>
         <div className="grid grid-cols-6 gap-[var(--space-1_5)]">
           {sizes.map((s) => (
@@ -241,8 +241,8 @@ function Buy() {
               className={[
                 "h-10 rounded-[var(--radius-md)] border text-label-sm transition-colors",
                 s === "M"
-                  ? "border-[var(--text-primary)] bg-[var(--surface-raised)] text-[var(--text-primary)]"
-                  : "border-[var(--border-hairline)] text-[var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]",
+                  ? "border-[var(--text-primary)] bg-[var(--surface-raised)] text-[color:var(--text-primary)]"
+                  : "border-[var(--border-hairline)] text-[color:var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[color:var(--text-primary)]",
               ].join(" ")}
             >
               {s}
@@ -258,7 +258,7 @@ function Buy() {
         <Button intent="secondary" size="md" trailingIcon={<ArrowRight size={14} />}>
           Buy with shop pay
         </Button>
-        <p className="text-body-xs text-[var(--text-secondary)] mt-2 flex items-start gap-2">
+        <p className="text-body-xs text-[color:var(--text-secondary)] mt-2 flex items-start gap-2">
           <Check size={14} /> Ships in 2 days · 30-day returns · Lifetime repair
         </p>
       </div>
@@ -268,7 +268,7 @@ function Buy() {
           Materials & care
           <ChevronDown size={14} className="group-open:rotate-180 transition-transform" />
         </summary>
-        <p className="mt-2 text-body-sm text-[var(--text-secondary)]">
+        <p className="mt-2 text-body-sm text-[color:var(--text-secondary)]">
           11oz organic cotton, beeswax-finished. Spot clean. Re-wax annually with our Tin No. 4.
         </p>
       </details>
@@ -277,7 +277,7 @@ function Buy() {
           Shipping & returns
           <ChevronDown size={14} className="group-open:rotate-180 transition-transform" />
         </summary>
-        <p className="mt-2 text-body-sm text-[var(--text-secondary)]">
+        <p className="mt-2 text-body-sm text-[color:var(--text-secondary)]">
           Free freight on orders over $200, fulfilled by Warp. 30-day no-questions returns.
         </p>
       </details>
@@ -330,14 +330,14 @@ const RATING_BAR_TONE: Record<number, string> = {
 function Bar({ stars, pct }: { stars: number; pct: number }) {
   return (
     <div className="flex items-center gap-2 text-micro">
-      <span className="w-3 lumen-mono text-[var(--text-tertiary)]">{stars}</span>
+      <span className="w-3 lumen-mono text-[color:var(--text-tertiary)]">{stars}</span>
       <div className="flex-1 h-2 rounded-full bg-[var(--surface-sunken)] overflow-hidden">
         <div
           className="h-full rounded-full transition-[width] duration-[var(--motion-medium,320ms)]"
           style={{ width: `${pct}%`, background: RATING_BAR_TONE[stars] }}
         />
       </div>
-      <span className="w-9 text-right lumen-mono lumen-tnum text-[var(--type-12)] text-[var(--text-secondary)]">{pct}%</span>
+      <span className="w-9 text-right lumen-mono lumen-tnum text-[var(--type-12)] text-[color:var(--text-secondary)]">{pct}%</span>
     </div>
   );
 }

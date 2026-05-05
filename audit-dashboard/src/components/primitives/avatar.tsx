@@ -107,7 +107,7 @@ export function AvatarGroup({
       {visible.map((n) => <Avatar key={n} name={n} size={size} ring />)}
       {overflow > 0 && (
         <span
-          className="inline-flex items-center justify-center rounded-full bg-[var(--surface-sunken)] text-[var(--text-tertiary)] font-medium text-[10px] ring-2 ring-offset-2 ring-offset-[var(--surface-canvas)] ring-[var(--border-default)]"
+          className="inline-flex items-center justify-center rounded-full bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] font-medium text-[10px] ring-2 ring-offset-2 ring-offset-[var(--surface-canvas)] ring-[var(--border-default)]"
           style={{ width: SIZE_PX[size], height: SIZE_PX[size] }}
         >
           +{overflow}

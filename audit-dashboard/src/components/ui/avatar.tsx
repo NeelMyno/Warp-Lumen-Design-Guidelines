@@ -40,7 +40,7 @@ function AvatarFallback({
       data-slot="avatar-fallback"
       className={cn(
         /* v0.5: arbitrary-value type — review for semantic preset (mono medium uppercase at 13 — avatar fallback) */
-        "bg-[var(--surface-sunken)] text-[var(--text-primary)] flex size-full items-center justify-center rounded-full text-[var(--type-13)] font-medium lumen-mono uppercase",
+        "bg-[var(--surface-sunken)] text-[color:var(--text-primary)] flex size-full items-center justify-center rounded-full text-[var(--type-13)] font-medium lumen-mono uppercase",
         className,
       )}
       {...props}

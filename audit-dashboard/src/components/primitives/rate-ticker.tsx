@@ -28,10 +28,10 @@ export function RateTicker({
             key={i}
             className="flex items-center gap-2 lumen-mono lumen-tnum text-[var(--type-13)]"
           >
-            <span className="text-[var(--text-secondary)]">{r.from}</span>
-            <span className="text-[var(--text-tertiary)]">→</span>
-            <span className="text-[var(--text-secondary)]">{r.to}</span>
-            <span className="text-[var(--text-primary)] font-medium">
+            <span className="text-[color:var(--text-secondary)]">{r.from}</span>
+            <span className="text-[color:var(--text-tertiary)]">→</span>
+            <span className="text-[color:var(--text-secondary)]">{r.to}</span>
+            <span className="text-[color:var(--text-primary)] font-medium">
               {r.price}
             </span>
             {r.trend && (

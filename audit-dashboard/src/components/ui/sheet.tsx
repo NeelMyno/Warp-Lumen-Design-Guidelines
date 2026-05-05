@@ -49,7 +49,7 @@ function SheetContent({
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          "bg-[var(--surface-popover)] text-[var(--text-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-[var(--z-modal)] flex flex-col gap-4 shadow-[var(--shadow-modal)] transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+          "bg-[var(--surface-popover)] text-[color:var(--text-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-[var(--z-modal)] flex flex-col gap-4 shadow-[var(--shadow-modal)] transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
           side === "right" &&
             "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l border-[var(--border-default)] sm:max-w-sm",
           side === "left" &&
@@ -100,7 +100,7 @@ function SheetTitle({
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("text-[var(--text-primary)] font-semibold tracking-[var(--tracking-tight)]", className)}
+      className={cn("text-[color:var(--text-primary)] font-semibold tracking-[var(--tracking-tight)]", className)}
       {...props}
     />
   );
@@ -113,7 +113,7 @@ function SheetDescription({
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("text-[var(--text-tertiary)] text-sm", className)}
+      className={cn("text-[color:var(--text-tertiary)] text-sm", className)}
       {...props}
     />
   );

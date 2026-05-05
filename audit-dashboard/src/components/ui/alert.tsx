@@ -8,11 +8,11 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[var(--surface-raised)] text-[var(--text-primary)] border-[var(--border-default)]",
-        info: "bg-[var(--lumen-cream-1)] text-[var(--lumen-cream-7)] border-[var(--lumen-cream-2)]",
-        success: "bg-[var(--lumen-accent-1)] text-[var(--lumen-accent-8)] border-[var(--lumen-accent-2)]",
-        warning: "bg-[var(--lumen-amber-0)] text-[var(--lumen-amber-7)] border-[var(--lumen-amber-2)]",
-        destructive: "bg-[var(--lumen-red-0)] text-[var(--lumen-red-7)] border-[var(--lumen-red-2)] [&>svg]:text-current",
+        default: "bg-[var(--surface-raised)] text-[color:var(--text-primary)] border-[var(--border-default)]",
+        info: "bg-[var(--lumen-cream-1)] text-[color:var(--lumen-cream-7)] border-[var(--lumen-cream-2)]",
+        success: "bg-[var(--lumen-accent-1)] text-[color:var(--lumen-accent-8)] border-[var(--lumen-accent-2)]",
+        warning: "bg-[var(--lumen-amber-0)] text-[color:var(--lumen-amber-7)] border-[var(--lumen-amber-2)]",
+        destructive: "bg-[var(--lumen-red-0)] text-[color:var(--lumen-red-7)] border-[var(--lumen-red-2)] [&>svg]:text-current",
       },
     },
     defaultVariants: { variant: "default" },
@@ -52,7 +52,7 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"div">) 
     <div
       data-slot="alert-description"
       className={cn(
-        "col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed text-[var(--text-secondary)]",
+        "col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed text-[color:var(--text-secondary)]",
         className,
       )}
       {...props}

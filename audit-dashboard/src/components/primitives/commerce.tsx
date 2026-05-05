@@ -3,6 +3,7 @@
 import { ReactNode, useState } from "react";
 import { Cart as CartIcon, Plus, X, Check, Search as SearchIcon } from "./icon";
 import { Stars } from "./display";
+import { Button } from "./button";
 
 /* ─────────────────────────  PRICING CARD  ───────────────────────── */
 export function PricingCard({
@@ -33,36 +34,32 @@ export function PricingCard({
     >
       {recommended && (
         // lumen-lint-allow: off-grid — 10 px optical overlap of pill above card edge.
-        <span className="absolute -top-2.5 left-5 inline-flex items-center gap-1 h-5 px-2 rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]">
+        <span className="absolute -top-2.5 left-5 inline-flex items-center gap-1 h-5 px-2 rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)]">
           Most popular
         </span>
       )}
       <div>
         <div className="text-heading-h5">{name}</div>
-        {description && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>}
+        {description && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>}
       </div>
       <div className="flex items-baseline gap-1">
         <span className="lumen-tnum text-[var(--type-44)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{price}</span>
-        <span className="text-body-xs text-[var(--text-tertiary)]">/{period}</span>
+        <span className="text-body-xs text-[color:var(--text-tertiary)]">/{period}</span>
       </div>
       <ul className="flex flex-col gap-2">
         {features.map((f) => (
-          <li key={f} className="flex items-start gap-2 text-body-xs text-[var(--text-secondary)]">
-            <span className="mt-1 text-[var(--lumen-accent-6)]"><Check size={13} /></span>
+          <li key={f} className="flex items-start gap-2 text-body-xs text-[color:var(--text-secondary)]">
+            <span className="mt-1 text-[color:var(--lumen-accent-6)]"><Check size={13} /></span>
             <span>{f}</span>
           </li>
         ))}
       </ul>
-      <button
-        className={[
-          "h-10 rounded-[var(--radius-md)] text-[var(--type-13)] font-semibold transition-colors",
-          recommended
-            ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] hover:bg-[var(--lumen-accent-5)]"
-            : "border border-[var(--border-default)] bg-[var(--surface-raised)] hover:bg-[var(--surface-sunken)]",
-        ].join(" ")}
-      >
+      {/* v0.11.13.3 — recommended tier uses Button intent="primary"; the
+          ungated tier uses intent="secondary". Single source of truth for
+          both surfaces is now the .lumen-btn-* CSS classes. */}
+      <Button intent={recommended ? "primary" : "secondary"} fullWidth>
         {cta}
-      </button>
+      </Button>
     </div>
   );
 }
@@ -71,7 +68,7 @@ export function PricingCard({
 export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"; onChange: (v: "monthly" | "yearly") => void }) {
   return (
     <div className="inline-flex items-center gap-3">
-      <span className={["text-[var(--type-13)]", value === "monthly" ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>Monthly</span>
+      <span className={["text-[var(--type-13)]", value === "monthly" ? "text-[color:var(--text-primary)] font-medium" : "text-[color:var(--text-tertiary)]"].join(" ")}>Monthly</span>
       <button
         onClick={() => onChange(value === "monthly" ? "yearly" : "monthly")}
         className="relative h-6 w-11 rounded-full bg-[var(--surface-sunken)] border border-[var(--border-default)] transition-colors"
@@ -86,8 +83,8 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
         />
         {/* lumen-lint-allow-end: off-grid */}
       </button>
-      <span className={["text-[var(--type-13)]", value === "yearly" ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-tertiary)]"].join(" ")}>
-        Yearly <span className="text-[var(--lumen-accent-7)] lumen-mono text-[var(--type-11)]">−2 mo</span>
+      <span className={["text-[var(--type-13)]", value === "yearly" ? "text-[color:var(--text-primary)] font-medium" : "text-[color:var(--text-tertiary)]"].join(" ")}>
+        Yearly <span className="text-[color:var(--lumen-accent-7)] lumen-mono text-[var(--type-11)]">−2 mo</span>
       </span>
     </div>
   );
@@ -146,7 +143,7 @@ export function RatingBlock({ value = 4.6, count = 1284 }: { value?: number; cou
     <div className="inline-flex items-center gap-2">
       <Stars value={Math.floor(value)} />
       <span className="lumen-tnum text-heading-h5">{value.toFixed(1)}</span>
-      <span className="text-[var(--type-12)] text-[var(--text-tertiary)]">({count.toLocaleString()} reviews)</span>
+      <span className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">({count.toLocaleString()} reviews)</span>
     </div>
   );
 }
@@ -162,17 +159,17 @@ export function CouponInput() {
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
           placeholder="Discount code"
-          className="flex-1 h-10 px-3 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-14)] lumen-mono uppercase placeholder:text-[var(--text-tertiary)] placeholder:normal-case focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
+          className="flex-1 h-10 px-3 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-14)] lumen-mono uppercase placeholder:text-[color:var(--text-tertiary)] placeholder:normal-case focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
         />
         <button
           onClick={() => { if (code) setApplied(code); }}
-          className="h-10 px-3 rounded-[var(--radius-md)] bg-[var(--surface-inverse)] text-[var(--text-inverse)] text-[var(--type-14)] font-medium hover:opacity-90"
+          className="h-10 px-3 rounded-[var(--radius-md)] bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] text-[var(--type-14)] font-medium hover:opacity-90"
         >
           Apply
         </button>
       </div>
       {applied && (
-        <div className="text-[var(--type-12)] text-[var(--lumen-accent-7)] flex items-center gap-[var(--space-1_5)]">
+        <div className="text-[var(--type-12)] text-[color:var(--lumen-accent-7)] flex items-center gap-[var(--space-1_5)]">
           <Check size={12} />
           Code <span className="lumen-mono">{applied}</span> applied — 12% off
         </div>
@@ -220,7 +217,7 @@ export function ProductGallery({ count = 5 }: { count?: number }) {
       </div>
       <div className="aspect-[4/5] rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] overflow-hidden">
         <div className="lumen-stripe-grid h-full w-full flex items-center justify-center">
-          <span className="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">Product image {active + 1}</span>
+          <span className="text-[var(--type-12)] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)]">Product image {active + 1}</span>
         </div>
       </div>
     </div>
@@ -238,8 +235,8 @@ export function CartDrawer() {
   return (
     <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-raised)] border border-[var(--border-default)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col">
       <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <span className="text-heading-h6 flex items-center gap-2"><CartIcon size={14} /> Your bag <span className="lumen-mono text-[var(--text-tertiary)]">({items.length})</span></span>
-        <button aria-label="Close cart" className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"><X size={14} /></button>
+        <span className="text-heading-h6 flex items-center gap-2"><CartIcon size={14} /> Your bag <span className="lumen-mono text-[color:var(--text-tertiary)]">({items.length})</span></span>
+        <button aria-label="Close cart" className="text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]"><X size={14} /></button>
       </div>
       <div className="p-4 flex flex-col gap-4 overflow-auto">
         {items.map((it) => (
@@ -247,14 +244,14 @@ export function CartDrawer() {
             <div className="h-14 w-14 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] lumen-stripe-grid" />
             <div className="flex-1 min-w-0">
               <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{it.name}</div>
-              <div className="text-[var(--type-12)] text-[var(--text-tertiary)]">{it.variant}</div>
+              <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">{it.variant}</div>
               <div className="flex items-center gap-2 mt-2">
                 <div className="inline-flex items-center h-7 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-raised)] overflow-hidden text-[var(--type-12)]">
                   <button className="px-2 hover:bg-[var(--surface-sunken)]">−</button>
                   <span className="px-2 lumen-mono">{it.qty}</span>
                   <button className="px-2 hover:bg-[var(--surface-sunken)]">+</button>
                 </div>
-                <button className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Remove</button>
+                <button className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]">Remove</button>
               </div>
             </div>
             <span className="lumen-tnum text-[var(--type-13)] font-medium">${(it.qty * it.price).toFixed(2)}</span>
@@ -263,14 +260,18 @@ export function CartDrawer() {
       </div>
       <div className="border-t border-[var(--border-hairline)] p-4 space-y-2">
         <div className="flex items-center justify-between text-[var(--type-13)]">
-          <span className="text-[var(--text-secondary)]">Subtotal</span>
+          <span className="text-[color:var(--text-secondary)]">Subtotal</span>
           <span className="lumen-tnum">${subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex items-center justify-between text-[var(--type-12)] text-[var(--text-tertiary)]">
+        <div className="flex items-center justify-between text-[var(--type-12)] text-[color:var(--text-tertiary)]">
           <span>Shipping calculated at checkout</span>
         </div>
-        <button className="w-full h-12 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-14)] font-semibold mt-2">Checkout</button>
-        <button className="w-full h-10 rounded-[var(--radius-md)] text-body-xs text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Continue shopping</button>
+        {/* v0.11.13.3 — Button primitive. The lg variant matches the prior 48-px height
+            and inherits the canonical primary surface fg from .lumen-btn-primary. */}
+        <div className="mt-2">
+          <Button intent="primary" size="lg" fullWidth>Checkout</Button>
+        </div>
+        <Button intent="ghost" fullWidth>Continue shopping</Button>
       </div>
     </div>
   );
@@ -295,8 +296,8 @@ export function OrderSummary() {
 function Row({ label, value, tone }: { label: ReactNode; value: ReactNode; tone?: "success" }) {
   return (
     <div className="flex items-center justify-between">
-      <span className={tone === "success" ? "text-[var(--lumen-accent-7)]" : "text-[var(--text-secondary)]"}>{label}</span>
-      <span className={["lumen-tnum", tone === "success" ? "text-[var(--lumen-accent-7)]" : "text-[var(--text-primary)]"].join(" ")}>{value}</span>
+      <span className={tone === "success" ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--text-secondary)]"}>{label}</span>
+      <span className={["lumen-tnum", tone === "success" ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--text-primary)]"].join(" ")}>{value}</span>
     </div>
   );
 }
@@ -322,10 +323,10 @@ export function CheckoutProgress() {
               className={[
                 "h-5 w-5 inline-flex items-center justify-center rounded-full text-[10px] font-semibold lumen-mono shrink-0",
                 done
-                  ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]"
+                  ? "bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)]"
                   : active
-                  ? "bg-[var(--surface-page)] text-[var(--text-primary)] shadow-[0_0_0_1.5px_var(--lumen-accent-4)]"
-                  : "bg-[var(--surface-sunken)] text-[var(--text-tertiary)] border border-[var(--border-default)]",
+                  ? "bg-[var(--surface-page)] text-[color:var(--text-primary)] shadow-[0_0_0_1.5px_var(--lumen-accent-4)]"
+                  : "bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] border border-[var(--border-default)]",
               ].join(" ")}
             >
               {done ? <Check size={10} /> : i + 1}
@@ -333,10 +334,10 @@ export function CheckoutProgress() {
             <span
               className={[
                 active
-                  ? "text-[var(--text-primary)] font-medium"
+                  ? "text-[color:var(--text-primary)] font-medium"
                   : done
-                  ? "text-[var(--text-secondary)]"
-                  : "text-[var(--text-tertiary)]",
+                  ? "text-[color:var(--text-secondary)]"
+                  : "text-[color:var(--text-tertiary)]",
               ].join(" ")}
             >
               {s}
@@ -371,20 +372,20 @@ export function ComparisonTable() {
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
       <table className="w-full text-[var(--type-13)]">
         <thead>
-          <tr className="border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">
+          <tr className="border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">
             <th className="px-4 py-3 text-left font-medium">Feature</th>
             <th className="px-4 py-3 text-center font-medium">Starter</th>
-            <th className="px-4 py-3 text-center font-medium bg-[var(--surface-tint-accent)] text-[var(--text-accent)]">Growth</th>
+            <th className="px-4 py-3 text-center font-medium bg-[var(--surface-tint-accent)] text-[color:var(--text-accent)]">Growth</th>
             <th className="px-4 py-3 text-center font-medium">Scale</th>
           </tr>
         </thead>
         <tbody>
           {features.map((f) => (
             <tr key={f.name} className="border-b border-[var(--border-hairline)] last:border-0">
-              <td className="px-4 py-3 text-[var(--text-secondary)]">{f.name}</td>
-              <td className="px-4 py-3 text-center">{f.starter ? <Check size={14} className="inline text-[var(--lumen-accent-6)]" /> : <span className="text-[var(--text-disabled)]">—</span>}</td>
-              <td className="px-4 py-3 text-center bg-[var(--surface-tint-accent)]/40">{f.growth ? <Check size={14} className="inline text-[var(--lumen-accent-6)]" /> : <span className="text-[var(--text-disabled)]">—</span>}</td>
-              <td className="px-4 py-3 text-center">{f.scale ? <Check size={14} className="inline text-[var(--lumen-accent-6)]" /> : <span className="text-[var(--text-disabled)]">—</span>}</td>
+              <td className="px-4 py-3 text-[color:var(--text-secondary)]">{f.name}</td>
+              <td className="px-4 py-3 text-center">{f.starter ? <Check size={14} className="inline text-[color:var(--lumen-accent-6)]" /> : <span className="text-[color:var(--text-disabled)]">—</span>}</td>
+              <td className="px-4 py-3 text-center bg-[var(--surface-tint-accent)]/40">{f.growth ? <Check size={14} className="inline text-[color:var(--lumen-accent-6)]" /> : <span className="text-[color:var(--text-disabled)]">—</span>}</td>
+              <td className="px-4 py-3 text-center">{f.scale ? <Check size={14} className="inline text-[color:var(--lumen-accent-6)]" /> : <span className="text-[color:var(--text-disabled)]">—</span>}</td>
             </tr>
           ))}
         </tbody>
@@ -399,7 +400,7 @@ export function TrustStrip() {
   return (
     <div className="flex flex-wrap items-center gap-2">
       {items.map((b) => (
-        <span key={b} className="inline-flex items-center gap-[var(--space-1_5)] h-7 px-3 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)]">
+        <span key={b} className="inline-flex items-center gap-[var(--space-1_5)] h-7 px-3 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]">
           <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-[1px] bg-[var(--lumen-accent-5)]" />
           {b}
         </span>
@@ -426,8 +427,8 @@ export function ColorSwatchSelector({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="text-[var(--type-12)] text-[var(--text-secondary)]">
-        Color: <span className="text-[var(--text-primary)] font-medium">{options.find((o) => o.color === value)?.label}</span>
+      <div className="text-[var(--type-12)] text-[color:var(--text-secondary)]">
+        Color: <span className="text-[color:var(--text-primary)] font-medium">{options.find((o) => o.color === value)?.label}</span>
       </div>
       <div className="flex items-center gap-2">
         {options.map((o) => (
@@ -466,8 +467,8 @@ export function SizeSelector({
           className={[
             "min-w-[48px] h-10 px-3 rounded-[var(--radius-md)] text-[var(--type-14)] lumen-mono transition-[background-color,border-color]",
             s === value
-              ? "bg-[var(--surface-inverse)] text-[var(--text-inverse)] border border-[var(--surface-inverse)]"
-              : "bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-secondary)] hover:border-[var(--border-strong)]",
+              ? "bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] border border-[var(--surface-inverse)]"
+              : "bg-[var(--surface-raised)] border border-[var(--border-default)] text-[color:var(--text-secondary)] hover:border-[var(--border-strong)]",
           ].join(" ")}
         >
           {s}

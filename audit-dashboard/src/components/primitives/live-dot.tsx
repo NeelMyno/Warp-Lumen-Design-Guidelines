@@ -36,7 +36,7 @@ export function LiveDot({
         />
       </span>
       {label && !hideLabel && (
-        <span className="text-overline text-[var(--text-secondary)] font-semibold whitespace-nowrap">
+        <span className="text-overline text-[color:var(--text-secondary)] font-semibold whitespace-nowrap">
           {label}
         </span>
       )}

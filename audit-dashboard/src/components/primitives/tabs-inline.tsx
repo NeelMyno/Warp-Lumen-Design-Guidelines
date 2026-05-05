@@ -57,8 +57,8 @@ export function InlineTabs({
             value={it.id}
             className={cn(
               variant === "pill"
-                ? "rounded-[var(--radius-md)] data-[state=active]:bg-[var(--surface-raised)] data-[state=active]:text-[var(--text-primary)] data-[state=active]:shadow-[var(--shadow-xs)] text-[var(--text-tertiary)]"
-                : "relative rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:font-semibold data-[state=active]:text-[var(--text-primary)] text-[var(--text-tertiary)] data-[state=active]:after:absolute data-[state=active]:after:left-2 data-[state=active]:after:right-2 data-[state=active]:after:-bottom-px data-[state=active]:after:h-[1.5px] data-[state=active]:after:rounded-full data-[state=active]:after:bg-[var(--text-primary)]",
+                ? "rounded-[var(--radius-md)] data-[state=active]:bg-[var(--surface-raised)] data-[state=active]:text-[color:var(--text-primary)] data-[state=active]:shadow-[var(--shadow-xs)] text-[color:var(--text-tertiary)]"
+                : "relative rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:font-semibold data-[state=active]:text-[color:var(--text-primary)] text-[color:var(--text-tertiary)] data-[state=active]:after:absolute data-[state=active]:after:left-2 data-[state=active]:after:right-2 data-[state=active]:after:-bottom-px data-[state=active]:after:h-[1.5px] data-[state=active]:after:rounded-full data-[state=active]:after:bg-[var(--text-primary)]",
               heightCls,
             )}
           >
@@ -66,7 +66,7 @@ export function InlineTabs({
               {it.label}
               {it.badge !== undefined && (
                 /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 11) */
-                <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[var(--text-tertiary)]">
+                <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[color:var(--text-tertiary)]">
                   {it.badge}
                 </span>
               )}

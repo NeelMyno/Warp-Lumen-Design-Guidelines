@@ -46,7 +46,7 @@ function DeviceColumn({
     <div className="flex flex-col gap-stack-md items-center">
       <div className="self-start">
         <div className="lumen-eyebrow mb-2">{name}</div>
-        <p className="text-body-xs text-[var(--text-tertiary)] max-w-[42ch]">{notes}</p>
+        <p className="text-body-xs text-[color:var(--text-tertiary)] max-w-[42ch]">{notes}</p>
       </div>
       <div className="flex justify-center">{children}</div>
     </div>
@@ -87,15 +87,15 @@ function IOSFrame() {
 
         {/* Large title */}
         <div className="px-6 pt-5 pb-3 flex flex-col gap-[var(--space-1_5)]">
-          <div className="text-eyebrow-sans text-[var(--text-tertiary)]">Today</div>
-          <h2 className="text-heading-h1 text-[var(--text-primary)]">
+          <div className="text-eyebrow-sans text-[color:var(--text-tertiary)]">Today</div>
+          <h2 className="text-heading-h1 text-[color:var(--text-primary)]">
             Shipments
           </h2>
         </div>
 
         {/* Search */}
         <div className="px-6 mt-1">
-          <div className="bg-[var(--surface-sunken)] rounded-[var(--radius-lg)] h-control-cozy flex items-center gap-2 px-3 text-[var(--text-tertiary)]">
+          <div className="bg-[var(--surface-sunken)] rounded-[var(--radius-lg)] h-control-cozy flex items-center gap-2 px-3 text-[color:var(--text-tertiary)]">
             <Search size={14} />
             <span className="text-body-sm">Search lanes…</span>
           </div>
@@ -132,8 +132,8 @@ function IOSFrame() {
               <div className="flex items-center gap-3 min-w-0">
                 <Avatar name={s.carrier} size="sm" />
                 <div className="flex flex-col min-w-0 gap-[2px]">
-                  <span className="text-label-md text-[var(--text-primary)]">{s.lane}</span>
-                  <code className="lumen-mono text-micro text-[var(--text-tertiary)]">{s.id}</code>
+                  <span className="text-label-md text-[color:var(--text-primary)]">{s.lane}</span>
+                  <code className="lumen-mono text-micro text-[color:var(--text-tertiary)]">{s.id}</code>
                 </div>
               </div>
               <Badge
@@ -164,7 +164,7 @@ function IOSFrame() {
               key={label}
               className={[
                 "flex flex-col items-center gap-1 text-micro",
-                active ? "text-[var(--text-primary)]" : "text-[var(--text-tertiary)]",
+                active ? "text-[color:var(--text-primary)]" : "text-[color:var(--text-tertiary)]",
               ].join(" ")}
             >
               <I size={22} />
@@ -208,7 +208,7 @@ function AndroidFrame() {
         {/* Top app bar */}
         <div className="px-4 py-3 flex items-center gap-3 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
           <Inbox size={20} />
-          <h2 className="flex-1 text-heading-h3 text-[var(--text-primary)]">Shipments</h2>
+          <h2 className="flex-1 text-heading-h3 text-[color:var(--text-primary)]">Shipments</h2>
           <Search size={20} />
           <span className="relative">
             <Bell size={20} />
@@ -218,7 +218,7 @@ function AndroidFrame() {
 
         {/* FAB-style primary action */}
         <div className="px-4 mt-4">
-          <button className="w-full h-12 rounded-[var(--radius-2xl)] bg-[var(--color-accent)] text-[var(--text-on-accent)] text-label-md flex items-center justify-center gap-2 font-semibold">
+          <button className="w-full h-12 rounded-[var(--radius-2xl)] bg-[var(--color-accent)] text-[color:var(--text-on-accent)] text-label-md flex items-center justify-center gap-2 font-semibold">
             <Plus size={16} /> New shipment
           </button>
         </div>
@@ -226,7 +226,7 @@ function AndroidFrame() {
         {/* Section header */}
         <div className="px-4 mt-5 mb-1 flex items-center justify-between">
           <div className="lumen-eyebrow">Active · 12</div>
-          <button className="text-micro text-[var(--text-secondary)] flex items-center gap-1">
+          <button className="text-micro text-[color:var(--text-secondary)] flex items-center gap-1">
             All <ArrowRight size={12} />
           </button>
         </div>
@@ -246,8 +246,8 @@ function AndroidFrame() {
             >
               <Avatar name={s.carrier} size="sm" />
               <div className="flex-1 min-w-0 flex flex-col gap-[2px]">
-                <div className="text-label-md text-[var(--text-primary)] truncate">{s.lane}</div>
-                <div className="lumen-mono text-micro text-[var(--text-tertiary)] truncate">
+                <div className="text-label-md text-[color:var(--text-primary)] truncate">{s.lane}</div>
+                <div className="lumen-mono text-micro text-[color:var(--text-tertiary)] truncate">
                   {s.id} · {s.eta}
                 </div>
               </div>
@@ -284,7 +284,7 @@ function AndroidFrame() {
               >
                 <I size={18} />
               </span>
-              <span className={active ? "text-[var(--text-primary)] font-semibold" : "text-[var(--text-tertiary)]"}>
+              <span className={active ? "text-[color:var(--text-primary)] font-semibold" : "text-[color:var(--text-tertiary)]"}>
                 {label}
               </span>
             </button>

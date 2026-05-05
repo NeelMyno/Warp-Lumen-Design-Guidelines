@@ -3,11 +3,12 @@
 import { ReactNode, useState } from "react";
 import { Sparkles } from "lucide-react";
 import { ChevronDown, Plus, Search as SearchIcon, Bell, Inbox, Check, X, Code } from "./icon";
+import { Button } from "./button";
 
 /* ─────────────────────────  AI BADGE  ───────────────────────── */
 export function AIBadge({ label = "AI generated" }: { label?: string }) {
   return (
-    <span className="inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)] text-[var(--text-accent)] bg-[var(--surface-tint-accent)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]">
+    <span className="inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[10px] font-semibold uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-accent)] bg-[var(--surface-tint-accent)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)]">
       <Sparkles size={10} strokeWidth={2} aria-hidden focusable={false} />
       {label}
     </span>
@@ -17,7 +18,7 @@ export function AIBadge({ label = "AI generated" }: { label?: string }) {
 /* ─────────────────────────  AI THINKING INDICATOR  ───────────────────────── */
 export function AIThinking() {
   return (
-    <div className="inline-flex items-center gap-2 text-body-xs text-[var(--text-tertiary)]">
+    <div className="inline-flex items-center gap-2 text-body-xs text-[color:var(--text-tertiary)]">
       <span className="relative inline-flex h-4 w-4">
         <Sparkles size={14} strokeWidth={2} aria-hidden focusable={false} />
       </span>
@@ -69,9 +70,9 @@ export function AIPromptInput() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] shadow-[var(--shadow-sm)] overflow-hidden">
       <div className="px-3 pt-2 pb-1 flex items-center gap-2 border-b border-[var(--border-hairline)]">
-        <span className="text-[var(--text-accent)]"><Sparkles size={14} /></span>
-        <span className="text-[var(--type-12)] text-[var(--text-tertiary)]">Lumen AI · Lane Suggestion</span>
-        <select className="ml-auto text-[var(--type-11)] text-[var(--text-tertiary)] bg-transparent focus:outline-none lumen-mono">
+        <span className="text-[color:var(--text-accent)]"><Sparkles size={14} /></span>
+        <span className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">Lumen AI · Lane Suggestion</span>
+        <select className="ml-auto text-[var(--type-11)] text-[color:var(--text-tertiary)] bg-transparent focus:outline-none lumen-mono">
           <option>opus 4.7</option><option>sonnet 4.6</option><option>haiku 4.5</option>
         </select>
       </div>
@@ -79,18 +80,18 @@ export function AIPromptInput() {
         value={val}
         onChange={(e) => setVal(e.target.value)}
         rows={3}
-        className="w-full p-3 bg-transparent text-[var(--type-13)] text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:outline-none resize-none leading-[var(--leading-normal)]"
+        className="w-full p-3 bg-transparent text-[var(--type-13)] text-[color:var(--text-primary)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none leading-[var(--leading-normal)]"
       />
       <div className="px-3 py-2 flex items-center justify-between border-t border-[var(--border-hairline)]">
         <div className="flex items-center gap-1">
-          <button className="h-7 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]"><Plus size={12} /> Attach</button>
-          <button className="h-7 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">Templates</button>
+          <button className="h-7 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]"><Plus size={12} /> Attach</button>
+          <button className="h-7 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">Templates</button>
         </div>
         <div className="flex items-center gap-2">
           <span className="lumen-kbd">⌘⏎</span>
-          <button className="h-8 px-3 inline-flex items-center gap-[var(--space-1_5)] rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-12)] font-semibold">
-            <Sparkles size={11} /> Generate
-          </button>
+          <Button intent="primary" size="sm" leadingIcon={<Sparkles size={11} aria-hidden />}>
+            Generate
+          </Button>
         </div>
       </div>
     </div>
@@ -103,24 +104,24 @@ export function AISuggestion() {
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-tint-accent)] p-4 max-w-[480px]">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-[var(--text-accent)]"><Sparkles size={13} /></span>
-          <span className="text-[var(--type-12)] font-semibold uppercase tracking-[var(--tracking-wider)] text-[var(--text-accent)]">Lumen suggestion</span>
+          <span className="text-[color:var(--text-accent)]"><Sparkles size={13} /></span>
+          <span className="text-[var(--type-12)] font-semibold uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-accent)]">Lumen suggestion</span>
         </div>
         <AIConfidence score={0.86} />
       </div>
       <div className="text-heading-h5 mb-2">
         Reroute via Albuquerque to save $284
       </div>
-      <p className="text-body-xs text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+      <p className="text-body-xs text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
         Saia carries this lane at $0.18/mi vs current $0.24/mi. Adds 38 mi but stays inside SLA.
         Sterling LTL has 4 active loads on the new path so capacity is reliable.
       </p>
       <div className="flex items-center gap-2 mt-3">
-        <button className="h-8 px-3 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-12)] font-semibold">Apply</button>
-        <button className="h-8 px-3 rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--type-12)] font-medium">Dismiss</button>
-        <span className="ml-auto text-[var(--type-11)] text-[var(--text-tertiary)] flex items-center gap-2">
-          <button aria-label="Helpful" className="hover:text-[var(--text-primary)]">👍</button>
-          <button aria-label="Not helpful" className="hover:text-[var(--text-primary)]">👎</button>
+        <Button intent="primary" size="sm">Apply</Button>
+        <Button intent="secondary" size="sm">Dismiss</Button>
+        <span className="ml-auto text-[var(--type-11)] text-[color:var(--text-tertiary)] flex items-center gap-2">
+          <button aria-label="Helpful" className="hover:text-[color:var(--text-primary)]">👍</button>
+          <button aria-label="Not helpful" className="hover:text-[color:var(--text-primary)]">👎</button>
         </span>
       </div>
     </div>
@@ -131,10 +132,10 @@ export function AISuggestion() {
 export function AICitation({ index = 1, source = "Sterling LTL contract — Section 4.2", excerpt = "All multi-stop shipments under 12,000 lbs are billed at base rate plus $42 per additional stop." }: { index?: number; source?: string; excerpt?: string }) {
   return (
     <div className="rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 max-w-[420px] flex gap-3">
-      <span className="h-5 w-5 inline-flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-tint-accent)] text-[var(--text-accent)] text-[10px] font-semibold lumen-mono">{index}</span>
+      <span className="h-5 w-5 inline-flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-tint-accent)] text-[color:var(--text-accent)] text-[10px] font-semibold lumen-mono">{index}</span>
       <div className="min-w-0 flex-1">
         <div className="text-[var(--type-12)] font-semibold tracking-[var(--tracking-tight)] truncate">{source}</div>
-        <p className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 leading-[var(--leading-snug)] line-clamp-2">{excerpt}</p>
+        <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)] line-clamp-2">{excerpt}</p>
       </div>
     </div>
   );
@@ -174,15 +175,15 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
           className={[
             "rounded-[var(--radius-lg)] px-4 py-2 text-[var(--type-13)] leading-[var(--leading-snug)]",
             isYou
-              ? "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] rounded-tr-[6px]"
+              ? "bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)] rounded-tr-[6px]"
               : from === "ai"
-              ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)] rounded-tl-[6px]"
-              : "bg-[var(--surface-sunken)] text-[var(--text-primary)] rounded-tl-[6px]",
+              ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)] border border-[color-mix(in_oklab,var(--lumen-accent-4)_30%,transparent)] rounded-tl-[6px]"
+              : "bg-[var(--surface-sunken)] text-[color:var(--text-primary)] rounded-tl-[6px]",
           ].join(" ")}
         >
           {children}
         </div>
-        {time && <span className="text-[10px] text-[var(--text-tertiary)] lumen-mono">{time}</span>}
+        {time && <span className="text-[10px] text-[color:var(--text-tertiary)] lumen-mono">{time}</span>}
       </div>
     </div>
   );
@@ -192,9 +193,9 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
 export function ChatComposer() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] flex items-end gap-2 px-3 py-2">
-      <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><Plus size={14} /></button>
-      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[var(--type-13)] placeholder:text-[var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
-      <button className="h-8 px-3 rounded-[var(--radius-md)] bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] text-[var(--type-12)] font-semibold">Send</button>
+      <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><Plus size={14} /></button>
+      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[var(--type-13)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
+      <Button intent="primary" size="sm">Send</Button>
     </div>
   );
 }
@@ -202,7 +203,7 @@ export function ChatComposer() {
 /* ─────────────────────────  TYPING INDICATOR  ───────────────────────── */
 export function TypingIndicator({ name = "Daniel" }: { name?: string }) {
   return (
-    <div className="inline-flex items-center gap-2 text-[var(--type-12)] text-[var(--text-tertiary)]">
+    <div className="inline-flex items-center gap-2 text-[var(--type-12)] text-[color:var(--text-tertiary)]">
       <span className="inline-flex items-end gap-1">
         {[0, 1, 2].map((i) => (
           <span
@@ -258,8 +259,8 @@ export function NotificationItem({
           <span className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</span>
           {unread && <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-5)]" />}
         </div>
-        {body && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1 line-clamp-2 leading-[var(--leading-snug)]">{body}</div>}
-        <div className="text-[10px] text-[var(--text-tertiary)] lumen-mono mt-1">{time}</div>
+        {body && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1 line-clamp-2 leading-[var(--leading-snug)]">{body}</div>}
+        <div className="text-[10px] text-[color:var(--text-tertiary)] lumen-mono mt-1">{time}</div>
       </div>
     </div>
   );
@@ -270,8 +271,8 @@ export function NotificationCenter() {
   return (
     <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] overflow-hidden">
       <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
-        <span className="text-heading-h6 flex items-center gap-2"><Inbox size={14} /> Inbox <span className="lumen-mono text-[var(--text-tertiary)]">3</span></span>
-        <button className="text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">Mark all read</button>
+        <span className="text-heading-h6 flex items-center gap-2"><Inbox size={14} /> Inbox <span className="lumen-mono text-[color:var(--text-tertiary)]">3</span></span>
+        <button className="text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]">Mark all read</button>
       </div>
       <div className="divide-y divide-[var(--border-hairline)]">
         <NotificationItem unread title="New rate accepted" body="Sterling LTL accepted your $1,840 quote on Lane TX→CA-014." time="2 min ago" tone="success" icon={<Check size={14} />} />
@@ -289,14 +290,14 @@ export function CopilotPanel() {
     <div className="w-[360px] rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] shadow-[var(--shadow-modal)] overflow-hidden flex flex-col h-[460px]">
       <div className="h-12 px-3 flex items-center justify-between border-b border-[var(--border-hairline)]">
         <span className="flex items-center gap-2 text-heading-h6">
-          <span className="text-[var(--text-accent)]"><Sparkles size={13} /></span>
+          <span className="text-[color:var(--text-accent)]"><Sparkles size={13} /></span>
           Lumen Copilot
         </span>
-        <button aria-label="Close" className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"><X size={13} /></button>
+        <button aria-label="Close" className="text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]"><X size={13} /></button>
       </div>
       <div className="p-3 flex flex-col gap-3 overflow-auto flex-1">
         <ChatBubble from="them" time="10:42 AM">Why is our spot rate exposure up this week?</ChatBubble>
-        <ChatBubble from="ai" time="10:42 AM">Three lanes shifted to spot pricing because the contracted carrier (Saia) hit capacity. <span className="lumen-mono text-[var(--text-tertiary)]">$842 estimated impact this week.</span></ChatBubble>
+        <ChatBubble from="ai" time="10:42 AM">Three lanes shifted to spot pricing because the contracted carrier (Saia) hit capacity. <span className="lumen-mono text-[color:var(--text-tertiary)]">$842 estimated impact this week.</span></ChatBubble>
         <AICitation index={1} />
         <ChatBubble from="them" time="10:43 AM">Suggest a fix that doesn't break SLA.</ChatBubble>
         <AIThinking />
@@ -317,14 +318,14 @@ export function CommentThread() {
         <div className="flex-1">
           <div className="text-[var(--type-13)]">
             <span className="font-semibold tracking-[var(--tracking-tight)]">Daniel Sokolovsky</span>
-            <span className="text-[var(--text-tertiary)] ml-2 text-[var(--type-12)]">14 min ago</span>
+            <span className="text-[color:var(--text-tertiary)] ml-2 text-[var(--type-12)]">14 min ago</span>
           </div>
-          <p className="text-body-xs text-[var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
+          <p className="text-body-xs text-[color:var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
             Can we get a sanity check on the @sterling-ltl numbers? Their fuel surcharge looks 11% high.
           </p>
-          <div className="flex items-center gap-3 mt-2 text-[var(--type-11)] text-[var(--text-tertiary)]">
-            <button className="hover:text-[var(--text-primary)]">Reply</button>
-            <button className="hover:text-[var(--text-primary)]">Resolve</button>
+          <div className="flex items-center gap-3 mt-2 text-[var(--type-11)] text-[color:var(--text-tertiary)]">
+            <button className="hover:text-[color:var(--text-primary)]">Reply</button>
+            <button className="hover:text-[color:var(--text-primary)]">Resolve</button>
             <span className="lumen-mono">2 replies</span>
           </div>
         </div>
@@ -334,9 +335,9 @@ export function CommentThread() {
         <div className="flex-1">
           <div className="text-[var(--type-13)]">
             <span className="font-semibold tracking-[var(--tracking-tight)]">Jordan Kim</span>
-            <span className="text-[var(--text-tertiary)] ml-2 text-[var(--type-12)]">3 min ago</span>
+            <span className="text-[color:var(--text-tertiary)] ml-2 text-[var(--type-12)]">3 min ago</span>
           </div>
-          <p className="text-body-xs text-[var(--text-secondary)] mt-1">Pulled the underlying — they re-baselined yesterday. Numbers check out.</p>
+          <p className="text-body-xs text-[color:var(--text-secondary)] mt-1">Pulled the underlying — they re-baselined yesterday. Numbers check out.</p>
         </div>
       </div>
     </div>
@@ -351,10 +352,10 @@ export function ReactionBar() {
       {items.map(([e, n]) => (
         <button key={e} className="inline-flex items-center gap-1 h-6 px-[var(--space-1_5)] rounded-[var(--radius-full)] bg-[var(--surface-sunken)] hover:bg-[var(--surface-tint-accent)] border border-[var(--border-hairline)] text-[var(--type-11)]">
           <span>{e}</span>
-          <span className="lumen-mono text-[var(--text-tertiary)]">{n}</span>
+          <span className="lumen-mono text-[color:var(--text-tertiary)]">{n}</span>
         </button>
       ))}
-      <button className="h-6 w-6 rounded-[var(--radius-full)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] inline-flex items-center justify-center">+</button>
+      <button className="h-6 w-6 rounded-[var(--radius-full)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] inline-flex items-center justify-center">+</button>
     </div>
   );
 }

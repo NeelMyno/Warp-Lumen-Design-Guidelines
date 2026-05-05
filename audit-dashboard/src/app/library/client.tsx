@@ -141,10 +141,10 @@ export function LibraryClient() {
                 className="group relative rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-inset-md hover:border-[var(--border-strong)] hover:shadow-[var(--shadow-sm)] hover:bg-[var(--surface-tint-accent)]/40 transition-[border-color,box-shadow,background-color] duration-[var(--motion-base)]"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-heading-h6 text-[var(--text-primary)]">{s.label}</span>
+                  <span className="text-heading-h6 text-[color:var(--text-primary)]">{s.label}</span>
                   {/* lumen-lint-allow: typography — mono regular at 11 section index; no semantic preset for 11px mono */}
-                  <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)] group-hover:text-[var(--text-accent)] group-hover:opacity-0 transition-opacity duration-[var(--motion-base)]">{String(i + 1).padStart(2, "0")}</span>
-                  <span aria-hidden className="absolute right-4 text-[var(--text-accent)] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--motion-base)]">
+                  <span className="lumen-mono text-[var(--type-11)] text-[color:var(--text-tertiary)] group-hover:text-[color:var(--text-accent)] group-hover:opacity-0 transition-opacity duration-[var(--motion-base)]">{String(i + 1).padStart(2, "0")}</span>
+                  <span aria-hidden className="absolute right-4 text-[color:var(--text-accent)] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[var(--motion-base)]">
                     <ArrowRight size={14} />
                   </span>
                 </div>
@@ -205,10 +205,10 @@ export function LibraryClient() {
           <SubSection title="Sticky elements">
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
               {/* lumen-lint-allow: typography — type-12 plain sticky header bar; no semantic preset for 12 regular */}
-              <div className="h-control-cozy px-3 flex items-center justify-between bg-[var(--surface-sunken)] border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky header</span><Plus size={12} /></div>
+              <div className="h-control-cozy px-3 flex items-center justify-between bg-[var(--surface-sunken)] border-b border-[var(--border-hairline)] text-[var(--type-12)] text-[color:var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky header</span><Plus size={12} /></div>
               <div className="h-32 lumen-stripe-grid" />
               {/* lumen-lint-allow: typography — type-12 plain sticky footer bar; no semantic preset for 12 regular */}
-              <div className="h-control-cozy px-3 flex items-center justify-end bg-[var(--surface-sunken)] border-t border-[var(--border-hairline)] text-[var(--type-12)] text-[var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky action bar</span></div>
+              <div className="h-control-cozy px-3 flex items-center justify-end bg-[var(--surface-sunken)] border-t border-[var(--border-hairline)] text-[var(--type-12)] text-[color:var(--text-tertiary)]"><span className="lumen-eyebrow text-[10px]">Sticky action bar</span></div>
             </div>
           </SubSection>
         </Section>
@@ -353,12 +353,12 @@ export function LibraryClient() {
                   <Button size="sm" intent="tertiary">Sort</Button>
                   <Button size="sm" intent="tertiary">Group</Button>
                   {/* lumen-lint-allow: typography — type-11 mono row count; no semantic preset for 11px mono */}
-                  <span className="ml-auto inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">42 rows</span>
+                  <span className="ml-auto inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-11)] text-[color:var(--text-tertiary)] lumen-mono">42 rows</span>
                   <Button size="sm" intent="tertiary">⋯</Button>
                 </div>
               </Showcase>
               <Showcase label="Bulk action bar">
-                <div className="flex items-center gap-3 w-full bg-[var(--surface-inverse)] text-[var(--text-inverse)] px-3 h-10 rounded-[var(--radius-md)]">
+                <div className="flex items-center gap-3 w-full bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] px-3 h-10 rounded-[var(--radius-md)]">
                   <span className="text-micro">7 selected</span>
                   <VerticalDivider height="20px" />
                   {/* lumen-lint-allow: typography — type-12 plain bulk action button; no semantic preset for 12 regular */}
@@ -427,7 +427,7 @@ export function LibraryClient() {
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5 max-w-[560px] mx-auto">
               <div className="text-heading-h5 mb-1">Carrier contact</div>
               {/* lumen-lint-allow: typography — type-12 plain form helper; no semantic preset for 12 regular */}
-              <p className="text-[var(--type-12)] text-[var(--text-tertiary)] mb-4">For dispatch coordination only — never used for marketing.</p>
+              <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mb-4">For dispatch coordination only — never used for marketing.</p>
               <div className="grid gap-3 md:grid-cols-2">
                 <Field label="First name"><TextInput defaultValue="Jordan" /></Field>
                 <Field label="Last name"><TextInput defaultValue="Kim" /></Field>
@@ -611,7 +611,7 @@ export function LibraryClient() {
               <Popover>
                 <div className="text-heading-h6 mb-1">About this rate</div>
                 {/* lumen-lint-allow: typography — type-12 plain popover helper; no semantic preset for 12 regular */}
-                <p className="text-[var(--type-12)] text-[var(--text-tertiary)]">Spot rates refresh every 90 seconds and reflect the live market on a confidence-weighted basis.</p>
+                <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">Spot rates refresh every 90 seconds and reflect the live market on a confidence-weighted basis.</p>
               </Popover>
             </div>
           </SubSection>
@@ -670,12 +670,12 @@ export function LibraryClient() {
           <SubSection title="Key/value · Description list">
             <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-5 max-w-[640px]">
               <KeyValue items={[
-                { label: "Order ID", value: <span className="lumen-mono text-[var(--text-primary)]">QT-3442-A</span> },
+                { label: "Order ID", value: <span className="lumen-mono text-[color:var(--text-primary)]">QT-3442-A</span> },
                 { label: "Customer", value: "Sterling LTL" },
                 { label: "Origin", value: "Dallas, TX 75201" },
                 { label: "Destination", value: "Long Beach, CA 90802" },
                 { label: "Equipment", value: "Dry van · 53'" },
-                { label: "Quote", value: <span className="lumen-tnum text-[var(--text-primary)] font-semibold">$1,840.00</span> },
+                { label: "Quote", value: <span className="lumen-tnum text-[color:var(--text-primary)] font-semibold">$1,840.00</span> },
                 { label: "Status", value: <StatusPill tone="accent" pulse>Live</StatusPill> },
               ]} />
             </div>
@@ -852,7 +852,7 @@ export function LibraryClient() {
               <Showcase label="Cohort retention"><Cohort /></Showcase>
               <Showcase label="Sparkline (inline)">
                 {/* lumen-lint-allow: typography — type-13 mono regular sparkline delta; no semantic preset for mono+regular at 13 */}
-                <div className="flex items-center gap-3 w-full"><span className="text-body-xs text-[var(--text-secondary)]">Volume</span><MiniSparkline data={[12,14,11,16,13,18,21,19,23,28,24,30]} /><span className="lumen-mono text-[var(--type-13)]">+34%</span></div>
+                <div className="flex items-center gap-3 w-full"><span className="text-body-xs text-[color:var(--text-secondary)]">Volume</span><MiniSparkline data={[12,14,11,16,13,18,21,19,23,28,24,30]} /><span className="lumen-mono text-[var(--type-13)]">+34%</span></div>
               </Showcase>
               <Showcase label="Gauge"><div className="w-full flex items-center justify-around"><Gauge value={72} label="Capacity" /><Gauge value={94} label="OTD" /><Gauge value={48} label="Risk" /></div></Showcase>
             </div>
@@ -975,7 +975,7 @@ export function LibraryClient() {
               <div className="pt-12"><Popover>
                 <div className="text-heading-h6 mb-1">Why is this rate higher?</div>
                 {/* lumen-lint-allow: typography — type-12 plain popover helper; no semantic preset for 12 regular */}
-                <p className="text-[var(--type-12)] text-[var(--text-tertiary)]">Saia raised their fuel surcharge by 11% on Wednesday. The base rate is unchanged.</p>
+                <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">Saia raised their fuel surcharge by 11% on Wednesday. The base rate is unchanged.</p>
               </Popover></div>
               <div><CookieBanner /></div>
             </div>
@@ -996,7 +996,7 @@ export function LibraryClient() {
                 <div className="px-4 py-2 flex items-center justify-between">
                   {/* lumen-lint-allow: typography — type-22 mobile screen title; intermediate between heading-h3 (20) and heading-h2 (25) */}
                   <span className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Inbox</span>
-                  <button className="h-control-cozy w-[var(--size-control-cozy)] rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[var(--text-secondary)]"><SearchIcon size={16} /></button>
+                  <button className="h-control-cozy w-[var(--size-control-cozy)] rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[color:var(--text-secondary)]"><SearchIcon size={16} /></button>
                 </div>
                 <PullToRefresh />
                 <div className="flex-1 overflow-auto divide-y divide-[var(--border-hairline)]">
@@ -1108,7 +1108,7 @@ export function LibraryClient() {
                 <RatingBlock />
                 <div className="flex items-baseline gap-3">
                   <span className="text-heading-h2 lumen-tnum">$168.00</span>
-                  <span className="line-through lumen-tnum text-[var(--text-tertiary)]">$220.00</span>
+                  <span className="line-through lumen-tnum text-[color:var(--text-tertiary)]">$220.00</span>
                   <Tag tone="accent">−24%</Tag>
                 </div>
                 <InventoryStatus status="low-stock" />
@@ -1178,19 +1178,19 @@ export function LibraryClient() {
                       title: "Production · default",
                       description: "lk_live_••••••••pX5F · created Apr 12",
                       trailing: <Tag tone="accent">Active</Tag>,
-                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-tint-accent)] text-[var(--text-accent)] lumen-mono text-[var(--type-11)] font-semibold">lk</span>,
+                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-tint-accent)] text-[color:var(--text-accent)] lumen-mono text-[var(--type-11)] font-semibold">lk</span>,
                     },
                     {
                       title: "Production · backup",
                       description: "lk_live_••••••••aJ2H · created Mar 31",
                       trailing: <Tag tone="neutral">Idle</Tag>,
-                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-sunken)] text-[var(--text-tertiary)] lumen-mono text-[var(--type-11)] font-semibold">lk</span>,
+                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] lumen-mono text-[var(--type-11)] font-semibold">lk</span>,
                     },
                     {
                       title: "Sandbox",
                       description: "lk_test_••••••••wQ9k · created Mar 14",
                       trailing: <Tag tone="info">Sandbox</Tag>,
-                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-sunken)] text-[var(--text-secondary)] lumen-mono text-[var(--type-11)] font-semibold">tk</span>,
+                      leading: <span className="h-8 w-8 rounded-[var(--radius-md)] grid place-items-center bg-[var(--surface-sunken)] text-[color:var(--text-secondary)] lumen-mono text-[var(--type-11)] font-semibold">tk</span>,
                     },
                   ]} />
                 </div>
@@ -1216,7 +1216,7 @@ export function LibraryClient() {
                   <AIThinking />
                   <AIBadge />
                   {/* lumen-lint-allow: typography — type-12 plain shimmer label; no semantic preset for 12 regular */}
-                  <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mb-1">Loading shimmer</div>
+                  <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mb-1">Loading shimmer</div>
                   <AIShimmer />
                 </div>
               </Showcase>
@@ -1439,7 +1439,7 @@ export function Hero() {
         </Section>
 
         {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
-        <div className="mt-20 text-center text-[var(--type-12)] text-[var(--text-tertiary)]">
+        <div className="mt-20 text-center text-[var(--type-12)] text-[color:var(--text-tertiary)]">
           End of library — last refreshed v0.11.12
         </div>
       </article>
@@ -1451,7 +1451,7 @@ export function Hero() {
       <aside className="hidden lg:block">
         {/* lumen-lint-allow: typography — type-12 plain right-rail nav; no semantic preset for 12 regular */}
         <nav className="sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-auto pr-2 flex flex-col gap-5 text-[var(--type-12)]">
-          <div className="lumen-mono-cap text-[var(--text-tertiary)]">On this page</div>
+          <div className="lumen-mono-cap text-[color:var(--text-tertiary)]">On this page</div>
           {[
             { label: "Overview", ids: ["overview"] },
             { label: "Layout & nav", ids: ["layout", "navigation"] },
@@ -1465,12 +1465,12 @@ export function Hero() {
             if (items.length === 0) return null;
             return (
               <div key={group.label} className="flex flex-col gap-1">
-                <div className="lumen-mono-cap text-[var(--text-tertiary)] opacity-70 mb-1">{group.label}</div>
+                <div className="lumen-mono-cap text-[color:var(--text-tertiary)] opacity-70 mb-1">{group.label}</div>
                 {items.map((s) => (
                   <a
                     key={s.id}
                     href={`#${s.id}`}
-                    className="block px-2 py-1 rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors"
+                    className="block px-2 py-1 rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)] transition-colors"
                   >
                     {s.label}
                   </a>
@@ -1524,7 +1524,7 @@ function SwitchRow({ label, defaultChecked, disabled }: { label: string; default
   return (
     <label className="flex items-center gap-2 cursor-pointer">
       <Switch checked={c} onCheckedChange={setC} disabled={disabled} />
-      <span className="text-body-xs text-[var(--text-secondary)]">{label}</span>
+      <span className="text-body-xs text-[color:var(--text-secondary)]">{label}</span>
     </label>
   );
 }
@@ -1566,14 +1566,14 @@ function SizeSelectorWrap() {
 function UploadRow({ name, pct }: { name: string; pct: number }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--text-secondary)]">
+      <span className="h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]">
         <FileText size={14} strokeWidth={1.5} aria-hidden focusable={false} />
       </span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-3">
-          <span className="text-body-xs text-[var(--text-primary)] truncate">{name}</span>
+          <span className="text-body-xs text-[color:var(--text-primary)] truncate">{name}</span>
           {/* lumen-lint-allow: typography — mono regular at 11 progress percent; no semantic preset for 11px mono */}
-          <span className="lumen-mono text-[var(--type-11)] text-[var(--text-tertiary)]">{pct}%</span>
+          <span className="lumen-mono text-[var(--type-11)] text-[color:var(--text-tertiary)]">{pct}%</span>
         </div>
         <div className="h-1 mt-1 rounded-full bg-[var(--surface-sunken)] overflow-hidden">
           <div className="h-full rounded-full bg-[var(--lumen-accent-5)]" style={{ width: `${pct}%` }} />

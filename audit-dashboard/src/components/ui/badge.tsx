@@ -15,10 +15,10 @@ const badgeVariants = cva(
            v0.11.3 — All tonal variants now read from --pill-{tone}-* mode-aware
            tokens, unifying with Tag/StatusPill/Lumen Badge. AAA contrast
            verified per tone in both modes — see globals.css §"PILL TONAL TOKENS". */
-        default: "border-transparent bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]",
-        secondary: "border-transparent bg-[var(--surface-sunken)] text-[var(--text-secondary)]",
+        default: "border-transparent bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)]",
+        secondary: "border-transparent bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]",
         destructive: "border-transparent bg-[var(--lumen-red-7)] text-white",
-        outline: "border-[var(--border-default)] text-[var(--text-primary)]",
+        outline: "border-[var(--border-default)] text-[color:var(--text-primary)]",
         /* Tonal status variants — read from --pill-* tokens. */
         success: "border-[var(--pill-success-border)] bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)]",
         warning: "border-[var(--pill-warn-border)] bg-[var(--pill-warn-bg)] text-[var(--pill-warn-fg)]",

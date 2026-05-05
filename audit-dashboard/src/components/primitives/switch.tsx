@@ -44,12 +44,12 @@ export function Switch({
       {(label || description) && (
         <div className="flex flex-col gap-1 leading-snug">
           {label && (
-            <Label htmlFor={switchId} className="text-label-md text-[var(--text-primary)] cursor-pointer">
+            <Label htmlFor={switchId} className="text-label-md text-[color:var(--text-primary)] cursor-pointer">
               {label}
             </Label>
           )}
           {description && (
-            <span className="text-caption text-[var(--text-tertiary)]">
+            <span className="text-caption text-[color:var(--text-tertiary)]">
               {description}
             </span>
           )}

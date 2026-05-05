@@ -28,10 +28,10 @@ export default function ToolPage() {
         {/* TITLE BAR */}
         <header className="flex items-center justify-between gap-3 px-4 h-12 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)]">
           <div className="flex items-center gap-inline-sm">
-            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[var(--text-on-accent)] lumen-mono text-micro font-bold">
+            <div className="h-6 w-6 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[color:var(--text-on-accent)] lumen-mono text-micro font-bold">
               W
             </div>
-            <span className="text-heading-h6 text-[var(--text-primary)]">
+            <span className="text-heading-h6 text-[color:var(--text-primary)]">
               Quote Builder
             </span>
             <Badge status="neutral" size="sm">v0.11.12</Badge>
@@ -61,20 +61,20 @@ export default function ToolPage() {
                 className={[
                   "text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-label-sm transition-colors duration-[var(--motion-fast)]",
                   p.active
-                    ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)] font-semibold"
-                    : "text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)]",
+                    ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)] font-semibold"
+                    : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)]",
                 ].join(" ")}
               >
                 {p.name}
               </button>
             ))}
-            <button className="mt-3 flex items-center gap-2 px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-[var(--text-tertiary)] text-body-xs hover:bg-[var(--surface-sunken)] hover:text-[var(--text-primary)] transition-colors">
+            <button className="mt-3 flex items-center gap-2 px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-[color:var(--text-tertiary)] text-body-xs hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)] transition-colors">
               <Plus size={13} /> New preset
             </button>
 
             <div className="mt-auto px-2 pt-3 border-t border-[var(--border-hairline)]">
               <div className="lumen-eyebrow mb-2">Templates</div>
-              <p className="text-micro text-[var(--text-tertiary)]">
+              <p className="text-micro text-[color:var(--text-tertiary)]">
                 Saved presets persist across sessions and sync to teammates with the same workspace.
               </p>
             </div>
@@ -118,7 +118,7 @@ export default function ToolPage() {
             </Card>
 
             <div className="flex items-center justify-between gap-3 pt-2">
-              <div className="lumen-mono text-micro text-[var(--text-tertiary)] flex items-center gap-2">
+              <div className="lumen-mono text-micro text-[color:var(--text-tertiary)] flex items-center gap-2">
                 <LiveDot /> Auto-saving every 4 s
               </div>
               <div className="flex items-center gap-2">
@@ -143,8 +143,8 @@ export default function ToolPage() {
                 <div className="flex items-center gap-2">
                   <Avatar name="Sterling LTL" size="xs" />
                   <div className="flex flex-col gap-[2px]">
-                    <div className="text-heading-h6 text-[var(--text-primary)]">Sterling LTL</div>
-                    <div className="lumen-mono text-micro text-[var(--text-tertiary)]">
+                    <div className="text-heading-h6 text-[color:var(--text-primary)]">Sterling LTL</div>
+                    <div className="lumen-mono text-micro text-[color:var(--text-tertiary)]">
                       LAX → SFO · 1d transit
                     </div>
                   </div>
@@ -170,7 +170,7 @@ export default function ToolPage() {
                     <Avatar name={q.c} size="xs" />
                     <div className="flex flex-col min-w-0 gap-[2px]">
                       <div className="text-label-sm truncate">{q.c}</div>
-                      <div className="lumen-mono text-micro text-[var(--text-tertiary)]">
+                      <div className="lumen-mono text-micro text-[color:var(--text-tertiary)]">
                         {q.days} · LAX → SFO
                       </div>
                     </div>
@@ -183,14 +183,14 @@ export default function ToolPage() {
             ))}
 
             <ProgressBar value={6 / 14 * 100} tone="accent" size="sm" />
-            <div className="text-micro text-[var(--text-tertiary)] -mt-1">
+            <div className="text-micro text-[color:var(--text-tertiary)] -mt-1">
               Showing 6 of 14 carriers · refreshes every 60 s
             </div>
           </aside>
         </div>
 
         {/* FOOTER — keyboard shortcut bar */}
-        <footer className="border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 lumen-mono text-micro text-[var(--text-tertiary)]">
+        <footer className="border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)] px-4 py-2 flex items-center gap-4 lumen-mono text-micro text-[color:var(--text-tertiary)]">
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">↵</kbd> Quote</span>
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">S</kbd> Save preset</span>
           <span><kbd className="lumen-kbd">⌘</kbd><kbd className="lumen-kbd">/</kbd> Find</span>
@@ -211,7 +211,7 @@ function CargoRow({
 }) {
   return (
     <div className="flex items-center gap-3 py-3 px-4">
-      <div className="h-8 w-8 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] grid place-items-center text-[var(--text-tertiary)]">
+      <div className="h-8 w-8 rounded-[var(--radius-sm)] border border-[var(--border-hairline)] grid place-items-center text-[color:var(--text-tertiary)]">
         <Box size={14} />
       </div>
       <div className="grid grid-cols-3 gap-3 flex-1 text-body-xs">

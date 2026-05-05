@@ -320,7 +320,7 @@ export function CommandPalette({
 
         {/* Input row — search-shaped, no chrome. */}
         <div className="flex items-center gap-3 px-4 h-14 border-b border-[var(--border-hairline)]">
-          <Search size={16} aria-hidden className="text-[var(--text-tertiary)] shrink-0" />
+          <Search size={16} aria-hidden className="text-[color:var(--text-tertiary)] shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -328,7 +328,7 @@ export function CommandPalette({
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search foundations, components, pages…"
-            className="flex-1 min-w-0 bg-transparent border-0 outline-none text-body-md text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)]"
+            className="flex-1 min-w-0 bg-transparent border-0 outline-none text-body-md text-[color:var(--text-primary)] placeholder:text-[color:var(--text-tertiary)]"
             autoComplete="off"
             spellCheck={false}
             aria-autocomplete="list"
@@ -348,13 +348,13 @@ export function CommandPalette({
         >
           {filtered.length === 0 ? (
             <div className="px-3 py-8 text-center">
-              <div className="text-body-sm text-[var(--text-tertiary)]">No results for &ldquo;{query}&rdquo;</div>
-              <div className="mt-1 text-micro text-[var(--text-tertiary)]">Try a route name (foundations, library) or a section (color, typography).</div>
+              <div className="text-body-sm text-[color:var(--text-tertiary)]">No results for &ldquo;{query}&rdquo;</div>
+              <div className="mt-1 text-micro text-[color:var(--text-tertiary)]">Try a route name (foundations, library) or a section (color, typography).</div>
             </div>
           ) : (
             grouped.map((g) => (
               <div key={g.group} className="mb-2 last:mb-0">
-                <div className="px-3 pt-2 pb-1 lumen-mono-cap text-[var(--text-tertiary)] text-micro">
+                <div className="px-3 pt-2 pb-1 lumen-mono-cap text-[color:var(--text-tertiary)] text-micro">
                   {g.group}
                 </div>
                 {g.items.map(({ item, flatIndex }) => {
@@ -376,7 +376,7 @@ export function CommandPalette({
         </div>
 
         {/* Footer hint row */}
-        <div className="flex items-center justify-between px-4 h-10 border-t border-[var(--border-hairline)] text-micro text-[var(--text-tertiary)]">
+        <div className="flex items-center justify-between px-4 h-10 border-t border-[var(--border-hairline)] text-micro text-[color:var(--text-tertiary)]">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1">
               <kbd className="lumen-kbd">↑</kbd>
@@ -420,17 +420,17 @@ function CommandRow({
     <span className="flex items-center gap-3 w-full min-w-0">
       <span
         aria-hidden
-        className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[var(--text-secondary)] shrink-0"
+        className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-[color:var(--text-secondary)] shrink-0"
       >
         {item.icon}
       </span>
       <span className="flex flex-col min-w-0 gap-[1px] text-left">
-        <span className="text-body-sm text-[var(--text-primary)] truncate">{item.label}</span>
+        <span className="text-body-sm text-[color:var(--text-primary)] truncate">{item.label}</span>
         {item.hint && (
-          <span className="text-micro text-[var(--text-tertiary)] truncate">{item.hint}</span>
+          <span className="text-micro text-[color:var(--text-tertiary)] truncate">{item.hint}</span>
         )}
       </span>
-      <ArrowRight size={13} aria-hidden className="ml-auto text-[var(--text-tertiary)] shrink-0 opacity-0 lumen-cmd-row-arrow" />
+      <ArrowRight size={13} aria-hidden className="ml-auto text-[color:var(--text-tertiary)] shrink-0 opacity-0 lumen-cmd-row-arrow" />
     </span>
   );
 
@@ -439,7 +439,7 @@ function CommandRow({
     "flex items-center gap-2 w-full px-3 h-10 rounded-[var(--radius-md)] cursor-pointer",
     "transition-[background-color,color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
     isActive
-      ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)]"
+      ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)]"
       : "hover:bg-[var(--surface-sunken)]",
   );
 

@@ -110,9 +110,9 @@ export function Radio({
         aria-hidden
       />
       <span className="min-w-0 leading-snug">
-        <span className="block text-body-sm text-[var(--text-primary)]">{label}</span>
+        <span className="block text-body-sm text-[color:var(--text-primary)]">{label}</span>
         {description && (
-          <span className="block text-caption text-[var(--text-tertiary)] mt-1">{description}</span>
+          <span className="block text-caption text-[color:var(--text-tertiary)] mt-1">{description}</span>
         )}
       </span>
     </label>
@@ -240,7 +240,7 @@ export function Combobox({
               onClick={() => pick(o)}
               className={cn(
                 "w-full text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-body-sm",
-                i === highlight ? "bg-[var(--surface-tint-accent)] text-[var(--text-primary)]" : "text-[var(--text-secondary)]",
+                i === highlight ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)]" : "text-[color:var(--text-secondary)]",
               )}
             >
               {o}
@@ -279,7 +279,7 @@ export function NumberInput({
         data-interactive
         onClick={dec}
         aria-label="Decrement"
-        className="px-3 h-full text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
+        className="px-3 h-full text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
         style={{ pointerEvents: "auto" }}
       >
         <Minus size={14} />
@@ -299,7 +299,7 @@ export function NumberInput({
         data-interactive
         onClick={inc}
         aria-label="Increment"
-        className="px-3 h-full text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
+        className="px-3 h-full text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
         style={{ pointerEvents: "auto" }}
       >
         <Plus size={14} />
@@ -335,7 +335,7 @@ export function PasswordInput({
           onClick={() => setShow((s) => !s)}
           aria-pressed={show}
           aria-label={show ? "Hide password" : "Show password"}
-          className="text-eyebrow-mono px-[var(--space-1_5)] py-1 rounded-[var(--radius-xs)] text-[var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors"
+          className="text-eyebrow-mono px-[var(--space-1_5)] py-1 rounded-[var(--radius-xs)] text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors"
         >
           {show ? "Hide" : "Show"}
         </button>
@@ -360,7 +360,7 @@ export function PasswordStrength({ value }: { value: string }) {
           />
         ))}
       </div>
-      <div className="text-overline text-[var(--text-tertiary)]">
+      <div className="text-overline text-[color:var(--text-tertiary)]">
         {value ? labels[Math.max(0, score - 1)] : "Enter a password"}
       </div>
     </div>
@@ -446,7 +446,7 @@ export function TagsInput({
       {value.map((t) => (
         <span
           key={t}
-          className="inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-caption text-[var(--text-secondary)]"
+          className="inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] text-caption text-[color:var(--text-secondary)]"
           style={{ pointerEvents: "auto" }}
         >
           {t}
@@ -498,7 +498,7 @@ export function ColorPicker({
           aria-label="Pick a color"
           style={{ width: "100%", height: "100%" }}
         />
-        <span className="text-caption text-[var(--text-secondary)]" style={{ pointerEvents: "none" }}>{value.toUpperCase()}</span>
+        <span className="text-caption text-[color:var(--text-secondary)]" style={{ pointerEvents: "none" }}>{value.toUpperCase()}</span>
       </div>
       <div className="flex items-center gap-1">
         {swatches.map((c) => (
@@ -559,7 +559,7 @@ export function RangeSlider({
           className="absolute inset-0 w-full bg-transparent appearance-none pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-[var(--border-strong)] [&::-webkit-slider-thumb]:shadow-[var(--shadow-sm)] [&::-webkit-slider-thumb]:cursor-grab"
         />
       </div>
-      <div className="mt-1 flex justify-between text-overline text-[var(--text-tertiary)]">
+      <div className="mt-1 flex justify-between text-overline text-[color:var(--text-tertiary)]">
         <span>{format(value[0])}</span>
         <span>{format(value[1])}</span>
       </div>
@@ -607,20 +607,20 @@ export function FileDropzone({
         className="sr-only"
       />
       <div className="flex flex-col items-center gap-2">
-        <span className="h-10 w-10 rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[var(--text-secondary)]">
+        <span className="h-10 w-10 rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[color:var(--text-secondary)]">
           <Plus size={18} />
         </span>
-        <div className="text-body-sm font-medium text-[var(--text-primary)]">
-          Drop files here or <span className="text-[var(--text-accent)] underline underline-offset-2">browse</span>
+        <div className="text-body-sm font-medium text-[color:var(--text-primary)]">
+          Drop files here or <span className="text-[color:var(--text-accent)] underline underline-offset-2">browse</span>
         </div>
-        <div className="text-caption text-[var(--text-tertiary)]">{hint}</div>
+        <div className="text-caption text-[color:var(--text-tertiary)]">{hint}</div>
       </div>
       {picked.length > 0 && (
         <div className="mt-4 text-left flex flex-col gap-1">
           {picked.map((f) => (
             <div key={f.name} className="flex items-center justify-between gap-3 px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] bg-[var(--surface-sunken)]">
-              <span className="text-caption text-[var(--text-secondary)] truncate">{f.name}</span>
-              <span className="text-overline text-[var(--text-tertiary)]">{(f.size / 1024).toFixed(1)} KB</span>
+              <span className="text-caption text-[color:var(--text-secondary)] truncate">{f.name}</span>
+              <span className="text-overline text-[color:var(--text-tertiary)]">{(f.size / 1024).toFixed(1)} KB</span>
             </div>
           ))}
         </div>
@@ -652,14 +652,14 @@ export function DatePickerCalendar() {
     <div className="inline-block rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] p-3 w-[260px]">
       <div className="flex items-center justify-between mb-2 px-1">
         <span className="text-body-sm font-semibold tracking-tight">May 2026</span>
-        <div className="flex gap-1 text-[var(--text-tertiary)]">
+        <div className="flex gap-1 text-[color:var(--text-tertiary)]">
           <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Previous month">‹</button>
           <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Next month">›</button>
         </div>
       </div>
       <div className="grid grid-cols-7 gap-y-1 mb-2">
         {days.map((d) => (
-          <span key={d} className="text-center text-overline text-[var(--text-tertiary)]">{d}</span>
+          <span key={d} className="text-center text-overline text-[color:var(--text-tertiary)]">{d}</span>
         ))}
       </div>
       <div className="grid grid-cols-7 gap-1">
@@ -674,9 +674,9 @@ export function DatePickerCalendar() {
               className={cn(
                 "h-7 rounded-[var(--radius-sm)] text-caption lumen-mono transition-colors",
                 !day && "opacity-0",
-                isSel && "bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)] font-semibold",
+                isSel && "bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)] font-semibold",
                 isToday && !isSel && "border border-[var(--border-strong)]",
-                !isSel && !isToday && day && "hover:bg-[var(--surface-sunken)] text-[var(--text-secondary)]",
+                !isSel && !isToday && day && "hover:bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]",
               )}
             >
               {day}
@@ -698,7 +698,7 @@ export function TimePicker() {
         className="w-7 text-center"
         aria-label="Hours"
       />
-      <span className="text-[var(--text-tertiary)]" style={{ pointerEvents: "none" }}>:</span>
+      <span className="text-[color:var(--text-tertiary)]" style={{ pointerEvents: "none" }}>:</span>
       <input
         defaultValue="30"
         maxLength={2}
@@ -706,8 +706,8 @@ export function TimePicker() {
         aria-label="Minutes"
       />
       <div className="ml-1 inline-flex rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] p-px" style={{ pointerEvents: "auto" }}>
-        <button data-interactive className="text-overline px-[var(--space-1_5)] py-[2px] rounded-[var(--radius-xs)] bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]">am</button>
-        <button data-interactive className="text-overline px-[var(--space-1_5)] py-[2px] rounded-[var(--radius-xs)] text-[var(--text-tertiary)]">pm</button>
+        <button data-interactive className="text-overline px-[var(--space-1_5)] py-[2px] rounded-[var(--radius-xs)] bg-[var(--surface-raised)] text-[color:var(--text-primary)] shadow-[var(--shadow-xs)]">am</button>
+        <button data-interactive className="text-overline px-[var(--space-1_5)] py-[2px] rounded-[var(--radius-xs)] text-[color:var(--text-tertiary)]">pm</button>
       </div>
     </div>
   );
@@ -733,8 +733,8 @@ export function Segmented({
           className={cn(
             "h-7 px-3 rounded-[var(--radius-sm)] text-caption font-medium tracking-tight transition-[background,color,box-shadow] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
             value === o.value
-              ? "bg-[var(--surface-raised)] text-[var(--text-primary)] shadow-[var(--shadow-xs)]"
-              : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]",
+              ? "bg-[var(--surface-raised)] text-[color:var(--text-primary)] shadow-[var(--shadow-xs)]"
+              : "text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]",
           )}
           aria-pressed={value === o.value}
         >

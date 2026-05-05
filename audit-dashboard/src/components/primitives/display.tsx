@@ -142,10 +142,10 @@ export function Accordion({ items }: { items: { title: string; content: ReactNod
       <ShadcnAccordion type="single" collapsible defaultValue="item-0" className="divide-y divide-[var(--border-hairline)]">
         {items.map((it, i) => (
           <AccordionItem key={i} value={`item-${i}`} className="border-b-0 px-4">
-            <AccordionTrigger className="text-[var(--type-13)] font-medium text-[var(--text-primary)] hover:no-underline">
+            <AccordionTrigger className="text-[var(--type-13)] font-medium text-[color:var(--text-primary)] hover:no-underline">
               {it.title}
             </AccordionTrigger>
-            <AccordionContent className="text-body-xs text-[var(--text-secondary)] leading-[var(--leading-snug)]">
+            <AccordionContent className="text-body-xs text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
               {it.content}
             </AccordionContent>
           </AccordionItem>
@@ -170,9 +170,9 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center text-center px-6 py-12 rounded-[var(--radius-lg)] border border-dashed border-[var(--border-default)] bg-[var(--surface-raised)]">
       <div className="mb-4">{illustration}</div>
-      <div className="text-heading-h5 text-[var(--text-primary)]">{title}</div>
+      <div className="text-heading-h5 text-[color:var(--text-primary)]">{title}</div>
       {description && (
-        <p className="mt-2 max-w-[42ch] text-body-xs text-[var(--text-tertiary)] leading-[var(--leading-snug)]">{description}</p>
+        <p className="mt-2 max-w-[42ch] text-body-xs text-[color:var(--text-tertiary)] leading-[var(--leading-snug)]">{description}</p>
       )}
       {action && <div className="mt-4">{action}</div>}
     </div>
@@ -212,13 +212,13 @@ export function CodeBlock({
               setTimeout(() => setCopied(false), 1400);
             }
           }}
-          className="h-6 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-raised)] transition-colors"
+          className="h-6 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-raised)] transition-colors"
         >
           {copied ? <Check size={11} /> : null}
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="px-4 py-3 lumen-mono text-[var(--type-12)] text-[var(--text-primary)] overflow-x-auto leading-[var(--leading-normal)]">
+      <pre className="px-4 py-3 lumen-mono text-[var(--type-12)] text-[color:var(--text-primary)] overflow-x-auto leading-[var(--leading-normal)]">
         {code}
       </pre>
     </div>
@@ -274,7 +274,7 @@ export function ListGroup({
         const trailing =
           i.trailing ??
           (i.meta ? (
-            <span className="lumen-mono lumen-tnum text-body-sm font-semibold text-[var(--text-primary)] tabular-nums">
+            <span className="lumen-mono lumen-tnum text-body-sm font-semibold text-[color:var(--text-primary)] tabular-nums">
               {i.meta}
             </span>
           ) : null);
@@ -288,11 +288,11 @@ export function ListGroup({
           >
             {leading && <span className="shrink-0">{leading}</span>}
             <div className="min-w-0 flex flex-col gap-[2px] flex-1">
-              <span className="text-label-md text-[var(--text-primary)] truncate leading-[var(--leading-snug)]">
+              <span className="text-label-md text-[color:var(--text-primary)] truncate leading-[var(--leading-snug)]">
                 {i.title}
               </span>
               {i.description && (
-                <span className="lumen-mono text-micro text-[var(--text-tertiary)] truncate">
+                <span className="lumen-mono text-micro text-[color:var(--text-tertiary)] truncate">
                   {i.description}
                 </span>
               )}
@@ -317,12 +317,12 @@ export function DataTable({
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
       <div className="flex items-center justify-between px-4 h-12 border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-2">
-          <input className="h-8 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] placeholder:text-[var(--text-tertiary)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)] w-[200px]" placeholder="Filter rows…" />
-          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">+ Add filter</button>
+          <input className="h-8 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)] w-[200px]" placeholder="Filter rows…" />
+          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">+ Add filter</button>
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-[var(--type-11)] text-[var(--text-tertiary)] lumen-mono">{rows.length} rows</span>
-          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)]">⋯</button>
+          <span className="text-[var(--type-11)] text-[color:var(--text-tertiary)] lumen-mono">{rows.length} rows</span>
+          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">⋯</button>
         </div>
       </div>
       <table className="w-full text-[var(--type-13)]">
@@ -331,7 +331,7 @@ export function DataTable({
             {columns.map((c) => (
               <th
                 key={c.key}
-                className={["px-4 h-10 text-[var(--type-11)] font-medium text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]", c.align === "right" ? "text-right" : "text-left"].join(" ")}
+                className={["px-4 h-10 text-[var(--type-11)] font-medium text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]", c.align === "right" ? "text-right" : "text-left"].join(" ")}
               >
                 {c.label}
               </th>
@@ -344,7 +344,7 @@ export function DataTable({
               {columns.map((c) => (
                 <td
                   key={c.key}
-                  className={["px-4 h-12 text-[var(--text-primary)]", c.align === "right" ? "text-right lumen-mono" : ""].join(" ")}
+                  className={["px-4 h-12 text-[color:var(--text-primary)]", c.align === "right" ? "text-right lumen-mono" : ""].join(" ")}
                 >
                   {r[c.key]}
                 </td>
@@ -387,15 +387,15 @@ export function Kanban() {
           <div className="flex items-center justify-between px-2 py-[var(--space-1_5)]">
             <div className="flex items-center gap-2">
               <span className="text-[var(--type-12)] font-semibold tracking-[var(--tracking-tight)]">{col.title}</span>
-              <span className="text-[var(--type-11)] lumen-mono text-[var(--text-tertiary)]">{col.count}</span>
+              <span className="text-[var(--type-11)] lumen-mono text-[color:var(--text-tertiary)]">{col.count}</span>
             </div>
-            <button className="h-6 w-6 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--text-tertiary)] hover:bg-[var(--surface-raised)]"><Plus size={12} /></button>
+            <button className="h-6 w-6 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-raised)]"><Plus size={12} /></button>
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {col.items.map((it) => (
               <div key={it.title} className="rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-hairline)] p-3 shadow-[var(--shadow-xs)] hover:shadow-[var(--shadow-sm)] transition-shadow">
-                <div className="text-[var(--type-13)] tracking-[var(--tracking-tight)] text-[var(--text-primary)] leading-[var(--leading-snug)]">{it.title}</div>
-                <div className="text-[var(--type-11)] text-[var(--text-tertiary)] mt-2 lumen-mono">{it.meta}</div>
+                <div className="text-[var(--type-13)] tracking-[var(--tracking-tight)] text-[color:var(--text-primary)] leading-[var(--leading-snug)]">{it.title}</div>
+                <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)] mt-2 lumen-mono">{it.meta}</div>
               </div>
             ))}
           </div>
@@ -422,12 +422,12 @@ export function TreeView() {
     return (
       <div>
         <div
-          className={["flex items-center gap-1 h-7 px-2 rounded-[var(--radius-sm)] cursor-pointer hover:bg-[var(--surface-sunken)] text-body-xs text-[var(--text-secondary)] lumen-mono"].join(" ")}
+          className={["flex items-center gap-1 h-7 px-2 rounded-[var(--radius-sm)] cursor-pointer hover:bg-[var(--surface-sunken)] text-body-xs text-[color:var(--text-secondary)] lumen-mono"].join(" ")}
           style={{ paddingLeft: `${8 + depth * 16}px` }}
           onClick={() => hasKids && setOpen((s) => !s)}
         >
           {hasKids ? (
-            <span className={["text-[var(--text-tertiary)] inline-block transition-transform duration-[var(--motion-fast)]", open ? "" : "-rotate-90"].join(" ")}>
+            <span className={["text-[color:var(--text-tertiary)] inline-block transition-transform duration-[var(--motion-fast)]", open ? "" : "-rotate-90"].join(" ")}>
               <ChevronDown size={12} />
             </span>
           ) : (
@@ -488,7 +488,7 @@ export function Timeline() {
           <div className="flex items-center gap-2">
             <span className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{e.title}</span>
           </div>
-          <div className="text-[var(--type-12)] text-[var(--text-tertiary)] lumen-mono mt-1">
+          <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono mt-1">
             {e.actor} · {e.time}
           </div>
         </li>
@@ -508,7 +508,7 @@ export function Carousel({ items }: { items: { title: string; subtitle?: string;
             <div className="h-32" style={{ background: it.bg ?? "var(--lumen-obsidian-7)" }} />
             <div className="p-3">
               <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{it.title}</div>
-              {it.subtitle && <div className="text-[var(--type-12)] text-[var(--text-tertiary)] mt-1">{it.subtitle}</div>}
+              {it.subtitle && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1">{it.subtitle}</div>}
             </div>
           </div>
         ))}
@@ -535,8 +535,8 @@ export function Gauge({ value = 72, label = "Capacity" }: { value?: number; labe
         <path d={`M ${startX} ${startY} A ${r} ${r} 0 0 1 ${fx} ${fy}`} fill="none" stroke="var(--lumen-accent-5)" strokeWidth="8" strokeLinecap="round" />
       </svg>
       <div className="text-center -mt-3">
-        <div className="lumen-tnum text-[var(--type-22)] font-semibold tracking-[var(--tracking-tighter)]">{value}<span className="text-body-xs text-[var(--text-tertiary)] ml-1">%</span></div>
-        <div className="text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
+        <div className="lumen-tnum text-[var(--type-22)] font-semibold tracking-[var(--tracking-tighter)]">{value}<span className="text-body-xs text-[color:var(--text-tertiary)] ml-1">%</span></div>
+        <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
       </div>
     </div>
   );
@@ -571,8 +571,8 @@ export function KeyValue({ items }: { items: { label: string; value: ReactNode }
     <dl className="grid grid-cols-[180px_1fr] gap-y-2 gap-x-4">
       {items.map((it) => (
         <div key={it.label} className="contents">
-          <dt className="text-[var(--type-12)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{it.label}</dt>
-          <dd className="text-[var(--type-13)] text-[var(--text-primary)]">{it.value}</dd>
+          <dt className="text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{it.label}</dt>
+          <dd className="text-[var(--type-13)] text-[color:var(--text-primary)]">{it.value}</dd>
         </div>
       ))}
     </dl>
@@ -591,8 +591,8 @@ export function ProgressTrack({ items }: { items: { label: string; pct: number; 
         return (
           <div key={i.label}>
             <div className="flex items-center justify-between mb-1 text-[var(--type-12)]">
-              <span className="text-[var(--text-secondary)]">{i.label}</span>
-              <span className="lumen-mono text-[var(--text-tertiary)]">{i.pct}%</span>
+              <span className="text-[color:var(--text-secondary)]">{i.label}</span>
+              <span className="lumen-mono text-[color:var(--text-tertiary)]">{i.pct}%</span>
             </div>
             <div className="h-[var(--space-1_5)] rounded-full bg-[var(--surface-sunken)] overflow-hidden">
               <div className="h-full rounded-full" style={{ width: `${i.pct}%`, background: color }} />
@@ -619,7 +619,7 @@ export function Presence({ status = "online" }: { status?: "online" | "away" | "
 export function KbdRow({ keys, label }: { keys: string[]; label: string }) {
   return (
     <div className="flex items-center justify-between gap-3 px-3 py-2 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] transition-colors">
-      <span className="text-body-xs text-[var(--text-secondary)]">{label}</span>
+      <span className="text-body-xs text-[color:var(--text-secondary)]">{label}</span>
       <span className="flex items-center gap-1">
         {keys.map((k, i) => (
           <span key={i} className="lumen-kbd">{k}</span>
@@ -638,7 +638,7 @@ export function ImageFrame({ ratio = "16/10", label }: { ratio?: string; label?:
     >
       <div className="lumen-stripe-grid w-full h-full flex items-center justify-center">
         {label && (
-          <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)]">{label}</span>
+          <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)]">{label}</span>
         )}
       </div>
     </div>
@@ -652,7 +652,7 @@ export function ComponentSpec({ name, role, children }: { name: string; role?: s
       <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-2">
           <span className="text-heading-h6">{name}</span>
-          {role && <span className="text-[var(--type-11)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{role}</span>}
+          {role && <span className="text-[var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{role}</span>}
         </div>
       </div>
       <div className="p-4 lumen-stripe-grid">
@@ -676,7 +676,7 @@ export function Showcase({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      {label && <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[var(--text-tertiary)] font-medium">{label}</div>}
+      {label && <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)] font-medium">{label}</div>}
       <div
         className={[
           "rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] flex items-center justify-center overflow-hidden",
@@ -693,7 +693,7 @@ export function Showcase({
 export function VariantRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="grid grid-cols-[120px_1fr] items-center gap-4 py-3 border-b border-[var(--border-hairline)] last:border-0">
-      <div className="text-[var(--type-12)] text-[var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
+      <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
       <div className="flex flex-wrap items-center gap-3">{children}</div>
     </div>
   );

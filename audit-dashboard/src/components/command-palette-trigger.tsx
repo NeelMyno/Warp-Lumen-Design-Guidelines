@@ -57,7 +57,7 @@ export function CommandPaletteTrigger() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="hidden md:flex items-center gap-2 flex-1 max-w-md mx-auto h-10 px-4 rounded-[var(--radius-full)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]/60 text-[var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] hover:text-[var(--text-secondary)] hover:bg-[var(--surface-raised)]/80 transition-[color,background-color,border-color] duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
+        className="hidden md:flex items-center gap-2 flex-1 max-w-md mx-auto h-10 px-4 rounded-[var(--radius-full)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]/60 text-[color:var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] hover:text-[color:var(--text-secondary)] hover:bg-[var(--surface-raised)]/80 transition-[color,background-color,border-color] duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
         aria-label="Open command palette"
         aria-haspopup="dialog"
         aria-expanded={open}

@@ -113,14 +113,14 @@ export function Stat({
           className={[
             VALUE_SIZE[size],
             "font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]",
-            "lumen-tnum text-[var(--text-primary)]",
+            "lumen-tnum text-[color:var(--text-primary)]",
           ].join(" ")}
         >
           {value}
         </span>
         {unit && (
           /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 13) */
-          <span className="lumen-mono text-[var(--type-13)] text-[var(--text-tertiary)]">
+          <span className="lumen-mono text-[var(--type-13)] text-[color:var(--text-tertiary)]">
             {unit}
           </span>
         )}
