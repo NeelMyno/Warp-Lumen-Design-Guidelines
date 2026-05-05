@@ -33,9 +33,14 @@ export function TabNav() {
                   "inline-flex items-center gap-2 h-control-cozy px-4 rounded-[var(--radius-full)]",
                   "text-label-sm whitespace-nowrap",
                   "border transition-[color,background-color,border-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
+                  "focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]",
                   isActive
                     ? "text-[var(--text-primary)] font-semibold bg-[var(--surface-tint-accent)] border-[var(--border-accent)]"
-                    : "text-[var(--text-tertiary)] border-transparent hover:text-[var(--text-primary)] hover:border-[var(--border-subtle)]",
+                    : /* v0.11.13 — added bg tint on hover (P2-1). The prior
+                         hairline-border-only step was sub-visible against the
+                         glass nav; the bg tint makes the affordance register
+                         even when the eye isn't on the border. */
+                      "text-[var(--text-tertiary)] border-transparent hover:text-[var(--text-primary)] hover:bg-[var(--surface-sunken)] hover:border-[var(--border-subtle)]",
                 ].join(" ")}
               >
                 {isActive && <span aria-hidden className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-4)]" />}

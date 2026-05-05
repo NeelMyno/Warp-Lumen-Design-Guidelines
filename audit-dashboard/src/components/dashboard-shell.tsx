@@ -2,7 +2,7 @@ import Link from "next/link";
 import { TabNav } from "./tab-nav";
 import { ThemeToggle } from "./theme-toggle";
 import { MoodSwitcher } from "./mood-switcher";
-import { Search } from "./primitives/icon";
+import { CommandPaletteTrigger } from "./command-palette-trigger";
 
 /**
  * v0.4 shell — glass pill nav floats at the top of an obsidian canvas.
@@ -38,14 +38,14 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="mx-auto flex w-full max-w-max items-center gap-4 px-6 h-16">
             <Link
               href="/foundations"
-              className="flex items-center gap-inline-sm text-[var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
+              className="lumen-mark-link group flex items-center gap-inline-sm text-[var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
             >
               <LumenMark />
-              <span className="text-heading-h5">
+              <span className="text-heading-h5 transition-colors duration-[var(--motion-fast)] group-hover:text-[var(--text-accent)]">
                 Lumen
               </span>
-              <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[var(--text-accent)] normal-case">
-                v0.11.12
+              <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[var(--text-accent)] normal-case transition-[box-shadow,background-color] duration-[var(--motion-fast)] group-hover:bg-[var(--surface-tint-accent)] group-hover:shadow-[var(--shadow-button-glow-rest)]">
+                v0.11.13
               </span>
               {/* v0.11.6 — pulsing dot replaces the "System v0.11 live" caption.
                   The version is already on the pill; the dot is the only signal that needs to pulse. */}
@@ -58,18 +58,9 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
               </span>
             </Link>
 
-            {/* Spotlight — pill, glass, mono caption */}
-            <button
-              className="hidden md:flex items-center gap-2 flex-1 max-w-md mx-auto h-10 px-4 rounded-[var(--radius-full)] border border-[var(--border-subtle)] bg-[var(--surface-raised)]/60 text-[var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] hover:text-[var(--text-secondary)] transition-colors"
-              aria-label="Open spotlight"
-            >
-              <Search size={14} />
-              <span className="flex-1 text-left">Search Lumen…</span>
-              <span className="flex items-center gap-1">
-                <kbd className="lumen-kbd">⌘</kbd>
-                <kbd className="lumen-kbd">K</kbd>
-              </span>
-            </button>
+            {/* v0.11.13 — Spotlight is now functional. Real ⌘K palette over a
+                glass shell. See command-palette-trigger.tsx + command-palette.tsx. */}
+            <CommandPaletteTrigger />
 
             <div className="flex items-center gap-3">
               <MoodSwitcher />
@@ -97,7 +88,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             </span>
           </div>
           <div className="flex items-center gap-4 lumen-mono-cap">
-            <span>v0.11.12 · reference implementation</span>
+            <span>v0.11.13 · reference implementation</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-[var(--border-strong)]" />
             <a className="lumen-link normal-case tracking-normal" href="https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines">
               github
@@ -111,20 +102,22 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
 /**
  * Lumen brand mark — a soft hairline ring around a vivid lime nucleus.
- * The ring picks up an inner glow on hover for a subtle "lit" gesture.
+ * v0.11.13 — the ring + nucleus pick up an inner glow lift on parent-link hover
+ * (`.group:hover` on the wrapping <Link>). Per micro-interactions §5: a logo
+ * without a hover state reads as a graphic, not a navigation affordance.
  */
 function LumenMark({ size = 18 }: { size?: number }) {
   return (
     <span
-      className="relative inline-flex items-center justify-center"
+      className="lumen-mark relative inline-flex items-center justify-center"
       style={{ width: size, height: size }}
       aria-hidden
     >
       <span
-        className="absolute inset-0 rounded-[var(--radius-full)] border border-[var(--border-strong)]"
+        className="lumen-mark-ring absolute inset-0 rounded-[var(--radius-full)] border border-[var(--border-strong)] transition-[border-color,box-shadow] duration-[var(--motion-fast)] ease-[var(--easing-standard)]"
       />
       <span
-        className="absolute inset-[28%] rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)]"
+        className="lumen-mark-core absolute inset-[28%] rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] transition-[box-shadow,transform] duration-[var(--motion-base)] ease-[var(--easing-standard)]"
         style={{ boxShadow: "0 0 8px var(--lumen-lime-a64)" }}
       />
     </span>

@@ -6,6 +6,7 @@ import { Badge } from "@/components/primitives/badge";
 import { Button } from "@/components/primitives/button";
 import { RateTicker } from "@/components/primitives/rate-ticker";
 import { Avatar } from "@/components/primitives/avatar";
+import { ScrollReveal } from "@/components/primitives/scroll-reveal";
 import { Dot } from "lucide-react";
 import { ArrowRight, Check, Truck, Box, MapPin, Code } from "@/components/primitives/icon";
 
@@ -23,43 +24,61 @@ export default function LandingPage() {
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
         <BrowserChrome url="warp.example.com" />
 
-        {/* HERO — v0.11 obsidian-mint: architectural grid + brutalist headline (gradients stripped). Per first-impression.md the 50ms halo contract: branded chrome, single focal point, no layout shift. */}
+        {/* HERO — v0.11 obsidian-mint: architectural grid + brutalist headline (gradients stripped). Per first-impression.md the 50ms halo contract: branded chrome, single focal point, no layout shift.
+            v0.11.13 — wrapped focal-point children in ScrollReveal so the eye
+            is led into the hero instead of arriving on a fully-painted page.
+            Above-the-fold reveals fire on first frame because IntersectionObserver
+            considers them already-intersecting at mount. */}
         <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural overflow-hidden">
           <div className="relative max-w-default mx-auto flex flex-col gap-7">
-            <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
-              <span className="lumen-dot-pulse" aria-hidden />
-              <span>Now in private beta · Spring 2026 · system v0.11 live</span>
-            </div>
+            <ScrollReveal>
+              <div className="inline-flex items-center gap-2 lumen-mono-cap text-[var(--text-accent)]">
+                <span className="lumen-dot-pulse" aria-hidden />
+                <span>Now in private beta · Spring 2026 · system v0.11 live</span>
+              </div>
+            </ScrollReveal>
 
-            <h1 className="text-display-xl sm:text-display-2xl md:text-display-2xl text-[var(--text-primary)]">
-              The freight network
-              <br />
-              for{" "}
-              {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
-              <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
-                builders
-              </em>
-              .
-            </h1>
+            <ScrollReveal delay={80}>
+              <h1 className="text-display-xl sm:text-display-2xl md:text-display-2xl text-[var(--text-primary)]">
+                The freight network
+                <br />
+                for{" "}
+                {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
+                <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[var(--text-accent)]">
+                  builders
+                </em>
+                .
+              </h1>
+            </ScrollReveal>
 
-            <p className="max-w-[60ch] text-lead">
-              One command quotes. One books. JSON out, pipes in. Stop logging into 10 carrier portals every morning &mdash; ship freight from the terminal you already use.
-            </p>
+            <ScrollReveal delay={160}>
+              <p className="max-w-[60ch] text-lead">
+                One command quotes. One books. JSON out, pipes in. Stop logging into 10 carrier portals every morning &mdash; ship freight from the terminal you already use.
+              </p>
+            </ScrollReveal>
 
-            <div className="flex flex-wrap gap-3 pt-3">
-              <Button intent="primary" size="xl" pill trailingIcon={<ArrowRight size={16} />}>
-                Get started
-              </Button>
-              <Button intent="secondary" size="xl" pill leadingIcon={<Code size={16} />}>
-                Read the docs
-              </Button>
-            </div>
+            <ScrollReveal delay={240}>
+              <div className="flex flex-wrap gap-3 pt-3">
+                {/* v0.11.13 — `glow` adds the .lumen-glow-cta hero halo on top of
+                    the standard primary glow ladder. Per first-impression.md §2:
+                    hero primary CTAs ship glow. Without it the 96–128 px brutalist
+                    headline outweighs the CTA halo and the focal point flattens. */}
+                <Button intent="primary" size="xl" pill glow trailingIcon={<ArrowRight size={16} />}>
+                  Get started
+                </Button>
+                <Button intent="secondary" size="xl" pill leadingIcon={<Code size={16} />}>
+                  Read the docs
+                </Button>
+              </div>
+            </ScrollReveal>
 
-            <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-body-xs self-start">
-              <span style={{ color: "var(--lumen-accent-4)" }}>$</span>
-              npx warp quote --from=LAX --to=SFO
-              <LiveDot />
-            </div>
+            <ScrollReveal delay={320}>
+              <div className="mt-2 inline-flex items-center gap-3 px-4 h-10 rounded-[var(--radius-full)] bg-[var(--surface-raised)] border border-[var(--border-default)] text-[var(--text-primary)] lumen-mono text-body-xs self-start">
+                <span style={{ color: "var(--lumen-accent-4)" }}>$</span>
+                npx warp quote --from=LAX --to=SFO
+                <LiveDot />
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -69,9 +88,13 @@ export default function LandingPage() {
         <section className="bg-[var(--surface-page)] px-10 py-section-xl border-t border-[var(--border-hairline)]">
           <div className="max-w-default mx-auto flex flex-col gap-5">
             <div className="lumen-eyebrow">Trusted by operators at</div>
+            {/* v0.11.13 — dropped the conflicting `cursor-default` + `hover:`
+                pair (P2-2 in 2026-05-04 audit). These are showcase wordmarks,
+                not interactive elements; rendering them static reads as
+                confidence (Hermes / Apple / Stripe convention). */}
             <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
-                <div key={c} className="text-body-lg font-bold tracking-[var(--tracking-tight)] hover:text-[var(--text-secondary)] transition-colors cursor-default">
+                <div key={c} className="text-body-lg font-bold tracking-[var(--tracking-tight)] select-none">
                   {c}
                 </div>
               ))}
@@ -219,7 +242,7 @@ export default function LandingPage() {
               <br />
               <span style={{ color: "var(--lumen-accent-3)" }}>leaving your terminal.</span>
             </h2>
-            <Button intent="primary" size="xl" pill trailingIcon={<ArrowRight size={16} />}>
+            <Button intent="primary" size="xl" pill glow trailingIcon={<ArrowRight size={16} />}>
               Get started
             </Button>
           </div>

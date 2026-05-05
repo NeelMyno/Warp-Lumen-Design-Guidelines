@@ -2871,3 +2871,104 @@ a { color: inherit; text-decoration: none; }
     box-shadow: var(--shadow-md);
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   v0.11.13 — MICRO-INTERACTION AUDIT FIXES
+   ----------------------------------------------------------------------------
+   Five additions, one consequence: the system no longer ships any decorative
+   element that lies about being interactive. See _meta/audits/2026-05-04…
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* 1. ─────────────  COMMAND PALETTE (the spotlight is now real)  ───────────
+   Glass-shelled, top-anchored, keyboard-driven. Replaces the dead
+   `aria-label="Open spotlight"` button (P0-1 in the audit). Layered on top
+   of the Radix Dialog primitive which provides scale/fade entry+exit and
+   prefers-reduced-motion handling. */
+.lumen-cmd-palette {
+  /* Override the centered-modal default Dialog surface with a glass panel
+     that matches the sticky header's vocabulary. */
+  background: var(--surface-glass-strong);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  backdrop-filter:         blur(28px) saturate(160%);
+  border-color: var(--border-default);
+  /* Slightly stronger shadow than a regular modal — the palette floats
+     above ALL surfaces, including the glass nav. */
+  box-shadow:
+    var(--shadow-modal),
+    0 0 0 1px var(--border-hairline) inset;
+}
+
+/* The kbd hint chip pinned to the input row uses the existing .lumen-kbd
+   recipe; no override needed. The active row uses an accent-tinted tile so
+   selection is unmistakable even when a sibling is hover-active. */
+.lumen-cmd-row[data-active] {
+  background: var(--surface-tint-accent);
+  /* A 1 px lime hairline distinguishes the keyboard-focused row from a row
+     under the mouse pointer. The row is also aria-selected=true. */
+  box-shadow: inset 0 0 0 1px var(--lumen-lime-a32);
+}
+.lumen-cmd-row[data-active] .lumen-cmd-row-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+.lumen-cmd-row .lumen-cmd-row-arrow {
+  transition:
+    opacity 120ms cubic-bezier(0.2, 0, 0, 1),
+    transform 120ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* 2. ─────────────  LOGO MARK HOVER (the brand answers the pointer)  ────── */
+/* The wrapping <Link class="lumen-mark-link group"> on the header logo. Per
+   audit P1-3: a logo without a hover state reads as a graphic, not nav.
+   On hover: the hairline ring brightens to lime, the lime nucleus picks up
+   a stronger halo, and the wordmark shifts to the accent text color. */
+.lumen-mark-link:hover .lumen-mark-ring {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 2px rgba(0, 250, 138, 0.18);
+}
+.lumen-mark-link:hover .lumen-mark-core {
+  box-shadow:
+    0 0 12px var(--lumen-lime-a64),
+    0 0 24px rgba(0, 250, 138, 0.32);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lumen-mark-ring,
+  .lumen-mark-core {
+    transition: none !important;
+  }
+}
+
+/* 3. ─────────────  SCROLL REVEAL (the premium scroll gesture)  ──────────── */
+/* Per micro-interactions.md §3 — fade-in once, never replay, honor reduced
+   motion. The `data-revealed` attribute is set by the observer in
+   primitives/scroll-reveal.tsx. */
+.lumen-reveal {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity   var(--motion-slow, 260ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1)),
+    transform var(--motion-slow, 260ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1));
+  will-change: opacity, transform;
+}
+.lumen-reveal[data-revealed] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lumen-reveal {
+    /* Snap to end-state. No transition. */
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* 4. ─────────  TAB-NAV INACTIVE HOVER REINFORCEMENT  ───────────────────── */
+/* The Tailwind classes in tab-nav.tsx now add hover:bg-[var(--surface-sunken)].
+   No new CSS needed — annotated for traceability. P2-1 in audit. */
+
+/* 5. ─────────  HERO CTA GLOW LAYERING  ─────────────────────────────────── */
+/* foundations/page.tsx + landing/page.tsx now pass `glow` to their hero
+   primary CTAs. Style is .lumen-btn-primary.lumen-glow-cta and was already
+   defined; this is just the consumption fix. P1-1, P1-2 in audit. */
+

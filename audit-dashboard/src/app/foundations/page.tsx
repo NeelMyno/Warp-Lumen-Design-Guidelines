@@ -88,10 +88,14 @@ export default function FoundationsPage() {
             One mood. One mark. Seven principles. Color, typography, spacing, motion — assembled from the same restraint Lumen asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button intent="primary" size="md" pill trailingIcon={<ArrowRight size={14} />}>
+            {/* v0.11.13 — hero CTA promoted to lg + glow per first-impression.md
+                §2 Pattern A. The brutalist frame above weights heavily; the
+                standard md primary glow ladder lost the halo war. lg + glow
+                lays the lime halo cleanly across the page-axis. */}
+            <Button intent="primary" size="lg" pill glow trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.11.12 · Obsidian Mint</Badge>
+            <Badge status="neutral" leadingDot>v0.11.13 · Obsidian Mint</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>

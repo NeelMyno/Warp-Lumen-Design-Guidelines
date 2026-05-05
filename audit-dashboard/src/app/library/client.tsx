@@ -123,7 +123,7 @@ export function LibraryClient() {
           eyebrow="Component library"
           title="Library"
           description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian — then tuned to Lumen's restraint."
-          meta={<Badge status="accent" leadingDot>v0.11.12 · 25 sections · 250+ components</Badge>}
+          meta={<Badge status="accent" leadingDot>v0.11.13 · 25 sections · 250+ components</Badge>}
         />
 
         {/* OVERVIEW */}
