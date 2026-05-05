@@ -177,29 +177,47 @@ User-provided references:
 
 ---
 
-## Fix shipped in this commit (v0.11.13)
+## Fixes shipped (v0.11.13 → v0.11.13.2)
 
 1. **CommandPalette + ⌘K** — full implementation, glass-shell, fuzzy filter, keyboard nav, theme/route/anchor groups
 2. **Hero CTA glow** — foundations + landing
 3. **Tab nav inactive hover** — added bg tint
 4. **Lumen mark hover** — nucleus glow lift on link hover
 5. **Trusted-by logos** — drop conflicting hover
-6. **ScrollReveal** — added, wired into landing + foundations heroes
+6. **ScrollReveal** — pure-CSS animation with per-instance `--reveal-delay`, wired into landing hero with 80/160/240/320 ms staggered children
 7. **Audit doc** — this file
 
 Skipped to v0.12: P3 polish items.
+
+### v0.11.13 → v0.11.13.2 hotfix history
+
+- **v0.11.13** initial commit
+- **v0.11.13.1** renamed `.lumen-reveal` → `.lumen-reveal-stagger` after live verification surfaced a class collision with the existing CSS scroll-timeline implementation (globals.css:2771)
+- **v0.11.13.2** dropped JS+IO+setTimeout in favor of pure CSS animation after live verification surfaced hidden-tab throttling that left reveals stuck at opacity:0 on background-tab loads. Robustness now matches the rest of the system: no JS, no hydration race, no visibility-state vulnerability.
 
 ---
 
 ## Verification
 
-After Vercel redeploys, re-run the live URL pass:
-- [ ] Press ⌘K — palette opens, focuses input
-- [ ] Type "color" — filtered to color section
-- [ ] Press Enter — navigates / scrolls to anchor
-- [ ] Press Escape — closes
-- [ ] Hover Browse foundations — visible glow lift
-- [ ] Hover Library tab — visible bg tint
-- [ ] Hover Lumen mark — visible glow lift
-- [ ] Scroll past landing hero — fade-in visible (one-shot)
-- [ ] `prefers-reduced-motion: reduce` — palette opens without scale, fade-in snaps
+Live verification on https://warp-lumen-design-guidelines.vercel.app/ after each push:
+
+✅ Trigger button: `[aria-label="Open command palette"]` — old `[aria-label="Open spotlight"]` removed
+✅ ⌘K opens palette: 1 dialog mounts, 23 options across 4 groups (Go to / On this page / System / Links)
+✅ Input auto-focused on open
+✅ Fuzzy filter: typing "color" → 6 results, "Color" anchor at top match
+✅ Foundations hero CTA: classes include `lumen-btn-lg lumen-btn-pill lumen-glow-cta`, height 48px, three-layer halo `0 0 0 1px / 0 8px 28px / 0 24px 72px` lime
+✅ Landing hero CTA: classes include `lumen-btn-xl lumen-btn-pill lumen-glow-cta`, height 56px, strong glow ladder
+✅ Trusted-by logos: no `hover:text-`, has `select-none`
+✅ Tab nav inactive: includes `hover:bg-[var(--surface-sunken)]`
+✅ Lumen mark hover CSS: `.lumen-mark-link:hover .lumen-mark-ring` rule deployed
+✅ ScrollReveal: 5 staggered children on landing hero; CSS animation fires on mount with per-instance `--reveal-delay` 0/80/160/240/320 ms
+
+Manual checks for the user (interactive, not testable from headless JS):
+
+- [ ] Hover Browse foundations — visible halo lift
+- [ ] Hover Library tab — visible bg tint appears
+- [ ] Hover Lumen mark — ring brightens to lime, nucleus halo intensifies
+- [ ] Press Enter on a route in palette — navigates
+- [ ] Press Escape — palette closes
+- [ ] Reload landing — hero children appear in stagger sequence
+- [ ] `prefers-reduced-motion: reduce` — palette opens without scale, stagger snaps to end-state
