@@ -26,7 +26,7 @@ export function RateTicker({
           /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 13) */
           <div
             key={i}
-            className="flex items-center gap-2 lumen-mono lumen-tnum text-[var(--type-13)]"
+            className="flex items-center gap-2 lumen-mono lumen-tnum text-[length:var(--type-13)]"
           >
             <span className="text-[color:var(--text-secondary)]">{r.from}</span>
             <span className="text-[color:var(--text-tertiary)]">→</span>
@@ -41,7 +41,7 @@ export function RateTicker({
               <span
                 aria-hidden
                 className={[
-                  "text-[var(--type-11)] font-medium leading-none ml-[1px]",
+                  "text-[length:var(--type-11)] font-medium leading-none ml-[1px]",
                   r.trend === "up"
                     ? "text-[var(--status-success-fg)]"
                     : "text-[var(--status-danger-fg)]",

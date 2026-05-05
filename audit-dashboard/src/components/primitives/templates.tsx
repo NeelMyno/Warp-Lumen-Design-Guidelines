@@ -21,10 +21,10 @@ export function ErrorPage({
 }) {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-12 text-center max-w-[480px] mx-auto">
-      <div className="lumen-mono text-[var(--type-72)] font-light tracking-[var(--tracking-tighter)] text-[color:var(--text-tertiary)] leading-[var(--leading-flat)]">
+      <div className="lumen-mono text-[length:var(--type-72)] font-light tracking-[var(--tracking-tighter)] text-[color:var(--text-tertiary)] leading-[var(--leading-flat)]">
         {code}
       </div>
-      <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)] mt-2 text-[color:var(--text-primary)]">{title}</div>
+      <div className="text-[length:var(--type-22)] font-semibold tracking-[var(--tracking-tight)] mt-2 text-[color:var(--text-primary)]">{title}</div>
       <p className="text-body-xs text-[color:var(--text-tertiary)] mt-2 leading-[var(--leading-snug)] max-w-[36ch] mx-auto">{description}</p>
       {/* v0.11.13.3 — migrated to Button primitives. Master/child principle:
           the lumen-btn-primary CSS class (not Tailwind arbitrary-value) is the
@@ -41,8 +41,8 @@ export function ErrorPage({
 export function LoginCard() {
   return (
     <div className="w-[380px] rounded-[var(--radius-xl)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-6 shadow-[var(--shadow-sm)]">
-      <div className="lumen-mono text-[var(--type-15)] font-bold tracking-[-0.02em] mb-6">warp.</div>
-      <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Sign in</div>
+      <div className="lumen-mono text-[length:var(--type-15)] font-bold tracking-[-0.02em] mb-6">warp.</div>
+      <div className="text-[length:var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Sign in</div>
       <p className="text-body-xs text-[color:var(--text-tertiary)] mt-1">Use your work email to continue.</p>
       <div className="mt-5 space-y-3">
         <SocialBtn label="Continue with Google" icon={<GoogleG />} />
@@ -50,13 +50,13 @@ export function LoginCard() {
         <SocialBtn label="Continue with Passkey" icon={<Key size={14} strokeWidth={1.5} aria-hidden focusable={false} />} />
         <div className="flex items-center gap-3 my-2">
           <span className="h-px flex-1 bg-[var(--border-hairline)]" />
-          <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]">or</span>
+          <span className="text-[length:var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]">or</span>
           <span className="h-px flex-1 bg-[var(--border-hairline)]" />
         </div>
-        <input className="h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-13)] w-full focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]" placeholder="you@company.com" />
+        <input className="h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[length:var(--type-13)] w-full focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]" placeholder="you@company.com" />
         <Button intent="primary" fullWidth>Send magic link</Button>
       </div>
-      <div className="mt-5 text-center text-[var(--type-12)] text-[color:var(--text-tertiary)]">
+      <div className="mt-5 text-center text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
         New to Warp? <a className="lumen-link">Request access</a>
       </div>
     </div>
@@ -64,7 +64,7 @@ export function LoginCard() {
 }
 function SocialBtn({ label, icon }: { label: string; icon: ReactNode }) {
   return (
-    <button className="w-full h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-13)] font-medium flex items-center justify-center gap-2 hover:bg-[var(--surface-sunken)]">
+    <button className="w-full h-10 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[length:var(--type-13)] font-medium flex items-center justify-center gap-2 hover:bg-[var(--surface-sunken)]">
       <span>{icon}</span> {label}
     </button>
   );
@@ -81,10 +81,10 @@ export function HeroBlock() {
     <section className="rounded-[var(--radius-xl)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-10 md:p-14 relative overflow-hidden">
       <div aria-hidden className="absolute -top-32 -right-32 h-80 w-80 rounded-full bg-[var(--lumen-accent-a14)] blur-3xl pointer-events-none" />
       <div className="lumen-eyebrow text-[10px] mb-4">Warp · Lumen design system</div>
-      <h1 className="text-[var(--type-49)] md:text-[var(--type-56)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)] max-w-[20ch]">
+      <h1 className="text-[length:var(--type-49)] md:text-[length:var(--type-56)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)] max-w-[20ch]">
         The instrument panel for North-American freight.
       </h1>
-      <p className="mt-4 max-w-[58ch] text-[var(--type-17)] text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
+      <p className="mt-4 max-w-[58ch] text-[length:var(--type-17)] text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
         Live carrier rates, automated quoting, and operational signal in one calm surface. Built for the people who actually move trucks.
       </p>
       <div className="flex flex-wrap items-center gap-2 mt-6">
@@ -93,7 +93,7 @@ export function HeroBlock() {
         <Button intent="primary" size="lg" glow>Quote a lane</Button>
         <Button intent="secondary" size="lg">Watch the demo</Button>
       </div>
-      <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]">
+      <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-[length:var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]">
         <span>Sterling LTL</span>
         <span>Saia</span>
         <span>Estes Express</span>
@@ -130,14 +130,14 @@ export function FeatureGrid() {
 export function TestimonialCard() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-6 max-w-[440px]">
-      <div className="text-[var(--type-25)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]">
+      <div className="text-[length:var(--type-25)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]">
         "Lumen replaced four spreadsheets and three Slack threads. We can see the day."
       </div>
       <div className="flex items-center gap-3 mt-5">
-        <span className="h-10 w-10 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center lumen-mono text-[var(--type-13)] font-semibold">JR</span>
+        <span className="h-10 w-10 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center lumen-mono text-[length:var(--type-13)] font-semibold">JR</span>
         <div>
-          <div className="text-[var(--type-13)] font-medium">Jamie Rivera</div>
-          <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">Director of Logistics, Sterling LTL</div>
+          <div className="text-[length:var(--type-13)] font-medium">Jamie Rivera</div>
+          <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">Director of Logistics, Sterling LTL</div>
         </div>
       </div>
     </div>
@@ -155,8 +155,8 @@ export function StatStrip() {
         { k: "3.2 min", v: "avg quote time" },
       ].map((s) => (
         <div key={s.v}>
-          <div className="lumen-tnum text-[var(--type-39)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{s.k}</div>
-          <div className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--lumen-obsidian-3)] mt-2">{s.v}</div>
+          <div className="lumen-tnum text-[length:var(--type-39)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)]">{s.k}</div>
+          <div className="text-[length:var(--type-12)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--lumen-obsidian-3)] mt-2">{s.v}</div>
         </div>
       ))}
     </div>
@@ -170,11 +170,11 @@ export function MaintenanceCard() {
       <div className="mx-auto mb-4 h-12 w-12 rounded-full bg-[var(--surface-tint-accent)] flex items-center justify-center text-[color:var(--text-accent)]">
         <Wrench size={20} strokeWidth={1.5} aria-hidden focusable={false} />
       </div>
-      <div className="text-[var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Scheduled maintenance</div>
+      <div className="text-[length:var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Scheduled maintenance</div>
       <p className="text-body-xs text-[color:var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">
         We're rolling out a database migration. Quoting is paused until 14:00 UTC. Existing shipments continue to track normally.
       </p>
-      <div className="mt-6 inline-flex items-center gap-3 text-[var(--type-12)]">
+      <div className="mt-6 inline-flex items-center gap-3 text-[length:var(--type-12)]">
         <span className="lumen-mono text-[color:var(--text-tertiary)]">Status</span>
         <span className="inline-flex items-center gap-[var(--space-1_5)] text-[color:var(--lumen-amber-7)]"><span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-amber-5)]" />Partial degradation</span>
       </div>

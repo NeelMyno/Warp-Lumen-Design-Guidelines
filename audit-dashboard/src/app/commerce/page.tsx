@@ -337,7 +337,7 @@ function Bar({ stars, pct }: { stars: number; pct: number }) {
           style={{ width: `${pct}%`, background: RATING_BAR_TONE[stars] }}
         />
       </div>
-      <span className="w-9 text-right lumen-mono lumen-tnum text-[var(--type-12)] text-[color:var(--text-secondary)]">{pct}%</span>
+      <span className="w-9 text-right lumen-mono lumen-tnum text-[length:var(--type-12)] text-[color:var(--text-secondary)]">{pct}%</span>
     </div>
   );
 }

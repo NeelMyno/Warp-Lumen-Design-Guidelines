@@ -56,7 +56,7 @@ export function Slider({
           )}
           {showValue && (
             /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 13) */
-            <span className="lumen-mono lumen-tnum text-[var(--type-13)] text-[color:var(--text-primary)]">
+            <span className="lumen-mono lumen-tnum text-[length:var(--type-13)] text-[color:var(--text-primary)]">
               {value}{unit ? <span className="text-[color:var(--text-tertiary)] ml-1">{unit}</span> : null}
             </span>
           )}

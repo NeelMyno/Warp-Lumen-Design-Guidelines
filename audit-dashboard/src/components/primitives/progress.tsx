@@ -49,7 +49,7 @@ export function ProgressBar({
           {label && <span className="text-body-xs text-[color:var(--text-secondary)]">{label}</span>}
           {showValue && (
             /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 12) */
-            <span className="lumen-mono lumen-tnum text-[var(--type-12)] text-[color:var(--text-tertiary)]">
+            <span className="lumen-mono lumen-tnum text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
               {Math.round(pct)}%
             </span>
           )}
@@ -117,8 +117,8 @@ export function ProgressRing({
          brings the digit-to-ring ratio to ~ 39 %, the common ratio for
          "this number is the point" (Apple Health rings, Stripe billing
          donuts). The "%" suffix stays small so the digit leads. */}
-      <span className="absolute inset-0 flex items-center justify-center text-[var(--type-22)] font-bold tracking-[var(--tracking-tighter)] leading-none lumen-tnum text-[color:var(--text-primary)]">
-        {Math.round(pct)}<span className="text-[color:var(--text-tertiary)] text-[var(--type-11)] font-medium ml-[1px] -mb-[2px]">%</span>
+      <span className="absolute inset-0 flex items-center justify-center text-[length:var(--type-22)] font-bold tracking-[var(--tracking-tighter)] leading-none lumen-tnum text-[color:var(--text-primary)]">
+        {Math.round(pct)}<span className="text-[color:var(--text-tertiary)] text-[length:var(--type-11)] font-medium ml-[1px] -mb-[2px]">%</span>
       </span>
     </div>
   );

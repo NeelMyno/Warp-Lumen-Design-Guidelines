@@ -412,7 +412,7 @@ export function OtpInput({ length = 6, value, onChange }: { length?: number; val
             value={cells[i] ?? ""}
             onChange={(e) => set(i, e.target.value)}
             onKeyDown={(e) => onKeyDown(i, e)}
-            className="text-center text-[var(--type-18)]"
+            className="text-center text-[length:var(--type-18)]"
             aria-label={`OTP digit ${i + 1}`}
           />
         </div>

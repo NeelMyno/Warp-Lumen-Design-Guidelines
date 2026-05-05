@@ -84,7 +84,7 @@ export default function FoundationsPage() {
             </div>
           </div>
           {/* lumen-lint-allow: typography — type-17 mobile lead; intermediate body density between body-md (16) and body-lg (18) */}
-          <p className="mt-8 max-w-[58ch] text-[var(--type-17)] md:text-body-lg text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
+          <p className="mt-8 max-w-[58ch] text-[length:var(--type-17)] md:text-body-lg text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
             One mood. One mark. Seven principles. Color, typography, spacing, motion — assembled from the same restraint Lumen asks of every consumer.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -195,17 +195,17 @@ export default function FoundationsPage() {
               {/* lumen-lint-allow-block: typography — TypeRow `cls` strings are intentional documentation
                   showing the raw recipe each semantic preset expands to. They are demoed as sample text
                   inside the TypeRow component, not used as component-author API. Do not refactor. */}
-              <TypeRow role="display.xxl" sample="Stop re-designing." cls="text-[var(--type-96)] md:text-[var(--type-128)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)]" px="128 / 8rem" weight="700" />
-              <TypeRow role="display.xl"  sample="Operations as instruments." cls="text-[var(--type-72)] md:text-[var(--type-84)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]" px="84 / 5.25rem" weight="700" />
-              <TypeRow role="display.lg"  sample={<>The freight network for <em className="not-italic text-[color:var(--text-accent)]">builders</em>.</>} cls="text-[var(--type-49)] md:text-[var(--type-56)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="56 / 3.5rem" weight="700" />
-              <TypeRow role="display.md"  sample="Same routes. Lower cost per pallet." cls="text-[var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="39 / 2.44rem" weight="700" />
-              <TypeRow role="heading.h1"  sample="Shipments dashboard" cls="text-[var(--type-31)] font-bold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="31 / 1.94rem" weight="700" />
-              <TypeRow role="heading.h2"  sample="Active lanes" cls="text-[var(--type-25)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="25 / 1.56rem" weight="600" />
-              <TypeRow role="heading.h3"  sample="Recent activity" cls="text-[var(--type-20)] font-medium leading-[var(--leading-snug)]" px="20 / 1.25rem" weight="500" />
-              <TypeRow role="body.lg"     sample="One command quotes. One books. JSON out, pipes in." cls="text-[var(--type-18)] leading-[var(--leading-normal)]" px="18 / 1.13rem" weight="400" />
-              <TypeRow role="body.md"     sample="Stop logging into 10 carrier portals every morning." cls="text-[var(--type-16)] leading-[var(--leading-normal)]" px="16 / 1.00rem" weight="400" />
-              <TypeRow role="body.sm"     sample="Auto-save will retry every 12 seconds while offline." cls="text-[var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
-              <TypeRow role="caption"     sample="Updated 4 minutes ago by Sokolovsky" cls="text-[var(--type-13)] text-[color:var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
+              <TypeRow role="display.xxl" sample="Stop re-designing." cls="text-[length:var(--type-96)] md:text-[length:var(--type-128)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-flat)]" px="128 / 8rem" weight="700" />
+              <TypeRow role="display.xl"  sample="Operations as instruments." cls="text-[length:var(--type-72)] md:text-[length:var(--type-84)] font-bold tracking-[var(--tracking-tightest)] leading-[var(--leading-tight)]" px="84 / 5.25rem" weight="700" />
+              <TypeRow role="display.lg"  sample={<>The freight network for <em className="not-italic text-[color:var(--text-accent)]">builders</em>.</>} cls="text-[length:var(--type-49)] md:text-[length:var(--type-56)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="56 / 3.5rem" weight="700" />
+              <TypeRow role="display.md"  sample="Same routes. Lower cost per pallet." cls="text-[length:var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-tight)]" px="39 / 2.44rem" weight="700" />
+              <TypeRow role="heading.h1"  sample="Shipments dashboard" cls="text-[length:var(--type-31)] font-bold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="31 / 1.94rem" weight="700" />
+              <TypeRow role="heading.h2"  sample="Active lanes" cls="text-[length:var(--type-25)] font-semibold tracking-[var(--tracking-tight)] leading-[var(--leading-snug)]" px="25 / 1.56rem" weight="600" />
+              <TypeRow role="heading.h3"  sample="Recent activity" cls="text-[length:var(--type-20)] font-medium leading-[var(--leading-snug)]" px="20 / 1.25rem" weight="500" />
+              <TypeRow role="body.lg"     sample="One command quotes. One books. JSON out, pipes in." cls="text-[length:var(--type-18)] leading-[var(--leading-normal)]" px="18 / 1.13rem" weight="400" />
+              <TypeRow role="body.md"     sample="Stop logging into 10 carrier portals every morning." cls="text-[length:var(--type-16)] leading-[var(--leading-normal)]" px="16 / 1.00rem" weight="400" />
+              <TypeRow role="body.sm"     sample="Auto-save will retry every 12 seconds while offline." cls="text-[length:var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
+              <TypeRow role="caption"     sample="Updated 4 minutes ago by Sokolovsky" cls="text-[length:var(--type-13)] text-[color:var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
               <TypeRow role="mono.cap"    sample="@ DIGITAL HQ · GLOBAL ACCESS · SYSTEM V0.11 LIVE" cls="lumen-mono-cap text-[color:var(--text-accent)]" px="11 · +0.16em" weight="500" />
               {/* lumen-lint-allow-end: typography */}
             </div>
@@ -277,14 +277,14 @@ export default function FoundationsPage() {
                 ].map((s) => (
                   <div key={s.px} className="flex items-center gap-4">
                     {/* lumen-lint-allow: typography — mono tabular at 12 grid metrics; no semantic preset for mono+regular at 12 */}
-                    <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[color:var(--text-primary)] w-10 shrink-0 text-right">{s.px}</div>
+                    <div className="lumen-mono lumen-tnum text-[length:var(--type-12)] text-[color:var(--text-primary)] w-10 shrink-0 text-right">{s.px}</div>
                     <div className="text-eyebrow-mono text-[color:var(--text-tertiary)] w-10 shrink-0">G{s.tier}</div>
                     <div
                       className="bg-[var(--color-accent)]"
                       style={{ width: s.px, height: 8, borderRadius: 2 }}
                     />
                     {/* lumen-lint-allow: typography — type-12 plain caption; no semantic preset for 12 regular */}
-                    <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">{s.role}</div>
+                    <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">{s.role}</div>
                   </div>
                 ))}
               </div>
@@ -303,12 +303,12 @@ export default function FoundationsPage() {
                 ].map((s) => (
                   <div key={s.px} className="flex items-center gap-4">
                     {/* lumen-lint-allow: typography — mono tabular at 12 spacing metric; no preset for mono+regular at 12 */}
-                    <div className="lumen-mono lumen-tnum text-[var(--type-12)] text-[color:var(--text-tertiary)] w-10 shrink-0 text-right">{s.px}</div>
+                    <div className="lumen-mono lumen-tnum text-[length:var(--type-12)] text-[color:var(--text-tertiary)] w-10 shrink-0 text-right">{s.px}</div>
                     {/* lumen-lint-allow: typography — 10px ornamental marker label with widest tracking; below the semantic scale */}
                     <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)] w-10 shrink-0">soft</div>
                     <div className="bg-[var(--lumen-amber-4)]" style={{ width: s.px, height: 8, borderRadius: 2 }} />
                     {/* lumen-lint-allow: typography — type-12 plain caption; no semantic preset for 12 regular */}
-                    <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">{s.role}</div>
+                    <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">{s.role}</div>
                   </div>
                 ))}
               </div>
@@ -324,7 +324,7 @@ export default function FoundationsPage() {
                     <div className="flex flex-col gap-1">
                       <div className="text-heading-h5">Card on grid</div>
                       {/* lumen-lint-allow: typography — type-12 plain caption; no semantic preset for 12 regular */}
-                      <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">8 / 16 / 24 / 32 / 40 / 48 — every measurement is a multiple of 8</div>
+                      <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">8 / 16 / 24 / 32 / 40 / 48 — every measurement is a multiple of 8</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -371,7 +371,7 @@ export default function FoundationsPage() {
                 <div className="flex flex-col items-center gap-1">
                   <div className="text-label-sm text-[color:var(--text-primary)]">{name}</div>
                   {/* lumen-lint-allow: typography — mono tabular at 11 radius value; no semantic preset for 11px tabular */}
-                  <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[color:var(--text-tertiary)]">{px}</code>
+                  <code className="lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">{px}</code>
                 </div>
               </Card>
             ))}
@@ -394,7 +394,7 @@ export default function FoundationsPage() {
               >
                 <div className="text-label-sm text-[color:var(--text-primary)]">{level}</div>
                 {/* lumen-lint-allow: typography — mono regular at 11 token name; no semantic preset for 11px mono */}
-                <code className="lumen-mono text-[var(--type-11)] text-[color:var(--text-tertiary)]">
+                <code className="lumen-mono text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">
                   shadow.{level}
                 </code>
               </div>
@@ -830,7 +830,7 @@ export default function FoundationsPage() {
           the reader scans by category instead of serially. */}
       <aside className="hidden lg:block">
         {/* lumen-lint-allow: typography — type-12 sidebar nav links; no semantic preset for 12 regular */}
-        <nav className="sticky top-32 flex flex-col gap-6 text-[var(--type-12)]">
+        <nav className="sticky top-32 flex flex-col gap-6 text-[length:var(--type-12)]">
           <div className="lumen-mono-cap text-[color:var(--text-tertiary)]">On this page</div>
           {[
             { label: "Visual primitives", items: [
@@ -884,9 +884,9 @@ function TypeRow({
       <code className="text-eyebrow-mono text-[color:var(--text-tertiary)] font-semibold">{role}</code>
       <div className={`${cls} text-[color:var(--text-primary)]`}>{sample}</div>
       {/* lumen-lint-allow: typography — mono tabular at 11 px value; no semantic preset for 11px tabular */}
-      <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[color:var(--text-tertiary)]">{px}</code>
+      <code className="lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">{px}</code>
       {/* lumen-lint-allow: typography — mono tabular at 11 weight value; no semantic preset for 11px tabular */}
-      <code className="lumen-mono lumen-tnum text-[var(--type-11)] text-[color:var(--text-tertiary)]">w{weight}</code>
+      <code className="lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">w{weight}</code>
     </div>
   );
 }
@@ -904,7 +904,7 @@ function PairRow({
       <div className="flex-1 text-body-xs text-[color:var(--text-secondary)] leading-snug">{use}</div>
       {note && (
         /* lumen-lint-allow: typography — type-12 mono pair note; no semantic preset for mono+regular at 12 */
-        <div className="hidden md:block text-[var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono shrink-0">
+        <div className="hidden md:block text-[length:var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono shrink-0">
           {note}
         </div>
       )}
@@ -917,9 +917,9 @@ function StatusRamp({ family }: { family: string }) {
     <div className="flex flex-col gap-[var(--space-1_5)]">
       <div className="flex items-baseline justify-between">
         {/* lumen-lint-allow: typography — mono regular at 11 token name; no semantic preset for 11px mono */}
-        <code className="lumen-mono text-[var(--type-11)] text-[color:var(--text-tertiary)]">{family}</code>
+        <code className="lumen-mono text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">{family}</code>
         {/* lumen-lint-allow: typography — plain regular at 11 caption; no semantic preset for 11px regular */}
-        <span className="text-[var(--type-11)] text-[color:var(--text-tertiary)]">10 stops</span>
+        <span className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">10 stops</span>
       </div>
       <div className="grid grid-cols-10 gap-0 rounded-[var(--radius-md)] overflow-hidden border border-[var(--border-hairline)]">
         {Array.from({ length: 10 }).map((_, i) => (
@@ -941,11 +941,11 @@ function HeightSpec({ h, label, sub, tone = "grid" }: { h: number; label: string
         style={{ height: h }}
       >
         {/* lumen-lint-allow: typography — mono semibold at 12 control-height numeral; no semantic preset for mono+semibold */}
-        <span className="lumen-mono text-[var(--type-12)] font-semibold">{h}</span>
+        <span className="lumen-mono text-[length:var(--type-12)] font-semibold">{h}</span>
       </div>
       <div className="flex flex-col items-center">
         {/* lumen-lint-allow: typography — mono regular at 12 control label; no semantic preset for mono+regular at 12 */}
-        <div className="lumen-mono text-[var(--type-12)] text-[color:var(--text-primary)]">{label}</div>
+        <div className="lumen-mono text-[length:var(--type-12)] text-[color:var(--text-primary)]">{label}</div>
         {/* lumen-lint-allow: typography — 10px ornamental sublabel with widest tracking; below the semantic scale */}
         <div className="text-[10px] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)]">{sub}</div>
       </div>

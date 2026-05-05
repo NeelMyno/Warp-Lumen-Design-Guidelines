@@ -47,7 +47,7 @@ function TooltipContent({
         sideOffset={sideOffset}
         className={cn(
           /* v0.5: arbitrary-value type — review for semantic preset (11 medium tooltip) */
-          "lumen-glass-strong text-[color:var(--text-primary)] z-[var(--z-tooltip)] w-fit origin-(--radix-tooltip-content-transform-origin) rounded-[var(--radius-md)] px-2.5 py-1 text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95",
+          "lumen-glass-strong text-[color:var(--text-primary)] z-[var(--z-tooltip)] w-fit origin-(--radix-tooltip-content-transform-origin) rounded-[var(--radius-md)] px-2.5 py-1 text-[length:var(--type-11)] font-medium tracking-[var(--tracking-tight)] data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95",
           className,
         )}
         {...props}

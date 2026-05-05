@@ -92,7 +92,7 @@ export function ActionSheet({ items }: { items: { label: string; danger?: boolea
           <button
             key={i}
             className={[
-              "w-full h-12 text-[var(--type-15)] text-center transition-colors",
+              "w-full h-12 text-[length:var(--type-15)] text-center transition-colors",
               i < main.length - 1 ? "border-b border-[var(--border-hairline)]" : "",
               it.danger ? "text-[color:var(--lumen-red-7)]" : "text-[color:var(--text-link)]",
             ].join(" ")}
@@ -102,7 +102,7 @@ export function ActionSheet({ items }: { items: { label: string; danger?: boolea
         ))}
       </div>
       {cancel && (
-        <button className="rounded-[14px] bg-[var(--surface-popover)] h-12 text-[var(--type-15)] font-semibold text-[color:var(--text-link)] border border-[var(--border-hairline)]">
+        <button className="rounded-[14px] bg-[var(--surface-popover)] h-12 text-[length:var(--type-15)] font-semibold text-[color:var(--text-link)] border border-[var(--border-hairline)]">
           {cancel.label}
         </button>
       )}
@@ -128,9 +128,9 @@ export function PermissionPrompt({
           <div className="text-body-xs text-[color:var(--text-tertiary)] mt-2 leading-[var(--leading-snug)]">{description}</div>
         </div>
         <div className="border-t border-[var(--border-hairline)]">
-          <button className="w-full h-control-touch text-[var(--type-14)] text-[color:var(--text-link)] border-b border-[var(--border-hairline)]">Allow Once</button>
-          <button className="w-full h-control-touch text-[var(--type-14)] text-[color:var(--text-link)] border-b border-[var(--border-hairline)]">Allow While Using App</button>
-          <button className="w-full h-control-touch text-[var(--type-14)] text-[color:var(--text-link)]">Don't Allow</button>
+          <button className="w-full h-control-touch text-[length:var(--type-14)] text-[color:var(--text-link)] border-b border-[var(--border-hairline)]">Allow Once</button>
+          <button className="w-full h-control-touch text-[length:var(--type-14)] text-[color:var(--text-link)] border-b border-[var(--border-hairline)]">Allow While Using App</button>
+          <button className="w-full h-control-touch text-[length:var(--type-14)] text-[color:var(--text-link)]">Don't Allow</button>
         </div>
       </div>
     </div>
@@ -140,7 +140,7 @@ export function PermissionPrompt({
 /* ─────────────────────────  PULL-TO-REFRESH  ───────────────────────── */
 export function PullToRefresh() {
   return (
-    <div className="flex items-center justify-center gap-2 py-3 text-[var(--type-12)] text-[color:var(--text-tertiary)]">
+    <div className="flex items-center justify-center gap-2 py-3 text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
       <Loader2 size={14} strokeWidth={2} className="animate-spin" aria-hidden focusable={false} />
       Refreshing…
     </div>
@@ -164,10 +164,10 @@ export function MobileListItem({
   return (
     <div className={["flex items-center gap-3 px-4 py-3 bg-[var(--surface-raised)]", swipeable ? "relative overflow-hidden" : ""].join(" ")}>
       <div className="flex-1 min-w-0">
-        <div className="text-[var(--type-14)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</div>
-        {description && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] truncate mt-1">{description}</div>}
+        <div className="text-[length:var(--type-14)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</div>
+        {description && <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] truncate mt-1">{description}</div>}
       </div>
-      <div className="flex items-center gap-2 shrink-0 text-[var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono">
+      <div className="flex items-center gap-2 shrink-0 text-[length:var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono">
         {meta && <span>{meta}</span>}
         {trailing}
       </div>
@@ -180,7 +180,7 @@ export function SwipeAction({ children, action = "Archive", danger }: { children
   return (
     <div className="relative overflow-hidden bg-[var(--surface-canvas)]">
       <div className="absolute inset-y-0 right-0 flex">
-        <button className={["px-5 text-white text-[var(--type-13)] font-semibold", danger ? "bg-[var(--lumen-red-5)]" : "bg-[var(--lumen-amber-5)]"].join(" ")}>{action}</button>
+        <button className={["px-5 text-white text-[length:var(--type-13)] font-semibold", danger ? "bg-[var(--lumen-red-5)]" : "bg-[var(--lumen-amber-5)]"].join(" ")}>{action}</button>
       </div>
       <div className="relative bg-[var(--surface-raised)] -translate-x-[80px] transition-transform">{children}</div>
     </div>
@@ -195,8 +195,8 @@ export function FaceIDPrompt() {
         <div className="mx-auto h-12 w-12 rounded-full bg-[var(--surface-sunken)] flex items-center justify-center mb-2">
           <ScanFace size={24} strokeWidth={1.5} aria-hidden focusable={false} />
         </div>
-        <div className="text-[var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">Face ID</div>
-        <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1">Authenticate to continue</div>
+        <div className="text-[length:var(--type-14)] font-semibold tracking-[var(--tracking-tight)]">Face ID</div>
+        <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-1">Authenticate to continue</div>
       </div>
     </div>
   );
@@ -207,11 +207,11 @@ export function KeyboardAccessoryBar() {
   return (
     <div className="border-t border-[var(--border-hairline)] bg-[var(--surface-sunken)] px-3 h-10 flex items-center justify-between">
       <div className="flex items-center gap-3 text-[color:var(--text-secondary)]">
-        <button className="text-[var(--type-13)] font-semibold">Bold</button>
-        <button className="text-[var(--type-13)]">Italic</button>
-        <button className="text-[var(--type-13)]">Link</button>
+        <button className="text-[length:var(--type-13)] font-semibold">Bold</button>
+        <button className="text-[length:var(--type-13)]">Italic</button>
+        <button className="text-[length:var(--type-13)]">Link</button>
       </div>
-      <button className="text-[var(--type-13)] text-[color:var(--text-link)] font-semibold">Done</button>
+      <button className="text-[length:var(--type-13)] text-[color:var(--text-link)] font-semibold">Done</button>
     </div>
   );
 }
@@ -221,10 +221,10 @@ export function CoachMark() {
   return (
     <div className="rounded-[var(--radius-md)] bg-[var(--lumen-obsidian-9)] text-white p-3 max-w-[260px] shadow-[var(--shadow-modal)]">
       <div className="text-heading-h6">New: Quick rates</div>
-      <p className="text-[var(--type-12)] text-[color:var(--lumen-obsidian-2)] mt-1 leading-[var(--leading-snug)]">
+      <p className="text-[length:var(--type-12)] text-[color:var(--lumen-obsidian-2)] mt-1 leading-[var(--leading-snug)]">
         Quote a lane in three taps. Swipe up from the bottom edge to begin.
       </p>
-      <div className="flex items-center justify-between mt-3 text-[var(--type-11)]">
+      <div className="flex items-center justify-between mt-3 text-[length:var(--type-11)]">
         <span className="lumen-mono text-[color:var(--lumen-obsidian-3)]">Step 2 of 4</span>
         <Button intent="primary" size="sm">Got it</Button>
       </div>

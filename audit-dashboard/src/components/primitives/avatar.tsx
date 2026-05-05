@@ -18,11 +18,11 @@ type Size = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 /* v0.5: Avatar size ramp uses raw type tokens — no semantic preset matches the avatar initials sizes. */
 const SIZE_CLS: Record<Size, string> = {
   xs:    "size-5  text-[10px]",
-  sm:    "size-6  text-[var(--type-11)]",
-  md:    "size-8  text-[var(--type-13)]",
-  lg:    "size-10 text-[var(--type-14)]",
-  xl:    "size-12 text-[var(--type-15)]",
-  "2xl": "size-16 text-[var(--type-18)]",
+  sm:    "size-6  text-[length:var(--type-11)]",
+  md:    "size-8  text-[length:var(--type-13)]",
+  lg:    "size-10 text-[length:var(--type-14)]",
+  xl:    "size-12 text-[length:var(--type-15)]",
+  "2xl": "size-16 text-[length:var(--type-18)]",
 };
 
 const SIZE_PX: Record<Size, number> = {

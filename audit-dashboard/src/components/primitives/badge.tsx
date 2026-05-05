@@ -23,8 +23,8 @@ const STYLES: Record<Status, string> = {
 /* Heights snap to 8pt: sm = 20 (2.5u soft), md = 24 (3u). */
 /* v0.5: badge sizes use type-11/type-12 — review for semantic preset (badge ramp distinct from overline/micro) */
 const SIZE: Record<Size, string> = {
-  sm: "h-5 px-[var(--space-1_5)] text-[var(--type-11)] gap-1                 rounded-[var(--radius-full)]",
-  md: "h-6 px-2                  text-[var(--type-12)] gap-[var(--space-1_5)] rounded-[var(--radius-full)]",
+  sm: "h-5 px-[var(--space-1_5)] text-[length:var(--type-11)] gap-1                 rounded-[var(--radius-full)]",
+  md: "h-6 px-2                  text-[length:var(--type-12)] gap-[var(--space-1_5)] rounded-[var(--radius-full)]",
 };
 
 export function Badge({

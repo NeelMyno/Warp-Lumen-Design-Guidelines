@@ -28,12 +28,12 @@ type SparkTone = "accent" | "neutral" | "success" | "danger";
 // its own scale to support intermediate sizes (sm=25, lg=39) that have no
 // semantic preset. Review for consolidation in a later pass.
 const VALUE_SIZE: Record<Size, string> = {
-  xs:   "text-[var(--type-20)]",
-  sm:   "text-[var(--type-25)]",
-  md:   "text-[var(--type-31)]",
-  lg:   "text-[var(--type-39)]",
-  xl:   "text-[var(--type-49)]",
-  hero: "text-[var(--type-72)] md:text-[var(--type-76)]",
+  xs:   "text-[length:var(--type-20)]",
+  sm:   "text-[length:var(--type-25)]",
+  md:   "text-[length:var(--type-31)]",
+  lg:   "text-[length:var(--type-39)]",
+  xl:   "text-[length:var(--type-49)]",
+  hero: "text-[length:var(--type-72)] md:text-[length:var(--type-76)]",
 };
 
 /** Map (trend × polarity) to a single semantic tone — drives both pill and spark. */
@@ -120,7 +120,7 @@ export function Stat({
         </span>
         {unit && (
           /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 13) */
-          <span className="lumen-mono text-[var(--type-13)] text-[color:var(--text-tertiary)]">
+          <span className="lumen-mono text-[length:var(--type-13)] text-[color:var(--text-tertiary)]">
             {unit}
           </span>
         )}
@@ -132,7 +132,7 @@ export function Stat({
             <span
               className={[
                 "inline-flex items-center gap-1 px-[var(--space-1_5)] h-[18px] rounded-[var(--radius-full)]",
-                "text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]",
+                "text-[length:var(--type-11)] font-medium tracking-[var(--tracking-tight)]",
                 "lumen-tnum whitespace-nowrap",
                 PILL_BY_TONE[tone],
               ].join(" ")}

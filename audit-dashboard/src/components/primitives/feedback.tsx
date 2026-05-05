@@ -94,7 +94,7 @@ export function PageBanner({
       <span aria-hidden className="shrink-0">
         <AlertIcon tone={tone} />
       </span>
-      <div className="text-[var(--type-13)] flex-1 min-w-0 truncate">{children}</div>
+      <div className="text-[length:var(--type-13)] flex-1 min-w-0 truncate">{children}</div>
       <div className="flex items-center gap-2 shrink-0">
         {action}
         {onDismiss && (
@@ -131,12 +131,12 @@ export function Toast({
       </span>
       <div className="min-w-0 flex-1">
         <div className="text-heading-h6 text-[color:var(--text-primary)]">{title}</div>
-        {description && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1">{description}</div>}
+        {description && <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-1">{description}</div>}
       </div>
       {action && (
         <button
           onClick={action.onClick}
-          className="shrink-0 h-7 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-accent)] hover:bg-[var(--surface-sunken)] font-medium"
+          className="shrink-0 h-7 px-2 rounded-[var(--radius-sm)] text-[length:var(--type-12)] text-[color:var(--text-accent)] hover:bg-[var(--surface-sunken)] font-medium"
         >
           {action.label}
         </button>
@@ -149,9 +149,9 @@ export function Toast({
 export function Snackbar({ children, action }: { children: ReactNode; action?: { label: string; onClick?: () => void } }) {
   return (
     <div className="inline-flex items-center gap-3 rounded-[var(--radius-full)] bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] px-4 py-2 shadow-[var(--shadow-popover)]">
-      <span className="text-[var(--type-13)]">{children}</span>
+      <span className="text-[length:var(--type-13)]">{children}</span>
       {action && (
-        <button onClick={action.onClick} className="text-[var(--type-12)] uppercase tracking-[var(--tracking-wider)] font-semibold text-[color:var(--lumen-accent-3)] hover:text-[color:var(--lumen-accent-2)]">
+        <button onClick={action.onClick} className="text-[length:var(--type-12)] uppercase tracking-[var(--tracking-wider)] font-semibold text-[color:var(--lumen-accent-3)] hover:text-[color:var(--lumen-accent-2)]">
           {action.label}
         </button>
       )}
@@ -186,7 +186,7 @@ export function ModalCard({
     >
       <div className="px-5 pt-5 pb-2 flex items-start justify-between gap-3">
         <div>
-          <div className="text-[var(--type-17)] font-semibold tracking-[var(--tracking-tight)] text-[color:var(--text-primary)]">{title}</div>
+          <div className="text-[length:var(--type-17)] font-semibold tracking-[var(--tracking-tight)] text-[color:var(--text-primary)]">{title}</div>
           {description && (
             <div className="text-body-xs text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">{description}</div>
           )}
@@ -198,7 +198,7 @@ export function ModalCard({
       {children && <div className="px-5 pb-4 pt-2 text-body-xs text-[color:var(--text-secondary)]">{children}</div>}
       {(primary || secondary) && (
         /* v0.11.13.3 — both footer buttons are now <Button> primitives. The
-           prior hand-rolled <button>s with `text-[var(--type-14)]` + later
+           prior hand-rolled <button>s with `text-[length:var(--type-14)]` + later
            `text-[color:var(--lumen-accent-fg)]` collided in Tailwind v4's text-[*]
            arbitrary-value resolver, leaking text.primary (#E6E6E6, near-white)
            on top of the lime fill. Master/child: only the Button primitive is
@@ -233,15 +233,15 @@ export function TypeToConfirm({ phrase = "DELETE" }: { phrase?: string }) {
       destructive
     >
       <div className="flex flex-col gap-2 mt-1">
-        <label className="text-[var(--type-12)] text-[color:var(--text-secondary)]">
+        <label className="text-[length:var(--type-12)] text-[color:var(--text-secondary)]">
           Type <span className="lumen-mono font-semibold text-[color:var(--text-primary)]">{phrase}</span> to confirm
         </label>
         <input
           value={val}
           onChange={(e) => setVal(e.target.value)}
-          className="h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[var(--type-14)] lumen-mono focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
+          className="h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[length:var(--type-14)] lumen-mono focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
         />
-        <div className={["text-[var(--type-11)] mt-1", ok ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--text-tertiary)]"].join(" ")}>
+        <div className={["text-[length:var(--type-11)] mt-1", ok ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--text-tertiary)]"].join(" ")}>
           {ok ? "Confirmation phrase matched." : "Phrase must match exactly."}
         </div>
       </div>
@@ -282,7 +282,7 @@ export function CookieBanner() {
   return (
     <div className="rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-4 max-w-[480px]">
       <div className="text-heading-h6">We use cookies</div>
-      <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">
+      <p className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)]">
         Essential cookies keep this site working. Optional cookies help us understand how it's used.
       </p>
       {/* v0.11.13.3 — all three buttons are now <Button> primitives. Sm size
@@ -308,7 +308,7 @@ export function ValidationMessage({ tone = "danger", children }: { tone?: AlertT
     neutral: "var(--text-tertiary)",
   };
   return (
-    <span className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)]" style={{ color: colors[tone] }}>
+    <span className="inline-flex items-center gap-[var(--space-1_5)] text-[length:var(--type-12)]" style={{ color: colors[tone] }}>
       <span aria-hidden style={{ color: colors[tone] }}>
         {tone === "success" ? <Check size={12} /> : tone === "danger" ? "•" : "•"}
       </span>

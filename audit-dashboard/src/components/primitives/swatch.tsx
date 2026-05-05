@@ -49,7 +49,7 @@ export function Swatch({
       >
         {copied && (
           /* v0.5: arbitrary-value type — review for semantic preset (11 medium toast) */
-          <span className="absolute top-2 right-2 px-[var(--space-1_5)] h-[18px] inline-flex items-center rounded-full bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] text-[var(--type-11)] font-medium tracking-[var(--tracking-tight)]">
+          <span className="absolute top-2 right-2 px-[var(--space-1_5)] h-[18px] inline-flex items-center rounded-full bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] text-[length:var(--type-11)] font-medium tracking-[var(--tracking-tight)]">
             Copied
           </span>
         )}
@@ -61,14 +61,14 @@ export function Swatch({
           </span>
           {value && (
             /* v0.5: arbitrary-value type — review for semantic preset (mono regular at 11) */
-            <code className="lumen-mono text-[var(--type-11)] text-[color:var(--text-tertiary)] shrink-0">
+            <code className="lumen-mono text-[length:var(--type-11)] text-[color:var(--text-tertiary)] shrink-0">
               {value}
             </code>
           )}
         </div>
         {role && (
           /* v0.5: arbitrary-value type — review for semantic preset (plain regular at 11) */
-          <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)] truncate">
+          <div className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)] truncate">
             {role}
           </div>
         )}

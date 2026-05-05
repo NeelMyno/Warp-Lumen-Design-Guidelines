@@ -155,13 +155,13 @@ export function StackedBar({ rows }: { rows: { label: string; segments: { value:
         const total = r.segments.reduce((a, b) => a + b.value, 0);
         return (
           <div key={r.label} className="flex items-center gap-2">
-            <span className="w-20 text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{r.label}</span>
+            <span className="w-20 text-[length:var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{r.label}</span>
             <div className="flex-1 h-5 rounded-[var(--radius-sm)] overflow-hidden bg-[var(--surface-sunken)] flex">
               {r.segments.map((s, i) => (
                 <div key={i} style={{ width: `${(s.value / total) * 100}%`, background: s.color }} title={s.label} />
               ))}
             </div>
-            <span className="w-12 text-right lumen-mono text-[var(--type-11)] text-[color:var(--text-tertiary)]">{total}</span>
+            <span className="w-12 text-right lumen-mono text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">{total}</span>
           </div>
         );
       })}
@@ -230,7 +230,7 @@ export function DonutChart({
           </text>
         )}
       </svg>
-      <ul className="flex flex-col gap-[var(--space-1_5)] text-[var(--type-12)]">
+      <ul className="flex flex-col gap-[var(--space-1_5)] text-[length:var(--type-12)]">
         {segments.map((s, i) => (
           <li key={s.label} className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-[1px]" style={{ background: s.color ?? CHART_PALETTE[i % CHART_PALETTE.length] }} />
@@ -267,10 +267,10 @@ export function Heatmap({ rows = 7, cols = 16, label, seed = 7 }: { rows?: numbe
           />
         ))}
       </div>
-      <div className="flex items-center justify-between text-[var(--type-11)] text-[color:var(--text-tertiary)] lumen-mono">
+      <div className="flex items-center justify-between text-[length:var(--type-11)] text-[color:var(--text-tertiary)] lumen-mono">
         <span>Mon</span><span>Wed</span><span>Fri</span><span>Sun</span>
       </div>
-      {label && <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>}
+      {label && <div className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>}
     </div>
   );
 }
@@ -380,7 +380,7 @@ export function Treemap({ items }: { items: { label: string; value: number; colo
             className="rounded-[var(--radius-xs)] px-2 py-[var(--space-1_5)] flex flex-col justify-end"
             style={{ background: bg, color: fg, gridColumn: `span ${span}` }}
           >
-            <div className="text-[var(--type-11)] font-semibold tracking-[var(--tracking-tight)] truncate">{i.label}</div>
+            <div className="text-[length:var(--type-11)] font-semibold tracking-[var(--tracking-tight)] truncate">{i.label}</div>
             <div className="text-[10px] opacity-80 lumen-mono">{Math.round((i.value / total) * 100)}%</div>
           </div>
         );
@@ -414,12 +414,12 @@ export function Funnel({ steps }: { steps: { label: string; value: number }[] })
         const conv = i > 0 ? Math.round((s.value / steps[i - 1].value) * 100) : 100;
         return (
           <div key={s.label} className="w-full flex items-center gap-3">
-            <span className="w-32 shrink-0 text-right text-[var(--type-12)] text-[color:var(--text-secondary)] truncate">
+            <span className="w-32 shrink-0 text-right text-[length:var(--type-12)] text-[color:var(--text-secondary)] truncate">
               {s.label}
             </span>
             <div className="flex-1 relative h-7 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] overflow-hidden">
               <div
-                className="h-full flex items-center justify-end px-3 rounded-[var(--radius-sm)] text-[var(--type-12)] font-semibold lumen-tnum text-[color:var(--lumen-accent-fg)]"
+                className="h-full flex items-center justify-end px-3 rounded-[var(--radius-sm)] text-[length:var(--type-12)] font-semibold lumen-tnum text-[color:var(--lumen-accent-fg)]"
                 style={{
                   width: `${Math.max(pct, 12)}%`,
                   background: `color-mix(in oklab, var(--lumen-accent-4) ${100 - i * 14}%, var(--lumen-accent-7))`,
@@ -429,7 +429,7 @@ export function Funnel({ steps }: { steps: { label: string; value: number }[] })
                 <span aria-hidden>{s.value.toLocaleString()}</span>
               </div>
             </div>
-            <span className="w-12 shrink-0 text-[var(--type-11)] lumen-mono text-[color:var(--text-tertiary)] text-right">
+            <span className="w-12 shrink-0 text-[length:var(--type-11)] lumen-mono text-[color:var(--text-tertiary)] text-right">
               {conv}%
             </span>
           </div>
@@ -495,13 +495,13 @@ export function Bullet({ value, target, max = 100, label }: { value: number; tar
   const pct = (v: number) => (v / max) * 100;
   return (
     <div className="flex items-center gap-3">
-      {label && <span className="w-28 text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</span>}
+      {label && <span className="w-28 text-[length:var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</span>}
       <div className="relative flex-1 h-5 rounded-[var(--radius-sm)] bg-[var(--surface-sunken)] overflow-hidden">
         <div className="absolute inset-y-0 left-0 bg-[color-mix(in_oklab,var(--lumen-accent-5)_22%,transparent)]" style={{ width: `${pct(target)}%` }} />
         <div className="absolute inset-y-0 left-0 bg-[var(--lumen-accent-5)]" style={{ width: `${pct(value)}%` }} />
         <div className="absolute top-0 bottom-0 w-px bg-[var(--text-primary)]" style={{ left: `${pct(target)}%` }} />
       </div>
-      <span className="w-20 text-right lumen-mono text-[var(--type-12)] text-[color:var(--text-secondary)]">{value}/{target}</span>
+      <span className="w-20 text-right lumen-mono text-[length:var(--type-12)] text-[color:var(--text-secondary)]">{value}/{target}</span>
     </div>
   );
 }
@@ -525,16 +525,16 @@ export function KpiCard({
       <div className="flex items-center justify-between">
         <span className="lumen-eyebrow text-[10px]">{label}</span>
         {trend && (
-          <span className={["text-[var(--type-11)] lumen-mono", trend.delta >= 0 ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--lumen-red-7)]"].join(" ")}>
+          <span className={["text-[length:var(--type-11)] lumen-mono", trend.delta >= 0 ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--lumen-red-7)]"].join(" ")}>
             {trend.delta >= 0 ? "▲" : "▼"} {Math.abs(trend.delta).toFixed(1)}{trend.suffix ?? "%"}
           </span>
         )}
       </div>
-      <div className="lumen-tnum text-[var(--type-31)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)] text-[color:var(--text-primary)]">
+      <div className="lumen-tnum text-[length:var(--type-31)] font-semibold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)] text-[color:var(--text-primary)]">
         {value}
       </div>
       {spark && <MiniSparkline data={spark} />}
-      {hint && <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)]">{hint}</div>}
+      {hint && <div className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">{hint}</div>}
     </div>
   );
 }
@@ -557,7 +557,7 @@ export function Cohort() {
   }));
   return (
     <div className="overflow-auto">
-      <table className="text-[var(--type-12)] lumen-mono">
+      <table className="text-[length:var(--type-12)] lumen-mono">
         <thead>
           <tr>
             <th className="px-2 text-left text-[color:var(--text-tertiary)] uppercase">Cohort</th>
@@ -607,7 +607,7 @@ export function ChartLegend({ items }: { items: { label: string; color: string }
         <button
           type="button"
           key={i.label}
-          className="inline-flex items-center gap-[var(--space-1_5)] text-[var(--type-12)] text-[color:var(--text-secondary)] px-2 h-6 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)] transition-colors duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
+          className="inline-flex items-center gap-[var(--space-1_5)] text-[length:var(--type-12)] text-[color:var(--text-secondary)] px-2 h-6 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)] transition-colors duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]"
         >
           <span className="h-2 w-2 rounded-[1px] shrink-0" style={{ background: i.color }} />
           {i.label}

@@ -30,14 +30,14 @@ export function Pagination({
       <PageBtn disabled={current === 1} onClick={() => onChange?.(current - 1)}>‹ Prev</PageBtn>
       {items.map((p, i) =>
         p === "…" ? (
-          <span key={`e${i}`} className="px-2 text-[color:var(--text-tertiary)] text-[var(--type-13)]">…</span>
+          <span key={`e${i}`} className="px-2 text-[color:var(--text-tertiary)] text-[length:var(--type-13)]">…</span>
         ) : (
           <button
             key={p}
             onClick={() => onChange?.(p)}
             aria-current={p === current ? "page" : undefined}
             className={[
-              "h-8 min-w-[32px] px-3 rounded-[var(--radius-sm)] text-[var(--type-13)] lumen-mono transition-colors",
+              "h-8 min-w-[32px] px-3 rounded-[var(--radius-sm)] text-[length:var(--type-13)] lumen-mono transition-colors",
               p === current
                 ? "bg-[var(--surface-inverse)] text-[color:var(--text-inverse)] font-semibold"
                 : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
@@ -117,7 +117,7 @@ export function Stepper({
               <span
                 aria-hidden
                 className={[
-                  "relative z-[1] h-7 w-7 inline-flex items-center justify-center rounded-full text-[var(--type-12)] font-semibold lumen-mono transition-[background-color,color,box-shadow] duration-[var(--motion-base)] shrink-0",
+                  "relative z-[1] h-7 w-7 inline-flex items-center justify-center rounded-full text-[length:var(--type-12)] font-semibold lumen-mono transition-[background-color,color,box-shadow] duration-[var(--motion-base)] shrink-0",
                   done
                     ? "bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)]"
                     : active
@@ -144,7 +144,7 @@ export function Stepper({
             <div className="mt-3 flex flex-col gap-0.5 pr-3 min-w-0">
               <div
                 className={[
-                  "text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate",
+                  "text-[length:var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate",
                   active
                     ? "text-[color:var(--text-primary)]"
                     : done
@@ -187,7 +187,7 @@ export function AnchorList({
           <a
             href={`#${i.id}`}
             className={[
-              "block text-[var(--type-12)] tracking-[var(--tracking-tight)] transition-colors",
+              "block text-[length:var(--type-12)] tracking-[var(--tracking-tight)] transition-colors",
               i.level === 2 ? "pl-3 text-[color:var(--text-tertiary)] hover:text-[color:var(--text-secondary)]" : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
             ].join(" ")}
           >
@@ -214,7 +214,7 @@ export function MenuList({ items }: { items: ({ kind?: "item" | "divider" | "lab
             key={i}
             type="button"
             className={[
-              "w-full flex items-center justify-between gap-3 px-2 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[var(--type-13)]",
+              "w-full flex items-center justify-between gap-3 px-2 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[length:var(--type-13)]",
               it.danger ? "text-[color:var(--lumen-red-7)] hover:bg-[var(--lumen-red-0)]" : "text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]",
             ].join(" ")}
           >
@@ -243,11 +243,11 @@ export function MegaMenu() {
         <div>
           <div className="lumen-eyebrow text-[10px] mb-1">New</div>
           <div className="text-heading-h5">Lane intelligence v3</div>
-          <p className="text-[var(--type-12)] text-[color:var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
+          <p className="text-[length:var(--type-12)] text-[color:var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
             Real-time spot rates from 12,000 carriers — now with confidence scores.
           </p>
         </div>
-        <a className="lumen-link text-[var(--type-12)] mt-3">See what's new →</a>
+        <a className="lumen-link text-[length:var(--type-12)] mt-3">See what's new →</a>
       </div>
     </div>
   );
@@ -273,13 +273,13 @@ export function NavbarDemo() {
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
       <div className="h-16 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-6">
-          <div className="lumen-mono text-[var(--type-13)] font-bold tracking-[-0.02em]">warp.</div>
+          <div className="lumen-mono text-[length:var(--type-13)] font-bold tracking-[-0.02em]">warp.</div>
           <nav className="hidden sm:flex items-center gap-1">
             {["Lanes", "Quotes", "Shipments", "Carriers", "Reports"].map((l, i) => (
               <a
                 key={l}
                 className={[
-                  "h-8 px-3 inline-flex items-center rounded-[var(--radius-sm)] text-[var(--type-13)] tracking-[var(--tracking-tight)] transition-colors",
+                  "h-8 px-3 inline-flex items-center rounded-[var(--radius-sm)] text-[length:var(--type-13)] tracking-[var(--tracking-tight)] transition-colors",
                   i === 0 ? "bg-[var(--surface-sunken)] text-[color:var(--text-primary)] font-medium" : "text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)]",
                 ].join(" ")}
               >
@@ -289,14 +289,14 @@ export function NavbarDemo() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <span className="hidden md:inline-flex h-8 items-center gap-2 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] text-[color:var(--text-tertiary)]">
+          <span className="hidden md:inline-flex h-8 items-center gap-2 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
             <SearchIcon size={13} /> Search
             <span className="lumen-kbd ml-2">⌘K</span>
           </span>
           <button aria-label="Notifications" className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]">
             <Bell size={15} />
           </button>
-          <span className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-[var(--lumen-obsidian-9)] text-white text-[var(--type-12)] lumen-mono font-semibold">NT</span>
+          <span className="h-8 w-8 inline-flex items-center justify-center rounded-full bg-[var(--lumen-obsidian-9)] text-white text-[length:var(--type-12)] lumen-mono font-semibold">NT</span>
         </div>
       </div>
     </div>
@@ -323,7 +323,7 @@ export function SidebarDemo() {
           <button
             key={i.label}
             className={[
-              "w-full h-8 px-2 inline-flex items-center justify-between rounded-[var(--radius-sm)] text-[var(--type-13)] transition-colors",
+              "w-full h-8 px-2 inline-flex items-center justify-between rounded-[var(--radius-sm)] text-[length:var(--type-13)] transition-colors",
               i.active ? "bg-[var(--surface-sunken)] text-[color:var(--text-primary)]" : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
             ].join(" ")}
           >
@@ -332,7 +332,7 @@ export function SidebarDemo() {
               <span>{i.label}</span>
             </span>
             {i.count !== undefined && (
-              <span className="text-[var(--type-11)] lumen-mono text-[color:var(--text-tertiary)]">{i.count}</span>
+              <span className="text-[length:var(--type-11)] lumen-mono text-[color:var(--text-tertiary)]">{i.count}</span>
             )}
           </button>
         ))}
@@ -340,7 +340,7 @@ export function SidebarDemo() {
       <div className="lumen-eyebrow text-[10px] mt-2 px-2">Saved views</div>
       <div className="flex flex-col gap-1">
         {["High-priority lanes", "TX → CA"].map((l) => (
-          <button key={l} className="w-full h-7 px-2 inline-flex items-center rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)] transition-colors">
+          <button key={l} className="w-full h-7 px-2 inline-flex items-center rounded-[var(--radius-sm)] text-[length:var(--type-12)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)] transition-colors">
             <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-amber-4)] mr-2" /> {l}
           </button>
         ))}
@@ -372,7 +372,7 @@ export function TabBar({
             aria-current={active ? "page" : undefined}
             onClick={() => onChange(t.value)}
             className={[
-              "relative h-10 px-3 text-[var(--type-13)] tracking-[var(--tracking-tight)] inline-flex items-center gap-2 transition-colors",
+              "relative h-10 px-3 text-[length:var(--type-13)] tracking-[var(--tracking-tight)] inline-flex items-center gap-2 transition-colors",
               active ? "text-[color:var(--text-primary)] font-medium" : "text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]",
             ].join(" ")}
           >
@@ -455,7 +455,7 @@ export function SplitButton({ primary = "Save", options = ["Save and continue", 
       {open && (
         <div className="absolute z-[var(--z-overlay)] right-0 top-full mt-1 min-w-[200px] rounded-[var(--radius-md)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-1">
           {options.map((o) => (
-            <button key={o} className="w-full text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[var(--type-13)] text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">{o}</button>
+            <button key={o} className="w-full text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[length:var(--type-13)] text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">{o}</button>
           ))}
         </div>
       )}
@@ -487,7 +487,7 @@ export function CommandPalette() {
         <SearchIcon size={15} className="text-[color:var(--text-tertiary)]" />
         <input
           placeholder="Search lanes, quotes, customers, settings…"
-          className="flex-1 bg-transparent text-[var(--type-13)] focus:outline-none placeholder:text-[color:var(--text-tertiary)]"
+          className="flex-1 bg-transparent text-[length:var(--type-13)] focus:outline-none placeholder:text-[color:var(--text-tertiary)]"
         />
         <span className="lumen-kbd">esc</span>
       </div>
@@ -500,7 +500,7 @@ export function CommandPalette() {
             <div
               key={i}
               className={[
-                "w-full flex items-center justify-between px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[var(--type-13)] cursor-pointer",
+                "w-full flex items-center justify-between px-3 py-[var(--space-1_5)] rounded-[var(--radius-sm)] text-[length:var(--type-13)] cursor-pointer",
                 isFirst ? "bg-[var(--surface-sunken)] text-[color:var(--text-primary)]" : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)]",
               ].join(" ")}
             >
@@ -513,7 +513,7 @@ export function CommandPalette() {
           );
         })}
       </div>
-      <div className="px-3 h-10 flex items-center gap-3 border-t border-[var(--border-hairline)] text-[var(--type-11)] text-[color:var(--text-tertiary)]">
+      <div className="px-3 h-10 flex items-center gap-3 border-t border-[var(--border-hairline)] text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">
         <span className="flex items-center gap-1"><span className="lumen-kbd">↑</span><span className="lumen-kbd">↓</span> navigate</span>
         <span className="flex items-center gap-1"><span className="lumen-kbd">⏎</span> select</span>
         <span className="ml-auto">Lumen Command</span>
@@ -528,8 +528,8 @@ export function FooterDemo() {
     <footer className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-6">
       <div className="grid gap-8 md:grid-cols-[1.4fr_repeat(3,_1fr)]">
         <div>
-          <div className="lumen-mono text-[var(--type-15)] font-bold tracking-[-0.02em]">warp.</div>
-          <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-3 max-w-[36ch] leading-[var(--leading-snug)]">
+          <div className="lumen-mono text-[length:var(--type-15)] font-bold tracking-[-0.02em]">warp.</div>
+          <p className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-3 max-w-[36ch] leading-[var(--leading-snug)]">
             The instrument panel for North-American freight. SOC 2 Type II · ISO 27001 · DOT MC-1077745.
           </p>
         </div>
@@ -537,7 +537,7 @@ export function FooterDemo() {
         <FCol title="Company" links={["About", "Customers", "Press", "Careers"]} />
         <FCol title="Resources" links={["Status", "Docs", "Trust", "Legal"]} />
       </div>
-      <div className="mt-8 pt-5 border-t border-[var(--border-hairline)] flex items-center justify-between text-[var(--type-11)] text-[color:var(--text-tertiary)]">
+      <div className="mt-8 pt-5 border-t border-[var(--border-hairline)] flex items-center justify-between text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">
         <span>© 2026 Warp Inc. All rights reserved.</span>
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-[var(--space-1_5)]"><span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-5)]" /> All systems operational</span>
@@ -551,7 +551,7 @@ function FCol({ title, links }: { title: string; links: string[] }) {
     <div>
       <div className="lumen-eyebrow text-[10px] mb-3">{title}</div>
       <ul className="flex flex-col gap-[var(--space-1_5)]">
-        {links.map((l) => <li key={l}><a className="text-[var(--type-12)] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors">{l}</a></li>)}
+        {links.map((l) => <li key={l}><a className="text-[length:var(--type-12)] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] transition-colors">{l}</a></li>)}
       </ul>
     </div>
   );

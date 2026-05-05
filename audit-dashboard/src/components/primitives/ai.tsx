@@ -71,8 +71,8 @@ export function AIPromptInput() {
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] shadow-[var(--shadow-sm)] overflow-hidden">
       <div className="px-3 pt-2 pb-1 flex items-center gap-2 border-b border-[var(--border-hairline)]">
         <span className="text-[color:var(--text-accent)]"><Sparkles size={14} /></span>
-        <span className="text-[var(--type-12)] text-[color:var(--text-tertiary)]">Lumen AI · Lane Suggestion</span>
-        <select className="ml-auto text-[var(--type-11)] text-[color:var(--text-tertiary)] bg-transparent focus:outline-none lumen-mono">
+        <span className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">Lumen AI · Lane Suggestion</span>
+        <select className="ml-auto text-[length:var(--type-11)] text-[color:var(--text-tertiary)] bg-transparent focus:outline-none lumen-mono">
           <option>opus 4.7</option><option>sonnet 4.6</option><option>haiku 4.5</option>
         </select>
       </div>
@@ -80,12 +80,12 @@ export function AIPromptInput() {
         value={val}
         onChange={(e) => setVal(e.target.value)}
         rows={3}
-        className="w-full p-3 bg-transparent text-[var(--type-13)] text-[color:var(--text-primary)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none leading-[var(--leading-normal)]"
+        className="w-full p-3 bg-transparent text-[length:var(--type-13)] text-[color:var(--text-primary)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none leading-[var(--leading-normal)]"
       />
       <div className="px-3 py-2 flex items-center justify-between border-t border-[var(--border-hairline)]">
         <div className="flex items-center gap-1">
-          <button className="h-7 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]"><Plus size={12} /> Attach</button>
-          <button className="h-7 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">Templates</button>
+          <button className="h-7 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[length:var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]"><Plus size={12} /> Attach</button>
+          <button className="h-7 px-2 rounded-[var(--radius-sm)] text-[length:var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">Templates</button>
         </div>
         <div className="flex items-center gap-2">
           <span className="lumen-kbd">⌘⏎</span>
@@ -105,7 +105,7 @@ export function AISuggestion() {
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <span className="text-[color:var(--text-accent)]"><Sparkles size={13} /></span>
-          <span className="text-[var(--type-12)] font-semibold uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-accent)]">Lumen suggestion</span>
+          <span className="text-[length:var(--type-12)] font-semibold uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-accent)]">Lumen suggestion</span>
         </div>
         <AIConfidence score={0.86} />
       </div>
@@ -119,7 +119,7 @@ export function AISuggestion() {
       <div className="flex items-center gap-2 mt-3">
         <Button intent="primary" size="sm">Apply</Button>
         <Button intent="secondary" size="sm">Dismiss</Button>
-        <span className="ml-auto text-[var(--type-11)] text-[color:var(--text-tertiary)] flex items-center gap-2">
+        <span className="ml-auto text-[length:var(--type-11)] text-[color:var(--text-tertiary)] flex items-center gap-2">
           <button aria-label="Helpful" className="hover:text-[color:var(--text-primary)]">👍</button>
           <button aria-label="Not helpful" className="hover:text-[color:var(--text-primary)]">👎</button>
         </span>
@@ -134,8 +134,8 @@ export function AICitation({ index = 1, source = "Sterling LTL contract — Sect
     <div className="rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 max-w-[420px] flex gap-3">
       <span className="h-5 w-5 inline-flex items-center justify-center rounded-[var(--radius-sm)] bg-[var(--surface-tint-accent)] text-[color:var(--text-accent)] text-[10px] font-semibold lumen-mono">{index}</span>
       <div className="min-w-0 flex-1">
-        <div className="text-[var(--type-12)] font-semibold tracking-[var(--tracking-tight)] truncate">{source}</div>
-        <p className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)] line-clamp-2">{excerpt}</p>
+        <div className="text-[length:var(--type-12)] font-semibold tracking-[var(--tracking-tight)] truncate">{source}</div>
+        <p className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-1 leading-[var(--leading-snug)] line-clamp-2">{excerpt}</p>
       </div>
     </div>
   );
@@ -167,7 +167,7 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
             canonical accent-fg (#07120D); the obsidian-7 variant keeps white.
             No more white-on-lime — see ADR 0016. */
         <span className={[
-          "h-7 w-7 shrink-0 rounded-full inline-flex items-center justify-center text-[var(--type-11)] font-semibold lumen-mono",
+          "h-7 w-7 shrink-0 rounded-full inline-flex items-center justify-center text-[length:var(--type-11)] font-semibold lumen-mono",
           from === "ai"
             ? "bg-[var(--lumen-accent-5)] text-[color:var(--lumen-accent-fg)]"
             : "bg-[var(--lumen-obsidian-7)] text-white",
@@ -178,7 +178,7 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
       <div className="flex flex-col gap-1">
         <div
           className={[
-            "rounded-[var(--radius-lg)] px-4 py-2 text-[var(--type-13)] leading-[var(--leading-snug)]",
+            "rounded-[var(--radius-lg)] px-4 py-2 text-[length:var(--type-13)] leading-[var(--leading-snug)]",
             isYou
               ? "bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)] rounded-tr-[6px]"
               : from === "ai"
@@ -199,7 +199,7 @@ export function ChatComposer() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] flex items-end gap-2 px-3 py-2">
       <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><Plus size={14} /></button>
-      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[var(--type-13)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
+      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[length:var(--type-13)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
       <Button intent="primary" size="sm">Send</Button>
     </div>
   );
@@ -208,7 +208,7 @@ export function ChatComposer() {
 /* ─────────────────────────  TYPING INDICATOR  ───────────────────────── */
 export function TypingIndicator({ name = "Daniel" }: { name?: string }) {
   return (
-    <div className="inline-flex items-center gap-2 text-[var(--type-12)] text-[color:var(--text-tertiary)]">
+    <div className="inline-flex items-center gap-2 text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
       <span className="inline-flex items-end gap-1">
         {[0, 1, 2].map((i) => (
           <span
@@ -261,10 +261,10 @@ export function NotificationItem({
       </span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-3">
-          <span className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</span>
+          <span className="text-[length:var(--type-13)] font-medium tracking-[var(--tracking-tight)] truncate">{title}</span>
           {unread && <span className="h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-[var(--lumen-accent-5)]" />}
         </div>
-        {body && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1 line-clamp-2 leading-[var(--leading-snug)]">{body}</div>}
+        {body && <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-1 line-clamp-2 leading-[var(--leading-snug)]">{body}</div>}
         <div className="text-[10px] text-[color:var(--text-tertiary)] lumen-mono mt-1">{time}</div>
       </div>
     </div>
@@ -277,7 +277,7 @@ export function NotificationCenter() {
     <div className="w-[380px] rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] overflow-hidden">
       <div className="h-12 px-4 flex items-center justify-between border-b border-[var(--border-hairline)]">
         <span className="text-heading-h6 flex items-center gap-2"><Inbox size={14} /> Inbox <span className="lumen-mono text-[color:var(--text-tertiary)]">3</span></span>
-        <button className="text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]">Mark all read</button>
+        <button className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)]">Mark all read</button>
       </div>
       <div className="divide-y divide-[var(--border-hairline)]">
         <NotificationItem unread title="New rate accepted" body="Sterling LTL accepted your $1,840 quote on Lane TX→CA-014." time="2 min ago" tone="success" icon={<Check size={14} />} />
@@ -319,16 +319,16 @@ export function CommentThread() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4 max-w-[420px]">
       <div className="flex gap-3 mb-3">
-        <span className="h-7 w-7 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center text-[var(--type-11)] lumen-mono font-semibold shrink-0">DS</span>
+        <span className="h-7 w-7 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center text-[length:var(--type-11)] lumen-mono font-semibold shrink-0">DS</span>
         <div className="flex-1">
-          <div className="text-[var(--type-13)]">
+          <div className="text-[length:var(--type-13)]">
             <span className="font-semibold tracking-[var(--tracking-tight)]">Daniel Sokolovsky</span>
-            <span className="text-[color:var(--text-tertiary)] ml-2 text-[var(--type-12)]">14 min ago</span>
+            <span className="text-[color:var(--text-tertiary)] ml-2 text-[length:var(--type-12)]">14 min ago</span>
           </div>
           <p className="text-body-xs text-[color:var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">
             Can we get a sanity check on the @sterling-ltl numbers? Their fuel surcharge looks 11% high.
           </p>
-          <div className="flex items-center gap-3 mt-2 text-[var(--type-11)] text-[color:var(--text-tertiary)]">
+          <div className="flex items-center gap-3 mt-2 text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">
             <button className="hover:text-[color:var(--text-primary)]">Reply</button>
             <button className="hover:text-[color:var(--text-primary)]">Resolve</button>
             <span className="lumen-mono">2 replies</span>
@@ -336,11 +336,11 @@ export function CommentThread() {
         </div>
       </div>
       <div className="ml-10 pl-4 border-l border-[var(--border-hairline)] flex gap-3">
-        <span className="h-7 w-7 rounded-full bg-[var(--lumen-amber-5)] text-white inline-flex items-center justify-center text-[var(--type-11)] lumen-mono font-semibold shrink-0">JK</span>
+        <span className="h-7 w-7 rounded-full bg-[var(--lumen-amber-5)] text-white inline-flex items-center justify-center text-[length:var(--type-11)] lumen-mono font-semibold shrink-0">JK</span>
         <div className="flex-1">
-          <div className="text-[var(--type-13)]">
+          <div className="text-[length:var(--type-13)]">
             <span className="font-semibold tracking-[var(--tracking-tight)]">Jordan Kim</span>
-            <span className="text-[color:var(--text-tertiary)] ml-2 text-[var(--type-12)]">3 min ago</span>
+            <span className="text-[color:var(--text-tertiary)] ml-2 text-[length:var(--type-12)]">3 min ago</span>
           </div>
           <p className="text-body-xs text-[color:var(--text-secondary)] mt-1">Pulled the underlying — they re-baselined yesterday. Numbers check out.</p>
         </div>
@@ -355,7 +355,7 @@ export function ReactionBar() {
   return (
     <div className="inline-flex items-center gap-1">
       {items.map(([e, n]) => (
-        <button key={e} className="inline-flex items-center gap-1 h-6 px-[var(--space-1_5)] rounded-[var(--radius-full)] bg-[var(--surface-sunken)] hover:bg-[var(--surface-tint-accent)] border border-[var(--border-hairline)] text-[var(--type-11)]">
+        <button key={e} className="inline-flex items-center gap-1 h-6 px-[var(--space-1_5)] rounded-[var(--radius-full)] bg-[var(--surface-sunken)] hover:bg-[var(--surface-tint-accent)] border border-[var(--border-hairline)] text-[length:var(--type-11)]">
           <span>{e}</span>
           <span className="lumen-mono text-[color:var(--text-tertiary)]">{n}</span>
         </button>

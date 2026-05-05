@@ -66,7 +66,7 @@ export function InlineTabs({
               {it.label}
               {it.badge !== undefined && (
                 /* v0.5: arbitrary-value type — review for semantic preset (mono tabular at 11) */
-                <span className="lumen-mono lumen-tnum text-[var(--type-11)] text-[color:var(--text-tertiary)]">
+                <span className="lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">
                   {it.badge}
                 </span>
               )}

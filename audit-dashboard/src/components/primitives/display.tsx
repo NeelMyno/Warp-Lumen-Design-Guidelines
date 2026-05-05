@@ -34,7 +34,7 @@ export function Tag({
   onRemove?: () => void;
 }) {
   return (
-    <span className={["inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-full)] text-[var(--type-12)] border", TAG_TONE[tone]].join(" ")}>
+    <span className={["inline-flex items-center gap-1 h-6 px-2 rounded-[var(--radius-full)] text-[length:var(--type-12)] border", TAG_TONE[tone]].join(" ")}>
       {children}
       {onRemove && (
         <button onClick={onRemove} aria-label="Remove tag" className="opacity-60 hover:opacity-100 transition-opacity">
@@ -61,7 +61,7 @@ export function StatusPill({
   pulse?: boolean;
 }) {
   return (
-    <span className={["inline-flex items-center gap-[var(--space-1_5)] h-6 px-2 rounded-[var(--radius-full)] text-[var(--type-12)] font-medium border", TAG_TONE[tone]].join(" ")}>
+    <span className={["inline-flex items-center gap-[var(--space-1_5)] h-6 px-2 rounded-[var(--radius-full)] text-[length:var(--type-12)] font-medium border", TAG_TONE[tone]].join(" ")}>
       <span className="relative inline-flex shrink-0">
         <span
           aria-hidden
@@ -89,7 +89,7 @@ export function Trend({ delta, suffix = "" }: { delta: number; suffix?: string }
   return (
     <span
       className={[
-        "inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[var(--type-11)] font-semibold lumen-mono border",
+        "inline-flex items-center gap-1 h-5 px-[var(--space-1_5)] rounded-[var(--radius-full)] text-[length:var(--type-11)] font-semibold lumen-mono border",
         up
           ? "bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border-[var(--pill-success-border)]"
           : "bg-[var(--pill-danger-bg)] text-[var(--pill-danger-fg)] border-[var(--pill-danger-border)]",
@@ -118,7 +118,7 @@ export function Severity({ level }: { level: "low" | "med" | "high" | "critical"
   const m = meta[level];
   return (
     <span
-      className="inline-flex items-center gap-[var(--space-1_5)] px-2 h-5 rounded-[var(--radius-sm)] text-[var(--type-11)] font-semibold uppercase tracking-[var(--tracking-wider)] border"
+      className="inline-flex items-center gap-[var(--space-1_5)] px-2 h-5 rounded-[var(--radius-sm)] text-[length:var(--type-11)] font-semibold uppercase tracking-[var(--tracking-wider)] border"
       style={{ background: m.bg, color: m.fg, borderColor: m.border }}
       aria-label={`Severity ${m.label}`}
     >
@@ -142,7 +142,7 @@ export function Accordion({ items }: { items: { title: string; content: ReactNod
       <ShadcnAccordion type="single" collapsible defaultValue="item-0" className="divide-y divide-[var(--border-hairline)]">
         {items.map((it, i) => (
           <AccordionItem key={i} value={`item-${i}`} className="border-b-0 px-4">
-            <AccordionTrigger className="text-[var(--type-13)] font-medium text-[color:var(--text-primary)] hover:no-underline">
+            <AccordionTrigger className="text-[length:var(--type-13)] font-medium text-[color:var(--text-primary)] hover:no-underline">
               {it.title}
             </AccordionTrigger>
             <AccordionContent className="text-body-xs text-[color:var(--text-secondary)] leading-[var(--leading-snug)]">
@@ -212,13 +212,13 @@ export function CodeBlock({
               setTimeout(() => setCopied(false), 1400);
             }
           }}
-          className="h-6 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-raised)] transition-colors"
+          className="h-6 px-2 inline-flex items-center gap-1 rounded-[var(--radius-sm)] text-[length:var(--type-11)] uppercase tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-raised)] transition-colors"
         >
           {copied ? <Check size={11} /> : null}
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="px-4 py-3 lumen-mono text-[var(--type-12)] text-[color:var(--text-primary)] overflow-x-auto leading-[var(--leading-normal)]">
+      <pre className="px-4 py-3 lumen-mono text-[length:var(--type-12)] text-[color:var(--text-primary)] overflow-x-auto leading-[var(--leading-normal)]">
         {code}
       </pre>
     </div>
@@ -317,21 +317,21 @@ export function DataTable({
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] overflow-hidden">
       <div className="flex items-center justify-between px-4 h-12 border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-2">
-          <input className="h-8 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[var(--type-12)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)] w-[200px]" placeholder="Filter rows…" />
-          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">+ Add filter</button>
+          <input className="h-8 px-3 rounded-[var(--radius-sm)] border border-[var(--border-default)] bg-[var(--surface-sunken)] text-[length:var(--type-12)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)] w-[200px]" placeholder="Filter rows…" />
+          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[length:var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">+ Add filter</button>
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-[var(--type-11)] text-[color:var(--text-tertiary)] lumen-mono">{rows.length} rows</span>
-          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">⋯</button>
+          <span className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)] lumen-mono">{rows.length} rows</span>
+          <button className="h-8 px-2 rounded-[var(--radius-sm)] text-[length:var(--type-12)] text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]">⋯</button>
         </div>
       </div>
-      <table className="w-full text-[var(--type-13)]">
+      <table className="w-full text-[length:var(--type-13)]">
         <thead>
           <tr className="border-b border-[var(--border-hairline)] bg-[var(--surface-sunken)]/50">
             {columns.map((c) => (
               <th
                 key={c.key}
-                className={["px-4 h-10 text-[var(--type-11)] font-medium text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]", c.align === "right" ? "text-right" : "text-left"].join(" ")}
+                className={["px-4 h-10 text-[length:var(--type-11)] font-medium text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]", c.align === "right" ? "text-right" : "text-left"].join(" ")}
               >
                 {c.label}
               </th>
@@ -386,16 +386,16 @@ export function Kanban() {
         <div key={col.id} className="rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] p-2 border border-[var(--border-hairline)]">
           <div className="flex items-center justify-between px-2 py-[var(--space-1_5)]">
             <div className="flex items-center gap-2">
-              <span className="text-[var(--type-12)] font-semibold tracking-[var(--tracking-tight)]">{col.title}</span>
-              <span className="text-[var(--type-11)] lumen-mono text-[color:var(--text-tertiary)]">{col.count}</span>
+              <span className="text-[length:var(--type-12)] font-semibold tracking-[var(--tracking-tight)]">{col.title}</span>
+              <span className="text-[length:var(--type-11)] lumen-mono text-[color:var(--text-tertiary)]">{col.count}</span>
             </div>
             <button className="h-6 w-6 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-raised)]"><Plus size={12} /></button>
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {col.items.map((it) => (
               <div key={it.title} className="rounded-[var(--radius-md)] bg-[var(--surface-raised)] border border-[var(--border-hairline)] p-3 shadow-[var(--shadow-xs)] hover:shadow-[var(--shadow-sm)] transition-shadow">
-                <div className="text-[var(--type-13)] tracking-[var(--tracking-tight)] text-[color:var(--text-primary)] leading-[var(--leading-snug)]">{it.title}</div>
-                <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)] mt-2 lumen-mono">{it.meta}</div>
+                <div className="text-[length:var(--type-13)] tracking-[var(--tracking-tight)] text-[color:var(--text-primary)] leading-[var(--leading-snug)]">{it.title}</div>
+                <div className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)] mt-2 lumen-mono">{it.meta}</div>
               </div>
             ))}
           </div>
@@ -486,9 +486,9 @@ export function Timeline() {
             ].join(" ")}
           />
           <div className="flex items-center gap-2">
-            <span className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{e.title}</span>
+            <span className="text-[length:var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{e.title}</span>
           </div>
-          <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono mt-1">
+          <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] lumen-mono mt-1">
             {e.actor} · {e.time}
           </div>
         </li>
@@ -507,8 +507,8 @@ export function Carousel({ items }: { items: { title: string; subtitle?: string;
           <div key={i} className="snap-start shrink-0 w-[260px] rounded-[var(--radius-lg)] overflow-hidden border border-[var(--border-hairline)] bg-[var(--surface-raised)] shadow-[var(--shadow-sm)]">
             <div className="h-32" style={{ background: it.bg ?? "var(--lumen-obsidian-7)" }} />
             <div className="p-3">
-              <div className="text-[var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{it.title}</div>
-              {it.subtitle && <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] mt-1">{it.subtitle}</div>}
+              <div className="text-[length:var(--type-13)] font-medium tracking-[var(--tracking-tight)]">{it.title}</div>
+              {it.subtitle && <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] mt-1">{it.subtitle}</div>}
             </div>
           </div>
         ))}
@@ -535,8 +535,8 @@ export function Gauge({ value = 72, label = "Capacity" }: { value?: number; labe
         <path d={`M ${startX} ${startY} A ${r} ${r} 0 0 1 ${fx} ${fy}`} fill="none" stroke="var(--lumen-accent-5)" strokeWidth="8" strokeLinecap="round" />
       </svg>
       <div className="text-center -mt-3">
-        <div className="lumen-tnum text-[var(--type-22)] font-semibold tracking-[var(--tracking-tighter)]">{value}<span className="text-body-xs text-[color:var(--text-tertiary)] ml-1">%</span></div>
-        <div className="text-[var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
+        <div className="lumen-tnum text-[length:var(--type-22)] font-semibold tracking-[var(--tracking-tighter)]">{value}<span className="text-body-xs text-[color:var(--text-tertiary)] ml-1">%</span></div>
+        <div className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
       </div>
     </div>
   );
@@ -571,8 +571,8 @@ export function KeyValue({ items }: { items: { label: string; value: ReactNode }
     <dl className="grid grid-cols-[180px_1fr] gap-y-2 gap-x-4">
       {items.map((it) => (
         <div key={it.label} className="contents">
-          <dt className="text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{it.label}</dt>
-          <dd className="text-[var(--type-13)] text-[color:var(--text-primary)]">{it.value}</dd>
+          <dt className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{it.label}</dt>
+          <dd className="text-[length:var(--type-13)] text-[color:var(--text-primary)]">{it.value}</dd>
         </div>
       ))}
     </dl>
@@ -590,7 +590,7 @@ export function ProgressTrack({ items }: { items: { label: string; pct: number; 
         const color = i.tone === "warn" ? "var(--lumen-amber-5)" : i.tone === "danger" ? "var(--lumen-red-5)" : "var(--lumen-accent-5)";
         return (
           <div key={i.label}>
-            <div className="flex items-center justify-between mb-1 text-[var(--type-12)]">
+            <div className="flex items-center justify-between mb-1 text-[length:var(--type-12)]">
               <span className="text-[color:var(--text-secondary)]">{i.label}</span>
               <span className="lumen-mono text-[color:var(--text-tertiary)]">{i.pct}%</span>
             </div>
@@ -638,7 +638,7 @@ export function ImageFrame({ ratio = "16/10", label }: { ratio?: string; label?:
     >
       <div className="lumen-stripe-grid w-full h-full flex items-center justify-center">
         {label && (
-          <span className="text-[var(--type-11)] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)]">{label}</span>
+          <span className="text-[length:var(--type-11)] uppercase tracking-[var(--tracking-widest)] text-[color:var(--text-tertiary)]">{label}</span>
         )}
       </div>
     </div>
@@ -652,7 +652,7 @@ export function ComponentSpec({ name, role, children }: { name: string; role?: s
       <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--border-hairline)]">
         <div className="flex items-center gap-2">
           <span className="text-heading-h6">{name}</span>
-          {role && <span className="text-[var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{role}</span>}
+          {role && <span className="text-[length:var(--type-11)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{role}</span>}
         </div>
       </div>
       <div className="p-4 lumen-stripe-grid">
@@ -693,7 +693,7 @@ export function Showcase({
 export function VariantRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="grid grid-cols-[120px_1fr] items-center gap-4 py-3 border-b border-[var(--border-hairline)] last:border-0">
-      <div className="text-[var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
+      <div className="text-[length:var(--type-12)] text-[color:var(--text-tertiary)] uppercase tracking-[var(--tracking-wider)]">{label}</div>
       <div className="flex flex-wrap items-center gap-3">{children}</div>
     </div>
   );
