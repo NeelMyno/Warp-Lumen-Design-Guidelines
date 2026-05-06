@@ -10,8 +10,9 @@ import { Card as ShadcnCard } from "@/components/ui/card";
  *
  * v0.10.1 — ALIGNMENT CONTRACT.
  * The shadcn ui/card.tsx primitive ships its slots (CardHeader, CardContent,
- * CardFooter) with their own `px-6`. The original Lumen wrapper added
- * `[&_[data-slot=card-{slot}]]:px-N` in lockstep with the Card's outer `p-N`.
+ * CardFooter) with their own `px-6`. The original Lumen wrapper added an
+ * `[&_[data-slot=card-SLOT]]:px-N` arbitrary variant in lockstep with the
+ * Card's outer `p-N` (where SLOT is one of header / content / footer).
  * Result: descendant-variant CSS specificity beat the inner slot's `px-0`,
  * so slot content sat inset by `p-N + px-N` while bare-`<p>` siblings of the
  * slot sat at only `p-N` — visible as a 24-px misaligned column on every
@@ -19,10 +20,16 @@ import { Card as ShadcnCard } from "@/components/ui/card";
  * variants', any place a paragraph followed a header inside a Card).
  *
  * Fix: the OUTER Card owns inline padding via `p-N`; slots are zeroed out
- * (`[&_[data-slot=card-{slot}]]:px-0`). Slots and bare children both inset
- * to the same x = `p-N` from the card edge. Don't reintroduce slot px here
- * unless you also remove `p-N` from the same row — pick one source of
- * inline padding, not two.
+ * via the SLOT_PX_ZERO triple below — three concrete classes, one per slot.
+ * Slots and bare children both inset to the same x = `p-N` from the card
+ * edge. Don't reintroduce slot px here unless you also remove `p-N` from
+ * the same row — pick one source of inline padding, not two.
+ *
+ * v0.11.17 — keep this comment free of `{` `}` placeholder braces (and any
+ * literal `[&_…]:` arbitrary-variant string with a brace inside). Tailwind
+ * v4's content scanner pattern-matches arbitrary variants from comments AND
+ * code; a `{slot}` literal here gets compiled into invalid CSS and breaks
+ * the build (`Unexpected token CurlyBracketBlock` at globals.css:4130).
  */
 
 type Padding = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "hero";
