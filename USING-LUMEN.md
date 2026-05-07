@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.11.13 · 2026-05-05.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.12.2 · 2026-05-06.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -48,14 +48,14 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.11.13 — Premium Psychology · Obsidian Mint
+Lumen v0.12.2 — Premium Psychology · Obsidian (mint retired)
 ─────────────────────────────────────────────────────────────────────────
 Brand
-  Accent           #00FA8A  — Spring Green. Action / live / success only.
-  Dark canvas      #171A18  — Obsidian Mint. Faint green undertone (G+2).
+  Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
+  Dark canvas      #0D0D0D  — Neutral obsidian. R = G = B at every dark stop. (v0.12 — was #171A18 with G+2 undertone in v0.11.)
   Light anchor     #E6E6E6  — Neutral light. Also primary text on dark.
   Paper canvas     #FAFAFA  — Cool-neutral off-white. Light theme default.
-  Accent foreground #07120D — Near-black mint on accent surface (14.7:1 AAA).
+  Accent foreground #07120D — Near-black on accent surface (14.7:1 AAA on spring green).
 
 Typography
   Family           Satoshi (single typeface across UI / display / body / numerics / code / editorial)
@@ -96,7 +96,9 @@ Components
   Validates        against design-system/02-components/_schema/component.schema.json
 
 Status
-  v0.11.13         DTCG inheritance audit pass · master→child token chain rewired
+  v0.12.0          Obsidian recolor — mint retired. Canvas neutral at #0D0D0D, R = G = B at every dark stop. Single-accent rule unchanged.
+  v0.12.1          Card corner-clip contract — <Card padding="none"> auto-clips edge-touching children to the rounded shape.
+  v0.12.2          Primary-button hover bloom dialed down. Rest unchanged at 0 0 16px lime-a25 (the brand voice). Hover trims to 0 0 20px lime-a28.
   License          Internal to Warp. Satoshi font is ITF-FFL (do not redistribute publicly).
 ```
 
@@ -145,7 +147,7 @@ Lumen is built as five concentric tiers. Each tier consumes only from the tier i
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**The skip-no-tiers rule.** A component must reference semantic tokens, never primitives. A platform must reference components + semantic tokens, never primitives. A consumer product pulls from the platform tier and never reaches into Lumen's source. This is the master→child contract that keeps the system coherent: change one foundation principle → tokens cascade → components cascade → platforms cascade → consumers cascade. Skip a tier and you create a sibling, not a child. (See [v0.11.13 CHANGELOG entry](CHANGELOG.md) for the most recent case where this was enforced.)
+**The skip-no-tiers rule.** A component must reference semantic tokens, never primitives. A platform must reference components + semantic tokens, never primitives. A consumer product pulls from the platform tier and never reaches into Lumen's source. This is the master→child contract that keeps the system coherent: change one foundation principle → tokens cascade → components cascade → platforms cascade → consumers cascade. Skip a tier and you create a sibling, not a child. The v0.12.x patch series shows the cascade pattern in action: v0.12.0 retunes 11 brand-ramp primitive values + the runtime CSS ramp, and every component / platform / consumer that consumed `color.surface.{role}` automatically inherits the neutral canvas. v0.12.1 adds one CSS class to one Card primitive, and every `<Card padding="none">` consumer is fixed without per-site overrides. v0.12.2 retunes one shadow token and one layered-halo block, and every primary CTA across the system inherits the quieter hover bloom. (See [CHANGELOG](CHANGELOG.md) v0.12.2, v0.12.0, v0.12.1, v0.12.2 entries for the long form of these cascades.)
 
 **What lives where.**
 
@@ -175,7 +177,7 @@ Each foundation is a substantive Markdown doc (10–25KB). When you need the dee
 | [hierarchy.md](design-system/00-foundations/hierarchy.md) | Aggressive hierarchy — one focal point per section, 1.5–2× weight gap to the support tier. The most-violated principle in LLM-generated UI; this is the cure. | Before building any page, section, or list of equally-weighted items. |
 | [first-impression.md](design-system/00-foundations/first-impression.md) | The 50ms halo contract. Three questions answered (what/who/why), three checks passed (branded chrome, single focal point, no layout shift). | Before designing any landing surface, hero, or first-screen experience. |
 | [micro-interactions.md](design-system/00-foundations/micro-interactions.md) | Peak-end rule. Catalog of moments: hover, focus, validation, success. Spend motion budget on functional moments. | Before designing any state change. |
-| [color.md](design-system/00-foundations/color.md) | The four-color floor — accent `#00FA8A`, dark `#171A18`, light `#E6E6E6`, paper `#FAFAFA`. Plus refined danger / warning. Single accent rule. | Before introducing any new color, surface, or token. |
+| [color.md](design-system/00-foundations/color.md) | The four-color floor — accent `#00FA8A`, dark `#0D0D0D` (v0.12 — neutral obsidian, mint retired), light `#E6E6E6`, paper `#FAFAFA`. Plus refined danger / warning. Single accent rule. | Before introducing any new color, surface, or token. |
 | [typography.md](design-system/00-foundations/typography.md) | Satoshi-only single-typeface system. 1.25 modular scale on 16px base. Six role groups (display, heading, body, label, data, editorial). | Before using a font, choosing a size, or adding a new type preset. |
 | [spacing.md](design-system/00-foundations/spacing.md) | 4-pt base / 8-pt soft grid. Marketing breathes (96px section), operator stays dense (24px section). | Before placing any padding, margin, or gap. |
 | [elevation.md](design-system/00-foundations/elevation.md) | Hairline borders do most of the work; shadows reserved for floating UI. Two-stop composite shadows. The accent-glow is Warp's signature. | Before applying any shadow or border-elevation pattern. |
@@ -228,7 +230,7 @@ Lumen tokens are DTCG JSON in three sub-tiers. Engineers and LLMs **consume only
 **Three rules for every token consumer:**
 
 1. **Reference semantic, not primitive.** `color.surface.page` ✓ — `color.brand.800` ✗. The lint enforces this.
-2. **Reference, don't inline.** `var(--surface-canvas)` ✓ — `#171A18` ✗. The lint enforces this.
+2. **Reference, don't inline.** `var(--surface-canvas)` ✓ — `#0D0D0D` ✗. The lint enforces this.
 3. **If the value you need isn't in semantic, add a semantic alias** (with a PR + ADR for breaking changes), don't add the primitive directly.
 
 **Example chain — tracing a single value end to end:**
@@ -249,7 +251,7 @@ Runtime util .lumen-btn-primary { background-color: ... }
 Consumer     <Button intent="primary">Ship freight</Button>
 ```
 
-When `color.accent.500` retunes (lime → spring green in v0.11), every link in the chain inherits automatically. **Inlining a value at any link breaks inheritance** — that's the v0.11.13 CHANGELOG's entire story (shadow tokens had inlined `rgba(74,222,128,X)` lime instead of referencing `{color.alpha.accent.X}`, so the v0.11 brand recolor never reached them).
+When `color.accent.500` retunes (lime → spring green in v0.11), every link in the chain inherits automatically. The same cascade is what made v0.12.0 a one-edit retune: 11 primitive `color.brand.{stop}` values changed, and every dark surface token inherited the neutral obsidian canvas without a single semantic-alias edit. **Inlining a value at any link breaks inheritance** — that's the v0.12.2 CHANGELOG's entire story (shadow tokens had inlined `rgba(74,222,128,X)` lime instead of referencing `{color.alpha.accent.X}`, so the v0.11 brand recolor never reached them). v0.12.0 sequel: the contrast checker had been hardcoding v0.4 navy/cream/lime values for nine releases — green-checking obsolete pairs the system hadn't shipped since v0.11. Both cases: the inlined value broke the cascade. Both fixes: replace the inline with a token reference.
 
 **Built outputs.** `pnpm build` runs Style Dictionary v5 to produce nine platform-specific output formats in `_build/` (gitignored, served via CDN at consumer time):
 
@@ -340,7 +342,7 @@ Lumen ships to 9 platforms. Each platform has a substantive consumption guide in
 
 | Platform | Stack | Quick install | Guide |
 |---|---|---|---|
-| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.11.13/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
+| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.12.2/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
 | **React Native** | Expo SDK 53+ + NativeWind | npm package + `<LumenProvider>` | [react-native/](design-system/03-platforms/react-native/README.md) |
 | **iOS native** | SwiftUI + Swift Package | `from: "0.11.13"` | [ios-native/](design-system/03-platforms/ios-native/README.md) |
 | **Android native** | Jetpack Compose + Material 3 base | `dev.warp:lumen-compose:0.11.13` | [android-native/](design-system/03-platforms/android-native/README.md) |
@@ -557,7 +559,7 @@ Six lint rules in `scripts/lint-*.mjs`:
 
 ### Governance — ADRs
 
-`_meta/decisions/` holds 18 Architecture Decision Records (ADRs), each capturing the why behind a load-bearing decision:
+`_meta/decisions/` holds 22 Architecture Decision Records (ADRs), each capturing the why behind a load-bearing decision:
 
 | ADR | Decision |
 |---|---|
@@ -578,7 +580,11 @@ Six lint rules in `scripts/lint-*.mjs`:
 | 0015 | shadcn token bridge — direct refs over the bridge utility |
 | 0016 | Button rebuild v0.9 — 5×5×5×3 matrix |
 | 0017 | Satoshi-only typography v0.10 — single typeface |
-| 0018 | v0.11 Premium Psychology recolor — spring green + obsidian mint |
+| 0018 | v0.11 Premium Psychology recolor — spring green + obsidian mint (amended by 0020) |
+| 0019 | Sparkline fluid + StatGrid divider symmetry v0.11.17 |
+| 0020 | v0.12 Obsidian recolor — mint retired (neutral `#0D0D0D` canvas, R = G = B at every dark stop) |
+| 0021 | v0.12.1 Card corner-clip contract — `padding="none"` auto-clips edge-touching children to the rounded shape |
+| 0022 | v0.12.2 Hover-glow ladder retune — primary-button hover bloom dialed down at the token + layered-halo level |
 
 When you propose a breaking change (token rename, schema break, brand-value shift), open a new ADR.
 
@@ -708,9 +714,9 @@ This is the "avoid these or break the system" list. Everything here is enforceab
 
 ### Documentation anti-patterns
 
-- ❌ **Updating a token without updating the foundation doc that cites it.** The v0.4 → v0.11 lime → spring-green transition left stale "lime" mentions in elevation.md until v0.11.13 caught them. Documentation drift compounds.
+- ❌ **Updating a token without updating the foundation doc that cites it.** The v0.4 → v0.11 lime → spring-green transition left stale "lime" mentions in elevation.md until v0.12.2 caught them. Documentation drift compounds.
 - ❌ **New ADR without a CHANGELOG entry.** Both must land together.
-- ❌ **Inlining a primitive value in a semantic token.** Even at the source-of-truth tier, semantic must reference primitive. Inlining a primitive's value rather than its path is the master-child break that v0.11.13 closed.
+- ❌ **Inlining a primitive value in a semantic token.** Even at the source-of-truth tier, semantic must reference primitive. Inlining a primitive's value rather than its path is the master-child break that v0.12.2 closed.
 
 ### Process anti-patterns
 
@@ -864,4 +870,4 @@ Lumen is **one disciplined accent (Spring Green) on a calm canvas (Obsidian Mint
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-05 (v0.11.13).
+> Last reviewed against actual repo state: 2026-05-05 (v0.12.2).

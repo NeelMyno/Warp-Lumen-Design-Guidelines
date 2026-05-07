@@ -41,25 +41,25 @@
       }
     },
     "button": {
-      "$description": "v0.9 — primary-button glow ladder. Three-state ambient halo: rest → hover → active. Reserved exclusively for primary intent (the spring-green CTA). Other intents and surfaces ship zero glow. v0.11.13 — colours migrated from inline lime rgba(74,222,128,X) to the spring-green {color.alpha.accent.*} primitives so the brand recolor cascades.",
+      "$description": "v0.9 — primary-button glow ladder. Three-state ambient halo: rest → hover → active. Reserved exclusively for primary intent (the spring-green CTA). Other intents and surfaces ship zero glow. v0.11.13 — colours migrated from inline lime rgba(74,222,128,X) to the spring-green {color.alpha.accent.*} primitives so the brand recolor cascades. v0.12.2 — hover retuned (24px a40 → 20px a28) per ADR 0022 in response to the user-reported '/library LoginCard Send-magic-link' bloom (~40 px past the button on every side). Rest and active unchanged on purpose: rest is the brand-defining always-on signal per ADR 0018; active was already tight.",
       "glow": {
         "rest": {
           "$value": [
             { "color": "{color.alpha.accent.25}", "offsetX": "0px", "offsetY": "0px", "blur": "16px", "spread": "0px" }
           ],
-          "$description": "Default ambient halo on a primary CTA. Soft and steady; signals 'live' without competing with hover."
+          "$description": "Default ambient halo on a primary CTA. Soft and steady; signals 'live' without competing with hover. Unchanged across v0.9 → v0.12.2 — the brand-voice commitment per ADR 0018."
         },
         "hover": {
           "$value": [
-            { "color": "{color.alpha.accent.40}", "offsetX": "0px", "offsetY": "0px", "blur": "24px", "spread": "0px" }
+            { "color": "{color.alpha.accent.28}", "offsetX": "0px", "offsetY": "0px", "blur": "20px", "spread": "0px" }
           ],
-          "$description": "Hover halo — wider blur + higher alpha. The Glassmorphism reference's 20→30 doubling, scaled for operator density."
+          "$description": "Hover halo — wider blur + higher alpha than rest, but trimmed in v0.12.2 (was 24px a40, retuned to 20px a28 — blur −17%, alpha −30%). Cascades into both the base .lumen-btn-primary:hover rule AND the first layer of the @media (hover: hover) layered halo. The middle and outer layers of that layered halo (20px a14 + 32px a08 in v0.12.2) live in globals.css as a CSS-level composition; they are not a single DTCG token because they're contextual to the @media-hover query. See ADR 0022."
         },
         "active": {
           "$value": [
             { "color": "{color.alpha.accent.20}", "offsetX": "0px", "offsetY": "0px", "blur": "8px", "spread": "0px" }
           ],
-          "$description": "Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale."
+          "$description": "Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale. Unchanged through v0.12.2."
         }
       },
       "ai-shimmer": {

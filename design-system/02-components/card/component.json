@@ -1,15 +1,28 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Card",
-  "version": "0.1.0",
+  "version": "0.12.1",
   "status": "stable",
   "deprecated": false,
-  "summary": "A bounded surface with a hairline border and optional subtle shadow.",
+  "summary": "A bounded surface with a hairline border and optional subtle shadow. v0.12.1 introduced the corner-clip contract — padding='none' auto-clips edge-touching children to the rounded shape.",
   "props": {
-    "padding":     { "type": "enum", "values": ["none", "sm", "md", "lg"], "default": "md", "optional": true },
-    "interactive": { "type": "boolean", "default": false, "optional": true },
-    "selected":    { "type": "boolean", "default": false, "optional": true },
-    "as":          { "type": "enum", "values": ["div", "article", "section", "button", "a"], "default": "div", "optional": true }
+    "padding": {
+      "type": "enum",
+      "values": ["none", "xs", "sm", "md", "lg", "xl", "hero"],
+      "default": "md",
+      "optional": true,
+      "description": "Inline + block padding tier. 'none' = body controls its own padding (table, full-bleed media); xs/sm/md/lg/xl = p-2/p-3/p-4/p-6/p-8; hero = p-10 md:p-12. v0.12.1 — 'none' composes overflow-hidden so edge-touching children clip to the rounded shape; other tiers do not (their p-N insets float children off the curved edge entirely)."
+    },
+    "elevation": {
+      "type": "enum",
+      "values": ["flat", "card", "lifted", "popover", "glass", "glow"],
+      "default": "card",
+      "optional": true,
+      "description": "Shadow + border combination. 'flat' = no shadow + hairline; 'card' = shadow.sm + hairline (default); 'lifted' = shadow.md + hairline (interactive cards on hover); 'popover' = shadow.popover + subtle border; 'glass' = lumen-glass translucent + transparent border; 'glow' = shadow.glow.accent.strong + accent border (hero, lit-edge moments)."
+    },
+    "interactive": { "type": "boolean", "default": false, "optional": true, "description": "Adds hover state and focus-visible. Pair with as='button' or as='a' to render the correct semantic element." },
+    "selected":    { "type": "boolean", "default": false, "optional": true, "description": "Adds 1 px accent border + accent-tint bg. For listbox-style cards, announces via aria-selected." },
+    "as":          { "type": "enum", "values": ["div", "article", "section", "button", "a"], "default": "div", "optional": true, "description": "Render-as polymorphism. Interactive cards must use 'button' (action) or 'a' (navigation), never 'div' with onClick." }
   },
   "tokens": {
     "consumed": [
@@ -19,10 +32,12 @@
       "space.inline.lg",
       "card.background", "card.border",
       "card.shadow.rest", "card.shadow.hover",
+      "shadow.sm", "shadow.md", "shadow.popover",
       "color.border.focus", "shadow.focus",
       "type.heading.h4", "type.body.md", "type.eyebrow.mono",
       "motion.transition.fast"
-    ]
+    ],
+    "_note": "padding='none' is padding: 0 (not modelled as a DTCG token — it's an empty value). The six elevation tiers (flat/card/lifted/popover/glass/glow) compose existing semantic shadow tokens via the runtime ELEV record; there are no card-specific shadow.{flat,lifted,popover,glow} aliases. elevation='glass' uses the .lumen-glass runtime class; elevation='glow' uses the runtime --shadow-glow-accent-strong CSS variable (which is a multi-layer composition declared in globals.css, not a single DTCG token — see ADR 0018). Neither needs a DTCG-tier alias because Card's elevation prop is a CSS-class composition layer, not a token-mapping layer."
   },
   "a11y": {
     "keyboard": [
@@ -32,24 +47,32 @@
     "rules": [
       "Non-interactive cards do NOT receive a role.",
       "Interactive cards render as <button> (action) or <a> (navigation). Never <div onClick>.",
-      "Selection announces via aria-pressed (button) or aria-selected (listbox)."
+      "Selection announces via aria-pressed (button) or aria-selected (listbox).",
+      "The v0.12.1 corner-clip contract does not affect a11y — focus rings on interactive children inside padding='none' cards are typically Radix-portaled (escape the card subtree) or routed through fixed-radius children that don't bleed past the card edge."
     ]
   },
   "rules": {
     "do": [
-      "Default to hairline border only, no shadow.",
+      "Default to hairline border only, no shadow (elevation='card', the default).",
       "Pair with CardHeader when the card has a title.",
-      "Use padding=none when the body controls its own padding."
+      "Use padding='none' when the body controls its own padding (table inside a card, full-bleed media). The primitive auto-clips edge-touching children to the rounded shape.",
+      "Use elevation='lifted' on hover for interactive cards; transition with motion.transition.fast.",
+      "Use elevation='glow' for the rare hero-tier card that should announce itself with the spring-green halo."
     ],
     "dont": [
       "Don't stack shadows. One per card.",
       "Don't nest cards more than one level deep.",
-      "Don't use a heavy border for emphasis."
+      "Don't use a heavy border for emphasis. Use selected or a status badge instead.",
+      "Don't manually add className='overflow-hidden' on a <Card padding='none'> — the primitive already composes it (v0.12.1).",
+      "Don't add overflow-hidden to other padding tiers expecting the same behaviour — those tiers don't need it and may inadvertently suppress focus rings or hover halos."
     ]
   },
   "examples": { "web-react": "./examples/primary.tsx" },
   "related": ["CardHeader", "Section"],
   "changelog": [
-    { "version": "0.1.0", "type": "Added", "note": "Initial release." }
+    { "version": "0.1.0", "type": "Added", "note": "Initial release. Four padding tiers (none/sm/md/lg), single shadow elevation, interactive + selected states, polymorphic 'as' prop." },
+    { "version": "0.10.1", "type": "Fixed", "note": "Alignment contract. Outer Card owns inline padding via p-N; slot content (CardHeader/CardContent/CardFooter) zeroes its own px-6 via the SLOT_PX_ZERO triple. Pre-v0.10.1 the slot specificity beat the wrapper's px-0 → 24-px misalignment between slot content and bare-text siblings." },
+    { "version": "0.11.0", "type": "Changed", "note": "Padding tiers extended to seven (added xs, xl, hero). Elevation prop introduced with six values (flat/card/lifted/popover/glass/glow); pre-v0.11 single-shadow assumption replaced by a six-tier ladder so cards can express the full v0.11 elevation language without consumer-side className overrides." },
+    { "version": "0.12.1", "type": "Added", "note": "Corner-clip contract — padding='none' now composes overflow-hidden so edge-touching children (table headers, pagination footers, full-bleed media) auto-clip to the rounded shape. Other padding tiers do not compose overflow-hidden because their p-N insets already float children off the curved edge. Radix-portaled popovers/dropdowns/tooltips render outside the Card subtree and are unaffected. User screenshot 2026-05-06 of /saas Pagination 'Next' button caught the artifact (square nub of pagination footer poked past the rounded card corner). See ADR 0021. Cascade benefits: /saas Shipments card top-right + bottom-right corners clean, /foundations Satoshi typeface card clean, /commerce related-product cards lose their hand-added className='overflow-hidden' workaround." }
   ]
 }

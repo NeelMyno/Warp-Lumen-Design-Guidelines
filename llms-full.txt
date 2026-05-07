@@ -2,7 +2,7 @@
 
 > Inlined version of llms.txt for agents that do a single fetch. Combines llms.txt index with the contents of AGENTS.md, the principles, the token quick-ref, and the brand brief.
 
-> **v0.11 — Premium Psychology — Obsidian Mint.** Brand anchors: Spring Green `#00FA8A` (accent), Obsidian Mint `#171A18` (dark canvas), `#E6E6E6` (light anchor / primary text on dark). Seven principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. Three new foundations (hierarchy, first-impression, micro-interactions) operationalize these. See ADR 0018.
+> **v0.12.2 — Obsidian (mint retired) + corner-clip + hover-bloom dial-down.** Brand anchors: Spring Green `#00FA8A` (accent, unchanged from v0.11), Obsidian `#0D0D0D` (neutral dark canvas — replaces v0.11's `#171A18` Obsidian Mint per [ADR 0020](_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md)), `#E6E6E6` (light anchor / primary text on dark). v0.12.1 ships the Card corner-clip contract (`padding="none"` auto-clips edge-touching children to the rounded corner per [ADR 0021](_meta/decisions/0021-card-corner-clip-contract-v0121.md)); v0.12.2 dials the primary-button hover bloom down at the token + layered-halo level — rest unchanged at `0 0 16px lime-a25`, hover trims to `0 0 20px lime-a28` plus quieter mid/outer layers, active unchanged ([ADR 0022](_meta/decisions/0022-hover-glow-ladder-retune-v0122.md)). Seven principles still encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. The three v0.11 foundations (hierarchy, first-impression, micro-interactions) operationalize these. The single-accent rule (Spring Green only) is preserved verbatim across v0.11 → v0.12.2.
 
 ## Index (same as llms.txt)
 
@@ -45,9 +45,10 @@
 
 ## Inlined: token quick reference
 
-### Surfaces
-- `color.surface.page` — page canvas (paper-clean off-white #FAFAFA in light, obsidian-mint #171A18 in dark)
-- `color.surface.raised` — cards (white in light, raised obsidian-mint #21241F in dark)
+### Surfaces (v0.12 — neutral obsidian, mint retired)
+- `color.surface.page` — page canvas (paper-clean off-white #FAFAFA in light, neutral obsidian #0D0D0D in dark — was #171A18 obsidian-mint pre-v0.12)
+- `color.surface.raised` — cards (white in light, raised obsidian #151515 in dark — was #1B1E1C pre-v0.12)
+- `color.surface.popover` — dropdowns / menus (neutral obsidian #1F1F1F in dark — was #232624 pre-v0.12)
 - `color.surface.sunken` — inputs, table row hover (anchored to user-fixed #E6E6E6 in light)
 - `color.surface.overlay` — translucent sticky chrome
 - `color.surface.inverse` — dark surface for contrast moments
@@ -60,9 +61,17 @@
 - `color.text.accent` — emphasis text matching accent
 
 ### Action
-- `color.action.primary.bg.{rest,hover,press}` — Spring Green button background
-- `color.action.primary.fg` — near-black-mint text on accent (#07120D)
-- `color.action.primary.glow` — signature spring-green glow under primary CTAs (`0 14px 34px rgba(0,250,138,0.24)`)
+- `color.action.primary.bg.{rest,hover,press}` — Spring Green button background (#00FA8A → #00D675 → #00B062)
+- `color.action.primary.fg` — near-black text on accent (#07120D, 14.7:1 AAA on the spring-green surface)
+- `shadow.button.glow.{rest,hover,active}` — three-state glow ladder for primary CTAs. v0.12.2 retune (rest unchanged on purpose — that's the brand voice; hover dialed down — the bloom-too-much fix):
+  - rest:   `0 0 16px var(--lumen-lime-a25)` (unchanged across v0.11 / v0.12 / v0.12.2)
+  - hover:  `0 0 20px var(--lumen-lime-a28)` (was `0 0 24px lime-a40` pre-v0.12.2)
+  - active: `0 0 8px  var(--lumen-lime-a20)` (unchanged)
+- Primary `:hover` layered halo (when `@media (hover: hover) and prefers-reduced-motion: no-preference`):
+  - layer 1: `var(--shadow-button-glow-hover)` (the token above)
+  - layer 2: `0 0 20px var(--lumen-lime-a14)` (was `24px lime-a20` pre-v0.12.2 — the "lit boost" middle layer)
+  - layer 3: `0 0 32px var(--lumen-lime-a08)` (was `48px lime-a10` pre-v0.12.2 — the wide "bloom" outer layer)
+- `.lumen-glow-cta:hover` — hero-CTA-only halo (landing page money buttons, `lumen-glow-cta` class only). v0.12.2 trimmed in lockstep so hero still reads ~1.5× standard primary.
 
 ### Status
 - `color.status.{success,warning,danger,info}.{bg,fg}` — always paired with label or shape, never color alone
@@ -101,10 +110,10 @@
 ## Inlined: brand brief decisions (v0.11 current)
 
 ### D-001 Visual mood
-Quiet Industrial — Obsidian Mint (v0.11). Warp's substance + Apple's typographic discipline + Premium Psychology principles. Paper-clean off-white in light, obsidian-mint near-black in dark.
+Quiet Industrial — Obsidian (v0.12, mint retired). Warp's substance + Apple's typographic discipline + Premium Psychology principles. Paper-clean off-white in light, neutral near-black in dark (true neutral, R = G = B at every dark stop). v0.11's Obsidian Mint anchor `#171A18` was retired in v0.12 in favour of neutral `#0D0D0D` per ADR 0020 — the canvas no longer carries a hue, so the spring-green accent has the hue stage to itself.
 
-### D-002 Color (v0.11 — Premium Psychology recolor)
-Spring Green `#00FA8A` as the only loud color, role: action / live / success. Hover `#00D675`, press `#00B062`. Light mode canvas `#FAFAFA` (paper-clean). Dark mode canvas `#171A18` (obsidian-mint, the user-fixed brand dark). Primary text on dark = `#E6E6E6` (the user-fixed brand light), not pure white. Status hues refined: danger `#E5484D`, warning `#F5B118`. See ADR 0018.
+### D-002 Color (v0.12 — Obsidian recolor, mint retired)
+Spring Green `#00FA8A` as the only loud color, role: action / live / success (unchanged from v0.11). Hover `#00D675`, press `#00B062`. Light mode canvas `#FAFAFA` (paper-clean). Dark mode canvas `#0D0D0D` (neutral obsidian — replaces v0.11's `#171A18` obsidian-mint with its faint G+2 channel undertone; v0.12 strips the tilt across every dark stop). Raised dark surface `#151515` (was `#1B1E1C` pre-v0.12). Popover dark surface `#1F1F1F` (was `#232624` pre-v0.12). Primary text on dark = `#E6E6E6` (the user-fixed brand light), not pure white. Status hues unchanged from v0.11 (refined danger `#E5484D`, warning `#F5B118`). The single-accent rule is preserved verbatim. See ADR 0018 (premium-psychology rationale, amended by ADR 0020), ADR 0020 (obsidian recolor — mint retired).
 
 ### D-003 Typography (v0.10 current)
 Satoshi alone. UI, display, body, numerics, code, editorial — single typeface, separated by weight/size/tracking + OpenType feature flags. 1.25 modular scale on 16 px base. (v0.10 retired JetBrains Mono, Source Serif 4, Inter — see ADR 0017.)
@@ -118,7 +127,7 @@ Decelerate, don't bounce. Default easing `cubic-bezier(0.2, 0, 0, 1)`. UI ≤ 18
 ### D-006 Imagery
 No stock photography. Marketing: product screenshots first, documentary second. No mascots, no illustrated scenes. Iconography: Lucide, 1.5 px stroke, 24 px grid, rounded ends.
 
-### D-007 Density (v0.11)
+### D-007 Density (v0.11, unchanged in v0.12.x)
 Marketing surfaces breathe; operator surfaces stay dense. 1100 px primary marketing width, 1440–1920 px operator width. Tables compact 32 px rows. Both express calm-confidence — at different cadences.
 
 ### D-008 Hierarchy (v0.11 new)
@@ -130,8 +139,14 @@ Engineered. The 50ms contract: hero answers what/who/why and passes three halo c
 ### D-010 Live-data signature primitives
 Three: `Stat` (big tabular numeric + small unit), `LiveDot` (8 px spring-green dot with 2 px pulsing ring), `RateTicker` (horizontal scrolling lane rates).
 
-### D-009 Architecture
-DTCG JSON tokens → Style Dictionary v5 → 8 platform outputs. Three-layer taxonomy. Two-file-per-component (md + json). shadcn registry distribution. Layered LLM contract.
+### D-011 Card corner-clip contract (v0.12.1 — new)
+`<Card padding="none">` automatically clips its edge-touching children to the rounded corner via `overflow-hidden`. Without the clip, a child with its own background and square corners (table header row, pagination footer row, full-bleed product image) would paint past the curved interior and poke a visible square nub out from behind the rounded border. Other padding tiers don't need it — their `p-N` insets float children off the curved edge. Radix-portaled popovers, dropdowns, and tooltips render outside the Card subtree and are unaffected. See ADR 0021. The user screenshot that motivated the fix: the `/saas` Pagination "Next" button stair-stepping past the bottom-right of the Shipments card.
+
+### D-012 Hover-glow ladder retune (v0.12.2 — new)
+Primary-button hover bloom dialed down at the token + layered-halo level. Rest stays at `0 0 16px lime-a25` (the always-present brand "lit" signal — that's the brand voice, see ADR 0018). Hover trims to `0 0 20px lime-a28` (was `0 0 24px lime-a40`). The layered halo middle layer trims to `0 0 20px lime-a14` (was `0 0 24px lime-a20`). The wide outer layer — the user-reported "bloom edge" — trims to `0 0 32px lime-a08` (was `0 0 48px lime-a10`). Active stays at `0 0 8px lime-a20`. `.lumen-glow-cta:hover` (hero CTAs only) trimmed in lockstep so the standard-vs-hero hierarchy stays intact (~1.5× spread on hero). Spring-green RGB and alpha primitives unchanged — the dial-down moves the *composition* of glow layers, not the underlying alpha tier values. See ADR 0022.
+
+### D-013 Architecture
+DTCG JSON tokens → Style Dictionary v5 → 9 platform outputs. Three-layer taxonomy. Two-file-per-component (md + json). shadcn registry distribution. Layered LLM contract.
 
 ## Reference files (read in detail when working in their domain)
 

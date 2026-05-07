@@ -1,16 +1,16 @@
 ---
 name: Buttons
 type: foundation
-version: 0.9.0
-last_updated: 2026-05-03
+version: 0.12.2
+last_updated: 2026-05-06
 audience: [designer, engineer, llm-agent]
 target: WCAG-2.2-AA
-related: [./principles.md, ./color.md, ./typography.md, ./spacing.md, ./density.md, ./motion-language.md, ./accessibility.md, ./voice-and-tone.md, ../02-components/button/, ../02-components/icon-button/, ../02-components/button-group/, ../02-components/split-button/, ../02-components/command-palette-button/, ../02-components/fab/, ../../_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md, ../../_meta/decisions/0016-button-rebuild-v09.md]
+related: [./principles.md, ./color.md, ./typography.md, ./spacing.md, ./density.md, ./motion-language.md, ./accessibility.md, ./voice-and-tone.md, ../02-components/button/, ../02-components/icon-button/, ../02-components/button-group/, ../02-components/split-button/, ../02-components/command-palette-button/, ../02-components/fab/, ../../_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md, ../../_meta/decisions/0016-button-rebuild-v09.md, ../../_meta/decisions/0018-premium-psychology-recolor.md, ../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md]
 ---
 
 # Buttons
 
-> Buttons are the most-touched component in any operator UI. Lumen's button language is **operator-readable, decelerate-not-bounce, and brutally consistent**: five sizes × eight intents × three shapes, single source of truth in CSS classes, dual-ring focus on accent surfaces, no transform on press, signature lime-glow ladder on the primary action — and absolutely never white text on lime.
+> Buttons are the most-touched component in any operator UI. Lumen's button language is **operator-readable, decelerate-not-bounce, and brutally consistent**: five sizes × eight intents × three shapes, single source of truth in CSS classes, dual-ring focus on accent surfaces, no transform on press, signature spring-green glow ladder on the primary action — and absolutely never white text on accent. v0.12.2 dialed the primary-hover bloom down (rest unchanged at the brand-defining `0 0 16px lime-a25`, hover trims to `0 0 20px lime-a28` per [ADR 0022](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md)).
 
 This is the canonical reference for the entire button family. Read it before you touch any button surface.
 
@@ -64,7 +64,7 @@ The five tiers map onto v0.8's `size.control.{xs,sm,md,lg,xl}` semantic tokens. 
 
 | Intent | When | Surface | Border | Glow |
 |---|---|---|---|---|
-| `primary` | The single most important action in a view (Save, Get rates, Book load). | Lime solid (`color.accent.500`) | none | Three-state ladder: rest 16/0.25 → hover 24/0.4 → active 8/0.2 |
+| `primary` | The single most important action in a view (Save, Get rates, Book load). | Spring-green solid (`color.accent.500` = `#00FA8A`) | none | Three-state ladder (v0.12.2 retune): rest **16 px / a25** (brand voice — unchanged) → hover **20 px / a28** (was 24/a40 pre-v0.12.2) → active **8 px / a20** (unchanged). Layered hover halo on `@media (hover: hover)`: middle 20 px / a14 (was 24/a20), outer 32 px / a08 (was 48/a10). See [ADR 0022](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md). |
 | `secondary` | The second-most-important action; cancel-ish actions; toolbar buttons. | Raised surface | hairline | none |
 | `outline` | Visually equal-height to primary but transparent. The "no-fill" alternative. The Glassmorphism ref's secondary. | transparent | hairline ink | none |
 | `tertiary` | Alias of `ghost` — kept for backwards compat; will be removed v1.0. | transparent | none | none |
@@ -75,7 +75,7 @@ The five tiers map onto v0.8's `size.control.{xs,sm,md,lg,xl}` semantic tokens. 
 | `glass` | Floating overlay actions: toolbar pinned over a map, modal scrim toolbar. `backdrop-filter: blur(12px)`. NOT a default primary. | Translucent | hairline | none |
 | `link` | Inline text-link styled as button (rare). | transparent | none | none |
 
-**Brand constraint.** The Warp lime green plays exactly ONE role: action / live / success. AI uses the same lime in tonal form (lighter, lower alpha) so it reads as "AI-doing-an-action," not as a second accent. Adding any other loud color is a hard-rule #7 violation.
+**Brand constraint.** The spring-green accent plays exactly ONE role: action / live / success. AI uses the same accent in tonal form (lighter, lower alpha) so it reads as "AI-doing-an-action," not as a second accent. Adding any other loud color is a hard-rule #7 violation. (v0.11 retuned the accent from Warp lime `#4ade80` to spring green `#00FA8A`; the single-accent discipline is unchanged. The `--lumen-lime-aXX` alpha primitive names are preserved for backwards compatibility through v1.0; new code may reach for `--lumen-accent-aXX` aliases.)
 
 ## Shapes
 
@@ -117,6 +117,24 @@ ai-shimmer:  border     1600 ms   ease-in-out infinite, paused on hover/focus
 `prefers-reduced-motion: reduce` zeros every transition and pauses the AI shimmer. The resting glow on primary stays steady (it's a halo, not motion).
 
 **No transforms on press.** No `translate-y(1px)`, no `scale(0.98)`, no Material-3 spring. Operator UI on a trackpad doesn't jump.
+
+## Glow ladder — primary intent only (v0.12.2 retune)
+
+The primary intent ships a three-state ambient glow that signals "this is the primary CTA" even at rest. Reserved exclusively for `intent="primary"` (and `intent="ai"` when configured). Other intents and surfaces ship zero glow at all states.
+
+**The rest-state halo is the brand voice.** [ADR 0018](../../_meta/decisions/0018-premium-psychology-recolor.md) commits to it — the canvas always slightly lit by the spring-green accent, not just when you're about to click. Removing rest glow would be a brand-voice change, not a UX dial-down. v0.12.2 specifically dialed *hover* down (where the system over-spent per user feedback); rest and active stayed put.
+
+| State | Token | Resolved value | Layered halo (on `@media (hover: hover) and (prefers-reduced-motion: no-preference)`) |
+|---|---|---|---|
+| rest | `--shadow-button-glow-rest` | `0 0 16px var(--lumen-lime-a25)` | — (single layer) |
+| hover | `--shadow-button-glow-hover` | `0 0 20px var(--lumen-lime-a28)` (v0.12.2 — was `0 0 24px lime-a40`) | + middle layer `0 0 20px var(--lumen-lime-a14)` (was `0 0 24px lime-a20`) + outer layer `0 0 32px var(--lumen-lime-a08)` (was `0 0 48px lime-a10`) |
+| active | `--shadow-button-glow-active` | `0 0 8px var(--lumen-lime-a20)` | — (single layer) |
+
+For hero CTAs only (landing-page primaries), `.lumen-glow-cta` layers `--shadow-glow-accent-strong` on top of the standard ladder. v0.12.2 trimmed `.lumen-glow-cta:hover` in lockstep with the standard primary so the hierarchy stays intact: hero CTA still reads ~1.5× the standard primary in both spread and density, just both quieter than v0.12.1. Hero CTA layered hover halo: `0 0 28px lime-a18` (was `0 0 32px lime-a28`) + `0 0 48px lime-a10` (was `0 0 64px lime-a14`).
+
+**Why the dial-down isn't a uniform percentage cut.** The middle layer dropped 30% in alpha (a20 → a14); the outer layer dropped 20% in alpha *and* 33% in blur (a10 → a08, 48 px → 32 px). At 48 px blur the alpha integral is wider, so cutting blur there is a bigger perceptual win than cutting alpha alone. The middle layer at 20-24 px blur reads as "edge lighting"; alpha cut is the right knob there. Per-layer reasoning beats uniform percentages. (Weber-Fechner: perceptual intensity scales with the *logarithm* of physical intensity.)
+
+`prefers-reduced-motion: reduce` keeps the rest-state halo steady — it's a halo, not motion — but drops the rest → hover → active transition. Hover and active still apply their box-shadow values; only the easing is removed.
 
 ## Focus indicator — dual ring on lime
 

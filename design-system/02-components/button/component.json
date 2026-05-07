@@ -1,10 +1,10 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Button",
-  "version": "0.9.0",
+  "version": "0.12.2",
   "status": "stable",
   "deprecated": false,
-  "summary": "Primary action affordance. Renders a labeled, focusable, intent-bearing control. Five sizes × eight intents × three shapes. The single most important interaction component in Lumen.",
+  "summary": "Primary action affordance. Renders a labeled, focusable, intent-bearing control. Five sizes × eight intents × three shapes. The single most important interaction component in Lumen. v0.12.2 dialed the primary-hover glow ladder down: rest unchanged at the brand-defining 0 0 16px lime-a25, hover trims to 0 0 20px lime-a28 plus quieter mid/outer halo layers (see ADR 0022).",
   "props": {
     "intent": {
       "type": "enum",
@@ -184,6 +184,8 @@
     { "version": "0.9.0", "type": "Changed", "note": "Danger bg deepened red.500 → red.600 (#c92626) to clear WCAG AA Normal. White on red.600 = 5.2:1." },
     { "version": "0.9.0", "type": "Changed", "note": "Implementation moved from cva inline-Tailwind utilities to globals.css `.lumen-btn-*` defensive classes. The cva button now composes class names (not Tailwind arbitrary values), guaranteeing dev/prod parity in Tailwind v4. See ADR 0016." },
     { "version": "0.9.0", "type": "Deprecated", "note": "`intent='tertiary'` is now an alias of `intent='ghost'`. Both work; ghost is the new canonical name. Tertiary will be removed in v1.0." },
-    { "version": "0.11.0", "type": "Changed", "note": "Recolored — primary surface re-anchored from Warp lime #4ade80 to Spring Green #00FA8A. Accent.fg retuned from #0a0a0d to #07120D for 14.7:1 AAA on the new hue. Glow ladder RGB shifted from (74,222,128) to (0,250,138). Danger bg refined: status.danger.500 #ef4444 → #E5484D and CTA bg.rest = status.danger.700 (#B71D2A) for AA Normal. No API surface change. See ADR 0018." }
+    { "version": "0.11.0", "type": "Changed", "note": "Recolored — primary surface re-anchored from Warp lime #4ade80 to Spring Green #00FA8A. Accent.fg retuned from #0a0a0d to #07120D for 14.7:1 AAA on the new hue. Glow ladder RGB shifted from (74,222,128) to (0,250,138). Danger bg refined: status.danger.500 #ef4444 → #E5484D and CTA bg.rest = status.danger.700 (#B71D2A) for AA Normal. No API surface change. See ADR 0018." },
+    { "version": "0.12.0", "type": "Changed", "note": "Canvas neutralized — the button surface tokens (action.primary.bg, action.primary.fg) are unchanged; the dark canvas behind primary buttons retunes from #171A18 (obsidian-mint) to #0D0D0D (neutral obsidian). Spring-green accent has the hue stage to itself (canvas no longer carries a faint green tilt). No API surface change. See ADR 0020." },
+    { "version": "0.12.2", "type": "Fixed", "note": "Primary-button hover bloom dialed down at the token + layered-halo level. --shadow-button-glow-hover retuned 0 0 24px lime-a40 → 0 0 20px lime-a28 (cascades into base :hover and the first layer of the layered halo). Layered halo middle layer trimmed 0 0 24px lime-a20 → 0 0 20px lime-a14; wide outer layer (the user-reported 'bloom edge') trimmed 0 0 48px lime-a10 → 0 0 32px lime-a08. .lumen-glow-cta:hover (hero CTAs) trimmed in lockstep so standard-vs-hero hierarchy stays intact. Rest (16px lime-a25 — the brand voice per ADR 0018), active (8px lime-a20), focus, dual-ring, and every alpha primitive unchanged. User screenshot 2026-05-06 of /library LoginCard 'Send magic link' caught the bloom (~40 px past the button on every side). See ADR 0022. No API surface change." }
   ]
 }
