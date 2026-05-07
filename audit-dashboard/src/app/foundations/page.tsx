@@ -39,7 +39,7 @@ export default function FoundationsPage() {
           <div className="flex items-center gap-3 mb-6 lumen-mono-cap text-[color:var(--text-tertiary)]">
             <span>System primitives</span>
             <span aria-hidden>·</span>
-            <span className="text-[color:var(--text-accent)]">obsidian-mint</span>
+            <span className="text-[color:var(--text-accent)]">obsidian</span>
           </div>
           <div className="lumen-frame-brutalist">
             <h1 className="text-display-lg sm:text-display-2xl lg:text-display-2xl text-[color:var(--text-primary)]">
@@ -95,7 +95,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="lg" pill glow trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.11.17 · Obsidian Mint</Badge>
+            <Badge status="neutral" leadingDot>v0.12.0 · Obsidian</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
@@ -106,9 +106,9 @@ export default function FoundationsPage() {
           id="color"
           eyebrow="01 · Foundations"
           title="Color"
-          description="Three families do the work — obsidian-mint (canvas, faint green undertone), neutral (paper + cool grays), accent (Spring Green #00FA8A, the only loud color). Status hues stay polite. v0.11 retunes from v0.4 lime to spring green; the single-accent discipline is unchanged."
+          description="Three families do the work — obsidian (canvas, neutral near-black at #0D0D0D), neutral (paper + cool grays), accent (Spring Green #00FA8A, the only loud color). Status hues stay polite. v0.12 retires the v0.11 mint undertone; the single-accent discipline is unchanged."
         >
-          <SubSection title="Obsidian · the canvas ramp" description="11 stops from paper to void. Faint warm-mint undertone — never navy, never cool gray. The dark-mode silhouette and the deep-ink moments in light mode.">
+          <SubSection title="Obsidian · the canvas ramp" description="11 stops from paper to void. v0.12 — neutral near-black at #0D0D0D, no chromatic tilt at any stop on the dark portion (R = G = B). Replaces the v0.11 obsidian-mint canvas (which had a faint G+2 undertone reported as 'weird green'). The dark-mode silhouette and the deep-ink moments in light mode.">
             <SwatchRamp prefix="obsidian" family="lumen-obsidian" />
           </SubSection>
 
@@ -116,7 +116,7 @@ export default function FoundationsPage() {
             <SwatchRamp prefix="neutral" family="lumen-neutral" />
           </SubSection>
 
-          <SubSection title="Accent · Spring Green — the only loud color" description="Reads as 'laser' against obsidian-mint without leaving the brand. Used for action / live / success. Never decorative. Adding a second loud color is a brand violation. v0.11 retunes from Warp lime #4ade80 to Spring Green #00FA8A; the discipline is unchanged.">
+          <SubSection title="Accent · Spring Green — the only loud color" description="Reads as 'laser' against the neutral obsidian canvas — and even more so in v0.12 with the green undertone retired from the canvas (the accent now has the entire hue stage to itself). Used for action / live / success. Never decorative. Adding a second loud color is a brand violation. v0.11 retuned from Warp lime #4ade80 to Spring Green #00FA8A; the discipline is unchanged.">
             <SwatchRamp prefix="accent" family="lumen-accent" />
           </SubSection>
 
@@ -355,7 +355,7 @@ export default function FoundationsPage() {
           id="radius"
           eyebrow="04 · Foundations"
           title="Radius"
-          description="The radius scale reads as 'modern' against obsidian-mint. Inputs at 8, cards at 12–16, hero surfaces at 20–28. Pills (radius.full) reserved for nav and primary CTAs. v0.11 keeps the v0.4 ratio intact."
+          description="The radius scale reads as 'modern' against the neutral obsidian canvas. Inputs at 8, cards at 12–16, hero surfaces at 20–28. Pills (radius.full) reserved for nav and primary CTAs. v0.12 keeps the v0.4 ratio intact."
         >
           <div className="grid gap-3 grid-cols-3 sm:grid-cols-5 lg:grid-cols-9">
             {[
@@ -459,7 +459,7 @@ export default function FoundationsPage() {
             </div>
           </SubSection>
 
-          <SubSection title="Brand voice on canvas — flat surface" description="The hero panel: flat obsidian-mint, hairline border, hero-scale typography. Lumen prefers calm restraint over decorative gradients on surfaces — per principle 3 (less, but better) and the Premium-Psychology halo contract.">
+          <SubSection title="Brand voice on canvas — flat surface" description="The hero panel: flat neutral obsidian, hairline border, hero-scale typography. Lumen prefers calm restraint over decorative gradients on surfaces — per principle 3 (less, but better) and the Premium-Psychology halo contract.">
             <div
               className="relative rounded-[var(--radius-3xl)] border border-[var(--border-hairline)] overflow-hidden bg-[var(--surface-canvas)]"
               style={{ minHeight: "260px" }}

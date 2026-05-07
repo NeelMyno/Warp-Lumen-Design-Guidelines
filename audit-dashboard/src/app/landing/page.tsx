@@ -24,7 +24,7 @@ export default function LandingPage() {
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
         <BrowserChrome url="warp.example.com" />
 
-        {/* HERO — v0.11 obsidian-mint: architectural grid + brutalist headline (gradients stripped). Per first-impression.md the 50ms halo contract: branded chrome, single focal point, no layout shift.
+        {/* HERO — v0.12 neutral obsidian: architectural grid + brutalist headline (gradients stripped). Per first-impression.md the 50ms halo contract: branded chrome, single focal point, no layout shift.
             v0.11.13 — wrapped focal-point children in ScrollReveal so the eye
             is led into the hero instead of arriving on a fully-painted page.
             Above-the-fold reveals fire on first frame because IntersectionObserver
@@ -34,7 +34,7 @@ export default function LandingPage() {
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 lumen-mono-cap text-[color:var(--text-accent)]">
                 <span className="lumen-dot-pulse" aria-hidden />
-                <span>Now in private beta · Spring 2026 · system v0.11 live</span>
+                <span>Now in private beta · Spring 2026 · system v0.12 live</span>
               </div>
             </ScrollReveal>
 

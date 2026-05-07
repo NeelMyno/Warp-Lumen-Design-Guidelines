@@ -10,6 +10,70 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.12.0] — 2026-05-06 — Obsidian (mint retired) · brand canvas retuned to neutral near-black at #0D0D0D
+
+User feedback on the v0.11.x dashboard ("instead of this weird green background, I want the BG surface colors to be more darker, something like #0D0D0D") flagged the v0.11 obsidian-mint canvas tilt — a faint G+2 channel undertone — as a hue that competed with the spring-green accent. v0.12 retunes the brand dark anchor from `#171A18` to `#0D0D0D`, strips the chromatic tilt from every dark stop on the brand ramp, neutralises the residual +1 G drift on the cool/cream/neutral mid-stops, and renames the mood from `obsidian-mint` → `obsidian`. The single-accent rule (ADR 0005) is preserved verbatim — the spring-green accent didn't change; only the canvas underneath it did.
+
+The v0.11 mint tilt was an intentional ADR 0018 decision: a 2-RGB-unit green offset on the dark canvas to "read cohesive against spring-green without competing." In practice the cohesion read as competition — the canvas had a faint hue, and the spring-green accent had to share the hue stage with it. With v0.12, the canvas is fully neutral (R = G = B at every dark stop) and the spring-green accent has the hue stage to itself. The "weird green" the user reported is gone. The lift between canvas / raised / popover surfaces is now driven by lightness alone, not by lightness + chromatic tilt.
+
+Three brand anchors continue to drive the system. Two are unchanged from v0.11; one moved:
+- **Accent** `#00FA8A` (Spring Green) — unchanged.
+- **Dark** `#0D0D0D` (neutral obsidian) — was `#171A18` (obsidian-mint) in v0.11, was `#0a0a0d` (obsidian) in v0.4–v0.10. The user-set v0.12 anchor.
+- **Light** `#E6E6E6` (neutral light) — unchanged.
+
+This is amending [ADR 0018](./_meta/decisions/0018-premium-psychology-recolor.md) — the v0.11 obsidian-mint introduction. See [ADR 0020](./_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md) for the full rationale, alternatives considered, and consequences.
+
+### Changed
+
+- **`design-system/01-tokens/primitives/color.tokens.json` — `color.brand.{50..950}`** retuned to neutral. Stops 600–950 are now true-neutral (R = G = B) at deeper lightness values, anchored at brand.800 = `#0D0D0D`. Stops 50–500 had any prior G drift stripped. Full per-stop diff:
+	- 50:  `#F4F5F4` → `#F4F4F4`
+	- 100: `#E6E6E6` → `#E6E6E6` (unchanged — user-fixed light)
+	- 200: `#C8C9C8` → `#C8C8C8`
+	- 300: `#9DA09F` → `#9A9A9A`
+	- 400: `#6E7270` → `#6B6B6B`
+	- 500: `#4A4D4B` → `#404040`
+	- 600: `#232624` → `#1F1F1F`
+	- 700: `#1B1E1C` → `#151515`
+	- 800: `#171A18` → `#0D0D0D` ← user-set v0.12 anchor
+	- 900: `#0E110F` → `#080808`
+	- 950: `#060807` → `#050505`
+- **`color.alpha.ink.*`** re-anchored from `rgba(23,26,24,X)` to `rgba(13,13,13,X)` to match the new brand.800. Cascades to every ink overlay (outline / ghost / glass surfaces, modal scrims, ticker fades).
+- **`color.alpha.void.72`** re-anchored from `rgba(6,8,7,0.72)` to `rgba(5,5,5,0.72)` to match the new brand.950. Modal scrim still reads ~18% deeper than canvas-anchored alpha.
+- **`color.neutral.{50..900}`** had residual +1 G drift stripped from stops 100, 300, 400, 500, 600, 700, 800, 900. Light-mode appearance shifts ≤2 RGB units per channel — visually imperceptible but tokenically coherent with the dark recolor.
+- **`color.brand.50`** updated cream-leaning paper from `#F4F5F4` to `#F4F4F4` (neutral, no green tint).
+- **`audit-dashboard/src/app/globals.css` — runtime `--lumen-obsidian-N` ramp** mirrors the DTCG primitive update. Variable names preserved for backwards compatibility (the var is still `--lumen-obsidian-N`, not `--lumen-neutral-N`); only values changed.
+- **`audit-dashboard/src/app/globals.css` — runtime `--lumen-cream-N` ramp** mirrors the DTCG neutral retune.
+- **`audit-dashboard/src/app/globals.css` — `--lumen-ink-aXX` family** re-anchored to `rgba(13,13,13,X)`.
+- **`audit-dashboard/src/app/globals.css` — `--lumen-void-a72`** re-anchored to `rgba(5,5,5,0.72)`.
+- **Mood id renamed** `obsidian-mint` → `obsidian` across `audit-dashboard/src/lib/moods.ts`, `audit-dashboard/src/components/mood-switcher.tsx`, `audit-dashboard/src/app/layout.tsx` (`data-mood` attribute + metadata description), `audit-dashboard/src/components/dashboard-shell.tsx` (footer line), `audit-dashboard/src/app/foundations/page.tsx` (multiple instances — hero badge, eyebrow, color section description, accent description, radius description, brand-voice description), `audit-dashboard/src/app/landing/page.tsx` (hero comment + eyebrow text), `audit-dashboard/src/components/theme-toggle.tsx` (header comment).
+- **`MoodSwitcher` localStorage migration** — `migrateLegacyMood()` maps any stored `"obsidian-mint"` value to `"obsidian"` on first load so users coming from v0.11 don't lose their mood preference. Functionally identical to the DEFAULT fallback in v0.12 (since the only other mood is `"obsidian"`); explicit migration is cheaper than the next contributor wondering whether the storage key is broken or stale.
+- **`design-system/01-tokens/semantic/color.dark.tokens.json`** — descriptions updated to reflect v0.12 neutral obsidian; resolved hex values quoted in descriptions (`surface.page #0D0D0D`, `surface.raised #151515`, `surface.popover #1F1F1F`, etc.) updated to match the new ramp; contrast ratios re-stated for the deeper canvas (text.primary ~15.5:1 vs ~13.7:1 pre-v0.12; text.secondary ~6.9:1 vs ~6.4:1; etc.).
+- **`design-system/01-tokens/semantic/color.light.tokens.json`** — top description updated; surface.page description acknowledges the v0.12 neutralization of the residual whisper of warmth.
+- **`scripts/check-contrast.mjs` — hardcoded contrast pairs updated** to the v0.12 resolved values. The script's pair list was last touched in v0.4 (navy canvas `#131c2a`, warm cream `#fafaf7`, lime accent `#4ade80`) and had been silently validating obsolete colors for nine releases — the green check passed but didn't reflect what was actually shipping. v0.12 brings the pairs in line with the current system AND extends the dark-mode coverage from 4 pairs to 7 pairs (added warning-on-bg, danger-on-bg, neutral-on-raised). 16 pairs total now pass.
+- **`audit-dashboard/src/app/foundations/page.tsx` — section descriptions** updated to drop the v0.11 "obsidian-mint" framing; the Obsidian canvas-ramp section now reads "11 stops from paper to void. v0.12 — neutral near-black at #0D0D0D, no chromatic tilt at any stop on the dark portion (R = G = B). Replaces the v0.11 obsidian-mint canvas (which had a faint G+2 undertone reported as 'weird green')." Other sections (radius, brand-voice-on-canvas, accent-discipline) similarly updated.
+- **VERSION + package.json** — bumped 0.11.17 → 0.12.0. Version chips bumped v0.11.17 → v0.12.0 across `dashboard-shell.tsx` (top-nav pill + footer line), `foundations/page.tsx` (hero badge — also re-labeled from "Obsidian Mint" to "Obsidian"), `library/client.tsx` (header badge + footer line), `tool/page.tsx` (PageHeader + Quote Builder title-bar). `landing/page.tsx` eyebrow updated from "system v0.11 live" to "system v0.12 live".
+
+### Fixed
+
+- **"Weird green background" on dark mode** — the user-reported visual issue. Root cause: the v0.11 brand canvas carried a faint G+2 channel undertone (intentional, per ADR 0018) that read as a hue rather than as a confident dark plate. The accent then had to share the hue stage with the canvas. v0.12 strips the tilt, anchors the canvas at neutral `#0D0D0D`, and gives the spring-green accent the entire hue stage. The accent reads more "laser" than it did against the v0.11 canvas (more contrast in BOTH luminance — deeper canvas — AND chroma — neutral underplate vs faint green underplate).
+- **Stale contrast checker pairs from the v0.4 era** — `scripts/check-contrast.mjs` had been comparing v0.4 navy / cream / lime values that hadn't been the actual shipping system since v0.11. The "16 pairs pass" green check was a sham. Updated pairs to v0.12 resolved values + extended dark-mode coverage from 4 pairs to 7 pairs (warning, danger, neutral). Latent for nine releases; closed in v0.12.
+
+### Architectural notes
+
+- **Why this is a minor bump (0.12) and not a patch.** Patch versions (0.11.x) carry bug fixes and additive changes that don't move the visual identity; minor bumps move the visual identity but stay within the same major. v0.11.0 was the original obsidian-mint introduction (minor bump from v0.10's obsidian-cream); v0.12.0 is the obsidian-mint retirement (minor bump). Same shape of change, same version-tier treatment. The token paths didn't move, only the resolved values; downstream consumers that use semantic aliases (`color.surface.page`, etc.) inherit the new values automatically — that's the single-source-of-truth contract working as intended.
+- **Why fix at the brand primitive, not at the consumer level.** The user's screenshot pointed at one canvas (`/saas`) but the structural cause was in the primitive that EVERY surface consumed. Fixing at consumer level (e.g., overriding `--surface-page` only on the saas page) would have left the rest of the system minty and split the brand identity in two. Fixing at the primitive cascades cleanly through every surface, every mode, every component — the same cascade-fix pattern as v0.11.15 (one token edit, every neutral Badge fixed) and v0.11.17 (one wrapper class, every cross-column scatter fixed).
+- **Why "neutral" beats "tinted" for dark canvases.** ADR 0018 was right that spring-green-on-faint-green-canvas is more "cohesive" by some measures (the hues belong to the same family). But cohesion isn't free: the canvas pays for its membership in the green family by giving up some of the accent's hue distinctiveness. With a neutral canvas, the accent is the only hue in the frame — and the accent IS the brand. That's a stronger "voice" than a unified hue-family aesthetic. The trade favours brand recognition over chromatic harmony, which is the right priority for a brand system whose identity rides almost entirely on the accent.
+- **Why the green tilt was hard to spot in earlier audits.** A 2-RGB-unit G+ shift on a dark canvas is below the threshold of "visible color" in still images viewed from a normal distance — it reads as "neutral dark" to the eye in isolation. The shift becomes visible *against the spring-green accent at peripheral vision*: the eye perceives "green halo around the accent" because the canvas itself carries a small amount of green. This is the Bezold-Brücke shift in operation (color appearance shifts with luminance — the same 2-RGB-unit tilt reads as neutral at canvas lightness ~9.7% and minty at raised lightness ~13%, hence the v0.11.11 G+5 → G+3 retune). The fundamental fix wasn't to scale the tilt smaller; it was to remove the tilt entirely.
+- **What didn't change.** Spring-green accent: identical hue and ramp. Status colors (refined red, warning amber): identical hex values — the saturation tier still reads premium against either canvas. Aurora glow recipe: identical opacity and color. Glass + glow utilities: identical ratios; only the underlying canvas anchor moved. The recolor was deliberately scoped to the dark portion of the brand ramp — every other token family was preserved. This kept the blast radius small (no need to re-tune every status badge, every glow recipe, every aurora overlay) while still moving the identity convincingly.
+- **Side benefit: better light/dark parity.** Pre-v0.12, the dark canvas was "tinted-dark-with-green" while the light canvas was "near-neutral-cream." The two modes weren't visually parallel — the dark side had a chromatic identity the light side didn't. v0.12 makes both modes neutral, so the only thing changing between them is value (light/dark), not hue. The accent reads identically in both modes (because the accent didn't move, and the canvas underneath isn't competing for hue presence).
+- **Open questions.** Should the contrast checker derive pairs from the actual built tokens rather than maintain a hardcoded list? Filed in ADR 0020. Should the cream/neutral split itself be retired now that both ramps are fully neutral? Out of scope for v0.12 (the legacy `--lumen-cream-N` aliases are still consumed by ~50 globals.css references; renaming them is its own follow-up commit).
+
+### What this is NOT
+
+v0.12.0 is not a new feature, not a token-path rename, not a breaking API change. It's a brand-anchor retune: 11 primitive token VALUES move, 1 mood STRING renames (with backwards-compat migration), and ~30 prose descriptions update to match. No semantic alias paths moved. No component contract API moved. Spring Green is unchanged. Light mode appearance is functionally identical (sub-2-RGB-unit shifts on mid-stops, invisible at typical viewing distances). Lint, validate, and contrast all continue to pass: 16/16 contrast pairs pass (+3 vs v0.11.17 — the dark-mode warning/danger/neutral pairs that weren't being checked before), all references resolve, all 32 component contracts valid against the schema. Visual fix verified via Chrome MCP screenshot of `/saas` (KpiRow + LanePerf + ShipmentsTable on the new neutral canvas), `/foundations` (hero + color ramp + neutral ramp display correctly), `/landing` (hero + rate ticker + pricing band on the new neutral canvas). Light theme verified.
+
+---
+
 ## [0.11.17] — 2026-05-06 — Sparkline overflow fix · fluid SVG + symmetric StatGrid divider + Tailwind v4 comment-scanner regression closed
 
 A user-reported screenshot of `/saas` showed the SEA → DEN sparkline in the Lane Performance card visibly bleeding past the card's right edge into the gap toward the On-time Index side panel. v0.11.17 ships the structural fix at the Stat primitive layer, plus the symmetry fix to StatGrid's `divided` style that was the second half of the same root cause, plus an unrelated build-blocking CSS regression that surfaced when I cleared the dev cache to investigate.

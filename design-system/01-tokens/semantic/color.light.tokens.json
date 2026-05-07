@@ -2,9 +2,9 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.11). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of obsidian-mint: clean paper-white + obsidian-mint ink + the same spring-green accent. v0.11 retired the warm-cream paper canvas in favor of cool-neutral paper, anchored to the user-fixed light value (#E6E6E6) used as subtle borders / sunken surfaces.",
+    "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.12). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of the v0.12 neutral obsidian dark mode: clean paper-white + neutral obsidian ink + the same spring-green accent. v0.11 retired the warm-cream paper canvas in favor of cool-neutral paper, anchored to the user-fixed light value (#E6E6E6) used as subtle borders / sunken surfaces. v0.12 stripped the residual +1 G channel drift from the neutral ramp's mid-stops so the light mode is fully neutral end-to-end.",
     "surface": {
-      "page":    { "$value": "{color.neutral.50}",  "$description": "Paper canvas #FAFAFA — clean off-white with whisper of warmth. Replaces v0.10 cream paper #fdfcf7." },
+      "page":    { "$value": "{color.neutral.50}",  "$description": "Paper canvas #FAFAFA — clean off-white. v0.12 — fully neutral (the v0.11 'whisper of warmth' was 0.4% above neutral; v0.12 normalizes the full neutral ramp). Replaces v0.10 cream paper #fdfcf7." },
       "raised":  { "$value": "{color.absolute.white}", "$description": "Cards, panels, raised surfaces. Pure white pops above paper canvas. v0.11.13 — references {color.absolute.white}." },
       "sunken":  { "$value": "{color.neutral.200}", "$description": "Inputs, table-row hover, sidebar — anchored to user-fixed #E6E6E6." },
       "popover": { "$value": "{color.absolute.white}", "$description": "Floating popover surface. v0.11.13 — references {color.absolute.white}." },

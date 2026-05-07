@@ -2,15 +2,15 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "SEMANTIC color tokens — DARK mode (Lumen v0.11 default — Obsidian Mint). Mirrors color.light.tokens.json key paths with the obsidian-mint ramp + spring-green accent. Glass + glow utilities are exposed as separate semantic keys for clarity.",
+    "$description": "SEMANTIC color tokens — DARK mode (Lumen v0.12 default — Obsidian). Mirrors color.light.tokens.json key paths with the neutral obsidian ramp + spring-green accent. v0.12 retunes the brand canvas from v0.11 obsidian-mint #171A18 (with G+2 undertone) to neutral #0D0D0D — the dark side of the ramp is now true-neutral (R = G = B at every stop). Glass + glow utilities are exposed as separate semantic keys for clarity.",
     "surface": {
-      "page":    { "$value": "{color.brand.800}", "$description": "Obsidian-mint canvas #171A18 — user-fixed brand dark." },
-      "raised":  { "$value": "{color.brand.700}", "$description": "Raised surface #1B1E1C — sits subtly above canvas with restrained mint tilt. v0.11.11 retune from #21241F (darker + tilt scaled to G+3) so panels read as a card on canvas, not a brighter surface." },
-      "sunken":  { "$value": "{color.brand.900}", "$description": "Sunken / scrim base #0E110F." },
-      "popover": { "$value": "{color.brand.600}", "$description": "Floating popover surface #232624. v0.11.11 retune from #2E3230 — darker, mint tilt restrained to match the rest of the ramp." },
-      "glass":   { "$value": "{color.alpha.ink.62}", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%). v0.11.13 — references the canvas-anchored alpha primitive (was inlined as rgba(23,26,24,0.62))." },
-      "overlay": { "$value": "{color.alpha.ink.86}", "$description": "Translucent backdrop for sticky chrome. v0.11.13 — references {color.alpha.ink.86}." },
-      "scrim":   { "$value": "{color.alpha.void.72}", "$description": "Modal scrim. v0.11.13 — references {color.alpha.void.72} (anchored to brand.950 #060807) so the scrim reads ~18% darker than canvas-anchored alpha and the floating modal is unmistakably above a darker plate." },
+      "page":    { "$value": "{color.brand.800}", "$description": "Obsidian canvas #0D0D0D — user-fixed v0.12 brand dark (was #171A18 obsidian-mint pre-v0.12)." },
+      "raised":  { "$value": "{color.brand.700}", "$description": "Raised surface #151515 — sits subtly above canvas via lightness alone (no chromatic tilt). v0.12 retune from #1B1E1C — the v0.11.11 'restrained mint tilt' is fully retired in v0.12; the canvas-to-raised lift is now ~2.2 percentage points of L on a neutral ramp." },
+      "sunken":  { "$value": "{color.brand.900}", "$description": "Sunken / scrim base #080808 — v0.12 (was #0E110F)." },
+      "popover": { "$value": "{color.brand.600}", "$description": "Floating popover surface #1F1F1F — v0.12 (was #232624). Sits ~9.5% L vs canvas ~5.1% L on the neutral ramp." },
+      "glass":   { "$value": "{color.alpha.ink.62}", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%). v0.11.13 — references the canvas-anchored alpha primitive. v0.12 — alpha ink anchor moved with the recolor (rgba(23,26,24,X) → rgba(13,13,13,X)); the alpha ladder + the surface contract are unchanged." },
+      "overlay": { "$value": "{color.alpha.ink.86}", "$description": "Translucent backdrop for sticky chrome. v0.11.13 — references {color.alpha.ink.86}. v0.12 — ink anchor moved to neutral #0D0D0D." },
+      "scrim":   { "$value": "{color.alpha.void.72}", "$description": "Modal scrim. v0.11.13 — references {color.alpha.void.72} (anchored to brand.950, which is #050505 in v0.12 / was #060807 pre-v0.12) so the scrim reads ~18% darker than canvas-anchored alpha and the floating modal is unmistakably above a darker plate." },
       "inverse": { "$value": "{color.neutral.50}" },
       "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Spring-green tint for hover / selection backgrounds." },
       "input": {
@@ -23,16 +23,16 @@
       }
     },
     "text": {
-      "primary":   { "$value": "{color.brand.100}", "$description": "Body and titles — #E6E6E6, the user-fixed brand light value. Contrast 13.7:1 on canvas — AAA. Not pure white (which would feel harsh on obsidian-mint)." },
-      "secondary": { "$value": "{color.brand.300}", "$description": "Captions, descriptions. ~6.4:1 — AA Normal." },
-      "tertiary":  { "$value": "{color.brand.400}", "$description": "Hints, eyebrow labels. ~3.6:1 — AA Large only (≥18px)." },
+      "primary":   { "$value": "{color.brand.100}", "$description": "Body and titles — #E6E6E6, the user-fixed brand light value. Contrast ~15.5:1 on the v0.12 neutral obsidian canvas (#0D0D0D) — AAA. Was 13.7:1 on the v0.11 obsidian-mint canvas (#171A18). Not pure white (which would feel harsh on either canvas)." },
+      "secondary": { "$value": "{color.brand.300}", "$description": "Captions, descriptions. ~6.9:1 on the v0.12 canvas — AA Normal (was ~6.4:1 on the v0.11 obsidian-mint canvas)." },
+      "tertiary":  { "$value": "{color.brand.400}", "$description": "Hints, eyebrow labels. ~3.65:1 on the v0.12 canvas — AA Large only (≥18px). Held at the same contrast tier as v0.11 (was 3.6:1)." },
       "placeholder": { "$value": "{color.brand.400}", "$description": "Input placeholder. Alias of tertiary; carries its own role for theming." },
       "disabled":  { "$value": "{color.brand.500}" },
       "inverse":   { "$value": "{color.brand.800}", "$description": "Text on inverse light surfaces." },
       "accent":    { "$value": "{color.accent.300}", "$description": "Laser spring-green for inline emphasis on dark. ~10.4:1 — AAA." },
-      "error":     { "$value": "{color.status.danger.300}", "$description": "v0.11 — softened error text on canvas. ~6.5:1 — AA Normal. Distinct from status.danger.fg which is the badge text on a danger background. v0.11.13 — references the new {color.status.danger.300} primitive (was inlined #F8A8AA)." },
+      "error":     { "$value": "{color.status.danger.300}", "$description": "v0.11 — softened error text on canvas. ~7.0:1 on the v0.12 neutral canvas — AA Normal (was ~6.5:1 on v0.11 obsidian-mint). Distinct from status.danger.fg which is the badge text on a danger background. v0.11.13 — references the {color.status.danger.300} primitive (was inlined #F8A8AA)." },
       "success":   { "$value": "{color.accent.300}", "$description": "v0.6 — success text. Reuses accent ramp; spring green is action/live/success." },
-      "warning":   { "$value": "{color.status.warning.300}", "$description": "v0.11 — warning text. ~9.1:1 — AAA on canvas. v0.11.13 — references the new {color.status.warning.300} primitive (was inlined #F5DEA3)." },
+      "warning":   { "$value": "{color.status.warning.300}", "$description": "v0.11 — warning text. ~9.5:1 on the v0.12 neutral canvas — AAA (was ~9.1:1 on v0.11 obsidian-mint). v0.11.13 — references the {color.status.warning.300} primitive (was inlined #F5DEA3)." },
       "link":      { "$value": "{color.brand.100}" }
     },
     "border": {
@@ -55,7 +55,7 @@
           "hover": { "$value": "{color.accent.600}" },
           "press": { "$value": "{color.accent.700}" }
         },
-        "fg":   { "$value": "{color.accent.fg}", "$description": "Near-black-mint #07120D on spring green — 14.7:1 AAA. Never inherit text-primary." },
+        "fg":   { "$value": "{color.accent.fg}", "$description": "Near-black #07120D on spring green — 14.7:1 AAA. Never inherit text-primary. (Pre-v0.12 description called this 'near-black-mint' — the value is unchanged in v0.12, but the canvas underneath is now neutral so the 'mint' label was retired.)" },
         "border": { "$value": "transparent" },
         "glow": { "$value": "{shadow.accent-glow}" }
       },
@@ -158,12 +158,12 @@
       "info":    { "bg": { "$value": "{color.alpha.accent.12}"    }, "fg": { "$value": "{color.accent.300}" } },
       "neutral": {
         "$description": "v0.11.15 — neutral status pill bg + fg. Pre-v0.11.15 the bg ran through {color.brand.700} (raised), which collided with --surface-raised on Card-mounted badges and made the pill visually disappear. Re-anchored to a paper-alpha overlay so the chip reads as a slight lift on every dark surface (canvas, raised, popover, sunken).",
-        "bg": { "$value": "{color.alpha.paper.04}", "$description": "Translucent overlay so the pill reads on any surface; the paper-alpha sits cooler against the obsidian-mint canvas without competing with the spring-green accent." },
-        "fg": { "$value": "{color.brand.100}",      "$description": "User-fixed brand light #E6E6E6 — 13.4:1 on raised surface (AAA)." }
+        "bg": { "$value": "{color.alpha.paper.04}", "$description": "Translucent overlay so the pill reads on any surface; the paper-alpha sits well against the v0.12 neutral obsidian canvas without competing with the spring-green accent (pre-v0.12 the canvas had a faint G tilt — paper-alpha works on both)." },
+        "fg": { "$value": "{color.brand.100}",      "$description": "User-fixed brand light #E6E6E6 — 14.0:1 on the v0.12 raised surface (was 13.4:1 in v0.11). AAA." }
       }
     },
     "aurora": {
-      "$description": "Radial spring-green ambient glow — the brand's signature lighting gesture. Render as a fixed/absolute pseudo-element behind the page hero with backdrop-filter: blur and the values below. v0.11 keeps the v0.4 recipe verbatim — same opacity, new hue.",
+      "$description": "Radial spring-green ambient glow — the brand's signature lighting gesture. Render as a fixed/absolute pseudo-element behind the page hero with backdrop-filter: blur and the values below. v0.11 kept the v0.4 recipe verbatim — same opacity, new hue. v0.12 leaves the recipe untouched: the aurora's spring-green halo reads even more confidently against the neutral obsidian canvas (no green tilt in the canvas to compete with the halo's hue).",
       "color":  { "$value": "{color.alpha.accent.32}" },
       "core":   { "$value": "{color.alpha.accent.64}" }
     }

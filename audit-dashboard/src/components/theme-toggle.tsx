@@ -6,7 +6,7 @@ import { Moon, Sun } from "lucide-react";
 type Theme = "light" | "dark";
 
 /**
- * Lumen v0.11.5 — Obsidian Mint is the brand stage. Dark is default; the OS
+ * Lumen v0.11.5 / v0.12 — Obsidian is the brand stage (was Obsidian Mint in v0.11). Dark is default; the OS
  * preference is intentionally ignored so every first impression lands on the
  * canonical canvas the system is named after. A user override (via the toggle)
  * persists in localStorage and wins on every subsequent visit.

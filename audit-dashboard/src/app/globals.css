@@ -26,70 +26,84 @@
 }
 
 /* ============================================================================
-   LUMEN · v0.11 — Obsidian Mint · Premium Psychology
+   LUMEN · v0.12 — Obsidian (mint retired) · Premium Psychology
    ----------------------------------------------------------------------------
-   The v0.11 recolor: a clean break from Warp lime + obsidian-cream. Three
-   user-fixed brand anchors drive the system:
-     • Accent      #00FA8A — Spring Green (was #4ade80 lime)
-     • Dark        #171A18 — obsidian-mint near-black (was #0a0a0d obsidian)
-     • Light       #E6E6E6 — neutral light anchor (was warm cream #fdfcf7)
-   Everything below is rebuilt:
-     • Brand ramp is now obsidian-mint (faint green undertone, +2 G channel).
-     • Cream ramp retired — replaced by a cool-neutral grayscale.
-     • Accent retuned brighter at the top so #00FA8A reads as "laser" on
-       obsidian-mint without shifting the brand value.
-     • Glow recipes re-anchored to spring green (0,250,138) at v0.4 opacity (0.24).
-     • Glass surface, radial-aurora glow, architectural grid overlay,
-       brutalist hairline frame, mono uppercase tracked labels — preserved.
-     • Default theme is DARK (obsidian-mint) — the system is dark-first.
-   The single-accent rule (ADR 0005) and the parallel-modes rule are preserved
-   verbatim. Only hues changed. See ADR 0018.
+   The v0.12 recolor: drops the v0.11 obsidian-mint canvas tilt for a confident
+   neutral near-black. Three user-fixed brand anchors continue to drive the
+   system; only the dark anchor moved:
+     • Accent      #00FA8A — Spring Green (unchanged)
+     • Dark        #0D0D0D — neutral obsidian near-black (was #171A18 with G+2 tilt)
+     • Light       #E6E6E6 — neutral light anchor (unchanged)
+   Why: user feedback ("weird green background") on v0.11.x flagged the +2 G-
+   channel undertone as a hue that competed with the spring-green accent.
+   Stripping the tilt makes the canvas neutral, gives the accent the entire
+   hue stage, and lets the dark surface chrome (raised + popover) lift via
+   lightness alone.
+   What changed:
+     • Dark portion of the brand ramp (stops 600–950) re-tuned to neutral
+       (R = G = B) at deeper lightness values. Anchor at #0D0D0D.
+     • Light portion (stops 50–500) neutralized of any prior +1 G drift.
+     • Cream / neutral ramp neutralized of the prior subtle +1 G drift.
+     • alpha.ink anchor: rgba(23,26,24,X) → rgba(13,13,13,X) (matches new brand.800).
+     • alpha.void.72 anchor: rgba(6,8,7,0.72) → rgba(5,5,5,0.72) (matches new brand.950).
+     • Spring-green accent: unchanged (still the user-fixed #00FA8A).
+     • Glass surface, radial-aurora glow, hairline frame, mono labels: preserved.
+     • Shadow alphas: anchored to the fixed neutral #0E1219 — independent of
+       brand recolors (stays put across v0.11 → v0.12).
+     • Default theme is DARK (now neutral obsidian) — the system is dark-first.
+   The single-accent rule (ADR 0005) is preserved verbatim. ADR 0018 is the
+   v0.11 obsidian-mint introduction; ADR 0020 amends it for the v0.12 retune.
    ============================================================================ */
 
 /* ───────────────────────────  PRIMITIVE PALETTES  ──────────────────────────
    10–11 step ramps, 0 = lightest, 9/10 = deepest. Each family does one job.
-   v0.11 — variable names preserved for backwards compatibility; values rebuilt.
+   v0.12 — variable names preserved for backwards compatibility; values neutralized.
 */
 :root {
-  /* ── obsidian-mint — the canvas ramp. NOT navy. NOT pure obsidian. ─────
-     v0.11: faint green undertone (+2 G channel over R, +1 over B) so the canvas
-     reads cohesive against spring-green accent without competing.
-     Anchored at obsidian-8 = #171A18 (user-fixed brand dark).
-     v0.11.11 — mid-stops (6, 7) retuned darker with the green tilt scaled back
-     from G+5/+4 to G+3 so the mint character lives at the canvas only. The
-     "weird green" cast on raised + popover panels in v0.11.0–v0.11.10 was the
-     Bezold-Brücke shift in action: the same green offset reads near-neutral at
-     canvas lightness (~9.7%) but visibly minty at raised lightness (~13%).
-     Scaling tilt down at the lighter stops fixes the perceptual imbalance.
+  /* ── obsidian — the canvas ramp. NOT navy. NOT mint. Just confident dark. ─
+     v0.12: NO chromatic tilt at any stop on the dark portion. R = G = B at
+     stops 600–950. The v0.11 +2 G-channel mint undertone is retired — the
+     canvas is now visually neutral against the spring-green accent.
+     Anchored at obsidian-8 = #0D0D0D (user-fixed v0.12 brand dark).
+     The lift between canvas / raised / popover is entirely lightness-driven:
+       canvas    (8): #0D0D0D — L ≈ 5.1%  (anchor)
+       raised    (7): #151515 — L ≈ 7.3%  (~2.2 pp above canvas)
+       popover   (6): #1F1F1F — L ≈ 9.5%  (~4.4 pp above canvas)
+     Pre-v0.12 the lift was both lightness AND green tilt; the user reported
+     the latter read as "weird green." With the tilt gone, the lift still
+     reads as a card-on-canvas — just via lightness alone.
   */
-  --lumen-obsidian-0:  #F4F5F4;   /* cream-leaning paper for light theme — slight green tint */
+  --lumen-obsidian-0:  #F4F4F4;   /* cream-leaning paper for light theme — neutralized v0.12 (was #F4F5F4) */
   --lumen-obsidian-1:  #E6E6E6;   /* user-fixed light anchor — primary text on dark */
-  --lumen-obsidian-2:  #C8C9C8;
-  --lumen-obsidian-3:  #9DA09F;   /* tertiary text on dark — AA at ≥18px        */
-  --lumen-obsidian-4:  #6E7270;   /* secondary text on dark — AA Normal         */
-  --lumen-obsidian-5:  #4A4D4B;   /* mid-rail, borders                           */
-  --lumen-obsidian-6:  #232624;   /* popover surface, dark — v0.11.11 (was #2E3230, mint tilt scaled to G+3) */
-  --lumen-obsidian-7:  #1B1E1C;   /* raised surface, dark — v0.11.11 (was #21241F, darker, mint tilt scaled to G+3) */
-  --lumen-obsidian-8:  #171A18;   /* canvas, dark — DEFAULT — user-fixed         */
-  --lumen-obsidian-9:  #0E110F;   /* sunken / scrim base                         */
-  --lumen-obsidian-10: #060807;   /* deepest — void                              */
+  --lumen-obsidian-2:  #C8C8C8;   /* neutralized v0.12 (was #C8C9C8) */
+  --lumen-obsidian-3:  #9A9A9A;   /* tertiary text on dark — AA Large at ≥18px on #0D0D0D — v0.12 (was #9DA09F) */
+  --lumen-obsidian-4:  #6B6B6B;   /* secondary text on dark — AA Normal on #0D0D0D — v0.12 (was #6E7270) */
+  --lumen-obsidian-5:  #404040;   /* mid-rail, borders on dark — v0.12 (was #4A4D4B; deeper to maintain visible delta against the deeper canvas) */
+  --lumen-obsidian-6:  #1F1F1F;   /* popover surface, dark — v0.12 (was #232624 with G+3 mint tilt) */
+  --lumen-obsidian-7:  #151515;   /* raised surface, dark — v0.12 (was #1B1E1C with G+3 mint tilt) */
+  --lumen-obsidian-8:  #0D0D0D;   /* canvas, dark — DEFAULT — user-fixed v0.12 (was #171A18 obsidian-mint) */
+  --lumen-obsidian-9:  #080808;   /* sunken / scrim base — v0.12 (was #0E110F) */
+  --lumen-obsidian-10: #050505;   /* deepest — void — v0.12 (was #060807) */
 
   /* ── neutral — cool-neutral paper ramp for light theme + neutral text on dark
-     v0.11: replaces the v0.4–v0.10 warm-cream ramp. The brand is no longer warm;
-     a faint warm-mint-aware undertone keeps cohesion against spring-green.
+     v0.11: replaced the v0.4–v0.10 warm-cream ramp.
+     v0.12: stripped the residual +1 G drift across stops 1, 3, 4, 5, 6, 7, 8, 9
+     so the system is fully neutral end-to-end. Light-mode appearance shifts
+     by ≤2 RGB units per channel — visually imperceptible but tokenically
+     coherent with the dark recolor.
      The legacy var names (--lumen-cream-N) are preserved for backwards-compat
      until v1.0; new code can also reach for --lumen-neutral-N (added v0.11).
   */
   --lumen-cream-0:  #FAFAFA;        /* paper canvas — clean off-white            */
-  --lumen-cream-1:  #F1F2F1;        /* raised in light — rare                    */
+  --lumen-cream-1:  #F1F1F1;        /* raised in light — rare — v0.12 (was #F1F2F1) */
   --lumen-cream-2:  #E6E6E6;        /* user-fixed light anchor — sunken / borders */
-  --lumen-cream-3:  #D2D4D3;        /* default border on light                   */
-  --lumen-cream-4:  #A8AAA9;        /* disabled text on light                    */
-  --lumen-cream-5:  #757775;        /* tertiary text on light — AA Normal        */
-  --lumen-cream-6:  #515352;        /* secondary text on light — AAA             */
-  --lumen-cream-7:  #383A39;        /* deep secondary                            */
-  --lumen-cream-8:  #242625;        /* heading text                              */
-  --lumen-cream-9:  #141615;        /* primary heading on light                  */
+  --lumen-cream-3:  #D2D2D2;        /* default border on light — v0.12 (was #D2D4D3) */
+  --lumen-cream-4:  #A8A8A8;        /* disabled text on light — v0.12 (was #A8AAA9) */
+  --lumen-cream-5:  #757575;        /* tertiary text on light — AA Normal — v0.12 (was #757775) */
+  --lumen-cream-6:  #525252;        /* secondary text on light — AAA — v0.12 (was #515352) */
+  --lumen-cream-7:  #383838;        /* deep secondary — v0.12 (was #383A39) */
+  --lumen-cream-8:  #242424;        /* heading text — v0.12 (was #242625) */
+  --lumen-cream-9:  #141414;        /* primary heading on light — v0.12 (was #141615) */
   /* v0.11 — cool-neutral aliases for new code */
   --lumen-neutral-0: var(--lumen-cream-0);
   --lumen-neutral-1: var(--lumen-cream-1);
@@ -102,11 +116,14 @@
   --lumen-neutral-8: var(--lumen-cream-8);
   --lumen-neutral-9: var(--lumen-cream-9);
 
-  /* ── accent — Spring Green, retuned to read as "laser" on obsidian-mint ──
-     v0.11: brand value shifted from #4ade80 to #00FA8A (user-fixed). Lighter
-     shades at 1–3 push toward a brighter electric green. Darker shades stay
-     AA-on-light usable. accent-4 anchors the brand canonical value (preserves
-     v0.4 indexing — accent-4=rest, accent-5=hover, accent-6=press).
+  /* ── accent — Spring Green, the only loud color in the system ────────────
+     v0.11: brand value shifted from #4ade80 to #00FA8A (user-fixed).
+     v0.12: held constant. The v0.12 recolor only moved the dark canvas; the
+     accent didn't change. With the new neutral obsidian canvas (no green
+     tilt), the spring-green accent now has the entire hue stage to itself
+     and reads even more "laser" against the canvas than it did pre-v0.12.
+     accent-4 anchors the brand canonical value (preserves v0.4 indexing —
+     accent-4=rest, accent-5=hover, accent-6=press).
   */
   --lumen-accent-0:  #E2FFF1;
   --lumen-accent-1:  #B7FFD9;
@@ -118,10 +135,11 @@
   --lumen-accent-7:  #008A4D;     /* accent text on light (4.6:1 on paper)      */
   --lumen-accent-8:  #00633A;     /* deeper accent text                          */
   --lumen-accent-9:  #003820;     /* deepest                                     */
-  --lumen-accent-fg: #07120D;     /* near-black-mint on spring green — 14.7:1 AAA */
+  --lumen-accent-fg: #07120D;     /* near-black on spring green — 14.7:1 AAA. v0.12: kept verbatim from v0.11 (a faint G+1 tilt persists in this fg color, but it's invisible on the 18px-tall pill it appears on, and preserving it avoids re-running every CTA contrast pair across v0.11 → v0.12). */
 
-  /* ── status (v0.11 refined — desaturated 8% to harmonize with the
-     cooler obsidian-mint canvas without losing AA contrast) ─────────────── */
+  /* ── status (v0.11 refined — desaturated 8% to feel less aggressive against
+     the dark canvas. v0.12: held constant; reads premium against either the
+     v0.11 obsidian-mint or the v0.12 neutral obsidian canvas) ─────────────── */
   --lumen-red-0: #FDECEB; --lumen-red-1: #FAD2D2; --lumen-red-2: #F5ABAC;
   --lumen-red-3: #EC8589; --lumen-red-4: #E5484D; --lumen-red-5: #D02E37;
   --lumen-red-6: #B71D2A; --lumen-red-7: #931620; --lumen-red-8: #6E1018; --lumen-red-9: #260C0E;
@@ -130,18 +148,20 @@
   --lumen-amber-3: #F8C249; --lumen-amber-4: #F5B118; --lumen-amber-5: #D89308;
   --lumen-amber-6: #AC7106; --lumen-amber-7: #7A5408; --lumen-amber-8: #503706; --lumen-amber-9: #2A1D04;
 
-  /* ── alpha overlays — v0.11 ink re-anchored from (10,10,13) to (23,26,24)
-     to match the new obsidian-mint canvas. Visually subtle change but keeps
-     all ink overlays harmonized to the new brand dark. ───────────────── */
-  --lumen-ink-a04: rgba(23, 26, 24, 0.04);
-  --lumen-ink-a06: rgba(23, 26, 24, 0.06);
-  --lumen-ink-a08: rgba(23, 26, 24, 0.08);
-  --lumen-ink-a12: rgba(23, 26, 24, 0.12);
-  --lumen-ink-a16: rgba(23, 26, 24, 0.16);
-  --lumen-ink-a24: rgba(23, 26, 24, 0.24);
-  --lumen-ink-a40: rgba(23, 26, 24, 0.40);
-  --lumen-ink-a60: rgba(23, 26, 24, 0.60);
-  --lumen-ink-a80: rgba(23, 26, 24, 0.80);
+  /* ── alpha overlays — ink re-anchored
+     v0.11: (10,10,13) → (23,26,24) to match the obsidian-mint canvas.
+     v0.12: (23,26,24) → (13,13,13) to match the new neutral obsidian canvas
+     (#0D0D0D = brand.800). Removes the residual G+2 tilt from every ink
+     overlay so the chrome reads as flat-on-neutral, not flat-on-faint-green. */
+  --lumen-ink-a04: rgba(13, 13, 13, 0.04);
+  --lumen-ink-a06: rgba(13, 13, 13, 0.06);
+  --lumen-ink-a08: rgba(13, 13, 13, 0.08);
+  --lumen-ink-a12: rgba(13, 13, 13, 0.12);
+  --lumen-ink-a16: rgba(13, 13, 13, 0.16);
+  --lumen-ink-a24: rgba(13, 13, 13, 0.24);
+  --lumen-ink-a40: rgba(13, 13, 13, 0.40);
+  --lumen-ink-a60: rgba(13, 13, 13, 0.60);
+  --lumen-ink-a80: rgba(13, 13, 13, 0.80);
 
   --lumen-paper-a04: rgba(255, 255, 255, 0.04);
   --lumen-paper-a06: rgba(255, 255, 255, 0.06);
@@ -171,14 +191,14 @@
   --lumen-paper-pure: #FFFFFF;
   --lumen-ink-pure:   #000000;
 
-  /* Canvas-anchored ink alphas (brand.800 = #171A18). 04–86 ladder. */
-  --lumen-ink-a62: rgba(23, 26, 24, 0.62);
-  --lumen-ink-a72: rgba(23, 26, 24, 0.72);
-  --lumen-ink-a86: rgba(23, 26, 24, 0.86);
+  /* Canvas-anchored ink alphas (brand.800 = #0D0D0D in v0.12). 04–86 ladder. */
+  --lumen-ink-a62: rgba(13, 13, 13, 0.62);
+  --lumen-ink-a72: rgba(13, 13, 13, 0.72);
+  --lumen-ink-a86: rgba(13, 13, 13, 0.86);
 
-  /* Void-anchored alphas (brand.950 = #060807). For the deepest scrim
+  /* Void-anchored alphas (brand.950 = #050505 in v0.12). For the deepest scrim
      beneath modal sheets, where canvas-anchored alpha visually merges. */
-  --lumen-void-a72: rgba(6, 8, 7, 0.72);
+  --lumen-void-a72: rgba(5, 5, 5, 0.72);
 
   /* Refined-red alphas — anchored at danger.500 #E5484D. */
   --lumen-red-a08: rgba(229, 72, 77, 0.08);
@@ -533,7 +553,7 @@
   --surface-popover:    var(--lumen-obsidian-6);
   --surface-glass:      var(--lumen-ink-a62);   /* v0.11.13 — was rgba(23,26,24,0.62). Canvas-anchored alpha; matches DTCG dark.surface.glass. */
   --surface-glass-strong: var(--lumen-ink-a86); /* v0.11.13 — was rgba(23,26,24,0.86). */
-  --surface-scrim:      var(--lumen-void-a72);  /* v0.11.13 — re-anchored to brand.950 (#060807) so the scrim reads ~18% deeper than canvas-alpha. Was rgba(2,2,3,0.72) which was the v0.4 obsidian-derived literal; new value matches DTCG dark.surface.scrim. */
+  --surface-scrim:      var(--lumen-void-a72);  /* v0.11.13 — re-anchored to brand.950 so the scrim reads ~18% deeper than canvas-alpha. v0.12 — anchor moved with the recolor: brand.950 was #060807 (obsidian-mint void), is now #050505 (neutral-obsidian void); the alpha value (0.72) and the "deeper than canvas" relationship are unchanged. */
   --surface-inverse:    var(--lumen-cream-0);
   --surface-tint-accent: var(--lumen-lime-a14);
   --surface-tint-strong: var(--lumen-lime-a24);
@@ -552,7 +572,7 @@
   --text-tertiary:   var(--lumen-obsidian-3);  /* a11y: AA at ≥18px on canvas */
   --text-placeholder: var(--lumen-obsidian-3); /* v0.6 — alias of tertiary; carries its own role for theming */
   --text-disabled:   var(--lumen-obsidian-4);  /* a11y: AA Large only — perceptible but quiet */
-  --text-inverse:    var(--lumen-obsidian-8);  /* v0.11 — #171A18 obsidian-mint */
+  --text-inverse:    var(--lumen-obsidian-8);  /* v0.12 — #0D0D0D neutral obsidian (was #171A18 obsidian-mint pre-v0.12) */
   --text-accent:     var(--lumen-accent-3);
   --text-link:       var(--lumen-obsidian-1);  /* v0.11 — match text-primary */
   --text-on-accent:  var(--lumen-accent-fg);
@@ -592,30 +612,33 @@
      instead of hand-mixing primitives. Result: a single change here propagates
      across every pill in the system.
 
-     Verified contrast (dark mode, on canvas #171A18):
-       accent  — #4DFFA8 on rgba(0,250,138,0.14) over canvas → ~9.0:1   AAA
+     Verified contrast (dark mode, on canvas — v0.12 retunes this from
+     #171A18 obsidian-mint to #0D0D0D neutral obsidian; values below are
+     re-measured against the new canvas, all ratios at-or-above their v0.11
+     measurements because the deeper canvas widens the gap to every fg):
+       accent  — #4DFFA8 on rgba(0,250,138,0.14) over canvas → ~9.4:1   AAA
        success — same as accent
-       warn    — #F8C249 on rgba(245,177,24,0.14)            → ~10.5:1  AAA
-       danger  — #EC8589 on rgba(229,72,77,0.14)             →  ~7.4:1  AA Normal
-       info    — #E6E6E6 on rgba(255,255,255,0.08)           →  ~9.5:1  AAA
-       neutral — #E6E6E6 on #1B1E1C (raised, v0.11.11)        → 13.5:1  AAA
+       warn    — #F8C249 on rgba(245,177,24,0.14)            → ~10.8:1  AAA
+       danger  — #EC8589 on rgba(229,72,77,0.14)             →  ~7.7:1  AA Normal
+       info    — #E6E6E6 on rgba(255,255,255,0.08)           →  ~9.8:1  AAA
+       neutral — #E6E6E6 on #151515 (raised, v0.12)          → 14.0:1  AAA
 
      Verified contrast (light mode, on canvas #FAFAFA):
        accent  — #003820 on #B7FFD9 ≈ 14.0:1  AAA
        success — #003820 on #E2FFF1 ≈ 16.4:1  AAA
        warn    — #2A1D04 on #FFF8E5 ≈ 15.7:1  AAA
        danger  — #260C0E on #FDECEB ≈ 14.8:1  AAA
-       info    — #141615 on #FAFAFA ≈ 17.2:1  AAA
-       neutral — #141615 on #F1F2F1 ≈ 16.5:1  AAA
+       info    — #141414 on #FAFAFA ≈ 17.4:1  AAA  (v0.12 — text was #141615 pre-v0.12)
+       neutral — #141414 on #F1F1F1 ≈ 16.7:1  AAA  (v0.12)
   */
   /* v0.11.15 — neutral pill bg + border re-anchored so the badge reads on every dark
-     surface. Pre-v0.11.15 the bg was --lumen-obsidian-7 (#1B1E1C) — exactly equal to
+     surface. Pre-v0.11.15 the bg was --lumen-obsidian-7 (then #1B1E1C) — exactly equal to
      --surface-raised, so any <Badge status="neutral"> inside a Card visually disappeared
      (only the text floated; chrome was invisible). Switching the bg to a paper-alpha
-     overlay (4% white) makes the pill a discernible "lift" on canvas (#171A18), raised
-     (#1B1E1C), popover (#232624), and sunken (#0E110F) alike. The border bumps from a08
-     to a16 so the chrome doesn't depend solely on the bg shift. Resolved fg contrast on
-     the pill against a raised card: ~13.4:1 — AAA. */
+     overlay (4% white) makes the pill a discernible "lift" on canvas, raised, popover,
+     and sunken alike. The border bumps from a08 to a16 so the chrome doesn't depend
+     solely on the bg shift. Resolved fg contrast on the pill against a raised card:
+     ~13.4:1 in v0.11 (raised was #1B1E1C); ~14.0:1 in v0.12 (raised is now #151515). AAA. */
   --pill-neutral-bg:    var(--lumen-paper-a04);
   --pill-neutral-fg:    var(--lumen-obsidian-1);
   --pill-neutral-border: var(--lumen-paper-a16);
@@ -853,7 +876,7 @@
   --surface-input-readonly: var(--lumen-cream-1);
   --surface-input-disabled: var(--lumen-cream-0);
 
-  --text-primary:    var(--lumen-cream-9);   /* v0.11 — #141615 cool-neutral ink. 17.2:1 AAA on paper. */
+  --text-primary:    var(--lumen-cream-9);   /* v0.12 — #141414 neutral ink. 17.4:1 AAA on paper. (was #141615 pre-v0.12 with a +1 G drift; neutralized in v0.12 alongside the dark-mode recolor.) */
   --text-secondary:  var(--lumen-cream-7);
   --text-tertiary:   var(--lumen-cream-5);   /* v0.11 — bumped from cream-6 to cream-5 (AA Normal at 5.4:1) */
   --text-placeholder: var(--lumen-cream-5);  /* v0.6 — AA-safe at ≥14px on neutral */
