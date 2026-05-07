@@ -95,7 +95,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="lg" pill glow trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.12.1 · Obsidian</Badge>
+            <Badge status="neutral" leadingDot>v0.12.2 · Obsidian</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>

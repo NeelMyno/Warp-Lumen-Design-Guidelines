@@ -261,9 +261,17 @@
      on operator pages (and AI when configured). Other intents and surfaces ship
      zero glow at all states. Honors `prefers-reduced-motion: reduce` (the
      transition is dropped; the glow stays steady at the rest value).
-     v0.11 — RGB re-anchored from lime (74, 222, 128) to spring green (0, 250, 138). */
+     v0.11 — RGB re-anchored from lime (74, 222, 128) to spring green (0, 250, 138).
+     v0.12.2 — bloom intensity dialed down. User screenshot 2026-05-06 of the
+     /library LoginCard "Send magic link" button on hover showed the layered
+     halo blooming ~40 px past the button on all sides — read as "little too
+     much." Hover-tier alpha cut from a40 → a28, blur 24 → 20, and the wider
+     mid-glow rolls in equally softer. Rest and active are unchanged on
+     purpose: the user pointed at hover specifically, and rest's a25 carries
+     the brand "lit" identity that ADR 0018 commits to (the canvas earns the
+     accent's halo presence, you don't get to remove it). */
   --shadow-button-glow-rest:   0 0 16px var(--lumen-lime-a25);  /* v0.11.13 — was rgba(0,250,138,0.25). */
-  --shadow-button-glow-hover:  0 0 24px var(--lumen-lime-a40);  /* v0.11.13 — was rgba(0,250,138,0.40). */
+  --shadow-button-glow-hover:  0 0 20px var(--lumen-lime-a28);  /* v0.12.2 — was 0 0 24px a40. */
   --shadow-button-glow-active: 0 0 8px  var(--lumen-lime-a20);  /* v0.11.13 — was rgba(0,250,138,0.20). */
 
   /* ── v0.9 — AI-action shimmer border (idle, paused on hover) ─────────────── */
@@ -2898,19 +2906,28 @@ a { color: inherit; text-decoration: none; }
 /* (3) PRIMARY BUTTON HALO UPGRADE ---------------------------------------- */
 /* On hover, layer a wider, more diffuse spring-green halo over the standard
    button-glow ladder. This is the v0.11.6 "lit" moment — pure glow, no
-   bounce. Only on devices that can hover (skip on touch). */
+   bounce. Only on devices that can hover (skip on touch).
+   v0.12.2 — bloom intensity dialed down across all three primary-hover
+   layers. User screenshot 2026-05-06: standard primary "Send magic link"
+   on /library LoginCard hover bled ~40 px past the button. The middle
+   layer (v0.11.6's "lit" boost) drops a20 → a14 and blur 24 → 20. The wide
+   outer layer (the visual "bloom" edge) drops a10 → a08 and blur 48 → 32.
+   The CTA-glow variant (.lumen-glow-cta — hero landing CTAs only) is
+   trimmed in lockstep so the hierarchy between standard primary and hero
+   CTA stays intact: hero CTA still ~1.5× the standard primary in both
+   spread and density, just both quieter than v0.12.1. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .lumen-btn-primary:hover {
     box-shadow:
       var(--shadow-button-glow-hover),
-      0 0 24px var(--lumen-lime-a20),  /* v0.11.13 — was rgba(0,250,138,0.20). */
-      0 0 48px var(--lumen-lime-a10);  /* v0.11.13 — was rgba(0,250,138,0.10). */
+      0 0 20px var(--lumen-lime-a14),  /* v0.12.2 — was 0 0 24px a20. */
+      0 0 32px var(--lumen-lime-a08);  /* v0.12.2 — was 0 0 48px a10. */
   }
   .lumen-btn-primary.lumen-glow-cta:hover {
     box-shadow:
       var(--shadow-glow-accent-strong),
-      0 0 32px var(--lumen-lime-a28),  /* v0.11.13 — was rgba(0,250,138,0.28). */
-      0 0 64px var(--lumen-lime-a14);  /* v0.11.13 — was rgba(0,250,138,0.14). */
+      0 0 28px var(--lumen-lime-a18),  /* v0.12.2 — was 0 0 32px a28. */
+      0 0 48px var(--lumen-lime-a10);  /* v0.12.2 — was 0 0 64px a14. */
   }
 }
 
