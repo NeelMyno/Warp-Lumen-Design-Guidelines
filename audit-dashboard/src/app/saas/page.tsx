@@ -152,7 +152,7 @@ function TopBar() {
         </h1>
         <Badge status="accent" leadingDot size="md">Live</Badge>
         <span className="text-micro text-[color:var(--text-tertiary)] hidden md:inline">
-          Wednesday · May 6 · UTC
+          Thursday · May 7 · UTC
         </span>
       </div>
 

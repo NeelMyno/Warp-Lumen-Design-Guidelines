@@ -3,6 +3,7 @@ import { TabNav } from "./tab-nav";
 import { ThemeToggle } from "./theme-toggle";
 import { MoodSwitcher } from "./mood-switcher";
 import { CommandPaletteTrigger } from "./command-palette-trigger";
+import { LUMEN_VERSION } from "@/lib/version";
 
 /**
  * v0.4 shell — glass pill nav floats at the top of an obsidian canvas.
@@ -45,7 +46,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 Lumen
               </span>
               <span className="hidden sm:inline-flex items-center h-5 px-2 rounded-[var(--radius-full)] text-overline border border-[var(--border-accent)] text-[color:var(--text-accent)] normal-case transition-[box-shadow,background-color] duration-[var(--motion-fast)] group-hover:bg-[var(--surface-tint-accent)] group-hover:shadow-[var(--shadow-button-glow-rest)]">
-                v0.12.4
+                {LUMEN_VERSION}
               </span>
               {/* v0.11.6 — pulsing dot replaces the "System v0.11 live" caption.
                   The version is already on the pill; the dot is the only signal that needs to pulse. */}
@@ -88,7 +89,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             </span>
           </div>
           <div className="flex items-center gap-4 lumen-mono-cap">
-            <span>v0.12.4 · reference implementation</span>
+            <span>{LUMEN_VERSION} · reference implementation</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-[var(--border-strong)]" />
             <a className="lumen-link normal-case tracking-normal" href="https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines">
               github

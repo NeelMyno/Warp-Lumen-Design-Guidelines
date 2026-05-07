@@ -11,6 +11,7 @@ import { ProgressBar } from "@/components/primitives/progress";
 import {
   ArrowRight, Code, Plus, Box, Filter,
 } from "@/components/primitives/icon";
+import { LUMEN_VERSION } from "@/lib/version";
 
 export const metadata = { title: "Web Tool · Lumen" };
 
@@ -21,7 +22,7 @@ export default function ToolPage() {
         eyebrow="Single-purpose surface"
         title="Web Tool"
         description="Centered canvas, focused control panel, output result. The pattern for any calculator, simulator, or one-shot job."
-        meta={<Badge status="neutral">v0.12.4 · beta</Badge>}
+        meta={<Badge status="neutral">{LUMEN_VERSION} · beta</Badge>}
       />
 
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
@@ -34,7 +35,7 @@ export default function ToolPage() {
             <span className="text-heading-h6 text-[color:var(--text-primary)]">
               Quote Builder
             </span>
-            <Badge status="neutral" size="sm">v0.12.4</Badge>
+            <Badge status="neutral" size="sm">{LUMEN_VERSION}</Badge>
             <LiveDot label="Auto-quoting" />
           </div>
           <div className="flex items-center gap-[var(--space-1_5)]">
@@ -87,8 +88,8 @@ export default function ToolPage() {
               <div className="grid grid-cols-2 gap-3">
                 <Field label="Origin (ZIP or IATA)" defaultValue="LAX" mono />
                 <Field label="Destination" defaultValue="SFO" mono />
-                <Field label="Pickup date" defaultValue="2026-05-07" mono />
-                <Field label="Delivery date" defaultValue="2026-05-08" mono />
+                <Field label="Pickup date" defaultValue="2026-05-08" mono />
+                <Field label="Delivery date" defaultValue="2026-05-09" mono />
               </div>
             </Card>
 

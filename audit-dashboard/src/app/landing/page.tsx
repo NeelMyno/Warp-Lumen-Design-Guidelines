@@ -8,7 +8,8 @@ import { RateTicker } from "@/components/primitives/rate-ticker";
 import { Avatar } from "@/components/primitives/avatar";
 import { ScrollReveal } from "@/components/primitives/scroll-reveal";
 import { Dot } from "lucide-react";
-import { ArrowRight, Check, Truck, Box, MapPin, Code } from "@/components/primitives/icon";
+import { ArrowRight, Check, ChevronDown, Truck, Box, MapPin, Code } from "@/components/primitives/icon";
+import { LUMEN_VERSION_MAJOR_MINOR } from "@/lib/version";
 
 export const metadata = { title: "Marketing & Landing · Lumen" };
 
@@ -34,7 +35,7 @@ export default function LandingPage() {
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 lumen-mono-cap text-[color:var(--text-accent)]">
                 <span className="lumen-dot-pulse" aria-hidden />
-                <span>Now in private beta · Spring 2026 · system v0.12 live</span>
+                <span>Now in private beta · Spring 2026 · system {LUMEN_VERSION_MAJOR_MINOR} live</span>
               </div>
             </ScrollReveal>
 
@@ -213,9 +214,17 @@ export default function LandingPage() {
                 { q: "How long does setup take?", a: "There is no setup. You log in, get rates, book, track." },
               ].map((item) => (
                 <details key={item.q} className="group p-5">
-                  <summary className="flex items-center justify-between cursor-pointer text-label-lg">
+                  {/* v0.12.5 — accordion summary updated to match the system's
+                      iconography rule: lucide ChevronDown (1.5px stroke, 24px
+                      grid, rounded ends) replaces the prior Unicode ▾ glyph,
+                      which read as a foreign typographic mark next to the
+                      lucide chevrons used in commerce + tool. The native
+                      <details> disclosure marker is suppressed via list-none
+                      + the ::-webkit-details-marker CSS in globals.css so
+                      the chevron is the sole disclosure cue on every browser. */}
+                  <summary className="lumen-summary flex items-center justify-between cursor-pointer text-label-lg list-none">
                     <span>{item.q}</span>
-                    <span className="text-[color:var(--text-tertiary)] group-open:rotate-180 transition-transform duration-[var(--motion-base)]">▾</span>
+                    <ChevronDown size={14} className="text-[color:var(--text-tertiary)] group-open:rotate-180 transition-transform duration-[var(--motion-base)] shrink-0" />
                   </summary>
                   <p className="mt-3 text-body-md text-[color:var(--text-secondary)]">{item.a}</p>
                 </details>

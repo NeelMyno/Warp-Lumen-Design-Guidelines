@@ -28,6 +28,7 @@ import { Search, ArrowRight, Moon, Sun, ExternalLink, Hash, FileText, Sparkles }
 
 import { TABS } from "@/lib/tabs";
 import { cn } from "@/lib/utils";
+import { LUMEN_VERSION } from "@/lib/version";
 import {
   Dialog,
   DialogContent,
@@ -390,7 +391,7 @@ export function CommandPalette({
           </div>
           <div className="inline-flex items-center gap-1">
             <Sparkles size={11} aria-hidden style={{ color: "var(--text-accent)" }} />
-            <span>Lumen v0.11.13</span>
+            <span>Lumen {LUMEN_VERSION}</span>
           </div>
         </div>
       </DialogContent>

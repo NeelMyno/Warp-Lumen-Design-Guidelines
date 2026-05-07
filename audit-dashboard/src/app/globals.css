@@ -2399,6 +2399,28 @@ a { color: inherit; text-decoration: none; }
   padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3.5rem);
 }
 
+/* v0.12.5 — `<summary>` marker contract. Native <details>/<summary> renders a
+   browser-default disclosure triangle (▶/▼ in webkit, ▾/▸ in firefox) BEFORE
+   the summary's content. When you compose your own ChevronDown icon at the
+   END of the summary (the canonical Lumen accordion pattern), the native
+   marker doubles up — two arrows competing for affordance, one of them off
+   the brand stroke ladder.
+
+   Suppress the native marker in BOTH engines: `list-style: none` covers
+   modern Chrome/Safari/Firefox via the standard ::marker; ::-webkit-details-
+   marker is the pre-2022 webkit fallback. The Tailwind `list-none` utility
+   on the summary element opts each accordion in.
+
+   Apply to: any <summary class="lumen-summary"> or any <summary class="list-none">. */
+.lumen-summary,
+summary.list-none {
+  list-style: none;
+}
+.lumen-summary::-webkit-details-marker,
+summary.list-none::-webkit-details-marker {
+  display: none;
+}
+
 /* v0.4 — glass surface. backdrop-filter for the floating shells (top nav,
    popover, sheet, hero device preview). Always paired with hairline border. */
 .lumen-glass {

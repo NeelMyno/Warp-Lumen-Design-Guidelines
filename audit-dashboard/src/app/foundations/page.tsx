@@ -1,4 +1,5 @@
 import { Section, SubSection } from "@/components/section";
+import { LUMEN_VERSION, LUMEN_VERSION_MAJOR_MINOR_UPPER } from "@/lib/version";
 import { Swatch, SwatchGrid, SwatchRamp } from "@/components/primitives/swatch";
 import { Stat, StatGrid } from "@/components/primitives/stat";
 import { LiveDot } from "@/components/primitives/live-dot";
@@ -95,7 +96,7 @@ export default function FoundationsPage() {
             <Button intent="primary" size="lg" pill glow trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
-            <Badge status="neutral" leadingDot>v0.12.4 · Obsidian</Badge>
+            <Badge status="neutral" leadingDot>{LUMEN_VERSION} · Obsidian</Badge>
             <Badge status="neutral">8-point soft grid</Badge>
             <Badge status="neutral">WCAG 2.2 AA</Badge>
           </div>
@@ -465,7 +466,7 @@ export default function FoundationsPage() {
               style={{ minHeight: "260px" }}
             >
               <div className="relative h-full p-12 flex flex-col items-center justify-center gap-4 text-center">
-                <span className="lumen-mono-cap text-[color:var(--text-accent)]">SYSTEM V0.11 · LIVE</span>
+                <span className="lumen-mono-cap text-[color:var(--text-accent)]">SYSTEM {LUMEN_VERSION_MAJOR_MINOR_UPPER} · LIVE</span>
                 <h3 className="text-display-md md:text-display-lg">
                   Calm and lit from within.
                 </h3>
@@ -576,7 +577,7 @@ export default function FoundationsPage() {
           <SubSection title="Mono uppercase tracked labels" description="Every system metadata line uses .lumen-mono-cap — Satoshi at +0.16em tracking, uppercase, calt off, tnum on. Reads as 'instrument-panel signal' without a second typeface.">
             <Card padding="lg">
               <div className="flex flex-col gap-3 lumen-mono-cap text-[color:var(--text-tertiary)]">
-                <div>SYSTEM V0.11 · LIVE</div>
+                <div>SYSTEM {LUMEN_VERSION_MAJOR_MINOR_UPPER} · LIVE</div>
                 <div className="text-[color:var(--text-accent)]">@ DIGITAL HQ · GLOBAL ACCESS</div>
                 <div>HOURS · MINS · SECS</div>
                 <div>AI-POWERED INTERFACE GENERATOR</div>
