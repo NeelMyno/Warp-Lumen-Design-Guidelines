@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, ReactNode, KeyboardEvent } from "react";
 import { Calendar } from "lucide-react";
-import { Search as SearchIcon, ChevronDown, Plus, X, Minus } from "./icon";
+import { Search as SearchIcon, ChevronDown, ChevronLeft, ChevronRight, Plus, X, Minus } from "./icon";
 
 import { cn } from "@/lib/utils";
 import { Input as ShadcnInput } from "@/components/ui/input";
@@ -652,9 +652,19 @@ export function DatePickerCalendar() {
     <div className="inline-block rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] p-3 w-[260px]">
       <div className="flex items-center justify-between mb-2 px-1">
         <span className="text-body-sm font-semibold tracking-tight">May 2026</span>
+        {/* v0.12.1 — month-nav glyphs swapped from literal `‹` / `›` to the
+            ChevronLeft / ChevronRight icon components, matching the v0.11.15
+            Pagination cleanup. The literal arrow chars optical-shrink in
+            Satoshi to ~6 px wide and read as a thin tail rather than an
+            affordance; the icon components compose at 12 px stroke-1.5,
+            consistent with the rest of the navigation chrome. */}
         <div className="flex gap-1 text-[color:var(--text-tertiary)]">
-          <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Previous month">‹</button>
-          <button className="h-7 w-7 rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Next month">›</button>
+          <button className="h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Previous month">
+            <ChevronLeft size={12} />
+          </button>
+          <button className="h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-sm)] hover:bg-[var(--surface-sunken)]" aria-label="Next month">
+            <ChevronRight size={12} />
+          </button>
         </div>
       </div>
       <div className="grid grid-cols-7 gap-y-1 mb-2">

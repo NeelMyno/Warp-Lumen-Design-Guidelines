@@ -30,6 +30,22 @@ import { Card as ShadcnCard } from "@/components/ui/card";
  * v4's content scanner pattern-matches arbitrary variants from comments AND
  * code; a `{slot}` literal here gets compiled into invalid CSS and breaks
  * the build (`Unexpected token CurlyBracketBlock` at globals.css:4130).
+ *
+ * v0.12.1 — CORNER-CLIP CONTRACT.
+ * Card with padding="none" hosts edge-touching children (table headers, table
+ * footers, pagination rows, list rows). When such a child paints its own
+ * background (e.g. `bg-[var(--surface-raised)]` on a pagination footer) and
+ * has square corners, its rectangle paints PAST the Card's curved interior
+ * and pokes a visible square nub out from behind the rounded border. User
+ * screenshot 2026-05-06: pagination "Next" button on /saas showed the
+ * footer's bg-raised square corner stair-stepping past the Card's radius-xl
+ * curve at the bottom-right.
+ *
+ * Fix: padding="none" gets `overflow-hidden`, which clips children to the
+ * card's rounded shape. Other padding tiers don't need it — they inset
+ * children with `p-N`, so children float in the middle and never touch the
+ * curved edge. Popovers, dropdowns, and tooltips are Radix-portaled out of
+ * the Card subtree, so the clip doesn't suppress them.
  */
 
 type Padding = "none" | "xs" | "sm" | "md" | "lg" | "xl" | "hero";
@@ -38,7 +54,9 @@ type Elevation = "flat" | "card" | "lifted" | "popover" | "glass" | "glow";
 const SLOT_PX_ZERO = "[&_[data-slot=card-header]]:px-0 [&_[data-slot=card-content]]:px-0 [&_[data-slot=card-footer]]:px-0";
 
 const PAD: Record<Padding, string> = {
-  none: "py-0 [&>*]:px-0",
+  /* v0.12.1 — overflow-hidden clips edge-touching children to the rounded
+     border. See CORNER-CLIP CONTRACT above. */
+  none: "overflow-hidden py-0 [&>*]:px-0",
   xs:   `p-2 ${SLOT_PX_ZERO}`,
   sm:   `p-3 ${SLOT_PX_ZERO}`,
   md:   `p-4 ${SLOT_PX_ZERO}`,

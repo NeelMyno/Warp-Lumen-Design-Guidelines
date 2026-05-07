@@ -96,7 +96,7 @@ export default function CommercePage() {
           <div className="lumen-eyebrow mb-6">You may also like</div>
           <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
             {RELATED.map((p) => (
-              <Card key={p.name} padding="none" className="overflow-hidden hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer group">
+              <Card key={p.name} padding="none" className="hover:shadow-[var(--shadow-md)] transition-shadow cursor-pointer group">
                 <div
                   className="aspect-[4/5] relative"
                   style={{ background: p.bgA }}
