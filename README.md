@@ -13,11 +13,14 @@ First impression:   Engineered — 50ms halo contract, three-question hero, rest
 Micro-interactions: Peak-end rule — hover, focus, validation, success — short, decelerating
 Glow ladder:        Primary CTA rest 16px a25 → hover 20px a28 → active 8px a20 (v0.12.2 hover dialed down)
 Card padding=none:  Auto-clips edge-touching children to the rounded corner (v0.12.1 corner-clip contract)
+Floating UI:        Combobox / Popover / Dropdown / Tooltip portal to document.body (v0.12.4 — escapes ancestor overflow)
+Focus rings:        Outline + box-shadow halo, never box-shadow alone (v0.12.4 — outline immune to ancestor overflow:hidden)
+Position math:      Inline style.left / style.transform, never Tailwind translate-x-[Npx] (v0.12.3 — scanner fragility retired)
 Density:            Marketing breathes (96 px hero rhythm) · Operator stays dense (24 px section rhythm)
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
-LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors
-Status:             v0.12.2 · primary-button hover bloom dialed down · 7 principles · 22 ADRs
+LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 12 hard rules
+Status:             v0.12.4 · three primitive-layer fixes (InlineTabs corner-clip + Combobox portal + focus outline backstop) · 7 principles · 22 ADRs
 ```
 
 ## What this repo is
@@ -46,7 +49,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.12.2
+├── VERSION                         ← 0.12.4
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -151,6 +154,19 @@ Use the mood switcher (top right) to compare the four moods (Quiet Industrial re
 
 ## What's new — v0.12.x
 
+### v0.12.4 (2026-05-06) — Three primitive-layer fixes (cascade-fix at the right architectural depth)
+User-reported screenshots caught three structural UI bugs in the same session: (1) `/foundations` "Inline tabs · pill" — the active "Day" pill's `bg-raised` square corners poked past the parent `rounded-lg` track at the bottom-left, the same v0.12.1-style corner-clip pattern as Card but at smaller-control scale; (2) `/library` Combobox autocomplete — the dropdown rendered as inline `<div absolute>` and was clipped by the Showcase demo frame's `overflow: hidden` (the same trap applies inside `<Card padding="none">` per ADR 0021); (3) Pagination focus rings inside `<Card padding="none">` were partially clipped by the v0.12.1 `overflow-hidden` corner-clip — the global `:focus-visible` rule used `box-shadow` only, which paints into the element's own painting context and respects ancestor overflow. v0.12.4 fixes all three at the primitive layer:
+- **InlineTabs pill** — `TabsList` for `variant="pill"` gains `overflow-hidden`. Active pill's smaller-radius corners clip cleanly to the parent's larger curve.
+- **Combobox** dropdown migrates from inline `<div absolute>` to `createPortal(<div fixed>, document.body)` with `getBoundingClientRect()` re-tracked on scroll (capture phase) + resize. Escapes every ancestor's overflow context — works inside `Showcase`, inside `<Card padding="none">`, anywhere.
+- **Global `:focus-visible`** retunes from box-shadow-only to `outline 2px solid lime-a64; outline-offset: 1px;` PLUS the existing soft box-shadow glow. Outline is painted outside the layout box — structurally immune to ancestor overflow. The `.lumen-btn-primary:focus-visible` dual-ring is unaffected (declares `outline: none` and wins via specificity per ADR 0016).
+
+The fix doesn't ship a new ADR — these are consequential follow-ups to ADRs 0007 + 0015/0016 + 0021 that close the final trade-offs ADR 0021 left open. Brand canvas (v0.12.0), Card corner-clip (v0.12.1), hover-glow ladder (v0.12.2), and the single-accent rule are all preserved verbatim.
+
+### v0.12.3 (2026-05-06) — PricingToggle thumb-escape · Tailwind v4 arbitrary-translate fragility retired
+A user-reported screenshot of the `/library` PricingToggle ("Monthly | toggle | Yearly −2 mo") caught the toggle thumb escaping the track on the right side and overlapping the "Y" of "Yearly". DOM inspection confirmed two layered bugs: Tailwind v4's content scanner intermittently drops the `translate-x-[22px]` arbitrary class (the same scanner fragility ADR 0015 / 0016 retired for the Button primitive — `getComputedStyle(thumb).transform` reported `none` despite the className carrying the utility); and the `<button>` element's browser-default `text-align: center` produced a non-zero static-position `left` for the absolute-positioned thumb, which compounded with the (sometimes-firing) translate to push the thumb past the inner-right edge.
+
+v0.12.3 retires the Tailwind arbitrary-translate dependency on both remaining callers (PricingToggle + SwipeAction) by migrating position math to inline `style.left` + a native `transition: left 120ms cubic-bezier(0.2, 0, 0, 1)`. Inline style is scanner-independent; explicit `left` overrides the static-position fallback. Cascade-fix to ADR 0015/0016 in toggle/swipe territory; no new ADR (the pattern is exactly the one ADRs 0015/0016 already established).
+
 ### v0.12.2 (2026-05-06) — Primary-button hover bloom dialed down
 User screenshot caught the `/library` LoginCard "Send magic link" button blooming ~40 px past its edge on hover — read as "little too much." The bloom came from a three-layer halo recipe stacked on `.lumen-btn-primary:hover` that was system-dialed-up, not button-specific. Token-level fix:
 - `--shadow-button-glow-hover` retuned `0 0 24px lime-a40` → `0 0 20px lime-a28`. Cascades into both base `:hover` and the first layer of the layered halo.
@@ -173,16 +189,17 @@ User feedback flagged the v0.11 Obsidian Mint canvas (faint G+2 channel underton
 
 Cascade hits 11 brand-ramp primitive token values + the runtime `--lumen-obsidian-N` ramp + cream/ink/void alpha anchors + 30+ on-screen badge/footer copy updates (all describing the mood). 16/16 contrast pairs continue to pass; the contrast-checker pair list itself was extended from 4 dark-mode pairs to 7. See [ADR 0020](./_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md) (amends [ADR 0018](./_meta/decisions/0018-premium-psychology-recolor.md)).
 
-## Open questions (post-v0.12.2)
+## Open questions (post-v0.12.4)
 
 1. **Mood lock-in.** Obsidian (neutral, `#0D0D0D`) as system default — confirmed v0.12.0.
 2. **Accent calibration.** `#00FA8A` is the user-fixed brand value. AAA contrast verified. Locked.
-3. **Component coverage.** v0.12.0 retuned canvas; v0.12.1 fixed corner-clip; v0.12.2 retuned hover bloom. Visual regression sweep against the full audit dashboard at light + dark + both moods remains.
+3. **Component coverage.** v0.12.0 retuned canvas; v0.12.1 fixed corner-clip; v0.12.2 retuned hover bloom; v0.12.3 retired Tailwind v4 arbitrary-translate fragility on toggle/swipe primitives; v0.12.4 fixed three primitive-layer bugs at the structural depth (corner-clip pattern extension, floating-UI portal, focus-ring outline backstop). Visual regression sweep against the full audit dashboard at light + dark + both modes remains.
 4. **Photography policy.** No photography at all (current default), or accept documentary photography for marketing? — open.
 5. **E-commerce template direction.** Aspirational (future Warp merch shop) or for client work? — open.
 6. **Mobile mood.** Obsidian, or Premium Glass for the mobile operator app? — open.
+7. **ADR-less patches as architectural pattern.** v0.12.3 + v0.12.4 explicitly ship without new ADRs because the underlying patterns (defensive primitives over Tailwind scanner fragility per ADRs 0015/0016, corner-clip contract per ADR 0021, two-file component contract per ADR 0007) are already established. The CHANGELOG entries carry the architectural notes those would-be ADRs would have held. Question: should the ADR floor extend to "every cascade-fix" (heavier governance, easier discovery) or stay at "every new architectural decision" (current — leaner, requires reading CHANGELOG for full picture)? Punted — the current pattern is working.
 
-See [ADR 0018](./_meta/decisions/0018-premium-psychology-recolor.md) (premium-psychology recolor, amended by 0020), [ADR 0020](./_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md) (obsidian recolor — mint retired), [ADR 0021](./_meta/decisions/0021-card-corner-clip-contract-v0121.md) (Card corner-clip contract), [ADR 0022](./_meta/decisions/0022-hover-glow-ladder-retune-v0122.md) (hover-glow ladder retune), and [`/research/lumen-brief.md`](./research/lumen-brief.md) for older open questions.
+See [ADR 0018](./_meta/decisions/0018-premium-psychology-recolor.md) (premium-psychology recolor, amended by 0020), [ADR 0020](./_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md) (obsidian recolor — mint retired), [ADR 0021](./_meta/decisions/0021-card-corner-clip-contract-v0121.md) (Card corner-clip contract), [ADR 0022](./_meta/decisions/0022-hover-glow-ladder-retune-v0122.md) (hover-glow ladder retune), [CHANGELOG v0.12.3 + v0.12.4 entries](./CHANGELOG.md) (the structural fixes that don't have their own ADRs), and [`/research/lumen-brief.md`](./research/lumen-brief.md) for older open questions.
 
 ## License
 

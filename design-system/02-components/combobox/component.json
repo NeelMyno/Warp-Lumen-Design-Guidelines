@@ -1,10 +1,10 @@
 {
   "$schema": "../_schema/component.schema.json",
   "name": "Combobox",
-  "version": "0.7.0",
+  "version": "0.12.4",
   "status": "beta",
   "deprecated": false,
-  "summary": "Searchable single-choice dropdown. Field-shell trigger + portaled listbox filtered by the typed query. Use when Select's static list would exceed ~12 options.",
+  "summary": "Searchable single-choice dropdown. Field-shell trigger + portaled listbox filtered by the typed query. Use when Select's static list would exceed ~12 options. v0.12.4 — listbox renders via createPortal(<div fixed>, document.body) with getBoundingClientRect tracking on scroll (capture phase) + resize, escaping every ancestor's overflow context (Showcase frames, <Card padding='none'>, glass surfaces, scroll containers).",
   "props": {
     "value":       { "type": "string", "optional": true, "description": "Controlled selected value." },
     "onChange":    { "type": "handler", "optional": true, "description": "Fires when an option is picked." },
@@ -58,9 +58,10 @@
     ],
     "rules": [
       "role=combobox on the input; aria-expanded, aria-autocomplete=list, aria-controls all wired.",
-      "Listbox portals to <body> so it escapes overflow:hidden ancestors (dialogs, tables).",
+      "Listbox portals to <body> via createPortal(<div fixed>, document.body) with getBoundingClientRect tracking (v0.12.4) so it escapes overflow:hidden ancestors (dialogs, tables, Showcase frames, <Card padding='none'>, glass surfaces, scroll containers).",
       "Highlighted row carries aria-selected=true for screen-reader announcement.",
-      "Always paired with a visible label via Field, or with aria-label."
+      "Always paired with a visible label via Field, or with aria-label.",
+      "Outside-click dismiss exempts the portaled list (clicks on options must reach the option handler, not trigger close-before-select)."
     ]
   },
   "rules": {
@@ -68,17 +69,21 @@
       "Use Combobox for searchable / dynamic / large option lists.",
       "Sort matches prefix-first, then substring.",
       "Cap visible rows at 8 with internal scroll past that.",
-      "Render the listbox in a portal so it escapes overflow:hidden ancestors."
+      "Render the listbox via createPortal(<div fixed>, document.body) with getBoundingClientRect tracking on scroll (capture phase) + resize (v0.12.4 contract).",
+      "Exempt the portaled list from the outside-click dismiss handler — option clicks must reach the handler, not close-before-select."
     ],
     "dont": [
       "Don't use Combobox for short stable lists — Select is denser and faster to scan.",
       "Don't auto-select on blur unless the typed value is an exact match.",
-      "Don't disable Enter when no option matches — let the user submit and surface a 'no matches' hint."
+      "Don't disable Enter when no option matches — let the user submit and surface a 'no matches' hint.",
+      "Don't render the dropdown as an inline <div absolute> anchored to the trigger's relative wrapper — Tailwind absolute resolves against the nearest relative ancestor's painting box, which is clipped by ancestor overflow:hidden. Use the portal pattern.",
+      "Don't anchor the portaled list with position:absolute — position:fixed is what makes the coordinates viewport-relative (matches getBoundingClientRect output). position:absolute would re-introduce the ancestor-context dependency that the portal was designed to escape."
     ]
   },
   "examples": { "web-react": "./examples/web-react.tsx" },
   "related": ["Select", "Field", "Form", "Input"],
   "changelog": [
+    { "version": "0.12.4", "type": "Changed", "note": "Dropdown listbox migrates from inline <div absolute> (anchored to the trigger's relative wrapper) to createPortal(<div style={{ position: 'fixed', top, left, width, zIndex }} />, document.body). Position re-tracked on scroll (capture phase) + resize via getBoundingClientRect. Outside-click dismiss exempts the portaled list (so option clicks don't close-before-select). Closes the user-reported /library Showcase-frame clipping bug + structurally protects the Combobox inside <Card padding='none'>, glass surfaces, scroll containers, and any nested overflow-clipped ancestor. Same pattern Radix Popover / Tooltip / DropdownMenu use throughout the rest of the system; v0.12.4 brought the hand-rolled Combobox in line. No new ADR — the pattern is exactly the floating-UI portal contract the rest of the system already follows. See CHANGELOG v0.12.4 entry." },
     { "version": "0.7.0", "type": "Added", "note": "Initial release. Promotes the v0.6 audit-dashboard primitive in inputs.tsx to a dedicated contract. Reuses select.listbox.* tokens; adds combobox-only deltas (caret rotation, item highlight states)." }
   ]
 }

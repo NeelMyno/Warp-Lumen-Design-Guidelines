@@ -2,19 +2,19 @@
 name: Card
 type: component
 status: stable
-version: 0.12.1
+version: 0.12.4
 since: 0.1.0
 deprecated: false
 platforms: [web-react, react-native, ios-native, android-native, shopify-liquid]
 a11y_level: WCAG-2.2-AA
-related: [CardHeader, Section, Surface]
+related: [CardHeader, Section, Surface, TabsList (InlineTabs pill)]
 spec: ./component.json
 last_updated: 2026-05-06
 ---
 
 # Card
 
-> A bounded surface with a hairline border and optional subtle shadow. Used for grouping related content. Default state uses border-only; reach for shadow only when the card is genuinely lifting (hover on interactive cards, popovers). v0.12.1 introduced the corner-clip contract — `padding="none"` automatically clips edge-touching children to the rounded shape.
+> A bounded surface with a hairline border and optional subtle shadow. Used for grouping related content. Default state uses border-only; reach for shadow only when the card is genuinely lifting (hover on interactive cards, popovers). v0.12.1 introduced the corner-clip contract — `padding="none"` automatically clips edge-touching children to the rounded shape. v0.12.4 closes the trade-off the corner-clip introduced for descendant focus rings — the global `:focus-visible` rule now pairs `outline` (structurally immune to ancestor `overflow: hidden`) with the existing soft `box-shadow` halo, so focus rings on Pagination buttons and other interactive descendants inside `<Card padding="none">` stay visible.
 
 ## When to use
 - Grouping a related set of fields, stats, list items.
@@ -69,15 +69,19 @@ When `padding="none"`, the Card composes `overflow-hidden` so edge-touching chil
 
 Other padding tiers (`xs / sm / md / lg / xl / hero`) **do not** compose `overflow-hidden`. Their `p-N` insets float children off the curved edge entirely, so there's no rendering reason to clip — and clipping unnecessarily would suppress focus rings or hover halos on interactive children that legitimately want to escape the card padding rect. The clip is scoped narrowly to the only tier where children structurally meet the curved card edge.
 
-**Radix-portaled popovers, dropdowns, and tooltips render outside the Card subtree** (Radix uses `document.body` portals by default). They are unaffected by the clip — a `<DropdownMenu />` inside a `<Card padding="none">` still escapes the card.
+**Radix-portaled popovers, dropdowns, and tooltips render outside the Card subtree** (Radix uses `document.body` portals by default). They are unaffected by the clip — a `<DropdownMenu />` inside a `<Card padding="none">` still escapes the card. v0.12.4 brought the hand-rolled Combobox primitive in line with this: its dropdown migrated from inline `<div absolute>` to `createPortal(<div fixed>, document.body)` with `getBoundingClientRect()` tracking, so a `<Combobox />` inside `<Card padding="none">` now also escapes the clip. **Rule for any new floating UI:** portal to `document.body` from day one — never anchor a dropdown via `position: absolute` inside the trigger's DOM subtree.
 
-See [ADR 0021](../../../_meta/decisions/0021-card-corner-clip-contract-v0121.md) for the full rationale + the user screenshot that motivated it.
+**Focus rings on interactive descendants stay visible (v0.12.4 — closes the v0.12.1 trade-off).** Pre-v0.12.4 the global `:focus-visible` rule used `box-shadow: var(--shadow-focus)` only. Box-shadow paints into the element's own painting context which DOES respect ancestor `overflow: hidden` — so focus rings on Pagination buttons (or any other interactive descendant) inside `<Card padding="none">` were partially clipped, producing visible "underline + vertical bar" fragments at the card's bottom edge. v0.12.4 added `outline: 2px solid var(--lumen-lime-a64); outline-offset: 1px;` to the global rule, with the existing box-shadow halo retained as a soft outer glow. Outline is painted outside the layout box and is structurally immune to ancestor overflow. Modern browsers (Chrome 94+, Firefox 88+, Safari 16.4+) follow `border-radius` for outline when `outline-style` is not `auto`. The `.lumen-btn-primary:focus-visible` dual-ring is unaffected — declares `outline: none` and wins via specificity. **Net effect:** the corner-clip contract is now strictly net-positive for the system — the visible artifacts go away, the trapped focus rings + hand-rolled popovers are resolved, the contract holds.
+
+**Sibling pattern at smaller-control scale (v0.12.4):** the InlineTabs `pill` variant `TabsList` composes `overflow-hidden` for the same reason — the active tab's `bg-raised` square corners (smaller `radius-md`) would otherwise poke past the parent's `radius-lg` curve at the bottom-left. The contract generalizes: any rounded container hosting children with their own backgrounds and smaller-radius corners needs `overflow-hidden` on the parent. The contract is "child clips to parent's rounded shape," not "child matches parent's radius."
+
+See [ADR 0021](../../../_meta/decisions/0021-card-corner-clip-contract-v0121.md) for the full rationale + the user screenshot that motivated it. See [CHANGELOG v0.12.4 entry](../../../CHANGELOG.md) for the three primitive-layer fixes that closed the v0.12.1 trade-offs.
 
 ## Accessibility
 - Non-interactive cards do not receive a `role`.
 - Interactive cards render as `<button>` if they trigger an action, or `<a>` if they navigate. Never a `<div>` with `onClick`.
 - Selection state announces via `aria-pressed` (button) or `aria-selected` (in a listbox).
-- The corner-clip contract does not affect a11y — focus rings on interactive children inside `padding="none"` cards are intentionally rare (the children are typically full-width header/footer rows, not interactive surfaces). When they exist, they're either Radix-portaled (popovers/dropdowns) or routed through fixed-radius children that don't bleed past the card edge.
+- The corner-clip contract does not affect a11y. v0.12.4 closed the trade-off where the corner-clip's `overflow: hidden` partially clipped descendant `box-shadow` focus rings — the global `:focus-visible` rule now pairs `outline 2px solid lime-a64; outline-offset: 1px;` (structurally immune to ancestor overflow) with the existing soft box-shadow halo. Focus rings on Pagination buttons, inline links, and any other interactive descendants inside `<Card padding="none">` stay visible. The `.lumen-btn-primary:focus-visible` dual-ring is unaffected — declares `outline: none` and wins via specificity per ADR 0016.
 
 ## Do
 - Default to no shadow, hairline border only (`elevation="card"`, the default).
@@ -97,6 +101,7 @@ See [ADR 0021](../../../_meta/decisions/0021-card-corner-clip-contract-v0121.md)
 - [Web React](./examples/primary.tsx)
 
 ## Changelog
+- **0.12.4** — The corner-clip contract is now strictly net-positive for the system. The two trade-offs v0.12.1 left open both close in v0.12.4: (a) hand-rolled non-Radix popovers (Combobox dropdown) inside `<Card padding="none">` were clipped by the `overflow: hidden` — fixed by migrating Combobox to `createPortal(<div fixed>, document.body)` with `getBoundingClientRect()` tracking, so the dropdown escapes the card subtree exactly like Radix-portaled chrome already does; (b) `box-shadow`-based focus rings on interactive descendants (Pagination buttons) inside `<Card padding="none">` were partially clipped — fixed by adding `outline: 2px solid var(--lumen-lime-a64); outline-offset: 1px;` to the global `:focus-visible` rule on top of the existing soft box-shadow halo. Outline paints outside the layout box and is structurally immune to ancestor overflow. The `.lumen-btn-primary:focus-visible` dual-ring is unaffected (declares `outline: none` and wins via specificity per ADR 0016). No new ADR — these are consequential follow-ups to ADR 0021. See [CHANGELOG v0.12.4 entry](../../../CHANGELOG.md).
 - **0.12.1** — Added the corner-clip contract: `padding="none"` now composes `overflow-hidden` so edge-touching children are clipped to the rounded shape. User screenshot 2026-05-06 of `/saas` Pagination "Next" button caught the artifact (square nub of pagination footer poking past the rounded card corner). Other padding tiers unchanged. See ADR 0021.
 - **0.10.1** — Alignment contract. The shadcn `ui/card.tsx` ships its slots (CardHeader, CardContent, CardFooter) with their own `px-6`. Pre-v0.10.1 the Lumen wrapper added `[&_[data-slot=card-SLOT]]:px-N` in lockstep with the Card's outer `p-N`, so descendant-variant CSS specificity beat the inner slot's `px-0` and slot content sat inset by `p-N + px-N` while bare-text siblings sat at only `p-N` — visible as a 24-px misaligned column. Fix: outer Card owns inline padding via `p-N`; slots are zeroed via the SLOT_PX_ZERO triple. Slots and bare children both inset to the same `x = p-N`.
 - **0.1.0** — Initial release.
