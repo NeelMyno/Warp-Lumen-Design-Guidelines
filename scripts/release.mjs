@@ -1,5 +1,14 @@
 #!/usr/bin/env node
-// Bump VERSION, prepend CHANGELOG, run build, validate, registry.
+// Bump VERSION + audit-dashboard/src/lib/version.ts (the user-facing constant
+// the runtime UI reads), prepend CHANGELOG, run build, validate, registry.
+//
+// v0.12.5 — added the audit-dashboard/src/lib/version.ts bump. The runtime
+// UI reads its version label from that constant (LUMEN_VERSION,
+// LUMEN_VERSION_MAJOR_MINOR, LUMEN_VERSION_MAJOR_MINOR_UPPER); without
+// keeping it in lockstep with VERSION, header pills / footer lines / palette
+// footer / brand-voice samples drift behind the release tag. The v0.11.13 →
+// v0.12.4 audit caught this exact drift in the command palette footer.
+// Keep all four bump sites in lockstep here.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { execSync } from "node:child_process";
@@ -22,6 +31,23 @@ console.log(`Bumping ${current} → ${next}`);
 
 await writeFile(versionPath, next + "\n");
 
+// v0.12.5 — also bump the runtime constant the audit dashboard renders.
+// The constant exports drive every user-facing version label in the deployed
+// site — header pill, footer line, palette footer, brand-voice samples,
+// tool / library / foundations badges. Pre-v0.12.5 these were hardcoded
+// per-file and drifted independently (the v0.11.13 → v0.12.4 audit found
+// the palette footer three minor versions stale). v0.12.5 routed every
+// consumer through the constants in audit-dashboard/src/lib/version.ts;
+// this script keeps them in lockstep with the root VERSION file.
+const runtimeVersionPath = join(ROOT, "audit-dashboard/src/lib/version.ts");
+const runtimeFile = await readFile(runtimeVersionPath, "utf8");
+const [nextMaj, nextMin] = next.split(".").map(Number);
+const updatedRuntime = runtimeFile
+  .replace(/export const LUMEN_VERSION = "v[0-9.]+" as const;/, `export const LUMEN_VERSION = "v${next}" as const;`)
+  .replace(/export const LUMEN_VERSION_MAJOR_MINOR = "v[0-9.]+" as const;/, `export const LUMEN_VERSION_MAJOR_MINOR = "v${nextMaj}.${nextMin}" as const;`)
+  .replace(/export const LUMEN_VERSION_MAJOR_MINOR_UPPER = "V[0-9.]+" as const;/, `export const LUMEN_VERSION_MAJOR_MINOR_UPPER = "V${nextMaj}.${nextMin}" as const;`);
+await writeFile(runtimeVersionPath, updatedRuntime);
+
 const changelogPath = join(ROOT, "CHANGELOG.md");
 const changelog = await readFile(changelogPath, "utf8");
 const today = new Date().toISOString().slice(0, 10);
@@ -39,4 +65,7 @@ execSync("pnpm build && pnpm validate && pnpm registry", {
 });
 
 console.log(`\n✓ Released ${next}`);
+console.log("  - VERSION bumped");
+console.log("  - audit-dashboard/src/lib/version.ts bumped (LUMEN_VERSION + MAJOR_MINOR variants)");
+console.log("  - CHANGELOG entry prepended");
 console.log("Next: review CHANGELOG.md, commit, tag, push.");

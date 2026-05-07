@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.12.4 · 2026-05-06.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.12.5 · 2026-05-07.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -48,7 +48,7 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.12.4 — Premium Psychology · Obsidian (mint retired) · primitive-layer cascade fixes
+Lumen v0.12.5 — Premium Psychology · Obsidian (mint retired) · live-audit fix pack on top of the v0.12.x primitive cascade
 ─────────────────────────────────────────────────────────────────────────
 Brand
   Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
@@ -102,6 +102,10 @@ Defensive primitive contracts (v0.12.x — encode these when generating new code
   Floating UI      Combobox / Popover / Dropdown / Tooltip / Calendar portal to document.body via createPortal + position:fixed (v0.12.4)
   Focus rings      outline 2px lime-a64 + offset 1px PLUS soft box-shadow halo, never box-shadow alone (v0.12.4)
   Position math    Inline style.left / style.transform with native transition; never Tailwind translate-x-[Npx] (v0.12.3 — ADRs 0015/0016 cascade)
+  Version SSoT     Every user-facing version label imports from @/lib/version; never hardcoded literals (v0.12.5 — closes v0.11.13 palette-footer drift)
+  Accordion marker <summary class="lumen-summary"> suppresses the native browser disclosure triangle when composing your own end-of-summary chevron (v0.12.5)
+  Icon hover       Interactive icon tiles hover to text-accent + border-accent (teaches "green at action" visually; v0.12.5)
+  Peak-card hover  Peak-moment cards (pricing tiers, plan pickers) lift on hover via shadow-md + border-default + -translate-y-[1px]; highlighted gets soft accent glow (v0.12.5)
 
 Status
   v0.12.0          Obsidian recolor — mint retired. Canvas neutral at #0D0D0D, R = G = B at every dark stop. Single-accent rule unchanged. (ADR 0020)
@@ -109,6 +113,7 @@ Status
   v0.12.2          Primary-button hover bloom dialed down. Rest unchanged at 0 0 16px lime-a25 (brand voice). Hover trims to 0 0 20px lime-a28. (ADR 0022)
   v0.12.3          PricingToggle thumb-escape fix. Tailwind v4 arbitrary-translate fragility retired on the last two callers (PricingToggle + SwipeAction) — position math now uses inline style.left + native transition, not translate-x-[Npx] arbitrary class. Cascade-fix to ADRs 0015/0016 (no new ADR — same pattern those ADRs already established).
   v0.12.4          Three primitive-layer fixes. (1) InlineTabs pill TabsList gains overflow-hidden — corner-clip pattern from ADR 0021 extended to smaller-control scale. (2) Combobox dropdown migrates from inline <div absolute> to createPortal(<div fixed>, document.body) with getBoundingClientRect tracking — escapes ancestor overflow contexts. (3) Global :focus-visible gains outline 2px lime-a64 + offset 1px on top of existing soft box-shadow halo — outline immune to ancestor overflow:hidden, closes the v0.12.1 ADR-0021 pagination-focus regression. The .lumen-btn-primary:focus-visible dual-ring is unaffected (declares outline:none and wins via specificity per ADR 0016). No new ADR by design — consequential follow-ups to ADRs 0007 + 0015/0016 + 0021.
+  v0.12.5          Live-audit fix pack — five surgical fixes from a two-round visual audit against the deployed Vercel site. (1) New audit-dashboard/src/lib/version.ts hoists the user-facing version label to a single constant (LUMEN_VERSION + MAJOR_MINOR variants); every consumer (header pill, footer line, palette footer, foundations brand-voice samples, library / tool / foundations badges) reads from it; release script bumps lib/version.ts in lockstep with the root VERSION file; closes the v0.11.13 palette-footer drift the audit caught on round 2. (2) Iconography hover lifts icon glyph to text-accent + tile border to border-accent (teaches "green at action" visually). (3) Pricing card peak-end hover lift on landing — non-highlighted: shadow-md + border-default + -translate-y-[1px]; highlighted Operator: layered soft accent glow. (4) Landing FAQ disclosure caret migrates from Unicode ▾ to lucide ChevronDown; new globals.css .lumen-summary + summary.list-none rule suppresses native browser disclosure marker on every browser. (5) Privacy scrub — real-person names retired from 9 sites in 5 files (ai.tsx CommentThread, foundations Avatar demos, saas TopBar, commerce review fixture, library Avatar / AvatarGroup / Reaction-bar) — replaced with synthetic operator names (Avery Mercer / Kai Morgan). No new ADR — consequential follow-ups to ADRs 0007 + 0009 + 0018.
   License          Internal to Warp. Satoshi font is ITF-FFL (do not redistribute publicly).
 ```
 
@@ -164,8 +169,9 @@ Lumen is built as five concentric tiers. Each tier consumes only from the tier i
 - **v0.12.2 — token + layered-halo band.** Retunes one shadow token and one `@media hover` layered-halo block. Every `intent="primary"` button across the system inherits the quieter hover bloom — no per-CTA overrides. ADR 0022 carries the rationale.
 - **v0.12.3 — consumer-component band.** Retires the Tailwind v4 arbitrary-translate idiom on the last two callers (PricingToggle in `commerce.tsx` + SwipeAction in `mobile.tsx`). Cascade-fix to ADRs 0015/0016 — same defensive-pattern reasoning that retired shadcn bridge utilities for buttons (`bg-primary` → `.lumen-btn-primary`) now retires arbitrary-translate utilities for toggle/swipe position math. The fix lives at the consumer-component level (not the primitive layer) because both callers are themselves consumer primitives — they don't compose a deeper "track + thumb" primitive that other components consume. The fragility was in the position-math idiom, not in a shared primitive layer; fixing both callers in-place retires the broken pattern with the smallest blast radius. No new ADR (the pattern is exactly the one ADRs 0015/0016 established).
 - **v0.12.4 — primitive + globals band.** Three structural fixes at three different cascade depths in one commit: (a) one-line `overflow-hidden` addition to the InlineTabs pill `TabsList` (extends ADR 0021 corner-clip to smaller-control scale); (b) Combobox dropdown migrates from inline `<div absolute>` to `createPortal(<div fixed>, document.body)` with `getBoundingClientRect()` tracking — escapes every ancestor's overflow context (Showcase, `<Card padding="none">`, glass surfaces, scroll containers); (c) global `:focus-visible` rule extended with `outline 2px solid lime-a64; outline-offset: 1px;` on top of the existing soft box-shadow halo — outline paints outside the layout box and is structurally immune to ancestor `overflow: hidden`, so focus rings stay visible inside corner-clipped containers (closes the v0.12.1 ADR-0021 pagination-focus regression). The `.lumen-btn-primary:focus-visible` dual-ring is unaffected — declares `outline: none` and wins via CSS specificity. No new ADR (consequential follow-ups to ADRs 0007 + 0015/0016 + 0021).
+- **v0.12.5 — five-band live-audit fix pack.** Surgical fixes at five different cascade depths in one commit, every fix earned by a two-round live visual audit against the deployed Vercel site (round 1 walks routes statically; round 2 triggers every overlay): (a) **infrastructure band** — new `audit-dashboard/src/lib/version.ts` exporting `LUMEN_VERSION` + `LUMEN_VERSION_MAJOR_MINOR` + `LUMEN_VERSION_MAJOR_MINOR_UPPER`; the runtime UI imports the constant from 7 sites (header pill, footer line, palette footer, foundations brand-voice samples, library / tool / foundations badges); the release script bumps `lib/version.ts` in lockstep with the root `VERSION` file; closes the v0.11.13 → v0.12.4 palette-footer drift the audit caught on round-2 ⌘K open; (b) **micro-interaction band** — iconography hover state (foundations §08) lifts icon glyph to `text-accent` + tile border to `border-accent` so the brand rule "green appears precisely at action" is taught visually; (c) **micro-interaction band** — pricing cards on landing gain peak-end hover lift (non-highlighted: `shadow-md` + `border-default` + `-translate-y-[1px]`; Operator: soft accent glow); the pricing decision is a peak moment per Premium Psychology principle 3, the cards now respond at the moment of decision; (d) **globals band** — landing FAQ disclosure caret migrates from Unicode `▾` to lucide `ChevronDown` for consistency with commerce + tool accordions; new `.lumen-summary` + `summary.list-none` rule in `globals.css` suppresses the native browser disclosure marker (`list-style: none` for modern browsers, `::-webkit-details-marker { display: none }` for pre-2022 webkit) — without it, browsers double up the native triangle with the lucide icon; (e) **fixtures band** — privacy scrub: `Daniel Sokolovsky` / `Neel Tengariya` retired from 9 sites in 5 files (`ai.tsx` CommentThread, `foundations` Avatar / AvatarGroup demos + caption sample, `saas` AvatarGroup, `commerce` review fixture, `library` Avatar / AvatarGroup / Reaction-bar) — replaced with synthetic operator names (`Avery Mercer`, `Kai Morgan`). No new ADR (consequential follow-ups to ADRs 0007 + 0009 + 0018 — the system is already disciplined enough that these fixes don't require new architectural ADRs).
 
-(See [CHANGELOG](CHANGELOG.md) v0.12.0–v0.12.4 entries for the long form of each cascade. The pattern across all five: user / contributor points at one symptom; the system absorbs the fix at the right architectural depth so future consumers don't need to know the bug existed. v0.12.3 + v0.12.4 explicitly ship without ADRs because the underlying patterns (defensive primitives over Tailwind scanner fragility per ADRs 0015/0016, corner-clip contract per ADR 0021, two-file component contract per ADR 0007) are already established — the CHANGELOG entries carry the architectural notes those would-be ADRs would have held.)
+(See [CHANGELOG](CHANGELOG.md) v0.12.0–v0.12.5 entries for the long form of each cascade. The pattern across all six bumps: a user / contributor / live-audit run points at a symptom; the system absorbs the fix at the right architectural depth so future consumers don't need to know the bug existed. v0.12.3 / v0.12.4 / v0.12.5 explicitly ship without ADRs because the underlying patterns — defensive primitives over Tailwind scanner fragility per ADRs 0015/0016, corner-clip contract per ADR 0021, two-file component contract per ADR 0007, single semver per ADR 0009, brand voice per ADR 0018 — are already established. The CHANGELOG entries carry the architectural notes those would-be ADRs would have held. The v0.12.5 entry in particular documents the "single-source-of-truth for renderable strings" pattern and the "custom-chevron suppresses native marker" pattern as new system contracts even without new ADRs.)
 
 **What lives where.**
 
@@ -642,7 +648,7 @@ This section is what an AI coding agent should treat as a normative contract whe
 
 ### Discovery — read in this order
 
-1. **`AGENTS.md`** — universal hard rules (9 rules). Always start here.
+1. **`AGENTS.md`** — universal hard rules (14 rules — 9 v0.1 baseline + 1 button-accent contrast contract from v0.9 + 3 v0.12.4 structural rules + 2 v0.12.5 documentation-rendering rules). Always start here.
 2. **Tool-specific addenda** — Claude reads `CLAUDE.md`. Cursor follows `.cursor/rules/lumen.mdc`. Copilot follows `.github/copilot-instructions.md`. Warp Terminal follows `.warp/lumen.mdc`.
 3. **`llms.txt`** — discovery index pointing at every relevant file.
 4. **This file (`USING-LUMEN.md`)** — comprehensive end-to-end manual when you need the unified narrative.
@@ -748,6 +754,9 @@ This is the "avoid these or break the system" list. Everything here is enforceab
 - ❌ **Writing a `:focus-visible` rule with `box-shadow` only.** (See AGENTS.md hard rule #11.) Box-shadow paints into the element's own painting context and is clipped by ancestor `overflow: hidden`. v0.12.4 added `outline + offset` to the global rule on top of the existing soft box-shadow halo so focus rings stay visible inside corner-clipped containers. The `.lumen-btn-primary:focus-visible` dual-ring is exempt (declares `outline: none` and wins via specificity by design — preserves ADR 0016's brand visual). Don't write a new `:focus-visible` rule that omits the outline.
 - ❌ **Tailwind arbitrary `translate-x-[Npx]` for thumb / handle / swipe / popover-anchor position math.** (See AGENTS.md hard rule #12.) Tailwind v4's content scanner has been observed to drop arbitrary-translate utilities (intermittent, scanner-dependent — `getComputedStyle` reports `none` despite the className carrying it). Use inline `style.left` (or `style.transform`) with a native `transition` declaration. v0.12.3 retired this on PricingToggle + SwipeAction — the last two callers — as a cascade-fix to ADRs 0015/0016. Don't reintroduce arbitrary-translate position math in new toggle / swipe / handle primitives.
 - ❌ **Rounded container with square-cornered children + `overflow: visible`.** Card primitive `padding="none"` composes `overflow-hidden` per ADR 0021; InlineTabs pill `TabsList` composes `overflow-hidden` per v0.12.4. Any new rounded container hosting children with their own backgrounds and smaller-radius corners needs the same clip — otherwise the child's square corners poke a visible nub past the parent's rounded edge.
+- ❌ **Hardcoded version literal in a runtime-rendered string** instead of importing from `@/lib/version`. (See AGENTS.md hard rule #13.) The v0.11.13 → v0.12.4 audit caught the command-palette footer three minor versions stale because it had been hardcoded as `<span>Lumen v0.11.13</span>` from the day it shipped. v0.12.5 routed every consumer (header pill, footer line, palette footer, foundations brand-voice samples, library / tool / foundations badges) through the new `lib/version.ts` constants. Import; don't hardcode. Exemptions are limited to prose descriptions of historical versions, ADR titles / filenames, and CSS / TSX comments — those are immutable history annotations, not renderable strings.
+- ❌ **`<details>`/`<summary>` accordion that composes a custom chevron icon without `lumen-summary` (or `list-none`) on the summary.** (See AGENTS.md hard rule #14.) The native browser-default disclosure triangle (▶/▼ in webkit, ▾/▸ in firefox) STILL renders before the summary's text content. With a custom lucide chevron at the END of the summary, you get two arrows competing for affordance — one of them off the brand stroke ladder. v0.12.5 added the `globals.css` rule that suppresses both via `list-style: none` (modern browsers) + `::-webkit-details-marker { display: none }` (pre-2022 webkit fallback). Apply the class on every accordion summary that composes a custom icon.
+- ❌ **Real-person names in fixtures, demos, or examples.** Use synthetic operator names (`Avery Mercer`, `Kai Morgan`, `Jordan Kim`-style); carrier names are safe (Sterling LTL, ODFL, Saia, FedEx Freight, ABF — public B2B identities, not customer data). The v0.12.5 audit retired `Daniel Sokolovsky` / `Neel Tengariya` from 9 sites in 5 files because they map to real contacts in the user's vault. Never reintroduce.
 
 ### Documentation anti-patterns
 
@@ -873,14 +882,16 @@ This is the "avoid these or break the system" list. Everything here is enforceab
 ```
 README.md                  ← human front door
 USING-LUMEN.md             ← THIS FILE — comprehensive end-to-end manual
-AGENTS.md                  ← universal agent rules
+AGENTS.md                  ← universal agent rules (14 hard rules)
 CLAUDE.md                  ← Claude-specific addenda
 CONTRIBUTING.md            ← human contributor guide
 CHANGELOG.md               ← Keep-a-Changelog
-VERSION                    ← 0.12.4
-llms.txt                   ← LLM discovery index
+VERSION                    ← 0.12.5
+llms.txt                   ← LLM discovery index (14-rule playbook at the bottom)
+llms-full.txt              ← inlined version (single fetch for agents)
 package.json               ← build/validate/lint/registry/release scripts
 style-dictionary.config.ts ← token build pipeline
+audit-dashboard/src/lib/version.ts  ← v0.12.5+ runtime version constant (the SSoT)
 ```
 
 ### Frequently-asked-for token paths (the cheat sheet)
@@ -900,9 +911,9 @@ TYPE            type.display.{sm,md,lg,xl,2xl,hero} / type.heading.{h1,h2,h3,h4,
 
 ### The mental model in three sentences
 
-Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canvas**, with **aggressive hierarchy** and **engineered first impressions**, built as a **vertically integrated three-layer token chain** that holds 887 tokens across 32 source files and feeds 35 components across 9 platform consumption guides. Reference semantic tokens, never primitives. When you change the master, the children must inherit. The v0.12.x patch series proved the cascade pattern five times in a row — at the token band (v0.12.0), the primitive band (v0.12.1, v0.12.4), the token + layered-halo band (v0.12.2), the consumer-component band (v0.12.3), and the globals band (v0.12.4 focus-ring outline backstop) — every cascade-fix retired the per-consumer workaround, every cycle pushed defensive contracts deeper into the system.
+Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canvas**, with **aggressive hierarchy** and **engineered first impressions**, built as a **vertically integrated three-layer token chain** that holds 887 tokens across 32 source files and feeds 35 components across 9 platform consumption guides. Reference semantic tokens, never primitives. When you change the master, the children must inherit. The v0.12.x patch series proved the cascade pattern six times in a row — at the token band (v0.12.0), the primitive band (v0.12.1, v0.12.4), the token + layered-halo band (v0.12.2), the consumer-component band (v0.12.3), the globals band (v0.12.4 focus-ring outline backstop), and the infrastructure + micro-interaction + globals + fixtures bands together (v0.12.5 live-audit fix pack) — every cascade-fix retired the per-consumer workaround, every cycle pushed defensive contracts deeper into the system.
 
-### The six v0.12.x defensive primitive contracts (encode these when generating new code)
+### The ten v0.12.x defensive primitive contracts (encode these when generating new code)
 
 | # | Pattern | Anchor | What to write | What to never write |
 |---|---|---|---|---|
@@ -912,10 +923,14 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 | 4 | **Toggle / swipe / handle position math** | v0.12.3 (cascade-fix to ADRs 0015/0016) | `style={{ left: open ? 22 : 2 }}` + `transition: left 120ms cubic-bezier(0.2, 0, 0, 1)` | `className="translate-x-[22px]"` arbitrary class (Tailwind v4 scanner drops it intermittently) |
 | 5 | **Floating UI (popover / dropdown / autocomplete)** | v0.12.4 | `createPortal(<div style={{ position: 'fixed', top, left, width, zIndex }} />, document.body)` + `getBoundingClientRect()` tracking | Inline `<div absolute>` (clipped by ancestor `overflow: hidden`) |
 | 6 | **`:focus-visible` rule** | v0.12.4 | `outline: 2px solid var(--lumen-lime-a64); outline-offset: 1px; box-shadow: var(--shadow-focus);` | `box-shadow: var(--shadow-focus);` alone (clipped by ancestor `overflow: hidden`) |
+| 7 | **Version label** | v0.12.5 (cascade-fix to ADR 0009) | `import { LUMEN_VERSION } from "@/lib/version"; <span>Lumen {LUMEN_VERSION}</span>` | `<span>Lumen v0.12.5</span>` hardcoded (drifts cross-file — the v0.11.13 → v0.12.4 audit caught it three minor versions stale) |
+| 8 | **Custom-chevron accordion `<summary>`** | v0.12.5 | `<summary class="lumen-summary">{q}<ChevronDown size={14} className="group-open:rotate-180" /></summary>` | Bare `<summary>` (browser shows native triangle PLUS your chevron — two arrows compete) |
+| 9 | **Interactive icon tile hover** | v0.12.5 (foundations §Color "Accent in context") | `hover:bg-[var(--surface-tint-accent)] hover:text-[color:var(--text-accent)] hover:border-[var(--border-accent)]` (3-property hover) | `hover:bg-tint-accent` alone (only background tints — the brand rule "green at action" is buried in prose, not felt) |
+| 10 | **Peak-moment card hover** (pricing tier, plan picker, decision tile) | v0.12.5 | non-highlighted: `hover:shadow-[var(--shadow-md)] hover:border-[var(--border-default)] hover:-translate-y-[1px]`; highlighted: layer `var(--shadow-glow-accent)` | Static peak-moment card (the model knows the card exists but doesn't know it's a peak moment — Premium Psychology principle 3 violation) |
 
 ---
 
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-06 (v0.12.4).
+> Last reviewed against actual repo state: 2026-05-07 (v0.12.5).

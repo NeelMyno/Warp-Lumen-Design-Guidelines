@@ -96,7 +96,16 @@ Releases happen ~ every 4-6 weeks (minor) or as needed (patch). To cut a release
 pnpm release patch    # or minor / major
 ```
 
-This bumps `VERSION`, prepends to `CHANGELOG.md`, runs `pnpm build && pnpm validate && pnpm registry`. Then commit, tag, push.
+This bumps:
+
+1. The root [`VERSION`](./VERSION) file (the canonical version-of-record).
+2. The runtime constant in [`audit-dashboard/src/lib/version.ts`](./audit-dashboard/src/lib/version.ts) — `LUMEN_VERSION`, `LUMEN_VERSION_MAJOR_MINOR`, and `LUMEN_VERSION_MAJOR_MINOR_UPPER`. **Every user-facing version label in the runtime UI** (header pill, footer line, command-palette footer, foundations brand-voice samples, library / tool / foundations badges) imports from this constant, so the script keeps the rendered labels in lockstep with the version-of-record. **Do not manually edit `lib/version.ts`** — let the release script bump it.
+3. `CHANGELOG.md` — the script prepends a stub entry under `[Unreleased]` for the new version; promote your `[Unreleased]` notes into it.
+
+Then runs `pnpm build && pnpm validate && pnpm registry`. Commit, tag, push.
+
+> [!note]
+> v0.12.5 added the runtime constant. Before v0.12.5, the version label was hardcoded in 7+ separate files, and the v0.11.13 → v0.12.4 audit caught the command-palette footer reading `Lumen v0.11.13` three minor versions stale because nobody had grepped the literal. The release script's lockstep-bump retires the whole class of cross-file drift. See AGENTS.md hard rule 13.
 
 ## Code of conduct
 
