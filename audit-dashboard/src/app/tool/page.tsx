@@ -21,7 +21,7 @@ export default function ToolPage() {
         eyebrow="Single-purpose surface"
         title="Web Tool"
         description="Centered canvas, focused control panel, output result. The pattern for any calculator, simulator, or one-shot job."
-        meta={<Badge status="neutral">v0.12.2 · beta</Badge>}
+        meta={<Badge status="neutral">v0.12.3 · beta</Badge>}
       />
 
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
@@ -34,7 +34,7 @@ export default function ToolPage() {
             <span className="text-heading-h6 text-[color:var(--text-primary)]">
               Quote Builder
             </span>
-            <Badge status="neutral" size="sm">v0.12.2</Badge>
+            <Badge status="neutral" size="sm">v0.12.3</Badge>
             <LiveDot label="Auto-quoting" />
           </div>
           <div className="flex items-center gap-[var(--space-1_5)]">

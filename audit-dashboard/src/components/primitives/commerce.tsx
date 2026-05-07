@@ -64,7 +64,33 @@ export function PricingCard({
   );
 }
 
-/* ─────────────────────────  PRICING TOGGLE (M/Y)  ───────────────────────── */
+/* ─────────────────────────  PRICING TOGGLE (M/Y)  ─────────────────────────
+   v0.12.3 — thumb position migrated from Tailwind arbitrary translate classes
+   (`translate-x-[22px]` / `translate-x-0.5`) to inline `style.left` + native
+   transition. User screenshot 2026-05-06 caught the bug on /library: clicking
+   the toggle produced an empty track + a thumb floating ~22 px past the
+   track's right edge, overlapping the "Y" of "Yearly".
+
+   Two-part root cause:
+   1. Tailwind v4's content scanner intermittently dropped the `translate-x-[22px]`
+      arbitrary class — DOM inspection showed `transform: none` despite the
+      className carrying it. Same scanner fragility ADR 0015 (v0.8.1) and ADR 0016
+      (v0.9) retired for Buttons by moving to defensive `.lumen-btn-*` CSS classes.
+   2. Even after fixing (1) with inline `style.transform`, the thumb still
+      overshot — the parent `<button>` has the browser-default `text-align: center`,
+      which combined with the absolute-positioned span's `left: auto` gave a
+      computed static position of `left: 21px` (the layout engine's centered
+      static offset for an inline span inside a button). Adding `translateX(22px)`
+      on top of that 21-px static offset put the thumb at ~43 px from the
+      button's content-left — ~1 px past the 42-px content-box right edge, with
+      the 18-px-wide thumb visually escaping into the surrounding gap.
+
+   Final fix: anchor `left: <value>` explicitly via inline style so the
+   static-position rules don't apply, and animate `left` with the same easing
+   the rest of the system uses for control-state transitions. Math: track
+   inner width = 44 px outer − 2 px borders = 42 px. Thumb width = 18 px.
+   Symmetric 2-px inset → monthly at left:2, yearly at left:22. Yearly
+   thumb-right = 22 + 18 = 40 px → 2 px from inner-right edge ✓. */
 export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"; onChange: (v: "monthly" | "yearly") => void }) {
   return (
     <div className="inline-flex items-center gap-3">
@@ -74,14 +100,13 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
         className="relative h-6 w-11 rounded-full bg-[var(--surface-sunken)] border border-[var(--border-default)] transition-colors"
         aria-pressed={value === "yearly"}
       >
-        {/* lumen-lint-allow-block: off-grid */}
         <span
-          className={[
-            "absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] transition-transform shadow-[var(--shadow-xs)]",
-            value === "yearly" ? "translate-x-[22px]" : "translate-x-0.5",
-          ].join(" ")}
+          className="absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] shadow-[var(--shadow-xs)]"
+          style={{
+            left: value === "yearly" ? 22 : 2,
+            transition: "left 120ms cubic-bezier(0.2, 0, 0, 1)",
+          }}
         />
-        {/* lumen-lint-allow-end: off-grid */}
       </button>
       <span className={["text-[length:var(--type-13)]", value === "yearly" ? "text-[color:var(--text-primary)] font-medium" : "text-[color:var(--text-tertiary)]"].join(" ")}>
         Yearly <span className="text-[color:var(--lumen-accent-7)] lumen-mono text-[length:var(--type-11)]">−2 mo</span>

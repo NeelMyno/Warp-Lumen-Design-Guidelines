@@ -175,14 +175,27 @@ export function MobileListItem({
   );
 }
 
-/* ─────────────────────────  SWIPE ACTIONS (visual)  ───────────────────────── */
+/* ─────────────────────────  SWIPE ACTIONS (visual)  ─────────────────────────
+   v0.12.3 — swipe-open offset migrated from `-translate-x-[80px]` Tailwind
+   arbitrary class to inline `style.transform`, matching the PricingToggle
+   migration (commerce.tsx). Same root cause: Tailwind v4's content scanner
+   intermittently drops arbitrary translate utilities, leaving the row at its
+   un-swiped position and silently hiding the swipe-action button. Inline
+   style is scanner-independent. See ADR 0015 / ADR 0016 for the broader
+   pattern; this is the cascade-fix to that direction for the two remaining
+   `translate-x-[*px]` callers in the codebase. */
 export function SwipeAction({ children, action = "Archive", danger }: { children: ReactNode; action?: string; danger?: boolean }) {
   return (
     <div className="relative overflow-hidden bg-[var(--surface-canvas)]">
       <div className="absolute inset-y-0 right-0 flex">
         <button className={["px-5 text-white text-[length:var(--type-13)] font-semibold", danger ? "bg-[var(--lumen-red-5)]" : "bg-[var(--lumen-amber-5)]"].join(" ")}>{action}</button>
       </div>
-      <div className="relative bg-[var(--surface-raised)] -translate-x-[80px] transition-transform">{children}</div>
+      <div
+        className="relative bg-[var(--surface-raised)] transition-transform"
+        style={{ transform: "translateX(-80px)" }}
+      >
+        {children}
+      </div>
     </div>
   );
 }
