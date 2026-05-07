@@ -344,7 +344,7 @@ function Bar({ stars, pct }: { stars: number; pct: number }) {
 
 const REVIEWS = [
   {
-    author: "Sokolovsky D.",
+    author: "Mercer A.",
     title: "Wear it. Beat it. Buy it again.",
     when: "3 weeks ago",
     rating: 5,

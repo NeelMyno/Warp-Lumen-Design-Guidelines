@@ -577,13 +577,13 @@ export function LibraryClient() {
 
           <SubSection title="Avatar · presence · group overflow">
             <div className="flex flex-wrap items-center gap-4">
-              <Avatar name="Daniel Sokolovsky" />
+              <Avatar name="Avery Mercer" />
               <Avatar name="Jordan Kim" />
-              <Avatar name="Neel Tengariya" />
+              <Avatar name="Kai Morgan" />
               <span className="relative inline-block"><Avatar name="Lara Lee" /><span className="absolute right-0 bottom-0"><Presence status="online" /></span></span>
               <span className="relative inline-block"><Avatar name="Maria Mendez" /><span className="absolute right-0 bottom-0"><Presence status="away" /></span></span>
               <VerticalDivider height="22px" />
-              <AvatarGroup names={["Daniel Sokolovsky", "Jordan Kim", "Neel Tengariya", "Lara Lee", "Mira Park", "Ren Tanaka"]} max={4} />
+              <AvatarGroup names={["Avery Mercer", "Jordan Kim", "Kai Morgan", "Lara Lee", "Mira Park", "Ren Tanaka"]} max={4} />
             </div>
           </SubSection>
 
@@ -1239,9 +1239,9 @@ export function LibraryClient() {
                 <div className="flex flex-col gap-3 items-start">
                   <ReactionBar />
                   <div className="flex items-center gap-3">
-                    <span className="relative inline-block"><Avatar name="Daniel Sokolovsky" /><span className="absolute right-0 bottom-0"><Presence status="online" /></span></span>
+                    <span className="relative inline-block"><Avatar name="Avery Mercer" /><span className="absolute right-0 bottom-0"><Presence status="online" /></span></span>
                     <span className="relative inline-block"><Avatar name="Jordan Kim" /><span className="absolute right-0 bottom-0"><Presence status="away" /></span></span>
-                    <span className="relative inline-block"><Avatar name="Neel Tengariya" /><span className="absolute right-0 bottom-0"><Presence status="dnd" /></span></span>
+                    <span className="relative inline-block"><Avatar name="Kai Morgan" /><span className="absolute right-0 bottom-0"><Presence status="dnd" /></span></span>
                     <span className="relative inline-block"><Avatar name="Lara Lee" /><span className="absolute right-0 bottom-0"><Presence status="offline" /></span></span>
                   </div>
                 </div>

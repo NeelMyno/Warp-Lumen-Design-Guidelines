@@ -87,8 +87,8 @@ export default function ToolPage() {
               <div className="grid grid-cols-2 gap-3">
                 <Field label="Origin (ZIP or IATA)" defaultValue="LAX" mono />
                 <Field label="Destination" defaultValue="SFO" mono />
-                <Field label="Pickup date" defaultValue="2026-05-04" mono />
-                <Field label="Delivery date" defaultValue="2026-05-05" mono />
+                <Field label="Pickup date" defaultValue="2026-05-07" mono />
+                <Field label="Delivery date" defaultValue="2026-05-08" mono />
               </div>
             </Card>
 

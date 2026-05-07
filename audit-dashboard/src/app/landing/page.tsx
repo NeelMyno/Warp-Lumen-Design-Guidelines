@@ -304,12 +304,20 @@ function PriceCard({
   name: string; price: string; period: string; features: string[]; highlighted?: boolean;
 }) {
   return (
+    // v0.12.5 — hover lifts non-highlighted cards from elevation.card → .lifted
+    // per Foundations §Surfaces "Lifted = hover state on interactive cards".
+    // Highlighted (Operator) ships at .lifted by default and gets a soft glow
+    // bump on hover to keep the visual hierarchy. Cognitive-fluency micro-
+    // interaction per Premium Psychology principle 3 (peak-end rule): the
+    // pricing decision is a peak moment; the card should respond.
     <Card
       padding="lg"
       elevation={highlighted ? "lifted" : "card"}
       className={[
-        "flex flex-col gap-5",
-        highlighted ? "!border-[var(--color-accent)]" : "",
+        "flex flex-col gap-5 transition-[box-shadow,border-color,transform] duration-[var(--motion-fast)] ease-[var(--easing-standard)]",
+        highlighted
+          ? "!border-[var(--color-accent)] hover:shadow-[var(--shadow-glow-accent)]"
+          : "hover:shadow-[var(--shadow-md)] hover:border-[var(--border-default)] hover:-translate-y-[1px]",
       ].join(" ")}
     >
       <div className="flex items-center justify-between">

@@ -152,7 +152,7 @@ function TopBar() {
         </h1>
         <Badge status="accent" leadingDot size="md">Live</Badge>
         <span className="text-micro text-[color:var(--text-tertiary)] hidden md:inline">
-          Friday · May 2 · UTC
+          Wednesday · May 6 · UTC
         </span>
       </div>
 
@@ -176,7 +176,7 @@ function TopBar() {
             </span>
           </IconButton>
         </Tooltip>
-        <AvatarGroup names={["D Sokolovsky", "J Park", "A Reyes"]} max={3} size="sm" />
+        <AvatarGroup names={["A Mercer", "J Park", "A Reyes"]} max={3} size="sm" />
         <Button intent="primary" size="sm" leadingIcon={<Plus size={14} />}>
           New shipment
         </Button>

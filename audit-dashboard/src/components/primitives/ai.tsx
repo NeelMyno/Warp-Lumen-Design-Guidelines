@@ -319,10 +319,10 @@ export function CommentThread() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] p-4 max-w-[420px]">
       <div className="flex gap-3 mb-3">
-        <span className="h-7 w-7 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center text-[length:var(--type-11)] lumen-mono font-semibold shrink-0">DS</span>
+        <span className="h-7 w-7 rounded-full bg-[var(--lumen-obsidian-7)] text-white inline-flex items-center justify-center text-[length:var(--type-11)] lumen-mono font-semibold shrink-0">AM</span>
         <div className="flex-1">
           <div className="text-[length:var(--type-13)]">
-            <span className="font-semibold tracking-[var(--tracking-tight)]">Daniel Sokolovsky</span>
+            <span className="font-semibold tracking-[var(--tracking-tight)]">Avery Mercer</span>
             <span className="text-[color:var(--text-tertiary)] ml-2 text-[length:var(--type-12)]">14 min ago</span>
           </div>
           <p className="text-body-xs text-[color:var(--text-secondary)] mt-1 leading-[var(--leading-snug)]">

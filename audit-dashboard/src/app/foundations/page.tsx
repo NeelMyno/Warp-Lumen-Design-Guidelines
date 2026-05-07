@@ -205,7 +205,7 @@ export default function FoundationsPage() {
               <TypeRow role="body.lg"     sample="One command quotes. One books. JSON out, pipes in." cls="text-[length:var(--type-18)] leading-[var(--leading-normal)]" px="18 / 1.13rem" weight="400" />
               <TypeRow role="body.md"     sample="Stop logging into 10 carrier portals every morning." cls="text-[length:var(--type-16)] leading-[var(--leading-normal)]" px="16 / 1.00rem" weight="400" />
               <TypeRow role="body.sm"     sample="Auto-save will retry every 12 seconds while offline." cls="text-[length:var(--type-14)] leading-[var(--leading-normal)]" px="14 / 0.88rem" weight="400" />
-              <TypeRow role="caption"     sample="Updated 4 minutes ago by Sokolovsky" cls="text-[length:var(--type-13)] text-[color:var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
+              <TypeRow role="caption"     sample="Updated 4 minutes ago by Mercer" cls="text-[length:var(--type-13)] text-[color:var(--text-secondary)]" px="13 / 0.81rem" weight="400" />
               <TypeRow role="mono.cap"    sample="@ DIGITAL HQ · GLOBAL ACCESS · SYSTEM V0.11 LIVE" cls="lumen-mono-cap text-[color:var(--text-accent)]" px="11 · +0.16em" weight="500" />
               {/* lumen-lint-allow-end: typography */}
             </div>
@@ -543,7 +543,12 @@ export default function FoundationsPage() {
                 const I = Ico as React.ComponentType<{ size?: number }>;
                 return (
                   <Tooltip key={name as string} content={`icon.${name as string}`}>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[color:var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors">
+                    {/* v0.12.5 — hover lifts the icon to accent color so the
+                        iconography demo teaches the brand rule (green appears
+                        precisely at action — Foundations §Color "Accent in
+                        context"). Border accents to border.accent on hover so
+                        the tile reads as actively focused, not just tinted. */}
+                    <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)] text-[color:var(--text-primary)] hover:bg-[var(--surface-tint-accent)] hover:text-[color:var(--text-accent)] hover:border-[var(--border-accent)] transition-[background-color,color,border-color] duration-[var(--motion-fast)]">
                       <I size={18} />
                     </div>
                   </Tooltip>
@@ -690,14 +695,14 @@ export default function FoundationsPage() {
             <Card padding="lg">
               <CardHeader title="Avatars" description="Initials by default, deterministic palette per name" />
               <div className="flex items-center gap-3 mb-4">
-                <Avatar name="D Sokolovsky" size="xl" />
+                <Avatar name="A Mercer" size="xl" />
                 <Avatar name="J Park"        size="lg" />
                 <Avatar name="A Reyes"       size="md" />
                 <Avatar name="K Chen"        size="sm" />
                 <Avatar name="M B"           size="xs" />
               </div>
               <div className="flex items-center gap-3">
-                <AvatarGroup names={["D Sokolovsky", "J Park", "A Reyes", "K Chen", "M B", "T Q", "R Hu"]} max={4} />
+                <AvatarGroup names={["A Mercer", "J Park", "A Reyes", "K Chen", "M B", "T Q", "R Hu"]} max={4} />
                 <span className="text-body-xs text-[color:var(--text-tertiary)]">+3 collaborators</span>
               </div>
             </Card>
