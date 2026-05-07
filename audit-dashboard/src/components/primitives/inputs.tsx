@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, ReactNode, KeyboardEvent } from "react";
+import { createPortal } from "react-dom";
 import { Calendar } from "lucide-react";
 import { Search as SearchIcon, ChevronDown, ChevronLeft, ChevronRight, Plus, X, Minus } from "./icon";
 
@@ -164,7 +165,22 @@ export function Select({
   );
 }
 
-/* ─────────────────────────  COMBOBOX  ───────────────────────── */
+/* ─────────────────────────  COMBOBOX  ─────────────────────────
+   v0.12.4 — dropdown portaled to document.body. Pre-v0.12.4 the dropdown
+   was an inline `absolute` panel relative to the Combobox wrapper, which
+   meant any ancestor with `overflow: hidden` clipped it. User screenshot
+   2026-05-06 of /library Combobox-in-Showcase caught this: the dropdown
+   only showed its top edge through the Showcase frame's overflow-hidden.
+   The same trap applies inside <Card padding="none"> (which gained
+   overflow-hidden in v0.12.1 per ADR 0021), inside any flex/grid cell
+   with overflow-clip, etc.
+
+   Fix: render the dropdown via createPortal to document.body, with
+   `position: fixed` anchored to the input's getBoundingClientRect(). The
+   portal escapes every ancestor's overflow context. Position is recomputed
+   on scroll + resize so the dropdown tracks the input. The outside-click
+   handler now checks both the wrapper AND the portaled list, since the
+   portaled list isn't inside `ref.current` anymore. */
 export function Combobox({
   options,
   placeholder = "Type or pick…",
@@ -179,15 +195,40 @@ export function Combobox({
   const [internal, setInternal] = useState(value ?? "");
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
+  const [rect, setRect] = useState<DOMRect | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
+  /* v0.12.4 — outside-click dismiss now also exempts the portaled list,
+     since clicks on list options would otherwise close the dropdown
+     before pick() can fire. */
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      if (ref.current?.contains(target)) return;
+      if (listRef.current?.contains(target)) return;
+      setOpen(false);
     }
     document.addEventListener("mousedown", onClick);
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
+
+  /* v0.12.4 — track the input's viewport rect while the dropdown is open
+     so the portaled list stays anchored on scroll + resize. The capture
+     phase listener catches scroll events on every ancestor, not just the
+     window — needed because the input can sit inside a scrolling pane
+     that itself is nested inside the document. */
+  useEffect(() => {
+    if (!open || !ref.current) return;
+    const update = () => setRect(ref.current!.getBoundingClientRect());
+    update();
+    window.addEventListener("scroll", update, true);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update, true);
+      window.removeEventListener("resize", update);
+    };
+  }, [open]);
 
   const filtered = options.filter((o) => o.toLowerCase().includes(internal.toLowerCase())).slice(0, 8);
 
@@ -225,10 +266,18 @@ export function Combobox({
           <ChevronDown size={14} />
         </span>
       </div>
-      {open && filtered.length > 0 && (
+      {open && filtered.length > 0 && rect && typeof document !== "undefined" && createPortal(
         <div
-          className="absolute z-[var(--z-overlay)] left-0 right-0 mt-1 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] overflow-hidden p-1"
+          ref={listRef}
           role="listbox"
+          style={{
+            position: "fixed",
+            top: rect.bottom + 4,
+            left: rect.left,
+            width: rect.width,
+            zIndex: "var(--z-overlay)" as unknown as number,
+          }}
+          className="rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] overflow-hidden p-1"
         >
           {filtered.map((o, i) => (
             <button
@@ -246,7 +295,8 @@ export function Combobox({
               {o}
             </button>
           ))}
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

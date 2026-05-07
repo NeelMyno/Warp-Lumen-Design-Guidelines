@@ -44,8 +44,17 @@ export function InlineTabs({
     <ShadcnTabs value={active} onValueChange={select} className="gap-0">
       <TabsList
         className={cn(
+          /* v0.12.4 — pill variant gets `overflow-hidden` so the active tab's
+             `bg-[var(--surface-raised)]` square corners clip cleanly to the
+             parent's rounded-lg track. Same v0.12.1 corner-clip pattern from
+             ADR 0021 (where Card padding="none" gained overflow-hidden) but
+             at the smaller-control scale: the active pill child has its own
+             rounded-md, smaller than the parent's rounded-lg, so without the
+             clip the child's bg pokes a square nub past the parent's curved
+             corner — visible at the bottom-left of the active tab on user
+             screenshot 2026-05-06 of /foundations "Inline tabs · pill". */
           variant === "pill"
-            ? "inline-flex p-1 rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] w-fit"
+            ? "inline-flex p-1 rounded-[var(--radius-lg)] bg-[var(--surface-sunken)] border border-[var(--border-hairline)] w-fit overflow-hidden"
             : "flex items-center gap-1 border-b border-[var(--border-hairline)] bg-transparent rounded-none p-0 w-full justify-start",
           heightCls,
           "h-auto",

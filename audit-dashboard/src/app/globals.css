@@ -1323,8 +1323,22 @@ html, body {
   color: var(--text-primary);
 }
 
+/* v0.12.4 — focus-visible now uses outline as the structural ring AND
+   box-shadow as the soft glow halo. Pre-v0.12.4 only box-shadow was
+   used, which gets clipped by ancestor overflow:hidden — visible on the
+   /library Pagination buttons inside <Card padding="none"> (ADR 0021's
+   v0.12.1 corner-clip cards), where focus rings on buttons near the
+   card's bottom edge showed only their bottom + right edges (top + left
+   clipped). Outline is painted outside the layout box and is unaffected
+   by ancestor overflow. Modern browsers (Chrome 94+, Firefox 88+,
+   Safari 16.4+) follow border-radius for outline when outline-style is
+   not 'auto', so the rounded button corners stay rounded. The
+   .lumen-btn-primary:focus-visible rule (~line 2580) suppresses the
+   outline for the dual-ring brand visual; otherwise the combination
+   reads as outline + soft halo, which is the intended layered effect. */
 :focus-visible {
-  outline: none;
+  outline: 2px solid var(--lumen-lime-a64);
+  outline-offset: 1px;
   box-shadow: var(--shadow-focus);
   border-radius: var(--radius-sm);
 }
