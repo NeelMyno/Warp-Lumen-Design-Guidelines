@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block",
+  "type": "registry:ui",
+  "title": "Code Block",
+  "description": "Mono-typeface code with optional language/filename label, line numbers, line highlight, copy button.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/code-block/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/code-block.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/code-block/component.json",
+    "docsPath": "design-system/02-components/code-block/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

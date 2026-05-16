@@ -27,9 +27,9 @@ Every component.md MUST use this section order. LLMs and humans both rely on it.
 10. Code (links to platform examples)
 11. Changelog
 
-## Components shipped (v0.1 → v0.7)
+## Components shipped (v0.1 → v0.12.6)
 
-The current contract surface — 30 components across three rebuild waves. Every contract ships `component.md` + `component.json` and references at least one `web-react` example (either via `examples/web-react.tsx` or via the audit-dashboard reference implementation).
+The current contract surface — **98 components** across five rebuild waves. Every contract ships `component.md` + `component.json` and references at least one `web-react` example (either via `examples/web-react.tsx` / `examples/primary.tsx` or via the audit-dashboard reference implementation).
 
 ### v0.1 baseline (12)
 
@@ -79,6 +79,113 @@ Specialized form controls promoted from `audit-dashboard/src/components/primitiv
 | [Segmented](./segmented/component.md) | beta | Library |
 | [RangeSlider](./range-slider/component.md) | beta | Library |
 | [FileDropzone](./file-dropzone/component.md) | beta | Library |
+
+### v0.12.6 primitive coverage drop (63)
+
+Closes the LLM-facing gap between system primitives and the Apple HIG / Material / Polaris / Atlassian feature surface. See `CHANGELOG.md` v0.12.6.
+
+**Navigation (10)**
+| Name | Status |
+|---|---|
+| [Tabs](./tabs/component.md) | stable |
+| [Breadcrumbs](./breadcrumbs/component.md) | stable |
+| [Pagination](./pagination/component.md) | stable |
+| [Stepper](./stepper/component.md) | stable |
+| [DropdownMenu](./dropdown-menu/component.md) | stable |
+| [Tooltip](./tooltip/component.md) | stable |
+| [Popover](./popover/component.md) | stable |
+| [Accordion](./accordion/component.md) | stable |
+| [Divider](./divider/component.md) | stable |
+| [Link](./link/component.md) | stable |
+
+**Feedback / Loading (7)**
+| Name | Status |
+|---|---|
+| [Alert](./alert/component.md) | stable |
+| [Banner](./banner/component.md) | stable |
+| [Spinner](./spinner/component.md) | stable |
+| [Progress](./progress/component.md) | stable |
+| [Skeleton](./skeleton/component.md) | stable |
+| [NotificationCenter](./notification-center/component.md) | beta |
+| [Snackbar](./snackbar/component.md) | stable |
+
+**Display (7)**
+| Name | Status |
+|---|---|
+| [Avatar](./avatar/component.md) | stable |
+| [Tag](./tag/component.md) | stable |
+| [List](./list/component.md) | stable |
+| [CodeBlock](./code-block/component.md) | stable |
+| [CopyButton](./copy-button/component.md) | stable |
+| [Kbd](./kbd/component.md) | stable |
+| [Trend](./trend/component.md) | stable |
+
+**Containers (8)**
+| Name | Status |
+|---|---|
+| [Drawer](./drawer/component.md) | stable |
+| [Sheet](./sheet/component.md) | stable |
+| [Panel](./panel/component.md) | stable |
+| [Navbar](./navbar/component.md) | stable |
+| [Sidebar](./sidebar/component.md) | stable |
+| [BottomNav](./bottom-nav/component.md) | stable |
+| [Toolbar](./toolbar/component.md) | stable |
+| [ActionSheet](./action-sheet/component.md) | stable |
+
+**Mobile (6)**
+| Name | Status |
+|---|---|
+| [PhoneFrame](./phone-frame/component.md) | stable |
+| [StatusBar](./status-bar/component.md) | stable |
+| [SwipeAction](./swipe-action/component.md) | stable |
+| [PullToRefresh](./pull-to-refresh/component.md) | stable |
+| [PermissionPrompt](./permission-prompt/component.md) | stable |
+| [CoachMark](./coach-mark/component.md) | stable |
+
+**Advanced display (6)**
+| Name | Status |
+|---|---|
+| [Carousel](./carousel/component.md) | stable |
+| [Timeline](./timeline/component.md) | stable |
+| [Calendar](./calendar/component.md) | beta |
+| [TreeView](./tree-view/component.md) | beta |
+| [Kanban](./kanban/component.md) | beta |
+| [DataGrid](./data-grid/component.md) | beta |
+
+**Charts (3)**
+| Name | Status |
+|---|---|
+| [Chart](./chart/component.md) | stable |
+| [Sparkline](./sparkline/component.md) | stable |
+| [KpiCard](./kpi-card/component.md) | stable |
+
+**AI + Collaboration (8)**
+| Name | Status |
+|---|---|
+| [AIPromptInput](./ai-prompt-input/component.md) | stable |
+| [AISuggestion](./ai-suggestion/component.md) | stable |
+| [AIBadge](./ai-badge/component.md) | stable |
+| [CitationCard](./citation-card/component.md) | stable |
+| [ChatBubble](./chat-bubble/component.md) | stable |
+| [CommentThread](./comment-thread/component.md) | stable |
+| [ReactionBar](./reaction-bar/component.md) | stable |
+| [PresenceIndicator](./presence-indicator/component.md) | stable |
+
+**Form gaps (3)**
+| Name | Status |
+|---|---|
+| [Slider](./slider/component.md) | stable |
+| [ColorPicker](./color-picker/component.md) | beta |
+| [SearchField](./search-field/component.md) | stable |
+
+**Commerce / Marketing (5)**
+| Name | Status |
+|---|---|
+| [PricingCard](./pricing-card/component.md) | stable |
+| [TestimonialCard](./testimonial-card/component.md) | stable |
+| [LogoCloud](./logo-cloud/component.md) | stable |
+| [InventoryStatus](./inventory-status/component.md) | stable |
+| [CartDrawer](./cart-drawer/component.md) | stable |
 
 ## Adding a new component
 

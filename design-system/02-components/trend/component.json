@@ -1,0 +1,65 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Trend",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Numeric delta indicator. A small chip showing change vs a baseline: '+12.4%', '−3 units', '+$420'. Auto-derives tone from the sign (positive=accent, negative=danger, zero=neutral) unless the consumer flips polarity (some KPIs are 'lower is better' — e.g. churn, page load time). Used inside KPI cards, Stat blocks, table rows, and AI summaries.",
+  "props": {
+    "delta":      { "type": "number", "optional": false, "description": "Signed delta. Positive renders an UpArrow + accent; negative renders a DownArrow + danger; zero renders a tilde + neutral." },
+    "suffix":     { "type": "string", "default": "%", "optional": true, "description": "Unit suffix. '%', ' units', ' min', '×'." },
+    "polarity":   { "type": "enum", "values": ["positive-is-good", "negative-is-good", "neutral"], "default": "positive-is-good", "optional": true, "description": "positive-is-good: default. negative-is-good: flips tone (lower = good — churn, time-to-resolve, latency). neutral: no tone — just direction." },
+    "size":       { "type": "enum", "values": ["xs", "sm", "md"], "default": "sm", "optional": true },
+    "compact":    { "type": "boolean", "default": false, "optional": true, "description": "Drops the unit suffix and renders just '↑ 12.4' (when paired with a parent label that names the unit)." },
+    "showArrow":  { "type": "boolean", "default": true, "optional": true },
+    "precision":  { "type": "number", "default": 1, "optional": true, "description": "Decimal places." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.accent",
+      "color.text.error",
+      "color.text.tertiary",
+      "color.text.success",
+      "color.surface.tint-accent",
+      "color.status.danger.bg",
+      "color.action.ghost.bg.hover",
+      "radius.pill",
+      "type.tabular.nums",
+      "type.label.sm",
+      "type.label.md",
+      "space.inline.xs"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": [
+      "1.4.1 Use of Color",
+      "1.4.3 Contrast (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "aria-label spells out the delta: 'Up 12.4 percent versus previous period' (the consumer passes the period text).",
+      "Color is never the only cue — pair with an UpArrow / DownArrow glyph.",
+      "Digits render in tabular-nums (.lumen-tnum) so trends in a column align vertically."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Trend inside KPI cards next to the headline metric.",
+      "Use polarity='negative-is-good' for churn, latency, time-to-resolve.",
+      "Always pair with the period in nearby text ('vs last week').",
+      "Use compact=true inside tight table cells where the unit is implied."
+    ],
+    "dont": [
+      "Don't paint positive deltas in danger red, or negative in lime green, by overriding tones. Use the polarity prop.",
+      "Don't render Trend without a baseline reference somewhere ('vs last 7 days')."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Stat", "KpiCard", "Sparkline"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Trend contract. Polarity-aware tone, tabular-nums alignment, compact mode for tables." }
+  ]
+}

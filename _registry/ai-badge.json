@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-badge",
+  "type": "registry:ui",
+  "title": "AI Badge",
+  "description": "Inline AI-generated / summary / confidence / thinking label.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/ai-badge/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/ai-badge.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/ai-badge/component.json",
+    "docsPath": "design-system/02-components/ai-badge/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

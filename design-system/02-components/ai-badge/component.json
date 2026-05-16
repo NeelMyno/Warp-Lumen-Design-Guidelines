@@ -1,0 +1,49 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "AIBadge",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Inline 'AI generated' / 'AI summary' / 'AI confidence' label. Three flavors — badge (small chip), confidence (with 0-100 score), thinking (with the AI-shimmer + a typing indicator). Mandatory next to any text or value derived from AI inference, so users can tell what's machine-authored.",
+  "props": {
+    "kind":      { "type": "enum", "values": ["generated", "summary", "confidence", "thinking"], "default": "generated", "optional": true },
+    "score":     { "type": "number", "optional": true, "description": "kind='confidence' only. 0-100. Renders a ring or pill with the score." },
+    "label":     { "type": "string", "optional": true, "description": "Override the kind-derived label." },
+    "size":      { "type": "enum", "values": ["xs", "sm"], "default": "sm", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.tint-accent",
+      "color.text.accent", "color.text.secondary", "color.text.tertiary", "color.text.warning",
+      "color.action.ai.bg.rest", "color.action.ai.fg",
+      "color.border.hairline",
+      "radius.pill", "radius.control.sm",
+      "space.inline.xs", "space.inset.sm",
+      "type.eyebrow.mono", "type.micro",
+      "shadow.button.ai-shimmer", "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.4.3 Contrast (Minimum)", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "AIBadge MUST sit adjacent to the AI-derived content — putting it remote from the content defeats its purpose.",
+      "aria-label spells out the meaning ('AI generated content, 92% confidence', not just '92%').",
+      "Honor prefers-reduced-motion: drop the AI shimmer and the thinking-dots animation."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Place AIBadge inline with the AI-authored text, not in a remote header.",
+      "Use confidence on values pulled from an LLM-extracted record.",
+      "Use thinking during the inference window (replaces an unlabeled Spinner)."
+    ],
+    "dont": [
+      "Don't render AI-derived content WITHOUT an AIBadge nearby.",
+      "Don't paint AIBadge in danger red — confidence below threshold is still a signal, not a failure."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["AISuggestion", "CitationCard", "Spinner"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial AIBadge contract. Four kinds — generated / summary / confidence / thinking." }]
+}

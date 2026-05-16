@@ -1,0 +1,89 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Navbar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Top app bar — the single highest-level navigation chrome. Hosts brand mark, primary destinations (or a 'More' overflow), global search trigger, NotificationCenter trigger, account menu. Three variants: marketing (translucent + scroll-aware reveal), operator (compact 48 px chrome), mobile (40 px + hamburger drawer). Always one Navbar per page.",
+  "props": {
+    "variant":      { "type": "enum", "values": ["marketing", "operator", "mobile"], "default": "operator", "optional": true },
+    "brand":        { "type": "node", "optional": false, "description": "Lumen mark, logotype, or wordmark slot. Pair with a link to /." },
+    "destinations": { "type": "node", "optional": true, "description": "Sequence of NavItems. Operator: shows up to 5 inline, overflow to 'More' DropdownMenu. Marketing: shows all inline, optional MegaMenu reveal. Mobile: collapses behind a hamburger Drawer." },
+    "trailing":     { "type": "node", "optional": true, "description": "Right-side slot — search trigger, NotificationCenter trigger, account avatar, theme toggle." },
+    "sticky":       { "type": "boolean", "default": true, "optional": true, "description": "When true, position:sticky top:0. Marketing variant additionally applies scroll-translucent backdrop." },
+    "container":    { "type": "enum", "values": ["full", "page"], "default": "page", "optional": true, "description": "full: edge-to-edge (operator). page: max-width container matching the body grid (marketing)." },
+    "elevation":    { "type": "enum", "values": ["none", "shadow", "border"], "default": "border", "optional": true, "description": "border: hairline bottom (operator default). shadow: drop shadow (marketing scroll-state). none: floats free." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.page",
+      "color.surface.overlay",
+      "color.surface.glass",
+      "color.surface.popover",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.border.hairline",
+      "color.border.default",
+      "size.navbar.compact",
+      "size.navbar.marketing",
+      "size.navbar.mobile",
+      "space.inline.md",
+      "space.inset.lg",
+      "type.label.md",
+      "type.eyebrow.mono",
+      "shadow.elevation.sm",
+      "motion.duration.base",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "navigation",
+    "keyboard": [
+      "Tab - move focus across destinations and trailing actions",
+      "ArrowLeft / ArrowRight - move within destinations (when grouped via role='menubar')",
+      "/ or ⌘K - open command palette (when wired)",
+      "Escape - close any open dropdown / mobile drawer"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.1 Bypass Blocks (skip link)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root is <nav aria-label='Primary'> or aria-label='Marketing primary'.",
+      "Include a skip link inside the Navbar that jumps to <main id='main-content'>.",
+      "Each NavItem with a submenu uses aria-haspopup='menu' + aria-expanded.",
+      "Mobile hamburger has aria-label='Open menu' and toggles aria-expanded.",
+      "Active destination has aria-current='page'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "One Navbar per page. Don't stack two.",
+      "Brand mark routes to /. Always.",
+      "Marketing variant: translucent glass on scroll past the hero — backdrop-filter: blur(20px) saturate(140%).",
+      "Operator variant: 48 px chrome, hairline border, inline destinations, ⌘K command palette trigger.",
+      "Always include a skip link as the first focusable inside."
+    ],
+    "dont": [
+      "Don't put a destructive action in the Navbar. The Navbar is for navigation.",
+      "Don't paint the active item in solid lime — use action.selected.bg + text.accent.",
+      "Don't auto-hide the Navbar on scroll-down without an obvious return affordance.",
+      "Don't render two CTAs in the trailing slot. The trailing is for utility (notifications, account) not promo."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Sidebar", "BottomNav", "DropdownMenu", "Breadcrumbs"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Navbar contract. Marketing / operator / mobile variants. Skip-link contract." }
+  ]
+}

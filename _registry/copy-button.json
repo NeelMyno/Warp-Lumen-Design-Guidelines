@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "type": "registry:ui",
+  "title": "Copy Button",
+  "description": "Clipboard write affordance. Three variants (ghost / pill / inline). Reduced-motion-safe flash.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/copy-button/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/copy-button.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/copy-button/component.json",
+    "docsPath": "design-system/02-components/copy-button/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

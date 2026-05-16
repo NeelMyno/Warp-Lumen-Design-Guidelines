@@ -1,0 +1,81 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Timeline",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Chronological sequence of events. Vertical (default) or horizontal. Each item carries a marker (dot, icon, or thumbnail), a timestamp, an actor, an event summary, and optional body. Three densities. Used for audit logs, activity feeds, deployment histories, order tracking.",
+  "props": {
+    "items":         { "type": "node", "optional": false, "description": "Array of TimelineItem descriptors. Each: { id, marker?, time, actor?, title, body?, tone? }." },
+    "orientation":   { "type": "enum", "values": ["vertical", "horizontal"], "default": "vertical", "optional": true },
+    "density":       { "type": "enum", "values": ["compact", "regular", "comfortable"], "default": "regular", "optional": true },
+    "ariaLabel":     { "type": "string", "optional": false },
+    "showConnector": { "type": "boolean", "default": true, "optional": true, "description": "Render the connector line between markers." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.accent.500",
+      "color.action.selected.bg",
+      "color.border.hairline",
+      "color.border.subtle",
+      "color.status.success.bg", "color.status.success.fg",
+      "color.status.warning.bg", "color.status.warning.fg",
+      "color.status.danger.bg",  "color.status.danger.fg",
+      "color.status.info.bg",    "color.status.info.fg",
+      "radius.circle",
+      "space.inline.md",
+      "space.stack.sm",
+      "space.stack.md",
+      "type.label.md",
+      "type.body.sm",
+      "type.eyebrow.mono",
+      "type.micro",
+      "type.tabular.nums",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "list",
+    "keyboard": [
+      "Tab - move focus across interactive items",
+      "Enter / Space - activate"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root is <ol> with role='list'.",
+      "Each TimelineItem is a <li> with a clear time element (<time datetime=ISO>).",
+      "Markers are decorative (aria-hidden) — the meaning comes from the textual content.",
+      "When the timeline streams, append-only updates announce via aria-live='polite'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead each item with WHEN, then WHO, then WHAT: '2 m ago · Avery Mercer · approved invoice #1284'.",
+      "Render <time datetime=ISO> so the timestamp is machine-readable + tooltip-able.",
+      "Use status tones (success / warning / danger / info) on the marker for at-a-glance scan.",
+      "Compact density on operator audit logs; comfortable on user-facing activity feeds."
+    ],
+    "dont": [
+      "Don't render Timeline without a stable sort — chronological order is the affordance.",
+      "Don't paint every marker in lime — only success / approval markers use text.accent.",
+      "Don't omit the connector line — it's the visual cue that ties events together."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["NotificationCenter", "Stepper", "List"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Timeline contract." }
+  ]
+}

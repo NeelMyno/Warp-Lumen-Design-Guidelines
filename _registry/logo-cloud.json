@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logo-cloud",
+  "type": "registry:ui",
+  "title": "Logo Cloud",
+  "description": "Social-proof strip. Grid + marquee. Monochrome default.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/logo-cloud/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/logo-cloud.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/logo-cloud/component.json",
+    "docsPath": "design-system/02-components/logo-cloud/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "AIPromptInput",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "AI prompt composer. Auto-grows multiline textarea + leading model selector + trailing send button (the lone primary on the surface) + optional attachment + slash-command picker + token counter. Distinct from a plain Textarea — it carries the AI-shimmer treatment, sparkles-leading send icon, and a contract that the consumer wires to streaming responses.",
+  "props": {
+    "value":         { "type": "string", "optional": false },
+    "onValueChange": { "type": "handler", "optional": false },
+    "onSubmit":      { "type": "handler", "optional": false },
+    "placeholder":   { "type": "string", "default": "Ask anything…", "optional": true },
+    "modelSelector": { "type": "node", "optional": true, "description": "Optional Select / DropdownMenu rendered at the leading edge. Use to switch models or modes." },
+    "attachments":   { "type": "node", "optional": true, "description": "Render-prop slot for attachment chips above the textarea." },
+    "onAttach":      { "type": "handler", "optional": true },
+    "slashCommands": { "type": "node", "optional": true, "description": "When the user types '/', this slot opens a Combobox of commands." },
+    "tokenCount":    { "type": "number", "optional": true, "description": "Renders 'N / M tokens' below the input. Style with type.eyebrow.mono." },
+    "tokenLimit":    { "type": "number", "optional": true },
+    "disabled":      { "type": "boolean", "default": false, "optional": true },
+    "loading":       { "type": "boolean", "default": false, "optional": true, "description": "Mid-streaming. Disables submit, swaps send icon for stop." },
+    "onStop":        { "type": "handler", "optional": true },
+    "maxRows":       { "type": "number", "default": 8, "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.input.rest", "color.surface.tint-accent",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ai.bg.rest", "color.action.ai.bg.hover", "color.action.ai.fg",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline", "color.border.default", "color.border.focus",
+      "color.accent.500",
+      "radius.card.default", "radius.popover", "radius.control.md", "radius.pill",
+      "space.inset.md", "space.inset.lg", "space.inline.sm", "space.stack.sm",
+      "type.body.md", "type.label.sm", "type.eyebrow.mono",
+      "shadow.focus", "shadow.button.ai-shimmer",
+      "motion.duration.fast", "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "form",
+    "keyboard": [
+      "Tab - move between input, attach, send",
+      "Enter - newline by default; Cmd/Ctrl+Enter submits",
+      "/ - open slash commands when typed at start",
+      "Escape - close slash commands"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)", "2.1.1 Keyboard", "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value", "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "<form> role with aria-label='AI prompt'.",
+      "<textarea> with aria-label='Prompt'; visible model selector inherits aria-label='AI model'.",
+      "Loading: the streaming response uses aria-live='polite' on the OUTPUT region, not on the input.",
+      "Stop button (during streaming) has aria-label='Stop generating'.",
+      "Honor prefers-reduced-motion: drop the AI-shimmer on the send button; render it as a solid action.ai surface."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead with the model selector OR a sparkles glyph — the user must see 'this is AI' at a glance.",
+      "Submit shortcut: Cmd/Ctrl+Enter. Plain Enter inserts a newline.",
+      "Stop button replaces Send while streaming.",
+      "Render token counter when nearing the limit (>= 75%).",
+      "Use intent='ai' on the send button (lime-tinted, with AI shimmer)."
+    ],
+    "dont": [
+      "Don't render the AI shimmer when disabled or loading.",
+      "Don't auto-submit on plain Enter — accidental sends destroy trust.",
+      "Don't render the AI input on operator surfaces without an explicit indicator that this is AI-generated content."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["AISuggestion", "AIBadge", "Button", "Textarea", "Combobox"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial AIPromptInput contract." }]
+}

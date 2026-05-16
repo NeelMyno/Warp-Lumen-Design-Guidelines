@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:ui",
+  "title": "Tooltip",
+  "description": "Informational portaled bubble. Hover-intent show, focus-shown, Escape-dismissed.",
+  "dependencies": ["@radix-ui/react-tooltip"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/tooltip/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/tooltip.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/tooltip/component.json",
+    "docsPath": "design-system/02-components/tooltip/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

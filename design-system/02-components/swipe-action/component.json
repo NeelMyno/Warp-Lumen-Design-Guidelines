@@ -1,0 +1,82 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SwipeAction",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mobile-only row wrapper that exposes trailing (and optionally leading) actions on horizontal swipe. iOS-flavor — swipe left reveals Delete (red), Archive (neutral), or custom actions; rubberband resistance past the action width. Distinct from desktop right-click context menus (use DropdownMenu trigger='context').",
+  "props": {
+    "trailing":     { "type": "node", "optional": true, "description": "Array of SwipeAction items revealed on swipe-left. Each: { id, label, icon, tone (neutral/danger), onSelect, fullSwipe? }. fullSwipe=true triggers the action when the user swipes past the full row width." },
+    "leading":      { "type": "node", "optional": true, "description": "Array revealed on swipe-right. Use for opposite-meaning actions (Mark unread, Flag)." },
+    "snapDistance": { "type": "number", "default": 80, "optional": true, "description": "Px width to settle each revealed action at. The swipe snaps to multiples of this." },
+    "fullSwipeAction": { "type": "string", "optional": true, "description": "id of the trailing action that's auto-fired on full-distance swipe (typically Delete)." },
+    "children":     { "type": "node", "optional": false, "description": "The row's visible content." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.action.danger.bg.rest",
+      "color.action.danger.fg",
+      "color.action.secondary.bg.rest",
+      "color.action.secondary.fg",
+      "color.text.primary",
+      "color.text.error",
+      "color.text.on-action",
+      "color.border.hairline",
+      "space.inset.md",
+      "space.inline.sm",
+      "type.label.sm",
+      "type.eyebrow.mono",
+      "motion.duration.base",
+      "motion.duration.fast",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "ArrowLeft - reveal trailing actions",
+      "ArrowRight - reveal leading actions / close trailing",
+      "Enter / Space - activate the first revealed action",
+      "Escape - close revealed actions",
+      "Action 1 (number key) - activate first action, 2 = second, etc."
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "2.1.1 Keyboard",
+      "2.5.5 Target Size (Enhanced)",
+      "2.5.7 Dragging Movements (provide alternative non-drag affordance)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Per WCAG 2.5.7 — every swipe action MUST also be reachable without dragging. Render a Tap-to-reveal IconButton on the row (or trigger via long-press → ActionSheet).",
+      "Each revealed action is a button with aria-label='{Verb} {context}' — 'Delete conversation', 'Archive Sterling LTL invoice'.",
+      "Rubberband resistance prevents over-swipe; the snap distance keeps actions discoverable without committing.",
+      "Honor prefers-reduced-motion: snap to discrete positions without the elastic ease.",
+      "Destructive actions paint .action.danger.bg.rest + .action.danger.fg — never lime."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Pair every swipe action with a non-drag alternative — a long-press menu or visible IconButton row.",
+      "Order trailing actions from least-destructive (left, near edge) to most-destructive (right, full swipe).",
+      "Use fullSwipeAction='delete' for inbox-style archive/delete patterns.",
+      "Animate the snap with decelerate easing, not bounce.",
+      "Render the action icon + label in the revealed surface; not just the icon."
+    ],
+    "dont": [
+      "Don't use SwipeAction on desktop. Use a DropdownMenu trigger='context' (right-click).",
+      "Don't pack more than 3 trailing actions per row.",
+      "Don't use SwipeAction for non-row-scoped destructive actions ('Delete account') — those go in a Dialog.",
+      "Don't omit the non-drag fallback — WCAG 2.5.7 failure."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["List", "ActionSheet", "DropdownMenu"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial SwipeAction contract. iOS-flavor with rubberband + snap. WCAG 2.5.7 non-drag fallback required." }
+  ]
+}

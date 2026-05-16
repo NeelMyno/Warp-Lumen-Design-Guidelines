@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar",
+  "type": "registry:ui",
+  "title": "Sidebar",
+  "description": "Vertical primary nav rail. Expanded + rail + auto modes. Tooltip-required in rail mode.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/sidebar/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/sidebar.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/sidebar/component.json",
+    "docsPath": "design-system/02-components/sidebar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

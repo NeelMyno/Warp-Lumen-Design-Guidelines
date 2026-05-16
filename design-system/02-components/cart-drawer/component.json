@@ -1,0 +1,74 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CartDrawer",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Commerce-flavor Drawer pre-composed as the side cart. Renders a CartLineItem list (image + title + variant + qty stepper + price + remove), a totals subgroup (subtotal / discount / shipping / total), and a sticky-footer Checkout CTA. Distinct from MiniCart (small popover preview) — CartDrawer is a full side panel.",
+  "props": {
+    "open":           { "type": "boolean", "optional": false },
+    "onOpenChange":   { "type": "handler", "optional": false },
+    "items":          { "type": "node", "optional": false, "description": "Array of { id, image, title, variant?, qty, price, lineTotal }." },
+    "onQtyChange":    { "type": "handler", "optional": true },
+    "onRemove":       { "type": "handler", "optional": true },
+    "subtotal":       { "type": "node", "optional": false },
+    "discount":       { "type": "node", "optional": true },
+    "shipping":       { "type": "node", "optional": true },
+    "tax":            { "type": "node", "optional": true },
+    "total":          { "type": "node", "optional": false },
+    "checkoutLabel":  { "type": "string", "default": "Checkout", "optional": true },
+    "onCheckout":     { "type": "handler", "optional": false },
+    "freeShippingProgress": { "type": "number", "optional": true, "description": "0-100. Renders a Progress bar 'Add $X to unlock free shipping' inside the header." },
+    "promoSlot":      { "type": "node", "optional": true, "description": "Render-prop slot for a CouponInput / loyalty banner." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.sunken", "color.surface.scrim",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.primary.bg.rest", "color.action.primary.fg",
+      "color.action.ghost.bg.hover", "color.action.danger-soft.bg.hover", "color.action.danger-soft.fg",
+      "color.border.hairline", "color.border.default",
+      "color.accent.500",
+      "radius.card.default", "radius.card.hero", "radius.control.md", "radius.pill",
+      "space.inset.md", "space.inset.lg", "space.inset.xl", "space.stack.sm", "space.stack.md", "space.inline.sm",
+      "type.heading.h3", "type.label.md", "type.body.md", "type.body.sm", "type.eyebrow.mono", "type.tabular.nums",
+      "shadow.modal", "shadow.focus",
+      "motion.duration.slow", "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Escape - close",
+      "Tab - cycle focus inside trap",
+      "ArrowUp / ArrowDown on qty stepper - increment / decrement",
+      "Delete / Backspace on focused line item - remove with confirmation"
+    ],
+    "wcag": ["2.1.2 No Keyboard Trap", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value", "4.1.3 Status Messages"],
+    "rules": [
+      "Drawer behavior: role='dialog', aria-modal='true', aria-labelledby={titleId}, focus trap, Escape closes.",
+      "Each CartLineItem is a <li> with aria-label='{title}, qty {qty}, {lineTotal}'.",
+      "Quantity stepper announces 'Quantity {N}' via aria-live='polite' on change.",
+      "Removing an item announces 'Removed {title}' via aria-live; pair with an Undo Snackbar.",
+      "Totals: each line is a labeled key-value pair (<dl> + <dt> / <dd>)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Pin the Checkout CTA in a sticky footer.",
+      "Tabular-nums on every price.",
+      "Surface free-shipping progress prominently when within 25% of the threshold.",
+      "Use action.danger-soft tone on Remove buttons (not solid danger).",
+      "Pair Remove with an Undo Snackbar so accidental removes are recoverable."
+    ],
+    "dont": [
+      "Don't auto-scroll on every qty change.",
+      "Don't render the cart as a Dialog (centered modal) — that breaks the spatial 'cart sits to the side' mental model.",
+      "Don't paint the cart total in solid lime fill — accent tint surface only.",
+      "Don't put marketing offers above the cart line items — the user opened the cart to see their cart."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Drawer", "InventoryStatus", "Button", "Progress"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial CartDrawer contract." }]
+}

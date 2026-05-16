@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snackbar",
+  "type": "registry:ui",
+  "title": "Snackbar",
+  "description": "Transient bottom-anchored message with a single trailing action. Pause-on-hover.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/snackbar/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/snackbar.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/snackbar/component.json",
+    "docsPath": "design-system/02-components/snackbar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

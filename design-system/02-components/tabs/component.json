@@ -1,0 +1,104 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Tabs",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Switch between sibling views inside the same destination. Three chrome variants — pill (sunken track + raised thumb, Apple-flavor), underline (linear sub-nav, Linear-flavor), enclosed (bordered panel, admin-flavor). Distinct from Segmented (single-choice control inside a form row) and from Navbar tabs (top-level nav). One thumb visible at a time. Tab content lives in `<TabsPanel>` siblings with matching `value`.",
+  "props": {
+    "value":         { "type": "string", "optional": false, "description": "Controlled active panel id. Must match a TabsTrigger value." },
+    "defaultValue":  { "type": "string", "optional": true, "description": "Uncontrolled fallback." },
+    "onValueChange": { "type": "handler", "optional": true, "description": "Fires with the new value when the active tab changes." },
+    "variant":       { "type": "enum", "values": ["pill", "underline", "enclosed"], "default": "pill", "optional": true, "description": "pill: sunken track + raised lime-tinted thumb (default; Apple Sport-flavor). underline: linear with a moving lime underline — the operator sub-nav default; pairs with `density='dense'`. enclosed: bordered panel with the active tab notched into the top edge — admin and settings pages." },
+    "density":       { "type": "enum", "values": ["compact", "dense", "regular"], "default": "regular", "optional": true, "description": "compact: 28 px height, type.label.sm. dense: 32 px height, type.label.md. regular: 36 px height, type.label.md. Touch-target floor is 44 px on mobile — the consumer is responsible for choosing regular on mobile." },
+    "orientation":   { "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "optional": true, "description": "vertical mounts the TabsList as a left-rail column. roving tabindex follows orientation." },
+    "fitted":        { "type": "boolean", "default": false, "optional": true, "description": "TabsList stretches to 100% width and each TabsTrigger flex-1s. Pair with horizontal." },
+    "overflow":      { "type": "enum", "values": ["scroll", "menu"], "default": "scroll", "optional": true, "description": "When triggers overflow the track: scroll exposes a horizontal scroll affordance (mobile default); menu collapses overflowing triggers into a 'More' DropdownMenu (desktop default)." },
+    "asChild":       { "type": "boolean", "default": false, "optional": true, "description": "Forward to the consumer's rendering primitive (Radix-style slot)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.sunken",
+      "color.surface.raised",
+      "color.surface.tint-accent",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.border.hairline",
+      "color.border.default",
+      "color.border.accent",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.action.selected.fg",
+      "radius.popover",
+      "radius.control.md",
+      "radius.pill",
+      "space.inset.sm",
+      "space.inset.md",
+      "space.inline.xs",
+      "space.inline.sm",
+      "size.control.sm",
+      "size.control.md",
+      "type.label.sm",
+      "type.label.md",
+      "motion.duration.fast",
+      "motion.duration.base",
+      "motion.easing.standard",
+      "motion.easing.decelerate",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "tablist",
+    "keyboard": [
+      "Tab - enter the tablist, focus the active TabsTrigger",
+      "ArrowLeft / ArrowRight - move focus between triggers (horizontal)",
+      "ArrowUp / ArrowDown - move focus between triggers (vertical)",
+      "Home - focus first trigger",
+      "End - focus last trigger",
+      "Enter / Space - activate focused trigger (manual mode)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.3 Focus Order",
+      "2.4.7 Focus Visible",
+      "2.4.11 Focus Not Obscured (Minimum)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Tablist uses roving tabindex — only the active trigger is tabbable; the rest take focus via arrow keys.",
+      "Each TabsTrigger announces aria-selected=true|false and links to its TabsPanel via aria-controls.",
+      "Each TabsPanel announces aria-labelledby pointing at its trigger.",
+      "Automatic activation (focus = activate) is the default on horizontal; manual activation (focus moves, Space/Enter activates) is the default on vertical to avoid surprising state changes when the user is scanning options.",
+      "Honor prefers-reduced-motion: pill-variant thumb still slides under the active tab but skips the 220 ms scale-from-0.96 entry on first mount; underline-variant translateX still animates (motion that follows the user's intent stays per principle 4 of micro-interactions.md).",
+      "The pill thumb position is rendered via inline style.left + style.width tracked from each trigger's bounding rect (per AGENTS.md hard rule 12 — never Tailwind arbitrary translate classes for position math)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Tabs to switch between sibling views of the same destination. Page changes belong in a Navbar; row-level filters belong in Segmented.",
+      "Lead each trigger with a short noun: 'Overview', 'Activity', 'Settings'. Avoid verbs in triggers — they sound like buttons.",
+      "Pair the underline variant with operator sub-navigation under a page header. The single moving lime underline is the brand stroke — never paint a static lime underline on inactive triggers.",
+      "When triggers overflow on desktop, collapse to a 'More' DropdownMenu rather than scroll-clip the affordance.",
+      "Keep the panel content tall enough that no vertical layout shift occurs when switching tabs (allocate min-height or use a Suspense boundary)."
+    ],
+    "dont": [
+      "Don't stack more than 7 triggers — beyond that, switch to a sidebar list or a select.",
+      "Don't put a destructive action inside a TabsTrigger label. Destructive belongs in the panel, behind a guard.",
+      "Don't render two simultaneous thumb chromes (e.g. underline + raised pill). One indicator per Tabs instance.",
+      "Don't use Tabs to gate a multi-step flow — that's Stepper.",
+      "Don't paint the active trigger in lime fill (#00FA8A is the action accent; an active tab is selection, not action). Use color.action.selected.bg for the pill thumb; color.border.accent for the underline; color.text.accent for the active trigger label."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Segmented", "Navbar", "Sidebar", "DropdownMenu", "BottomNav"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Tabs contract formalizes the audit-dashboard implementation. Three variants (pill / underline / enclosed). Roving tabindex. Inline-style thumb position math per AGENTS.md hard rule 12. Overflow-to-DropdownMenu pattern for desktop densities." }
+  ]
+}

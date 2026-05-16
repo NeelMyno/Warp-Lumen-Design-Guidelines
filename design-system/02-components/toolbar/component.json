@@ -1,0 +1,88 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Toolbar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A grouped row of interactive controls — buttons, toggle buttons, dropdowns, dividers — sharing a single tab stop. Used as page-level command bars (above a Table), as floating contextual editor toolbars (rich text), and as dialog footers (the primary/secondary pair). Roving tabindex inside; ArrowLeft/ArrowRight cycles within the group.",
+  "props": {
+    "ariaLabel":      { "type": "string", "optional": false, "description": "Required label for SR users — 'Page actions', 'Text formatting', 'Filter and sort'." },
+    "orientation":    { "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "optional": true },
+    "density":        { "type": "enum", "values": ["compact", "regular"], "default": "regular", "optional": true, "description": "compact: 28 px, sm buttons. regular: 36 px, md buttons (touch floor on mobile)." },
+    "elevation":      { "type": "enum", "values": ["none", "border", "card"], "default": "none", "optional": true, "description": "border: hairline edge (sticky page toolbar). card: floating elevated toolbar (rich text editor)." },
+    "wrap":           { "type": "boolean", "default": true, "optional": true, "description": "When true and the toolbar exceeds width, items wrap to the next row. When false, items overflow into a 'More' DropdownMenu." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.popover",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.border.hairline",
+      "color.border.default",
+      "size.control.sm",
+      "size.control.md",
+      "space.inline.xs",
+      "space.inline.sm",
+      "space.inset.md",
+      "radius.control.md",
+      "radius.popover",
+      "type.label.sm",
+      "type.label.md",
+      "shadow.popover",
+      "shadow.focus",
+      "motion.duration.fast",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "toolbar",
+    "keyboard": [
+      "Tab - enter the toolbar (focus lands on the first item)",
+      "ArrowRight / ArrowLeft - move focus within (horizontal)",
+      "ArrowDown / ArrowUp - move focus within (vertical)",
+      "Home - first item",
+      "End - last item",
+      "Tab - leave the toolbar (move focus past)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='toolbar' + aria-label.",
+      "Roving tabindex — only one item is in the tab order at a time.",
+      "Toggle buttons inside use aria-pressed.",
+      "Vertical dividers between groups carry role='separator' and aria-orientation='vertical'.",
+      "Overflow 'More' menu: aria-label='More actions', uses the same DropdownMenu primitive."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Group related controls with vertical dividers.",
+      "Lead with the most common action; tail with destructive (and color-code it as danger-soft, not solid danger, in toolbars).",
+      "Use IconButton + Tooltip for icon-only items.",
+      "Wrap on narrow widths; collapse to 'More' on dense operator surfaces.",
+      "When the toolbar floats (rich text editor) use elevation='card' with shadow.popover and a small inset border."
+    ],
+    "dont": [
+      "Don't put a Select that's the primary form field inside a Toolbar — that goes in the Form.",
+      "Don't render a Toolbar without aria-label.",
+      "Don't stack two Toolbars vertically on the same surface — combine.",
+      "Don't paint the toolbar surface in lime — chrome, not action."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["ButtonGroup", "DropdownMenu", "IconButton", "Divider"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Toolbar contract. Roving tabindex. Group dividers. Wrap-or-overflow modes." }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "list",
+  "type": "registry:ui",
+  "title": "List",
+  "description": "Vertical sequence primitive. Three variants (plain/structured/interactive), three densities, four divider modes.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/list/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/list.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/list/component.json",
+    "docsPath": "design-system/02-components/list/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

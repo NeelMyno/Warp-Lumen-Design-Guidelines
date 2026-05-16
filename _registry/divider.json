@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "divider",
+  "type": "registry:ui",
+  "title": "Divider",
+  "description": "Hairline rule. Horizontal or vertical. Optional inline label. Inset modes for list rows.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/divider/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/divider.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/divider/component.json",
+    "docsPath": "design-system/02-components/divider/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

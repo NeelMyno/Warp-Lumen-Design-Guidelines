@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "presence-indicator",
+  "type": "registry:ui",
+  "title": "Presence Indicator",
+  "description": "Live state for users. Dot / inline / avatar-group.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/presence-indicator/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/presence-indicator.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/presence-indicator/component.json",
+    "docsPath": "design-system/02-components/presence-indicator/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

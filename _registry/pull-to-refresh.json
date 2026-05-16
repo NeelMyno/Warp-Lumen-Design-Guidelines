@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pull-to-refresh",
+  "type": "registry:ui",
+  "title": "Pull To Refresh",
+  "description": "Mobile gesture wrapper. Arrow / spinner indicator. WCAG 2.5.7 non-drag fallback required.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/pull-to-refresh/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/pull-to-refresh.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/pull-to-refresh/component.json",
+    "docsPath": "design-system/02-components/pull-to-refresh/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

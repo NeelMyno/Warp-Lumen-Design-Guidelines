@@ -1,0 +1,94 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Accordion",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Disclosure list. Each row is a <details>/<summary> with a Lumen-chrome chevron at the END (per AGENTS.md hard rule 14 — native disclosure marker is suppressed via .lumen-summary). Two modes — single (only one row open at a time, accordion-style) and multiple (rows open independently, disclosure-list-style).",
+  "props": {
+    "type":         { "type": "enum", "values": ["single", "multiple"], "default": "single", "optional": true, "description": "single: opening row N closes row N-1 (canonical FAQ behavior). multiple: rows are independent disclosures." },
+    "value":        { "type": "string", "optional": true, "description": "Controlled active row id (single mode) or array of ids (multiple mode)." },
+    "defaultValue": { "type": "string", "optional": true },
+    "onValueChange":{ "type": "handler", "optional": true },
+    "collapsible":  { "type": "boolean", "default": true, "optional": true, "description": "single mode only. When false, at least one row stays open. Use for nav contexts where one section is always expanded." },
+    "variant":      { "type": "enum", "values": ["plain", "card", "ghost"], "default": "plain", "optional": true, "description": "plain: hairline border between rows (default; FAQ pattern). card: each row gets a Card surface (settings groups). ghost: no chrome, only the chevron rotates (sub-navigation)." },
+    "iconPosition": { "type": "enum", "values": ["end", "start"], "default": "end", "optional": true, "description": "Lumen default: chevron at the END (matches reading flow). start places it before the summary (less common; only for very dense lists)." },
+    "size":         { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline",
+      "color.border.default",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.stack.sm",
+      "space.stack.md",
+      "size.control.md",
+      "size.control.lg",
+      "radius.card.default",
+      "type.heading.h4",
+      "type.label.md",
+      "type.body.md",
+      "type.body.sm",
+      "motion.duration.base",
+      "motion.duration.fast",
+      "motion.easing.decelerate",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab - move focus to next/prev summary",
+      "Enter / Space - toggle row open/closed",
+      "ArrowDown - move focus to next summary",
+      "ArrowUp - move focus to previous summary",
+      "Home - first summary",
+      "End - last summary"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Use the semantic <details>/<summary> primitive — it ships keyboard, focus, and SR semantics for free.",
+      "Per AGENTS.md hard rule 14 — apply class='lumen-summary' (or Tailwind list-none) on every <summary> that paints its own end-of-summary chevron. The .lumen-summary rule suppresses the native disclosure marker on every browser (modern: list-style: none; pre-2022 webkit: ::-webkit-details-marker { display: none }).",
+      "When using shadcn / Radix Accordion (button-based) instead of <details>, the trigger needs aria-expanded and aria-controls={contentId}; the content needs role='region' and aria-labelledby={triggerId}.",
+      "Honor prefers-reduced-motion: the height animation collapses to an instant show/hide; the chevron rotation drops to instant flip.",
+      "Single mode: the open row's content has aria-current='true' to disambiguate for SR users navigating with rotor."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use single mode for FAQ-style content where only one answer at a time matters.",
+      "Use multiple mode for settings / disclosure lists where users may want several open at once.",
+      "Lead summaries with the question or noun the answer addresses ('What's included in Pro?').",
+      "Pair with a CodeBlock or RichTextEditor inside the content for docs accordions.",
+      "Animate height — use grid-template-rows: 0fr → 1fr trick for smooth opens (no measured-height jank)."
+    ],
+    "dont": [
+      "Don't put critical info inside a closed accordion row on first load. Disclosure delays it.",
+      "Don't paint the chevron in lime — chrome, not action. Use text.tertiary at rest, text.primary on hover/open.",
+      "Don't combine with a Tabs control on the same surface — the user has too many disclosure moves.",
+      "Don't write summaries longer than one line. Truncation hides intent.",
+      "Don't forget .lumen-summary — without it, native triangles double up with your chevron (per hard rule 14)."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Tabs", "Card", "List"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Accordion contract. <details>/<summary>-based primitive. .lumen-summary class suppresses native disclosure marker per AGENTS.md hard rule 14. Three variants (plain / card / ghost)." }
+  ]
+}

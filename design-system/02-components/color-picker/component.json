@@ -1,0 +1,61 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ColorPicker",
+  "version": "0.12.6",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Color selection control. Two variants — swatches (a fixed palette of brand-safe color stops, the operator default) and full (saturation/lightness pad + hue slider + hex input + eyedropper). Always paired with a hex / rgba text input so users with vision differences can type the value.",
+  "props": {
+    "value":         { "type": "string", "optional": false, "description": "Hex / rgba / oklch string." },
+    "onValueChange": { "type": "handler", "optional": false },
+    "variant":       { "type": "enum", "values": ["swatches", "full"], "default": "swatches", "optional": true },
+    "swatches":      { "type": "node", "optional": true, "description": "Array of allowed values. Defaults to the Lumen brand palette." },
+    "allowAlpha":    { "type": "boolean", "default": false, "optional": true },
+    "ariaLabel":     { "type": "string", "default": "Color", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.sunken", "color.surface.popover",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary",
+      "color.action.selected.bg", "color.action.selected.border", "color.action.ghost.bg.hover",
+      "color.border.hairline", "color.border.default",
+      "color.accent.500",
+      "radius.control.sm", "radius.popover", "radius.circle",
+      "space.inset.md", "space.inline.sm",
+      "type.label.sm", "type.body.sm", "type.eyebrow.mono",
+      "shadow.focus", "shadow.popover",
+      "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab - move across swatches",
+      "Enter / Space - select swatch",
+      "ArrowKeys - move within the saturation pad (variant='full')",
+      "Tab to hex input - manually enter a color"
+    ],
+    "wcag": ["1.4.1 Use of Color", "1.4.3 Contrast (Minimum)", "1.4.11 Non-text Contrast", "2.1.1 Keyboard", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Each swatch carries aria-label='Hex {value}' so SR users hear the value, not just see it.",
+      "Selected swatch has aria-pressed='true' + a 2 px ring.",
+      "Hex input is always available as a fallback path."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default to swatches variant inside operator surfaces — restricted palette = consistent design.",
+      "Pair with a Tooltip on each swatch announcing the hex.",
+      "Show the current value as text under the picker (the hex / rgba string).",
+      "Use ColorPicker for brand colors / theme tokens; for free-form color, use variant='full'."
+    ],
+    "dont": [
+      "Don't render the full picker on a single brand-color settings page.",
+      "Don't omit the text input — color-blind users need keyboard entry.",
+      "Don't lime-fill the picker chrome — the swatches are the values."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Combobox", "Popover", "Input"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial ColorPicker contract (beta). Swatches + full variants." }]
+}

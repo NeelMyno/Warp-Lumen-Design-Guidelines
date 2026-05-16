@@ -1,0 +1,50 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PresenceIndicator",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Live state for one or more users on a surface. Three forms — dot (small ring-bordered colored circle at the corner of an Avatar), inline (chip with text label + dot), avatar-group (live AvatarGroup with presence dots on each + 'editing N seconds ago'). Distinct from Avatar's presence prop — PresenceIndicator can stand alone in a Toolbar or above a Drawer.",
+  "props": {
+    "users":      { "type": "node", "optional": false, "description": "Array of { name, avatarUrl?, status: 'online' | 'idle' | 'dnd' | 'offline', activity? }." },
+    "variant":    { "type": "enum", "values": ["dot", "inline", "avatar-group"], "default": "avatar-group", "optional": true },
+    "maxVisible": { "type": "number", "default": 3, "optional": true },
+    "showActivity":{ "type": "boolean", "default": false, "optional": true, "description": "Show '{name} is editing' style line beneath the group." },
+    "size":       { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.accent.500", "color.status.warning.500", "color.status.danger.500", "color.text.tertiary",
+      "color.surface.page", "color.surface.raised", "color.text.primary", "color.text.secondary",
+      "color.border.hairline",
+      "radius.pill", "radius.circle",
+      "space.inline.xs", "space.inline.sm",
+      "type.label.sm", "type.eyebrow.mono",
+      "motion.duration.base", "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [],
+    "wcag": ["1.4.3 Contrast (Minimum)", "1.4.11 Non-text Contrast", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Aggregate aria-label announces who is here ('3 people viewing: Avery Mercer, Kai Morgan, and 1 more').",
+      "Per-user presence dot has aria-label='{name}, online' attached to its parent Avatar.",
+      "Activity line uses aria-live='polite' so SR users hear new edits."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Cap visible avatars at 3-4; '+N' overflow chip.",
+      "Use the same status colors as Avatar (online=accent, idle=warning, dnd=danger, offline=neutral).",
+      "Activity line: '{name} is editing' truncated to 1 line."
+    ],
+    "dont": [
+      "Don't show offline users by default in avatar-group — clutter without value.",
+      "Don't ring-pulse online dots (the LiveDot's pulse is for freshness, not for human presence)."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Avatar", "LiveDot"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial PresenceIndicator contract." }]
+}

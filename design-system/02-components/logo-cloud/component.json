@@ -1,0 +1,51 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "LogoCloud",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Social-proof strip of partner / customer logos. Renders 5-12 logos in a 1-row marquee or static grid. Logos render in monochrome (text.tertiary tint) by default — restoring full color on hover/focus is opt-in. Includes a sr-only label naming the partner list.",
+  "props": {
+    "logos":      { "type": "node", "optional": false, "description": "Array of { src, alt, href? }." },
+    "layout":     { "type": "enum", "values": ["grid", "marquee"], "default": "grid", "optional": true },
+    "monochrome": { "type": "boolean", "default": true, "optional": true, "description": "Render logos in a single text-tertiary tint. False renders full-color logos." },
+    "speed":      { "type": "number", "default": 40, "optional": true, "description": "marquee only. Seconds per loop. Honor prefers-reduced-motion (stop the marquee)." },
+    "label":      { "type": "string", "default": "Trusted by", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.tertiary", "color.text.secondary",
+      "color.border.hairline",
+      "space.inline.lg", "space.stack.md",
+      "type.eyebrow.mono",
+      "motion.duration.slow", "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "list",
+    "keyboard": [],
+    "wcag": ["1.1.1 Non-text Content", "2.2.2 Pause, Stop, Hide (marquee)", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Wrapper has aria-label='Trusted by' (or the consumer's label).",
+      "Each logo is <img alt='Partner name'> — alt MUST name the partner.",
+      "marquee layout pauses under prefers-reduced-motion AND on hover/focus (WCAG 2.2.2).",
+      "When logos are also links, each is wrapped in <a> with the company name as accessible text."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use 5-12 logos. Past 12 = visual noise.",
+      "Render in monochrome by default — recolor on hover only if it adds meaning.",
+      "Pause marquee on hover / focus / reduce-motion.",
+      "Always include the 'Trusted by' eyebrow label so SR users hear the section."
+    ],
+    "dont": [
+      "Don't use real customer logos without explicit permission.",
+      "Don't auto-play a marquee without a pause mechanism.",
+      "Don't paint the eyebrow label in lime."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["TestimonialCard"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial LogoCloud contract." }]
+}

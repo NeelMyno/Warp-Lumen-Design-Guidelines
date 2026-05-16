@@ -1,0 +1,55 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "TestimonialCard",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Customer quote card. Composes a quotation, an author (avatar + name + role + company), and optional rating / metric. Used on landing pages, sales decks, case study previews. Operator-flavor (compact, neutral) and marketing-flavor (large, optional accent left-edge stroke).",
+  "props": {
+    "quote":     { "type": "node", "optional": false },
+    "author":    { "type": "string", "optional": false },
+    "role":      { "type": "string", "optional": true },
+    "company":   { "type": "string", "optional": true },
+    "avatar":    { "type": "node", "optional": true },
+    "rating":    { "type": "number", "optional": true, "description": "0-5. Renders as star glyphs." },
+    "metric":    { "type": "node", "optional": true, "description": "Optional headline metric: '40% faster quoting'." },
+    "variant":   { "type": "enum", "values": ["operator", "marketing"], "default": "marketing", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.tint-accent",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.accent.500", "color.status.warning.500",
+      "color.border.hairline", "color.border.accent",
+      "radius.card.default", "radius.card.lifted",
+      "space.inset.xl", "space.stack.md", "space.inline.sm",
+      "type.heading.h3", "type.body.md", "type.body.sm", "type.label.md", "type.eyebrow.mono",
+      "shadow.elevation.sm"
+    ]
+  },
+  "a11y": {
+    "role": "figure",
+    "keyboard": [],
+    "wcag": ["1.4.3 Contrast (Minimum)", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Use <figure> + <blockquote> + <figcaption>.",
+      "Rating renders with aria-label='4.6 of 5 stars' so SR users hear the value, not a parade of glyphs."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead with the quote in type.heading.h3 weight; author meta in type.body.sm.",
+      "Use synthetic operator names in marketing fixtures (per v0.12.5 privacy hygiene).",
+      "Pair with a single metric when there's a quantifiable outcome.",
+      "Marketing variant gets a 2 px text.accent left-edge stroke."
+    ],
+    "dont": [
+      "Don't render quotes longer than ~80 words. Trim or link out.",
+      "Don't lime the entire card.",
+      "Don't use real customer names without permission — use synthetic operator names in design fixtures."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Card", "Avatar"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial TestimonialCard contract." }]
+}

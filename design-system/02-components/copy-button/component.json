@@ -1,0 +1,80 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CopyButton",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Compact icon-button that writes a value to the clipboard and flashes a confirmation. Three forms: ghost (the default — minimal, paired with CodeBlock / token / API key surfaces), pill (label + icon, the standalone form), and inline (a leading-icon row that the consumer wraps around a value chip). Announces success via aria-live='polite'.",
+  "props": {
+    "value":     { "type": "string", "optional": false, "description": "The string to copy." },
+    "variant":   { "type": "enum", "values": ["ghost", "pill", "inline"], "default": "ghost", "optional": true },
+    "label":     { "type": "string", "optional": true, "description": "Visible label on pill / inline variants. Defaults to 'Copy'." },
+    "successLabel": { "type": "string", "default": "Copied", "optional": true },
+    "size":      { "type": "enum", "values": ["xs", "sm", "md"], "default": "sm", "optional": true },
+    "onCopied":  { "type": "handler", "optional": true, "description": "Fires after the clipboard write resolves." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.border.hairline",
+      "radius.control.sm",
+      "radius.pill",
+      "size.control.xs",
+      "size.control.sm",
+      "size.control.md",
+      "space.inline.xs",
+      "type.eyebrow.mono",
+      "type.label.sm",
+      "type.label.md",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "button",
+    "keyboard": [
+      "Tab - focus",
+      "Enter / Space - copy"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Ghost variant requires aria-label='Copy {what}'. Pill variant carries a visible label.",
+      "Success state announces via aria-live='polite' with the successLabel.",
+      "The icon swaps Copy → Check on success and resets after 1.6 s.",
+      "Honor prefers-reduced-motion: replace the swap animation with an instant flip."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default to ghost when paired with a CodeBlock or a token value.",
+      "Use pill (label + icon) as a standalone affordance ('Copy API key').",
+      "Pair with a Tooltip on ghost variants to name the action on hover.",
+      "Auto-reset after 1.6 s — don't leave the success state pinned."
+    ],
+    "dont": [
+      "Don't render CopyButton without a value.",
+      "Don't paint the success state in danger red.",
+      "Don't combine ghost variant with a separate visible label — use pill if you want a label.",
+      "Don't use CopyButton for non-copy actions ('Download', 'Share'). Use the right semantic affordance."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["CodeBlock", "IconButton", "Tooltip"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial CopyButton contract. Three variants, three sizes, aria-live success announce." }
+  ]
+}

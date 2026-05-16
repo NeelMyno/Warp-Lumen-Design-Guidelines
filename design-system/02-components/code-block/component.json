@@ -1,0 +1,86 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CodeBlock",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mono-typeface code display with optional language label, line numbers, copy button, and token highlight. For inline single-token code, use `<code>` or the Kbd primitive. CodeBlock is the multi-line variant. Renders pre-formatted whitespace, wraps on long lines via wrap='wrap' or 'soft', and exposes copy via CopyButton.",
+  "props": {
+    "code":        { "type": "string", "optional": false, "description": "The raw source text. Preserves whitespace. Use a string with explicit \\n line breaks." },
+    "language":    { "type": "string", "optional": true, "description": "Lowercase identifier (ts / tsx / sh / json / sql). Renders an eyebrow-mono label in the top-left. Highlighting itself is left to the consumer (Shiki, Prism, hljs)." },
+    "showLineNumbers": { "type": "boolean", "default": false, "optional": true },
+    "highlightLines":  { "type": "string", "optional": true, "description": "Comma-separated 1-indexed line numbers and/or ranges to highlight ('3,7-9'). Highlighted rows get a faint accent left-stripe." },
+    "wrap":        { "type": "enum", "values": ["scroll", "soft", "wrap"], "default": "scroll", "optional": true, "description": "scroll: overflow-x: auto (default; code stays on one line per source line). soft: wrap at word boundaries. wrap: wrap at character (only for ASCII art / fixed-width)." },
+    "copy":        { "type": "boolean", "default": true, "optional": true, "description": "Renders the CopyButton in the top-right." },
+    "filename":    { "type": "string", "optional": true, "description": "Optional filename label in the top-left, replaces language label." },
+    "maxHeight":   { "type": "string", "optional": true, "description": "CSS height (e.g. 320px). Beyond this, scroll is exposed. Pair with copy=true so the user can still grab the full content." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.sunken",
+      "color.surface.raised",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.border.hairline",
+      "color.border.subtle",
+      "color.surface.tint-accent",
+      "color.alpha.accent.12",
+      "color.action.ghost.bg.hover",
+      "radius.card.default",
+      "radius.control.sm",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.stack.sm",
+      "type.eyebrow.mono",
+      "type.code.sm",
+      "type.code.md",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "region",
+    "keyboard": [
+      "Tab - move focus to copy button (when copy=true)",
+      "Enter / Space - copy code",
+      "Tab - move focus into the pre (region) so SR users can read the contents"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root has role='region' and aria-label='Code block, {language|filename}'.",
+      "<pre><code> for the body — SR users hear 'preformatted text'.",
+      "Copy button has aria-label='Copy code'. On success, aria-live='polite' announces 'Copied'.",
+      "Long blocks should remain scrollable (don't force-wrap code by default — wrapping destroys diff-readability).",
+      "Highlight stripes are decorative; the highlighted line still needs to read normally."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use CodeBlock for any 2+ line snippet.",
+      "Use language='shell' for terminal output and prefix lines with $ when interactive.",
+      "Always include CopyButton — code is meant to be reused.",
+      "Use maxHeight + scroll for long examples; expose copy so the user can still grab everything.",
+      "Use highlight stripes sparingly to draw the eye to the relevant line — never highlight more than 1/3 of the block."
+    ],
+    "dont": [
+      "Don't render inline single-token code in CodeBlock. Use <code> or Kbd.",
+      "Don't auto-wrap code — diff readability matters more than horizontal compactness.",
+      "Don't strip the copy button to save space. The copy button IS the point of CodeBlock.",
+      "Don't color tokens outside the standard syntax theme (Shiki / Prism). Inline custom colors break dark mode and consistency."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Kbd", "CopyButton"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial CodeBlock contract. Language / filename label, line numbers, line highlight, copy button, wrap modes, max-height scroll." }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Sidebar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Vertical primary navigation rail. Used on operator dashboards and admin consoles where destinations exceed what fits in a Navbar. Two density modes — expanded (label + icon, 240 px) and rail (icon-only, 56 px with Tooltips). Collapsible with a chevron. Includes brand mark, item groups, label sections, footer (account + version).",
+  "props": {
+    "mode":         { "type": "enum", "values": ["expanded", "rail", "auto"], "default": "expanded", "optional": true, "description": "auto: switches based on viewport (rail < 1024 px). Persist the user's manual choice in localStorage." },
+    "brand":        { "type": "node", "optional": false },
+    "items":        { "type": "node", "optional": false, "description": "Sequence of SidebarItem / SidebarLabel / SidebarDivider children." },
+    "footer":       { "type": "node", "optional": true, "description": "Account + workspace switcher + version line." },
+    "onModeChange": { "type": "handler", "optional": true, "description": "Fires when the user toggles between expanded and rail." },
+    "elevation":    { "type": "enum", "values": ["none", "border"], "default": "border", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.page",
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.action.selected.border",
+      "color.border.hairline",
+      "color.border.default",
+      "size.sidebar.expanded",
+      "size.sidebar.rail",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.stack.xs",
+      "space.stack.md",
+      "space.inline.sm",
+      "radius.control.md",
+      "type.label.md",
+      "type.micro",
+      "type.eyebrow.mono",
+      "shadow.focus",
+      "motion.duration.base",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "navigation",
+    "keyboard": [
+      "Tab - move focus across SidebarItems",
+      "ArrowDown / ArrowUp - move between items (when role='menubar' applied)",
+      "Enter - activate focused item",
+      "ArrowRight on a parent - expand submenu",
+      "ArrowLeft on an expanded item - collapse"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root is <nav aria-label='Sidebar'>.",
+      "Active item: aria-current='page'.",
+      "In rail mode, every item MUST carry a Tooltip with the label (the visible icon is decorative; SR users still hear the label via aria-label on the link).",
+      "Mode toggle button has aria-label='Collapse sidebar' / 'Expand sidebar'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Group items into 2-3 sections with SidebarLabel headers.",
+      "Lead each item with a lucide icon.",
+      "Use the active state (selected.bg + text.accent + left-edge accent stroke).",
+      "Pin the brand at the top, footer at the bottom, scroll the middle.",
+      "Persist the user's collapsed/expanded preference."
+    ],
+    "dont": [
+      "Don't render more than 12 top-level items. Group or move to a Settings sub-page.",
+      "Don't paint the entire active row in lime fill.",
+      "Don't use Sidebar as a content scroll container — it's navigation.",
+      "Don't show rail mode without tooltips on each item."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Navbar", "BottomNav", "Drawer"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Sidebar contract. Expanded / rail / auto modes. Tooltip requirement in rail mode." }
+  ]
+}

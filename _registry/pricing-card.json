@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pricing-card",
+  "type": "registry:ui",
+  "title": "Pricing Card",
+  "description": "Single tier on a pricing page. Highlight variant with v0.12.5 peak-end lift.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/pricing-card/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/pricing-card.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/pricing-card/component.json",
+    "docsPath": "design-system/02-components/pricing-card/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

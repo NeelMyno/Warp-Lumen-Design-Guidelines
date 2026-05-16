@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "permission-prompt",
+  "type": "registry:ui",
+  "title": "Permission Prompt",
+  "description": "Pre-prompt explaining WHY a system permission is needed. Reduces deny-rate.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/permission-prompt/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/permission-prompt.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/permission-prompt/component.json",
+    "docsPath": "design-system/02-components/permission-prompt/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

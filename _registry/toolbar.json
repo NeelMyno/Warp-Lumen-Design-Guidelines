@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar",
+  "type": "registry:ui",
+  "title": "Toolbar",
+  "description": "Grouped row of interactive controls. Single tab stop with roving tabindex. Radix Toolbar wrapper.",
+  "dependencies": ["@radix-ui/react-toolbar"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/toolbar/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/toolbar.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/toolbar/component.json",
+    "docsPath": "design-system/02-components/toolbar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

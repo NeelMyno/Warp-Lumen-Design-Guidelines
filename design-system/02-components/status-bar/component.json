@@ -1,0 +1,54 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "StatusBar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Decorative mobile-platform status-bar row. Renders time on the left, carrier / signal / wifi / battery cluster on the right, sized and styled for the iOS island, iOS notch, or Android pin-hole platform. Companion to PhoneFrame.",
+  "props": {
+    "time":     { "type": "string", "default": "9:41", "optional": true },
+    "carrier":  { "type": "string", "optional": true, "description": "'Verizon', 'Vodafone', 'No SIM'. Hide when undefined." },
+    "platform": { "type": "enum", "values": ["ios", "android"], "default": "ios", "optional": true },
+    "tone":     { "type": "enum", "values": ["light", "dark", "auto"], "default": "auto", "optional": true, "description": "auto: text colored to contrast with the underlying canvas. Set explicitly when the canvas is an image and the system can't infer." },
+    "battery":  { "type": "number", "default": 84, "optional": true, "description": "0-100. Render a battery glyph at that percentage." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.tertiary",
+      "color.alpha.paper.40",
+      "type.eyebrow.mono",
+      "type.tabular.nums",
+      "space.inline.xs"
+    ]
+  },
+  "a11y": {
+    "role": "presentation",
+    "keyboard": [],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)"
+    ],
+    "rules": [
+      "StatusBar is decorative inside a PhoneFrame — aria-hidden=true.",
+      "When mounted as a real status bar (PWA full-screen), it MUST not steal focus."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use 9:41 as the default time — the established Apple keynote convention.",
+      "Battery glyph is filled in tone='auto' contrast.",
+      "Use mono digits with .lumen-tnum so the time stays steady."
+    ],
+    "dont": [
+      "Don't render brand-name carriers in production marketing — use 'Carrier' as a neutral fallback.",
+      "Don't render a fake low-battery state next to a 'Plug in' Banner — that's misleading."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["PhoneFrame"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial StatusBar contract." }
+  ]
+}

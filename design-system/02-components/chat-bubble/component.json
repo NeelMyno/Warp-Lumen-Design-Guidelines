@@ -1,0 +1,59 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ChatBubble",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Chat message row. Renders an avatar (optional), an author name + timestamp meta, the message body, and a reaction bar slot. Three speaker variants — you (right-aligned, accent-tinted), them (left-aligned, raised), ai (left-aligned, AI-shimmer leading). Streaming AI messages render with a typing indicator until complete.",
+  "props": {
+    "speaker":     { "type": "enum", "values": ["you", "them", "ai", "system"], "default": "them", "optional": true },
+    "author":      { "type": "string", "optional": true, "description": "Display name for them/ai variants." },
+    "avatar":      { "type": "node", "optional": true, "description": "Avatar slot — pass an Avatar primitive." },
+    "time":        { "type": "string", "optional": true, "description": "Human time label. Render <time datetime=ISO> internally." },
+    "dateTime":    { "type": "string", "optional": true },
+    "body":        { "type": "node", "optional": false },
+    "streaming":   { "type": "boolean", "default": false, "optional": true, "description": "ai variant only. Renders a typing-indicator dot loop at the tail of the body." },
+    "reactions":   { "type": "node", "optional": true, "description": "Render-prop slot for a ReactionBar below the bubble." },
+    "actions":     { "type": "node", "optional": true, "description": "Trailing hover-revealed kebab + actions (Copy, Quote, Delete)." },
+    "edited":      { "type": "boolean", "default": false, "optional": true, "description": "Shows '(edited)' eyebrow next to time." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.tint-accent", "color.surface.sunken",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.border.hairline",
+      "color.action.ai.bg.rest", "color.action.ai.fg",
+      "radius.card.default", "radius.popover", "radius.pill",
+      "space.inset.md", "space.inset.lg", "space.stack.xs", "space.stack.sm", "space.inline.sm",
+      "type.body.md", "type.label.md", "type.eyebrow.mono", "type.micro",
+      "shadow.button.ai-shimmer", "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "listitem",
+    "keyboard": [],
+    "wcag": ["1.4.3 Contrast (Minimum)", "4.1.2 Name, Role, Value", "4.1.3 Status Messages"],
+    "rules": [
+      "Each ChatBubble is a <li>. The parent thread is <ol role='log' aria-live='polite'> so new messages are announced as they arrive.",
+      "AI streaming bubble uses aria-busy='true' until complete, then aria-busy='false'.",
+      "<time datetime=ISO> renders inside the meta row.",
+      "Reactions and actions are independently tabbable."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Right-align you, left-align them/ai.",
+      "Avatar adjacent to bubble, not inside.",
+      "Use action.ai.bg.rest tint surface for ai variant; surface.raised for them.",
+      "Wrap timestamps in <time datetime=ISO>."
+    ],
+    "dont": [
+      "Don't render avatars inside the bubble — that wastes width.",
+      "Don't paint your-bubble in solid lime fill — use a tinted surface.",
+      "Don't auto-scroll to bottom on every keypress — only when the user is already at the bottom (sticky-bottom pattern)."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["AIPromptInput", "AIBadge", "ReactionBar", "Avatar"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial ChatBubble contract. Four speakers, streaming AI variant, ReactionBar slot." }]
+}

@@ -1,0 +1,61 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "AISuggestion",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Inline AI proposal card. Left-edge accent stroke + Sparkles glyph + suggestion body + accept/reject IconButtons. Used inside RTE inline suggestions, AI-rewrite cards, AI-summary previews. Distinct from CitationCard (the source) and AIBadge (the inline 'AI generated' label).",
+  "props": {
+    "title":      { "type": "string", "optional": true, "description": "Optional title: 'Suggested next action', 'Rewrite suggestion'." },
+    "body":       { "type": "node", "optional": false },
+    "onAccept":   { "type": "handler", "optional": true },
+    "onReject":   { "type": "handler", "optional": true },
+    "acceptLabel":{ "type": "string", "default": "Accept", "optional": true },
+    "rejectLabel":{ "type": "string", "default": "Dismiss", "optional": true },
+    "compact":    { "type": "boolean", "default": false, "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.tint-accent",
+      "color.text.primary", "color.text.secondary", "color.text.accent",
+      "color.action.ai.bg.rest", "color.action.ai.fg",
+      "color.action.ghost.bg.hover", "color.action.tertiary.fg",
+      "color.border.hairline", "color.border.accent",
+      "radius.card.default",
+      "space.inset.md", "space.inset.lg", "space.stack.sm", "space.inline.sm",
+      "type.label.md", "type.body.sm", "type.eyebrow.mono",
+      "shadow.focus", "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "complementary",
+    "keyboard": [
+      "Tab - move focus to accept",
+      "Enter - accept",
+      "Escape - reject (announces dismiss to SR)"
+    ],
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "role='complementary' or role='note' depending on context.",
+      "Sparkles glyph + 'AI suggestion' eyebrow label so SR users hear it's an AI proposal.",
+      "Accept / Reject have explicit aria-labels ('Accept rewrite', 'Dismiss suggestion').",
+      "When dismissed, replace the AISuggestion with a Toast or sr-only confirmation."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead the card with a Sparkles glyph + 'AI suggestion' eyebrow label.",
+      "Left-edge 2 px text.accent stroke for visual distinction.",
+      "Pair with CitationCard when the suggestion references a source.",
+      "Accept = intent='ai' button (small); Reject = intent='ghost' or IconButton."
+    ],
+    "dont": [
+      "Don't autopapy-accept after a timeout — the user must take action.",
+      "Don't render AI suggestions in destructive flows without explicit confirmation.",
+      "Don't paint the entire card in lime — left-edge stroke + tint surface only."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["AIPromptInput", "AIBadge", "CitationCard"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial AISuggestion contract." }]
+}

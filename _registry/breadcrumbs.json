@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "type": "registry:ui",
+  "title": "Breadcrumbs",
+  "description": "Where am I, how did I get here. Horizontal nav trail separated by ChevronRight, current page as terminal non-link.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/breadcrumbs/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/breadcrumbs.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/breadcrumbs/component.json",
+    "docsPath": "design-system/02-components/breadcrumbs/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

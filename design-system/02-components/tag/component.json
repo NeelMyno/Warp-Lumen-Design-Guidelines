@@ -1,0 +1,94 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Tag",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Compact, often-closable chip for categorizing or filtering. Distinct from Badge (status / count, sm-only, never closable) and TagsInput (a multi-value form control composed of Tags). Five tones map to a soft tinted bg + matching fg; the operator-default 'subtle' tone is a hairline-bordered pill on canvas. Optional leading icon, optional trailing dismiss.",
+  "props": {
+    "label":      { "type": "node", "optional": false },
+    "tone":       { "type": "enum", "values": ["subtle", "neutral", "accent", "info", "success", "warning", "danger"], "default": "subtle", "optional": true, "description": "subtle: hairline pill — quiet category chip (default). neutral: filled neutral chip. accent: text.accent on tint-accent. info/success/warning/danger: status tint." },
+    "size":       { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true, "description": "sm=22 px (operator/table chip). md=28 px (interactive filter chip)." },
+    "leadingIcon":{ "type": "icon", "optional": true },
+    "dismissible":{ "type": "boolean", "default": false, "optional": true, "description": "Renders a trailing × icon-button. Fires onDismiss when activated; the tag remains in DOM until removed by the consumer." },
+    "onDismiss":  { "type": "handler", "optional": true },
+    "selected":   { "type": "boolean", "default": false, "optional": true, "description": "When true, renders the action.selected.* tokens — used for filter chips toggled on/off (FilterBar pattern)." },
+    "onClick":    { "type": "handler", "optional": true, "description": "When provided, the tag becomes a button (role='button', focusable, Enter/Space activates). Use for filter chips. Don't combine with dismissible — use IconButton-as-button inside." },
+    "asLink":     { "type": "string", "optional": true, "description": "Routes via <a> when set." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.surface.tint-accent",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.text.success",
+      "color.text.warning",
+      "color.text.error",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.action.selected.border",
+      "color.action.selected.fg",
+      "color.border.hairline",
+      "color.border.subtle",
+      "color.status.success.bg", "color.status.success.fg",
+      "color.status.warning.bg", "color.status.warning.fg",
+      "color.status.danger.bg",  "color.status.danger.fg",
+      "color.status.info.bg",    "color.status.info.fg",
+      "radius.pill",
+      "space.inset.sm",
+      "space.inline.xs",
+      "type.label.sm",
+      "type.label.md",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab - move focus to interactive tag",
+      "Enter / Space - activate onClick OR toggle selected",
+      "Backspace - dismiss the focused tag (when dismissible)",
+      "Tab - move focus past the dismiss button"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Interactive tags (onClick / asLink) carry role='button' or render <a>. Static tags carry no role.",
+      "Dismiss button: aria-label='Remove {label}'.",
+      "selected tags set aria-pressed='true' so SR users hear the toggle state.",
+      "Color is never the only signal: tone reinforces a label the user can read."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use subtle tone as the default — a Tag should not compete with a Button on chrome weight.",
+      "Use accent tone for primary filter chips that are selected.",
+      "Pair with TagsInput when the chip is part of a multi-value form control.",
+      "Lead with the value, not the category — 'San Francisco', not 'City: San Francisco'.",
+      "Cap label width at ~24ch; longer values truncate with ellipsis + Tooltip."
+    ],
+    "dont": [
+      "Don't use a Tag as a primary CTA. Use Button.",
+      "Don't use solid lime fill on a Tag. action.selected (~12% tint) is the selection tint.",
+      "Don't render 8+ Tags in a row — collapse with 'and N more'.",
+      "Don't pack interactive AND dismissible — that's two affordances on one chip."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Badge", "TagsInput", "FilterBar"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Tag contract. Seven tones, two sizes, dismiss + selected + onClick / asLink variants. Distinct from Badge (status pill)." }
+  ]
+}

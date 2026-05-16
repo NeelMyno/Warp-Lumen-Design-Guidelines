@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link",
+  "type": "registry:ui",
+  "title": "Link",
+  "description": "Inline text link. Always <a>. Three appearances. External-link safety. Three underline modes.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/link/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/link.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/link/component.json",
+    "docsPath": "design-system/02-components/link/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

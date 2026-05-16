@@ -1,0 +1,54 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ReactionBar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Emoji reaction row attached to a Comment / ChatBubble / annotation marker. Each reaction is a small chip showing the emoji + tabular count + toggle state. An 'Add reaction' button opens a Popover picker. The user's reaction toggles via tap / Enter.",
+  "props": {
+    "reactions":   { "type": "node", "optional": false, "description": "Array of { emoji, count, mine? }." },
+    "onToggle":    { "type": "handler", "optional": false },
+    "onAdd":       { "type": "handler", "optional": true, "description": "Opens the emoji picker." },
+    "size":        { "type": "enum", "values": ["xs", "sm"], "default": "sm", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.tint-accent",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.action.selected.bg", "color.action.selected.border",
+      "color.border.hairline",
+      "radius.pill", "radius.control.sm",
+      "space.inline.xs",
+      "type.label.sm", "type.tabular.nums",
+      "shadow.focus", "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "Tab - move across reactions",
+      "Enter / Space - toggle reaction",
+      "Add+1 (numeric key) - some patterns wire 1-9 to the first nine reactions"
+    ],
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Each chip is a button with aria-pressed (true when 'mine').",
+      "aria-label spells out the meaning ('Heart, 4 reactions, you reacted').",
+      "Add-reaction button has aria-label='Add reaction'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Render counts in tabular-nums so chips stay aligned when values advance.",
+      "Mine state: action.selected.bg + selected.border (~12% accent tint) — never solid lime.",
+      "Cap visible reactions at 6 — past that collapse to '+N'."
+    ],
+    "dont": [
+      "Don't allow more than ~20 distinct reactions on a single object — too much social noise.",
+      "Don't paint chips in danger red — even sad emoji belong in neutral chrome."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["CommentThread", "ChatBubble"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial ReactionBar contract." }]
+}

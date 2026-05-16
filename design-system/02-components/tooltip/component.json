@@ -1,0 +1,83 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Tooltip",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A small, dismissible-on-hover, portaled bubble that names a control or clarifies a value. Strictly informational — no actions inside. Triggers on hover-with-intent (700 ms enter / 100 ms leave) and on keyboard focus. Suppressed on touch (a long-press is not a tooltip — use Popover instead). Portaled per AGENTS.md hard rule 10.",
+  "props": {
+    "content":   { "type": "node", "optional": false, "description": "Short label or sentence. Tooltips are not for prose — > 2 lines or any interactive element means you want a Popover." },
+    "side":      { "type": "enum", "values": ["top", "right", "bottom", "left"], "default": "top", "optional": true },
+    "align":     { "type": "enum", "values": ["start", "center", "end"], "default": "center", "optional": true },
+    "delayShow": { "type": "number", "default": 700, "optional": true, "description": "Hover-intent delay before showing, in ms. 700 ms is the established Apple HIG / Atlassian tooltip threshold." },
+    "delayHide": { "type": "number", "default": 100, "optional": true, "description": "Hide delay after pointer leaves the trigger." },
+    "arrow":     { "type": "boolean", "default": true, "optional": true, "description": "Render a 6 px arrow pointing at the trigger." },
+    "kbdHint":   { "type": "node", "optional": true, "description": "Optional inline Kbd cluster rendered after the label (e.g. <span>Add task <Kbd>⌘N</Kbd></span>). Pair with sentence-case label." },
+    "open":      { "type": "boolean", "optional": true, "description": "Controlled override. Use to keep the tooltip pinned during an animation or to suppress during a drag." },
+    "onOpenChange": { "type": "handler", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.popover",
+      "color.text.primary",
+      "color.text.tertiary",
+      "color.border.hairline",
+      "radius.control.md",
+      "space.inset.sm",
+      "space.inset.md",
+      "space.inline.xs",
+      "type.label.sm",
+      "type.micro",
+      "shadow.popover",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "tooltip",
+    "keyboard": [
+      "Focus the trigger - show tooltip",
+      "Blur the trigger - hide tooltip",
+      "Escape - hide tooltip (per WCAG 1.4.13)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "1.4.13 Content on Hover or Focus",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Tooltip text MUST also be reachable via the trigger's accessible name when the trigger is icon-only — wire aria-labelledby={tooltipId} so SR users hear the label without depending on hover.",
+      "Tooltip content must be dismissible (Escape), hoverable (the user can hover over the tooltip itself), and persistent (does not disappear after a few seconds) — the three WCAG 1.4.13 'Content on Hover or Focus' requirements.",
+      "Per AGENTS.md hard rule 10 — the tooltip portals to document.body.",
+      "Do not put interactive content inside. If you need a button or a link in the bubble, you want Popover.",
+      "Honor prefers-reduced-motion: skip the entry zoom-in; keep the fade."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use for icon-only buttons (the IconButton's accessible name should come from the tooltip).",
+      "Use for table column headers when the column label is truncated.",
+      "Use for keyboard-shortcut reveal on hover ('Save  ⌘S').",
+      "Lead with a sentence-case short label. One line.",
+      "If a label needs more than 2 lines or any interactive element, switch to Popover."
+    ],
+    "dont": [
+      "Don't put a button, link, or input inside a Tooltip. Use Popover.",
+      "Don't paint the bubble in lime — chrome, not action.",
+      "Don't show tooltips on touch — they hide content under fingers and contribute to layout instability.",
+      "Don't auto-show tooltips on page load — the user must signal intent (hover, focus).",
+      "Don't render the bubble inline as <div absolute> — portal to document.body."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Popover", "IconButton", "Kbd"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Tooltip contract. Hover-intent timing (700/100). Kbd hint slot. Portaled per hard rule 10." }
+  ]
+}

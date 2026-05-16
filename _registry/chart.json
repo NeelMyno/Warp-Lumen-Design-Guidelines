@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart",
+  "type": "registry:ui",
+  "title": "Chart",
+  "description": "Adapter-agnostic chart wrapper. Lumen palette + axis tokens + tooltip skin. Eleven kinds.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/chart/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/chart.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/chart/component.json",
+    "docsPath": "design-system/02-components/chart/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

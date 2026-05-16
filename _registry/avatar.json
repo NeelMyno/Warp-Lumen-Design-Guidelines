@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "type": "registry:ui",
+  "title": "Avatar",
+  "description": "User/actor identity image. 8-color name-hashed fallback. Five sizes, three shapes. AvatarGroup overlap + overflow.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/avatar/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/avatar.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/avatar/component.json",
+    "docsPath": "design-system/02-components/avatar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

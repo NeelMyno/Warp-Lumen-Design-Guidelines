@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "phone-frame",
+  "type": "registry:ui",
+  "title": "Phone Frame",
+  "description": "Stylized phone silhouette for marketing mockups. iOS notch / Dynamic Island / Android pin-hole.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/phone-frame/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/phone-frame.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/phone-frame/component.json",
+    "docsPath": "design-system/02-components/phone-frame/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

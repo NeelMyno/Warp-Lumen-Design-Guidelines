@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "carousel",
+  "type": "registry:ui",
+  "title": "Carousel",
+  "description": "Snap-scrolling content carousel. Autoplay OFF by default per WCAG 2.2.2.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/carousel/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/carousel.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/carousel/component.json",
+    "docsPath": "design-system/02-components/carousel/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

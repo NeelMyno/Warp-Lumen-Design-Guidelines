@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inventory-status",
+  "type": "registry:ui",
+  "title": "Inventory Status",
+  "description": "Stock state chip. In-stock / low-stock / backorder / preorder / sold-out.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/inventory-status/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/inventory-status.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/inventory-status/component.json",
+    "docsPath": "design-system/02-components/inventory-status/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

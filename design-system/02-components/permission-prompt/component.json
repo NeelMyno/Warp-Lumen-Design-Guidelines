@@ -1,0 +1,84 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PermissionPrompt",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Pre-prompt that explains WHY the app needs a system permission BEFORE triggering the OS-native dialog. Renders a centered card with an icon, title (the consequence), description (the value), and two buttons — 'Not now' (secondary) + 'Continue' (primary, which then fires the native prompt). Reduces the deny-rate of platform permission requests by 2-3x. Covers camera, microphone, location, notifications, contacts, photos, motion, tracking transparency, biometric.",
+  "props": {
+    "kind":         { "type": "enum", "values": ["camera", "microphone", "location", "notifications", "contacts", "photos", "motion", "tracking", "biometric", "bluetooth"], "optional": false },
+    "title":        { "type": "string", "optional": true, "description": "Override the default kind-derived title." },
+    "description":  { "type": "node", "optional": false, "description": "1-2 lines explaining why the permission is needed and the user-side benefit." },
+    "primaryLabel": { "type": "string", "default": "Continue", "optional": true },
+    "secondaryLabel":{ "type": "string", "default": "Not now", "optional": true },
+    "onPrimary":    { "type": "handler", "optional": false },
+    "onSecondary":  { "type": "handler", "optional": false },
+    "icon":         { "type": "icon", "optional": true, "description": "Override the default kind glyph." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.scrim",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.action.primary.bg.rest",
+      "color.action.primary.fg",
+      "color.action.tertiary.bg.hover",
+      "color.action.tertiary.fg",
+      "color.border.hairline",
+      "color.surface.tint-accent",
+      "radius.card.hero",
+      "space.inset.xl",
+      "space.stack.md",
+      "space.stack.lg",
+      "type.heading.h3",
+      "type.body.md",
+      "shadow.modal",
+      "motion.duration.slow",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Tab - cycle between secondary and primary",
+      "Enter - activate primary",
+      "Escape - activate secondary"
+    ],
+    "wcag": [
+      "2.1.2 No Keyboard Trap (intentional, exit via secondary)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' + aria-modal='true' + aria-labelledby={titleId}.",
+      "Focus trap; initial focus on the primary button.",
+      "Escape activates the secondary, not just dismiss — 'Escape' MUST acknowledge the user's choice to deny.",
+      "The native OS prompt that follows the primary is the responsibility of the consumer."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead the title with the consequence: 'Enable notifications to track shipment delays'.",
+      "Pair every PermissionPrompt with explicit description text — the user must know exactly what they're trading.",
+      "Use the kind-paired icon (Bell for notifications, MapPin for location, Camera, Mic, etc.).",
+      "Use intent='primary' on Continue and intent='tertiary' on Not now.",
+      "Render PermissionPrompt AT THE MOMENT the user can clearly benefit — not on first launch."
+    ],
+    "dont": [
+      "Don't trigger the system prompt without a pre-prompt — the deny-rate is 2-3x higher.",
+      "Don't paint the secondary button in danger red — denial is a normal user choice, not destructive.",
+      "Don't show the pre-prompt more than once per session for the same denied permission.",
+      "Don't mention 'allow' or 'deny' verbatim in the labels — those are OS terms. Use 'Continue' / 'Not now'."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Dialog", "Banner", "CoachMark"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial PermissionPrompt contract. Ten kinds. Pre-prompt pattern reducing system-prompt deny-rate." }
+  ]
+}

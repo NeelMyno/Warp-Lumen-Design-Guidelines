@@ -1,0 +1,93 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Panel",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "In-flow collapsible content container. A semantic <section> with a labeled header (h2/h3) and a body, optionally collapsible via a chevron in the header. Three variants — plain (in-page section), bordered (Card-flavored section), and inspector (a docked right-rail panel that can resize). The de-facto 'settings group' / 'inspector panel' primitive.",
+  "props": {
+    "title":          { "type": "node", "optional": false },
+    "description":    { "type": "node", "optional": true },
+    "variant":        { "type": "enum", "values": ["plain", "bordered", "inspector"], "default": "plain", "optional": true },
+    "collapsible":    { "type": "boolean", "default": false, "optional": true, "description": "Adds a chevron to the header that collapses the body. Use <details> semantics under the hood for free SR support." },
+    "defaultOpen":    { "type": "boolean", "default": true, "optional": true },
+    "open":           { "type": "boolean", "optional": true },
+    "onOpenChange":   { "type": "handler", "optional": true },
+    "headingLevel":   { "type": "enum", "values": ["h2", "h3", "h4"], "default": "h3", "optional": true, "description": "Semantic heading level for the header label." },
+    "leading":        { "type": "node", "optional": true, "description": "Optional leading slot (Avatar, IconButton, status dot) before the title." },
+    "trailing":       { "type": "node", "optional": true, "description": "Trailing action slot — typically a small Button or DropdownMenu trigger." },
+    "resizable":      { "type": "boolean", "default": false, "optional": true, "description": "variant='inspector' only. Adds a left-edge drag handle that the consumer wires to width state." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline",
+      "color.border.default",
+      "radius.card.default",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.inset.xl",
+      "space.stack.sm",
+      "space.stack.md",
+      "type.heading.h2",
+      "type.heading.h3",
+      "type.heading.h4",
+      "type.body.md",
+      "type.body.sm",
+      "motion.duration.base",
+      "motion.duration.fast",
+      "motion.easing.decelerate",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "region",
+    "keyboard": [
+      "Tab - move focus to collapse trigger (when collapsible)",
+      "Enter / Space - toggle collapse",
+      "ArrowLeft - drag-handle nudge -10 px (variant='inspector' + resizable=true)",
+      "ArrowRight - drag-handle nudge +10 px",
+      "Home - resize to min width",
+      "End - resize to max width"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.6 Headings and Labels",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root is a <section> with aria-labelledby={headerId}.",
+      "Heading uses the level passed via headingLevel — outline structure should remain sane (don't drop from h2 to h4).",
+      "Collapsible variant uses <details>/<summary> + .lumen-summary so the native marker is suppressed per AGENTS.md hard rule 14.",
+      "Inspector variant's resize handle is keyboard-resizable (arrow keys + Home/End)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Panel for in-flow page sections (Settings → Profile, Settings → Notifications).",
+      "Use variant='bordered' on Cards-as-sections inside a docs body.",
+      "Use variant='inspector' for the docked right rail on a doc / kanban / collaboration surface.",
+      "Pair with Form for grouped form fields."
+    ],
+    "dont": [
+      "Don't use Panel as a Card replacement when there's no heading — that's just a Card.",
+      "Don't make every Panel collapsible — it adds disclosure cost without clear value.",
+      "Don't skip heading levels."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Card", "Accordion", "Drawer"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Panel contract. Plain / bordered / inspector variants. Collapsible + resizable modes." }
+  ]
+}

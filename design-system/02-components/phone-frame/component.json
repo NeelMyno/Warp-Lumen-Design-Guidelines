@@ -1,0 +1,61 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PhoneFrame",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Decorative chrome that mocks a phone shell for marketing / showcase / docs. Renders the device silhouette (notch, Dynamic Island, home indicator, status bar slot) and clips its child to the screen bounds. Three platforms — ios-notch, ios-island (Dynamic Island), android-pin-hole. Distinct from the iOS / Android platform docs — PhoneFrame is presentation, not runtime.",
+  "props": {
+    "platform":   { "type": "enum", "values": ["ios-notch", "ios-island", "android-pin-hole"], "default": "ios-island", "optional": true },
+    "size":       { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true, "description": "sm=300x600 / md=360x720 / lg=420x840 px nominal." },
+    "rotation":   { "type": "enum", "values": ["portrait", "landscape"], "default": "portrait", "optional": true },
+    "statusBar":  { "type": "node", "optional": true, "description": "Slot for the StatusBar primitive. When omitted, a neutral status bar is rendered." },
+    "showHomeIndicator": { "type": "boolean", "default": true, "optional": true, "description": "ios-* only. Render the bottom 5 px-tall home indicator pill." },
+    "background": { "type": "string", "optional": true, "description": "Optional background fill behind the child content. Defaults to color.surface.page." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.page",
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.primary",
+      "color.alpha.paper.40",
+      "color.alpha.ink.86",
+      "radius.card.hero",
+      "radius.card.marketing",
+      "shadow.elevation.lg",
+      "size.phone.sm", "size.phone.md", "size.phone.lg"
+    ]
+  },
+  "a11y": {
+    "role": "img",
+    "keyboard": [],
+    "wcag": [
+      "1.1.1 Non-text Content"
+    ],
+    "rules": [
+      "PhoneFrame is presentational. role='img' + aria-label='Phone mockup, {platform}' so SR users know it's a frame, not a real device.",
+      "Children inside should still be readable to SR — don't aria-hide the children with the frame."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use PhoneFrame in marketing hero shots and onboarding gifs.",
+      "Pair with StatusBar to make the chrome look real.",
+      "Center-anchor the home indicator within the safe-area-inset-bottom band.",
+      "For the showcase, alias size to the same px the audit-dashboard mobile breakpoint uses."
+    ],
+    "dont": [
+      "Don't use PhoneFrame in the operator dashboard chrome — it's marketing/docs presentation only.",
+      "Don't render real device skins (Apple / Pixel) with brand marks — that's a TM issue. The Lumen frame is a stylized silhouette.",
+      "Don't sit a real interactive flow inside PhoneFrame in production code. Build the flow at the real viewport size."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["StatusBar", "BottomNav", "Sheet"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial PhoneFrame contract. Three platform silhouettes. Three sizes. Two rotations." }
+  ]
+}

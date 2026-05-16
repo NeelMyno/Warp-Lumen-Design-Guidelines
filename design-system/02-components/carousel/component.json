@@ -1,0 +1,92 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Carousel",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Horizontally paginated content scroller. Renders a slide track with snap-points; auto-advance is OFF by default (auto-advance is a WCAG 2.2.2 hazard unless explicitly opt-in with controls). Includes prev/next IconButtons, dot indicators, and optional progress. Distinct from Tabs (sibling views) and ProductGallery (image-zoom flavor).",
+  "props": {
+    "items":         { "type": "node", "optional": false, "description": "Array of slide nodes. Each slide is a child element with content." },
+    "active":        { "type": "number", "default": 0, "optional": true, "description": "0-indexed active slide. Persists across renders." },
+    "onActiveChange":{ "type": "handler", "optional": true },
+    "loop":          { "type": "boolean", "default": false, "optional": true },
+    "autoplay":      { "type": "number", "optional": true, "description": "Auto-advance interval in ms. OFF by default. When set, render a visible Pause control + pause on hover/focus per WCAG 2.2.2." },
+    "indicator":     { "type": "enum", "values": ["dots", "progress", "fraction", "none"], "default": "dots", "optional": true },
+    "controls":      { "type": "boolean", "default": true, "optional": true, "description": "Render prev/next IconButtons." },
+    "snap":          { "type": "enum", "values": ["start", "center"], "default": "center", "optional": true, "description": "scroll-snap-align. center=Apple-flavor. start=tile-grid-flavor." },
+    "perView":       { "type": "number", "default": 1, "optional": true, "description": "Visible slides per view. > 1 for 'and-a-half' previews." },
+    "ariaLabel":     { "type": "string", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.accent.500",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline",
+      "color.alpha.paper.24",
+      "radius.card.default",
+      "radius.pill",
+      "space.inline.sm",
+      "space.stack.sm",
+      "type.label.sm",
+      "type.tabular.nums",
+      "motion.duration.base",
+      "motion.duration.slow",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "region",
+    "keyboard": [
+      "Tab - enter the carousel",
+      "ArrowLeft / ArrowRight - move between slides",
+      "Home - first slide",
+      "End - last slide",
+      "Space - pause autoplay (when active)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.2.2 Pause, Stop, Hide (when autoplay > 0)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "role='region' + aria-roledescription='carousel' + aria-label.",
+      "Each slide: role='group' + aria-roledescription='slide' + aria-label='Slide N of M'.",
+      "Active slide is the only one fully visible; off-screen slides have aria-hidden='true'.",
+      "When autoplay is set, a visible Pause control is REQUIRED and the carousel pauses on hover + focus.",
+      "Honor prefers-reduced-motion: drop the slide transition; cut directly to the active slide.",
+      "Announcing slide changes via aria-live='polite' is debounced (don't fire every 100 ms during a drag)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default to autoplay OFF.",
+      "Use dots indicator when items.length ≤ 6, fraction ('2 of 12') when > 6.",
+      "Always render prev/next controls — gesture-only carousels fail keyboard users.",
+      "perView=1 on mobile, 2-3 on tablet/desktop only if the content benefits from comparison.",
+      "Use snap='center' for Apple-flavor card carousels; 'start' for product-grid scrollers."
+    ],
+    "dont": [
+      "Don't autoplay testimonials or hero banners without a Pause.",
+      "Don't loop a CTA carousel — the user must reach the end and make a decision.",
+      "Don't paint inactive dots in lime — only the active dot uses text.accent.",
+      "Don't put primary actions inside a non-active slide that can't be reached without scrolling."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Tabs", "ProductGallery"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Carousel contract. Autoplay OFF default per WCAG 2.2.2. Four indicator modes." }
+  ]
+}

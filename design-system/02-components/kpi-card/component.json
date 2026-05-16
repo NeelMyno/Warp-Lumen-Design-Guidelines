@@ -1,0 +1,62 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "KpiCard",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "A single-metric card. Composes: eyebrow label (KPI name) → headline value (large numeric, tabular-nums) → Trend delta → optional Sparkline → optional context line. The denominator of a dashboard. Distinct from Stat (smaller inline value with no trend) and from Chart (multi-series).",
+  "props": {
+    "label":     { "type": "string", "optional": false, "description": "KPI name. Eyebrow-mono uppercase." },
+    "value":     { "type": "node", "optional": false, "description": "Headline number. Render via .lumen-tnum for tabular alignment." },
+    "valueSuffix":{ "type": "node", "optional": true, "description": "Unit suffix ('%', 'mi', ' MB'). Renders smaller next to value." },
+    "delta":     { "type": "number", "optional": true, "description": "Trend delta. Polarity-aware tone." },
+    "deltaSuffix":{ "type": "string", "default": "%", "optional": true },
+    "polarity":  { "type": "enum", "values": ["positive-is-good", "negative-is-good", "neutral"], "default": "positive-is-good", "optional": true },
+    "deltaPeriod":{ "type": "string", "optional": true, "description": "Period the delta is measured against ('vs last 7 days')." },
+    "sparkline": { "type": "node", "optional": true },
+    "context":   { "type": "node", "optional": true, "description": "Optional bottom line — extra context like 'Driven by Sterling LTL'." },
+    "tone":      { "type": "enum", "values": ["default", "accent"], "default": "default", "optional": true, "description": "accent: value renders in text.accent (use sparingly for a single highlight KPI on the surface)." },
+    "loading":   { "type": "boolean", "default": false, "optional": true, "description": "Renders Skeleton placeholders for value, delta, sparkline." },
+    "onClick":   { "type": "handler", "optional": true, "description": "When set, the entire card becomes a button + routes to a detail view." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.border.hairline", "color.border.default",
+      "radius.card.default", "radius.card.lifted",
+      "space.inset.lg", "space.stack.xs", "space.stack.sm", "space.stack.md", "space.inline.sm",
+      "type.heading.h2", "type.heading.h3", "type.eyebrow.mono", "type.label.sm", "type.body.sm", "type.tabular.nums",
+      "shadow.elevation.sm", "shadow.focus",
+      "motion.duration.fast", "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "region",
+    "keyboard": [
+      "Tab - focus the card (when onClick)",
+      "Enter - activate"
+    ],
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Root role='region' + aria-label that includes label + value + delta ('Revenue, $1.4M, up 12% versus last 7 days').",
+      "Loading state sets aria-busy='true' and announces 'Loading KPI' once via sr-only.",
+      "Interactive cards (onClick) are buttons; non-interactive cards are <article>."
+    ]
+  },
+  "rules": {
+    "do": [
+      "One headline metric per card. Two metrics = two cards.",
+      "Use tabular-nums on value + delta so a grid of KPIs aligns vertically.",
+      "Pair with Trend + Sparkline for at-a-glance context.",
+      "Use tone='accent' for the single most important KPI on the surface; default for the rest."
+    ],
+    "dont": [
+      "Don't put two competing numbers in one card.",
+      "Don't render the value larger than type.heading.h2 — the headline is meant to be scannable, not heroic.",
+      "Don't omit period reference when delta is present — '12%' alone is ambiguous."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Stat", "Trend", "Sparkline", "Card"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial KpiCard contract." }]
+}

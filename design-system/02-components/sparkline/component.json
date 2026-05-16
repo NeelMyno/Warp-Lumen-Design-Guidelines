@@ -1,0 +1,49 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Sparkline",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Inline micro-chart for a single time series. 24-48 px tall, no axes, no grid, optional last-point dot. Designed to sit next to a Stat or KpiCard ('this is the trend'). Always paired with a numeric value AND a label — sparklines without context are noise.",
+  "props": {
+    "data":      { "type": "node", "optional": false, "description": "Array of numbers." },
+    "height":    { "type": "number", "default": 28, "optional": true },
+    "width":     { "type": "string", "default": "auto", "optional": true },
+    "color":     { "type": "string", "optional": true, "description": "Defaults to var(--color-text-accent). Use var(--color-text-error) for downward-trend-bad metrics." },
+    "showLastDot":{ "type": "boolean", "default": true, "optional": true },
+    "showArea":  { "type": "boolean", "default": false, "optional": true, "description": "Render a faint area fill under the line." },
+    "ariaLabel": { "type": "string", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.accent", "color.text.error", "color.text.tertiary",
+      "color.surface.tint-accent",
+      "type.tabular.nums"
+    ]
+  },
+  "a11y": {
+    "role": "img",
+    "keyboard": [],
+    "wcag": ["1.1.1 Non-text Content", "1.4.11 Non-text Contrast"],
+    "rules": [
+      "role='img' + aria-label that includes the value AND the trend ('Revenue trend, up 12% week-over-week').",
+      "Sparkline alone is not informative — always pair with the numeric value visibly."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Pair with a Stat / KpiCard.",
+      "Use 24-32 px height for KPI rows; 48 px for table cells.",
+      "Render last-point dot when the latest value is the focus.",
+      "Use var(--color-text-error) for series where a downward trend means bad (churn-rate down is good!)."
+    ],
+    "dont": [
+      "Don't render Sparkline without an adjacent numeric value.",
+      "Don't paint the line in a non-token color.",
+      "Don't add axes / grid / legend — that's Chart kind='line'."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Chart", "Stat", "KpiCard", "Trend"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial Sparkline contract." }]
+}

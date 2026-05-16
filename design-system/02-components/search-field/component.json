@@ -1,0 +1,66 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SearchField",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Specialized Input variant for search. Leading Search icon, trailing Clear button (visible when value is non-empty), submit-on-Enter, optional suggestions popover. Two flavors — inline (small chrome, sits in a toolbar) and prominent (large chrome, sits at the top of a search page).",
+  "props": {
+    "value":         { "type": "string", "optional": false },
+    "onValueChange": { "type": "handler", "optional": false },
+    "onSubmit":      { "type": "handler", "optional": true },
+    "placeholder":   { "type": "string", "default": "Search…", "optional": true },
+    "variant":       { "type": "enum", "values": ["inline", "prominent", "command"], "default": "inline", "optional": true, "description": "command: ⌘K-style command-palette trigger button (not an input itself; opens the palette)." },
+    "size":          { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
+    "loading":       { "type": "boolean", "default": false, "optional": true, "description": "Replaces the leading icon with a Spinner during async search." },
+    "suggestions":   { "type": "node", "optional": true, "description": "Render-prop slot for an inline / portaled suggestions Popover." },
+    "kbdHint":       { "type": "node", "optional": true, "description": "Render an inline Kbd at the trailing edge ('⌘K')." },
+    "ariaLabel":     { "type": "string", "default": "Search", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.input.rest", "color.surface.popover",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary",
+      "color.action.ghost.bg.hover", "color.border.hairline", "color.border.default", "color.border.focus",
+      "radius.control.md", "radius.pill", "radius.popover",
+      "size.control.sm", "size.control.md", "size.control.lg",
+      "space.inset.md", "space.inline.sm",
+      "type.body.md", "type.label.md", "type.label.sm", "type.eyebrow.mono",
+      "shadow.focus", "shadow.popover",
+      "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "search",
+    "keyboard": [
+      "Tab - focus the input",
+      "Enter - submit",
+      "Escape - clear when value is non-empty / blur when empty",
+      "ArrowDown - move focus to the first suggestion (when popover is open)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.1.1 Keyboard", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Wrap in <form role='search'>; the <input type='search'> announces 'search' to SR.",
+      "Clear button has aria-label='Clear search'.",
+      "When suggestions popover is open, the input adopts aria-autocomplete='list' + aria-controls={listboxId}.",
+      "Each suggestion has role='option' and announces aria-selected when focused."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use inline variant in toolbars, navbars, settings.",
+      "Use prominent variant at the top of search pages.",
+      "Use command variant as the ⌘K trigger — it opens the CommandPalette, not the inline suggestions.",
+      "Pair with kbdHint='⌘K' to teach the shortcut."
+    ],
+    "dont": [
+      "Don't use SearchField for non-search inputs.",
+      "Don't render the Clear button as danger red — it's a utility action.",
+      "Don't auto-submit on every keystroke — debounce or wait for Enter."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Input", "Combobox", "Kbd"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial SearchField contract." }]
+}

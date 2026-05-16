@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "notification-center",
+  "type": "registry:ui",
+  "title": "Notification Center",
+  "description": "Popover-anchored inbox. Grouped by recency. Filter chips, mark-all-read, per-item archive.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/notification-center/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/notification-center.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/notification-center/component.json",
+    "docsPath": "design-system/02-components/notification-center/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

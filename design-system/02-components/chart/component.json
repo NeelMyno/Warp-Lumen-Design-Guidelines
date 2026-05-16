@@ -1,0 +1,66 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Chart",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Generic chart wrapper that consumes Lumen's CHART_PALETTE and chart-token surface (axes, grid, legend, tooltip). Eleven kinds via the `kind` enum — line / area / bar / stacked-bar / donut / pie / scatter / heatmap / sparkline / funnel / waterfall. Renders via the consumer's adapter (Recharts, Visx, ECharts) but the styling, axis layout, legend, and tooltip skin come from Lumen.",
+  "props": {
+    "kind":         { "type": "enum", "values": ["line", "area", "bar", "stacked-bar", "donut", "pie", "scatter", "heatmap", "sparkline", "funnel", "waterfall"], "optional": false },
+    "data":         { "type": "node", "optional": false, "description": "Adapter-shaped data. The wrapper is data-format-agnostic — the adapter (Recharts etc.) is the one that consumes shape." },
+    "labels":       { "type": "node", "optional": true },
+    "height":       { "type": "number", "default": 200, "optional": true },
+    "legend":       { "type": "enum", "values": ["bottom", "right", "none"], "default": "bottom", "optional": true },
+    "showGrid":     { "type": "boolean", "default": true, "optional": true },
+    "showAxis":     { "type": "boolean", "default": true, "optional": true },
+    "color":        { "type": "string", "optional": true, "description": "Override the auto-derived palette stop. Defaults to CHART_PALETTE[0]." },
+    "title":        { "type": "string", "optional": true },
+    "description":  { "type": "node", "optional": true },
+    "tooltip":      { "type": "boolean", "default": true, "optional": true },
+    "ariaLabel":    { "type": "string", "optional": false },
+    "ariaSummary":  { "type": "string", "optional": true, "description": "1-2 sentence prose summary of what the chart shows ('Sales up 12% week-over-week, peaking Wednesday'). Surfaced to SR users in place of axis values." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.chart.1", "color.chart.2", "color.chart.3", "color.chart.4", "color.chart.5", "color.chart.6", "color.chart.7", "color.chart.8",
+      "color.accent.500",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary",
+      "color.surface.raised", "color.surface.popover", "color.surface.sunken",
+      "color.border.hairline", "color.border.subtle", "color.border.default",
+      "radius.popover", "radius.control.sm",
+      "space.inset.md", "space.stack.sm", "space.stack.md",
+      "type.heading.h4", "type.body.sm", "type.eyebrow.mono", "type.micro", "type.tabular.nums",
+      "shadow.popover"
+    ]
+  },
+  "a11y": {
+    "role": "img",
+    "keyboard": [],
+    "wcag": [
+      "1.1.1 Non-text Content", "1.4.1 Use of Color", "1.4.3 Contrast (Minimum)", "1.4.11 Non-text Contrast"
+    ],
+    "rules": [
+      "role='img' on the chart wrapper.",
+      "aria-label names what the chart shows ('Sales by week, January through March').",
+      "aria-describedby points at the textual summary OR an offscreen <table> with the underlying data — chart data MUST be reachable for SR users.",
+      "Never rely on color alone for series differentiation — pair color with marker shape, dash pattern, or labels."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use the CHART_PALETTE in order — chart.1 (accent green), chart.2 (info blue), chart.3 (warning amber), chart.4-8 (neutral tints). Series colors stay consistent across the surface.",
+      "Render axis labels in eyebrow-mono uppercase tracking-wider.",
+      "Tabular-nums on all numeric tick labels.",
+      "Pair every chart with a short prose summary (ariaSummary) — humans read it too.",
+      "Render the tooltip as a Lumen Popover skin (surface.popover, hairline border, shadow.popover)."
+    ],
+    "dont": [
+      "Don't paint every series in the brand accent — the accent is reserved for the primary metric or the active series.",
+      "Don't render charts without an aria-label or summary.",
+      "Don't put critical detail in chart-only — surface it in adjacent prose / KPI."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Sparkline", "KpiCard", "Stat", "Trend"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial Chart wrapper contract. Eleven kinds. Adapter-agnostic." }]
+}

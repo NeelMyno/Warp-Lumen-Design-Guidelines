@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag",
+  "type": "registry:ui",
+  "title": "Tag",
+  "description": "Compact filter / category chip. Seven tones, two sizes, dismissible / selected / clickable.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/tag/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/tag.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/tag/component.json",
+    "docsPath": "design-system/02-components/tag/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

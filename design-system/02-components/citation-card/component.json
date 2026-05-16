@@ -1,0 +1,53 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CitationCard",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Source reference rendered next to an AI-generated value. Composes a small index ('Source 1'), source name, optional excerpt, optional confidence ring. Pairs with AISuggestion / AISummary outputs and with inline citations in prose. Distinct from a plain Link — CitationCard carries the AI provenance visual.",
+  "props": {
+    "index":     { "type": "number", "optional": true, "description": "1-indexed source number, rendered as a small pill before the title." },
+    "source":    { "type": "node", "optional": false, "description": "Document / contract / URL name. Title-Cased." },
+    "excerpt":   { "type": "node", "optional": true, "description": "1-2 line quoted excerpt from the source. Italic, secondary." },
+    "url":       { "type": "string", "optional": true, "description": "Routes to the source. When set, the whole card becomes a link." },
+    "confidence":{ "type": "number", "optional": true, "description": "0-100 — renders an inline AIBadge with the score." },
+    "compact":   { "type": "boolean", "default": false, "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.tint-accent",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline", "color.border.accent",
+      "radius.card.default", "radius.pill",
+      "space.inset.md", "space.inset.lg", "space.stack.xs",
+      "type.label.md", "type.body.sm", "type.eyebrow.mono",
+      "shadow.focus", "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "article",
+    "keyboard": ["Tab - focus card (when url)", "Enter - open source"],
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.4.4 Link Purpose (In Context)", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "When url is set, the card is an <a> with aria-label='Source N, {source}, opens in new tab'.",
+      "Confidence renders inline AIBadge so SR users hear it as part of the card.",
+      "The excerpt is wrapped in <blockquote> so SR users hear 'quoted material'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Always pair AI-generated values with at least one CitationCard.",
+      "Lead with index — '1' / '2' makes the source list scannable.",
+      "Use external link convention when url points outside the app.",
+      "Render confidence when the source is one of many."
+    ],
+    "dont": [
+      "Don't combine an AI-generated value with NO citation. AI content without sources erodes trust.",
+      "Don't paint the entire card in lime fill — only the index pill picks up the accent tint."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["AISuggestion", "AIBadge", "Link"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial CitationCard contract." }]
+}

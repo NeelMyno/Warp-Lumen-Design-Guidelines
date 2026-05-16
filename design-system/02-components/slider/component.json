@@ -1,0 +1,72 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Slider",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Single-value range control. One thumb sliding along a track. Distinct from RangeSlider (two thumbs / min+max). Used for volume, opacity, threshold sliders, audio scrubber. Thumb position rendered via inline style.left per AGENTS.md hard rule 12.",
+  "props": {
+    "value":       { "type": "number", "optional": false },
+    "onValueChange":{ "type": "handler", "optional": false },
+    "min":         { "type": "number", "default": 0, "optional": true },
+    "max":         { "type": "number", "default": 100, "optional": true },
+    "step":        { "type": "number", "default": 1, "optional": true },
+    "marks":       { "type": "node", "optional": true, "description": "Array of mark values to render on the track ([0, 25, 50, 75, 100])." },
+    "showValue":   { "type": "boolean", "default": false, "optional": true, "description": "Render the value adjacent to the track." },
+    "valueFormatter":{ "type": "handler", "optional": true },
+    "size":        { "type": "enum", "values": ["sm", "md"], "default": "md", "optional": true },
+    "tone":        { "type": "enum", "values": ["accent", "neutral", "danger"], "default": "accent", "optional": true },
+    "disabled":    { "type": "boolean", "default": false, "optional": true },
+    "ariaLabel":   { "type": "string", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.accent.500", "color.surface.sunken", "color.surface.raised",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary",
+      "color.action.primary.bg.rest", "color.action.primary.fg",
+      "color.status.danger.500",
+      "color.border.hairline", "color.border.default", "color.border.accent",
+      "radius.pill", "radius.circle",
+      "size.slider.thumb", "size.slider.track",
+      "space.inline.sm",
+      "type.label.sm", "type.tabular.nums",
+      "shadow.focus", "shadow.elevation.sm",
+      "motion.duration.fast", "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "slider",
+    "keyboard": [
+      "ArrowLeft / ArrowDown - decrement by step",
+      "ArrowRight / ArrowUp - increment by step",
+      "PageDown - decrement by 10 * step",
+      "PageUp - increment by 10 * step",
+      "Home - set to min",
+      "End - set to max"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": ["1.4.3 Contrast (Minimum)", "1.4.11 Non-text Contrast", "2.1.1 Keyboard", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Per AGENTS.md hard rule 12 — thumb position rendered via inline style.left (not Tailwind arbitrary translate-x).",
+      "role='slider', aria-valuemin, aria-valuemax, aria-valuenow, aria-valuetext (when valueFormatter is used).",
+      "aria-label or aria-labelledby is required.",
+      "Min touch target on the thumb is 44 x 44 (use a transparent hit area larger than the visible thumb)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Position the thumb via inline style.left (per hard rule 12).",
+      "Pair with a value label when the precise value matters.",
+      "Use marks for common stop values.",
+      "Accent tone for default; neutral inside a colored container."
+    ],
+    "dont": [
+      "Don't use Slider for ranges — that's RangeSlider.",
+      "Don't omit the value label on volume / threshold / opacity controls.",
+      "Don't render Slider on touch without expanding the thumb hit area to 44 px."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["RangeSlider", "NumberInput"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial Slider contract. Single-value variant. Inline-style thumb math (hard rule 12)." }]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "type": "registry:ui",
+  "title": "Spinner",
+  "description": "Indeterminate loading indicator. Pure CSS arc. Four sizes, four tones. ≤ 5 s only — past that, use Progress.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/spinner/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/spinner.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/spinner/component.json",
+    "docsPath": "design-system/02-components/spinner/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

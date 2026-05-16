@@ -1,0 +1,87 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Sheet",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mobile-flavor bottom-anchored modal with optional detents (half / large / full). The Apple HIG / iOS 'sheet'. Distinct from Drawer (side, desktop-flavor), Dialog (centered, decision), Popover (anchored, small). On desktop, prefer Drawer side='right'; Sheet is reserved for mobile and tablet portrait.",
+  "props": {
+    "open":          { "type": "boolean", "optional": false },
+    "onOpenChange":  { "type": "handler", "optional": false },
+    "detents":       { "type": "enum", "values": ["large", "medium-large", "full"], "default": "large", "optional": true, "description": "large: ~70vh single detent (most common). medium-large: two detents at 50vh + 90vh; users drag the handle to switch. full: 100vh — equivalent to a route." },
+    "handle":        { "type": "boolean", "default": true, "optional": true, "description": "Visible drag handle at the top. Always render on iOS-flavor; optional on Android-flavor." },
+    "title":         { "type": "string", "optional": true },
+    "description":   { "type": "node", "optional": true },
+    "footer":        { "type": "node", "optional": true, "description": "Sticky footer with primary action; the sheet's primary CTA should never scroll out of view." },
+    "dismissible":   { "type": "boolean", "default": true, "optional": true, "description": "Drag-to-dismiss + scrim-click + Escape. False locks the sheet open." },
+    "padding":       { "type": "enum", "values": ["default", "none"], "default": "default", "optional": true, "description": "default applies inset-lg; none lets the content take full width (image gallery, full-bleed cards)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.scrim",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.border.hairline",
+      "color.border.default",
+      "color.action.ghost.bg.hover",
+      "color.alpha.paper.24",
+      "radius.card.hero",
+      "space.inset.lg",
+      "space.inset.xl",
+      "space.stack.md",
+      "type.heading.h3",
+      "type.body.md",
+      "shadow.modal",
+      "motion.duration.slow",
+      "motion.duration.base",
+      "motion.easing.decelerate",
+      "motion.easing.accelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Escape - close (dismissible)",
+      "Tab - cycle focus within trap",
+      "Shift+Tab - reverse cycle"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "2.1.1 Keyboard",
+      "2.1.2 No Keyboard Trap (intentional, with visible exit)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' + aria-modal='true'.",
+      "Drag handle has aria-label='Drag to resize'. Keyboard users use ArrowUp / ArrowDown on the handle to step through detents.",
+      "Sheet content gets aria-labelledby={titleId} when a title is rendered.",
+      "Honor prefers-reduced-motion: drop the slide-up; render the sheet at its final detent with a fade.",
+      "On the smallest detent (medium-large half), the content area is scrollable; primary CTA stays pinned via the footer slot."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Render handle by default — it's the gesture affordance.",
+      "Use one detent unless the sheet has structurally different content at the two heights.",
+      "Pin primary actions in the footer.",
+      "Render above the safe-area-inset-bottom (home indicator) so the affordance isn't clipped.",
+      "Use a clear back-arrow + 'Close' button in the header for non-keyboard users on desktop tablets."
+    ],
+    "dont": [
+      "Don't use Sheet on desktop — use Drawer.",
+      "Don't put primary actions in a scrollable region — they must be pinned.",
+      "Don't stack multiple Sheets.",
+      "Don't let drag-to-dismiss fire without a confirmation when the user has unsaved input."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Drawer", "Dialog", "ActionSheet"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Sheet contract. Single + two-detent + full-height variants. iOS-flavor drag handle." }
+  ]
+}

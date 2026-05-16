@@ -1,0 +1,90 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "DataGrid",
+  "version": "0.12.6",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Power-user tabular surface built on Table. Adds column visibility toggle, column reorder, column resize, frozen / sticky columns, row selection (single / multi), row expansion, inline cell edit, density control, sort indicators on headers, filter chip row, grouped / aggregated / subtotal rows, and pivot. Sparingly use — most operator tables stay on the simpler Table primitive.",
+  "props": {
+    "columns":      { "type": "node", "optional": false },
+    "rows":         { "type": "node", "optional": false },
+    "selectable":   { "type": "enum", "values": ["single", "multi", "none"], "default": "none", "optional": true },
+    "selectedIds":  { "type": "node", "optional": true },
+    "onSelectionChange": { "type": "handler", "optional": true },
+    "density":      { "type": "enum", "values": ["compact", "regular", "comfortable"], "default": "regular", "optional": true },
+    "stickyHeader": { "type": "boolean", "default": true, "optional": true },
+    "frozenStart":  { "type": "number", "default": 0, "optional": true, "description": "Number of leading columns to freeze (sticky-left)." },
+    "frozenEnd":    { "type": "number", "default": 0, "optional": true, "description": "Number of trailing columns to freeze (sticky-right)." },
+    "sort":         { "type": "node", "optional": true, "description": "{ columnId, direction: 'asc' | 'desc' }." },
+    "onSortChange": { "type": "handler", "optional": true },
+    "filters":      { "type": "node", "optional": true, "description": "Filter chip row state — map of columnId → filter spec." },
+    "onFiltersChange":{ "type": "handler", "optional": true },
+    "groupBy":      { "type": "string", "optional": true, "description": "Group rows by a column id; render subtotal rows + the grand total." },
+    "expansion":    { "type": "node", "optional": true, "description": "Render-prop for row expansion content." },
+    "onColumnResize": { "type": "handler", "optional": true },
+    "onColumnReorder":{ "type": "handler", "optional": true },
+    "rowVirtualization":{ "type": "boolean", "default": false, "optional": true, "description": "When true, integrate with @tanstack/react-virtual or similar to render only visible rows." },
+    "ariaLabel":    { "type": "string", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.sunken", "color.surface.popover",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.action.selected.bg", "color.action.selected.border",
+      "color.border.hairline", "color.border.default", "color.border.strong",
+      "radius.popover", "radius.control.sm", "radius.control.md",
+      "space.inset.sm", "space.inset.md", "space.inline.xs",
+      "size.table.row.compact", "size.table.row.regular", "size.table.row.comfortable",
+      "type.label.sm", "type.label.md", "type.eyebrow.mono", "type.tabular.nums",
+      "shadow.elevation.sm", "shadow.popover", "shadow.focus",
+      "motion.duration.fast", "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "grid",
+    "keyboard": [
+      "Tab - enter the grid; first cell focused",
+      "ArrowLeft / ArrowRight - move between cells",
+      "ArrowUp / ArrowDown - move between rows",
+      "Home / End - first / last cell in row",
+      "Ctrl+Home / Ctrl+End - first / last cell in grid",
+      "PageUp / PageDown - scroll a page of rows",
+      "Enter - activate cell (open expansion, start inline edit)",
+      "Space - toggle row selection",
+      "Ctrl+A - select all (multi-selection only)",
+      "F2 / Enter - enter cell-edit mode",
+      "Escape - cancel cell edit"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)", "1.4.10 Reflow (avoid horizontal scroll on mobile)",
+      "1.4.11 Non-text Contrast", "2.1.1 Keyboard", "2.1.2 No Keyboard Trap",
+      "2.4.7 Focus Visible", "4.1.2 Name, Role, Value", "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "role='grid' + role='row' + role='gridcell' + role='columnheader'.",
+      "Sortable headers have aria-sort='ascending|descending|none'.",
+      "Row selection toggle has aria-label='Select row {label}'.",
+      "Frozen columns set position: sticky + outline at the frozen boundary so it's visually obvious.",
+      "Resize handle is keyboard-resizable per ArrowLeft/Right when focused.",
+      "Bulk-selection bar appears above the table, announces 'N rows selected' via aria-live='polite'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Build DataGrid only when operator users need column reorder / freeze / inline edit. For static tables, use Table.",
+      "Persist user column preferences (visibility / order / width) in localStorage by tableId.",
+      "Surface filter chip row above the table (the FilterBar pattern).",
+      "Render selection bar above the table with count + bulk action buttons.",
+      "Use tabular-nums on numeric columns; right-align numbers."
+    ],
+    "dont": [
+      "Don't put DataGrid features on a Table when the data is < 50 rows and read-only.",
+      "Don't render more than 1000 visible rows without virtualization.",
+      "Don't paint selected rows in lime fill; use action.selected.bg."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Table", "FilterBar", "Drawer"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial DataGrid contract (beta). Power-user extensions to Table." }]
+}

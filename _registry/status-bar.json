@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-bar",
+  "type": "registry:ui",
+  "title": "Status Bar",
+  "description": "Decorative mobile status-bar row. Time, signal, wifi, battery, optional carrier.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/status-bar/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/status-bar.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/status-bar/component.json",
+    "docsPath": "design-system/02-components/status-bar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

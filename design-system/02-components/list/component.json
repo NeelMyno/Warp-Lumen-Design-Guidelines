@@ -1,0 +1,88 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "List",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Vertical sequence primitive — semantic <ul>/<ol> with Lumen chrome. Three flavors: plain (text bullets / numbered), structured (each row is a ListItem with leading/trailing slots, the Apple Settings / iOS-style listview), and interactive (each row navigates or actions, with hover + focus chrome). Pairs with Divider for inset separators; with Skeleton[shape='row'] for loading state.",
+  "props": {
+    "kind":       { "type": "enum", "values": ["unordered", "ordered", "description"], "default": "unordered", "optional": true, "description": "Semantic list type. unordered = <ul>, ordered = <ol>, description = <dl>." },
+    "variant":    { "type": "enum", "values": ["plain", "structured", "interactive"], "default": "structured", "optional": true },
+    "density":    { "type": "enum", "values": ["compact", "regular", "comfortable"], "default": "regular", "optional": true, "description": "compact: 32 px row height (operator). regular: 44 px row height (touch floor). comfortable: 56 px row height (mobile primary)." },
+    "divider":    { "type": "enum", "values": ["none", "hairline", "subtle", "inset"], "default": "hairline", "optional": true, "description": "Between-row divider. inset variant aligns under text in avatar-prefixed rows (iOS HIG)." },
+    "border":     { "type": "enum", "values": ["none", "card"], "default": "none", "optional": true, "description": "card wraps the list in a Card surface (border + radius + raised bg)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.border.hairline",
+      "color.border.subtle",
+      "color.border.default",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.stack.xs",
+      "space.stack.sm",
+      "space.inline.sm",
+      "space.inline.md",
+      "size.list.row.compact",
+      "size.list.row.regular",
+      "size.list.row.comfortable",
+      "radius.card.default",
+      "type.label.md",
+      "type.body.md",
+      "type.body.sm",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "list",
+    "keyboard": [
+      "Tab - move focus into the list (interactive variant)",
+      "ArrowDown / ArrowUp - move focus between rows (interactive variant)",
+      "Enter / Space - activate focused row",
+      "Home / End - first / last row"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Always render the semantic <ul>/<ol>/<dl> at the root — never role='list' on a div.",
+      "Interactive lists use roving tabindex (only the active row is tabbable).",
+      "Each ListItem in interactive mode has role='button' or renders <a>.",
+      "Touch target ≥ 44 px on interactive rows (use density='regular' or higher on mobile)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use plain variant for prose bullets ('What's included:').",
+      "Use structured variant for settings / property lists with leading icon + label + trailing value.",
+      "Use interactive variant for navigable rows (account list, member list, file list).",
+      "Use density='compact' only on dense operator tables / sidebars.",
+      "Use divider='inset' when rows have leading Avatars / icons — the divider aligns under the text."
+    ],
+    "dont": [
+      "Don't render lists with role='list' on a div. The semantic element ships SR support for free.",
+      "Don't combine plain variant with leading icons — that's structured.",
+      "Don't paint selected rows in lime fill. Use action.selected.bg.",
+      "Don't put two interactive elements on one row without making the row itself non-interactive (parent button + nested button breaks SR)."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Table", "Divider", "Card", "Skeleton"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial List contract. Three variants (plain / structured / interactive), three densities, four divider modes." }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Avatar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "User / actor identity image with deterministic name-hashed fallback colors and initials when no image is present. Five sizes (xs / sm / md / lg / xl). Square, rounded, or circle. AvatarGroup composes up to N visible avatars with a '+N more' overflow chip — pair with PresenceIndicator (a colored dot at the corner) for live state.",
+  "props": {
+    "name":      { "type": "string", "optional": false, "description": "Display name. Used to derive initials (first letter of first two words) and the hash-based fallback color (deterministic across the app)." },
+    "src":       { "type": "string", "optional": true, "description": "Image URL. When missing or it fails to load, the initials + hash color fallback is shown." },
+    "alt":       { "type": "string", "optional": true, "description": "alt attribute. Defaults to name. Set to empty string when Avatar is purely decorative alongside a visible name label." },
+    "size":      { "type": "enum", "values": ["xs", "sm", "md", "lg", "xl"], "default": "md", "optional": true, "description": "xs=20 / sm=24 / md=32 / lg=40 / xl=56 px square." },
+    "shape":     { "type": "enum", "values": ["circle", "rounded", "square"], "default": "circle", "optional": true },
+    "presence":  { "type": "enum", "values": ["online", "idle", "dnd", "offline"], "optional": true, "description": "Optional presence dot at the bottom-right corner. online=accent, idle=warning, dnd=danger, offline=neutral." },
+    "loading":   { "type": "boolean", "default": false, "optional": true, "description": "Renders a Skeleton in place." },
+    "asLink":    { "type": "string", "optional": true, "description": "When set, wraps the avatar in an <a href={asLink}>. Pair with a tooltip naming the user." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.avatar.bg.1", "color.avatar.bg.2", "color.avatar.bg.3", "color.avatar.bg.4", "color.avatar.bg.5",
+      "color.avatar.bg.6", "color.avatar.bg.7", "color.avatar.bg.8",
+      "color.text.on-avatar",
+      "color.surface.page",
+      "color.border.hairline",
+      "color.border.default",
+      "color.accent.500",
+      "color.status.warning.500",
+      "color.status.danger.500",
+      "color.text.tertiary",
+      "size.avatar.xs", "size.avatar.sm", "size.avatar.md", "size.avatar.lg", "size.avatar.xl",
+      "radius.circle",
+      "radius.card.default",
+      "type.label.sm",
+      "type.label.md",
+      "type.heading.h4",
+      "type.eyebrow.mono",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "img",
+    "keyboard": [],
+    "wcag": [
+      "1.1.1 Non-text Content",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "alt is required when avatar appears without a visible name nearby. When name is rendered in adjacent text, alt='' is correct (decorative).",
+      "Initials fallback has aria-hidden='true' when the wrapper has aria-label={name}.",
+      "Presence dot announces via aria-label='{name}, online' style.",
+      "Avatar-only buttons use IconButton + Tooltip + aria-label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use name-hashed palette colors (8 stops). Same name → same color across the app.",
+      "Use initials for missing images: 'Avery Mercer' → 'AM'.",
+      "Pair with PresenceIndicator at the corner for live-collab contexts.",
+      "Use sizes consistently per surface — xs in dense table rows, md in lists, lg in detail headers, xl on profile pages.",
+      "Use circle as the default. rounded shape signals 'workspace / organization', not 'person'."
+    ],
+    "dont": [
+      "Don't use Avatar to represent products — use Image / Logo.",
+      "Don't paint the fallback in lime — the avatar palette is its own family.",
+      "Don't render an Avatar without alt OR a visible name label nearby.",
+      "Don't put Avatar inside a Tooltip without an accessible name."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["PresenceIndicator", "Tag", "Tooltip"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Avatar contract. Name-hashed 8-color palette. Five sizes, three shapes. AvatarGroup pattern in the same file." }
+  ]
+}

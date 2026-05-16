@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bottom-nav",
+  "type": "registry:ui",
+  "title": "Bottom Nav",
+  "description": "Mobile-only bottom navigation rail. 3-5 items. Active = top-edge accent stroke.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/bottom-nav/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/bottom-nav.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/bottom-nav/component.json",
+    "docsPath": "design-system/02-components/bottom-nav/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

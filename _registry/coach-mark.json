@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "coach-mark",
+  "type": "registry:ui",
+  "title": "Coach Mark",
+  "description": "Onboarding tooltip with backdrop spotlight. Sequenced tour (3-6 steps). Always-visible Skip.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/coach-mark/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/coach-mark.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/coach-mark/component.json",
+    "docsPath": "design-system/02-components/coach-mark/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

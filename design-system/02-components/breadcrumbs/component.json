@@ -1,0 +1,76 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Breadcrumbs",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Where am I, how did I get here, and how do I step back. A horizontal trail of links separated by ChevronRight, with the current page as the terminal non-link node. Truncates with an ellipsis menu when the trail exceeds the available width.",
+  "props": {
+    "items":        { "type": "node", "optional": false, "description": "Sequence of <BreadcrumbItem> children. The last item should be marked aria-current='page' and rendered as plain text, not a link." },
+    "separator":    { "type": "icon", "optional": true, "description": "Override the default lucide ChevronRight separator. Use a slash glyph for editorial / docs flows, a chevron for app trails." },
+    "maxItems":     { "type": "number", "default": 4, "optional": true, "description": "When the trail exceeds this count, middle items collapse into a single overflow ellipsis that opens a DropdownMenu listing the hidden links." },
+    "size":         { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true, "description": "sm: type.label.sm + 4 px gap (operator default). md: type.label.md + 6 px gap (marketing default)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.action.ghost.bg.hover",
+      "space.inline.xs",
+      "space.inline.sm",
+      "type.label.sm",
+      "type.label.md",
+      "radius.control.sm",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "navigation",
+    "keyboard": [
+      "Tab - move focus to next breadcrumb link",
+      "Shift+Tab - move focus to previous breadcrumb link",
+      "Enter - activate focused link"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.4.7 Focus Visible",
+      "2.4.8 Location",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root element is <nav aria-label='Breadcrumb'>.",
+      "Use an ordered list (<ol>) inside the nav so screen readers expose the position semantically.",
+      "Mark the current page with aria-current='page'. Render it as plain text, not a link.",
+      "Separators are decorative — wrap them in aria-hidden='true'.",
+      "Truncated middle items collapse into a single ellipsis button that opens a DropdownMenu — the menu items are full breadcrumb links."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead with the top-level destination, end with the current page.",
+      "Keep labels short — a node, not a sentence. 'Settings', not 'Account settings home'.",
+      "Use Title Case for navigation node names (matches the Navbar). Use sentence case if labels are derived from user content.",
+      "Truncate to an ellipsis menu past 4 nodes on desktop, past 3 on mobile.",
+      "Pair with the page title <h1> directly below — the breadcrumbs locate, the h1 names."
+    ],
+    "dont": [
+      "Don't include the current page as a link — it points to itself.",
+      "Don't use Breadcrumbs as a stand-in for back navigation. The browser's back button serves that.",
+      "Don't render Breadcrumbs alongside a Stepper — they answer different questions ('where' vs 'how far'). Pick one.",
+      "Don't use Breadcrumbs on landing or marketing pages — they belong in app trails, not promo surfaces.",
+      "Don't paint separators in lime — they're chrome, not action. Use color.text.tertiary."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Navbar", "Sidebar", "Link", "DropdownMenu"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Breadcrumbs contract. Truncate-to-DropdownMenu for trails past maxItems. aria-current='page' on the terminal node." }
+  ]
+}

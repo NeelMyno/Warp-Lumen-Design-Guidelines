@@ -1,0 +1,62 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PricingCard",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Single tier on a pricing page. Composes a plan name, price (with billing cadence + sub-line), feature list with check / cross glyphs, and a CTA. Includes 'highlight' variant for the recommended tier with the v0.12.5 peak-end lift (accent glow + lifted shadow). One highlighted tier per pricing surface (per Premium Psychology principle 3).",
+  "props": {
+    "name":         { "type": "string", "optional": false },
+    "price":        { "type": "node", "optional": false, "description": "The headline price. Render with tabular-nums." },
+    "cadence":      { "type": "string", "optional": true, "description": "'/ month', '/ year', '/ seat / month'." },
+    "subline":      { "type": "node", "optional": true, "description": "Billing nuance: 'Billed annually'. type.body.sm." },
+    "description":  { "type": "node", "optional": true },
+    "features":     { "type": "node", "optional": false, "description": "Array of { label, included? }. Renders check / cross icons." },
+    "cta":          { "type": "node", "optional": false },
+    "highlight":    { "type": "boolean", "default": false, "optional": true, "description": "Renders the recommended-tier surface with accent glow + lift. One per surface." },
+    "badge":        { "type": "node", "optional": true, "description": "Top-right badge — 'Most popular' / 'Best value' / '14-day free trial'." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.tint-accent",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.primary.bg.rest", "color.action.primary.fg",
+      "color.action.secondary.bg.rest", "color.action.secondary.fg",
+      "color.border.hairline", "color.border.default", "color.border.accent",
+      "color.accent.500",
+      "radius.card.hero", "radius.pill", "radius.control.md",
+      "space.inset.xl", "space.stack.sm", "space.stack.md", "space.stack.lg", "space.inline.sm",
+      "type.heading.h1", "type.heading.h3", "type.body.md", "type.body.sm", "type.label.md", "type.eyebrow.mono",
+      "shadow.elevation.md", "shadow.glow.accent",
+      "motion.duration.base", "motion.duration.fast", "motion.easing.decelerate", "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "article",
+    "keyboard": ["Tab - focus CTA", "Enter - activate CTA"],
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "<article aria-labelledby={titleId}>.",
+      "Highlight tier additionally announces 'Recommended plan' via sr-only.",
+      "Feature list: <ul role='list'>; each item with Check or X icon paired with screen-reader-friendly 'Included' / 'Not included'.",
+      "Price renders in tabular-nums so columns align across cards."
+    ]
+  },
+  "rules": {
+    "do": [
+      "One highlight per surface. Two = no highlight.",
+      "Peak-end lift on highlight (v0.12.5): shadow.glow.accent + slight Y translation on hover (-1 px).",
+      "Lead with the plan name in type.heading.h3.",
+      "Render price in type.heading.h1, tabular-nums, with cadence in muted type.body.sm.",
+      "Use Check (text.accent) for included; X (text.tertiary) for not included — never lime for not-included."
+    ],
+    "dont": [
+      "Don't highlight more than one tier — the user must know what to pick.",
+      "Don't paint the entire card surface in lime; only the badge + glow + ring carry the accent.",
+      "Don't write feature labels in marketing-speak — operator language matches the rest of the system."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Card", "Button", "Tag"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial PricingCard contract. v0.12.5 peak-end lift on highlight." }]
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Link",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Inline text link. Always rendered as an <a>, never a Button — links navigate, buttons act. Three appearances — default (text.primary with underline-on-hover, the prose default), subtle (text.secondary, navigation flavor), and accent (text.accent, sparingly — emphasis on a single CTA inside prose). External links signal with a trailing arrow / ExternalLink glyph and rel='noreferrer noopener'.",
+  "props": {
+    "href":         { "type": "string", "optional": false },
+    "appearance":   { "type": "enum", "values": ["default", "subtle", "accent"], "default": "default", "optional": true, "description": "default: text.primary + underline-on-hover. subtle: text.secondary + underline-on-hover. accent: text.accent + underline-on-hover (reserved emphasis)." },
+    "external":     { "type": "boolean", "default": false, "optional": true, "description": "When true, renders rel='noreferrer noopener' + target='_blank' + a trailing ExternalLink glyph. Announces 'opens in new tab' to SR." },
+    "underline":    { "type": "enum", "values": ["always", "hover", "none"], "default": "hover", "optional": true, "description": "always: prose / footer / docs. hover: app body (default). none: navigation contexts (Navbar items, Breadcrumbs)." },
+    "size":         { "type": "enum", "values": ["inherit", "sm", "md", "lg"], "default": "inherit", "optional": true, "description": "inherit takes the parent's font-size (prose default). sm/md/lg map to type.label.sm/md/lg." },
+    "onClick":      { "type": "handler", "optional": true },
+    "asChild":      { "type": "boolean", "default": false, "optional": true, "description": "Forwards to a routing primitive (e.g. Next Link, React Router Link) via slot." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.accent",
+      "color.text.link",
+      "color.action.ghost.bg.hover",
+      "space.inline.xs",
+      "type.label.sm",
+      "type.label.md",
+      "type.label.lg",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "link",
+    "keyboard": [
+      "Tab - move focus to next link",
+      "Enter - activate",
+      "Shift+F10 (or context menu) - open browser context menu (copy link, etc.)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.1 Use of Color",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.4.4 Link Purpose (In Context)",
+      "2.4.7 Focus Visible",
+      "3.2.5 Change on Request"
+    ],
+    "rules": [
+      "Always an <a> with href. JS-only navigation (router.push) is wired via asChild or onClick on a routed Link; never use role='link' on a div.",
+      "external=true renders rel='noreferrer noopener' and target='_blank'. The trailing ExternalLink icon is announced to SR via aria-label='Opens in new tab'.",
+      "Link purpose must be inferable in context. 'Click here' is forbidden — link text must describe the destination.",
+      "Underline is the WCAG 1.4.1 fallback for users with color-vision differences when a link sits next to non-link text. Use underline='always' inside prose paragraphs.",
+      "Focus ring per AGENTS.md hard rule 11 — outline + box-shadow."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Always link text describes the destination — 'See the docs', not 'click here'.",
+      "Underline links inside prose paragraphs (underline='always').",
+      "Use external=true for outbound links to clearly distinguish them from internal nav.",
+      "Use appearance='accent' sparingly — at most one accent link per surface, reserved for the primary inline CTA.",
+      "Pair external link icon with the brand stroke (text.tertiary at rest, text.primary on hover)."
+    ],
+    "dont": [
+      "Don't use Link for actions ('Delete', 'Submit'). Use Button.",
+      "Don't use 'click here' — link text must describe the destination.",
+      "Don't paint links in the accent green by default. The default appearance is text.primary + underline.",
+      "Don't strip the underline from in-prose links (underline='none' is for navigation contexts only).",
+      "Don't render external links without rel='noreferrer noopener' — security + privacy regression."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Button", "Breadcrumbs"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Link contract. Three appearances (default / subtle / accent). External-link safety. Three underline modes." }
+  ]
+}

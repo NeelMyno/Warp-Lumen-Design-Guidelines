@@ -1,0 +1,94 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Pagination",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Move between fixed-size pages of a list, table, or feed. Two layouts — numeric (Prev / 1 / 2 / 3 / Next, with ellipsis-collapse past 7 pages) and cursor (Prev / Page N of M / Next). The numeric layout maps to keyboard / desktop-density operator tables; the cursor layout maps to mobile and infinite-feed-but-with-page-anchors.",
+  "props": {
+    "page":         { "type": "number", "optional": false, "description": "1-indexed active page. The active anchor reads aria-current='page'." },
+    "pageCount":    { "type": "number", "optional": false, "description": "Total number of pages. When unknown (cursor-style APIs), pass null and use layout='cursor' with hasNext/hasPrev." },
+    "onPageChange": { "type": "handler", "optional": false, "description": "Fires with the next 1-indexed page. Receives a sentinel of -1 for prev when at page 1 (suppressed) and pageCount+1 for next at the end (suppressed)." },
+    "layout":       { "type": "enum", "values": ["numeric", "cursor"], "default": "numeric", "optional": true, "description": "numeric: full numeric trail with ellipsis collapse. cursor: prev/next chevrons + 'Page N of M' label. Mobile defaults to cursor." },
+    "siblings":     { "type": "number", "default": 1, "optional": true, "description": "How many page anchors to render on either side of the active page before falling back to an ellipsis. siblings=1 → '1 … 4 5 6 … 12'." },
+    "boundaries":   { "type": "number", "default": 1, "optional": true, "description": "How many anchors to keep visible at the start and end of the trail. boundaries=1 → first + last always visible." },
+    "showFirstLast":{ "type": "boolean", "default": false, "optional": true, "description": "When true, render '<<' and '>>' chevrons that jump to first/last page (rare; use on long admin tables)." },
+    "size":         { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true, "description": "sm: 28 px square (operator). md: 36 px square (default)." },
+    "hasNext":      { "type": "boolean", "optional": true, "description": "Cursor-layout only. Enables/disables the next chevron when pageCount is unknown." },
+    "hasPrev":      { "type": "boolean", "optional": true, "description": "Cursor-layout only. Enables/disables the prev chevron when pageCount is unknown." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.action.ghost.bg.hover",
+      "color.action.ghost.bg.press",
+      "color.action.selected.bg",
+      "color.action.selected.border",
+      "color.border.default",
+      "space.inline.xs",
+      "space.inline.sm",
+      "size.control.sm",
+      "size.control.md",
+      "radius.control.md",
+      "type.label.sm",
+      "type.label.md",
+      "type.tabular.nums",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "navigation",
+    "keyboard": [
+      "Tab - move focus across pagination items",
+      "Enter / Space - activate focused item",
+      "ArrowLeft - move to previous page (when the pagination has focus inside)",
+      "ArrowRight - move to next page",
+      "Home - jump to page 1",
+      "End - jump to last page"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "2.5.5 Target Size (Enhanced)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root is <nav aria-label='Pagination'>.",
+      "Active anchor has aria-current='page'.",
+      "Numeric anchors are <a> when SSR-routable, <button> when controlled in client state.",
+      "Wrap digit labels in tabular-nums (the .lumen-tnum class) so the trail does not jitter as pages advance from 1 → 10 → 100.",
+      "Disabled prev/next chevrons set aria-disabled='true' and pointer-events:none — they remain in tab order so SR users hear 'previous, dimmed, not available' rather than the affordance vanishing."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default to numeric on desktop / operator surfaces; switch to cursor on mobile and any flow where the total page count is not stable.",
+      "Keep first + last always visible (boundaries=1) so users with a known target page can land in two clicks.",
+      "Lead with 'Showing N of M items' above the pagination on data-dense surfaces — pagination answers 'how do I move'; the count answers 'how much is there'.",
+      "Pair with a 'Rows per page' control (typically a Select) when the data is paginated server-side.",
+      "Use the cursor layout for activity feeds and timelines where pages aren't stable."
+    ],
+    "dont": [
+      "Don't render every page anchor past 10 pages — collapse via ellipsis.",
+      "Don't render pagination without surfacing the total count somewhere on the surface — users want to know what they're moving inside.",
+      "Don't paint the active page in lime fill (accent is action, not selection). Use action.selected.bg + text.accent.",
+      "Don't disable prev at page 1 by removing the element — set aria-disabled.",
+      "Don't combine pagination with infinite scroll. Pick one model and stay with it."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Table", "Select", "BottomNav"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Pagination contract. Numeric + cursor layouts, siblings/boundaries collapse logic, tabular-nums for stable trail width." }
+  ]
+}

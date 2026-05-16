@@ -1,0 +1,108 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "DropdownMenu",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Reveal a portaled menu of actions or routes from a trigger. Single-select per item — items invoke actions immediately on activation. Supports nested sub-menus, dividers, label rows, danger items, keyboard shortcuts, checkboxes, and radio groups. Three triggers it covers: a button menu (kebab/overflow), a route menu (account, workspace switcher), and a right-click ContextMenu (variant via `trigger='context'`).",
+  "props": {
+    "trigger":      { "type": "enum", "values": ["click", "hover", "context"], "default": "click", "optional": true, "description": "How the menu is opened. click: most common (kebab, account). hover: dropdowns on top-level Navbar items (debounced 100 ms enter / 200 ms leave). context: opens at the cursor on right-click / long-press." },
+    "open":         { "type": "boolean", "optional": true, "description": "Controlled open state. Pair with onOpenChange." },
+    "onOpenChange": { "type": "handler", "optional": true },
+    "side":         { "type": "enum", "values": ["top", "right", "bottom", "left"], "default": "bottom", "optional": true, "description": "Preferred placement relative to the trigger. Floating-UI flips automatically if there's no room." },
+    "align":        { "type": "enum", "values": ["start", "center", "end"], "default": "start", "optional": true },
+    "sideOffset":   { "type": "number", "default": 6, "optional": true, "description": "Gap between trigger and menu in pixels." },
+    "size":         { "type": "enum", "values": ["sm", "md"], "default": "md", "optional": true, "description": "sm: 28 px row height (operator). md: 32 px (default)." },
+    "loop":         { "type": "boolean", "default": true, "optional": true, "description": "ArrowDown past last item loops to first; ArrowUp past first loops to last." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.popover",
+      "color.surface.tint-accent",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.error",
+      "color.action.ghost.bg.hover",
+      "color.action.danger-soft.bg.hover",
+      "color.action.danger-soft.fg",
+      "color.border.hairline",
+      "color.border.default",
+      "space.inset.sm",
+      "space.inset.md",
+      "space.inline.xs",
+      "space.inline.sm",
+      "space.stack.xs",
+      "size.control.sm",
+      "size.control.md",
+      "radius.popover",
+      "radius.control.sm",
+      "type.label.sm",
+      "type.label.md",
+      "type.micro",
+      "type.eyebrow.mono",
+      "shadow.popover",
+      "shadow.focus",
+      "motion.duration.fast",
+      "motion.duration.base",
+      "motion.easing.standard",
+      "motion.easing.decelerate",
+      "motion.easing.accelerate"
+    ]
+  },
+  "a11y": {
+    "role": "menu",
+    "keyboard": [
+      "Enter / Space / ArrowDown - open menu (on trigger)",
+      "ArrowDown / ArrowUp - move focus between items",
+      "Home - first item",
+      "End - last item",
+      "Type-ahead first character - jump to matching item",
+      "ArrowRight - open submenu of focused item",
+      "ArrowLeft - close submenu, return focus to parent item",
+      "Enter / Space - activate item",
+      "Escape - close menu, return focus to trigger",
+      "Tab - close menu, move focus past the trigger"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "1.4.13 Content on Hover or Focus",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Trigger has aria-haspopup='menu' and aria-expanded='true|false'.",
+      "Menu has role='menu'; each item has role='menuitem' (or menuitemcheckbox / menuitemradio).",
+      "Per AGENTS.md hard rule 10 — the menu MUST portal to document.body and position via createPortal + getBoundingClientRect re-tracked on scroll (capture phase) + resize. Inline <div absolute> menus break under Card padding='none', glass surfaces, scroll containers.",
+      "Outside-click dismiss must exempt the portaled list (clicks on menu items should fire item handlers, not close-before-fire).",
+      "Returns focus to the trigger on close (mouse close, keyboard close, Escape, item activation).",
+      "Honor prefers-reduced-motion: skip the entry zoom-in-95; keep the fade and the position translation."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead each item with a verb: 'Delete account', 'Duplicate', 'Move to…'.",
+      "Group with dividers (≥ 4 items) and label rows (when groups have meaning).",
+      "Right-pad with the keyboard shortcut (the .lumen-kbd / Kbd component) when one exists.",
+      "Use danger-soft tint for destructive items (text.error + danger-soft bg hover) — solid danger fill is reserved for primary CTAs.",
+      "Width: menus auto-size to content with a sensible max-width (256 px desktop, 90vw mobile)."
+    ],
+    "dont": [
+      "Don't put 12+ items in a single menu. Group with dividers and/or use a nested submenu.",
+      "Don't use a DropdownMenu for a select control with persistent value — use Select.",
+      "Don't put a multi-select control inside a DropdownMenu — use Combobox / Popover-anchored CheckboxGroup.",
+      "Don't render the menu inline as an absolute child — it WILL clip under Card padding='none' (per hard rule 10).",
+      "Don't open submenus on hover only — they must also open on ArrowRight and on tap (mobile)."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Select", "Combobox", "Popover", "ContextMenu (variant of this)", "Toolbar"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial DropdownMenu contract. Click/hover/context triggers. Portaled menu (AGENTS.md hard rule 10). Submenus, checkboxes, radio groups, danger-soft items, keyboard shortcuts." }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Kanban",
+  "version": "0.12.6",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Horizontal board of vertically-stacked KanbanColumns containing KanbanCards. Drag-and-drop reorders within a column or between columns; keyboard ArrowKeys + space cycles cards through columns per WCAG 2.5.7. Distinct from List (single column) and DataGrid (tabular). The board scrolls horizontally; each column scrolls vertically inside.",
+  "props": {
+    "columns":  { "type": "node", "optional": false, "description": "Array of { id, title, count?, accentTone? }." },
+    "cards":    { "type": "node", "optional": false, "description": "Array of { id, columnId, title, body?, assignees?, dueDate?, tags?, severity? }." },
+    "onCardMove":     { "type": "handler", "optional": true, "description": "Fires with { cardId, toColumnId, toIndex } when a card lands in a new position." },
+    "onCardClick":    { "type": "handler", "optional": true },
+    "onColumnAdd":    { "type": "handler", "optional": true },
+    "wipLimits":      { "type": "node", "optional": true, "description": "Map of columnId → number. When exceeded, the column header shows danger-tinted count." },
+    "ariaLabel":      { "type": "string", "default": "Kanban board", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.page", "color.surface.raised", "color.surface.sunken", "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.action.selected.bg", "color.action.selected.border",
+      "color.status.danger.fg", "color.status.warning.fg",
+      "color.border.hairline", "color.border.default", "color.accent.500",
+      "radius.card.default", "radius.popover", "radius.pill",
+      "space.inset.md", "space.inset.lg", "space.inline.sm", "space.stack.sm", "space.stack.md",
+      "size.kanban.column",
+      "type.heading.h4", "type.label.md", "type.body.sm", "type.eyebrow.mono",
+      "shadow.popover", "shadow.elevation.md", "shadow.focus",
+      "motion.duration.base", "motion.duration.fast", "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "list",
+    "keyboard": [
+      "Tab - move focus into the board",
+      "ArrowLeft / ArrowRight - move focused card to adjacent column",
+      "ArrowUp / ArrowDown - move focused card within its column",
+      "Space - pick up / drop card (drag-equivalent without pointer)",
+      "Enter - open the card detail (Drawer)"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)", "2.1.1 Keyboard", "2.4.7 Focus Visible",
+      "2.5.5 Target Size (Enhanced)",
+      "2.5.7 Dragging Movements (keyboard alternative required)",
+      "4.1.2 Name, Role, Value", "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Per WCAG 2.5.7 — every drag MUST have a keyboard equivalent. Space-to-pick-up + Arrow-to-move + Space-to-drop is the canonical pattern.",
+      "Each column is a labelled region (aria-label='{columnTitle}, {count} cards').",
+      "Card moves announce via aria-live='polite' — 'Moved Card X from In Progress to Done'.",
+      "WIP-limit exceeded: announce via aria-live='polite' on column overflow.",
+      "Drop targets carry data-drop-target during drag; visible focus when keyboard-cycling."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Render WIP limit as 'N / M' in the column header.",
+      "Use column accent tone sparingly — Backlog: neutral, Done: success.",
+      "Cards: title + ≤ 2 lines body + bottom row (Avatar + due date + tags + severity).",
+      "Open a Drawer (side='right') for card detail; never inline-expand cards."
+    ],
+    "dont": [
+      "Don't auto-scroll horizontally on every card move. Only auto-scroll when a card lands in a column off-screen.",
+      "Don't render more than 7 columns without horizontal-overflow scrolling and a column-overview FilterBar.",
+      "Don't omit the keyboard drag-equivalent."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["List", "Drawer", "DataGrid"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial Kanban contract (beta). WCAG 2.5.7 keyboard-drag-equivalent contract." }]
+}

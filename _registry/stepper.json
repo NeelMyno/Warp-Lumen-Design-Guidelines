@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper",
+  "type": "registry:ui",
+  "title": "Stepper",
+  "description": "Linear multi-step progress affordance. Four states (complete, current, upcoming, error). Horizontal or vertical.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/stepper/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/stepper.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/stepper/component.json",
+    "docsPath": "design-system/02-components/stepper/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

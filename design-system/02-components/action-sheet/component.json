@@ -1,0 +1,84 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ActionSheet",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mobile-only choice sheet. Bottom-anchored list of 2-6 large-tap actions with one optional destructive action and a mandatory Cancel button. Apple HIG / iOS-flavor. Distinct from DropdownMenu (desktop, item granularity), Sheet (free-form content), and Dialog (centered decision).",
+  "props": {
+    "open":         { "type": "boolean", "optional": false },
+    "onOpenChange": { "type": "handler", "optional": false },
+    "title":        { "type": "node", "optional": true, "description": "Small title above the action list (~type.label.sm, text.tertiary). Use to phrase the choice ('Move conversation to…')." },
+    "actions":      { "type": "node", "optional": false, "description": "Array of action descriptors: { label, onSelect, danger?, icon?, disabled? }. Order from most common to least common; place the destructive action LAST in the visible list (before Cancel)." },
+    "cancelLabel":  { "type": "string", "default": "Cancel", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.popover",
+      "color.surface.scrim",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.error",
+      "color.action.ghost.bg.hover",
+      "color.action.danger-soft.bg.hover",
+      "color.border.hairline",
+      "color.border.default",
+      "radius.card.hero",
+      "radius.control.md",
+      "space.inset.lg",
+      "space.stack.xs",
+      "space.stack.sm",
+      "type.heading.h4",
+      "type.label.lg",
+      "type.body.md",
+      "size.list.row.comfortable",
+      "shadow.modal",
+      "motion.duration.slow",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Escape - dismiss (returns to caller)",
+      "ArrowUp / ArrowDown - move between actions",
+      "Enter - activate focused action"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' + aria-modal='true' + aria-label={title} when titled.",
+      "Each action is a button. Danger action has aria-label that includes 'destructive' (e.g. 'Delete conversation, destructive action').",
+      "The Cancel button is the LAST focusable and is separated from the action list by a small gap (visual + semantic).",
+      "On iOS, ActionSheet content is bottom-aligned in the safe-area; the gap between the list and Cancel respects safe-area-inset-bottom."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use ActionSheet for 2-6 single-tap actions on mobile.",
+      "Order most common first; destructive LAST in the list (before Cancel).",
+      "Lead each action with a verb.",
+      "Always include a Cancel.",
+      "Use a leading lucide icon next to each action label."
+    ],
+    "dont": [
+      "Don't use ActionSheet on desktop — use DropdownMenu.",
+      "Don't pack more than 6 actions — paginate or move to a Sheet.",
+      "Don't allow two destructive actions in one sheet.",
+      "Don't skip Cancel — it's required for the gesture to feel reversible."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Sheet", "DropdownMenu", "Dialog"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial ActionSheet contract. Mobile-only. Mandatory Cancel. Destructive-last ordering." }
+  ]
+}

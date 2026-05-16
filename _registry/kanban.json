@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kanban",
+  "type": "registry:ui",
+  "title": "Kanban",
+  "description": "Horizontal board of columns + cards. Keyboard drag-equivalent required.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/kanban/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/kanban.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/kanban/component.json",
+    "docsPath": "design-system/02-components/kanban/component.md",
+    "status": "beta",
+    "warpSignature": false
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Snackbar",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Transient, viewport-anchored message with a single trailing action. Mobile-flavor of Toast — wider, bottom-anchored, action-trailing. Use specifically when the user just performed an action and may need to undo or continue. Auto-dismisses after 5 s by default. One Snackbar at a time per viewport. Distinct from Toast (top-right stack, multiple), Alert (region, persistent), and Banner (page-level state).",
+  "props": {
+    "message":      { "type": "node", "optional": false },
+    "action":       { "type": "node", "optional": true, "description": "Single trailing action. Almost always an 'Undo' or 'View' button. Snackbars have exactly one action — if you need two, you want a Dialog." },
+    "duration":     { "type": "number", "default": 5000, "optional": true, "description": "Auto-dismiss timer in ms. Pass 0 to disable auto-dismiss." },
+    "tone":         { "type": "enum", "values": ["neutral", "success", "danger"], "default": "neutral", "optional": true, "description": "neutral: text.primary on surface.raised — the most common. success: leading CheckCircle in text.accent. danger: leading AlertOctagon in text.error." },
+    "anchor":       { "type": "enum", "values": ["bottom-center", "bottom-left", "bottom-right"], "default": "bottom-center", "optional": true, "description": "bottom-center is the mobile default. bottom-left / bottom-right are desktop variants." },
+    "open":         { "type": "boolean", "optional": false },
+    "onOpenChange": { "type": "handler", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.popover",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.accent",
+      "color.text.error",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline",
+      "radius.control.md",
+      "radius.popover",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.inline.md",
+      "type.label.md",
+      "type.body.sm",
+      "shadow.popover",
+      "motion.duration.slow",
+      "motion.duration.base",
+      "motion.easing.decelerate",
+      "motion.easing.accelerate"
+    ]
+  },
+  "a11y": {
+    "role": "status",
+    "keyboard": [
+      "Escape - dismiss",
+      "Tab - move focus to action (if present)",
+      "Enter / Space - activate action"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.13 Content on Hover or Focus",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "role='status' + aria-live='polite' for neutral / success. role='alert' + aria-live='assertive' for danger.",
+      "Pause auto-dismiss on hover and on focus inside the Snackbar (WCAG 1.4.13 Content on Hover or Focus).",
+      "Returns focus to the previously focused element on dismiss.",
+      "Honor prefers-reduced-motion: skip the slide-up entry; fade only.",
+      "Action label MUST be a verb tied to the message. 'Undo', 'View order', 'Reconnect'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use after a user action that may need an undo: file delete, archive, send.",
+      "Lead with the past-tense verb that describes what happened: 'Order archived', 'Message sent', 'Lane removed'.",
+      "Pair with one action. Almost always 'Undo'.",
+      "Pause the timer on hover / focus.",
+      "Render on top of the bottom safe-area on mobile (above home indicator)."
+    ],
+    "dont": [
+      "Don't stack multiple Snackbars — queue them and show one at a time.",
+      "Don't auto-dismiss critical failures — use a Toast or Alert.",
+      "Don't put two actions in a Snackbar. Two actions = Dialog.",
+      "Don't use lime fill for tone='success'. Use neutral with text.accent leading glyph.",
+      "Don't render a Snackbar without a way to dismiss before the timer (X icon or Escape)."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Toast", "Alert", "Banner"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Snackbar contract. Mobile-flavor transient. Single trailing action. Pause-on-hover per WCAG 1.4.13." }
+  ]
+}

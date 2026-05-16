@@ -1,0 +1,67 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PullToRefresh",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mobile-only refresh-on-pull gesture wrapper. Detects a downward drag at the top of a scroll container, expands a Spinner-bearing reveal area, and fires onRefresh when the user pulls past the threshold. Auto-collapses when the consumer resolves the refresh. Distinct from button-driven refresh (use a Refresh IconButton in the Toolbar).",
+  "props": {
+    "onRefresh":     { "type": "handler", "optional": false, "description": "Async function. Resolves when the refresh is complete; the gesture collapses after." },
+    "threshold":     { "type": "number", "default": 72, "optional": true, "description": "Px pull distance to commit. Below: cancel and snap back. Above: fire onRefresh." },
+    "indicator":     { "type": "enum", "values": ["spinner", "arrow"], "default": "arrow", "optional": true, "description": "arrow: an arrow rotates as the pull progresses (Apple HIG). spinner: just renders Spinner once committed." },
+    "label":         { "type": "node", "optional": true, "description": "Optional 'Pull to refresh' / 'Release to refresh' / 'Refreshing…' label under the indicator." },
+    "children":      { "type": "node", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.surface.sunken",
+      "color.border.hairline",
+      "type.label.sm",
+      "type.eyebrow.mono",
+      "space.stack.sm",
+      "motion.duration.base",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "group",
+    "keyboard": [
+      "R (when scroll container is focused) - alternative refresh trigger"
+    ],
+    "wcag": [
+      "2.1.1 Keyboard",
+      "2.5.7 Dragging Movements (alternative refresh trigger required)",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Per WCAG 2.5.7 — pull-to-refresh MUST have a non-drag alternative. Render a Refresh IconButton in the Toolbar OR document the 'R' keyboard shortcut.",
+      "When refreshing, announce 'Refreshing' via aria-live='polite'.",
+      "When complete, announce 'Updated {timestamp}' via aria-live='polite'.",
+      "Honor prefers-reduced-motion: skip the arrow rotation; snap to the indicator position."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Pair with a Refresh IconButton fallback in the Toolbar.",
+      "Use the arrow indicator on iOS-flavor apps.",
+      "Resolve onRefresh as quickly as possible — past 5 s, surface a Toast 'Still refreshing…' so the user knows the gesture took.",
+      "Snap-back is decelerate, not bounce."
+    ],
+    "dont": [
+      "Don't use PullToRefresh on desktop — there's no gesture model that maps cleanly.",
+      "Don't use PullToRefresh inside nested scroll containers — the gesture races with the inner scroll.",
+      "Don't reset the scroll position on refresh — preserve it."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Spinner", "Toast"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial PullToRefresh contract. Arrow + spinner indicators. WCAG 2.5.7 non-drag fallback required." }
+  ]
+}

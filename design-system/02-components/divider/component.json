@@ -1,0 +1,64 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Divider",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Hairline rule that separates content. Horizontal (most common) or vertical (toolbar separator). Optional inline label for section breaks ('OR'). Decorative by default (role='presentation'); use role='separator' when the divider has semantic meaning (between menu groups, between toolbar groups).",
+  "props": {
+    "orientation": { "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "optional": true },
+    "label":       { "type": "node", "optional": true, "description": "Optional inline label rendered in the middle ('OR', 'and 12 more', 'Last week'). Always paired with horizontal orientation." },
+    "weight":      { "type": "enum", "values": ["hairline", "subtle", "default", "strong"], "default": "hairline", "optional": true, "description": "Maps to border.hairline / subtle / default / strong. hairline is the operator default; strong is for hero / marketing section breaks." },
+    "decorative":  { "type": "boolean", "default": true, "optional": true, "description": "When false, sets role='separator' with proper aria-orientation. Use when the divider has SR semantic meaning (between Menu groups, between Toolbar groups)." },
+    "inset":       { "type": "enum", "values": ["none", "sm", "md", "lg"], "default": "none", "optional": true, "description": "Horizontal margin inset, common in lists ('inset divider' pattern from iOS — list rows separator skips the leading 56 px to align with text)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.border.hairline",
+      "color.border.subtle",
+      "color.border.default",
+      "color.border.strong",
+      "color.text.tertiary",
+      "color.surface.page",
+      "color.surface.raised",
+      "space.stack.sm",
+      "space.stack.md",
+      "space.inline.sm",
+      "type.micro",
+      "type.eyebrow.mono"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Decorative dividers use role='presentation' (the default).",
+      "Semantic dividers (between menu groups, toolbar groups) set role='separator' and aria-orientation.",
+      "Hairline contrast is intentionally low (~1.2:1 on canvas) — at decorative weight this is correct (WCAG 1.4.11 applies to non-text content that conveys meaning; pure decoration is exempt). For semantic separators bump to weight='default' or 'strong'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Default to hairline for in-list and in-section separation.",
+      "Use label='OR' between form sections that present alternative paths ('Use a passkey OR continue with a password').",
+      "Use inset='lg' on list rows where the leading content is an avatar / icon — the divider aligns under the text, not under the avatar.",
+      "Use vertical dividers inside Toolbars and Navbars to group related actions."
+    ],
+    "dont": [
+      "Don't stack two visible weights (hairline + default) on the same surface. Pick one.",
+      "Don't paint dividers in lime — chrome, not action.",
+      "Don't use Divider as a structural border on Cards — Cards bring their own border.",
+      "Don't use Divider for vertical centering tricks — use Stack / Spacer."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Toolbar", "Menu", "Spacer"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Divider contract. Horizontal / vertical. Optional inline label. Four weights. Inset modes for list rows." }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CoachMark",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Onboarding tooltip with a backdrop spotlight (dark scrim with a cut-out around the anchor element). Sequenced via a CoachMarkTour wrapper that walks through 3-6 steps with 'Skip' / 'Next' / 'Done'. Distinct from Tooltip (hover, single, transient) and Popover (click, richer content).",
+  "props": {
+    "anchor":      { "type": "ref", "optional": false, "description": "Ref to the DOM node the spotlight cuts around." },
+    "title":       { "type": "string", "optional": true },
+    "description": { "type": "node", "optional": false, "description": "One sentence. Tour copy should be progressive — Step 1 sets context, last step lands a benefit." },
+    "stepIndex":   { "type": "number", "optional": true, "description": "1-indexed current step. Shown as '2 of 5' in the footer." },
+    "stepCount":   { "type": "number", "optional": true },
+    "primaryLabel":{ "type": "string", "default": "Next", "optional": true },
+    "skipLabel":   { "type": "string", "default": "Skip tour", "optional": true },
+    "onPrimary":   { "type": "handler", "optional": false },
+    "onSkip":      { "type": "handler", "optional": true },
+    "side":        { "type": "enum", "values": ["top", "right", "bottom", "left", "auto"], "default": "auto", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.scrim",
+      "color.surface.tint-accent",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.accent.500",
+      "color.action.primary.bg.rest",
+      "color.action.primary.fg",
+      "color.action.tertiary.fg",
+      "color.action.tertiary.bg.hover",
+      "color.border.hairline",
+      "radius.popover",
+      "radius.card.default",
+      "space.inset.lg",
+      "space.stack.sm",
+      "space.stack.md",
+      "type.heading.h4",
+      "type.body.sm",
+      "type.eyebrow.mono",
+      "shadow.modal",
+      "shadow.focus",
+      "motion.duration.slow",
+      "motion.duration.base",
+      "motion.easing.decelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Enter - next step",
+      "Escape - skip tour",
+      "ArrowRight - next step",
+      "ArrowLeft - previous step (when supported)"
+    ],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.2 No Keyboard Trap (intentional, exit via Skip / Escape)",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' + aria-modal='false' (the user can still click around to dismiss).",
+      "aria-labelledby={titleId} + aria-describedby={descriptionId}.",
+      "The spotlight backdrop must NOT block screen reader access to the anchored element — only visually dim.",
+      "The Skip control MUST always be visible — coach marks that can't be dismissed are dark patterns.",
+      "Honor prefers-reduced-motion: drop the entry zoom; keep the fade."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Lead each step with the benefit, not the mechanic: 'Track shipment delays in one click', not 'This is the alerts tab'.",
+      "Keep tours to 3-6 steps.",
+      "Show step counter '2 of 5'.",
+      "Always include a visible Skip.",
+      "Position the bubble adjacent to the anchor; auto-flip when the viewport doesn't fit."
+    ],
+    "dont": [
+      "Don't auto-start a tour on every login. First-visit only, with a 'Replay tour' affordance in Help.",
+      "Don't gate the tour — the user must be free to skip and use the app immediately.",
+      "Don't render coach marks over a destructive action.",
+      "Don't paint the spotlight ring in solid lime — use a 2 px text.accent stroke around the cut-out."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Tooltip", "Popover", "Banner"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial CoachMark contract. Backdrop spotlight + bubble + sequenced tour." }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navbar",
+  "type": "registry:ui",
+  "title": "Navbar",
+  "description": "Top app bar. Marketing / operator / mobile variants. Skip-link inside.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/navbar/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/navbar.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/navbar/component.json",
+    "docsPath": "design-system/02-components/navbar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

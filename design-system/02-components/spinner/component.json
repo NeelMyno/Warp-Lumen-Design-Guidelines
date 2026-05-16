@@ -1,0 +1,60 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Spinner",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Pure CSS rotating-arc loading indicator. Determinate state lives in Progress. Use Spinner ONLY for indeterminate, ≤ 5 s loads — past 5 s upgrade to Progress with a label that names what you're waiting on. Three tones (default, accent, on-action) and four sizes. Inline (icon-button leading) and standalone.",
+  "props": {
+    "size":  { "type": "enum", "values": ["xs", "sm", "md", "lg"], "default": "md", "optional": true, "description": "xs=12 / sm=14 / md=16 / lg=20 px outer diameter." },
+    "tone":  { "type": "enum", "values": ["default", "accent", "on-action", "subtle"], "default": "default", "optional": true, "description": "default: text.primary stroke. accent: text.accent (e.g. live feed). on-action: text-on-accent (inside a primary CTA when loading=true). subtle: text.tertiary (background tasks)." },
+    "label": { "type": "string", "optional": true, "description": "aria-label override. Defaults to 'Loading' when no visible label is rendered nearby." },
+    "inline":{ "type": "boolean", "default": false, "optional": true, "description": "Pairs with an adjacent label — 'Loading transactions…' style. Use inline=false for standalone (centered in a Card body)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.action.primary.fg",
+      "motion.duration.spin",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "status",
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "role='status' so SR announces the loading state via aria-live='polite' (Radix Status / sr-only label).",
+      "When the Spinner appears next to visible loading text, aria-hidden the spinner and let the text carry the message.",
+      "Spin animation is paused under prefers-reduced-motion (animation: none); the spinner falls back to a dim ring + an sr-only label.",
+      "Stroke color must clear 3:1 against the surface — default text.primary on canvas is 15:1 (AAA), accent on canvas is 10:1 (AAA), subtle on canvas is 3.7:1 (AA Large)."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Spinner for indeterminate loads ≤ 5 s.",
+      "Pair with adjacent text when the load is more than a single icon-button interaction.",
+      "Use tone='accent' inside Live feeds where the spinner aligns with the freshness signal.",
+      "Use tone='on-action' inside a primary Button when loading=true (the parent Button manages this automatically)."
+    ],
+    "dont": [
+      "Don't use Spinner past 5 s — upgrade to Progress with a label.",
+      "Don't use Spinner inline with form-row validation. Inline form load uses Skeleton or a small Progress.",
+      "Don't paint the Spinner stroke in a non-token color.",
+      "Don't render multiple Spinners simultaneously on one surface — pick the most representative location."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Progress", "Skeleton", "Button"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Spinner contract. Pure CSS rotating arc. Four sizes, four tones. prefers-reduced-motion pause." }
+  ]
+}

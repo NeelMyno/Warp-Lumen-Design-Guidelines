@@ -1,0 +1,59 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Kbd",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Inline keyboard-key cue. A small monospace pill rendered for shortcuts inside Tooltips, DropdownMenu items, help overlays, and onboarding text. Renders mac-or-platform-aware glyphs (⌘ vs Ctrl) when platform='auto'. Use Kbd, not Tag, for keyboard hints — the visual chrome is distinct.",
+  "props": {
+    "keys":     { "type": "string", "optional": false, "description": "The shortcut as space-separated tokens: 'Cmd K', 'Ctrl Shift P', 'Enter'. The component splits on whitespace and renders one Kbd per token, joined by hairline plus signs." },
+    "platform": { "type": "enum", "values": ["auto", "mac", "win", "linux"], "default": "auto", "optional": true, "description": "auto: detects via navigator.platform / navigator.userAgentData. mac renders ⌘ ⌥ ⇧ ⌃; win/linux render Ctrl Alt Shift." },
+    "size":     { "type": "enum", "values": ["xs", "sm"], "default": "sm", "optional": true, "description": "xs: 16 px (inside DropdownMenu item right-rail). sm: 20 px (inside Tooltip / inline prose). Don't go larger — Kbd is a cue, not a label." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.border.subtle",
+      "color.border.default",
+      "radius.control.sm",
+      "space.inline.xs",
+      "type.eyebrow.mono",
+      "type.micro",
+      "shadow.kbd"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast"
+    ],
+    "rules": [
+      "Render as <kbd> inside the wrapper so SR users hear 'keyboard input'.",
+      "Multi-key shortcuts: each key in its own <kbd>, joined by aria-hidden '+' separators.",
+      "Glyph translation: mac ⌘/⌥/⇧/⌃ render their character; SR via aria-label on the wrapper announces 'Command K' (not '⌘ K')."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Kbd inside Tooltip / DropdownMenu / onboarding for shortcut cues.",
+      "Use the platform symbols on mac (⌘ ⌥ ⇧ ⌃); use spelled-out keys on win/linux (Ctrl Alt Shift).",
+      "Pair with a verb: 'Save  ⌘S' — not 'Press ⌘S to save'."
+    ],
+    "dont": [
+      "Don't use Kbd for inline code — that's <code> or CodeBlock.",
+      "Don't render Kbd larger than sm.",
+      "Don't paint Kbd in lime — it's a hint, not an action."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Tooltip", "DropdownMenu"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Kbd contract. Platform-aware glyph rendering with SR-friendly key names." }
+  ]
+}

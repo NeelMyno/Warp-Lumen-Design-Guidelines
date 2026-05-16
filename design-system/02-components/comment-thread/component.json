@@ -1,0 +1,60 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CommentThread",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Threaded discussion attached to an entity (a row, an annotation marker, a document range). Renders a list of Comments (avatar + author + time + body + reactions + inline editor on hover-actions), nested Replies one-level-deep, an inline ChatComposer at the bottom, and an optional 'Resolve' affordance.",
+  "props": {
+    "comments":     { "type": "node", "optional": false, "description": "Array of { id, author, time, dateTime, body, reactions?, replies?, edited? }." },
+    "onReply":      { "type": "handler", "optional": true },
+    "onResolve":    { "type": "handler", "optional": true },
+    "resolved":     { "type": "boolean", "default": false, "optional": true },
+    "composerSlot": { "type": "node", "optional": true, "description": "Render the inline composer. Defaults to a plain textarea with a Send IconButton." },
+    "ariaLabel":    { "type": "string", "default": "Comment thread", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.surface.sunken",
+      "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.action.selected.bg",
+      "color.accent.500", "color.border.hairline", "color.border.subtle", "color.border.accent",
+      "radius.card.default", "radius.popover",
+      "space.inset.md", "space.inset.lg", "space.stack.sm", "space.stack.md", "space.inline.sm",
+      "type.label.md", "type.body.md", "type.body.sm", "type.eyebrow.mono", "type.tabular.nums",
+      "shadow.focus", "motion.duration.fast"
+    ]
+  },
+  "a11y": {
+    "role": "region",
+    "keyboard": [
+      "Tab - move focus across comments",
+      "Enter - reply to focused comment",
+      "R - mark thread resolved",
+      "Escape - close inline editor"
+    ],
+    "wcag": ["1.4.3 Contrast (Minimum)", "2.1.1 Keyboard", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value", "4.1.3 Status Messages"],
+    "rules": [
+      "Root role='region' + aria-label.",
+      "Comments rendered as <ol role='log' aria-live='polite'>.",
+      "Replies rendered inside their parent comment as a nested <ol>.",
+      "Resolved state announces 'Thread resolved' via aria-live and visually dims the thread."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Render replies one level deep — past that, summarize 'N more replies'.",
+      "Show the Resolve affordance at the thread header (not on individual comments).",
+      "Time renders via <time datetime>.",
+      "When resolved, dim the thread to text.tertiary + keep it visible (don't hide; auditability matters)."
+    ],
+    "dont": [
+      "Don't allow infinite nesting — hard cap at one reply level.",
+      "Don't render the inline composer outside the thread context.",
+      "Don't paint resolved threads in lime fill — use a subtle tint."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["ChatBubble", "ReactionBar", "Avatar", "PresenceIndicator"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial CommentThread contract." }]
+}

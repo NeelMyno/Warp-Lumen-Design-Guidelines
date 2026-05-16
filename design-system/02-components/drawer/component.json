@@ -1,0 +1,91 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Drawer",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Side-anchored panel that slides over the page. Use for long-form detail views, multi-step forms, and side editors — the affordance is 'I'm peeking at something tied to this page'. Distinct from Dialog (modal interrupt) and Sheet (bottom-anchored mobile primitive).",
+  "props": {
+    "open":         { "type": "boolean", "optional": false },
+    "onOpenChange": { "type": "handler", "optional": false },
+    "side":         { "type": "enum", "values": ["right", "left", "top", "bottom"], "default": "right", "optional": true, "description": "Side it slides in from. right is the desktop default for detail views; left for sidebar editors; top/bottom for full-width banners-as-panels." },
+    "size":         { "type": "enum", "values": ["sm", "md", "lg", "full"], "default": "md", "optional": true, "description": "side='right|left': sm=400 / md=520 / lg=720 / full=100vw min 90vw. side='top|bottom': sm=240 / md=360 / lg=520 / full=100vh." },
+    "title":        { "type": "string", "optional": true },
+    "description":  { "type": "node", "optional": true },
+    "modal":        { "type": "boolean", "default": true, "optional": true, "description": "When true (default), focus is trapped + rest of page is inert + scrim painted. When false, the drawer behaves as a non-modal inspector that lets the user keep interacting with the page behind." },
+    "dismissible":  { "type": "boolean", "default": true, "optional": true, "description": "When true, Escape + outside-click dismiss + a close X in the header. False locks the drawer until the consumer toggles open via a primary action (rare; use for required-step flows)." },
+    "footer":       { "type": "node", "optional": true, "description": "Sticky footer slot. Hosts primary + secondary actions for the drawer task." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.popover",
+      "color.surface.scrim",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.border.hairline",
+      "color.border.default",
+      "color.action.ghost.bg.hover",
+      "radius.card.hero",
+      "space.inset.lg",
+      "space.inset.xl",
+      "space.stack.md",
+      "size.drawer.sm", "size.drawer.md", "size.drawer.lg",
+      "type.heading.h3",
+      "type.body.md",
+      "shadow.modal",
+      "shadow.focus",
+      "motion.duration.slow",
+      "motion.duration.base",
+      "motion.easing.decelerate",
+      "motion.easing.accelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Escape - close (when dismissible)",
+      "Tab - cycle focus within trap",
+      "Shift+Tab - reverse cycle",
+      "Enter - activate focused action"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.13 Content on Hover or Focus",
+      "2.1.2 No Keyboard Trap (intentional, with visible exit)",
+      "2.4.3 Focus Order",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' + aria-modal={modal}.",
+      "Focus trap when modal=true; first focusable receives focus on open.",
+      "Returns focus to the trigger on close.",
+      "Honor prefers-reduced-motion: drop the slide-in to a fade; keep the duration.",
+      "When non-modal: page remains interactive but the drawer's content is announced once via aria-live='polite'."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use Drawer for inspecting a row in detail without losing the table context.",
+      "Use Drawer for multi-step forms that need width.",
+      "Use side='right' for desktop detail views; side='bottom' on mobile for the same task (paired with Sheet semantics).",
+      "Pin a sticky footer with primary + secondary actions.",
+      "Set non-modal=false (default modal) for editing flows; modal=false only for read-only inspectors."
+    ],
+    "dont": [
+      "Don't use Drawer for short-form confirmations — Dialog.",
+      "Don't stack two Drawers.",
+      "Don't put a Drawer trigger inside a Drawer (nested drawers are a smell).",
+      "Don't leave the Drawer open across page navigations — close on route change."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Dialog", "Sheet", "Popover"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Drawer contract. Four sides, four sizes. Modal + non-modal. Sticky footer slot." }
+  ]
+}

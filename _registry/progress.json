@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "type": "registry:ui",
+  "title": "Progress",
+  "description": "Linear + circular progress. Determinate or indeterminate. Five tones, four sizes (circular), three thicknesses (linear).",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/progress/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/progress.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/progress/component.json",
+    "docsPath": "design-system/02-components/progress/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

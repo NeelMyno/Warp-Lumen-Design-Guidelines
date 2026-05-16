@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet",
+  "type": "registry:ui",
+  "title": "Sheet",
+  "description": "Mobile-flavor bottom-anchored modal with detents. iOS-flavor drag handle.",
+  "dependencies": ["@radix-ui/react-dialog"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/sheet/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/sheet.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/sheet/component.json",
+    "docsPath": "design-system/02-components/sheet/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

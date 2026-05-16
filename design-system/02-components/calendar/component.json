@@ -1,0 +1,108 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Calendar",
+  "version": "0.12.6",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Standalone calendar surface. Three view modes — month (the canonical grid), week (7-column day-rows), agenda (event-grouped list). Distinct from DatePicker (single-value input + popover calendar) — this is the full-screen / detail-card calendar primitive used for scheduling, availability, and resource views. Localized via date-fns / Intl. Honors the system week start.",
+  "props": {
+    "value":           { "type": "string", "optional": true, "description": "ISO date currently focused. Defaults to today." },
+    "onValueChange":   { "type": "handler", "optional": true },
+    "view":            { "type": "enum", "values": ["month", "week", "agenda"], "default": "month", "optional": true },
+    "onViewChange":    { "type": "handler", "optional": true },
+    "events":          { "type": "node", "optional": true, "description": "Array of { id, start (ISO), end (ISO), title, tone? }." },
+    "selection":       { "type": "enum", "values": ["single", "range", "multi", "none"], "default": "none", "optional": true },
+    "selected":        { "type": "node", "optional": true, "description": "ISO date / [start, end] / array of ISO depending on selection." },
+    "onSelectionChange":{ "type": "handler", "optional": true },
+    "minDate":         { "type": "string", "optional": true },
+    "maxDate":         { "type": "string", "optional": true },
+    "disabledDates":   { "type": "node", "optional": true, "description": "Predicate (date) => boolean or array of ISO dates." },
+    "weekStart":       { "type": "enum", "values": ["sun", "mon"], "default": "mon", "optional": true },
+    "showWeekNumbers": { "type": "boolean", "default": false, "optional": true },
+    "locale":          { "type": "string", "default": "en-US", "optional": true },
+    "ariaLabel":       { "type": "string", "default": "Calendar", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.surface.tint-accent",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.text.error",
+      "color.action.ghost.bg.hover",
+      "color.action.selected.bg",
+      "color.action.selected.border",
+      "color.action.selected.fg",
+      "color.border.hairline",
+      "color.border.default",
+      "color.accent.500",
+      "color.status.danger.500",
+      "space.inset.sm",
+      "space.inset.md",
+      "space.stack.sm",
+      "space.stack.md",
+      "size.calendar.day",
+      "radius.control.sm",
+      "radius.control.md",
+      "type.label.sm",
+      "type.label.md",
+      "type.eyebrow.mono",
+      "type.micro",
+      "type.tabular.nums",
+      "motion.duration.fast",
+      "motion.duration.base",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "grid",
+    "keyboard": [
+      "ArrowLeft / ArrowRight - move focus between days",
+      "ArrowUp / ArrowDown - move focus across weeks",
+      "PageUp / PageDown - prev / next month",
+      "Shift+PageUp / Shift+PageDown - prev / next year",
+      "Home / End - first / last day of week",
+      "Enter / Space - select focused date",
+      "T - jump to today"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Month grid uses role='grid' + role='row' + role='gridcell'.",
+      "Each gridcell carries a full aria-label: 'Wednesday, May 15, 2026, has 2 events, selected'.",
+      "Inline-style position math for the agenda-view event tracks per AGENTS.md hard rule 12 (avoid Tailwind arbitrary translate-x).",
+      "Today is marked aria-current='date'; selected is aria-selected='true'.",
+      "Honor prefers-reduced-motion: drop month-transition slide; cut to the new month with a fade."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Show the current month + year header with prev/next IconButtons; clicking the header jumps to a year-picker.",
+      "Render the weekday row in type.eyebrow.mono uppercase.",
+      "Render today's cell with a 2 px accent ring; selected cell with action.selected.bg filled.",
+      "When events are passed, render up to 3 dot indicators below the day number; '+N' beyond.",
+      "Use tabular-nums for day numbers so column edges align across months."
+    ],
+    "dont": [
+      "Don't paint the selected cell in solid lime fill — use action.selected.bg.",
+      "Don't disable weekends without making it explicit in the day-number color.",
+      "Don't render the calendar without weekday headers."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["DatePicker", "TimePicker", "Popover"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Calendar contract (beta). Month / week / agenda views. Single + range + multi selection." }
+  ]
+}

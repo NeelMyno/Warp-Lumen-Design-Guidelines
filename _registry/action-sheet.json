@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "action-sheet",
+  "type": "registry:ui",
+  "title": "Action Sheet",
+  "description": "Mobile-only bottom-anchored choice sheet. 2-6 actions + mandatory Cancel.",
+  "dependencies": ["@radix-ui/react-dialog"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/action-sheet/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/action-sheet.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/action-sheet/component.json",
+    "docsPath": "design-system/02-components/action-sheet/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

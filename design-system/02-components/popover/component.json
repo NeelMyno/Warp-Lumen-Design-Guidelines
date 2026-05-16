@@ -1,0 +1,96 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Popover",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Floating panel anchored to a trigger. Hosts richer content than Tooltip — a form, a mini-detail card, a filter group, a date pad. Three open behaviors — click (default), hover-with-intent (rare; mostly preview cards), and manual (controlled). Portaled per AGENTS.md hard rule 10. Distinct from Dialog (modal interrupt) and Tooltip (text-only hover hint).",
+  "props": {
+    "open":         { "type": "boolean", "optional": true },
+    "onOpenChange": { "type": "handler", "optional": true },
+    "defaultOpen":  { "type": "boolean", "default": false, "optional": true },
+    "side":         { "type": "enum", "values": ["top", "right", "bottom", "left"], "default": "bottom", "optional": true },
+    "align":        { "type": "enum", "values": ["start", "center", "end"], "default": "start", "optional": true },
+    "sideOffset":   { "type": "number", "default": 8, "optional": true },
+    "alignOffset":  { "type": "number", "default": 0, "optional": true },
+    "modal":        { "type": "boolean", "default": false, "optional": true, "description": "When true, focus is trapped inside the popover and the rest of the page becomes inert. Use for filter / date / quick-form popovers where the user is explicitly editing. Outside-click still closes." },
+    "arrow":        { "type": "boolean", "default": false, "optional": true, "description": "Render a chevron pointing at the trigger. Off by default — most Lumen popovers are flush, not pointed." },
+    "width":        { "type": "enum", "values": ["trigger", "auto", "sm", "md", "lg"], "default": "auto", "optional": true, "description": "trigger: match trigger width (date / select-style). auto: shrink-to-fit. sm/md/lg: 240/320/420 px." },
+    "trigger":      { "type": "enum", "values": ["click", "hover", "manual"], "default": "click", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.popover",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.border.hairline",
+      "color.border.default",
+      "radius.popover",
+      "radius.control.md",
+      "space.inset.md",
+      "space.inset.lg",
+      "space.stack.sm",
+      "space.stack.md",
+      "size.popover.sm",
+      "size.popover.md",
+      "size.popover.lg",
+      "type.label.md",
+      "type.body.sm",
+      "shadow.popover",
+      "shadow.focus",
+      "motion.duration.fast",
+      "motion.duration.base",
+      "motion.easing.decelerate",
+      "motion.easing.accelerate"
+    ]
+  },
+  "a11y": {
+    "role": "dialog",
+    "keyboard": [
+      "Enter / Space - open (on trigger)",
+      "Escape - close",
+      "Tab - cycle focusables inside (when modal=true, trapped; when modal=false, leaves the popover and continues page focus)",
+      "Shift+Tab - reverse cycle"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.13 Content on Hover or Focus",
+      "2.1.1 Keyboard",
+      "2.4.3 Focus Order",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "role='dialog' (the W3C ARIA APG pattern). aria-label or aria-labelledby is required when there is interactive content inside.",
+      "Per AGENTS.md hard rule 10 — portal to document.body, position via getBoundingClientRect re-tracked on scroll (capture phase) + resize.",
+      "Outside-click dismiss must exempt the portaled panel.",
+      "Returns focus to the trigger on close.",
+      "When modal=true: focus trap; rest of page becomes inert (Radix Popover handles this).",
+      "Honor prefers-reduced-motion: skip the zoom-in entry; keep the fade and translation."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use for mini-detail cards (hover a chart point — see breakdown), filter pads, date pads, quick forms.",
+      "When the popover hosts an input or button, set aria-label (e.g. 'Filter pickup window').",
+      "Keep width responsive — width='trigger' for form-anchored popovers, 'auto' or 'sm'/'md' for menus.",
+      "Pair with hover trigger ONLY for preview / quickread surfaces. Click is the operator default.",
+      "Match radius to surface — radius.popover for free-floating, radius.control.md when anchored under an input."
+    ],
+    "dont": [
+      "Don't render the panel as <div absolute>. Portal it (hard rule 10).",
+      "Don't make a Popover modal=true by default — that's a Dialog.",
+      "Don't open on hover with no exit affordance — the user must be able to dismiss with Escape and click-outside.",
+      "Don't put long-form prose inside. Use Drawer or route to a page.",
+      "Don't paint the panel surface in lime — chrome, not action."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Tooltip", "Dialog", "Drawer", "DropdownMenu", "Combobox"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Popover contract. Click / hover / manual triggers. Portaled. Optional modal=true focus trap. Width modes: trigger / auto / sm / md / lg." }
+  ]
+}

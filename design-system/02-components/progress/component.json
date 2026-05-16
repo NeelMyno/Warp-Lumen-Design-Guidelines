@@ -1,0 +1,83 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Progress",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Two shapes — linear (default; 4 px tall stroke with optional label / value cluster) and circular (a ring; ideal for upload completion or small inline indicators). Renders determinate when value is provided, indeterminate when value is undefined. The brand stroke uses color.accent.500 — primary action and progress share the same hue because both represent forward motion. Distinct from Spinner (no value, ≤ 5 s).",
+  "props": {
+    "value":         { "type": "number", "optional": true, "description": "0-100. When undefined, renders an indeterminate sweep." },
+    "max":           { "type": "number", "default": 100, "optional": true },
+    "shape":         { "type": "enum", "values": ["linear", "circular"], "default": "linear", "optional": true },
+    "tone":          { "type": "enum", "values": ["accent", "neutral", "success", "warning", "danger"], "default": "accent", "optional": true, "description": "accent: brand stroke (default). neutral: text.primary stroke. success/warning/danger: status.* stroke. Use neutral when progress sits inside a colored container (status banner) and the brand stroke would compete." },
+    "thickness":     { "type": "enum", "values": ["xs", "sm", "md"], "default": "sm", "optional": true, "description": "xs=2 / sm=4 / md=8 px linear height (or ring stroke for circular)." },
+    "label":         { "type": "string", "optional": true, "description": "Visible label above the track. 'Uploading 12 of 24 files…'." },
+    "valueLabel":    { "type": "string", "optional": true, "description": "Visible value label right-aligned above/beside the track. '52%' or '4.2 MB / 8 MB'. If absent, computed from value/max." },
+    "showValue":     { "type": "boolean", "default": false, "optional": true, "description": "When true and no valueLabel is supplied, derives 'NN%' from value/max." },
+    "size":          { "type": "enum", "values": ["sm", "md", "lg", "xl"], "default": "md", "optional": true, "description": "circular shape only: sm=20 / md=32 / lg=48 / xl=72 px outer diameter." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.accent.500",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.text.success",
+      "color.text.warning",
+      "color.text.error",
+      "color.surface.sunken",
+      "color.status.danger.500",
+      "color.status.warning.500",
+      "color.status.success.500",
+      "color.border.hairline",
+      "radius.pill",
+      "space.inline.sm",
+      "space.stack.xs",
+      "type.label.sm",
+      "type.label.md",
+      "type.micro",
+      "motion.duration.slow",
+      "motion.duration.base",
+      "motion.easing.decelerate",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "progressbar",
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "role='progressbar', aria-valuenow={value}, aria-valuemin=0, aria-valuemax={max}. Omit aria-valuenow when value is undefined (indeterminate).",
+      "aria-label describes what is loading ('Uploading files', 'Generating quote') — not just 'Progress'.",
+      "When value reaches max, the parent should announce completion via aria-live (Toast or status text).",
+      "Indeterminate sweep is paused under prefers-reduced-motion; the track shows a 50% fill with a 'Loading' sr-only label."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use linear when the value is the most important state on the surface.",
+      "Use circular when progress is a small inline indicator (avatar upload, micro-task).",
+      "Always pair with a label that names what's loading.",
+      "Use tone='accent' as the default. Switch to neutral inside a status banner to avoid two competing colors.",
+      "Use indeterminate (no value) ONLY when you genuinely don't know — server response time, AI generation. If you can estimate, estimate."
+    ],
+    "dont": [
+      "Don't reset the bar to 0% on retry. Always animate from current position.",
+      "Don't put two Progress bars side by side stacking the same task. Either one or split into named lanes.",
+      "Don't use Progress for a single < 1 s operation — use Spinner.",
+      "Don't paint the track in a status color and the bar in lime — keep both in the same family."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Spinner", "Skeleton", "Stepper"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Progress contract. Linear + circular shapes. Determinate + indeterminate. Four sizes (circular), three thicknesses (linear)." }
+  ]
+}

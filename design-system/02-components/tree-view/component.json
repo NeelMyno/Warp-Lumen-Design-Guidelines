@@ -1,0 +1,66 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "TreeView",
+  "version": "0.12.6",
+  "status": "beta",
+  "deprecated": false,
+  "summary": "Hierarchical node list. File tree, navigation tree, org chart. Each node has a chevron-disclosure, an icon, a label, and an optional badge. Selection is single-row; multi-selection lives in DataGrid. Lazy-loaded subtrees announce 'Loading children…' via aria-live.",
+  "props": {
+    "items":           { "type": "node", "optional": false },
+    "selectedId":      { "type": "string", "optional": true },
+    "onSelect":        { "type": "handler", "optional": true },
+    "expandedIds":     { "type": "node", "optional": true, "description": "Array of node ids currently expanded." },
+    "onExpandedChange":{ "type": "handler", "optional": true },
+    "density":         { "type": "enum", "values": ["compact", "regular"], "default": "compact", "optional": true },
+    "indent":          { "type": "number", "default": 16, "optional": true, "description": "Px indent per level." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised", "color.text.primary", "color.text.secondary", "color.text.tertiary", "color.text.accent",
+      "color.action.ghost.bg.hover", "color.action.selected.bg", "color.action.selected.fg", "color.border.hairline",
+      "space.inset.sm", "space.inline.xs", "space.inline.sm",
+      "size.tree.row.compact", "size.tree.row.regular", "radius.control.sm",
+      "type.label.sm", "type.label.md",
+      "motion.duration.fast", "motion.easing.standard", "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "tree",
+    "keyboard": [
+      "ArrowDown - move focus to next visible node",
+      "ArrowUp - previous visible node",
+      "ArrowRight - expand collapsed; if expanded, move to first child",
+      "ArrowLeft - collapse expanded; if collapsed, move to parent",
+      "Enter - activate selected",
+      "Home / End - first / last visible",
+      "* (asterisk) - expand all siblings"
+    ],
+    "minTouchTarget": "32x32",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)", "2.1.1 Keyboard", "2.4.7 Focus Visible", "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "Root role='tree'; each node role='treeitem'; child wrapper role='group'.",
+      "aria-expanded on parent treeitems.",
+      "aria-level reflects depth; aria-setsize + aria-posinset reflect siblings.",
+      "Selected node aria-selected='true'.",
+      "Lazy-loaded subtree: while pending, render a Skeleton row and aria-live='polite' announce."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use a leading lucide icon per node (Folder, FileText, Hash, etc.).",
+      "Indent via padding-left = indent * level; don't use margin.",
+      "Allow keyboard ArrowRight/Left to walk the tree fully.",
+      "Render expand/collapse chevron flush left."
+    ],
+    "dont": [
+      "Don't use TreeView for flat lists — that's List.",
+      "Don't render more than 1000 visible rows without virtualization.",
+      "Don't lime-fill selected row — use action.selected.bg."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["List", "Sidebar"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial TreeView contract (beta)." }]
+}

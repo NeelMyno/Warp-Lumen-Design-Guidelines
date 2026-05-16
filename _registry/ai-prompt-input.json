@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-prompt-input",
+  "type": "registry:ui",
+  "title": "AI Prompt Input",
+  "description": "AI prompt composer. Model selector + auto-grow textarea + AI-shimmer send.",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/ai-prompt-input/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/ai-prompt-input.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/ai-prompt-input/component.json",
+    "docsPath": "design-system/02-components/ai-prompt-input/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

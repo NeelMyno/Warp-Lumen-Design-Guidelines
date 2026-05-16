@@ -1,0 +1,52 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "InventoryStatus",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Stock state chip for ecommerce / fulfillment surfaces. Five tones — in-stock, low-stock, backorder, preorder, sold-out. Each pairs a glyph + a label + the tone tint. Distinct from Badge (status pill, generic) — InventoryStatus encodes the standard commerce vocabulary so the Lumen library renders the same five tones across Shopify / BigCommerce / Woo surfaces.",
+  "props": {
+    "status":   { "type": "enum", "values": ["in-stock", "low-stock", "backorder", "preorder", "sold-out"], "optional": false },
+    "quantity": { "type": "number", "optional": true, "description": "Optional precise count: 'In stock — 4 left'. Renders only on low-stock by default." },
+    "size":     { "type": "enum", "values": ["sm", "md"], "default": "sm", "optional": true },
+    "compact":  { "type": "boolean", "default": false, "optional": true, "description": "Icon-only chip with aria-label fallback. Use in tight cells / cards." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.tint-accent",
+      "color.status.success.bg", "color.status.success.fg",
+      "color.status.warning.bg", "color.status.warning.fg",
+      "color.status.info.bg",    "color.status.info.fg",
+      "color.status.danger.bg",  "color.status.danger.fg",
+      "color.text.primary", "color.text.tertiary", "color.text.accent",
+      "color.border.hairline",
+      "radius.pill",
+      "space.inline.xs", "space.inset.sm",
+      "type.label.sm", "type.eyebrow.mono", "type.tabular.nums"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": ["1.4.1 Use of Color", "1.4.3 Contrast (Minimum)", "1.4.11 Non-text Contrast", "4.1.2 Name, Role, Value"],
+    "rules": [
+      "Every status renders glyph + label. Color reinforces, never replaces.",
+      "compact mode requires aria-label spelling out the status.",
+      "Numeric quantities render with .lumen-tnum."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Show low-stock quantity ('Only 4 left') — the threshold for urgency.",
+      "Sold-out is a danger tone; the CTA next to it should switch to 'Notify me'.",
+      "Preorder + backorder render in info tone with the ETA in nearby text."
+    ],
+    "dont": [
+      "Don't paint in-stock in solid lime fill — accent green is reserved for actions. Use the success status pair (which uses a soft tint, not the accent stop).",
+      "Don't show quantity on in-stock above 10 — too precise hurts trust ('Why does it know 47?').",
+      "Don't suppress sold-out — surface it prominently."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["Badge", "Tag"],
+  "changelog": [{ "version": "0.12.6", "type": "Added", "note": "Initial InventoryStatus contract. Five tones for commerce surfaces." }]
+}

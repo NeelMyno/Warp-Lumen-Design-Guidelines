@@ -1,0 +1,97 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Stepper",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Linear multi-step progress affordance for an ordered flow. Each step exposes one of four states (complete, current, upcoming, error). Horizontal layout for desktop / wizard surfaces; vertical layout for mobile / settings surfaces. Distinct from Tabs (sibling views, free reordering) and Progress (single continuous value).",
+  "props": {
+    "steps":      { "type": "node", "optional": false, "description": "Sequence of step descriptors. Either an array via the `steps` prop or <StepperStep> children. Each step carries a label, an optional description, and a state." },
+    "currentStep":{ "type": "number", "optional": false, "description": "0-indexed active step. The active step renders state='current'; steps before it render state='complete'; steps after render state='upcoming'. The consumer can override per-step state to surface errors." },
+    "orientation":{ "type": "enum", "values": ["horizontal", "vertical"], "default": "horizontal", "optional": true },
+    "variant":    { "type": "enum", "values": ["numbered", "dotted", "iconed"], "default": "numbered", "optional": true, "description": "numbered: each step's marker is its 1-based index. dotted: dots — minimal, no labels in compact mobile. iconed: lucide Check on complete, the step's own icon on current/upcoming." },
+    "clickable":  { "type": "boolean", "default": false, "optional": true, "description": "When true, completed steps become buttons that navigate back. Upcoming steps stay non-interactive even when clickable=true (forward jumps are unsafe without validation)." },
+    "onStepClick":{ "type": "handler", "optional": true, "description": "Fires with the 0-indexed step. Only fires for completed steps when clickable=true." },
+    "compact":    { "type": "boolean", "default": false, "optional": true, "description": "Hides per-step description text; shows only the label. Pair with horizontal on dense surfaces." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.sunken",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.text.success",
+      "color.text.error",
+      "color.action.primary.bg.rest",
+      "color.action.primary.fg",
+      "color.action.selected.bg",
+      "color.action.selected.border",
+      "color.status.danger.500",
+      "color.status.danger.bg",
+      "color.border.hairline",
+      "color.border.accent",
+      "space.inline.sm",
+      "space.inline.md",
+      "space.stack.sm",
+      "space.stack.md",
+      "radius.circle",
+      "type.label.sm",
+      "type.label.md",
+      "type.body.sm",
+      "motion.duration.fast",
+      "motion.duration.base",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "navigation",
+    "keyboard": [
+      "Tab - move focus across clickable (completed) steps",
+      "Enter / Space - jump to focused completed step",
+      "Tab - skip non-clickable upcoming steps"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.1 Use of Color",
+      "1.4.3 Contrast (Minimum)",
+      "1.4.11 Non-text Contrast",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Root is <nav aria-label='Progress'> with an inner <ol>.",
+      "Each step's marker carries an aria-label that includes its state — e.g. 'Step 2 of 4: Shipping details, current'.",
+      "The current step has aria-current='step'.",
+      "Completed steps with clickable=true render as buttons; upcoming steps stay as <li><span>.",
+      "Errors set state='error' and announce via an aria-live region attached to the form section, not the Stepper itself.",
+      "Color is never the only state cue: complete uses check icon + tinted bg; current uses primary fill + label weight; error uses ! icon + danger fill."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Reserve Stepper for linear flows where step N depends on step N-1. Onboarding, checkout, multi-page forms.",
+      "Lead each step label with a noun ('Shipping address', 'Payment method'), not a verb.",
+      "Render a numbered counter ('Step 2 of 4') near the Stepper or above the form for SR users who land mid-flow.",
+      "Use the vertical layout when each step has its own description text — horizontal compresses descriptions to single lines.",
+      "Pair with a Toolbar at the bottom (Back / Continue) — the Stepper communicates location, the Toolbar drives motion."
+    ],
+    "dont": [
+      "Don't use Stepper for sibling views. That's Tabs.",
+      "Don't use Stepper for continuous progress. That's Progress.",
+      "Don't render more than 6 steps inline horizontally on desktop or 4 on mobile. Past that, collapse to 'Step N of M' + Progress.",
+      "Don't paint upcoming steps in the same lime as current — that breaks the rule that lime is the moment of action.",
+      "Don't allow forward jumps via clickable=true. Validate the current step before advancing."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Tabs", "Progress", "Toolbar", "Form"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Stepper contract. Numbered / dotted / iconed variants. Horizontal + vertical. Clickable-completed pattern." }
+  ]
+}

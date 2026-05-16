@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline",
+  "type": "registry:ui",
+  "title": "Timeline",
+  "description": "Chronological sequence of events. Vertical / horizontal. Three densities.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/timeline/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/timeline.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": ["web-react"],
+    "specPath": "design-system/02-components/timeline/component.json",
+    "docsPath": "design-system/02-components/timeline/component.md",
+    "status": "stable",
+    "warpSignature": false
+  }
+}

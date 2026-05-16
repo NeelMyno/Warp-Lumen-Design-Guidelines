@@ -1,0 +1,83 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "BottomNav",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Mobile-only primary navigation rail anchored to the bottom of the viewport. 3-5 destinations, icon-on-top + tiny label, active state painted with text.accent + a top-edge brand stroke. Distinct from TabBar (in-page tabs) and from Sidebar (desktop).",
+  "props": {
+    "items":         { "type": "node", "optional": false, "description": "Array of { id, label, icon, badge? }. 3-5 items only — beyond 5, move a destination to the More menu." },
+    "activeId":      { "type": "string", "optional": false },
+    "onActiveChange":{ "type": "handler", "optional": false },
+    "showLabels":    { "type": "boolean", "default": true, "optional": true, "description": "false renders icon-only — only acceptable on app shells where every glyph is universally understood (Home / Search / Notifications / Account)." },
+    "elevation":     { "type": "enum", "values": ["border", "shadow"], "default": "border", "optional": true }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.page",
+      "color.surface.raised",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.text.tertiary",
+      "color.text.accent",
+      "color.accent.500",
+      "color.action.selected.bg",
+      "color.action.ghost.bg.hover",
+      "color.border.hairline",
+      "size.bottom-nav.compact",
+      "size.bottom-nav.regular",
+      "space.inset.sm",
+      "space.inset.md",
+      "type.micro",
+      "type.eyebrow.mono",
+      "type.label.sm",
+      "shadow.elevation.md",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.focus"
+    ]
+  },
+  "a11y": {
+    "role": "navigation",
+    "keyboard": [
+      "Tab - move focus across items",
+      "Enter / Space - activate"
+    ],
+    "minTouchTarget": "44x44",
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.4.7 Focus Visible",
+      "2.5.5 Target Size (Enhanced)",
+      "4.1.2 Name, Role, Value"
+    ],
+    "rules": [
+      "<nav aria-label='Bottom navigation'>.",
+      "Each item is a button (or <a> when routing). Active item: aria-current='page'.",
+      "Items have ≥ 44 px touch target (the whole item, not just the icon).",
+      "Respect safe-area-inset-bottom — the bar pads bottom by max(env(safe-area-inset-bottom), 8px).",
+      "Honor prefers-reduced-motion: drop the active-pill move animation; render only color change."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use 3-5 items only.",
+      "Active state: top-edge 2 px accent stroke + filled icon glyph + text.accent label.",
+      "Place the most common destination first (left).",
+      "If you have > 5 destinations, the 5th item is 'More' opening a Sheet or DropdownMenu.",
+      "Badges on items align to the icon top-right; numeric badges use tabular-nums."
+    ],
+    "dont": [
+      "Don't auto-hide the BottomNav on scroll. The user needs the safe-area pad and the orientation cue at all times.",
+      "Don't paint the active item background in solid lime. Use the top-edge stroke.",
+      "Don't render BottomNav and Sidebar simultaneously — pick the one for the form factor.",
+      "Don't add a destructive action to BottomNav. Destinations only."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Navbar", "Sidebar", "Tabs"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial BottomNav contract. 3-5 items. safe-area padding. Active = top-edge accent stroke." }
+  ]
+}

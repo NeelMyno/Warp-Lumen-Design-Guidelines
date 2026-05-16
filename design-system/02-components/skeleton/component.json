@@ -1,0 +1,66 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Skeleton",
+  "version": "0.12.6",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Layout-preserving placeholder painted while content loads. Renders the shape of the eventual content — text lines, avatars, cards, table rows — using a faint shimmer that pauses under prefers-reduced-motion. Use for first-paint loads; never combine with a Spinner on the same surface (one signal at a time).",
+  "props": {
+    "shape":    { "type": "enum", "values": ["text", "circle", "rect", "card", "row"], "default": "rect", "optional": true, "description": "text: line of text. circle: avatar / dot. rect: button / chip / image. card: full card body (composed of header + lines). row: table row." },
+    "width":    { "type": "string", "optional": true, "description": "CSS length. Defaults: text=100%, circle=40px, rect=auto, card=full container, row=full row." },
+    "height":   { "type": "string", "optional": true, "description": "CSS length. Defaults: text=1em line-height-based, circle=40px, rect=24px, card=auto, row=44px." },
+    "lines":    { "type": "number", "default": 1, "optional": true, "description": "shape='text' only. Render N lines with random-feeling widths (the last line is 60-80% to mimic prose)." },
+    "radius":   { "type": "enum", "values": ["inherit", "sm", "md", "lg", "pill", "circle"], "default": "inherit", "optional": true, "description": "Override default radius. 'inherit' uses the contextual default per shape." },
+    "shimmer":  { "type": "boolean", "default": true, "optional": true, "description": "When true, the shimmer translateX animation runs at 1.6 s / ease-in-out. False renders a static dim block (operator dashboards that load < 200 ms — flash of shimmer feels worse than no shimmer at all)." }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.sunken",
+      "color.surface.raised",
+      "color.border.hairline",
+      "color.alpha.paper.06",
+      "color.alpha.paper.08",
+      "radius.sm",
+      "radius.md",
+      "radius.lg",
+      "radius.pill",
+      "radius.circle",
+      "motion.duration.shimmer",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "presentation",
+    "keyboard": [],
+    "wcag": [
+      "1.4.11 Non-text Contrast",
+      "4.1.3 Status Messages"
+    ],
+    "rules": [
+      "Skeletons are decorative. role='presentation' (or simply aria-hidden='true'). The parent surface should set aria-busy='true' and announce the loading state once via a sr-only label.",
+      "Shimmer animation MUST pause under prefers-reduced-motion. Without shimmer the block stays as a dim surface so the layout is preserved.",
+      "Skeletons must match the eventual content's bounding box to within ~10% — otherwise the page jumps on load."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Use skeletons for predictable layouts you can mock (table rows, card grids, profile headers).",
+      "Use shape='text' lines=3 for paragraph stubs.",
+      "Set aria-busy='true' on the parent surface; announce 'Loading' once via sr-only.",
+      "Match the eventual bounding box. A dashboard card skeleton should be the same height as the loaded card."
+    ],
+    "dont": [
+      "Don't combine Skeleton with Spinner on the same surface.",
+      "Don't paint shimmer with the brand accent — chrome, not action.",
+      "Don't render a skeleton that shifts layout when content arrives.",
+      "Don't skeleton everything — for a single line of text, a Spinner inline is less visually noisy."
+    ]
+  },
+  "examples": {
+    "web-react": "./examples/primary.tsx"
+  },
+  "related": ["Spinner", "Progress"],
+  "changelog": [
+    { "version": "0.12.6", "type": "Added", "note": "Initial Skeleton contract. Five shape variants. Reduced-motion-safe shimmer." }
+  ]
+}
