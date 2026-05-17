@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "banner",
+  "title": "Banner",
+  "description": "Page-level system state strip. Six tones (info/success/warning/danger/promo/sandbox). Sticky by default.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/banner/examples/primary.tsx",
+      "content": "// Lumen Banner — Web React example.\n// Page-level system state strip. Sticks above the page header by default.\n\n\"use client\";\n\nimport { AlertOctagon, AlertTriangle, CheckCircle, Info, Sparkles, FlaskConical, X } from \"lucide-react\";\nimport { ReactNode } from \"react\";\n\ntype Tone = \"info\" | \"success\" | \"warning\" | \"danger\" | \"promo\" | \"sandbox\";\n\nconst TONE: Record<Tone, { icon: typeof Info; bg: string; fg: string }> = {\n  info:    { icon: Info,          bg: \"bg-[var(--color-status-info-bg)]\",    fg: \"text-[var(--color-status-info-fg)]\" },\n  success: { icon: CheckCircle,   bg: \"bg-[var(--color-status-success-bg)]\", fg: \"text-[var(--color-status-success-fg)]\" },\n  warning: { icon: AlertTriangle, bg: \"bg-[var(--color-status-warning-bg)]\", fg: \"text-[var(--color-status-warning-fg)]\" },\n  danger:  { icon: AlertOctagon,  bg: \"bg-[var(--color-status-danger-bg)]\",  fg: \"text-[var(--color-status-danger-fg)]\" },\n  promo:   { icon: Sparkles,      bg: \"bg-[var(--color-surface-tint-accent)]\", fg: \"text-[var(--color-text-accent)]\" },\n  sandbox: { icon: FlaskConical,  bg: \"[background-image:repeating-linear-gradient(135deg,var(--color-surface-tint-accent)_0_8px,transparent_8px_16px)]\", fg: \"text-[var(--color-text-primary)]\" },\n};\n\nexport type BannerProps = {\n  tone?: Tone;\n  message: ReactNode;\n  action?: ReactNode;\n  icon?: ReactNode;\n  dismissible?: boolean;\n  onDismiss?: () => void;\n  sticky?: boolean;\n  compact?: boolean;\n};\n\nexport function Banner({\n  tone = \"info\",\n  message,\n  action,\n  icon,\n  dismissible,\n  onDismiss,\n  sticky = true,\n  compact = true,\n}: BannerProps) {\n  const t = TONE[tone];\n  const Icon = t.icon;\n  const role = tone === \"danger\" ? \"alert\" : \"region\";\n  return (\n    <div\n      role={role}\n      aria-label={`${tone} banner`}\n      className={[\n        sticky ? \"sticky top-0\" : \"\",\n        \"z-[var(--z-banner,40)] w-full\",\n        \"border-b border-[var(--color-border-hairline)]\",\n        compact ? \"py-2\" : \"py-3\",\n        t.bg,\n      ].join(\" \")}\n    >\n      <div className={[\n        \"mx-auto flex items-center gap-[var(--space-inline-md)]\",\n        \"px-[var(--space-inset-lg)]\",\n        \"max-w-[var(--container-default,1200px)]\",\n        compact ? \"text-[var(--type-body-sm)]\" : \"text-[var(--type-label-md)]\",\n      ].join(\" \")}>\n        <span className={[\"shrink-0\", t.fg].join(\" \")}>{icon ?? <Icon size={14} aria-hidden />}</span>\n        <span className=\"min-w-0 flex-1 truncate text-[var(--color-text-primary)]\">{message}</span>\n        {action && <span className=\"shrink-0\">{action}</span>}\n        {dismissible && (\n          <button\n            type=\"button\"\n            aria-label=\"Dismiss banner\"\n            onClick={onDismiss}\n            className={[\n              \"shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-[var(--radius-control-sm)]\",\n              \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]\",\n              \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n              \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1\",\n              \"focus-visible:shadow-[var(--shadow-focus)]\",\n            ].join(\" \")}\n          >\n            <X size={14} aria-hidden />\n          </button>\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/banner.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/banner/component.json",
+    "docsPath": "design-system/02-components/banner/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

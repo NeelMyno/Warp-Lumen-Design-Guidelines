@@ -1,0 +1,83 @@
+{
+  "name": "badge",
+  "title": "Badge",
+  "namedExport": "Badge",
+  "category": "display",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Status pill. Six health states (neutral / success / warning / danger / info / accent) via the unified --pill-{tone}-{bg|fg|border} token contract (v0.11.3 ADR). Heights snap to 8pt: sm=20 / md=24. Optional leadingDot (size-dot-sm) + leadingIcon.",
+  "description": "Token-driven status pill with six health states unified via --pill-{tone}-* tokens.",
+  "skillDescription": "Use to surface compact status — On time / Delayed / Tendered / Booked / Live. Six tones: neutral, success, warning, danger, info, accent. Two sizes: sm (h20) and md (h24). Optional leadingDot or leadingIcon (NEVER both). All three pill primitives (Badge, Tag, StatusPill) share one --pill-* token contract — change once, repaint all.",
+  "builtOn": "Native <span>",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.neutral.border",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.success.border",
+    "pill.warn.bg",
+    "pill.warn.fg",
+    "pill.warn.border",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "pill.danger.border",
+    "pill.info.bg",
+    "pill.info.fg",
+    "pill.info.border",
+    "pill.accent.bg",
+    "pill.accent.fg",
+    "pill.accent.border",
+    "radius.full",
+    "size.dot.sm",
+    "tracking.tight",
+    "type.11",
+    "type.12"
+  ],
+  "useWhen": [
+    "Status indicator next to a row — shipment status, lane state, payment status.",
+    "Tag on a header — 'Beta', 'New', 'Deprecated'.",
+    "Live indicator in chrome — pair with LiveDot for the pulsing variant."
+  ],
+  "anatomy": ["Span root (radius-full)", "Optional leadingDot (size-dot-sm bg-current)", "Optional leadingIcon", "Children label (font-medium tracked-tight uppercase-allowed via consumer)"],
+  "api": [
+    "`status` — neutral | success | warning | danger | info | accent (default: neutral).",
+    "`size` — sm | md (default: sm).",
+    "`leadingDot` — boolean (renders bg-current colored dot).",
+    "`leadingIcon` — ReactNode (replaces dot)."
+  ],
+  "never": [
+    "NEVER convey meaning by color alone — Badge ALWAYS carries a label or icon next to the color.",
+    "NEVER use status=accent for non-action visual; it conflicts with the accent primary CTA.",
+    "NEVER drop the border — it carries the brutalist hairline voice."
+  ],
+  "a11yRules": [
+    "Badge IS the label — no aria-label needed if children is descriptive.",
+    "For decorative dots, leadingDot uses aria-hidden by default.",
+    "Pairing with a numeric value via `aria-describedby` from the consumer if Badge is referenced from another element."
+  ],
+  "do": ["Pair color with a label or icon.", "Use sm in dense tables; md in card headers."],
+  "dont": ["Don't use color alone.", "Don't stack 4+ badges in a row — that's a tags-input case."],
+  "related": ["Tag", "Trend", "LiveDot", "Status Pill"],
+  "stories": [
+    { "name": "Neutral", "args": {}, "children": "Neutral" },
+    { "name": "Success", "args": { "status": "success" }, "children": "On time" },
+    { "name": "Warning", "args": { "status": "warning" }, "children": "Delayed" },
+    { "name": "Danger", "args": { "status": "danger" }, "children": "Failed" },
+    { "name": "WithDot", "args": { "status": "success", "leadingDot": true }, "children": "Live" }
+  ],
+  "variants": ["neutral", "success", "warning", "danger", "info", "accent"],
+  "propsList": [
+    { "name": "status", "type": "enum", "default": "neutral" },
+    { "name": "size", "type": "enum", "default": "sm" },
+    { "name": "leadingDot", "type": "boolean" },
+    { "name": "leadingIcon", "type": "ReactNode" }
+  ],
+  "exampleSnippet": "import { Badge } from \"@/components/ui/badge\";\n\nexport function Example() {\n  return <Badge status=\"success\" leadingDot>Live</Badge>;\n}",
+  "testChildren": "On time"
+}

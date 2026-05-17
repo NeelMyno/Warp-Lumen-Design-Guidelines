@@ -1,0 +1,74 @@
+{
+  "name": "carrier-badge",
+  "title": "CarrierBadge",
+  "namedExport": "CarrierBadge",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Carrier identity chip. Logo slot + name + rating (★) + vehicle type (FTL / LTL / Reefer / Flatbed) + on-time percentage. Use synthetic names (Sterling LTL, Estes Express, ODFL) per privacy rule — no real-person names.",
+  "description": "Carrier identity chip with logo + rating + vehicle + OTD%.",
+  "skillDescription": "Use in carrier picker rows, shipment cards, lane assignments — anywhere a carrier identity appears. Composes Avatar (for logo) + numeric OTD% (lumen-tnum). The OTD% colors via PILL token (≥97 success / 93-97 neutral / <93 danger). NEVER use real carrier or person names in fixtures — use the standard synthetic carrier list.",
+  "builtOn": "Avatar + Badge composition",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/avatar", "@lumen/badge"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.warn.bg",
+    "pill.warn.fg",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "radius.md"
+  ],
+  "useWhen": ["Carrier picker rows (Combobox option content).", "Lane assignments (carrier per lane).", "Shipment cards (which carrier handles this load)."],
+  "anatomy": [
+    "Avatar (logo or initials)",
+    "Name (font-medium, --text-primary)",
+    "Vehicle type chip (text-secondary, optional)",
+    "Rating (★ + numeric, optional)",
+    "On-time % (mono-numeric, tone-colored)"
+  ],
+  "api": [
+    "`name` — string (required).",
+    "`logoSrc` — optional image url.",
+    "`vehicle` — FTL | LTL | Reefer | Flatbed.",
+    "`rating` — 1–5 number.",
+    "`otdPct` — 0–100 number.",
+    "`size` — sm | md (default) | lg.",
+    "`compact` — boolean (renders just name + OTD)."
+  ],
+  "never": [
+    "NEVER use real person names in fixtures.",
+    "NEVER show a fractional OTD% (round to 1 decimal max).",
+    "NEVER stack 4+ carrier badges per row (visual overload)."
+  ],
+  "a11yRules": ["aria-label='Carrier: {name}, {vehicle}, {rating} stars, {otdPct}% on-time'."],
+  "do": ["Use synthetic carrier names.", "Color OTD% by tier.", "Use compact in dense rows."],
+  "dont": ["Don't use real names.", "Don't show fractional OTD beyond 0.1."],
+  "related": ["Avatar", "Badge", "LaneCode", "Stat"],
+  "stories": [
+    { "name": "Default", "args": { "name": "Sterling LTL", "vehicle": "LTL", "rating": 4.6, "otdPct": 97.8 }, "children": "" },
+    { "name": "Compact", "args": { "name": "Estes Express", "otdPct": 96.1, "compact": true }, "children": "" }
+  ],
+  "variants": ["default", "compact", "with-logo"],
+  "propsList": [
+    { "name": "name", "type": "string", "required": true },
+    { "name": "logoSrc", "type": "string" },
+    { "name": "vehicle", "type": "enum" },
+    { "name": "rating", "type": "number" },
+    { "name": "otdPct", "type": "number" },
+    { "name": "size", "type": "enum", "default": "md" },
+    { "name": "compact", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { CarrierBadge } from \"@/components/ui/carrier-badge\";\n\nexport function Example() {\n  return <CarrierBadge name=\"Sterling LTL\" vehicle=\"LTL\" rating={4.6} otdPct={97.8} />;\n}",
+  "testChildren": ""
+}

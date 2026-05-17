@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "saved-view",
+  "type": "registry:ui",
+  "title": "SavedView",
+  "description": "Named query state with diff indicator + share URL.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/button",
+    "@lumen/dropdown-menu",
+    "@lumen/modal",
+    "@lumen/input"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/saved-view/saved-view.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/saved-view.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Lumen primitives (Button + DropdownMenu + Modal)",
+    "specPath": "design-system/02-components/saved-view/saved-view.md",
+    "skillPath": "design-system/02-components/saved-view/saved-view.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

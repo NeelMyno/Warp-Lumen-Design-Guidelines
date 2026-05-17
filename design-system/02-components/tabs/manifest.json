@@ -1,0 +1,47 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "tabs",
+  "title": "Tabs",
+  "description": "Token-driven tabs with sunken track + raised active state.",
+  "props": [
+    {
+      "name": "defaultValue",
+      "type": "string"
+    },
+    {
+      "name": "value",
+      "type": "string"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(v: string) => void"
+    }
+  ],
+  "variants": [
+    "default",
+    "underline"
+  ],
+  "tokensConsumed": [
+    "surface.sunken",
+    "surface.raised",
+    "text.tertiary",
+    "text.primary",
+    "shadow.sm",
+    "shadow.focus",
+    "radius.md",
+    "radius.sm",
+    "z-index.popover"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=tablist, role=tab, role=tabpanel, aria-controls, aria-selected, arrow-key navigation, focus trap within the list.",
+      "TabsTrigger focus-visible has the lumen --shadow-focus halo."
+    ]
+  },
+  "usage": "import { Tabs, TabsList, TabsTrigger, TabsContent } from \"@/components/ui/tabs\";\n\nexport function Example() {\n  return (\n    <Tabs defaultValue=\"overview\">\n      <TabsList>\n        <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n        <TabsTrigger value=\"activity\">Activity</TabsTrigger>\n      </TabsList>\n      <TabsContent value=\"overview\">Overview content</TabsContent>\n    </Tabs>\n  );\n}",
+  "storiesPath": "02-components/tabs/tabs.stories.tsx",
+  "sourcePath": "02-components/tabs/tabs.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

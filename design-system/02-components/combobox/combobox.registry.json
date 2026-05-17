@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox",
+  "type": "registry:ui",
+  "title": "Combobox",
+  "description": "Token-driven searchable single-select. Popover + cmdk.",
+  "dependencies": [
+    "@radix-ui/react-popover",
+    "cmdk",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/combobox/combobox.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/combobox.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "form",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Popover + cmdk + class-variance-authority",
+    "specPath": "design-system/02-components/combobox/combobox.md",
+    "skillPath": "design-system/02-components/combobox/combobox.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

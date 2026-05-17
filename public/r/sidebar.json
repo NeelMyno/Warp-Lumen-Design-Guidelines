@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar",
+  "title": "Sidebar",
+  "description": "Multi-level navigation sidebar with collapsible state.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/tooltip"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/sidebar/sidebar.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/sidebar — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Multi-section nav rail. Collapsed mode shrinks to icon-only with Tooltip\n * labels. Active items get aria-current=page + lime accent.\n */\nimport * as React from \"react\";\nimport { ChevronLeft, ChevronRight } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype SidebarContextValue = {\n  collapsed: boolean;\n};\nconst SidebarContext = React.createContext<SidebarContextValue>({ collapsed: false });\n\nexport function Sidebar({\n  children,\n  collapsed,\n  onCollapsedChange,\n  className,\n  width = 240,\n  collapsedWidth = 56,\n}: {\n  children: React.ReactNode;\n  collapsed?: boolean;\n  onCollapsedChange?: (c: boolean) => void;\n  className?: string;\n  width?: number;\n  collapsedWidth?: number;\n}) {\n  const [internal, setInternal] = React.useState(false);\n  const isCollapsed = collapsed ?? internal;\n  return (\n    <SidebarContext.Provider value={{ collapsed: isCollapsed }}>\n      <aside\n        data-slot=\"sidebar\"\n        data-collapsed={isCollapsed || undefined}\n        aria-label=\"Primary navigation\"\n        className={cn(\n          \"h-full flex flex-col bg-[var(--surface-canvas)] border-r border-[var(--border-hairline)] transition-[width] duration-[var(--motion-base)] ease-[var(--easing-standard)]\",\n          className,\n        )}\n        style={{ width: isCollapsed ? collapsedWidth : width }}\n      >\n        {children}\n        <button\n          type=\"button\"\n          onClick={() => {\n            const next = !isCollapsed;\n            setInternal(next);\n            onCollapsedChange?.(next);\n          }}\n          aria-label={isCollapsed ? \"Expand sidebar\" : \"Collapse sidebar\"}\n          className=\"mt-auto m-2 h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-xs)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\"\n        >\n          {isCollapsed ? <ChevronRight size={14} aria-hidden /> : <ChevronLeft size={14} aria-hidden />}\n        </button>\n      </aside>\n    </SidebarContext.Provider>\n  );\n}\n\nexport function SidebarHeader({ children, className }: { children: React.ReactNode; className?: string }) {\n  const { collapsed } = React.useContext(SidebarContext);\n  return (\n    <div\n      data-slot=\"sidebar-header\"\n      className={cn(\n        \"h-14 flex items-center px-4 border-b border-[var(--border-hairline)] text-[color:var(--text-primary)] font-semibold tracking-[var(--tracking-tight)]\",\n        collapsed && \"justify-center px-0\",\n        className,\n      )}\n    >\n      {children}\n    </div>\n  );\n}\n\nexport function SidebarSection({\n  heading,\n  children,\n  className,\n}: {\n  heading?: string;\n  children: React.ReactNode;\n  className?: string;\n}) {\n  const { collapsed } = React.useContext(SidebarContext);\n  return (\n    <nav\n      data-slot=\"sidebar-section\"\n      className={cn(\"flex flex-col gap-0.5 px-2 py-3 first:pt-4\", className)}\n    >\n      {heading && !collapsed && (\n        <div className=\"px-2 pb-1 lumen-mono-cap text-[length:var(--type-10)] tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]\">\n          {heading}\n        </div>\n      )}\n      {children}\n    </nav>\n  );\n}\n\nexport function SidebarItem({\n  icon,\n  children,\n  active,\n  href,\n  onClick,\n  className,\n}: {\n  icon?: React.ReactNode;\n  children: React.ReactNode;\n  active?: boolean;\n  href?: string;\n  onClick?: () => void;\n  className?: string;\n}) {\n  const { collapsed } = React.useContext(SidebarContext);\n  const Tag = (href ? \"a\" : \"button\") as \"a\" | \"button\";\n  return (\n    <Tag\n      data-slot=\"sidebar-item\"\n      data-active={active || undefined}\n      aria-current={active ? \"page\" : undefined}\n      href={href as string | undefined}\n      onClick={onClick}\n      title={collapsed && typeof children === \"string\" ? children : undefined}\n      className={cn(\n        \"flex items-center gap-2 h-9 px-2 rounded-[var(--radius-md)] text-[length:var(--type-13)] text-[color:var(--text-secondary)] no-underline\",\n        \"hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)]\",\n        \"transition-colors duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n        \"focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\",\n        active &&\n          \"bg-[var(--surface-tint-accent)] text-[color:var(--text-accent)] font-medium\",\n        collapsed && \"justify-center px-0\",\n        className,\n      )}\n    >\n      {icon && <span aria-hidden className=\"shrink-0\">{icon}</span>}\n      {!collapsed && <span className=\"truncate text-left flex-1\">{children}</span>}\n    </Tag>\n  );\n}\n\nexport function SidebarFooter({ children, className }: { children: React.ReactNode; className?: string }) {\n  const { collapsed } = React.useContext(SidebarContext);\n  return (\n    <div\n      data-slot=\"sidebar-footer\"\n      className={cn(\n        \"mt-auto border-t border-[var(--border-hairline)] p-3\",\n        collapsed && \"px-0\",\n        className,\n      )}\n    >\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/sidebar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "navigation",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native semantic <aside><nav>",
+    "specPath": "design-system/02-components/sidebar/sidebar.md",
+    "skillPath": "design-system/02-components/sidebar/sidebar.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

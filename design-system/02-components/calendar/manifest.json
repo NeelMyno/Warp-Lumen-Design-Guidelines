@@ -1,0 +1,49 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "calendar",
+  "title": "Calendar",
+  "description": "react-day-picker calendar with Lumen day cell + nav styling.",
+  "props": [
+    {
+      "name": "mode",
+      "type": "enum",
+      "default": "single"
+    },
+    {
+      "name": "selected",
+      "type": "Date | Date[] | DateRange"
+    },
+    {
+      "name": "onSelect",
+      "type": "(d) => void"
+    }
+  ],
+  "variants": [
+    "single",
+    "range",
+    "multiple"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.tint-accent",
+    "color.action.primary.bg.rest",
+    "color.action.primary.fg",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.md",
+    "radius.xs"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "react-day-picker manages role=grid + role=gridcell + aria-selected + arrow-key navigation.",
+      "Honor prefers-reduced-motion (no transition on day select)."
+    ]
+  },
+  "usage": "import { Calendar } from \"@/components/ui/calendar\";\n\nexport function Example() {\n  return <Calendar mode=\"single\" selected={new Date()} />;\n}",
+  "storiesPath": "02-components/calendar/calendar.stories.tsx",
+  "sourcePath": "02-components/calendar/calendar.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

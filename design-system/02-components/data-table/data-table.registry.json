@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-table",
+  "type": "registry:ui",
+  "title": "DataTable",
+  "description": "Lumen-styled virtualized table consuming TanStack Table state.",
+  "dependencies": [
+    "@tanstack/react-table",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/data-table/data-table.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/data-table.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "TanStack Table + virtualized rows",
+    "specPath": "design-system/02-components/data-table/data-table.md",
+    "skillPath": "design-system/02-components/data-table/data-table.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

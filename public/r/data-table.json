@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-table",
+  "title": "DataTable",
+  "description": "Lumen-styled virtualized table consuming TanStack Table state.",
+  "dependencies": [
+    "@tanstack/react-table",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/data-table/data-table.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/data-table — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Visual contract over TanStack Table. Consumer brings state (data, columns,\n * sorting, selection); Lumen brings sticky header, lime hover, hairline borders,\n * mono numerics. Virtualize via TanStack Virtual (consumer wires it).\n *\n * Sub-components compose semantically — use the real `<table><thead><tbody>`\n * tags so screen readers, browser table tools, and consumer CSS all work.\n */\nimport * as React from \"react\";\nimport { ChevronUp, ChevronDown } from \"lucide-react\";\nimport type { Table } from \"@tanstack/react-table\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype Density = \"sm\" | \"md\" | \"lg\";\n\nconst DENSITY_CELL: Record<Density, string> = {\n  sm: \"h-9 px-3 text-[length:var(--type-13)]\",\n  md: \"h-11 px-4 text-[length:var(--type-13)]\",\n  lg: \"h-13 px-4 text-[length:var(--type-14)]\",\n};\n\nexport type DataTableProps<TData> = React.HTMLAttributes<HTMLTableElement> & {\n  table?: Table<TData>;\n  density?: Density;\n  sticky?: boolean;\n};\n\nfunction DataTable<TData>({\n  className,\n  density = \"md\",\n  sticky = true,\n  children,\n  ...props\n}: DataTableProps<TData>) {\n  return (\n    <div\n      data-slot=\"data-table-root\"\n      data-density={density}\n      data-sticky={sticky || undefined}\n      className={cn(\n        \"w-full overflow-auto rounded-[var(--radius-lg)] border border-[var(--border-hairline)] bg-[var(--surface-raised)]\",\n        className,\n      )}\n    >\n      <table\n        data-slot=\"data-table\"\n        className=\"w-full caption-bottom border-collapse text-[color:var(--text-primary)]\"\n        {...props}\n      >\n        {children}\n      </table>\n    </div>\n  );\n}\n\nfunction DataTableHeader({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {\n  return (\n    <thead\n      data-slot=\"data-table-header\"\n      className={cn(\n        \"sticky top-0 z-[var(--z-sticky)] bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)]\",\n        \"lumen-mono-cap text-[length:var(--type-11)] tracking-[var(--tracking-wider)]\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction DataTableBody({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) {\n  return <tbody data-slot=\"data-table-body\" className={cn(className)} {...props} />;\n}\n\nfunction DataTableRow({\n  className,\n  selected,\n  ...props\n}: React.HTMLAttributes<HTMLTableRowElement> & { selected?: boolean }) {\n  return (\n    <tr\n      data-slot=\"data-table-row\"\n      data-selected={selected || undefined}\n      aria-selected={selected || undefined}\n      className={cn(\n        \"border-b border-[var(--border-hairline)] last:border-b-0\",\n        \"transition-colors duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n        \"hover:bg-[var(--surface-tint-accent)]\",\n        \"data-[selected=true]:bg-[var(--surface-tint-accent)]\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\ntype SortDir = false | \"asc\" | \"desc\";\n\nfunction DataTableHeaderCell({\n  className,\n  children,\n  sortable,\n  sortDir = false,\n  onSort,\n  align = \"left\",\n  density = \"md\",\n  ...props\n}: React.ThHTMLAttributes<HTMLTableCellElement> & {\n  sortable?: boolean;\n  sortDir?: SortDir;\n  onSort?: () => void;\n  align?: \"left\" | \"right\" | \"center\";\n  density?: Density;\n}) {\n  const ariaSort =\n    sortDir === \"asc\" ? \"ascending\" : sortDir === \"desc\" ? \"descending\" : \"none\";\n  return (\n    <th\n      data-slot=\"data-table-header-cell\"\n      aria-sort={ariaSort}\n      className={cn(\n        \"font-medium whitespace-nowrap text-left\",\n        DENSITY_CELL[density],\n        align === \"right\" && \"text-right\",\n        align === \"center\" && \"text-center\",\n        className,\n      )}\n      {...props}\n    >\n      {sortable ? (\n        <button\n          type=\"button\"\n          onClick={onSort}\n          className=\"inline-flex items-center gap-1 hover:text-[color:var(--text-primary)] transition-colors duration-[var(--motion-fast)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\"\n        >\n          {children}\n          {sortDir === \"asc\" ? (\n            <ChevronUp className=\"size-3\" aria-hidden />\n          ) : sortDir === \"desc\" ? (\n            <ChevronDown className=\"size-3\" aria-hidden />\n          ) : null}\n        </button>\n      ) : (\n        children\n      )}\n    </th>\n  );\n}\n\nfunction DataTableCell({\n  className,\n  align = \"left\",\n  density = \"md\",\n  numeric,\n  ...props\n}: React.TdHTMLAttributes<HTMLTableCellElement> & {\n  align?: \"left\" | \"right\" | \"center\";\n  density?: Density;\n  numeric?: boolean;\n}) {\n  return (\n    <td\n      data-slot=\"data-table-cell\"\n      data-numeric={numeric || undefined}\n      className={cn(\n        DENSITY_CELL[density],\n        \"align-middle\",\n        align === \"right\" && \"text-right\",\n        align === \"center\" && \"text-center\",\n        numeric && \"lumen-tnum lumen-mono\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport {\n  DataTable,\n  DataTableHeader,\n  DataTableBody,\n  DataTableRow,\n  DataTableHeaderCell,\n  DataTableCell,\n};\n",
+      "type": "registry:ui",
+      "target": "components/ui/data-table.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "TanStack Table + virtualized rows",
+    "specPath": "design-system/02-components/data-table/data-table.md",
+    "skillPath": "design-system/02-components/data-table/data-table.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

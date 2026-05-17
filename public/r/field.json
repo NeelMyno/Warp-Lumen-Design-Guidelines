@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "title": "Field",
+  "description": "Composition wrapper for a single form control. Stacks label + description + control shell + hint/error in one vertical group. The control shell owns the focus surface; slots (leading icon, trailing icon, addon) bond under that single ring.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/components/primitives/field.tsx",
+      "content": "\"use client\";\n\nimport { ReactNode, InputHTMLAttributes, useId, forwardRef } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\n/**\n * Lumen Field — composed form field that bundles label + description + control\n * shell + hint/error in one vertical stack. v0.6 rewrite: the control shell is\n * now the SINGLE focus surface, painting exactly one ring via :has(:focus-visible).\n * Leading icon, trailing icon, and trailing addon are siblings inside the shell\n * — bonded under the same focus boundary by construction.\n *\n * v0.7 forwarding: the inner <input> ref is forwarded so RHF's\n * Controller.render({ field: { ref } }) can wire up focus-on-first-invalid.\n *\n * The CSS recipes live in globals.css under \"v0.6 — FORMS & INPUT FIELDS\".\n * Component contract: design-system/02-components/field/component.{md,json}.\n */\n\ntype Size = \"sm\" | \"md\" | \"lg\";\n\nexport type FieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, \"size\" | \"children\"> & {\n  /** Visible field label. Always render unless `aria-label` is set on the input. */\n  label?: string;\n  /** Description text shown beneath the label, above the control. */\n  description?: string;\n  /** Error message shown beneath the control. Sets aria-invalid + role=alert. */\n  error?: string;\n  /** Hint message shown beneath the control. Mutually exclusive with `error`. */\n  hint?: string;\n  /** Render `(optional)` next to the label. NN/g preferred over the asterisk pattern. */\n  optional?: boolean;\n  /** Render the required asterisk + sets aria-required on the input. */\n  required?: boolean;\n  leadingIcon?: ReactNode;\n  trailingIcon?: ReactNode;\n  /** Trailing unit chip (lb / STD / %). Renders mono uppercase. */\n  trailingAddon?: ReactNode;\n  size?: Size;\n  /** Render value with tabular numerics + slashed-zero (Satoshi tnum). For IDs / ZIPs / codes. */\n  mono?: boolean;\n  /** Custom control. When present, replaces the built-in <input>. The wrapper still owns focus. */\n  children?: ReactNode;\n};\n\nexport const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(\n  {\n    label, description, error, hint, optional, required,\n    leadingIcon, trailingIcon, trailingAddon, size = \"md\", mono,\n    id, className, disabled, readOnly, children, ...input\n  },\n  ref,\n) {\n  const generatedId = useId();\n  const inputId = id ?? generatedId;\n  const helpId = error ? `${inputId}-err` : hint ? `${inputId}-hint` : undefined;\n\n  return (\n    <div className={cn(\"lumen-form-field\", className)}>\n      {label && (\n        <label htmlFor={inputId} className=\"lumen-form-field__label\">\n          {label}\n          {optional && <span className=\"lumen-form-field__optional\">(optional)</span>}\n          {required && <span aria-hidden className=\"lumen-form-field__required\">*</span>}\n        </label>\n      )}\n      {description && (\n        <p className=\"lumen-form-field__description\">{description}</p>\n      )}\n      {children ? (\n        // Custom control replaces the entire shell. Consumer is responsible for\n        // wrapping in .lumen-field if they want the focus shell behavior.\n        <div className=\"min-w-0\">{children}</div>\n      ) : (\n        <div\n          className=\"lumen-field\"\n          data-size={size === \"md\" ? undefined : size}\n          data-mono={mono ? \"true\" : undefined}\n          data-invalid={error ? \"true\" : undefined}\n          data-disabled={disabled ? \"true\" : undefined}\n          aria-readonly={readOnly ? \"true\" : undefined}\n          // Click anywhere on the shell focuses the input — including padding,\n          // slot icons, and the trailing addon. Required because slots are\n          // pointer-events: none so they fall through, but we want clicks on\n          // the addon to behave like clicks on the field.\n          onClick={(e) => {\n            if (e.currentTarget === e.target) {\n              const inp = e.currentTarget.querySelector(\"input\");\n              inp?.focus();\n            }\n          }}\n        >\n          {leadingIcon && (\n            <span data-slot=\"leading\" aria-hidden>{leadingIcon}</span>\n          )}\n          <input\n            ref={ref}\n            id={inputId}\n            disabled={disabled}\n            readOnly={readOnly}\n            required={required}\n            aria-required={required ? \"true\" : undefined}\n            aria-invalid={error ? \"true\" : undefined}\n            aria-describedby={helpId}\n            {...input}\n          />\n          {trailingIcon && (\n            <span data-slot=\"trailing\" aria-hidden>{trailingIcon}</span>\n          )}\n          {trailingAddon && (\n            <span data-slot=\"addon\">{trailingAddon}</span>\n          )}\n        </div>\n      )}\n      {error ? (\n        <p id={helpId} role=\"alert\" className=\"lumen-form-field__error\">{error}</p>\n      ) : hint ? (\n        <p id={helpId} className=\"lumen-form-field__hint\">{hint}</p>\n      ) : null}\n    </div>\n  );\n});\n",
+      "type": "registry:ui",
+      "target": "components/lumen/field.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/field/component.json",
+    "docsPath": "design-system/02-components/field/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "trend",
+  "title": "Trend",
+  "description": "Numeric delta chip. Polarity-aware tone. Tabular-nums alignment.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/trend/examples/primary.tsx",
+      "content": "// Lumen Trend — Web React example. Polarity-aware delta chip.\n\nimport { ArrowUpRight, ArrowDownRight, Minus } from \"lucide-react\";\n\ntype Polarity = \"positive-is-good\" | \"negative-is-good\" | \"neutral\";\ntype Size = \"xs\" | \"sm\" | \"md\";\n\nconst SIZE: Record<Size, { type: string; icon: number; gap: string }> = {\n  xs: { type: \"text-[11px]\", icon: 10, gap: \"gap-0.5\" },\n  sm: { type: \"text-[var(--type-label-sm)]\", icon: 12, gap: \"gap-1\" },\n  md: { type: \"text-[var(--type-label-md)]\", icon: 14, gap: \"gap-1\" },\n};\n\nexport type TrendProps = {\n  delta: number;\n  suffix?: string;\n  polarity?: Polarity;\n  size?: Size;\n  compact?: boolean;\n  showArrow?: boolean;\n  precision?: number;\n  ariaPeriod?: string;\n};\n\nexport function Trend({\n  delta,\n  suffix = \"%\",\n  polarity = \"positive-is-good\",\n  size = \"sm\",\n  compact = false,\n  showArrow = true,\n  precision = 1,\n  ariaPeriod,\n}: TrendProps) {\n  const sign = delta > 0 ? 1 : delta < 0 ? -1 : 0;\n  const direction: \"up\" | \"down\" | \"flat\" = sign > 0 ? \"up\" : sign < 0 ? \"down\" : \"flat\";\n  const good =\n    polarity === \"neutral\"\n      ? null\n      : polarity === \"positive-is-good\"\n      ? sign > 0\n      : sign < 0;\n\n  const tone =\n    polarity === \"neutral\"\n      ? \"text-[var(--color-text-tertiary)]\"\n      : good\n      ? \"text-[var(--color-text-accent)]\"\n      : sign === 0\n      ? \"text-[var(--color-text-tertiary)]\"\n      : \"text-[var(--color-text-error)]\";\n\n  const Icon = direction === \"up\" ? ArrowUpRight : direction === \"down\" ? ArrowDownRight : Minus;\n  const value = `${sign >= 0 ? \"+\" : \"−\"}${Math.abs(delta).toFixed(precision)}${compact ? \"\" : suffix}`;\n  const srLabel = `${direction === \"up\" ? \"Up\" : direction === \"down\" ? \"Down\" : \"Unchanged\"} ${Math.abs(delta).toFixed(precision)}${suffix}${ariaPeriod ? ` versus ${ariaPeriod}` : \"\"}`;\n\n  return (\n    <span\n      role=\"img\"\n      aria-label={srLabel}\n      className={[\"lumen-tnum inline-flex items-center font-medium align-middle\", SIZE[size].type, SIZE[size].gap, tone].join(\" \")}\n    >\n      {showArrow && <Icon size={SIZE[size].icon} aria-hidden />}\n      <span>{value}</span>\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/trend.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/trend/component.json",
+    "docsPath": "design-system/02-components/trend/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

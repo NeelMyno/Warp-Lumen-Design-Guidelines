@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lane-code",
+  "title": "LaneCode",
+  "description": "Freight lane code with arrow + optional inline rate. Mono numerics.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/lane-code/lane-code.tsx",
+      "content": "/**\n * @lumen/lane-code — v0.13 Phase 2 freight-domain primitive.\n * ----------------------------------------------------------------------------\n * Lane identifier — `LAX → SFO` (U+2192 arrow). Mono numerics. Optional inline\n * rate. Compact horizontal pill with optional hairline border.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst SIZE: Record<\"sm\" | \"md\", { text: string; px: string; gap: string; h: string }> = {\n  sm: { text: \"text-[length:var(--type-11)]\", px: \"px-1.5\", gap: \"gap-1\", h: \"h-5\" },\n  md: { text: \"text-[length:var(--type-13)]\", px: \"px-2\", gap: \"gap-1.5\", h: \"h-6\" },\n};\n\nexport function LaneCode({\n  origin,\n  destination,\n  rate,\n  size = \"md\",\n  bordered = false,\n  className,\n}: {\n  origin: string;\n  destination: string;\n  rate?: string;\n  size?: \"sm\" | \"md\";\n  bordered?: boolean;\n  className?: string;\n}) {\n  const s = SIZE[size];\n  const aria = `Lane ${origin} to ${destination}${rate ? `, rate ${rate}` : \"\"}`;\n  return (\n    <span\n      data-slot=\"lane-code\"\n      data-bordered={bordered || undefined}\n      aria-label={aria}\n      className={cn(\n        \"inline-flex items-center align-middle whitespace-nowrap lumen-mono lumen-tnum\",\n        s.text,\n        s.gap,\n        bordered &&\n          cn(\n            \"border border-[var(--border-hairline)] rounded-[var(--radius-xs)]\",\n            s.px,\n            s.h,\n          ),\n        className,\n      )}\n    >\n      <span className=\"font-medium text-[color:var(--text-primary)] tracking-[0.04em] uppercase\">\n        {origin}\n      </span>\n      <span aria-hidden className=\"text-[color:var(--text-tertiary)]\">\n        →\n      </span>\n      <span className=\"font-medium text-[color:var(--text-primary)] tracking-[0.04em] uppercase\">\n        {destination}\n      </span>\n      {rate && (\n        <>\n          <span aria-hidden className=\"text-[color:var(--text-tertiary)] mx-0.5\">\n            ·\n          </span>\n          <span className=\"text-[color:var(--text-accent)] font-semibold\">{rate}</span>\n        </>\n      )}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/lane-code.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native span composition",
+    "specPath": "design-system/02-components/lane-code/lane-code.md",
+    "skillPath": "design-system/02-components/lane-code/lane-code.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

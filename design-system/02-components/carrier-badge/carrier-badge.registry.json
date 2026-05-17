@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "carrier-badge",
+  "type": "registry:ui",
+  "title": "CarrierBadge",
+  "description": "Carrier identity chip with logo + rating + vehicle + OTD%.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/avatar",
+    "@lumen/badge"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/carrier-badge/carrier-badge.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/carrier-badge.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Avatar + Badge composition",
+    "specPath": "design-system/02-components/carrier-badge/carrier-badge.md",
+    "skillPath": "design-system/02-components/carrier-badge/carrier-badge.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-input",
+  "title": "NumberInput",
+  "description": "Stepper-flanked numeric input. Minus button + mono numeric value + plus button (and optional unit suffix) bonded inside a single field shell.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "./input.json",
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/number-input/examples/web-react.tsx",
+      "content": "// Lumen NumberInput — Web React example\n// Tailwind v4 + tokens consumed via @theme inline / CSS variables.\n//\n// Copy this into your repo at /components/ui/number-input.tsx.\n// Tokens come from /_build/tailwind/theme.css which you import in your global css.\n\n\"use client\";\n\nimport { useId } from \"react\";\nimport { Minus, Plus } from \"lucide-react\";\n\nconst cn = (...c: Array<string | false | undefined>) =>\n  c.filter(Boolean).join(\" \");\n\nexport type NumberInputProps = {\n  value: number;\n  onChange: (value: number) => void;\n  min?: number;\n  max?: number;\n  step?: number;\n  suffix?: string;\n  size?: \"sm\" | \"md\" | \"lg\";\n  disabled?: boolean;\n  name?: string;\n  \"aria-label\"?: string;\n};\n\nexport function NumberInput({\n  value,\n  onChange,\n  min = 0,\n  max = 999,\n  step = 1,\n  suffix,\n  size = \"md\",\n  disabled,\n  name,\n  ...rest\n}: NumberInputProps) {\n  const inputId = useId();\n  const atMin = value <= min;\n  const atMax = value >= max;\n\n  const dec = () => onChange(Math.max(min, value - step));\n  const inc = () => onChange(Math.min(max, value + step));\n\n  const stepperClass =\n    \"h-full inline-flex items-center transition-colors disabled:opacity-40 disabled:cursor-not-allowed\";\n\n  return (\n    <div\n      className=\"lumen-field\"\n      data-mono=\"true\"\n      data-size={size === \"md\" ? undefined : size}\n      data-disabled={disabled ? \"true\" : undefined}\n      // shell override — see ADR 0014; will be cleaned up in v0.9 via\n      // a `data-padding=\"none\"` modifier on the lumen-field shell.\n      style={{ paddingInline: 0 }}\n    >\n      <button\n        type=\"button\"\n        data-interactive\n        onClick={dec}\n        disabled={disabled || atMin}\n        aria-label=\"Decrement\"\n        aria-controls={inputId}\n        className={cn(stepperClass, \"rounded-l-[var(--radius-control-md)]\")}\n        style={{\n          paddingInline: \"var(--space-3)\",\n          color: \"var(--color-text-secondary)\",\n        }}\n      >\n        <Minus size={12} aria-hidden />\n      </button>\n\n      <input\n        id={inputId}\n        type=\"number\"\n        value={Number.isFinite(value) ? value : \"\"}\n        onChange={(e) => {\n          const next = Number(e.target.value);\n          if (Number.isFinite(next)) onChange(next);\n        }}\n        onBlur={(e) => {\n          const next = Math.min(Math.max(Number(e.target.value), min), max);\n          if (Number.isFinite(next)) onChange(next);\n        }}\n        min={min}\n        max={max}\n        step={step}\n        name={name}\n        disabled={disabled}\n        className=\"text-center tabular-nums\"\n        style={{\n          fontVariantNumeric: \"tabular-nums lining-nums\",\n        }}\n        {...rest}\n      />\n\n      {suffix && (\n        <span\n          data-slot=\"addon\"\n          aria-hidden\n          className=\"text-micro\"\n          style={{\n            color: \"var(--color-text-tertiary)\",\n            textTransform: \"uppercase\",\n            fontVariantNumeric: \"tabular-nums lining-nums\",\n            letterSpacing: \"0.16em\",\n          }}\n        >\n          {suffix}\n        </span>\n      )}\n\n      <button\n        type=\"button\"\n        data-interactive\n        onClick={inc}\n        disabled={disabled || atMax}\n        aria-label=\"Increment\"\n        aria-controls={inputId}\n        className={cn(stepperClass, \"rounded-r-[var(--radius-control-md)]\")}\n        style={{\n          paddingInline: \"var(--space-3)\",\n          color: \"var(--color-text-secondary)\",\n        }}\n      >\n        <Plus size={12} aria-hidden />\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/number-input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/number-input/component.json",
+    "docsPath": "design-system/02-components/number-input/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

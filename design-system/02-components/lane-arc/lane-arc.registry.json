@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lane-arc",
+  "type": "registry:ui",
+  "title": "LaneArc",
+  "description": "SVG lane arc with mount-time draw-in animation.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/lane-arc/lane-arc.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/lane-arc.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native SVG + CSS animation",
+    "specPath": "design-system/02-components/lane-arc/lane-arc.md",
+    "skillPath": "design-system/02-components/lane-arc/lane-arc.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

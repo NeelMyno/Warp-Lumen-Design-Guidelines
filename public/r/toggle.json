@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "title": "Toggle",
+  "description": "A switch for binary on/off settings. Instant-effect changes only.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/toggle/examples/primary.tsx",
+      "content": "// Lumen Toggle — Web React example\n// Tailwind v4 + tokens consumed via @theme inline / CSS variables.\n//\n// Copy this into your repo at /components/ui/toggle.tsx.\n// Tokens come from /_build/tailwind/theme.css which you import in your global css.\n//\n// Toggle is a switch for binary on/off settings with INSTANT effect — no submit,\n// no apply. Distinct from Switch (which is a stateful Radix wrapper) and\n// Checkbox (which collects a value to be submitted later).\n\nimport { ReactNode, useId } from \"react\";\n\ntype Size = \"sm\" | \"md\";\n\n// Track + knob dimensions snap to the 4-grid:\n//   sm  → 12 × 20 track, 8 × 8 knob, 4 px inset, 8 px slide.\n//   md  → 16 × 28 track, 12 × 12 knob, 4 px inset, 12 px slide.\n// (Inset = 20 − 8 − 8 / 28 − 12 − 12. Slide arithmetic stays on the grid.)\nconst SIZE: Record<Size, { track: string; knob: string; translate: string; label: string }> = {\n  sm: {\n    track: \"h-3 w-5\",\n    knob: \"h-2 w-2\",\n    translate: \"translate-x-2\",\n    label: \"text-[var(--type-label-md)]\",\n  },\n  md: {\n    track: \"h-4 w-7\",\n    knob: \"h-3 w-3\",\n    translate: \"translate-x-3\",\n    label: \"text-[var(--type-label-md)]\",\n  },\n};\n\nexport type ToggleProps = {\n  checked: boolean;\n  onChange: (next: boolean) => void;\n  disabled?: boolean;\n  size?: Size;\n  /** Visible label rendered to the right of the toggle. */\n  label?: string;\n  /** Optional one-line description below the label. */\n  description?: string;\n  /** When no visible label, supply aria-label for screen readers. */\n  \"aria-label\"?: string;\n  \"aria-labelledby\"?: string;\n  \"aria-describedby\"?: string;\n  id?: string;\n  className?: string;\n  children?: ReactNode;\n};\n\nexport function Toggle({\n  checked,\n  onChange,\n  disabled = false,\n  size = \"md\",\n  label,\n  description,\n  className,\n  id,\n  children,\n  ...aria\n}: ToggleProps) {\n  const generatedId = useId();\n  const toggleId = id ?? generatedId;\n  const descriptionId = description ? `${toggleId}-desc` : undefined;\n  const dims = SIZE[size];\n\n  return (\n    <div className={[\"inline-flex items-start gap-3\", className ?? \"\"].join(\" \")}>\n      <button\n        id={toggleId}\n        type=\"button\"\n        role=\"switch\"\n        aria-checked={checked}\n        aria-disabled={disabled || undefined}\n        aria-describedby={descriptionId ?? aria[\"aria-describedby\"]}\n        aria-label={aria[\"aria-label\"]}\n        aria-labelledby={aria[\"aria-labelledby\"]}\n        disabled={disabled}\n        onClick={() => !disabled && onChange(!checked)}\n        className={[\n          \"relative inline-flex shrink-0 items-center rounded-[var(--radius-pill)]\",\n          \"border border-[var(--color-border-strong)]\",\n          \"transition-colors duration-[var(--motion-transition-fast)] ease-[var(--motion-easing-standard)]\",\n          \"focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\",\n          \"disabled:opacity-40 disabled:cursor-not-allowed\",\n          dims.track,\n          checked\n            ? \"bg-[var(--color-accent-500)] border-transparent\"\n            : \"bg-[var(--color-surface-raised)]\",\n        ].join(\" \")}\n      >\n        <span\n          aria-hidden\n          className={[\n            \"inline-block rounded-[var(--radius-pill)] bg-white shadow-[var(--shadow-xs)]\",\n            \"transition-transform duration-[var(--motion-transition-fast)] ease-[var(--motion-easing-standard)]\",\n            \"ml-1\",\n            dims.knob,\n            checked ? dims.translate : \"translate-x-0\",\n          ].join(\" \")}\n        />\n      </button>\n      {(label || description || children) && (\n        <div className=\"flex flex-col gap-1 leading-snug\">\n          {label && (\n            <label\n              htmlFor={toggleId}\n              className={[\n                dims.label,\n                \"text-[var(--color-text-primary)] cursor-pointer select-none\",\n                disabled ? \"cursor-not-allowed opacity-60\" : \"\",\n              ].join(\" \")}\n            >\n              {label}\n            </label>\n          )}\n          {description && (\n            <span\n              id={descriptionId}\n              className=\"text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\"\n            >\n              {description}\n            </span>\n          )}\n          {children}\n        </div>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/toggle.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/toggle/component.json",
+    "docsPath": "design-system/02-components/toggle/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

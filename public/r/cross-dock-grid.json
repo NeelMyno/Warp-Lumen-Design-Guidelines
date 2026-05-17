@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cross-dock-grid",
+  "title": "CrossDockGrid",
+  "description": "Top-down cross-dock floor with color-coded pallet cells.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/cross-dock-grid/cross-dock-grid.tsx",
+      "content": "/**\n * @lumen/cross-dock-grid — v0.13 Phase 2 freight-domain composite.\n * ----------------------------------------------------------------------------\n * Top-down floor layout. Each cell = pallet position. Occupied cells tint by\n * destination lane via a 5-color rotation. Click for detail.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport type Occupancy = {\n  row: number;\n  col: number;\n  palletId: string;\n  laneId: string;\n};\n\nconst LANE_PALETTE: { bg: string; fg: string }[] = [\n  { bg: \"var(--lumen-accent-2)\", fg: \"var(--lumen-accent-9)\" },\n  { bg: \"var(--lumen-cream-2)\", fg: \"var(--lumen-cream-9)\" },\n  { bg: \"var(--lumen-amber-2)\", fg: \"var(--lumen-amber-9)\" },\n  { bg: \"var(--lumen-red-2)\", fg: \"var(--lumen-red-9)\" },\n  { bg: \"var(--lumen-cream-3)\", fg: \"var(--lumen-cream-9)\" },\n];\n\nfunction paletteFor(laneId: string): { bg: string; fg: string } {\n  let h = 0;\n  for (let i = 0; i < laneId.length; i++) h = (h * 31 + laneId.charCodeAt(i)) >>> 0;\n  return LANE_PALETTE[h % LANE_PALETTE.length];\n}\n\nexport type CrossDockGridProps = {\n  rows: number;\n  cols: number;\n  occupancy?: Occupancy[];\n  onCellSelect?: (row: number, col: number, palletId?: string) => void;\n  cellSize?: number;\n  className?: string;\n};\n\nexport function CrossDockGrid({\n  rows,\n  cols,\n  occupancy = [],\n  onCellSelect,\n  cellSize = 28,\n  className,\n}: CrossDockGridProps) {\n  const occMap = React.useMemo(() => {\n    const m = new Map<string, Occupancy>();\n    for (const o of occupancy) m.set(`${o.row},${o.col}`, o);\n    return m;\n  }, [occupancy]);\n\n  const total = rows * cols;\n  const occupied = occupancy.length;\n  const utilization = total > 0 ? Math.round((occupied / total) * 100) : 0;\n\n  return (\n    <div\n      data-slot=\"cross-dock-grid\"\n      className={cn(\n        \"inline-flex flex-col gap-2 p-3 bg-[var(--surface-raised)] rounded-[var(--radius-md)] border border-[var(--border-hairline)]\",\n        className,\n      )}\n    >\n      <div className=\"flex items-baseline justify-between gap-3\">\n        <span className=\"lumen-mono-cap text-[length:var(--type-10)] tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)]\">\n          Cross-dock floor\n        </span>\n        <span className=\"lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-secondary)]\">\n          {occupied}/{total} · {utilization}%\n        </span>\n      </div>\n      <div\n        role=\"grid\"\n        aria-label={`Cross-dock grid ${rows} rows × ${cols} columns`}\n        className=\"inline-grid gap-px\"\n        style={{\n          gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`,\n          gridTemplateRows: `repeat(${rows}, ${cellSize}px)`,\n        }}\n      >\n        {Array.from({ length: total }).map((_, idx) => {\n          const r = Math.floor(idx / cols) + 1;\n          const c = (idx % cols) + 1;\n          const occ = occMap.get(`${r},${c}`);\n          const palette = occ ? paletteFor(occ.laneId) : null;\n          return (\n            <button\n              key={idx}\n              type=\"button\"\n              role=\"gridcell\"\n              onClick={() => onCellSelect?.(r, c, occ?.palletId)}\n              aria-label={\n                occ\n                  ? `Row ${r} col ${c}, pallet ${occ.palletId}, lane ${occ.laneId}`\n                  : `Row ${r} col ${c}, empty`\n              }\n              title={occ ? `${occ.palletId} · ${occ.laneId}` : `(${r}, ${c})`}\n              className={cn(\n                \"rounded-[var(--radius-xs)] transition-transform duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n                \"hover:scale-[1.08] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\",\n                occ\n                  ? \"border border-[var(--border-hairline)]\"\n                  : \"bg-[var(--surface-sunken)] border border-transparent\",\n              )}\n              style={\n                palette\n                  ? {\n                      background: palette.bg,\n                      color: palette.fg,\n                      width: cellSize,\n                      height: cellSize,\n                    }\n                  : { width: cellSize, height: cellSize }\n              }\n            />\n          );\n        })}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/cross-dock-grid.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native grid composition",
+    "specPath": "design-system/02-components/cross-dock-grid/cross-dock-grid.md",
+    "skillPath": "design-system/02-components/cross-dock-grid/cross-dock-grid.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

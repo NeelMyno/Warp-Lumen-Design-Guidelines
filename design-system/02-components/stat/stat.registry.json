@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat",
+  "type": "registry:ui",
+  "title": "Stat",
+  "description": "Big bold metric + delta pill + sparkline. Warp signature primitive.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/stat/stat.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/stat.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T3-SIG",
+    "category": "data",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": true,
+    "builtOn": "Native composition + Sparkline",
+    "specPath": "design-system/02-components/stat/stat.md",
+    "skillPath": "design-system/02-components/stat/stat.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

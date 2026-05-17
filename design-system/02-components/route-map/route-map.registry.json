@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "route-map",
+  "type": "registry:ui",
+  "title": "RouteMap",
+  "description": "Provider-agnostic map surface with lane overlays + markers + truck pin.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lane-arc",
+    "@lumen/live-dot"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/route-map/route-map.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/route-map.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native SVG + LaneArc composition",
+    "specPath": "design-system/02-components/route-map/route-map.md",
+    "skillPath": "design-system/02-components/route-map/route-map.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "Token-driven single-line tooltip with glass-strong surface.",
+  "props": [
+    {
+      "name": "delayDuration",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "sideOffset",
+      "type": "number",
+      "default": 6
+    }
+  ],
+  "variants": [
+    "default"
+  ],
+  "tokensConsumed": [
+    "text.primary",
+    "radius.md",
+    "z-index.tooltip",
+    "type.11",
+    "tracking.tight"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=tooltip + aria-describedby + show on focus / hover / pointer-enter; hide on blur / escape.",
+      "Mobile / touch: tooltip surfaces via long-press; not a substitute for visible label."
+    ]
+  },
+  "usage": "import { Tooltip, TooltipTrigger, TooltipContent } from \"@/components/ui/tooltip\";\n\nexport function Example() {\n  return (\n    <Tooltip>\n      <TooltipTrigger>?</TooltipTrigger>\n      <TooltipContent>Bill of Lading</TooltipContent>\n    </Tooltip>\n  );\n}",
+  "storiesPath": "02-components/tooltip/tooltip.stories.tsx",
+  "sourcePath": "02-components/tooltip/tooltip.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

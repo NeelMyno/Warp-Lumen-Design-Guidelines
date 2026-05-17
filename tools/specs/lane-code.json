@@ -1,0 +1,62 @@
+{
+  "name": "lane-code",
+  "title": "LaneCode",
+  "namedExport": "LaneCode",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Lane identifier — renders as `LAX → SFO` with a proper arrow glyph (→ U+2192, not -> ascii) and mono-numerics. Optional inline rate (e.g. '$262'). Compact horizontal pill with hairline border. Use everywhere a freight lane is referenced.",
+  "description": "Freight lane code with arrow + optional inline rate. Mono numerics.",
+  "skillDescription": "Use anywhere a freight lane shows up — table cells, breadcrumbs, page titles, chart axes. Always use the U+2192 → glyph (not ASCII -> or →). Optional `rate` slot renders the price inline with a hairline separator. For animated arc rendering on a map, use @lumen/lane-arc.",
+  "builtOn": "Native span composition",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react", "ios", "android"],
+  "tokensConsumed": [
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "radius.xs",
+    "type.13"
+  ],
+  "useWhen": ["Table cells (lane column).", "Breadcrumb segments.", "Page titles ('LAX → SFO · Rate analysis').", "Filter chip labels."],
+  "anatomy": ["Origin code (mono, 3 chars, --text-secondary)", "Arrow glyph (→ U+2192, --text-tertiary)", "Destination code (mono, 3 chars, --text-secondary)", "Optional separator (· U+00B7) + rate (--text-primary, font-medium)"],
+  "api": [
+    "`origin` — 3-char IATA or ISO code.",
+    "`destination` — 3-char code.",
+    "`rate` — optional string (e.g. '$262').",
+    "`size` — sm | md (default).",
+    "`bordered` — boolean (renders as a pill)."
+  ],
+  "never": [
+    "NEVER use ASCII '->' for the arrow — use U+2192 ('→').",
+    "NEVER use Title Case for codes (always uppercase).",
+    "NEVER nest a LaneCode inside another LaneCode."
+  ],
+  "a11yRules": [
+    "Renders the arrow as a real character (→) — screen readers read it naturally.",
+    "aria-label='Lane: {origin} to {destination}{', rate ' + rate}' for clarity."
+  ],
+  "do": ["Use the U+2192 glyph.", "Pair with rate in revenue contexts.", "Use mono-numerics for codes."],
+  "dont": ["Don't use ASCII arrows.", "Don't lowercase codes."],
+  "related": ["LaneArc", "RouteMap", "RateTicker", "CarrierBadge"],
+  "stories": [
+    { "name": "Default", "args": { "origin": "LAX", "destination": "SFO" }, "children": "" },
+    { "name": "WithRate", "args": { "origin": "LAX", "destination": "SFO", "rate": "$262" }, "children": "" },
+    { "name": "Bordered", "args": { "origin": "LAX", "destination": "SFO", "bordered": true }, "children": "" }
+  ],
+  "variants": ["plain", "bordered", "with-rate"],
+  "propsList": [
+    { "name": "origin", "type": "string", "required": true },
+    { "name": "destination", "type": "string", "required": true },
+    { "name": "rate", "type": "string" },
+    { "name": "size", "type": "enum", "default": "md" },
+    { "name": "bordered", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { LaneCode } from \"@/components/ui/lane-code\";\n\nexport function Example() {\n  return <LaneCode origin=\"LAX\" destination=\"SFO\" rate=\"$262\" />;\n}",
+  "testChildren": ""
+}

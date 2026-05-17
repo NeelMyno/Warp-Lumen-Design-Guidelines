@@ -1,0 +1,49 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "data-table",
+  "title": "DataTable",
+  "description": "Lumen-styled virtualized table consuming TanStack Table state.",
+  "props": [
+    {
+      "name": "table",
+      "type": "Table<TData>"
+    },
+    {
+      "name": "density",
+      "type": "enum",
+      "default": "md"
+    }
+  ],
+  "variants": [
+    "default",
+    "compact",
+    "comfortable"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "surface.tint-accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "border.default",
+    "tracking.tight",
+    "tracking.wider",
+    "type.13",
+    "type.12"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Renders proper <table><thead><tbody><tr><th><td> semantics.",
+      "Sortable headers are <button> children with aria-sort.",
+      "Selected rows have aria-selected=true (consumer manages selection state via TanStack)."
+    ]
+  },
+  "usage": "import { DataTable, DataTableHeader, DataTableHeaderCell, DataTableBody, DataTableRow, DataTableCell } from \"@/components/ui/data-table\";\nimport { useReactTable, getCoreRowModel } from \"@tanstack/react-table\";\n\nexport function Example() {\n  const table = useReactTable({ data: [], columns: [], getCoreRowModel: getCoreRowModel() });\n  return (\n    <DataTable table={table}>\n      <DataTableHeader>\n        <tr><DataTableHeaderCell>Lane</DataTableHeaderCell></tr>\n      </DataTableHeader>\n      <DataTableBody>\n        <DataTableRow><DataTableCell>LAX → SFO</DataTableCell></DataTableRow>\n      </DataTableBody>\n    </DataTable>\n  );\n}",
+  "storiesPath": "02-components/data-table/data-table.stories.tsx",
+  "sourcePath": "02-components/data-table/data-table.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

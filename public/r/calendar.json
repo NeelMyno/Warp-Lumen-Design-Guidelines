@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar",
+  "title": "Calendar",
+  "description": "react-day-picker calendar with Lumen day cell + nav styling.",
+  "dependencies": [
+    "react-day-picker",
+    "date-fns",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/calendar/calendar.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/calendar — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * react-day-picker v9 with Lumen day cell + nav styling. All upstream props\n * pass through; we override the classNames map for token-driven styling.\n */\nimport * as React from \"react\";\nimport { ChevronLeft, ChevronRight } from \"lucide-react\";\nimport {\n  DayPicker,\n  type DayPickerProps,\n} from \"react-day-picker\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst lumenClassNames = {\n  months: \"flex flex-col sm:flex-row gap-4\",\n  month: \"space-y-2\",\n  caption: \"flex justify-center pt-1 relative items-center text-[length:var(--type-14)] font-medium\",\n  caption_label: \"text-[color:var(--text-primary)] tracking-[var(--tracking-tight)]\",\n  nav: \"space-x-1 flex items-center\",\n  nav_button:\n    \"h-7 w-7 inline-flex items-center justify-center rounded-[var(--radius-xs)] bg-transparent hover:bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]\",\n  nav_button_previous: \"absolute left-1\",\n  nav_button_next: \"absolute right-1\",\n  table: \"w-full border-collapse space-y-1\",\n  head_row: \"flex\",\n  head_cell:\n    \"text-[color:var(--text-tertiary)] rounded-md w-9 font-normal text-[length:var(--type-11)] lumen-mono-cap tracking-[var(--tracking-wider)]\",\n  row: \"flex w-full mt-2\",\n  cell: \"h-9 w-9 text-center text-[length:var(--type-13)] p-0 relative focus-within:relative focus-within:z-20\",\n  day: \"h-9 w-9 p-0 font-normal aria-selected:opacity-100 inline-flex items-center justify-center rounded-[var(--radius-xs)] hover:bg-[var(--surface-tint-accent)] focus:bg-[var(--surface-tint-accent)] focus:outline-none lumen-tnum\",\n  day_selected:\n    \"bg-[var(--color-action-primary-bg-rest)] text-[color:var(--color-action-primary-fg)] hover:bg-[var(--color-action-primary-bg-rest)] focus:bg-[var(--color-action-primary-bg-rest)]\",\n  day_today: \"text-[color:var(--text-accent)] font-semibold\",\n  day_outside: \"text-[color:var(--text-tertiary)] opacity-50\",\n  day_disabled: \"text-[color:var(--text-tertiary)] opacity-30 cursor-not-allowed\",\n  day_range_middle: \"aria-selected:bg-[var(--surface-tint-accent)] aria-selected:text-[color:var(--text-primary)]\",\n  day_hidden: \"invisible\",\n};\n\nexport function Calendar({\n  className,\n  classNames,\n  showOutsideDays = true,\n  ...props\n}: DayPickerProps) {\n  return (\n    <DayPicker\n      data-slot=\"calendar\"\n      showOutsideDays={showOutsideDays}\n      className={cn(\"p-3 bg-[var(--surface-raised)] rounded-[var(--radius-md)] border border-[var(--border-hairline)]\", className)}\n      classNames={{ ...lumenClassNames, ...classNames }}\n      components={{\n        IconLeft: (p: { className?: string }) => <ChevronLeft className={cn(\"size-4\", p.className)} />,\n        IconRight: (p: { className?: string }) => <ChevronRight className={cn(\"size-4\", p.className)} />,\n      }}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/calendar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "form",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "react-day-picker v9",
+    "specPath": "design-system/02-components/calendar/calendar.md",
+    "skillPath": "design-system/02-components/calendar/calendar.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

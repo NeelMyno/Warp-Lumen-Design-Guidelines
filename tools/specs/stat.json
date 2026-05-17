@@ -1,0 +1,106 @@
+{
+  "name": "stat",
+  "title": "Stat",
+  "namedExport": "Stat",
+  "category": "data",
+  "tier": "T3-SIG",
+  "status": "stable",
+  "summary": "Warp signature primitive. Big bold numeric (tabular monospace + slashed zero) + small mono unit + optional delta pill with polarity-aware trend arrow + optional Sparkline endpoint pulse. Polarity ('good-up' | 'good-down' | 'neutral') unifies pill tone with spark color so the chart never contradicts the pill. v0.11.16/.17 cross-column alignment + fluid spark.",
+  "description": "Big bold metric + delta pill + sparkline. Warp signature primitive.",
+  "skillDescription": "Use for hero KPI tiles — On-time index, Active lanes, Avg cost/pallet, Revenue. Always pass `polarity` so the pill tone + spark color agree. Six sizes (xs/sm/md/lg/xl/hero). For grids of stats use StatGrid (handles cross-column sparkline alignment). NEVER render two simultaneous SIGNATURES per surface — Stat is precious.",
+  "builtOn": "Native composition + Sparkline",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "signature": true,
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react", "ios", "android"],
+  "tokensConsumed": [
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "status.success.bg",
+    "status.success.fg",
+    "status.danger.bg",
+    "status.danger.fg",
+    "status.neutral.bg",
+    "status.neutral.fg",
+    "type.20",
+    "type.25",
+    "type.31",
+    "type.39",
+    "type.49",
+    "type.72",
+    "type.13",
+    "type.11",
+    "tracking.tighter",
+    "tracking.tight",
+    "leading.flat",
+    "space.1_5",
+    "radius.full"
+  ],
+  "useWhen": [
+    "Hero KPI tiles (OTD, Active lanes, Avg cost/pallet, Revenue).",
+    "Top-of-dashboard summary row (StatGrid).",
+    "Side panel metrics next to a chart."
+  ],
+  "anatomy": [
+    "Label (lumen-eyebrow)",
+    "Value row — big numeric (tnum + tracking-tighter + leading-flat) + small mono unit",
+    "Delta + spark row — polarity-aware delta pill (radius-full) + endpoint-pulse Sparkline (ml-auto right-edge anchor)"
+  ],
+  "api": [
+    "`label` — string (eyebrow above the value).",
+    "`value` — string (the numeric).",
+    "`unit` — string (e.g. '%', 'pallets', 'days').",
+    "`delta` — string ('+12.4%') — drives pill display.",
+    "`trend` — 'up' | 'down' | 'flat'.",
+    "`polarity` — 'good-up' (revenue, OTD) | 'good-down' (cost, errors) | 'neutral' (counts).",
+    "`size` — xs | sm | md | lg | xl | hero.",
+    "`sparkData` — number[] (Stat owns the Sparkline).",
+    "`spark` — ReactNode (legacy escape hatch for custom content).",
+    "`pulse` — override endpoint pulse (default: true when sparkData)."
+  ],
+  "never": [
+    "NEVER render two SIGNATURES (Stat + LiveDot pulse + RateTicker marquee) on the same surface simultaneously.",
+    "NEVER hardcode the polarity — derive from the metric's domain semantics (revenue good-up vs cost good-down).",
+    "NEVER skip lumen-tnum on the value (tabular numerics for cross-row alignment).",
+    "NEVER use plain Title Case for the label — eyebrow is mono-uppercase tracked."
+  ],
+  "a11yRules": [
+    "Pill icon (▲ / ▼ / →) is aria-hidden — the delta string already conveys direction.",
+    "Sparkline is aria-hidden (decorative — the value carries the story).",
+    "Use Stat inside a labeled region (Card, section) for screen-reader context."
+  ],
+  "do": [
+    "Always pass polarity.",
+    "Use StatGrid for multi-stat rows.",
+    "Pair value with unit when ambiguous (98.2% vs 98.2)."
+  ],
+  "dont": [
+    "Don't stack two signatures per surface.",
+    "Don't hardcode polarity.",
+    "Don't render Stat without a label."
+  ],
+  "related": ["StatGrid", "Sparkline", "LiveDot", "RateTicker", "KpiCard", "Trend"],
+  "stories": [
+    { "name": "Default", "args": { "label": "On-time index", "value": "98.2", "unit": "%", "delta": "+0.4pp", "trend": "up", "polarity": "good-up" }, "children": "" },
+    { "name": "WithSpark", "args": { "label": "Active lanes", "value": "1,247", "delta": "+18", "trend": "up", "polarity": "good-up", "sparkData": [4, 7, 6, 9, 8, 11, 14] }, "children": "" },
+    { "name": "Hero", "args": { "label": "Annual savings", "value": "$2.4M", "size": "hero" }, "children": "" }
+  ],
+  "variants": ["xs", "sm", "md", "lg", "xl", "hero"],
+  "propsList": [
+    { "name": "label", "type": "string", "required": true },
+    { "name": "value", "type": "string", "required": true },
+    { "name": "unit", "type": "string" },
+    { "name": "delta", "type": "string" },
+    { "name": "trend", "type": "enum" },
+    { "name": "polarity", "type": "enum", "default": "good-up" },
+    { "name": "size", "type": "enum", "default": "md" },
+    { "name": "sparkData", "type": "number[]" },
+    { "name": "spark", "type": "ReactNode" },
+    { "name": "pulse", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { Stat, StatGrid } from \"@/components/ui/stat\";\n\nexport function Example() {\n  return (\n    <StatGrid cols={4}>\n      <Stat label=\"On-time index\" value=\"98.2\" unit=\"%\" delta=\"+0.4pp\" trend=\"up\" polarity=\"good-up\" sparkData={[94,95,96,97,98,98,98.2]} />\n    </StatGrid>\n  );\n}",
+  "testChildren": ""
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "live-dot",
+  "title": "LiveDot",
+  "description": "Filled dot + ring pulse. Warp SIGNATURE — never decorative.",
+  "props": [
+    {
+      "name": "label",
+      "type": "string"
+    },
+    {
+      "name": "color",
+      "type": "string"
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "default": 8
+    },
+    {
+      "name": "hideLabel",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "default",
+    "small",
+    "large"
+  ],
+  "tokensConsumed": [
+    "color.accent",
+    "text.secondary"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Ring is aria-hidden (decorative).",
+      "Honors prefers-reduced-motion (ring stays static).",
+      "The label or its parent should convey live state to assistive tech."
+    ]
+  },
+  "usage": "import { LiveDot } from \"@/components/ui/live-dot\";\n\nexport function Example() {\n  return <LiveDot label=\"Live\" />;\n}",
+  "storiesPath": "02-components/live-dot/live-dot.stories.tsx",
+  "sourcePath": "02-components/live-dot/live-dot.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T3-SIG"
+}

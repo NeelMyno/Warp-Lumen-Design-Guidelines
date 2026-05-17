@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "citation-card",
+  "title": "Citation Card",
+  "description": "Source reference card for AI-generated values. Index + source + excerpt + confidence.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/citation-card/examples/primary.tsx",
+      "content": "// Lumen CitationCard — Web React example.\n\nimport { ExternalLink } from \"lucide-react\";\nimport { ReactNode } from \"react\";\n\nexport function CitationCard({\n  index,\n  source,\n  excerpt,\n  url,\n  confidence,\n  compact,\n}: {\n  index?: number;\n  source: ReactNode;\n  excerpt?: ReactNode;\n  url?: string;\n  confidence?: number;\n  compact?: boolean;\n}) {\n  const Inner = (\n    <>\n      <div className=\"flex items-start gap-2\">\n        {index !== undefined && (\n          <span className=\"lumen-tnum inline-flex h-5 min-w-5 px-1.5 items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-surface-tint-accent)] text-[var(--color-text-accent)] text-[var(--type-eyebrow-mono)]\">\n            {index}\n          </span>\n        )}\n        <div className=\"min-w-0 flex-1\">\n          <p className=\"text-[var(--type-label-md)] font-medium text-[var(--color-text-primary)] truncate\">\n            {source}\n            {url && <ExternalLink size={10} aria-hidden className=\"inline ml-1 opacity-70 align-baseline\" />}\n          </p>\n          {excerpt && (\n            <blockquote className=\"mt-1 text-[var(--type-body-sm)] italic text-[var(--color-text-secondary)] border-l-2 border-[var(--color-border-hairline)] pl-2\">\n              {excerpt}\n            </blockquote>\n          )}\n          {confidence !== undefined && (\n            <span className=\"mt-1 inline-block text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)]\">\n              {Math.round(confidence)}% confidence\n            </span>\n          )}\n        </div>\n      </div>\n    </>\n  );\n\n  if (url) {\n    return (\n      <a\n        href={url}\n        target=\"_blank\"\n        rel=\"noreferrer noopener\"\n        aria-label={`Source${index !== undefined ? ` ${index}` : \"\"}, ${typeof source === \"string\" ? source : \"\"}, opens in new tab`}\n        className={[\n          \"block rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\",\n          \"bg-[var(--color-surface-raised)] hover:border-[var(--color-border-accent)]\",\n          compact ? \"p-[var(--space-inset-md)]\" : \"p-[var(--space-inset-lg)]\",\n          \"transition-colors duration-[var(--motion-duration-fast)]\",\n          \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:shadow-[var(--shadow-focus)]\",\n        ].join(\" \")}\n      >\n        {Inner}\n      </a>\n    );\n  }\n  return (\n    <article\n      className={[\n        \"rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\",\n        \"bg-[var(--color-surface-raised)]\",\n        compact ? \"p-[var(--space-inset-md)]\" : \"p-[var(--space-inset-lg)]\",\n      ].join(\" \")}\n    >\n      {Inner}\n    </article>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/citation-card.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/citation-card/component.json",
+    "docsPath": "design-system/02-components/citation-card/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

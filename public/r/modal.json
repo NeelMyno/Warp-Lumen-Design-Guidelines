@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "modal",
+  "title": "Modal",
+  "description": "Centered Radix Dialog with the Lumen surface contract.",
+  "dependencies": [
+    "@radix-ui/react-dialog",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/modal/modal.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/modal — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Centered Radix Dialog with size variants + destructive frame. v0.13 hard\n * rule — destructive confirmations get the brutalist hairline frame\n * (border-2 border-[var(--border-error)]).\n */\nimport * as React from \"react\";\nimport * as DialogPrimitive from \"@radix-ui/react-dialog\";\nimport { XIcon } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype Size = \"sm\" | \"md\" | \"lg\" | \"xl\";\n\nconst SIZE: Record<Size, string> = {\n  sm: \"sm:max-w-md\",\n  md: \"sm:max-w-lg\",\n  lg: \"sm:max-w-2xl\",\n  xl: \"sm:max-w-4xl\",\n};\n\nfunction Modal({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {\n  return <DialogPrimitive.Root data-slot=\"modal\" {...props} />;\n}\nfunction ModalTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {\n  return <DialogPrimitive.Trigger data-slot=\"modal-trigger\" {...props} />;\n}\nfunction ModalClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {\n  return <DialogPrimitive.Close data-slot=\"modal-close\" {...props} />;\n}\n\nfunction ModalContent({\n  className,\n  children,\n  size = \"md\",\n  destructive,\n  showCloseButton = true,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Content> & {\n  size?: Size;\n  destructive?: boolean;\n  showCloseButton?: boolean;\n}) {\n  return (\n    <DialogPrimitive.Portal>\n      <DialogPrimitive.Overlay\n        className=\"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[var(--z-modal)] bg-[var(--surface-scrim)]\"\n      />\n      <DialogPrimitive.Content\n        data-slot=\"modal-content\"\n        data-size={size}\n        data-destructive={destructive || undefined}\n        className={cn(\n          \"bg-[var(--surface-popover)] text-[color:var(--text-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-[var(--z-modal)] grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-[var(--radius-xl)] border border-[var(--border-default)] p-6 shadow-[var(--shadow-modal)] duration-200\",\n          SIZE[size],\n          destructive && \"border-2 border-[var(--border-error)]\",\n          className,\n        )}\n        {...props}\n      >\n        {children}\n        {showCloseButton && (\n          <DialogPrimitive.Close className=\"rounded-[var(--radius-xs)] opacity-70 transition-opacity hover:opacity-100 focus-visible:shadow-[var(--shadow-focus)] focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 absolute top-4 right-4\">\n            <XIcon />\n            <span className=\"sr-only\">Close</span>\n          </DialogPrimitive.Close>\n        )}\n      </DialogPrimitive.Content>\n    </DialogPrimitive.Portal>\n  );\n}\n\nfunction ModalHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"modal-header\"\n      className={cn(\"flex flex-col gap-2 text-center sm:text-left\", className)}\n      {...props}\n    />\n  );\n}\n\nfunction ModalFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"modal-footer\"\n      className={cn(\"flex flex-col-reverse gap-2 sm:flex-row sm:justify-end\", className)}\n      {...props}\n    />\n  );\n}\n\nfunction ModalTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {\n  return (\n    <DialogPrimitive.Title\n      data-slot=\"modal-title\"\n      className={cn(\"text-lg leading-none font-semibold tracking-[var(--tracking-tight)]\", className)}\n      {...props}\n    />\n  );\n}\n\nfunction ModalDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Description>) {\n  return (\n    <DialogPrimitive.Description\n      data-slot=\"modal-description\"\n      className={cn(\"text-[color:var(--text-tertiary)] text-sm\", className)}\n      {...props}\n    />\n  );\n}\n\nexport { Modal, ModalTrigger, ModalClose, ModalContent, ModalHeader, ModalFooter, ModalTitle, ModalDescription };\n",
+      "type": "registry:ui",
+      "target": "components/ui/modal.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "overlay",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Dialog",
+    "specPath": "design-system/02-components/modal/modal.md",
+    "skillPath": "design-system/02-components/modal/modal.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

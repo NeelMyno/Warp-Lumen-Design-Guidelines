@@ -1,0 +1,47 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "Token-driven on/off toggle with the .lumen-switch shell. Thumb position via inline style + native transition.",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean"
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(c: boolean) => void"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "default",
+    "checked",
+    "disabled"
+  ],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "surface.sunken",
+    "surface.raised",
+    "border.default",
+    "shadow.focus",
+    "motion.duration.fast",
+    "motion.easing.standard"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=switch + aria-checked + keyboard (Space, Enter to toggle).",
+      "Pair with a <Label htmlFor> — clicking the label toggles the switch.",
+      "Honor prefers-reduced-motion (transition becomes instant)."
+    ]
+  },
+  "usage": "import { Switch } from \"@/components/ui/switch\";\n\nexport function Example() {\n  return <Switch defaultChecked />;\n}",
+  "storiesPath": "02-components/switch/switch.stories.tsx",
+  "sourcePath": "02-components/switch/switch.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

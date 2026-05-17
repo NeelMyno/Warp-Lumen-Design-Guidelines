@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "otp-input",
+  "title": "OtpInput",
+  "description": "One-time passcode entry. Row of single-digit cells with auto-advance, backspace-erases-previous, and paste-distribute. Each cell is its own field micro-shell.",
+  "dependencies": [],
+  "registryDependencies": [
+    "./field.json"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/otp-input/examples/web-react.tsx",
+      "content": "// Lumen OtpInput — Web React example\n// Tailwind v4 + tokens consumed via @theme inline / CSS variables.\n//\n// Copy this into your repo at /components/ui/otp-input.tsx.\n// Tokens come from /_build/tailwind/theme.css which you import in your global css.\n\n\"use client\";\n\nimport {\n  useRef,\n  useState,\n  useEffect,\n  type ClipboardEvent,\n  type KeyboardEvent,\n} from \"react\";\n\nexport type OtpInputProps = {\n  length?: number;\n  value?: string;\n  onChange?: (value: string) => void;\n  onComplete?: (value: string) => void;\n  size?: \"sm\" | \"md\" | \"lg\";\n  disabled?: boolean;\n  groupBy?: number;\n  ariaLabel?: string;\n};\n\nconst SIZE_PX: Record<NonNullable<OtpInputProps[\"size\"]>, number> = {\n  sm: 32,\n  md: 40,\n  lg: 48,\n};\n\nexport function OtpInput({\n  length = 6,\n  value,\n  onChange,\n  onComplete,\n  size = \"lg\",\n  disabled,\n  groupBy,\n  ariaLabel = \"One-time passcode\",\n}: OtpInputProps) {\n  const [internal, setInternal] = useState<string[]>(\n    Array(length).fill(\"\"),\n  );\n  const refs = useRef<Array<HTMLInputElement | null>>([]);\n\n  const cells =\n    value !== undefined\n      ? value.padEnd(length, \"\").split(\"\").slice(0, length)\n      : internal;\n\n  function commit(next: string[]) {\n    if (value === undefined) setInternal(next);\n    const joined = next.join(\"\");\n    onChange?.(joined);\n    if (joined.length === length && !next.includes(\"\")) onComplete?.(joined);\n  }\n\n  function setAt(i: number, v: string) {\n    const clean = v.replace(/\\D/g, \"\").slice(0, 1);\n    const next = [...cells];\n    next[i] = clean;\n    commit(next);\n    if (clean && i < length - 1) refs.current[i + 1]?.focus();\n  }\n\n  function onKey(i: number, e: KeyboardEvent<HTMLInputElement>) {\n    if (e.key === \"Backspace\" && !cells[i] && i > 0) {\n      e.preventDefault();\n      refs.current[i - 1]?.focus();\n    } else if (e.key === \"ArrowLeft\" && i > 0) {\n      refs.current[i - 1]?.focus();\n    } else if (e.key === \"ArrowRight\" && i < length - 1) {\n      refs.current[i + 1]?.focus();\n    }\n  }\n\n  function onPaste(i: number, e: ClipboardEvent<HTMLInputElement>) {\n    const pasted = e.clipboardData\n      .getData(\"text\")\n      .replace(/\\D/g, \"\")\n      .slice(0, length - i);\n    if (!pasted) return;\n    e.preventDefault();\n    const next = [...cells];\n    for (let k = 0; k < pasted.length; k++) next[i + k] = pasted[k];\n    commit(next);\n    const lastFilled = Math.min(i + pasted.length - 1, length - 1);\n    refs.current[lastFilled]?.focus();\n  }\n\n  useEffect(() => {\n    if (value !== undefined) return;\n  }, [value]);\n\n  const cellPx = SIZE_PX[size];\n\n  return (\n    <div\n      role=\"group\"\n      aria-label={ariaLabel}\n      className=\"inline-flex items-center\"\n      style={{ gap: \"var(--space-2)\" }}\n    >\n      {Array.from({ length }).map((_, i) => (\n        <span key={i} style={{ display: \"contents\" }}>\n          <div\n            className=\"lumen-field\"\n            data-mono=\"true\"\n            data-size={size === \"md\" ? undefined : size}\n            data-disabled={disabled ? \"true\" : undefined}\n            style={{\n              width: cellPx,\n              // shell override — see ADR 0014; will be cleaned up in v0.9\n              // via a `data-padding=\"none\"` modifier on the lumen-field shell.\n              padding: 0,\n              justifyContent: \"center\",\n            }}\n          >\n            <input\n              ref={(el) => {\n                refs.current[i] = el;\n              }}\n              inputMode=\"numeric\"\n              maxLength={1}\n              autoComplete={i === 0 ? \"one-time-code\" : \"off\"}\n              value={cells[i] ?? \"\"}\n              onChange={(e) => setAt(i, e.target.value)}\n              onKeyDown={(e) => onKey(i, e)}\n              onPaste={(e) => onPaste(i, e)}\n              disabled={disabled}\n              aria-label={`OTP digit ${i + 1} of ${length}`}\n              className=\"text-center text-body-lg\"\n              style={{\n                fontWeight: 500,\n                fontVariantNumeric: \"tabular-nums lining-nums\",\n                fontFeatureSettings: '\"tnum\" 1, \"lnum\" 1, \"zero\" 1',\n              }}\n            />\n          </div>\n          {groupBy && (i + 1) % groupBy === 0 && i < length - 1 && (\n            <span aria-hidden style={{ width: \"var(--space-3)\" }} />\n          )}\n        </span>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/otp-input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/otp-input/component.json",
+    "docsPath": "design-system/02-components/otp-input/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

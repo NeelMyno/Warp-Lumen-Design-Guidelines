@@ -1,0 +1,55 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "dock-bay",
+  "title": "DockBay",
+  "description": "Grid of dock-bay cards with state-coded chrome.",
+  "props": [
+    {
+      "name": "bays",
+      "type": "Bay[]"
+    },
+    {
+      "name": "cols",
+      "type": "number",
+      "default": 6
+    },
+    {
+      "name": "onSelect",
+      "type": "(id) => void"
+    }
+  ],
+  "variants": [
+    "default",
+    "compact"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.info.bg",
+    "pill.info.fg",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "radius.md",
+    "radius.xs"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Each bay card is a <button> with aria-label='Bay {number}, {state}{', carrier ' + carrier}{', ETA ' + eta}'.",
+      "Grid uses role=grid; cells role=gridcell."
+    ]
+  },
+  "usage": "import { DockBay } from \"@/components/ui/dock-bay\";\n\nexport function Example() {\n  return <DockBay bays={[\n    { id: \"1\", number: 1, state: \"open\" },\n    { id: \"2\", number: 2, state: \"occupied\", carrier: \"Sterling LTL\", eta: \"08:30\" },\n  ]} />;\n}",
+  "storiesPath": "02-components/dock-bay/dock-bay.stories.tsx",
+  "sourcePath": "02-components/dock-bay/dock-bay.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

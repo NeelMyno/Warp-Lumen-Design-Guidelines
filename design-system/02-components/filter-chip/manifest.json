@@ -1,0 +1,55 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "filter-chip",
+  "title": "FilterChip",
+  "description": "Applied-filter chip — {field} {operator} {value} with edit popover + dismiss X.",
+  "props": [
+    {
+      "name": "field",
+      "type": "string"
+    },
+    {
+      "name": "operator",
+      "type": "string"
+    },
+    {
+      "name": "value",
+      "type": "string"
+    },
+    {
+      "name": "onRemove",
+      "type": "() => void"
+    },
+    {
+      "name": "onEdit",
+      "type": "() => void"
+    }
+  ],
+  "variants": [
+    "default",
+    "active",
+    "editable"
+  ],
+  "tokensConsumed": [
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.neutral.border",
+    "pill.accent.bg",
+    "pill.accent.fg",
+    "surface.sunken",
+    "radius.full"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Chip has aria-label='Filter: {field} {operator} {value}'.",
+      "Remove button has aria-label='Remove filter'.",
+      "If editable, role=button + aria-haspopup."
+    ]
+  },
+  "usage": "import { FilterChip } from \"@/components/ui/filter-chip\";\n\nexport function Example() {\n  return (\n    <FilterChip\n      field=\"Lane\"\n      operator=\"is\"\n      value=\"LAX → SFO\"\n      onRemove={() => {}}\n    />\n  );\n}",
+  "storiesPath": "02-components/filter-chip/filter-chip.stories.tsx",
+  "sourcePath": "02-components/filter-chip/filter-chip.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

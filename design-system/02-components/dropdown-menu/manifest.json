@@ -1,0 +1,56 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "dropdown-menu",
+  "title": "DropdownMenu",
+  "description": "Token-driven action menu built on Radix DropdownMenu — Items, Checkbox, Radio, Sub-menus, Separator, Label, Shortcut.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(o: boolean) => void"
+    },
+    {
+      "name": "modal",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "default",
+    "destructive",
+    "with-shortcut",
+    "with-checkbox",
+    "with-radio",
+    "with-submenu"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.tint-accent",
+    "text.primary",
+    "text.tertiary",
+    "border.default",
+    "border.hairline",
+    "shadow.popover",
+    "radius.md",
+    "radius.xs",
+    "lumen.red.0",
+    "lumen.red.5",
+    "lumen.red.7",
+    "z-index.overlay"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=menu / role=menuitem / aria-* / arrow-key navigation / type-ahead.",
+      "Focus visible on hover/keyboard via lime tint.",
+      "Sub-triggers have aria-haspopup."
+    ]
+  },
+  "usage": "import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from \"@/components/ui/dropdown-menu\";\n\nexport function Example() {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger>Actions</DropdownMenuTrigger>\n      <DropdownMenuContent>\n        <DropdownMenuItem>Edit</DropdownMenuItem>\n        <DropdownMenuItem variant=\"destructive\">Delete</DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}",
+  "storiesPath": "02-components/dropdown-menu/dropdown-menu.stories.tsx",
+  "sourcePath": "02-components/dropdown-menu/dropdown-menu.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "radio",
+  "title": "Radio",
+  "description": "Token-driven single-select radio group with .lumen-radio shell.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(v: string) => void"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default",
+    "horizontal"
+  ],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "border.default",
+    "border.strong",
+    "shadow.focus"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=radiogroup / role=radio, arrow-key navigation, focus management.",
+      "Pair each item with a <Label htmlFor>.",
+      "Group has aria-labelledby for the group label."
+    ]
+  },
+  "usage": "import { RadioGroup, RadioGroupItem } from \"@/components/ui/radio\";\n\nexport function Example() {\n  return (\n    <RadioGroup defaultValue=\"ftl\">\n      <RadioGroupItem value=\"ftl\" />\n      <RadioGroupItem value=\"ltl\" />\n    </RadioGroup>\n  );\n}",
+  "storiesPath": "02-components/radio/radio.stories.tsx",
+  "sourcePath": "02-components/radio/radio.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

@@ -1,0 +1,70 @@
+{
+  "name": "data-table",
+  "title": "DataTable",
+  "namedExport": "DataTable",
+  "category": "data",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Virtualized data table — consumer brings the data (TanStack Table model); Lumen brings the visual contract. Sticky header, lime-tinted hover, brutalist hairlines, mono-numeric numerics. Composed sub-components: DataTable, DataTableHeader, DataTableHeaderCell, DataTableBody, DataTableRow, DataTableCell.",
+  "description": "Lumen-styled virtualized table consuming TanStack Table state.",
+  "skillDescription": "Use for any tabular data set ≥ 200 rows where virtualization matters. The consumer brings TanStack Table state (columns + data + sorting + selection); Lumen brings sticky header, lime hover, hairline borders, mono-numerics. For static <200 rows, use the simpler @lumen/table.",
+  "builtOn": "TanStack Table + virtualized rows",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@tanstack/react-table", "lucide-react"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "surface.tint-accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "border.default",
+    "tracking.tight",
+    "tracking.wider",
+    "type.13",
+    "type.12"
+  ],
+  "useWhen": [
+    "Tabular data ≥ 200 rows (virtualize).",
+    "Operator dashboards (lane lists, shipment lists, carrier scorecards).",
+    "Any table that needs sticky header + scroll-area composition."
+  ],
+  "anatomy": [
+    "DataTable root — wraps a TanStack table instance",
+    "DataTableHeader — sticky top-0",
+    "DataTableHeaderCell — sortable label + chevron when sortable",
+    "DataTableBody — scrollable region",
+    "DataTableRow — lime-tinted hover, selected state via aria-selected",
+    "DataTableCell — padding + alignment"
+  ],
+  "api": [
+    "Composition over props — wrap a TanStack `table` instance.",
+    "`density` — sm | md | lg via the parent DataTable className.",
+    "`sticky` — boolean (default true) for sticky header."
+  ],
+  "never": [
+    "NEVER hardcode column widths — use TanStack column sizing.",
+    "NEVER skip sticky header on tall tables (>10 rows visible).",
+    "NEVER use mixed numeric fonts — every numeric cell gets .lumen-tnum."
+  ],
+  "a11yRules": [
+    "Renders proper <table><thead><tbody><tr><th><td> semantics.",
+    "Sortable headers are <button> children with aria-sort.",
+    "Selected rows have aria-selected=true (consumer manages selection state via TanStack)."
+  ],
+  "do": ["Bring your own TanStack Table.", "Use sticky header.", "Apply .lumen-tnum to numerics."],
+  "dont": ["Don't roll a custom virtualizer when TanStack Virtual exists.", "Don't disable sticky header."],
+  "related": ["table", "filter-builder", "filter-chip", "saved-view", "pagination"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["default", "compact", "comfortable"],
+  "propsList": [
+    { "name": "table", "type": "Table<TData>" },
+    { "name": "density", "type": "enum", "default": "md" }
+  ],
+  "exampleSnippet": "import { DataTable, DataTableHeader, DataTableHeaderCell, DataTableBody, DataTableRow, DataTableCell } from \"@/components/ui/data-table\";\nimport { useReactTable, getCoreRowModel } from \"@tanstack/react-table\";\n\nexport function Example() {\n  const table = useReactTable({ data: [], columns: [], getCoreRowModel: getCoreRowModel() });\n  return (\n    <DataTable table={table}>\n      <DataTableHeader>\n        <tr><DataTableHeaderCell>Lane</DataTableHeaderCell></tr>\n      </DataTableHeader>\n      <DataTableBody>\n        <DataTableRow><DataTableCell>LAX → SFO</DataTableCell></DataTableRow>\n      </DataTableBody>\n    </DataTable>\n  );\n}",
+  "testChildren": ""
+}

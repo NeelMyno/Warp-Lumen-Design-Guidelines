@@ -1,0 +1,70 @@
+{
+  "name": "command-palette",
+  "title": "CommandPalette",
+  "namedExport": "CommandPalette",
+  "category": "overlay",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "⌘K global search + action surface. Built on cmdk (the canonical headless command-menu lib used by Linear, Vercel, GitHub). Composed inside a Dialog for portal + focus management. Glass-strong shell, search-shaped input, grouped results, kbd hints in footer. Lumen API: pass `items` + `onSelect` for the basic usage; compose Command primitives for advanced.",
+  "description": "⌘K palette built on cmdk inside Dialog. Glass-strong shell, grouped results, footer kbd hints.",
+  "skillDescription": "Use for ⌘K-style global navigation, quick actions, command discovery — Linear/Vercel/Raycast pattern. Lift open/close state to a parent and bind ⌘K. For simple lists use the `<CommandPalette items={…} onSelect={…} />` sugar; for grouped/conditional render the Command primitives directly.",
+  "builtOn": "cmdk + Radix Dialog",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["cmdk", "@radix-ui/react-dialog", "lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/dialog"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.tint-accent",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.default",
+    "border.hairline",
+    "shadow.modal",
+    "radius.md",
+    "radius.lg",
+    "z-index.modal"
+  ],
+  "useWhen": [
+    "Global ⌘K nav + actions surface.",
+    "Replace a scattered Settings menu with a single search.",
+    "Power-user command surface — recent actions, shortcuts, AI actions."
+  ],
+  "anatomy": [
+    "Dialog overlay (radix portal)",
+    "Glass-strong shell (top-aligned via top-[18%])",
+    "Search input row (sr-only label + visible icon + kbd 'esc' hint)",
+    "Grouped result list (cmdk Command.Group)",
+    "Footer hint row (kbd ↑↓ navigate, ↵ select)"
+  ],
+  "api": [
+    "`open`, `onOpenChange` — controlled.",
+    "`items` — quick sugar for `[{id, label, hint?, group?, icon?, onSelect}]`.",
+    "Or compose `<Command>` + `<Command.Input>` + `<Command.List>` + `<Command.Group>` + `<Command.Item>` directly."
+  ],
+  "never": [
+    "NEVER stack 100+ items without virtualization (cmdk handles it).",
+    "NEVER omit the kbd ↑↓↵ esc hints — they teach the interaction.",
+    "NEVER auto-open on page load — wait for the keyboard shortcut."
+  ],
+  "a11yRules": [
+    "Dialog manages role + focus trap + escape.",
+    "cmdk manages role=listbox + role=option + aria-selected + aria-activedescendant.",
+    "Provide DialogTitle (sr-only is fine) + DialogDescription for screen readers."
+  ],
+  "do": ["Bind ⌘K to open.", "Group results semantically.", "Show kbd hints."],
+  "dont": ["Don't auto-open.", "Don't skip the search input."],
+  "related": ["Dialog", "Sheet", "Modal", "CommandPaletteButton"],
+  "stories": [{ "name": "Default", "args": { "open": true }, "children": "" }],
+  "variants": ["default", "with-recent"],
+  "propsList": [
+    { "name": "open", "type": "boolean" },
+    { "name": "onOpenChange", "type": "(o: boolean) => void" },
+    { "name": "items", "type": "CommandItem[]" }
+  ],
+  "exampleSnippet": "import { useState } from \"react\";\nimport { CommandPalette } from \"@/components/ui/command-palette\";\n\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  return (\n    <CommandPalette\n      open={open}\n      onOpenChange={setOpen}\n      items={[{ id: \"lanes\", label: \"Lanes\", group: \"Go to\", onSelect: () => {} }]}\n    />\n  );\n}",
+  "testChildren": ""
+}

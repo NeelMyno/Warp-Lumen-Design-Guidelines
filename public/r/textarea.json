@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "Token-driven multi-line text input with auto-grow via field-sizing.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/textarea/textarea.tsx",
+      "content": "/**\n * @lumen/textarea — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * v0.6 field-shell contract — see input.tsx. Auto-grows via `field-sizing:\n * content`; cap via consumer style.height or className.\n */\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nfunction Textarea({ className, ...props }: React.ComponentProps<\"textarea\">) {\n  return (\n    <textarea\n      data-slot=\"textarea\"\n      className={cn(\n        \"flex field-sizing-content min-h-22 w-full rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 py-2 text-[length:var(--type-14)] text-[color:var(--text-primary)] outline-none\",\n        \"placeholder:text-[color:var(--text-placeholder)] selection:bg-[var(--lumen-lime-a32)] selection:text-[color:var(--text-primary)]\",\n        \"transition-[color,box-shadow,border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n        \"shadow-[var(--shadow-input-lit-edge)]\",\n        \"hover:border-[var(--border-strong)]\",\n        \"focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-input-focus)]\",\n        \"aria-invalid:border-[var(--border-error)] aria-invalid:focus-visible:shadow-[var(--shadow-input-error)]\",\n        \"disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[color:var(--text-disabled)] disabled:border-[var(--border-input-disabled)]\",\n        \"read-only:cursor-default\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Textarea };\n",
+      "type": "registry:ui",
+      "target": "components/ui/textarea.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "form",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native <textarea>",
+    "specPath": "design-system/02-components/textarea/textarea.md",
+    "skillPath": "design-system/02-components/textarea/textarea.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

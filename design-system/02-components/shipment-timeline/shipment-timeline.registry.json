@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shipment-timeline",
+  "type": "registry:ui",
+  "title": "ShipmentTimeline",
+  "description": "Vertical timeline for freight shipment lifecycle stages.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/live-dot",
+    "@lumen/badge"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/shipment-timeline/shipment-timeline.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/shipment-timeline.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native composition + LiveDot",
+    "specPath": "design-system/02-components/shipment-timeline/shipment-timeline.md",
+    "skillPath": "design-system/02-components/shipment-timeline/shipment-timeline.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

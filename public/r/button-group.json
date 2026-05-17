@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group",
+  "title": "ButtonGroup",
+  "description": "Joined buttons sharing a single rounded outline. role='group'. Pill mode optional.",
+  "dependencies": [],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/button-group/examples/primary.tsx",
+      "content": "// Lumen ButtonGroup — Web React example (v0.9)\n// Joined buttons sharing a single rounded outline.\n\nimport { HTMLAttributes, ReactNode } from \"react\";\n\nexport type ButtonGroupProps = HTMLAttributes<HTMLDivElement> & {\n  pill?: boolean;\n  children: ReactNode;\n};\n\nexport function ButtonGroup({ pill, className, children, ...props }: ButtonGroupProps) {\n  return (\n    <div\n      role=\"group\"\n      {...props}\n      className={[\n        \"lumen-button-group\",\n        pill ? \"lumen-button-group-pill\" : \"\",\n        className ?? \"\",\n      ].filter(Boolean).join(\" \")}\n    >\n      {children}\n    </div>\n  );\n}\n\n// Usage:\n// <ButtonGroup>\n//   <Button intent=\"ghost\" size=\"sm\">Cut</Button>\n//   <Button intent=\"ghost\" size=\"sm\">Copy</Button>\n//   <Button intent=\"ghost\" size=\"sm\">Paste</Button>\n// </ButtonGroup>\n",
+      "type": "registry:ui",
+      "target": "components/ui/button-group.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.9.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/button-group/component.json",
+    "docsPath": "design-system/02-components/button-group/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

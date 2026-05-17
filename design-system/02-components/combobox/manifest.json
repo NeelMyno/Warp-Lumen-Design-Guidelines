@@ -1,0 +1,59 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "combobox",
+  "title": "Combobox",
+  "description": "Token-driven searchable single-select. Popover + cmdk.",
+  "props": [
+    {
+      "name": "options",
+      "type": "{value, label, hint?}[]"
+    },
+    {
+      "name": "value",
+      "type": "string"
+    },
+    {
+      "name": "onChange",
+      "type": "(v: string) => void"
+    },
+    {
+      "name": "placeholder",
+      "type": "string"
+    },
+    {
+      "name": "searchPlaceholder",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default",
+    "disabled"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.input.rest",
+    "surface.tint-accent",
+    "border.default",
+    "border.focus",
+    "text.primary",
+    "text.placeholder",
+    "shadow.input.lit-edge",
+    "shadow.input.focus",
+    "shadow.popover",
+    "radius.md",
+    "z-index.overlay"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "cmdk manages role=combobox + aria-expanded + aria-controls + activedescendant.",
+      "Trigger button shows the selected option label or placeholder.",
+      "Outside-click + escape both dismiss."
+    ]
+  },
+  "usage": "import { Combobox } from \"@/components/ui/combobox\";\n\nexport function Example() {\n  return <Combobox options={[\n    { value: \"lax\", label: \"LAX\" },\n    { value: \"sfo\", label: \"SFO\" },\n  ]} placeholder=\"Origin\" />;\n}",
+  "storiesPath": "02-components/combobox/combobox.stories.tsx",
+  "sourcePath": "02-components/combobox/combobox.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

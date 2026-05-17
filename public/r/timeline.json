@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline",
+  "title": "Timeline",
+  "description": "Chronological sequence of events. Vertical / horizontal. Three densities.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/timeline/examples/primary.tsx",
+      "content": "// Lumen Timeline — Web React example.\n\nimport { ReactNode } from \"react\";\n\nexport type TimelineItem = {\n  id: string;\n  marker?: ReactNode;\n  time: string;       // human label\n  dateTime: string;   // ISO 8601 — for <time>\n  actor?: string;\n  title: ReactNode;\n  body?: ReactNode;\n  tone?: \"neutral\" | \"success\" | \"warning\" | \"danger\" | \"info\";\n};\n\nconst TONE: Record<NonNullable<TimelineItem[\"tone\"]>, { bg: string; fg: string }> = {\n  neutral: { bg: \"bg-[var(--color-surface-sunken)]\",         fg: \"text-[var(--color-text-tertiary)]\" },\n  success: { bg: \"bg-[var(--color-status-success-bg)]\",      fg: \"text-[var(--color-status-success-fg)]\" },\n  warning: { bg: \"bg-[var(--color-status-warning-bg)]\",      fg: \"text-[var(--color-status-warning-fg)]\" },\n  danger:  { bg: \"bg-[var(--color-status-danger-bg)]\",       fg: \"text-[var(--color-status-danger-fg)]\" },\n  info:    { bg: \"bg-[var(--color-status-info-bg)]\",         fg: \"text-[var(--color-status-info-fg)]\" },\n};\n\nexport function Timeline({\n  items,\n  orientation = \"vertical\",\n  density = \"regular\",\n  ariaLabel,\n  showConnector = true,\n}: {\n  items: TimelineItem[];\n  orientation?: \"vertical\" | \"horizontal\";\n  density?: \"compact\" | \"regular\" | \"comfortable\";\n  ariaLabel: string;\n  showConnector?: boolean;\n}) {\n  const gap = density === \"compact\" ? \"gap-3\" : density === \"comfortable\" ? \"gap-6\" : \"gap-4\";\n  return (\n    <ol\n      role=\"list\"\n      aria-label={ariaLabel}\n      className={[\n        orientation === \"vertical\" ? \"flex flex-col\" : \"flex\",\n        gap,\n      ].join(\" \")}\n    >\n      {items.map((item, i) => {\n        const tone = TONE[item.tone ?? \"neutral\"];\n        const isLast = i === items.length - 1;\n        return (\n          <li key={item.id} className={[\n            \"relative\",\n            orientation === \"vertical\" ? \"flex gap-3\" : \"flex-1 flex flex-col items-center text-center\",\n          ].join(\" \")}>\n            <div className={[\"relative flex items-start\", orientation === \"vertical\" ? \"\" : \"flex-col\"].join(\" \")}>\n              <span\n                aria-hidden\n                className={[\n                  \"shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-full\",\n                  tone.bg,\n                  tone.fg,\n                  \"border border-[var(--color-border-subtle)]\",\n                ].join(\" \")}\n              >\n                {item.marker ?? <span className=\"block size-1.5 rounded-full bg-current\" />}\n              </span>\n              {showConnector && !isLast && (\n                <span\n                  aria-hidden\n                  className={[\n                    \"bg-[var(--color-border-hairline)]\",\n                    orientation === \"vertical\"\n                      ? \"absolute left-1/2 top-6 -translate-x-1/2 bottom-[-1rem] w-px\"\n                      : \"absolute top-1/2 left-6 right-[-1rem] -translate-y-1/2 h-px\",\n                  ].join(\" \")}\n                />\n              )}\n            </div>\n            <div className={[\"min-w-0 flex-1\", orientation === \"vertical\" ? \"pb-1\" : \"\"].join(\" \")}>\n              <div className=\"flex flex-wrap items-baseline gap-x-2 gap-y-0.5\">\n                <time dateTime={item.dateTime} className=\"lumen-tnum text-[var(--type-micro)] uppercase tracking-wider text-[var(--color-text-tertiary)]\">\n                  {item.time}\n                </time>\n                {item.actor && (\n                  <span className=\"text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\">· {item.actor}</span>\n                )}\n              </div>\n              <p className={[\"mt-0.5 text-[var(--type-label-md)] text-[var(--color-text-primary)]\"].join(\" \")}>\n                {item.title}\n              </p>\n              {item.body && (\n                <div className=\"mt-1 text-[var(--type-body-sm)] text-[var(--color-text-secondary)]\">{item.body}</div>\n              )}\n            </div>\n          </li>\n        );\n      })}\n    </ol>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/timeline.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/timeline/component.json",
+    "docsPath": "design-system/02-components/timeline/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

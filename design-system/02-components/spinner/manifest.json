@@ -1,0 +1,36 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "Indeterminate loader; lucide Loader2 + slower spin (0.9s) for premium feel.",
+  "props": [
+    {
+      "name": "size",
+      "type": "number",
+      "default": 16
+    },
+    {
+      "name": "className",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default",
+    "small",
+    "large"
+  ],
+  "tokensConsumed": [],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "role=status",
+      "aria-label='Loading'",
+      "Honors prefers-reduced-motion (slower rotation)."
+    ]
+  },
+  "usage": "import { Spinner } from \"@/components/ui/spinner\";\n\nexport function Example() {\n  return <Spinner />;\n}",
+  "storiesPath": "02-components/spinner/spinner.stories.tsx",
+  "sourcePath": "02-components/spinner/spinner.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "title": "Accordion",
+  "description": "Disclosure list built on <details>/<summary>. .lumen-summary suppresses native marker per hard rule 14.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/accordion/examples/primary.tsx",
+      "content": "// Lumen Accordion — Web React example\n// Uses <details>/<summary> + class=\"lumen-summary\" (defined in globals.css).\n// The .lumen-summary rule suppresses the native disclosure marker on every browser:\n//   summary.lumen-summary { list-style: none; }\n//   summary.lumen-summary::-webkit-details-marker { display: none; }\n// Per AGENTS.md hard rule 14.\n//\n// Height animation uses the grid-template-rows: 0fr → 1fr trick — works without\n// measured heights, GPU-friendly, no jank.\n\n\"use client\";\n\nimport { ChevronDown } from \"lucide-react\";\nimport { ReactNode } from \"react\";\n\ntype Variant = \"plain\" | \"card\" | \"ghost\";\ntype Size = \"sm\" | \"md\" | \"lg\";\n\nconst SUMMARY_SIZE: Record<Size, string> = {\n  sm: \"py-2 text-[var(--type-label-md)]\",\n  md: \"py-3 text-[var(--type-label-md)]\",\n  lg: \"py-4 text-[var(--type-heading-h4)]\",\n};\n\nconst ROW_CHROME: Record<Variant, string> = {\n  plain: \"border-b border-[var(--color-border-hairline)] last:border-b-0\",\n  card:  \"border border-[var(--color-border-default)] rounded-[var(--radius-card-default)] bg-[var(--color-surface-raised)] px-[var(--space-inset-lg)] mb-2\",\n  ghost: \"\",\n};\n\nexport type AccordionProps = {\n  type?: \"single\" | \"multiple\";\n  variant?: Variant;\n  size?: Size;\n  children: ReactNode;\n};\n\nexport function Accordion({ variant = \"plain\", children }: AccordionProps) {\n  return (\n    <div data-variant={variant} className=\"flex flex-col\">\n      {children}\n    </div>\n  );\n}\n\nexport function AccordionItem({\n  variant = \"plain\",\n  size = \"md\",\n  defaultOpen = false,\n  question,\n  children,\n}: {\n  variant?: Variant;\n  size?: Size;\n  defaultOpen?: boolean;\n  question: ReactNode;\n  children: ReactNode;\n}) {\n  return (\n    <details\n      className={[\n        \"group\",\n        ROW_CHROME[variant],\n        \"transition-colors duration-[var(--motion-duration-base)]\",\n      ].join(\" \")}\n      open={defaultOpen}\n    >\n      <summary\n        className={[\n          \"lumen-summary list-none\",\n          \"flex items-center justify-between gap-3 cursor-pointer select-none\",\n          \"text-[var(--color-text-primary)] font-medium\",\n          SUMMARY_SIZE[size],\n          \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1\",\n          \"focus-visible:shadow-[var(--shadow-focus)]\",\n          \"hover:text-[var(--color-text-primary)]\",\n        ].join(\" \")}\n      >\n        <span className=\"flex-1\">{question}</span>\n        <ChevronDown\n          aria-hidden\n          size={14}\n          className={[\n            \"shrink-0 text-[var(--color-text-tertiary)]\",\n            \"group-open:rotate-180 group-open:text-[var(--color-text-primary)]\",\n            \"transition-transform duration-[var(--motion-duration-base)]\",\n            \"motion-reduce:transition-none\",\n          ].join(\" \")}\n          style={{ transitionTimingFunction: \"cubic-bezier(0.2, 0, 0, 1)\" }}\n        />\n      </summary>\n      <div\n        className={[\n          \"grid grid-rows-[1fr]\",\n          // The grid-template-rows trick gives smooth height animation without measuring.\n          // We don't bother encoding the closed=0fr state because <details> already\n          // hides the content when closed; this just smooths the open transition.\n          \"text-[var(--type-body-md)] text-[var(--color-text-secondary)]\",\n        ].join(\" \")}\n      >\n        <div className=\"overflow-hidden pb-4 pt-1\">{children}</div>\n      </div>\n    </details>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/accordion.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/accordion/component.json",
+    "docsPath": "design-system/02-components/accordion/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

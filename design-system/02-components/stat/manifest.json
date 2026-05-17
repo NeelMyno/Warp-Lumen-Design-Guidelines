@@ -1,0 +1,97 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "stat",
+  "title": "Stat",
+  "description": "Big bold metric + delta pill + sparkline. Warp signature primitive.",
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "unit",
+      "type": "string"
+    },
+    {
+      "name": "delta",
+      "type": "string"
+    },
+    {
+      "name": "trend",
+      "type": "enum"
+    },
+    {
+      "name": "polarity",
+      "type": "enum",
+      "default": "good-up"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "md"
+    },
+    {
+      "name": "sparkData",
+      "type": "number[]"
+    },
+    {
+      "name": "spark",
+      "type": "ReactNode"
+    },
+    {
+      "name": "pulse",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "xs",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "hero"
+  ],
+  "tokensConsumed": [
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "status.success.bg",
+    "status.success.fg",
+    "status.danger.bg",
+    "status.danger.fg",
+    "status.neutral.bg",
+    "status.neutral.fg",
+    "type.20",
+    "type.25",
+    "type.31",
+    "type.39",
+    "type.49",
+    "type.72",
+    "type.13",
+    "type.11",
+    "tracking.tighter",
+    "tracking.tight",
+    "leading.flat",
+    "space.1_5",
+    "radius.full"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Pill icon (▲ / ▼ / →) is aria-hidden — the delta string already conveys direction.",
+      "Sparkline is aria-hidden (decorative — the value carries the story).",
+      "Use Stat inside a labeled region (Card, section) for screen-reader context."
+    ]
+  },
+  "usage": "import { Stat, StatGrid } from \"@/components/ui/stat\";\n\nexport function Example() {\n  return (\n    <StatGrid cols={4}>\n      <Stat label=\"On-time index\" value=\"98.2\" unit=\"%\" delta=\"+0.4pp\" trend=\"up\" polarity=\"good-up\" sparkData={[94,95,96,97,98,98,98.2]} />\n    </StatGrid>\n  );\n}",
+  "storiesPath": "02-components/stat/stat.stories.tsx",
+  "sourcePath": "02-components/stat/stat.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T3-SIG"
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-field",
+  "title": "Search Field",
+  "description": "Search input. Inline / prominent / command variants. Clear-on-Escape.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/search-field/examples/primary.tsx",
+      "content": "// Lumen SearchField — Web React example.\n\n\"use client\";\n\nimport { Search, X } from \"lucide-react\";\nimport { KeyboardEvent, ReactNode } from \"react\";\n\ntype Variant = \"inline\" | \"prominent\" | \"command\";\ntype Size = \"sm\" | \"md\" | \"lg\";\n\nconst SIZE: Record<Size, string> = {\n  sm: \"h-8 text-[var(--type-label-sm)]\",\n  md: \"h-9 text-[var(--type-body-md)]\",\n  lg: \"h-11 text-[var(--type-body-md)]\",\n};\n\nexport function SearchField({\n  value,\n  onValueChange,\n  onSubmit,\n  placeholder = \"Search…\",\n  variant = \"inline\",\n  size = \"md\",\n  loading,\n  kbdHint,\n  ariaLabel = \"Search\",\n}: {\n  value: string;\n  onValueChange: (v: string) => void;\n  onSubmit?: () => void;\n  placeholder?: string;\n  variant?: Variant;\n  size?: Size;\n  loading?: boolean;\n  kbdHint?: ReactNode;\n  ariaLabel?: string;\n}) {\n  const onKey = (e: KeyboardEvent<HTMLInputElement>) => {\n    if (e.key === \"Enter\" && onSubmit) {\n      e.preventDefault();\n      onSubmit();\n    } else if (e.key === \"Escape\") {\n      if (value) {\n        e.preventDefault();\n        onValueChange(\"\");\n      }\n    }\n  };\n\n  if (variant === \"command\") {\n    return (\n      <button\n        type=\"button\"\n        onClick={onSubmit}\n        aria-label={ariaLabel}\n        className={[\n          \"inline-flex items-center gap-2 px-3 rounded-[var(--radius-control-md)]\",\n          \"border border-[var(--color-border-hairline)] bg-[var(--color-surface-input-rest)]\",\n          \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-action-ghost-bg-hover)]\",\n          SIZE[size],\n          \"outline-none focus-visible:shadow-[var(--shadow-focus)]\",\n          \"transition-colors duration-[var(--motion-duration-fast)]\",\n        ].join(\" \")}\n      >\n        <Search size={14} aria-hidden />\n        <span>{placeholder}</span>\n        {kbdHint && <span className=\"ml-2\">{kbdHint}</span>}\n      </button>\n    );\n  }\n\n  return (\n    <form\n      role=\"search\"\n      onSubmit={(e) => { e.preventDefault(); onSubmit?.(); }}\n      className={[\n        \"relative flex items-center gap-2 px-3 rounded-[var(--radius-control-md)]\",\n        \"border border-[var(--color-border-default)] bg-[var(--color-surface-input-rest)]\",\n        \"focus-within:border-[var(--color-border-focus)] focus-within:shadow-[var(--shadow-focus)]\",\n        SIZE[size],\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n      ].join(\" \")}\n    >\n      {loading ? (\n        <span aria-hidden className=\"size-3.5 rounded-full border-2 border-[var(--color-text-tertiary)] border-r-transparent animate-spin motion-reduce:animate-none\" />\n      ) : (\n        <Search aria-hidden size={14} className=\"text-[var(--color-text-tertiary)] shrink-0\" />\n      )}\n      <input\n        type=\"search\"\n        aria-label={ariaLabel}\n        placeholder={placeholder}\n        value={value}\n        onChange={(e) => onValueChange(e.target.value)}\n        onKeyDown={onKey}\n        className=\"flex-1 bg-transparent outline-none text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)]\"\n      />\n      {value && (\n        <button\n          type=\"button\"\n          aria-label=\"Clear search\"\n          onClick={() => onValueChange(\"\")}\n          className=\"shrink-0 inline-flex h-5 w-5 items-center justify-center rounded-[var(--radius-control-sm)] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-action-ghost-bg-hover)]\"\n        >\n          <X size={10} aria-hidden />\n        </button>\n      )}\n      {kbdHint && !value && <span className=\"shrink-0\">{kbdHint}</span>}\n    </form>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/search-field.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/search-field/component.json",
+    "docsPath": "design-system/02-components/search-field/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

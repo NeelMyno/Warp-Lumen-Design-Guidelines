@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pallet-tile",
+  "type": "registry:ui",
+  "title": "PalletTile",
+  "description": "Per-pallet card — weight, dims, hazmat, lane, class. Mono numerics.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lane-code"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/pallet-tile/pallet-tile.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/pallet-tile.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Card composition",
+    "specPath": "design-system/02-components/pallet-tile/pallet-tile.md",
+    "skillPath": "design-system/02-components/pallet-tile/pallet-tile.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

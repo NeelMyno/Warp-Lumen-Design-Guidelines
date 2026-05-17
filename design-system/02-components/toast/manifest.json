@@ -1,0 +1,58 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "toast",
+  "title": "Toaster",
+  "description": "Lumen Sonner integration with token-driven surfaces and six health states.",
+  "props": [
+    {
+      "name": "position",
+      "type": "enum",
+      "default": "bottom-right"
+    },
+    {
+      "name": "richColors",
+      "type": "boolean"
+    },
+    {
+      "name": "visibleToasts",
+      "type": "number",
+      "default": 3
+    }
+  ],
+  "variants": [
+    "default",
+    "success",
+    "warning",
+    "danger",
+    "info"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "border.default",
+    "text.primary",
+    "text.tertiary",
+    "shadow.popover",
+    "radius.lg",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.warn.bg",
+    "pill.warn.fg",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "pill.info.bg",
+    "pill.info.fg"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Sonner sets role=status (polite) for default + success, role=alert (assertive) for error/danger.",
+      "Honors prefers-reduced-motion (no slide-in animation).",
+      "Pause-on-hover is default; toasts won't auto-dismiss while the user is interacting."
+    ]
+  },
+  "usage": "import { Toaster, toast } from \"@/components/ui/toast\";\n\nexport function App() {\n  return (\n    <>\n      <Toaster />\n      <button onClick={() => toast.success(\"Lane saved\")}>Save</button>\n    </>\n  );\n}",
+  "storiesPath": "02-components/toast/toast.stories.tsx",
+  "sourcePath": "02-components/toast/toast.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

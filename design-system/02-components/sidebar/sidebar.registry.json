@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidebar",
+  "type": "registry:ui",
+  "title": "Sidebar",
+  "description": "Multi-level navigation sidebar with collapsible state.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/tooltip"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/sidebar/sidebar.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/sidebar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "navigation",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native semantic <aside><nav>",
+    "specPath": "design-system/02-components/sidebar/sidebar.md",
+    "skillPath": "design-system/02-components/sidebar/sidebar.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

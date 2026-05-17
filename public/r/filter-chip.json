@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-chip",
+  "title": "FilterChip",
+  "description": "Applied-filter chip — {field} {operator} {value} with edit popover + dismiss X.",
+  "dependencies": [
+    "@radix-ui/react-popover",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/popover",
+    "@lumen/tag"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/filter-chip/filter-chip.tsx",
+      "content": "/**\n * @lumen/filter-chip — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Applied-filter chip — {field} {operator} {value} with optional edit + dismiss.\n * Sits above DataTable / list to show what's filtering the current view.\n */\nimport * as React from \"react\";\nimport { X } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport type FilterChipProps = {\n  field: string;\n  operator: string;\n  value: string;\n  onRemove?: () => void;\n  onEdit?: () => void;\n  className?: string;\n  status?: \"neutral\" | \"accent\";\n};\n\nexport function FilterChip({\n  field,\n  operator,\n  value,\n  onRemove,\n  onEdit,\n  className,\n  status = \"neutral\",\n}: FilterChipProps) {\n  const palette =\n    status === \"accent\"\n      ? \"bg-[var(--pill-accent-bg)] text-[var(--pill-accent-fg)] border-[var(--pill-accent-border)]\"\n      : \"bg-[var(--pill-neutral-bg)] text-[var(--pill-neutral-fg)] border-[var(--pill-neutral-border)]\";\n\n  const ariaLabel = `Filter: ${field} ${operator} ${value}`;\n\n  return (\n    <span\n      data-slot=\"filter-chip\"\n      data-status={status}\n      aria-label={ariaLabel}\n      className={cn(\n        \"inline-flex items-center h-6 pl-2 rounded-[var(--radius-full)] text-[length:var(--type-11)] font-medium tracking-[var(--tracking-tight)] gap-1 border align-middle whitespace-nowrap\",\n        palette,\n        className,\n      )}\n    >\n      <span className=\"opacity-70\">{field}</span>\n      <span className=\"opacity-50\">{operator}</span>\n      {onEdit ? (\n        <button\n          type=\"button\"\n          onClick={onEdit}\n          className=\"font-semibold hover:underline focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-xs)]\"\n          aria-label={`Edit ${ariaLabel}`}\n        >\n          {value}\n        </button>\n      ) : (\n        <span className=\"font-semibold\">{value}</span>\n      )}\n      {onRemove && (\n        <button\n          type=\"button\"\n          onClick={onRemove}\n          aria-label={`Remove ${ariaLabel}`}\n          className=\"ml-0.5 mr-0.5 rounded-[var(--radius-full)] p-0.5 opacity-70 hover:opacity-100 hover:bg-[var(--surface-sunken)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\"\n        >\n          <X size={12} aria-hidden />\n        </button>\n      )}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/filter-chip.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Lumen primitives (Tag + Popover)",
+    "specPath": "design-system/02-components/filter-chip/filter-chip.md",
+    "skillPath": "design-system/02-components/filter-chip/filter-chip.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

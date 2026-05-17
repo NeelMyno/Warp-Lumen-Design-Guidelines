@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "action-sheet",
+  "title": "Action Sheet",
+  "description": "Mobile-only bottom-anchored choice sheet. 2-6 actions + mandatory Cancel.",
+  "dependencies": [
+    "@radix-ui/react-dialog"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/action-sheet/examples/primary.tsx",
+      "content": "// Lumen ActionSheet — Web React example.\n// Bottom-anchored modal with a fixed action list + mandatory Cancel.\n\n\"use client\";\n\nimport * as DialogPrimitive from \"@radix-ui/react-dialog\";\nimport { ReactNode } from \"react\";\n\nexport type ActionItem = {\n  label: string;\n  icon?: ReactNode;\n  danger?: boolean;\n  disabled?: boolean;\n  onSelect: () => void;\n};\n\nexport const ActionSheet = DialogPrimitive.Root;\nexport const ActionSheetTrigger = DialogPrimitive.Trigger;\n\nexport function ActionSheetContent({\n  title,\n  actions,\n  cancelLabel = \"Cancel\",\n  onClose,\n}: {\n  title?: ReactNode;\n  actions: ActionItem[];\n  cancelLabel?: string;\n  onClose?: () => void;\n}) {\n  return (\n    <DialogPrimitive.Portal>\n      <DialogPrimitive.Overlay\n        className={[\n          \"fixed inset-0 z-[var(--z-modal,50)]\",\n          \"bg-[var(--color-surface-scrim)]\",\n          \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\n          \"data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0\",\n          \"duration-[var(--motion-duration-slow)] motion-reduce:animate-none\",\n        ].join(\" \")}\n      />\n      <DialogPrimitive.Content\n        aria-label={typeof title === \"string\" ? title : undefined}\n        className={[\n          \"fixed inset-x-2 bottom-[max(env(safe-area-inset-bottom),8px)] z-[var(--z-modal,50)]\",\n          \"flex flex-col gap-2\",\n          \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\n          \"data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom\",\n          \"data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0\",\n          \"duration-[var(--motion-duration-slow)] motion-reduce:animate-none\",\n        ].join(\" \")}\n      >\n        <ul\n          role=\"list\"\n          className=\"rounded-[var(--radius-card-hero)] overflow-hidden border border-[var(--color-border-hairline)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-modal)]\"\n        >\n          {title && (\n            <li className=\"px-[var(--space-inset-lg)] py-[var(--space-stack-sm)] text-center text-[var(--type-label-sm)] text-[var(--color-text-tertiary)] border-b border-[var(--color-border-hairline)]\">\n              {title}\n            </li>\n          )}\n          {actions.map((action, i) => (\n            <li key={i} className={i < actions.length - 1 ? \"border-b border-[var(--color-border-hairline)]\" : \"\"}>\n              <button\n                type=\"button\"\n                disabled={action.disabled}\n                onClick={action.onSelect}\n                aria-label={action.danger ? `${action.label}, destructive action` : undefined}\n                className={[\n                  \"flex h-14 w-full items-center justify-center gap-2 px-[var(--space-inset-lg)]\",\n                  \"text-[var(--type-label-lg)] font-medium\",\n                  action.danger\n                    ? \"text-[var(--color-text-error)] hover:bg-[var(--color-action-danger-soft-bg-hover)]\"\n                    : \"text-[var(--color-text-primary)] hover:bg-[var(--color-action-ghost-bg-hover)]\",\n                  \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:shadow-[var(--shadow-focus)]\",\n                  \"disabled:opacity-40 disabled:pointer-events-none\",\n                  \"transition-colors duration-[var(--motion-duration-fast)]\",\n                ].join(\" \")}\n              >\n                {action.icon && <span aria-hidden>{action.icon}</span>}\n                {action.label}\n              </button>\n            </li>\n          ))}\n        </ul>\n        <DialogPrimitive.Close asChild>\n          <button\n            type=\"button\"\n            onClick={onClose}\n            className={[\n              \"h-14 w-full rounded-[var(--radius-card-hero)]\",\n              \"border border-[var(--color-border-hairline)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-modal)]\",\n              \"text-[var(--type-label-lg)] font-medium text-[var(--color-text-primary)]\",\n              \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n              \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n              \"transition-colors duration-[var(--motion-duration-fast)]\",\n            ].join(\" \")}\n          >\n            {cancelLabel}\n          </button>\n        </DialogPrimitive.Close>\n      </DialogPrimitive.Content>\n    </DialogPrimitive.Portal>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/action-sheet.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/action-sheet/component.json",
+    "docsPath": "design-system/02-components/action-sheet/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

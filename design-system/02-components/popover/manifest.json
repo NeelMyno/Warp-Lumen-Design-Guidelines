@@ -1,0 +1,41 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "popover",
+  "title": "Popover",
+  "description": "Token-driven floating panel. Portaled to document.body; outside-click + escape dismiss; arrow key navigation.",
+  "props": [
+    {
+      "name": "align",
+      "type": "enum"
+    },
+    {
+      "name": "sideOffset",
+      "type": "number"
+    }
+  ],
+  "variants": [
+    "default",
+    "wide"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "border.default",
+    "shadow.popover",
+    "text.primary",
+    "radius.lg",
+    "z-index.overlay"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role + aria-haspopup + escape-to-close + outside-click dismiss.",
+      "Outside-click dismiss exempts the portaled list itself (don't double-dismiss).",
+      "Focus moves into Popover on open; returns to trigger on close."
+    ]
+  },
+  "usage": "import { Popover, PopoverTrigger, PopoverContent } from \"@/components/ui/popover\";\n\nexport function Example() {\n  return (\n    <Popover>\n      <PopoverTrigger>Open</PopoverTrigger>\n      <PopoverContent>Hello</PopoverContent>\n    </Popover>\n  );\n}",
+  "storiesPath": "02-components/popover/popover.stories.tsx",
+  "sourcePath": "02-components/popover/popover.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "phone-frame",
+  "title": "Phone Frame",
+  "description": "Stylized phone silhouette for marketing mockups. iOS notch / Dynamic Island / Android pin-hole.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/phone-frame/examples/primary.tsx",
+      "content": "// Lumen PhoneFrame — Web React example. Stylized phone silhouette for marketing mockups.\n\nimport { ReactNode } from \"react\";\n\ntype Platform = \"ios-notch\" | \"ios-island\" | \"android-pin-hole\";\ntype Size = \"sm\" | \"md\" | \"lg\";\n\nconst SIZE: Record<Size, { w: number; h: number }> = {\n  sm: { w: 300, h: 600 },\n  md: { w: 360, h: 720 },\n  lg: { w: 420, h: 840 },\n};\n\nexport type PhoneFrameProps = {\n  platform?: Platform;\n  size?: Size;\n  rotation?: \"portrait\" | \"landscape\";\n  statusBar?: ReactNode;\n  showHomeIndicator?: boolean;\n  background?: string;\n  children: ReactNode;\n};\n\nexport function PhoneFrame({\n  platform = \"ios-island\",\n  size = \"md\",\n  rotation = \"portrait\",\n  statusBar,\n  showHomeIndicator = true,\n  background,\n  children,\n}: PhoneFrameProps) {\n  const { w, h } = rotation === \"portrait\" ? SIZE[size] : { w: SIZE[size].h, h: SIZE[size].w };\n  const isIOS = platform.startsWith(\"ios\");\n  return (\n    <div\n      role=\"img\"\n      aria-label={`Phone mockup, ${platform}`}\n      className=\"inline-block relative\"\n      style={{\n        width: w + 16,\n        height: h + 16,\n      }}\n    >\n      <div\n        className=\"absolute inset-0 rounded-[42px] bg-[var(--color-surface-sunken)] shadow-[var(--shadow-elevation-lg)]\"\n        style={{ border: \"1px solid var(--color-alpha-paper-40)\" }}\n      />\n      <div\n        className=\"absolute inset-2 overflow-hidden rounded-[34px] bg-[var(--color-surface-page)] flex flex-col\"\n        style={{ background: background ?? undefined }}\n      >\n        {/* Status bar slot */}\n        <div className=\"relative h-10 shrink-0\">\n          {statusBar ?? <div className=\"h-full w-full flex items-center justify-between px-6 text-[11px] text-[var(--color-text-primary)] lumen-tnum\">\n            <span>9:41</span><span>● ●</span>\n          </div>}\n          {/* Notch / Dynamic Island / Pin-hole */}\n          {platform === \"ios-notch\" && (\n            <div aria-hidden className=\"absolute left-1/2 -translate-x-1/2 top-0 h-6 w-32 rounded-b-[18px] bg-[var(--color-alpha-ink-86)]\" />\n          )}\n          {platform === \"ios-island\" && (\n            <div aria-hidden className=\"absolute left-1/2 -translate-x-1/2 top-2 h-6 w-24 rounded-full bg-[var(--color-alpha-ink-86)]\" />\n          )}\n          {platform === \"android-pin-hole\" && (\n            <div aria-hidden className=\"absolute left-1/2 -translate-x-1/2 top-2 size-2 rounded-full bg-[var(--color-alpha-ink-86)]\" />\n          )}\n        </div>\n        {/* Content */}\n        <div className=\"flex-1 overflow-hidden\">{children}</div>\n        {/* Home indicator */}\n        {isIOS && showHomeIndicator && (\n          <div className=\"shrink-0 flex justify-center pt-2 pb-2\">\n            <span aria-hidden className=\"h-1 w-32 rounded-full bg-[var(--color-text-primary)] opacity-80\" />\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/phone-frame.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/phone-frame/component.json",
+    "docsPath": "design-system/02-components/phone-frame/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

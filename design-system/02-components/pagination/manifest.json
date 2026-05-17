@@ -1,0 +1,52 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "pagination",
+  "title": "Pagination",
+  "description": "Token-driven pagination — numbers + nav buttons + ellipsis truncation.",
+  "props": [
+    {
+      "name": "currentPage",
+      "type": "number"
+    },
+    {
+      "name": "totalPages",
+      "type": "number"
+    },
+    {
+      "name": "onPageChange",
+      "type": "(p: number) => void"
+    },
+    {
+      "name": "siblingCount",
+      "type": "number",
+      "default": 1
+    }
+  ],
+  "variants": [
+    "compact",
+    "full",
+    "with-jump"
+  ],
+  "tokensConsumed": [
+    "surface.tint-accent",
+    "text.primary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "radius.xs",
+    "shadow.focus"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "<nav aria-label='Pagination'>.",
+      "Active page has aria-current=page.",
+      "Disabled buttons have aria-disabled=true."
+    ]
+  },
+  "usage": "import { Pagination } from \"@/components/ui/pagination\";\n\nexport function Example() {\n  const [page, setPage] = useState(3);\n  return <Pagination currentPage={page} totalPages={10} onPageChange={setPage} />;\n}",
+  "storiesPath": "02-components/pagination/pagination.stories.tsx",
+  "sourcePath": "02-components/pagination/pagination.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

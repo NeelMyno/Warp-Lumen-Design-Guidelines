@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tag",
+  "title": "Tag",
+  "description": "Token-driven removable tag — Badge with optional close X.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/tag/tag.tsx",
+      "content": "/**\n * @lumen/tag — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Removable label sibling to Badge. Same --pill-{tone}-* contract. When\n * onRemove is set, an inline X renders with aria-label=\"Remove {label}\".\n */\nimport * as React from \"react\";\nimport { X } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype Status = \"neutral\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"accent\";\ntype Size = \"sm\" | \"md\";\n\nconst STYLES: Record<Status, string> = {\n  neutral: \"bg-[var(--pill-neutral-bg)] text-[var(--pill-neutral-fg)] border border-[var(--pill-neutral-border)]\",\n  success: \"bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border border-[var(--pill-success-border)]\",\n  warning: \"bg-[var(--pill-warn-bg)] text-[var(--pill-warn-fg)] border border-[var(--pill-warn-border)]\",\n  danger: \"bg-[var(--pill-danger-bg)] text-[var(--pill-danger-fg)] border border-[var(--pill-danger-border)]\",\n  info: \"bg-[var(--pill-info-bg)] text-[var(--pill-info-fg)] border border-[var(--pill-info-border)]\",\n  accent: \"bg-[var(--pill-accent-bg)] text-[var(--pill-accent-fg)] border border-[var(--pill-accent-border)]\",\n};\n\nconst SIZE: Record<Size, string> = {\n  sm: \"h-5 pl-2 pr-1 text-[length:var(--type-11)] gap-1 rounded-[var(--radius-full)]\",\n  md: \"h-6 pl-2.5 pr-1.5 text-[length:var(--type-12)] gap-[var(--space-1_5)] rounded-[var(--radius-full)]\",\n};\n\nconst REMOVE_SIZE: Record<Size, string> = {\n  sm: \"size-3\",\n  md: \"size-3.5\",\n};\n\nexport type TagProps = React.HTMLAttributes<HTMLSpanElement> & {\n  status?: Status;\n  size?: Size;\n  leadingIcon?: React.ReactNode;\n  onRemove?: () => void;\n  removeLabel?: string;\n};\n\nexport function Tag({\n  status = \"neutral\",\n  size = \"sm\",\n  className,\n  children,\n  leadingIcon,\n  onRemove,\n  removeLabel,\n  ...props\n}: TagProps) {\n  const label = typeof children === \"string\" ? children : \"tag\";\n  return (\n    <span\n      data-slot=\"tag\"\n      data-status={status}\n      className={cn(\n        \"inline-flex items-center font-medium tracking-[var(--tracking-tight)] whitespace-nowrap align-middle\",\n        SIZE[size],\n        STYLES[status],\n        onRemove ? \"\" : \"pr-2\",\n        className,\n      )}\n      {...props}\n    >\n      {leadingIcon && (\n        <span aria-hidden className=\"opacity-80 shrink-0\">\n          {leadingIcon}\n        </span>\n      )}\n      <span>{children}</span>\n      {onRemove && (\n        <button\n          type=\"button\"\n          onClick={onRemove}\n          aria-label={removeLabel ?? `Remove ${label}`}\n          className={cn(\n            \"ml-0.5 rounded-[var(--radius-full)] p-0.5 opacity-70 hover:opacity-100 hover:bg-[var(--surface-sunken)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]\",\n          )}\n        >\n          <X className={cn(REMOVE_SIZE[size], \"shrink-0\")} aria-hidden />\n        </button>\n      )}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/tag.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "display",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native <span>",
+    "specPath": "design-system/02-components/tag/tag.md",
+    "skillPath": "design-system/02-components/tag/tag.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

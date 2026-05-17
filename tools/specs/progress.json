@@ -1,0 +1,72 @@
+{
+  "name": "progress",
+  "title": "Progress",
+  "namedExport": "ProgressBar",
+  "category": "feedback",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Determinate progress. Two shapes: ProgressBar (linear, four tones) + ProgressRing (circular, Lumen-signature for hero KPI tiles). Bar honors three sizes (sm h1 / md h1.5 / lg h2). Ring uses stroke-dasharray + dashoffset with cubic-bezier(0.2,0,0,1) 280ms transition.",
+  "description": "Token-driven determinate progress — bar + Lumen-signature ring.",
+  "skillDescription": "Use ProgressBar for linear determinate (form completion, file upload). Use ProgressRing for hero KPI tiles where the donut IS the metric (capacity, on-time %, savings goal). Four tones: accent / success / warning / danger / neutral. For indeterminate use Spinner.",
+  "builtOn": "Radix Progress (bar) + custom SVG (ring)",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-progress"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "color.accent",
+    "lumen.accent.6",
+    "lumen.amber.5",
+    "lumen.red.5",
+    "text.tertiary",
+    "text.secondary",
+    "text.primary",
+    "surface.sunken",
+    "space.1_5",
+    "type.12",
+    "type.22"
+  ],
+  "useWhen": [
+    "Determinate linear progress (form completion, file upload).",
+    "Hero KPI tile where the donut IS the metric (capacity, OTD %, goal).",
+    "Multi-step flow indicator (paired with Stepper)."
+  ],
+  "anatomy": [
+    "ProgressBar — track + indicator + optional label + value display",
+    "ProgressRing — SVG circle base + circle fill (stroke-dasharray animated)",
+    "Center value display (heading-h6 ratio, --type-22 on size 56 ring)"
+  ],
+  "api": [
+    "ProgressBar: `value`, `max` (default 100), `tone`, `label`, `showValue`, `size`.",
+    "ProgressRing: `value`, `max`, `size` (px), `stroke` (px), `tone`, `label`."
+  ],
+  "never": [
+    "NEVER use Progress for indeterminate — use Spinner.",
+    "NEVER omit aria-label / role=progressbar.",
+    "NEVER spin the ring (it's determinate)."
+  ],
+  "a11yRules": [
+    "ProgressBar — role=progressbar + aria-valuemin/max/now (Radix manages).",
+    "ProgressRing — role=img + aria-label with the value or label.",
+    "Animation honors prefers-reduced-motion."
+  ],
+  "do": ["Use ProgressRing for hero KPIs.", "Show value with %.", "Pair color tone with semantic meaning."],
+  "dont": ["Don't use for indeterminate.", "Don't omit aria-label."],
+  "related": ["Spinner", "Stat", "Stepper"],
+  "stories": [
+    { "name": "Bar", "args": { "value": 60 }, "children": "" },
+    { "name": "Ring", "args": { "value": 75 }, "children": "" }
+  ],
+  "variants": ["bar", "ring"],
+  "propsList": [
+    { "name": "value", "type": "number" },
+    { "name": "max", "type": "number", "default": 100 },
+    { "name": "tone", "type": "enum" },
+    { "name": "label", "type": "string" },
+    { "name": "showValue", "type": "boolean" },
+    { "name": "size", "type": "enum | number" }
+  ],
+  "exampleSnippet": "import { ProgressBar, ProgressRing } from \"@/components/ui/progress\";\n\nexport function Example() {\n  return (\n    <div className=\"flex gap-4 items-center\">\n      <ProgressBar value={60} showValue />\n      <ProgressRing value={75} size={56} />\n    </div>\n  );\n}",
+  "testChildren": ""
+}

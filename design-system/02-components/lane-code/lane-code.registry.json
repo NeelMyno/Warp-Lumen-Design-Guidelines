@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lane-code",
+  "type": "registry:ui",
+  "title": "LaneCode",
+  "description": "Freight lane code with arrow + optional inline rate. Mono numerics.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/lane-code/lane-code.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/lane-code.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native span composition",
+    "specPath": "design-system/02-components/lane-code/lane-code.md",
+    "skillPath": "design-system/02-components/lane-code/lane-code.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sparkline",
+  "title": "Sparkline",
+  "description": "Inline micro-chart, 24-48 px tall. Pair with Stat/KPI.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/sparkline/examples/primary.tsx",
+      "content": "// Lumen Sparkline — Web React example.\n\nexport function Sparkline({\n  data,\n  height = 28,\n  width = \"auto\",\n  color = \"var(--color-text-accent)\",\n  showLastDot = true,\n  showArea = false,\n  ariaLabel,\n}: {\n  data: number[];\n  height?: number;\n  width?: string;\n  color?: string;\n  showLastDot?: boolean;\n  showArea?: boolean;\n  ariaLabel: string;\n}) {\n  if (!data.length) return null;\n  const max = Math.max(...data);\n  const min = Math.min(...data);\n  const w = 80;\n  const h = height;\n  const xs = data.map((_, i) => (i * w) / Math.max(1, data.length - 1));\n  const ys = data.map((v) => h - ((v - min) / Math.max(1, max - min)) * (h - 2) - 1);\n  const linePath = xs.map((x, i) => `${i === 0 ? \"M\" : \"L\"} ${x} ${ys[i]}`).join(\" \");\n  const areaPath = `${linePath} L ${xs[xs.length - 1]} ${h} L ${xs[0]} ${h} Z`;\n  return (\n    <svg\n      role=\"img\"\n      aria-label={ariaLabel}\n      viewBox={`0 0 ${w} ${h}`}\n      width={width}\n      height={h}\n      preserveAspectRatio=\"none\"\n      className=\"inline-block\"\n    >\n      {showArea && <path d={areaPath} fill={color} opacity=\"0.15\" />}\n      <path d={linePath} fill=\"none\" stroke={color} strokeWidth=\"1.5\" strokeLinecap=\"round\" strokeLinejoin=\"round\" />\n      {showLastDot && (\n        <circle cx={xs[xs.length - 1]} cy={ys[ys.length - 1]} r=\"1.5\" fill={color} />\n      )}\n    </svg>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/sparkline.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/sparkline/component.json",
+    "docsPath": "design-system/02-components/sparkline/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

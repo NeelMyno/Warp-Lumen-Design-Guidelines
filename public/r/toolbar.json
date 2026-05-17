@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar",
+  "title": "Toolbar",
+  "description": "Grouped row of interactive controls. Single tab stop with roving tabindex. Radix Toolbar wrapper.",
+  "dependencies": [
+    "@radix-ui/react-toolbar"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/toolbar/examples/primary.tsx",
+      "content": "// Lumen Toolbar — Web React example. Wraps Radix Toolbar for roving tabindex.\n\n\"use client\";\n\nimport * as RT from \"@radix-ui/react-toolbar\";\nimport { ReactNode } from \"react\";\n\nexport function Toolbar({\n  ariaLabel,\n  orientation = \"horizontal\",\n  density = \"regular\",\n  elevation = \"none\",\n  children,\n}: {\n  ariaLabel: string;\n  orientation?: \"horizontal\" | \"vertical\";\n  density?: \"compact\" | \"regular\";\n  elevation?: \"none\" | \"border\" | \"card\";\n  children: ReactNode;\n}) {\n  return (\n    <RT.Root\n      orientation={orientation}\n      aria-label={ariaLabel}\n      className={[\n        \"flex flex-wrap items-center gap-[var(--space-inline-xs)]\",\n        orientation === \"vertical\" ? \"flex-col items-stretch\" : \"\",\n        density === \"compact\" ? \"h-7\" : \"h-9\",\n        elevation === \"border\" ? \"border border-[var(--color-border-hairline)] rounded-[var(--radius-popover)] px-2 bg-[var(--color-surface-raised)]\" : \"\",\n        elevation === \"card\" ? \"border border-[var(--color-border-default)] rounded-[var(--radius-popover)] px-2 bg-[var(--color-surface-popover)] shadow-[var(--shadow-popover)]\" : \"\",\n      ].join(\" \")}\n    >\n      {children}\n    </RT.Root>\n  );\n}\n\nexport function ToolbarButton({\n  children,\n  onClick,\n  ariaLabel,\n}: {\n  children: ReactNode;\n  onClick?: () => void;\n  ariaLabel?: string;\n}) {\n  return (\n    <RT.Button\n      aria-label={ariaLabel}\n      onClick={onClick}\n      className={[\n        \"inline-flex items-center justify-center h-7 min-w-7 px-2 rounded-[var(--radius-control-md)]\",\n        \"text-[var(--type-label-sm)] text-[var(--color-text-secondary)]\",\n        \"hover:bg-[var(--color-action-ghost-bg-hover)] hover:text-[var(--color-text-primary)]\",\n        \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n      ].join(\" \")}\n    >\n      {children}\n    </RT.Button>\n  );\n}\n\nexport function ToolbarToggleGroup({\n  type,\n  value,\n  onValueChange,\n  ariaLabel,\n  children,\n}: {\n  type: \"single\" | \"multiple\";\n  value: string | string[];\n  onValueChange: (v: string | string[]) => void;\n  ariaLabel: string;\n  children: ReactNode;\n}) {\n  if (type === \"single\") {\n    return (\n      <RT.ToggleGroup\n        type=\"single\"\n        value={value as string}\n        onValueChange={(v: string) => onValueChange(v)}\n        aria-label={ariaLabel}\n        className=\"inline-flex gap-1\"\n      >\n        {children}\n      </RT.ToggleGroup>\n    );\n  }\n  return (\n    <RT.ToggleGroup\n      type=\"multiple\"\n      value={value as string[]}\n      onValueChange={(v: string[]) => onValueChange(v)}\n      aria-label={ariaLabel}\n      className=\"inline-flex gap-1\"\n    >\n      {children}\n    </RT.ToggleGroup>\n  );\n}\n\nexport function ToolbarToggleItem({ value, children, ariaLabel }: { value: string; children: ReactNode; ariaLabel: string }) {\n  return (\n    <RT.ToggleItem\n      value={value}\n      aria-label={ariaLabel}\n      className={[\n        \"inline-flex items-center justify-center h-7 min-w-7 px-2 rounded-[var(--radius-control-md)]\",\n        \"text-[var(--color-text-secondary)] hover:bg-[var(--color-action-ghost-bg-hover)] hover:text-[var(--color-text-primary)]\",\n        \"data-[state=on]:bg-[var(--color-action-selected-bg)] data-[state=on]:text-[var(--color-text-accent)]\",\n        \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n      ].join(\" \")}\n    >\n      {children}\n    </RT.ToggleItem>\n  );\n}\n\nexport function ToolbarSeparator() {\n  return <RT.Separator className=\"mx-1 h-5 w-px bg-[var(--color-border-hairline)]\" />;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/toolbar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/toolbar/component.json",
+    "docsPath": "design-system/02-components/toolbar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

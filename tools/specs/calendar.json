@@ -1,0 +1,51 @@
+{
+  "name": "calendar",
+  "title": "Calendar",
+  "namedExport": "Calendar",
+  "category": "form",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Date picker grid. Built on react-day-picker v9. Supports single-date, multi-date, range. Lumen-styled day cells (lime tint on selected, hairline on outside-month). Month + year nav with mono-numeric labels.",
+  "description": "react-day-picker calendar with Lumen day cell + nav styling.",
+  "skillDescription": "Use for inline calendar grids — date picker popovers, range pickers, scheduling. Lumen wraps react-day-picker so the API matches upstream. For the Field + popover composite see @lumen/date-picker.",
+  "builtOn": "react-day-picker v9",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["react-day-picker", "date-fns", "lucide-react"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.tint-accent",
+    "color.action.primary.bg.rest",
+    "color.action.primary.fg",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.md",
+    "radius.xs"
+  ],
+  "useWhen": ["Date entry — pickup date, delivery date, billing cycle.", "Range — date range filter for analytics.", "Multi-date — booking unavailable days."],
+  "anatomy": ["Caption (month + year)", "Nav buttons (prev / next month)", "Weekday header row", "Day grid (7 × ~6)", "Day cell (selected / range start / range end / today / outside / disabled)"],
+  "api": [
+    "`mode` — single | multiple | range (default: single).",
+    "`selected`, `onSelect` — react-day-picker pattern.",
+    "`defaultMonth` — Date.",
+    "`disabled` — Date | Date[] | Matcher.",
+    "All react-day-picker props pass through."
+  ],
+  "never": ["NEVER fork the day cell rendering — use react-day-picker's classNames to retint.", "NEVER skip the today affordance (outline-color on today)."],
+  "a11yRules": ["react-day-picker manages role=grid + role=gridcell + aria-selected + arrow-key navigation.", "Honor prefers-reduced-motion (no transition on day select)."],
+  "do": ["Set defaultMonth to the relevant context.", "Disable invalid dates via disabled matcher."],
+  "dont": ["Don't fork day cell rendering."],
+  "related": ["DatePicker", "Popover", "Input"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["single", "range", "multiple"],
+  "propsList": [
+    { "name": "mode", "type": "enum", "default": "single" },
+    { "name": "selected", "type": "Date | Date[] | DateRange" },
+    { "name": "onSelect", "type": "(d) => void" }
+  ],
+  "exampleSnippet": "import { Calendar } from \"@/components/ui/calendar\";\n\nexport function Example() {\n  return <Calendar mode=\"single\" selected={new Date()} />;\n}",
+  "testChildren": ""
+}

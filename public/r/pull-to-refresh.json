@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pull-to-refresh",
+  "title": "Pull To Refresh",
+  "description": "Mobile gesture wrapper. Arrow / spinner indicator. WCAG 2.5.7 non-drag fallback required.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/pull-to-refresh/examples/primary.tsx",
+      "content": "// Lumen PullToRefresh — Web React example. Arrow indicator. Reduced-motion safe.\n\n\"use client\";\n\nimport { ArrowDown } from \"lucide-react\";\nimport { ReactNode, useRef, useState, PointerEvent } from \"react\";\n\nexport function PullToRefresh({\n  onRefresh,\n  threshold = 72,\n  indicator = \"arrow\",\n  label,\n  children,\n}: {\n  onRefresh: () => Promise<void> | void;\n  threshold?: number;\n  indicator?: \"arrow\" | \"spinner\";\n  label?: ReactNode;\n  children: ReactNode;\n}) {\n  const [pull, setPull] = useState(0);\n  const [refreshing, setRefreshing] = useState(false);\n  const startY = useRef<number | null>(null);\n  const scrollRef = useRef<HTMLDivElement>(null);\n\n  const committed = pull >= threshold;\n\n  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {\n    if (refreshing) return;\n    if ((scrollRef.current?.scrollTop ?? 0) > 0) return;\n    startY.current = e.clientY;\n  };\n  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {\n    if (startY.current === null) return;\n    const delta = Math.max(0, e.clientY - startY.current);\n    setPull(Math.min(threshold * 1.5, delta));\n  };\n  const onPointerUp = async () => {\n    startY.current = null;\n    if (committed) {\n      setRefreshing(true);\n      try {\n        await onRefresh();\n      } finally {\n        setRefreshing(false);\n        setPull(0);\n      }\n    } else {\n      setPull(0);\n    }\n  };\n\n  const status = refreshing\n    ? \"Refreshing\"\n    : committed\n    ? \"Release to refresh\"\n    : pull > 0\n    ? \"Pull to refresh\"\n    : \"\";\n\n  return (\n    <div\n      role=\"group\"\n      onPointerDown={onPointerDown}\n      onPointerMove={onPointerMove}\n      onPointerUp={onPointerUp}\n      onPointerCancel={onPointerUp}\n      className=\"relative h-full w-full\"\n    >\n      <div\n        aria-live=\"polite\"\n        aria-atomic\n        className=\"absolute inset-x-0 top-0 z-10 flex flex-col items-center justify-end overflow-hidden text-[var(--color-text-tertiary)]\"\n        style={{\n          height: refreshing ? threshold : pull,\n          transition: startY.current === null\n            ? \"height var(--motion-duration-base) cubic-bezier(0.2,0,0,1)\"\n            : \"none\",\n        }}\n      >\n        {indicator === \"arrow\" ? (\n          <ArrowDown\n            size={16}\n            aria-hidden\n            style={{ transform: `rotate(${committed || refreshing ? 180 : 0}deg)` }}\n            className={[\n              \"mb-1 transition-transform duration-[var(--motion-duration-base)]\",\n              \"motion-reduce:transition-none\",\n              refreshing ? \"animate-spin\" : \"\",\n            ].join(\" \")}\n          />\n        ) : (\n          <span className=\"mb-1 inline-block size-3 rounded-full border-2 border-current border-r-transparent animate-spin motion-reduce:animate-none\" />\n        )}\n        <span className=\"text-[var(--type-eyebrow-mono)] uppercase tracking-wider mb-1\">{label ?? status}</span>\n      </div>\n      <div\n        ref={scrollRef}\n        className=\"h-full w-full overflow-y-auto\"\n        style={{\n          transform: `translateY(${refreshing ? threshold : pull}px)`,\n          transition: startY.current === null\n            ? \"transform var(--motion-duration-base) cubic-bezier(0.2,0,0,1)\"\n            : \"none\",\n        }}\n      >\n        {children}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/pull-to-refresh.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/pull-to-refresh/component.json",
+    "docsPath": "design-system/02-components/pull-to-refresh/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

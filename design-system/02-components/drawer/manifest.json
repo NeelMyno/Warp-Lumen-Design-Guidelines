@@ -1,0 +1,42 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "drawer",
+  "title": "Drawer",
+  "description": "Side or bottom panel for navigation / menu / quick form surfaces.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean"
+    },
+    {
+      "name": "side",
+      "type": "enum",
+      "default": "right"
+    }
+  ],
+  "variants": [
+    "right",
+    "bottom"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.scrim",
+    "text.primary",
+    "border.default",
+    "shadow.modal",
+    "z-index.modal"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=dialog + focus trap + escape.",
+      "Always provide DrawerTitle.",
+      "Outside-click + escape both dismiss."
+    ]
+  },
+  "usage": "import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle } from \"@/components/ui/drawer\";\n\nexport function Example() {\n  return (\n    <Drawer>\n      <DrawerTrigger>Open</DrawerTrigger>\n      <DrawerContent side=\"right\">\n        <DrawerHeader><DrawerTitle>Menu</DrawerTitle></DrawerHeader>\n      </DrawerContent>\n    </Drawer>\n  );\n}",
+  "storiesPath": "02-components/drawer/drawer.stories.tsx",
+  "sourcePath": "02-components/drawer/drawer.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

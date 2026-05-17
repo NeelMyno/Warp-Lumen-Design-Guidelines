@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snackbar",
+  "title": "Snackbar",
+  "description": "Transient bottom-anchored message with a single trailing action. Pause-on-hover.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/snackbar/examples/primary.tsx",
+      "content": "// Lumen Snackbar — Web React example.\n// One at a time. Pause timer on hover/focus. role=status polite by default,\n// role=alert assertive for danger tone.\n\n\"use client\";\n\nimport { AlertOctagon, CheckCircle, X } from \"lucide-react\";\nimport { ReactNode, useEffect, useRef, useState } from \"react\";\n\ntype Tone = \"neutral\" | \"success\" | \"danger\";\ntype Anchor = \"bottom-center\" | \"bottom-left\" | \"bottom-right\";\n\nconst ANCHOR: Record<Anchor, string> = {\n  \"bottom-center\": \"left-1/2 -translate-x-1/2 bottom-[max(env(safe-area-inset-bottom),16px)]\",\n  \"bottom-left\":   \"left-4 bottom-[max(env(safe-area-inset-bottom),16px)]\",\n  \"bottom-right\":  \"right-4 bottom-[max(env(safe-area-inset-bottom),16px)]\",\n};\n\nconst TONE_ICON: Record<Tone, ReactNode> = {\n  neutral: null,\n  success: <CheckCircle size={14} aria-hidden className=\"text-[var(--color-text-accent)]\" />,\n  danger:  <AlertOctagon size={14} aria-hidden className=\"text-[var(--color-text-error)]\" />,\n};\n\nexport type SnackbarProps = {\n  open: boolean;\n  onOpenChange?: (open: boolean) => void;\n  message: ReactNode;\n  action?: ReactNode;\n  duration?: number;\n  tone?: Tone;\n  anchor?: Anchor;\n};\n\nexport function Snackbar({\n  open,\n  onOpenChange,\n  message,\n  action,\n  duration = 5000,\n  tone = \"neutral\",\n  anchor = \"bottom-center\",\n}: SnackbarProps) {\n  const [paused, setPaused] = useState(false);\n  const remainingRef = useRef(duration);\n  const startRef = useRef<number | null>(null);\n\n  useEffect(() => {\n    if (!open) return;\n    if (duration <= 0) return;\n    if (paused) return;\n    startRef.current = Date.now();\n    const t = setTimeout(() => onOpenChange?.(false), remainingRef.current);\n    return () => {\n      clearTimeout(t);\n      if (startRef.current !== null) {\n        remainingRef.current = Math.max(0, remainingRef.current - (Date.now() - startRef.current));\n      }\n    };\n  }, [open, duration, paused, onOpenChange]);\n\n  if (!open) return null;\n\n  return (\n    <div\n      role={tone === \"danger\" ? \"alert\" : \"status\"}\n      aria-live={tone === \"danger\" ? \"assertive\" : \"polite\"}\n      onMouseEnter={() => setPaused(true)}\n      onMouseLeave={() => setPaused(false)}\n      onFocus={() => setPaused(true)}\n      onBlur={() => setPaused(false)}\n      className={[\n        \"fixed z-[var(--z-toast,90)]\",\n        \"min-w-[280px] max-w-[min(560px,calc(100vw-2rem))]\",\n        \"rounded-[var(--radius-popover)] border border-[var(--color-border-hairline)]\",\n        \"bg-[var(--color-surface-raised)] shadow-[var(--shadow-popover)]\",\n        \"px-[var(--space-inset-lg)] py-[var(--space-inset-md)]\",\n        \"flex items-center gap-[var(--space-inline-md)]\",\n        \"animate-in fade-in-0 slide-in-from-bottom-2 motion-reduce:animate-none\",\n        ANCHOR[anchor],\n      ].join(\" \")}\n    >\n      {TONE_ICON[tone]}\n      <span className=\"flex-1 text-[var(--type-label-md)] text-[var(--color-text-primary)]\">{message}</span>\n      {action}\n      <button\n        type=\"button\"\n        aria-label=\"Dismiss\"\n        onClick={() => onOpenChange?.(false)}\n        className={[\n          \"ml-1 shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-[var(--radius-control-md)]\",\n          \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]\",\n          \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n          \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n        ].join(\" \")}\n      >\n        <X size={12} aria-hidden />\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/snackbar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/snackbar/component.json",
+    "docsPath": "design-system/02-components/snackbar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

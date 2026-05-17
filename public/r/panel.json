@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "panel",
+  "title": "Panel",
+  "description": "In-flow labeled section. Plain / bordered / inspector. Collapsible + resizable.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/panel/examples/primary.tsx",
+      "content": "// Lumen Panel — Web React example. In-flow section with optional collapse.\n// Inspector variant adds a left-edge resize handle (keyboard-resizable).\n\n\"use client\";\n\nimport { ChevronDown } from \"lucide-react\";\nimport { ReactNode, useId, useState, KeyboardEvent } from \"react\";\n\ntype Variant = \"plain\" | \"bordered\" | \"inspector\";\ntype Level = \"h2\" | \"h3\" | \"h4\";\n\nexport type PanelProps = {\n  title: ReactNode;\n  description?: ReactNode;\n  variant?: Variant;\n  collapsible?: boolean;\n  defaultOpen?: boolean;\n  headingLevel?: Level;\n  leading?: ReactNode;\n  trailing?: ReactNode;\n  resizable?: boolean;\n  initialWidth?: number;\n  onWidthChange?: (px: number) => void;\n  children: ReactNode;\n};\n\nexport function Panel({\n  title,\n  description,\n  variant = \"plain\",\n  collapsible = false,\n  defaultOpen = true,\n  headingLevel = \"h3\",\n  leading,\n  trailing,\n  resizable = false,\n  initialWidth = 360,\n  onWidthChange,\n  children,\n}: PanelProps) {\n  const headerId = useId();\n  const [open, setOpen] = useState(defaultOpen);\n  const [width, setWidth] = useState(initialWidth);\n\n  const wrapperChrome = variant === \"bordered\" || variant === \"inspector\"\n    ? \"border border-[var(--color-border-default)] rounded-[var(--radius-card-default)] bg-[var(--color-surface-raised)]\"\n    : \"\";\n  const padding = variant === \"plain\" ? \"\" : \"p-[var(--space-inset-xl)]\";\n\n  const Heading: keyof JSX.IntrinsicElements = headingLevel;\n\n  const header = (\n    <header className={[\"flex items-start justify-between gap-3\", variant === \"plain\" ? \"mb-[var(--space-stack-md)]\" : \"mb-[var(--space-stack-sm)]\"].join(\" \")}>\n      <div className=\"min-w-0 flex items-start gap-3\">\n        {leading && <span className=\"shrink-0 mt-0.5\">{leading}</span>}\n        <div className=\"min-w-0\">\n          <Heading id={headerId} className=\"text-[var(--type-heading-h3)] font-medium tracking-tight text-[var(--color-text-primary)] truncate\">\n            {title}\n          </Heading>\n          {description && (\n            <p className=\"mt-1 text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\">{description}</p>\n          )}\n        </div>\n      </div>\n      <div className=\"flex items-center gap-2 shrink-0\">\n        {trailing}\n        {collapsible && (\n          <button\n            type=\"button\"\n            aria-expanded={open}\n            aria-controls={`${headerId}-body`}\n            onClick={() => setOpen((o) => !o)}\n            className={[\n              \"inline-flex h-7 w-7 items-center justify-center rounded-[var(--radius-control-sm)]\",\n              \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]\",\n              \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n              \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n              \"transition-colors duration-[var(--motion-duration-fast)]\",\n            ].join(\" \")}\n          >\n            <ChevronDown\n              size={14}\n              aria-hidden\n              className={[open ? \"rotate-180\" : \"\", \"transition-transform duration-[var(--motion-duration-base)]\"].join(\" \")}\n              style={{ transitionTimingFunction: \"cubic-bezier(0.2, 0, 0, 1)\" }}\n            />\n          </button>\n        )}\n      </div>\n    </header>\n  );\n\n  const onResizeKey = (e: KeyboardEvent<HTMLButtonElement>) => {\n    if (!resizable) return;\n    let next = width;\n    if (e.key === \"ArrowLeft\") next -= 10;\n    else if (e.key === \"ArrowRight\") next += 10;\n    else if (e.key === \"Home\") next = 240;\n    else if (e.key === \"End\") next = 640;\n    else return;\n    e.preventDefault();\n    next = Math.min(640, Math.max(240, next));\n    setWidth(next);\n    onWidthChange?.(next);\n  };\n\n  return (\n    <section\n      aria-labelledby={headerId}\n      data-variant={variant}\n      className={[wrapperChrome, padding, \"relative\"].join(\" \")}\n      style={variant === \"inspector\" ? { width } : undefined}\n    >\n      {variant === \"inspector\" && resizable && (\n        <button\n          type=\"button\"\n          aria-label=\"Resize inspector\"\n          onKeyDown={onResizeKey}\n          className={[\n            \"absolute left-0 top-0 bottom-0 w-1 cursor-col-resize\",\n            \"bg-transparent hover:bg-[var(--color-border-default)]\",\n            \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:shadow-[var(--shadow-focus)]\",\n          ].join(\" \")}\n        />\n      )}\n      {header}\n      <div id={`${headerId}-body`} aria-hidden={!open} className={open ? \"\" : \"hidden\"}>\n        {children}\n      </div>\n    </section>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/panel.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/panel/component.json",
+    "docsPath": "design-system/02-components/panel/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

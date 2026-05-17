@@ -1,0 +1,58 @@
+{
+  "name": "quote-builder",
+  "title": "QuoteBuilder",
+  "namedExport": "QuoteBuilder",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Composite for the quote flow. Lane input (origin + destination — composes Combobox) + weight input + accessorial chips + rate output (Stat) + book button. Right-rail layout: inputs left (60%), rate output + book right (40%). Mobile collapses to stacked layout.",
+  "description": "Quote-flow composite — lane + weight + accessorials → rate + book.",
+  "skillDescription": "Use as the centerpiece of a quoting surface — landing page CTA, in-product 'Get rate' modal, mobile bottom-sheet. Composes Combobox (lane) + NumberInput (weight) + Tag picker (accessorials) + Stat (rate output) + primary Button (book). Mobile collapses to single-column.",
+  "builtOn": "Lumen primitives (Combobox + Input + Tag + Stat + Button)",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/button", "@lumen/combobox", "@lumen/input", "@lumen/tag", "@lumen/stat", "@lumen/lane-code"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.lg",
+    "space.4",
+    "space.6"
+  ],
+  "useWhen": ["Landing-page quoting CTA.", "In-product 'Get rate' modal.", "Mobile bottom-sheet quote flow."],
+  "anatomy": [
+    "Card root",
+    "Left column: Lane (Combobox × 2) + Weight (NumberInput) + Accessorials (Tag picker)",
+    "Right column: Rate output (Stat hero) + Book button",
+    "Mobile: stacked layout"
+  ],
+  "api": [
+    "`originOptions`, `destinationOptions` — ComboboxOption[].",
+    "`onQuote` — (form) => Promise<{ rate, etaIso }>.",
+    "`onBook` — () => void.",
+    "`isLoading` — boolean (quote in flight).",
+    "`accessorialOptions` — string[]."
+  ],
+  "never": ["NEVER allow Book without a rate.", "NEVER fake the rate (always quote).", "NEVER use Title Case for the rate label."],
+  "a11yRules": ["Form wraps in <form>.", "Each input has a Label.", "Quote-in-flight surface uses aria-busy.", "Book button is the form's submit."],
+  "do": ["Pair with Combobox for lanes.", "Use Stat hero for the rate display.", "Disable Book until rate is fresh."],
+  "dont": ["Don't allow Book without rate.", "Don't fake quotes."],
+  "related": ["Combobox", "NumberInput", "Tag", "Stat", "LaneCode", "Button"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["default", "compact-mobile"],
+  "propsList": [
+    { "name": "originOptions", "type": "ComboboxOption[]" },
+    { "name": "destinationOptions", "type": "ComboboxOption[]" },
+    { "name": "onQuote", "type": "(form) => Promise<Quote>" },
+    { "name": "onBook", "type": "() => void" },
+    { "name": "isLoading", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { QuoteBuilder } from \"@/components/ui/quote-builder\";\n\nexport function Example() {\n  return <QuoteBuilder originOptions={[]} destinationOptions={[]} onQuote={async () => ({ rate: \"$262\", etaIso: \"\" })} />;\n}",
+  "testChildren": ""
+}

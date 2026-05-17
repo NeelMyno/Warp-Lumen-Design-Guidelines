@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumbs",
+  "title": "Breadcrumbs",
+  "description": "Where am I, how did I get here. Horizontal nav trail separated by ChevronRight, current page as terminal non-link.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/breadcrumbs/examples/primary.tsx",
+      "content": "// Lumen Breadcrumbs — Web React example\n// Truncate-to-menu pattern: middle items collapse into an ellipsis that opens\n// a DropdownMenu listing the hidden links. Always wrap in <nav aria-label=\"Breadcrumb\">.\n\n\"use client\";\n\nimport { ChevronRight, MoreHorizontal } from \"lucide-react\";\nimport { Children, isValidElement, ReactNode, useMemo } from \"react\";\n\ntype Size = \"sm\" | \"md\";\n\nconst SIZE: Record<Size, { type: string; gap: string }> = {\n  sm: { type: \"text-[var(--type-label-sm)]\", gap: \"gap-[var(--space-inline-xs)]\" },\n  md: { type: \"text-[var(--type-label-md)]\", gap: \"gap-[var(--space-inline-sm)]\" },\n};\n\nexport type BreadcrumbsProps = {\n  children: ReactNode;\n  maxItems?: number;\n  size?: Size;\n  separator?: ReactNode;\n};\n\nexport function Breadcrumbs({ children, maxItems = 4, size = \"sm\", separator }: BreadcrumbsProps) {\n  const items = Children.toArray(children).filter(isValidElement);\n  const Sep = separator ?? <ChevronRight aria-hidden size={size === \"sm\" ? 12 : 14} className=\"text-[var(--color-text-tertiary)]\" />;\n\n  const visible = useMemo(() => {\n    if (items.length <= maxItems) return items.map((item) => ({ kind: \"item\" as const, item }));\n    // Show first + ellipsis + last (maxItems - 2) items.\n    const tailCount = maxItems - 2;\n    const hidden = items.slice(1, items.length - tailCount);\n    return [\n      { kind: \"item\" as const, item: items[0] },\n      { kind: \"ellipsis\" as const, hidden },\n      ...items.slice(items.length - tailCount).map((item) => ({ kind: \"item\" as const, item })),\n    ];\n  }, [items, maxItems]);\n\n  return (\n    <nav aria-label=\"Breadcrumb\" className={SIZE[size].type}>\n      <ol className={[\"flex flex-wrap items-center\", SIZE[size].gap].join(\" \")}>\n        {visible.map((node, i) => (\n          <li key={i} className={[\"flex items-center\", SIZE[size].gap].join(\" \")}>\n            {node.kind === \"item\" ? node.item : <BreadcrumbEllipsis hidden={node.hidden} />}\n            {i < visible.length - 1 && <span aria-hidden>{Sep}</span>}\n          </li>\n        ))}\n      </ol>\n    </nav>\n  );\n}\n\nexport function BreadcrumbLink({ href, children }: { href: string; children: ReactNode }) {\n  return (\n    <a\n      href={href}\n      className={[\n        \"rounded-[var(--radius-control-sm)] px-1 -mx-1\",\n        \"text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]\",\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n        \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1\",\n        \"focus-visible:shadow-[var(--shadow-focus)]\",\n      ].join(\" \")}\n    >\n      {children}\n    </a>\n  );\n}\n\nexport function BreadcrumbCurrent({ children }: { children: ReactNode }) {\n  return (\n    <span aria-current=\"page\" className=\"text-[var(--color-text-primary)] font-medium\">\n      {children}\n    </span>\n  );\n}\n\nfunction BreadcrumbEllipsis({ hidden }: { hidden: ReactNode[] }) {\n  // In production wire this to the Lumen DropdownMenu. The skeleton keeps the\n  // hidden-link references on the button for SR via aria-label.\n  const labels = hidden\n    .map((node) => (isValidElement(node) && typeof (node.props as { children?: ReactNode }).children === \"string\"\n      ? ((node.props as { children: string }).children)\n      : \"\"))\n    .filter(Boolean)\n    .join(\", \");\n  return (\n    <button\n      type=\"button\"\n      aria-label={`Show more pages${labels ? ` (${labels})` : \"\"}`}\n      className={[\n        \"inline-flex h-6 w-6 items-center justify-center rounded-[var(--radius-control-sm)]\",\n        \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]\",\n        \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n        \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1\",\n        \"focus-visible:shadow-[var(--shadow-focus)]\",\n      ].join(\" \")}\n    >\n      <MoreHorizontal aria-hidden size={14} />\n    </button>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/breadcrumbs.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/breadcrumbs/component.json",
+    "docsPath": "design-system/02-components/breadcrumbs/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox",
+  "title": "Combobox",
+  "description": "Token-driven searchable single-select. Popover + cmdk.",
+  "dependencies": [
+    "@radix-ui/react-popover",
+    "cmdk",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/combobox/combobox.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/combobox — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Searchable single-select. Popover (Radix) + cmdk for the type-ahead list.\n * Portaled per hard rule 10. Trigger mirrors the Input visual.\n */\nimport * as React from \"react\";\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\";\nimport { Command as CommandPrimitive } from \"cmdk\";\nimport { Check, ChevronDown, X } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport type ComboboxOption = {\n  value: string;\n  label: string;\n  hint?: string;\n};\n\nexport type ComboboxProps = {\n  options: ComboboxOption[];\n  value?: string;\n  onChange?: (v: string) => void;\n  placeholder?: string;\n  searchPlaceholder?: string;\n  emptyMessage?: string;\n  disabled?: boolean;\n  className?: string;\n  clearable?: boolean;\n};\n\nexport function Combobox({\n  options,\n  value,\n  onChange,\n  placeholder = \"Select…\",\n  searchPlaceholder = \"Search…\",\n  emptyMessage = \"No results\",\n  disabled,\n  className,\n  clearable,\n}: ComboboxProps) {\n  const [open, setOpen] = React.useState(false);\n  const selected = options.find((o) => o.value === value);\n\n  return (\n    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>\n      <PopoverPrimitive.Trigger\n        data-slot=\"combobox-trigger\"\n        aria-expanded={open}\n        disabled={disabled}\n        className={cn(\n          \"flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 text-[length:var(--type-14)] text-[color:var(--text-primary)] outline-none\",\n          \"shadow-[var(--shadow-input-lit-edge)]\",\n          \"transition-[color,box-shadow,border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n          \"hover:border-[var(--border-strong)]\",\n          \"data-[state=open]:border-[var(--border-focus)] data-[state=open]:shadow-[var(--shadow-input-focus)]\",\n          \"focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-input-focus)]\",\n          \"disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[color:var(--text-disabled)] disabled:border-[var(--border-input-disabled)]\",\n          className,\n        )}\n      >\n        <span\n          className={cn(\n            \"truncate text-left flex-1\",\n            !selected && \"text-[color:var(--text-placeholder)]\",\n          )}\n        >\n          {selected?.label ?? placeholder}\n        </span>\n        {clearable && selected ? (\n          <span\n            role=\"button\"\n            tabIndex={0}\n            aria-label=\"Clear\"\n            onClick={(e) => {\n              e.stopPropagation();\n              onChange?.(\"\");\n            }}\n            className=\"opacity-70 hover:opacity-100\"\n          >\n            <X size={14} aria-hidden />\n          </span>\n        ) : (\n          <ChevronDown size={16} aria-hidden className=\"opacity-50 shrink-0\" />\n        )}\n      </PopoverPrimitive.Trigger>\n      <PopoverPrimitive.Portal>\n        <PopoverPrimitive.Content\n          data-slot=\"combobox-content\"\n          align=\"start\"\n          sideOffset={4}\n          className={cn(\n            \"bg-[var(--surface-popover)] text-[color:var(--text-primary)] z-[var(--z-overlay)] w-(--radix-popover-trigger-width) min-w-[200px] origin-(--radix-popover-content-transform-origin) rounded-[var(--radius-lg)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] outline-none\",\n            \"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95\",\n          )}\n        >\n          <CommandPrimitive>\n            <div className=\"flex items-center gap-2 px-3 h-10 border-b border-[var(--border-hairline)]\">\n              <CommandPrimitive.Input\n                placeholder={searchPlaceholder}\n                className=\"flex-1 min-w-0 bg-transparent border-0 outline-none text-[length:var(--type-14)] text-[color:var(--text-primary)] placeholder:text-[color:var(--text-tertiary)]\"\n              />\n            </div>\n            <CommandPrimitive.List className=\"max-h-[280px] overflow-y-auto p-1\">\n              <CommandPrimitive.Empty className=\"px-3 py-4 text-center text-[length:var(--type-13)] text-[color:var(--text-tertiary)]\">\n                {emptyMessage}\n              </CommandPrimitive.Empty>\n              {options.map((opt) => (\n                <CommandPrimitive.Item\n                  key={opt.value}\n                  value={`${opt.label} ${opt.hint ?? \"\"}`}\n                  onSelect={() => {\n                    onChange?.(opt.value);\n                    setOpen(false);\n                  }}\n                  className=\"flex items-center gap-2 px-2 py-1.5 rounded-[var(--radius-xs)] text-[length:var(--type-13)] cursor-pointer data-[selected=true]:bg-[var(--surface-tint-accent)] data-[selected=true]:text-[color:var(--text-primary)] hover:bg-[var(--surface-sunken)]\"\n                >\n                  <Check\n                    size={14}\n                    aria-hidden\n                    className={cn(\"shrink-0\", opt.value === value ? \"opacity-100\" : \"opacity-0\")}\n                  />\n                  <span className=\"flex-1 truncate\">{opt.label}</span>\n                  {opt.hint && (\n                    <span className=\"text-[color:var(--text-tertiary)] text-[length:var(--type-11)] shrink-0\">{opt.hint}</span>\n                  )}\n                </CommandPrimitive.Item>\n              ))}\n            </CommandPrimitive.List>\n          </CommandPrimitive>\n        </PopoverPrimitive.Content>\n      </PopoverPrimitive.Portal>\n    </PopoverPrimitive.Root>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/combobox.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "form",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Popover + cmdk + class-variance-authority",
+    "specPath": "design-system/02-components/combobox/combobox.md",
+    "skillPath": "design-system/02-components/combobox/combobox.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

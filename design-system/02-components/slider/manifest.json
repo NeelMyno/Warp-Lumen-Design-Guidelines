@@ -1,0 +1,58 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "slider",
+  "title": "Slider",
+  "description": "Token-driven slider (single + range) built on Radix Slider.",
+  "props": [
+    {
+      "name": "defaultValue",
+      "type": "number[]"
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": 100
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "default": 1
+    },
+    {
+      "name": "onValueChange",
+      "type": "(v: number[]) => void"
+    }
+  ],
+  "variants": [
+    "single",
+    "range",
+    "vertical"
+  ],
+  "tokensConsumed": [
+    "lumen.accent.4",
+    "lumen.accent.5",
+    "lumen.lime.a14",
+    "lumen.lime.a32",
+    "surface.sunken",
+    "surface.raised",
+    "shadow.focus"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=slider + aria-valuemin/max/now + arrow keys + home/end.",
+      "Provide aria-label on the Slider root for screen readers.",
+      "Honor prefers-reduced-motion (transition stays instant)."
+    ]
+  },
+  "usage": "import { Slider } from \"@/components/ui/slider\";\n\nexport function Example() {\n  return <Slider defaultValue={[40]} />;\n}",
+  "storiesPath": "02-components/slider/slider.stories.tsx",
+  "sourcePath": "02-components/slider/slider.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

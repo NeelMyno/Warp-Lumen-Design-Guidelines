@@ -1,0 +1,72 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "Token-driven status pill with six health states unified via --pill-{tone}-* tokens.",
+  "props": [
+    {
+      "name": "status",
+      "type": "enum",
+      "default": "neutral"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "sm"
+    },
+    {
+      "name": "leadingDot",
+      "type": "boolean"
+    },
+    {
+      "name": "leadingIcon",
+      "type": "ReactNode"
+    }
+  ],
+  "variants": [
+    "neutral",
+    "success",
+    "warning",
+    "danger",
+    "info",
+    "accent"
+  ],
+  "tokensConsumed": [
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.neutral.border",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.success.border",
+    "pill.warn.bg",
+    "pill.warn.fg",
+    "pill.warn.border",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "pill.danger.border",
+    "pill.info.bg",
+    "pill.info.fg",
+    "pill.info.border",
+    "pill.accent.bg",
+    "pill.accent.fg",
+    "pill.accent.border",
+    "radius.full",
+    "size.dot.sm",
+    "tracking.tight",
+    "type.11",
+    "type.12"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Badge IS the label — no aria-label needed if children is descriptive.",
+      "For decorative dots, leadingDot uses aria-hidden by default.",
+      "Pairing with a numeric value via `aria-describedby` from the consumer if Badge is referenced from another element."
+    ]
+  },
+  "usage": "import { Badge } from \"@/components/ui/badge\";\n\nexport function Example() {\n  return <Badge status=\"success\" leadingDot>Live</Badge>;\n}",
+  "storiesPath": "02-components/badge/badge.stories.tsx",
+  "sourcePath": "02-components/badge/badge.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

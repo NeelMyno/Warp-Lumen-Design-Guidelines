@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cross-dock-grid",
+  "type": "registry:ui",
+  "title": "CrossDockGrid",
+  "description": "Top-down cross-dock floor with color-coded pallet cells.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/cross-dock-grid/cross-dock-grid.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/cross-dock-grid.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native grid composition",
+    "specPath": "design-system/02-components/cross-dock-grid/cross-dock-grid.md",
+    "skillPath": "design-system/02-components/cross-dock-grid/cross-dock-grid.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

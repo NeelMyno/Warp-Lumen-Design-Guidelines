@@ -1,0 +1,46 @@
+{
+  "name": "tooltip",
+  "title": "Tooltip",
+  "namedExport": "Tooltip",
+  "category": "overlay",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Single-line floating label. Built on Radix Tooltip with .lumen-glass-strong surface. 11px font-medium tracked-tight. Default delayDuration=0 for instant-on (operator density); override per-instance for longer delays in marketing surfaces.",
+  "description": "Token-driven single-line tooltip with glass-strong surface.",
+  "skillDescription": "Use for single-line label content tied to a trigger (icon tooltips, abbreviation expansions, keyboard shortcut hints). For multi-line / rich content use @lumen/popover or @lumen/hover-card. Default delayDuration=0 for operator density.",
+  "builtOn": "Radix Tooltip",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-tooltip"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": ["text.primary", "radius.md", "z-index.tooltip", "type.11", "tracking.tight"],
+  "useWhen": [
+    "Icon-only buttons (paired with IconButton).",
+    "Abbreviations + acronyms (BOL, ETA, OTD).",
+    "Keyboard shortcut hints next to actions."
+  ],
+  "anatomy": ["TooltipProvider — required at app root (or per-instance)", "Tooltip root", "TooltipTrigger — the anchor", "TooltipContent — the floating label, portaled, glass-strong"],
+  "api": [
+    "`delayDuration` — default 0 (operator density). Pass 700 for marketing-style hover delays.",
+    "`sideOffset` — default 6px.",
+    "Composed inside TooltipProvider; single Tooltip auto-provides one for convenience."
+  ],
+  "never": [
+    "NEVER use Tooltip for essential information — content must be auxiliary (keyboard users see it on focus).",
+    "NEVER make Tooltip multi-line — use Popover or HoverCard for rich content.",
+    "NEVER override glass-strong with a solid surface that defeats the brand glass voice."
+  ],
+  "a11yRules": [
+    "Radix manages role=tooltip + aria-describedby + show on focus / hover / pointer-enter; hide on blur / escape.",
+    "Mobile / touch: tooltip surfaces via long-press; not a substitute for visible label."
+  ],
+  "do": ["Pair with IconButton for icon-only affordances.", "Use for abbreviations + keyboard hints."],
+  "dont": ["Don't put essential information in a tooltip.", "Don't use for multi-line content."],
+  "related": ["Popover", "HoverCard", "Kbd", "IconButton"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["default"],
+  "propsList": [{ "name": "delayDuration", "type": "number", "default": 0 }, { "name": "sideOffset", "type": "number", "default": 6 }],
+  "exampleSnippet": "import { Tooltip, TooltipTrigger, TooltipContent } from \"@/components/ui/tooltip\";\n\nexport function Example() {\n  return (\n    <Tooltip>\n      <TooltipTrigger>?</TooltipTrigger>\n      <TooltipContent>Bill of Lading</TooltipContent>\n    </Tooltip>\n  );\n}",
+  "testChildren": ""
+}

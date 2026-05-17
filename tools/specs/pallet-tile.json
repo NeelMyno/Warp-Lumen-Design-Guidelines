@@ -1,0 +1,71 @@
+{
+  "name": "pallet-tile",
+  "title": "PalletTile",
+  "namedExport": "PalletTile",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Individual pallet card. Weight + dimensions + hazmat flag + lane assignment + freight class. Mono numerics. Drag-handle slot for kanban-style reassignment. Hazmat flag is amber-tinted with a small ⚠ icon.",
+  "description": "Per-pallet card — weight, dims, hazmat, lane, class. Mono numerics.",
+  "skillDescription": "Use in CrossDockGrid cells, pallet-assignment surfaces, manifest detail rows. Compact density default; padded variant for hover/edit. Hazmat = amber border + flag. For top-down floor layout use @lumen/cross-dock-grid.",
+  "builtOn": "Card composition",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/lane-code"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.tint-accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "border.strong",
+    "lumen.amber.5",
+    "lumen.amber.0",
+    "radius.md",
+    "shadow.sm"
+  ],
+  "useWhen": ["CrossDockGrid cells.", "Pallet assignment surfaces (drag-target).", "Manifest detail rows.", "Pallet inventory listings."],
+  "anatomy": ["Card root (hairline + bg + radius)", "Pallet ID + Lane code (header row)", "Weight + Dimensions (mono numeric row)", "Freight class + Hazmat flag (footer row)", "Optional drag handle (left edge)"],
+  "api": [
+    "`id` — string (PAL-XXXX).",
+    "`weightLbs` — number.",
+    "`dims` — { l, w, h } inches.",
+    "`freightClass` — number (50, 60, 70, 85, 100, 125, 150, 175, 200, 250, 300, 400, 500).",
+    "`hazmat` — boolean.",
+    "`lane` — { origin, destination } or string.",
+    "`status` — open | tendered | enroute | delivered.",
+    "`onDrag` — drag handler (optional)."
+  ],
+  "never": [
+    "NEVER omit weight + dims — they're the load-bearing identity.",
+    "NEVER use Pallet for non-freight items (cartons → use CartonTile).",
+    "NEVER hide hazmat flag — regulatory requirement."
+  ],
+  "a11yRules": [
+    "Drag handle has aria-label='Drag pallet {id}'.",
+    "Hazmat icon has visible label 'HAZMAT' for screen-reader users.",
+    "Numbers use lumen-tnum + lumen-mono."
+  ],
+  "do": ["Always show weight + dims.", "Highlight hazmat with amber + ⚠.", "Use compact density in CrossDockGrid."],
+  "dont": ["Don't omit weight.", "Don't hide hazmat."],
+  "related": ["CrossDockGrid", "DockBay", "ShipmentTimeline", "LaneCode"],
+  "stories": [
+    { "name": "Default", "args": { "id": "PAL-1247", "weightLbs": 840, "dims": { "l": 48, "w": 40, "h": 60 }, "freightClass": 100, "lane": { "origin": "LAX", "destination": "SFO" } }, "children": "" },
+    { "name": "Hazmat", "args": { "id": "PAL-9921", "weightLbs": 620, "dims": { "l": 48, "w": 40, "h": 48 }, "freightClass": 175, "hazmat": true, "lane": { "origin": "ORD", "destination": "ATL" } }, "children": "" }
+  ],
+  "variants": ["default", "compact", "hazmat"],
+  "propsList": [
+    { "name": "id", "type": "string", "required": true },
+    { "name": "weightLbs", "type": "number" },
+    { "name": "dims", "type": "{l, w, h}" },
+    { "name": "freightClass", "type": "number" },
+    { "name": "hazmat", "type": "boolean" },
+    { "name": "lane", "type": "{origin, destination} | string" },
+    { "name": "status", "type": "enum" }
+  ],
+  "exampleSnippet": "import { PalletTile } from \"@/components/ui/pallet-tile\";\n\nexport function Example() {\n  return <PalletTile id=\"PAL-1247\" weightLbs={840} dims={{ l: 48, w: 40, h: 60 }} freightClass={100} lane={{ origin: \"LAX\", destination: \"SFO\" }} />;\n}",
+  "testChildren": ""
+}

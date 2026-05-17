@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tree-view",
+  "title": "Tree View",
+  "description": "Hierarchical node list. File tree, nav tree, org chart.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/tree-view/examples/primary.tsx",
+      "content": "// Lumen TreeView — Web React example. Static skeleton — wire to recursive data.\n\n\"use client\";\n\nimport { ChevronRight, Folder, FileText } from \"lucide-react\";\nimport { ReactNode, useState } from \"react\";\n\nexport type TreeNode = {\n  id: string;\n  label: string;\n  icon?: ReactNode;\n  children?: TreeNode[];\n};\n\nexport function TreeView({\n  items,\n  selectedId,\n  onSelect,\n  density = \"compact\",\n  indent = 16,\n}: {\n  items: TreeNode[];\n  selectedId?: string;\n  onSelect?: (id: string) => void;\n  density?: \"compact\" | \"regular\";\n  indent?: number;\n}) {\n  return (\n    <ul role=\"tree\" className=\"text-[var(--type-label-md)]\">\n      {items.map((node, i) => (\n        <TreeItem\n          key={node.id}\n          node={node}\n          level={0}\n          posInSet={i + 1}\n          setSize={items.length}\n          selectedId={selectedId}\n          onSelect={onSelect}\n          density={density}\n          indent={indent}\n        />\n      ))}\n    </ul>\n  );\n}\n\nfunction TreeItem({\n  node, level, posInSet, setSize, selectedId, onSelect, density, indent,\n}: {\n  node: TreeNode;\n  level: number;\n  posInSet: number;\n  setSize: number;\n  selectedId?: string;\n  onSelect?: (id: string) => void;\n  density: \"compact\" | \"regular\";\n  indent: number;\n}) {\n  const [open, setOpen] = useState(false);\n  const isSelected = node.id === selectedId;\n  const hasChildren = !!node.children?.length;\n  const Icon = node.icon ?? (hasChildren ? <Folder size={12} aria-hidden /> : <FileText size={12} aria-hidden />);\n\n  return (\n    <li role=\"none\">\n      <div\n        role=\"treeitem\"\n        aria-level={level + 1}\n        aria-posinset={posInSet}\n        aria-setsize={setSize}\n        aria-expanded={hasChildren ? open : undefined}\n        aria-selected={isSelected}\n        tabIndex={isSelected ? 0 : -1}\n        onClick={() => { onSelect?.(node.id); if (hasChildren) setOpen((o) => !o); }}\n        className={[\n          \"flex items-center gap-1 cursor-default select-none\",\n          density === \"compact\" ? \"h-7\" : \"h-9\",\n          \"rounded-[var(--radius-control-sm)] px-1\",\n          \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n          isSelected ? \"bg-[var(--color-action-selected-bg)] text-[var(--color-action-selected-fg)]\" : \"text-[var(--color-text-primary)] hover:bg-[var(--color-action-ghost-bg-hover)]\",\n          \"transition-colors duration-[var(--motion-duration-fast)]\",\n        ].join(\" \")}\n        style={{ paddingLeft: indent * level + 4 }}\n      >\n        {hasChildren ? (\n          <ChevronRight\n            size={12}\n            aria-hidden\n            className={[\n              \"shrink-0 text-[var(--color-text-tertiary)] transition-transform duration-[var(--motion-duration-fast)]\",\n              open ? \"rotate-90\" : \"\",\n            ].join(\" \")}\n          />\n        ) : (\n          <span className=\"w-3 shrink-0\" />\n        )}\n        <span aria-hidden className=\"text-[var(--color-text-tertiary)]\">{Icon}</span>\n        <span className=\"truncate\">{node.label}</span>\n      </div>\n      {hasChildren && open && (\n        <ul role=\"group\">\n          {node.children!.map((child, i) => (\n            <TreeItem\n              key={child.id}\n              node={child}\n              level={level + 1}\n              posInSet={i + 1}\n              setSize={node.children!.length}\n              selectedId={selectedId}\n              onSelect={onSelect}\n              density={density}\n              indent={indent}\n            />\n          ))}\n        </ul>\n      )}\n    </li>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/tree-view.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/tree-view/component.json",
+    "docsPath": "design-system/02-components/tree-view/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

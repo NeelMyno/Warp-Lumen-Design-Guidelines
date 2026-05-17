@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "mode-scope",
+  "title": "ModeScope",
+  "description": "Sets data-mode='restrained' | 'expressive' on a container so descendants resolve mode-aware Lumen semantic tokens. The single source-of-truth for switching Lumen modes. Components are mode-agnostic; semantic surface / atmosphere / motion tokens rebind under the scope.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/mode-scope/examples/primary.tsx",
+      "content": "// Lumen ModeScope — v0.13 Phase 1 reference implementation.\n// Tokens come from /dist/css/lumen.css + /dist/css/lumen.expressive.css + /dist/css/lumen.scoping.css.\n// Import all three in your app's global stylesheet for the mode rebinds to resolve.\nimport type { ReactNode } from \"react\";\n\nexport type LumenMode = \"restrained\" | \"expressive\";\n\nexport interface ModeScopeProps {\n  /**\n   * The Lumen mode applied to descendants.\n   *\n   * - \"restrained\" (default): dense operator surfaces. Solid obsidian canvas, no atmosphere, no animated mesh.\n   * - \"expressive\": opt-in for landing / marketing / AI / onboarding / empty-state / hero panels. Mesh recipe on surface.hero, ambient gradient on surface.canvas-ambient, mesh-drift animation on motion.atmosphere.\n   *\n   * NEVER pass mode as a prop to any individual component. Mode is a scope attribute, not a per-component variant.\n   * NEVER nest a ModeScope of opposite mode inside another ModeScope.\n   */\n  mode?: LumenMode;\n  /**\n   * HTML element used as the scope container. Default \"div\".\n   * Use \"section\" / \"main\" / \"article\" for semantic page regions.\n   */\n  as?: \"div\" | \"section\" | \"main\" | \"article\";\n  /**\n   * Forwarded to the container element.\n   */\n  className?: string;\n  children: ReactNode;\n}\n\nexport function ModeScope({\n  mode = \"restrained\",\n  as: Component = \"div\",\n  className,\n  children,\n}: ModeScopeProps) {\n  return (\n    <Component data-mode={mode} className={className}>\n      {children}\n    </Component>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/mode-scope.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/mode-scope/component.json",
+    "docsPath": "design-system/02-components/mode-scope/component.md",
+    "skillPath": "design-system/02-components/mode-scope/mode-scope.skill.md",
+    "status": "stable",
+    "warpSignature": false,
+    "modeAware": true,
+    "phase": "v0.13-phase-1"
+  },
+  "type": "registry:ui"
+}

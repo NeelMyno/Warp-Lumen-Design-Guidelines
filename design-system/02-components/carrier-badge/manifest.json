@@ -1,0 +1,69 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "carrier-badge",
+  "title": "CarrierBadge",
+  "description": "Carrier identity chip with logo + rating + vehicle + OTD%.",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "logoSrc",
+      "type": "string"
+    },
+    {
+      "name": "vehicle",
+      "type": "enum"
+    },
+    {
+      "name": "rating",
+      "type": "number"
+    },
+    {
+      "name": "otdPct",
+      "type": "number"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "md"
+    },
+    {
+      "name": "compact",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "default",
+    "compact",
+    "with-logo"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.warn.bg",
+    "pill.warn.fg",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "radius.md"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "aria-label='Carrier: {name}, {vehicle}, {rating} stars, {otdPct}% on-time'."
+    ]
+  },
+  "usage": "import { CarrierBadge } from \"@/components/ui/carrier-badge\";\n\nexport function Example() {\n  return <CarrierBadge name=\"Sterling LTL\" vehicle=\"LTL\" rating={4.6} otdPct={97.8} />;\n}",
+  "storiesPath": "02-components/carrier-badge/carrier-badge.stories.tsx",
+  "sourcePath": "02-components/carrier-badge/carrier-badge.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

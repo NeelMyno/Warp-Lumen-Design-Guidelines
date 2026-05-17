@@ -1,0 +1,49 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "filter-builder",
+  "title": "FilterBuilder",
+  "description": "Query-DSL editor with operator chip rows + composable AND/OR groups.",
+  "props": [
+    {
+      "name": "fields",
+      "type": "Field[]"
+    },
+    {
+      "name": "value",
+      "type": "Filter[]"
+    },
+    {
+      "name": "onChange",
+      "type": "(v: Filter[]) => void"
+    }
+  ],
+  "variants": [
+    "default",
+    "with-or-group"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "border.default",
+    "radius.md",
+    "space.2",
+    "space.3"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Each row is a labeled group with role=group + aria-label='Filter row N'.",
+      "Add/remove buttons have descriptive aria-labels.",
+      "Use semantic HTML — <fieldset> for the whole builder."
+    ]
+  },
+  "usage": "import { FilterBuilder } from \"@/components/ui/filter-builder\";\n\nexport function Example() {\n  return <FilterBuilder fields={[{ value: \"lane\", label: \"Lane\", type: \"text\" }]} />;\n}",
+  "storiesPath": "02-components/filter-builder/filter-builder.stories.tsx",
+  "sourcePath": "02-components/filter-builder/filter-builder.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utils",
+  "type": "registry:lib",
+  "title": "Lumen cn() utility",
+  "description": "The canonical shadcn class merger — clsx + tailwind-merge. Every Lumen component imports `cn` from `@/lib/utils`. Installed automatically as a registryDependency.",
+  "dependencies": ["clsx", "tailwind-merge"],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/_lib/utils.ts",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "REG",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "font-satoshi",
+  "type": "registry:lib",
+  "title": "Satoshi Variable (Lumen single typeface)",
+  "description": "Self-hosted Satoshi Variable + Italic — the only typeface in the Lumen system (ITF-FFL: free for commercial use; do not redistribute the font files in any public repo). Variable axis 300–900 covers UI, display, numerics (tnum + zero on), and code (mono-tracked cap variant). Shadcn 4 `registry:font` is google-fonts-only; Satoshi is self-hosted, so we ship as `registry:lib` with the woff2 files + a sibling @font-face declaration baked into `@lumen/tokens`.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "audit-dashboard/src/fonts/Satoshi-Variable.woff2",
+      "type": "registry:file",
+      "target": "public/fonts/Satoshi-Variable.woff2"
+    },
+    {
+      "path": "audit-dashboard/src/fonts/Satoshi-VariableItalic.woff2",
+      "type": "registry:file",
+      "target": "public/fonts/Satoshi-VariableItalic.woff2"
+    },
+    {
+      "path": "audit-dashboard/src/fonts/SATOSHI-LICENSE.txt",
+      "type": "registry:file",
+      "target": "public/fonts/SATOSHI-LICENSE.txt"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "font-sans": "'Satoshi Variable', system-ui, sans-serif",
+      "font-mono": "'Satoshi Variable', ui-monospace, monospace"
+    }
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "REG",
+    "license": "ITF-FFL (self-hosted; do not redistribute)",
+    "phase": "v0.13-phase-2",
+    "selfHosted": true,
+    "fontFamily": "'Satoshi Variable', system-ui, sans-serif",
+    "fontVariable": "--font-sans",
+    "weightRange": "300 900",
+    "styles": ["normal", "italic"]
+  }
+}

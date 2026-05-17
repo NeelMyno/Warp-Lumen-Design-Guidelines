@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "bottom-nav",
+  "title": "Bottom Nav",
+  "description": "Mobile-only bottom navigation rail. 3-5 items. Active = top-edge accent stroke.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/bottom-nav/examples/primary.tsx",
+      "content": "// Lumen BottomNav — Web React example. 3-5 items. safe-area padding.\n\nimport { ReactNode } from \"react\";\n\nexport type BottomNavItem = {\n  id: string;\n  label: string;\n  icon: ReactNode;\n  badge?: number | string;\n};\n\nexport function BottomNav({\n  items,\n  activeId,\n  onActiveChange,\n  showLabels = true,\n  elevation = \"border\",\n}: {\n  items: BottomNavItem[];\n  activeId: string;\n  onActiveChange: (id: string) => void;\n  showLabels?: boolean;\n  elevation?: \"border\" | \"shadow\";\n}) {\n  return (\n    <nav\n      aria-label=\"Bottom navigation\"\n      className={[\n        \"fixed inset-x-0 bottom-0 z-[var(--z-nav,30)]\",\n        \"bg-[var(--color-surface-page)]\",\n        elevation === \"border\" ? \"border-t border-[var(--color-border-hairline)]\" : \"shadow-[var(--shadow-elevation-md)]\",\n        \"pb-[max(env(safe-area-inset-bottom),0px)]\",\n      ].join(\" \")}\n    >\n      <ul role=\"list\" className=\"grid grid-cols-5 h-14\">\n        {items.slice(0, 5).map((item) => {\n          const active = item.id === activeId;\n          return (\n            <li key={item.id} className={items.length < 5 && items.length > 3 ? `col-span-${5 / items.length}` : \"\"}>\n              <button\n                type=\"button\"\n                onClick={() => onActiveChange(item.id)}\n                aria-current={active ? \"page\" : undefined}\n                aria-label={showLabels ? undefined : item.label}\n                className={[\n                  \"relative w-full h-full flex flex-col items-center justify-center gap-0.5\",\n                  \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:shadow-[var(--shadow-focus)]\",\n                  active\n                    ? \"text-[var(--color-text-accent)]\"\n                    : \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]\",\n                  \"transition-colors duration-[var(--motion-duration-fast)]\",\n                ].join(\" \")}\n              >\n                {active && (\n                  <span aria-hidden className=\"absolute top-0 left-1/4 right-1/4 h-0.5 rounded-b-full bg-[var(--color-accent-500)]\" />\n                )}\n                <span className=\"relative\">\n                  <span className=\"inline-block w-5 h-5\">{item.icon}</span>\n                  {item.badge !== undefined && (\n                    <span\n                      aria-hidden\n                      className=\"absolute -top-1 -right-2 lumen-tnum rounded-full bg-[var(--color-accent-500)] text-[var(--color-text-on-accent,var(--color-accent-fg))] text-[10px] px-1 leading-4 min-w-4 text-center\"\n                    >\n                      {item.badge}\n                    </span>\n                  )}\n                </span>\n                {showLabels && (\n                  <span className=\"text-[10px] font-medium\">{item.label}</span>\n                )}\n              </button>\n            </li>\n          );\n        })}\n      </ul>\n    </nav>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/bottom-nav.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/bottom-nav/component.json",
+    "docsPath": "design-system/02-components/bottom-nav/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

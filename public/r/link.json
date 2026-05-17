@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link",
+  "title": "Link",
+  "description": "Inline text link. Always <a>. Three appearances. External-link safety. Three underline modes.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/link/examples/primary.tsx",
+      "content": "// Lumen Link — Web React example.\n// Always renders <a>. For routing-aware links wire via asChild → Next Link / RR Link.\n\nimport { ExternalLink } from \"lucide-react\";\nimport { ReactNode } from \"react\";\n\ntype Appearance = \"default\" | \"subtle\" | \"accent\";\ntype Underline = \"always\" | \"hover\" | \"none\";\ntype Size = \"inherit\" | \"sm\" | \"md\" | \"lg\";\n\nconst APPEARANCE: Record<Appearance, string> = {\n  default: \"text-[var(--color-text-primary)]\",\n  subtle:  \"text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]\",\n  accent:  \"text-[var(--color-text-accent)]\",\n};\n\nconst UNDERLINE: Record<Underline, string> = {\n  always: \"underline underline-offset-[3px] decoration-1\",\n  hover:  \"no-underline hover:underline hover:underline-offset-[3px] hover:decoration-1\",\n  none:   \"no-underline\",\n};\n\nconst SIZE: Record<Size, string> = {\n  inherit: \"\",\n  sm: \"text-[var(--type-label-sm)]\",\n  md: \"text-[var(--type-label-md)]\",\n  lg: \"text-[var(--type-label-lg)]\",\n};\n\nexport type LumenLinkProps = {\n  href: string;\n  children: ReactNode;\n  appearance?: Appearance;\n  external?: boolean;\n  underline?: Underline;\n  size?: Size;\n  onClick?: () => void;\n  className?: string;\n};\n\nexport function LumenLink({\n  href,\n  children,\n  appearance = \"default\",\n  external = false,\n  underline = \"hover\",\n  size = \"inherit\",\n  onClick,\n  className,\n}: LumenLinkProps) {\n  const externalProps = external\n    ? { target: \"_blank\", rel: \"noreferrer noopener\", \"aria-label\": typeof children === \"string\" ? `${children}, opens in new tab` : undefined }\n    : {};\n  return (\n    <a\n      href={href}\n      onClick={onClick}\n      {...externalProps}\n      className={[\n        \"inline-flex items-center gap-[var(--space-inline-xs)]\",\n        APPEARANCE[appearance],\n        UNDERLINE[underline],\n        SIZE[size],\n        \"rounded-[2px] -m-[1px] p-[1px]\",\n        \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1\",\n        \"focus-visible:shadow-[var(--shadow-focus)]\",\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n        className ?? \"\",\n      ].join(\" \")}\n    >\n      <span>{children}</span>\n      {external && <ExternalLink aria-hidden size={12} className=\"opacity-70\" />}\n    </a>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/link.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/link/component.json",
+    "docsPath": "design-system/02-components/link/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

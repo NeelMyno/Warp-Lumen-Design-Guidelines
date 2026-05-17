@@ -1,0 +1,54 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "date-picker",
+  "title": "DatePicker",
+  "description": "Input + popover-calendar composite for single date or range.",
+  "props": [
+    {
+      "name": "value",
+      "type": "Date | DateRange"
+    },
+    {
+      "name": "onChange",
+      "type": "(v) => void"
+    },
+    {
+      "name": "mode",
+      "type": "enum",
+      "default": "single"
+    },
+    {
+      "name": "format",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "single",
+    "range"
+  ],
+  "tokensConsumed": [
+    "surface.input.rest",
+    "surface.popover",
+    "border.default",
+    "border.focus",
+    "text.primary",
+    "text.placeholder",
+    "shadow.input.lit-edge",
+    "shadow.input.focus",
+    "shadow.popover",
+    "radius.md"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Calendar a11y inherited from react-day-picker.",
+      "Trigger button has aria-haspopup=dialog.",
+      "Format the date in aria-label for screen readers."
+    ]
+  },
+  "usage": "import { DatePicker } from \"@/components/ui/date-picker\";\n\nexport function Example() {\n  return <DatePicker placeholder=\"Pickup date\" />;\n}",
+  "storiesPath": "02-components/date-picker/date-picker.stories.tsx",
+  "sourcePath": "02-components/date-picker/date-picker.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

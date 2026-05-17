@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lane-arc",
+  "title": "LaneArc",
+  "description": "SVG lane arc with mount-time draw-in animation.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/lane-arc/lane-arc.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/lane-arc — v0.13 Phase 2 freight-domain primitive.\n * ----------------------------------------------------------------------------\n * SVG arc renderer with mount-time draw-in via stroke-dasharray. Honors\n * prefers-reduced-motion (renders instantly).\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype Pt = { x: number; y: number };\n\nfunction resolveCoord(c: number, total: number): number {\n  return c <= 1 ? c * total : c;\n}\n\nexport function LaneArc({\n  start,\n  end,\n  curve = 0.3,\n  width = 320,\n  height = 160,\n  color = \"var(--color-accent)\",\n  animated = true,\n  label,\n  className,\n}: {\n  start: Pt;\n  end: Pt;\n  curve?: number;\n  width?: number;\n  height?: number;\n  color?: string;\n  animated?: boolean;\n  label?: string;\n  className?: string;\n}) {\n  const x1 = resolveCoord(start.x, width);\n  const y1 = resolveCoord(start.y, height);\n  const x2 = resolveCoord(end.x, width);\n  const y2 = resolveCoord(end.y, height);\n  // Quadratic Bezier control point — perpendicular offset at midpoint.\n  const mx = (x1 + x2) / 2;\n  const my = (y1 + y2) / 2;\n  const dx = x2 - x1;\n  const dy = y2 - y1;\n  const len = Math.hypot(dx, dy);\n  const nx = -dy / len;\n  const ny = dx / len;\n  const offset = len * curve;\n  const cx = mx + nx * offset;\n  const cy = my + ny * offset;\n  const path = `M${x1},${y1} Q${cx},${cy} ${x2},${y2}`;\n  const dash = Math.ceil(Math.PI * Math.hypot(cx - x1, cy - y1));\n\n  return (\n    <svg\n      data-slot=\"lane-arc\"\n      role=\"img\"\n      aria-label={label ?? \"Lane arc\"}\n      width={width}\n      height={height}\n      viewBox={`0 0 ${width} ${height}`}\n      className={cn(\"block\", className)}\n    >\n      <defs>\n        <marker id=\"lumen-lane-arc-end\" markerWidth=\"6\" markerHeight=\"6\" refX=\"4\" refY=\"3\" orient=\"auto\">\n          <path d=\"M0,0 L6,3 L0,6 Z\" fill={color} />\n        </marker>\n      </defs>\n      {/* base ground line — faint */}\n      <line x1=\"0\" y1={height - 1} x2={width} y2={height - 1} stroke=\"var(--surface-sunken)\" strokeWidth=\"1\" />\n\n      {/* arc — animated draw-in via stroke-dasharray */}\n      <path\n        d={path}\n        fill=\"none\"\n        stroke={color}\n        strokeWidth=\"1.5\"\n        strokeLinecap=\"round\"\n        markerEnd=\"url(#lumen-lane-arc-end)\"\n        style={{\n          strokeDasharray: dash,\n          strokeDashoffset: animated ? dash : 0,\n          animation: animated ? \"lumen-lane-arc-draw 1200ms cubic-bezier(0.2,0,0,1) forwards\" : \"none\",\n        }}\n      />\n      {/* origin marker */}\n      <circle cx={x1} cy={y1} r=\"3\" fill={color} />\n      <circle cx={x1} cy={y1} r=\"6\" fill=\"none\" stroke={color} strokeWidth=\"1\" opacity=\"0.4\" />\n      {/* destination marker */}\n      <circle cx={x2} cy={y2} r=\"3\" fill={color} />\n\n      <style>{`\n        @keyframes lumen-lane-arc-draw {\n          to { stroke-dashoffset: 0; }\n        }\n        @media (prefers-reduced-motion: reduce) {\n          path { animation: none !important; stroke-dashoffset: 0 !important; }\n        }\n      `}</style>\n    </svg>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/lane-arc.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native SVG + CSS animation",
+    "specPath": "design-system/02-components/lane-arc/lane-arc.md",
+    "skillPath": "design-system/02-components/lane-arc/lane-arc.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

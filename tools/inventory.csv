@@ -1,0 +1,121 @@
+name,surface,observed_at_path,proposed_registry_name,priority,notes
+button,library/saas/landing/tool/commerce/mobile/desktop,audit-dashboard/src/components/primitives/button.tsx,button,T1,Five sizes × eight intents × three shapes. v0.12.2 glow ladder. Most-used affordance system-wide.
+input,library/saas/tool/commerce,audit-dashboard/src/components/ui/input.tsx,input,T1,Standard text input. Composes inside Field. v0.6 shell system.
+textarea,library/saas/tool,audit-dashboard/src/components/ui/textarea.tsx,textarea,T1,Multi-line input. Auto-resize via field-sizing-content per ADR.
+card,library/saas/landing/tool/commerce/mobile/desktop,audit-dashboard/src/components/primitives/card.tsx,card,T1,Surface raised. v0.12.4 corner-clip contract.
+sheet,library/saas/tool,audit-dashboard/src/components/ui/sheet.tsx,sheet,T1,Side-anchored panel. Built on Radix Dialog.
+popover,library/saas/tool,audit-dashboard/src/components/ui/popover.tsx,popover,T1,Floating panel — portaled per ADR 0021.
+tooltip,library/saas/tool,audit-dashboard/src/components/primitives/tooltip.tsx,tooltip,T1,Brand tooltip with delay + arrow.
+toast,library/saas,sonner via audit-dashboard,toast,T1,Sonner integration. Six health states.
+badge,library/saas/landing/tool,audit-dashboard/src/components/primitives/badge.tsx,badge,T1,Status pill. Pair-only color use.
+tag,library/saas,audit-dashboard/src/components/primitives/badge.tsx,tag,T1,Adjacent to Badge — input/filter tag with onClose.
+avatar,library/saas/landing,audit-dashboard/src/components/primitives/avatar.tsx,avatar,T1,User + carrier identity. Initials fallback.
+skeleton,library/saas/tool,audit-dashboard/src/components/primitives/skeleton.tsx,skeleton,T1,Loading placeholder. Honors prefers-reduced-motion.
+spinner,library/saas/tool,audit-dashboard/src/components/primitives/spinner.tsx,spinner,T1,Determinate + indeterminate loop. Accent only.
+tabs,library/saas/tool/commerce,audit-dashboard/src/components/ui/tabs.tsx,tabs,T1,Primary + segmented + inline variants.
+breadcrumb,library/saas/tool/commerce,audit-dashboard/src/components/primitives/breadcrumb.tsx,breadcrumb,T1,Crumbs with overflow collapse.
+switch,library/saas/tool/commerce,audit-dashboard/src/components/ui/switch.tsx,switch,T1,Toggle with inline-style thumb math (ADR 0019).
+checkbox,library/saas/tool/commerce,audit-dashboard/src/components/ui/checkbox.tsx,checkbox,T1,Tri-state. Lime accent on checked.
+radio,library/saas/tool/commerce,audit-dashboard/src/components/ui/radio-group.tsx,radio,T1,Radio group. Single-select.
+slider,library/saas/tool/commerce,audit-dashboard/src/components/ui/slider.tsx,slider,T1,Single + range. Inline-style thumb math.
+progress,library/saas/tool/commerce,audit-dashboard/src/components/primitives/progress.tsx,progress,T1,Bar + ring variants. Honors reduced-motion.
+data-table,library/saas/tool/desktop,02-components/table + audit-dashboard,data-table,T2,Virtualized via TanStack. Consumer brings data; Lumen brings chrome.
+command-palette,library/saas/tool/landing,audit-dashboard/src/components/primitives/command-palette.tsx,command-palette,T2,cmdk-powered. ⌘K trigger.
+drawer,library/saas/tool/mobile,02-components/drawer,drawer,T2,Mobile bottom-sheet + desktop side-drawer.
+modal,library/saas/tool/landing,audit-dashboard/src/components/ui/dialog.tsx,modal,T2,Built on dialog. Confirmation + form modal patterns.
+dropdown-menu,library/saas/tool,audit-dashboard/src/components/ui/dropdown-menu.tsx,dropdown-menu,T2,Menu with submenus + groups.
+combobox,library/saas/tool/commerce,02-components/combobox,combobox,T2,Searchable select. Portaled per ADR 0021.
+calendar,library/saas/tool,audit-dashboard/src/components/ui/calendar (react-day-picker),calendar,T2,react-day-picker wrapper. Month + range.
+date-picker,library/saas/tool/commerce,02-components/date-picker,date-picker,T2,Field + popover composite.
+filter-builder,library/saas/tool,NEW,filter-builder,T2,Query DSL editor — operator/value chip rows.
+filter-chip,library/saas/tool,02-components/segmented + filter-builder,filter-chip,T2,Dismissible chip in filter rows.
+saved-view,library/saas/tool,NEW,saved-view,T2,Named query state with diff + share.
+sidebar,library/saas/tool/desktop,02-components/sidebar,sidebar,T2,Multi-level nav. Collapsible.
+top-bar,library/saas/tool/desktop,audit-dashboard/src/components/dashboard-shell.tsx,top-bar,T2,Brand mark + global search + user menu.
+pagination,library/saas/tool/commerce,02-components/pagination,pagination,T2,Page numbers + first/prev/next/last + jump.
+select,library/saas/tool/commerce,audit-dashboard/src/components/ui/select.tsx,select,T2,Single-select dropdown. Radix-based.
+stat,library/saas/landing/tool/commerce/mobile,audit-dashboard/src/components/primitives/stat.tsx,stat,T3-SIG,Big numeric + delta pill + sparkline. SIGNATURE.
+live-dot,library/saas/landing/tool/commerce,audit-dashboard/src/components/primitives/live-dot.tsx,live-dot,T3-SIG,3s pulse loop. Six health states. SIGNATURE.
+rate-ticker,library/saas/landing,audit-dashboard/src/components/primitives/rate-ticker.tsx,rate-ticker,T3-SIG,Linear marquee. Pausable on hover. SIGNATURE.
+lane-code,library/saas/tool/commerce/landing,NEW,lane-code,T4,Lane code (LAX→SFO) + optional inline rate. Mono numerics.
+lane-arc,library/saas/tool/landing,NEW,lane-arc,T4,SVG arc over base map. Animated draw-in on mount.
+shipment-timeline,library/saas/tool/commerce,NEW,shipment-timeline,T4,Vertical timeline: pickup → cross-dock → line haul → last mile. ETA bubbles.
+route-map,library/saas/tool,NEW,route-map,T4,Bounded map embed. Lane overlays + markers.
+dock-bay,library/saas/tool,NEW,dock-bay,T4,Grid of dock cards. Open / occupied / reserved.
+cross-dock-grid,library/saas/tool,NEW,cross-dock-grid,T4,Top-down floor with pallet cells. Color-coded by lane.
+carrier-badge,library/saas/landing/tool,NEW,carrier-badge,T4,Carrier identity chip. Logo + rating + on-time %.
+pallet-tile,library/saas/tool/commerce,NEW,pallet-tile,T4,Pallet card. Weight + dims + hazmat + class.
+otr-truck-iso,landing/library,NEW,otr-truck-iso,T4,Reusable isometric truck illustration. Consumes Phase 4 SVG.
+quote-builder,saas/tool/landing,NEW,quote-builder,T4,Lane input + weight + accessorials + rate output. Composite.
+accordion,library/saas/tool,02-components/accordion,accordion,EXT,Existing v0.12.6 contract. Registered through legacy _registry sidecar.
+action-sheet,library/mobile,02-components/action-sheet,action-sheet,EXT,
+ai-badge,library/saas/landing,02-components/ai-badge,ai-badge,EXT,
+ai-prompt-input,library/saas/landing,02-components/ai-prompt-input,ai-prompt-input,EXT,Deferred to Phase 5 expansion (AI Elements naming alignment).
+ai-suggestion,library/saas/landing,02-components/ai-suggestion,ai-suggestion,EXT,Deferred to Phase 5 expansion.
+alert,library/saas/tool,02-components/alert,alert,EXT,
+banner,library/saas/landing,02-components/banner,banner,EXT,
+bottom-nav,library/mobile,02-components/bottom-nav,bottom-nav,EXT,
+button-group,library/saas/tool,02-components/button-group,button-group,EXT,
+carousel,library/landing/commerce,02-components/carousel,carousel,EXT,
+cart-drawer,library/commerce,02-components/cart-drawer,cart-drawer,EXT,
+chart,library/saas/tool,02-components/chart,chart,EXT,Recharts wrapper. Phase 5 alignment with AI surfaces.
+chat-bubble,library/saas/landing,02-components/chat-bubble,chat-bubble,EXT,Deferred to Phase 5 (Message alignment).
+citation-card,library/saas/landing,02-components/citation-card,citation-card,EXT,Anthropic Citations JSON shape. Phase 5 expansion.
+coach-mark,library/mobile,02-components/coach-mark,coach-mark,EXT,
+code-block,library/saas/tool,02-components/code-block,code-block,EXT,Satoshi tnum + zero.
+color-picker,library/saas,02-components/color-picker,color-picker,EXT,
+command-palette-button,library/saas/tool,02-components/command-palette-button,command-palette-button,EXT,Trigger button — companion to command-palette.
+comment-thread,library/saas,02-components/comment-thread,comment-thread,EXT,
+copy-button,library/saas/tool,02-components/copy-button,copy-button,EXT,
+data-grid,library/saas/tool,02-components/data-grid,data-grid,EXT,v0.12.6 grid — kept alongside new data-table.
+dialog,library/saas/tool/landing,02-components/dialog,dialog,EXT,Underlying primitive for modal.
+divider,library/saas/tool,02-components/divider,divider,EXT,
+empty-state,library/saas/tool/commerce,02-components/empty-state,empty-state,EXT,
+fab,library/mobile,02-components/fab,fab,EXT,
+field,library/saas/tool,02-components/field,field,EXT,v0.6 form-shell.
+file-dropzone,library/saas/tool,02-components/file-dropzone,file-dropzone,EXT,
+form,library/saas/tool,02-components/form,form,EXT,react-hook-form binding per ADR 0013.
+icon-button,library/saas/tool,02-components/icon-button,icon-button,EXT,
+inventory-status,library/commerce,02-components/inventory-status,inventory-status,EXT,
+kanban,library/saas,02-components/kanban,kanban,EXT,
+kbd,library/saas/tool,02-components/kbd,kbd,EXT,Keyboard shortcut chip.
+kpi-card,library/saas,02-components/kpi-card,kpi-card,EXT,Stat + label + delta composite.
+link,library/saas/landing,02-components/link,link,EXT,
+list,library/saas/mobile,02-components/list,list,EXT,
+logo-cloud,library/landing,02-components/logo-cloud,logo-cloud,EXT,
+mode-scope,every surface,02-components/mode-scope,mode-scope,T0,v0.13 Phase 1 — already shipped.
+navbar,library/saas/landing/desktop,02-components/navbar,navbar,EXT,Kept alongside new top-bar.
+notification-center,library/saas,02-components/notification-center,notification-center,EXT,
+number-input,library/saas/tool/commerce,02-components/number-input,number-input,EXT,
+otp-input,library/saas/commerce,02-components/otp-input,otp-input,EXT,
+panel,library/saas/tool,02-components/panel,panel,EXT,
+password-input,library/saas/commerce,02-components/password-input,password-input,EXT,
+permission-prompt,library/mobile,02-components/permission-prompt,permission-prompt,EXT,
+phone-frame,library/mobile,02-components/phone-frame,phone-frame,EXT,Mobile device chrome.
+presence-indicator,library/saas,02-components/presence-indicator,presence-indicator,EXT,
+pricing-card,library/landing,02-components/pricing-card,pricing-card,EXT,v0.12.5 peak-end lift.
+pull-to-refresh,library/mobile,02-components/pull-to-refresh,pull-to-refresh,EXT,
+radio-group,library/saas/tool/commerce,02-components/radio-group,radio-group,EXT,Underlying primitive for radio.
+range-slider,library/saas/tool,02-components/range-slider,range-slider,EXT,
+reaction-bar,library/saas,02-components/reaction-bar,reaction-bar,EXT,
+search-field,library/saas/tool/commerce,02-components/search-field,search-field,EXT,
+segmented,library/saas/tool/commerce,02-components/segmented,segmented,EXT,
+sparkline,library/saas/landing,02-components/sparkline,sparkline,EXT,Companion to Stat. v0.11.17 fluid scaling.
+split-button,library/saas/tool,02-components/split-button,split-button,EXT,
+snackbar,library/mobile,02-components/snackbar,snackbar,EXT,Mobile-anchored toast.
+status-bar,library/mobile,02-components/status-bar,status-bar,EXT,
+stepper,library/saas/tool/commerce,02-components/stepper,stepper,EXT,
+swipe-action,library/mobile,02-components/swipe-action,swipe-action,EXT,
+table,library/saas/tool/commerce,02-components/table,table,EXT,Static-render data table.
+tags-input,library/saas/tool,02-components/tags-input,tags-input,EXT,Adjacent to tag.
+testimonial-card,library/landing,02-components/testimonial-card,testimonial-card,EXT,
+time-picker,library/saas/tool,02-components/time-picker,time-picker,EXT,
+timeline,library/saas/tool,02-components/timeline,timeline,EXT,General-purpose timeline (vs shipment-timeline freight-domain).
+toggle,library/saas/tool,02-components/toggle,toggle,EXT,
+toolbar,library/saas/tool,02-components/toolbar,toolbar,EXT,
+tree-view,library/saas/tool,02-components/tree-view,tree-view,EXT,
+trend,library/saas/tool,02-components/trend,trend,EXT,Up/down arrow + delta chip.
+validation-message,library/saas/tool,02-components/validation-message,validation-message,EXT,Field error/warning/info row.
+lumen-base,registry-only,registry/lumen-base,lumen-base,REG,registry:base — single-payload install of the whole system.
+font-satoshi,registry-only,registry/font-satoshi,font-satoshi,REG,registry:font — Satoshi Variable + Italic woff2.
+tokens,registry-only,registry/tokens,tokens,REG,registry:style — dist/css/lumen.css token graph.

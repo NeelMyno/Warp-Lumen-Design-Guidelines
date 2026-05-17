@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "live-dot",
+  "title": "LiveDot",
+  "description": "Filled dot + ring pulse. Warp SIGNATURE — never decorative.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/live-dot/live-dot.tsx",
+      "content": "/**\n * @lumen/live-dot — v0.13 Phase 2 canonical implementation (preserves v0.12 behavior).\n * ----------------------------------------------------------------------------\n * SIGNATURE primitive. Filled dot + 1.5px ring that pulses outward on a 3s loop.\n * Honors prefers-reduced-motion (ring becomes static).\n */\nimport * as React from \"react\";\n\nexport function LiveDot({\n  label,\n  color = \"var(--color-accent)\",\n  size = 8,\n  hideLabel = false,\n}: {\n  label?: string;\n  color?: string;\n  size?: number;\n  hideLabel?: boolean;\n}) {\n  return (\n    <span data-slot=\"live-dot\" className=\"inline-flex items-center gap-2 align-middle\">\n      <span className=\"relative inline-block shrink-0\" style={{ width: size, height: size }}>\n        <span className=\"absolute inset-0 rounded-full\" style={{ background: color }} />\n        <span\n          aria-hidden\n          className=\"absolute inset-0 rounded-full lumen-live-dot-pulse\"\n          style={{ border: `1.5px solid ${color}` }}\n        />\n      </span>\n      {label && !hideLabel && (\n        <span className=\"text-[length:var(--type-11)] text-[color:var(--text-secondary)] font-semibold whitespace-nowrap tracking-[var(--tracking-wider)] uppercase\">\n          {label}\n        </span>\n      )}\n      <style>{`\n        @keyframes lumen-live-dot {\n          0%   { transform: scale(1);   opacity: 0.7; }\n          100% { transform: scale(2.4); opacity: 0;   }\n        }\n        .lumen-live-dot-pulse {\n          animation: lumen-live-dot 3s cubic-bezier(0,0,0.2,1) infinite;\n        }\n        @media (prefers-reduced-motion: reduce) {\n          .lumen-live-dot-pulse { animation: none; }\n        }\n      `}</style>\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/live-dot.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T3-SIG",
+    "category": "feedback",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": true,
+    "builtOn": "Native composition + keyframe animation",
+    "specPath": "design-system/02-components/live-dot/live-dot.md",
+    "skillPath": "design-system/02-components/live-dot/live-dot.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

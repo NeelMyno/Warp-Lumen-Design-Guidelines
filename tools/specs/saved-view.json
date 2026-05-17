@@ -1,0 +1,49 @@
+{
+  "name": "saved-view",
+  "title": "SavedView",
+  "namedExport": "SavedView",
+  "category": "data",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Named query state with diff + share. Saves a FilterBuilder state under a name. Shows a diff indicator when the current filters differ from the saved state (lime dot). Share via copyable URL. Manage via a popover dropdown — Save / Save as / Rename / Share / Delete.",
+  "description": "Named query state with diff indicator + share URL.",
+  "skillDescription": "Use to persist a FilterBuilder + sort + column state under a name — 'My lanes', 'Q3 shipments', 'Active carriers'. Lime dot indicates unsaved changes. Pair with FilterBuilder.",
+  "builtOn": "Lumen primitives (Button + DropdownMenu + Modal)",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/button", "@lumen/dropdown-menu", "@lumen/modal", "@lumen/input"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "color.accent",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.md"
+  ],
+  "useWhen": ["Operator dashboards with persistent filter sets.", "List views that benefit from named snapshots.", "Team-shared queries (combine with Share URL)."],
+  "anatomy": ["Trigger button (view name + dirty dot)", "Dropdown: list of views + 'Save current' / 'Save as new'", "Save-as Modal (name input + save button)", "Share button (copies URL with view hash)"],
+  "api": [
+    "`views` — { id, name, query }[].",
+    "`currentView` — string (id) | null.",
+    "`isDirty` — boolean.",
+    "`onSelect` — (id: string) => void.",
+    "`onSave` — (name: string) => void.",
+    "`onShare` — (id: string) => void."
+  ],
+  "never": ["NEVER allow duplicate view names without disambiguation.", "NEVER skip the dirty indicator (it's the trust signal).", "NEVER share without explicit user action."],
+  "a11yRules": ["Trigger button has aria-label='Saved views, current: {name}{', unsaved' if dirty}'.", "Dropdown items have descriptive labels.", "Save-as modal has DialogTitle."],
+  "do": ["Show dirty state.", "Provide Save-as.", "Make share explicit."],
+  "dont": ["Don't auto-save on every change.", "Don't share silently."],
+  "related": ["FilterBuilder", "FilterChip", "DataTable", "DropdownMenu"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }, { "name": "Dirty", "args": { "isDirty": true }, "children": "" }],
+  "variants": ["clean", "dirty", "empty"],
+  "propsList": [
+    { "name": "views", "type": "{id, name, query}[]" },
+    { "name": "currentView", "type": "string | null" },
+    { "name": "isDirty", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { SavedView } from \"@/components/ui/saved-view\";\n\nexport function Example() {\n  return (\n    <SavedView\n      views={[{ id: \"1\", name: \"My lanes\", query: {} }]}\n      currentView=\"1\"\n      isDirty\n    />\n  );\n}",
+  "testChildren": ""
+}

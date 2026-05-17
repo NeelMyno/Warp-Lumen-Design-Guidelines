@@ -1,0 +1,54 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "cross-dock-grid",
+  "title": "CrossDockGrid",
+  "description": "Top-down cross-dock floor with color-coded pallet cells.",
+  "props": [
+    {
+      "name": "rows",
+      "type": "number"
+    },
+    {
+      "name": "cols",
+      "type": "number"
+    },
+    {
+      "name": "occupancy",
+      "type": "Occupancy[]"
+    },
+    {
+      "name": "onCellSelect",
+      "type": "(r, c, palletId?) => void"
+    }
+  ],
+  "variants": [
+    "default",
+    "compact"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "lumen.accent.2",
+    "lumen.accent.9",
+    "lumen.cream.2",
+    "lumen.amber.2",
+    "lumen.red.2",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.xs"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Grid uses role=grid; cells role=gridcell.",
+      "Each cell has aria-label='Row {r} col {c}, {occupied?'pallet ' + id + ', lane ' + lane:'empty'}'.",
+      "Keyboard navigation via arrow keys."
+    ]
+  },
+  "usage": "import { CrossDockGrid } from \"@/components/ui/cross-dock-grid\";\n\nexport function Example() {\n  return (\n    <CrossDockGrid\n      rows={6}\n      cols={12}\n      occupancy={[\n        { row: 1, col: 1, palletId: \"PAL-1\", laneId: \"lax-sfo\" },\n        { row: 1, col: 2, palletId: \"PAL-2\", laneId: \"ord-atl\" },\n      ]}\n    />\n  );\n}",
+  "storiesPath": "02-components/cross-dock-grid/cross-dock-grid.stories.tsx",
+  "sourcePath": "02-components/cross-dock-grid/cross-dock-grid.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

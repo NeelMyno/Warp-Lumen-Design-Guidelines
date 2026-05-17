@@ -1,0 +1,77 @@
+{
+  "name": "avatar",
+  "title": "Avatar",
+  "namedExport": "Avatar",
+  "category": "display",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "User or carrier identity tile. Built on Radix Avatar (image with fallback). The Lumen API takes `name` → derives initials + a deterministic palette from a 6-family rotation (accent / cream / amber / red / cream / obsidian). Optional `ring` + `badge` slot. AvatarGroup stacks N avatars with overflow +N pill.",
+  "description": "User / carrier identity tile with initials + deterministic palette fallback.",
+  "skillDescription": "Use for user identity in chrome (top-bar profile), carrier identity in tables (CarrierBadge composes Avatar), AvatarGroup for collaborators on a shipment. The deterministic palette means the same name always produces the same color — recognizable across the app.",
+  "builtOn": "Radix Avatar",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-avatar"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "lumen.accent.2",
+    "lumen.accent.9",
+    "lumen.cream.2",
+    "lumen.cream.9",
+    "lumen.amber.2",
+    "lumen.amber.9",
+    "lumen.red.2",
+    "lumen.red.9",
+    "lumen.obsidian.2",
+    "lumen.obsidian.9",
+    "surface.sunken",
+    "surface.canvas",
+    "border.default",
+    "text.tertiary",
+    "tracking.tight"
+  ],
+  "useWhen": ["User identity in top-bar.", "Carrier logo + initials fallback in shipment tables.", "Collaborator stack (AvatarGroup) on a quote or thread."],
+  "anatomy": [
+    "Avatar root (relative inline-flex)",
+    "AvatarImage (Radix; loads src)",
+    "AvatarFallback (initials over deterministic palette bg)",
+    "Optional badge slot (LiveDot, Spinner, Status pill)",
+    "Optional ring (ring-2 ring-offset-2)"
+  ],
+  "api": [
+    "`name` — required string. Drives initials + palette.",
+    "`size` — xs | sm | md | lg | xl | 2xl.",
+    "`src`, `alt` — image source.",
+    "`badge` — ReactNode (rendered at -right-0.5 -bottom-0.5).",
+    "`ring` — boolean (adds ring-2 with canvas offset)."
+  ],
+  "never": [
+    "NEVER use a random palette per-render. Palette is deterministic by name.",
+    "NEVER omit alt when src is provided.",
+    "NEVER use Avatar for product imagery — use a normal <img>."
+  ],
+  "a11yRules": [
+    "When src is missing, AvatarFallback renders initials; aria-label=name is provided via sr-only span.",
+    "Image alt is required when src is provided.",
+    "Badge slot is decorative — provide its own a11y label."
+  ],
+  "do": ["Always provide name (it's the a11y label).", "Use ring on AvatarGroup members.", "Pair badge with LiveDot for online status."],
+  "dont": ["Don't randomize palette.", "Don't use Avatar for non-identity images."],
+  "related": ["AvatarGroup", "CarrierBadge", "LiveDot"],
+  "stories": [
+    { "name": "Default", "args": { "name": "Avery Mercer" }, "children": "" },
+    { "name": "WithImage", "args": { "name": "Kai Morgan", "src": "/avatar.jpg" }, "children": "" }
+  ],
+  "variants": ["initials", "image", "with-ring", "with-badge"],
+  "propsList": [
+    { "name": "name", "type": "string", "required": true },
+    { "name": "size", "type": "enum", "default": "md" },
+    { "name": "src", "type": "string" },
+    { "name": "alt", "type": "string" },
+    { "name": "badge", "type": "ReactNode" },
+    { "name": "ring", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { Avatar, AvatarGroup } from \"@/components/ui/avatar\";\n\nexport function Example() {\n  return <Avatar name=\"Avery Mercer\" size=\"md\" />;\n}",
+  "testChildren": ""
+}

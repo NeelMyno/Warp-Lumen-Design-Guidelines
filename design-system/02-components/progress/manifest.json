@@ -1,0 +1,63 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "progress",
+  "title": "Progress",
+  "description": "Token-driven determinate progress — bar + Lumen-signature ring.",
+  "props": [
+    {
+      "name": "value",
+      "type": "number"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "default": 100
+    },
+    {
+      "name": "tone",
+      "type": "enum"
+    },
+    {
+      "name": "label",
+      "type": "string"
+    },
+    {
+      "name": "showValue",
+      "type": "boolean"
+    },
+    {
+      "name": "size",
+      "type": "enum | number"
+    }
+  ],
+  "variants": [
+    "bar",
+    "ring"
+  ],
+  "tokensConsumed": [
+    "color.accent",
+    "lumen.accent.6",
+    "lumen.amber.5",
+    "lumen.red.5",
+    "text.tertiary",
+    "text.secondary",
+    "text.primary",
+    "surface.sunken",
+    "space.1_5",
+    "type.12",
+    "type.22"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "ProgressBar — role=progressbar + aria-valuemin/max/now (Radix manages).",
+      "ProgressRing — role=img + aria-label with the value or label.",
+      "Animation honors prefers-reduced-motion."
+    ]
+  },
+  "usage": "import { ProgressBar, ProgressRing } from \"@/components/ui/progress\";\n\nexport function Example() {\n  return (\n    <div className=\"flex gap-4 items-center\">\n      <ProgressBar value={60} showValue />\n      <ProgressRing value={75} size={56} />\n    </div>\n  );\n}",
+  "storiesPath": "02-components/progress/progress.stories.tsx",
+  "sourcePath": "02-components/progress/progress.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "quote-builder",
+  "title": "QuoteBuilder",
+  "description": "Quote-flow composite — lane + weight + accessorials → rate + book.",
+  "props": [
+    {
+      "name": "originOptions",
+      "type": "ComboboxOption[]"
+    },
+    {
+      "name": "destinationOptions",
+      "type": "ComboboxOption[]"
+    },
+    {
+      "name": "onQuote",
+      "type": "(form) => Promise<Quote>"
+    },
+    {
+      "name": "onBook",
+      "type": "() => void"
+    },
+    {
+      "name": "isLoading",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "default",
+    "compact-mobile"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.lg",
+    "space.4",
+    "space.6"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Form wraps in <form>.",
+      "Each input has a Label.",
+      "Quote-in-flight surface uses aria-busy.",
+      "Book button is the form's submit."
+    ]
+  },
+  "usage": "import { QuoteBuilder } from \"@/components/ui/quote-builder\";\n\nexport function Example() {\n  return <QuoteBuilder originOptions={[]} destinationOptions={[]} onQuote={async () => ({ rate: \"$262\", etaIso: \"\" })} />;\n}",
+  "storiesPath": "02-components/quote-builder/quote-builder.stories.tsx",
+  "sourcePath": "02-components/quote-builder/quote-builder.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "top-bar",
+  "type": "registry:ui",
+  "title": "TopBar",
+  "description": "Horizontal app chrome — brand mark + breadcrumb + global search trigger + user menu.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/top-bar/top-bar.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/top-bar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "navigation",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native semantic <header>",
+    "specPath": "design-system/02-components/top-bar/top-bar.md",
+    "skillPath": "design-system/02-components/top-bar/top-bar.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

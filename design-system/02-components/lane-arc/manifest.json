@@ -1,0 +1,66 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "lane-arc",
+  "title": "LaneArc",
+  "description": "SVG lane arc with mount-time draw-in animation.",
+  "props": [
+    {
+      "name": "start",
+      "type": "{x, y}"
+    },
+    {
+      "name": "end",
+      "type": "{x, y}"
+    },
+    {
+      "name": "curve",
+      "type": "number",
+      "default": 0.3
+    },
+    {
+      "name": "width",
+      "type": "number",
+      "default": 320
+    },
+    {
+      "name": "height",
+      "type": "number",
+      "default": 160
+    },
+    {
+      "name": "color",
+      "type": "string"
+    },
+    {
+      "name": "animated",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "label",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default",
+    "curved",
+    "straight"
+  ],
+  "tokensConsumed": [
+    "color.accent",
+    "text.tertiary",
+    "surface.sunken"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "role=img + aria-label='Route from {origin} to {destination}'.",
+      "Honors prefers-reduced-motion (no draw-in)."
+    ]
+  },
+  "usage": "import { LaneArc } from \"@/components/ui/lane-arc\";\n\nexport function Example() {\n  return <LaneArc start={{ x: 0.1, y: 0.8 }} end={{ x: 0.9, y: 0.2 }} label=\"LAX to SFO\" />;\n}",
+  "storiesPath": "02-components/lane-arc/lane-arc.stories.tsx",
+  "sourcePath": "02-components/lane-arc/lane-arc.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

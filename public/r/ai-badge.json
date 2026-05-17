@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-badge",
+  "title": "AI Badge",
+  "description": "Inline AI-generated / summary / confidence / thinking label.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/ai-badge/examples/primary.tsx",
+      "content": "// Lumen AIBadge — Web React example. Four kinds.\n\nimport { Sparkles } from \"lucide-react\";\n\ntype Kind = \"generated\" | \"summary\" | \"confidence\" | \"thinking\";\ntype Size = \"xs\" | \"sm\";\n\nconst SIZE: Record<Size, { box: string; icon: number; type: string }> = {\n  xs: { box: \"h-4 px-1.5\", icon: 10, type: \"text-[10px]\" },\n  sm: { box: \"h-5 px-2\",   icon: 11, type: \"text-[var(--type-eyebrow-mono)]\" },\n};\n\nexport function AIBadge({\n  kind = \"generated\",\n  score,\n  label,\n  size = \"sm\",\n}: {\n  kind?: Kind;\n  score?: number;\n  label?: string;\n  size?: Size;\n}) {\n  const text =\n    label\n      ?? (kind === \"generated\"  ? \"AI generated\"\n        : kind === \"summary\"    ? \"AI summary\"\n        : kind === \"thinking\"   ? \"AI thinking\"\n        : kind === \"confidence\" ? `${Math.round(score ?? 0)}% confidence`\n        : \"AI\");\n  const aria = kind === \"confidence\" ? `AI generated content, ${Math.round(score ?? 0)}% confidence` : `AI ${kind} content`;\n  return (\n    <span\n      role=\"img\"\n      aria-label={aria}\n      className={[\n        \"inline-flex items-center gap-1 align-middle\",\n        SIZE[size].box,\n        SIZE[size].type,\n        \"uppercase tracking-wider rounded-[var(--radius-pill)]\",\n        \"bg-[var(--color-surface-tint-accent)] text-[var(--color-text-accent)]\",\n        kind === \"thinking\" ? \"shadow-[var(--shadow-button-ai-shimmer)] motion-reduce:shadow-none\" : \"\",\n      ].join(\" \")}\n    >\n      <Sparkles size={SIZE[size].icon} aria-hidden />\n      <span>{text}</span>\n      {kind === \"thinking\" && (\n        <span aria-hidden className=\"inline-flex gap-0.5\">\n          <span className=\"size-1 rounded-full bg-current animate-pulse motion-reduce:animate-none\" />\n          <span className=\"size-1 rounded-full bg-current animate-pulse motion-reduce:animate-none\" style={{ animationDelay: \"100ms\" }} />\n          <span className=\"size-1 rounded-full bg-current animate-pulse motion-reduce:animate-none\" style={{ animationDelay: \"200ms\" }} />\n        </span>\n      )}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/ai-badge.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/ai-badge/component.json",
+    "docsPath": "design-system/02-components/ai-badge/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

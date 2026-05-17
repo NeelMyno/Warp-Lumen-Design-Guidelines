@@ -1,0 +1,45 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "Token-driven loading placeholder for content-aware skeleton states.",
+  "props": [
+    {
+      "name": "width",
+      "type": "number | string"
+    },
+    {
+      "name": "height",
+      "type": "number | string",
+      "default": 14
+    },
+    {
+      "name": "rounded",
+      "type": "string",
+      "default": "var(--radius-sm)"
+    }
+  ],
+  "variants": [
+    "default",
+    "circular",
+    "rect"
+  ],
+  "tokensConsumed": [
+    "surface.sunken",
+    "radius.sm",
+    "motion.duration.slower"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "aria-hidden=true (presentational).",
+      "Parent should set aria-busy=true while loading.",
+      "Honors prefers-reduced-motion (drops the pulse animation)."
+    ]
+  },
+  "usage": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport function Example() {\n  return <Skeleton width={120} height={14} />;\n}",
+  "storiesPath": "02-components/skeleton/skeleton.stories.tsx",
+  "sourcePath": "02-components/skeleton/skeleton.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

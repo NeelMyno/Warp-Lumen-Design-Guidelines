@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dock-bay",
+  "type": "registry:ui",
+  "title": "DockBay",
+  "description": "Grid of dock-bay cards with state-coded chrome.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/carrier-badge"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/dock-bay/dock-bay.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/dock-bay.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Card grid composition",
+    "specPath": "design-system/02-components/dock-bay/dock-bay.md",
+    "skillPath": "design-system/02-components/dock-bay/dock-bay.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination",
+  "title": "Pagination",
+  "description": "Token-driven pagination — numbers + nav buttons + ellipsis truncation.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/pagination/pagination.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/pagination — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Page numbers + first / prev / next / last + ellipsis truncation.\n * Active page gets lime accent. Mono-numerics. Mode-agnostic.\n */\nimport * as React from \"react\";\nimport { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nfunction range(start: number, end: number): number[] {\n  const out: number[] = [];\n  for (let i = start; i <= end; i++) out.push(i);\n  return out;\n}\n\nfunction paginate(current: number, total: number, sibling = 1): Array<number | \"ellipsis\"> {\n  const first = 1;\n  const last = total;\n  const left = Math.max(first, current - sibling);\n  const right = Math.min(last, current + sibling);\n  const showLeftEllipsis = left > first + 1;\n  const showRightEllipsis = right < last - 1;\n\n  const items: Array<number | \"ellipsis\"> = [];\n  items.push(first);\n  if (showLeftEllipsis) items.push(\"ellipsis\");\n  for (const p of range(left, right)) {\n    if (p !== first && p !== last) items.push(p);\n  }\n  if (showRightEllipsis) items.push(\"ellipsis\");\n  if (last !== first) items.push(last);\n  return items;\n}\n\nexport type PaginationProps = {\n  currentPage: number;\n  totalPages: number;\n  onPageChange?: (p: number) => void;\n  siblingCount?: number;\n  showFirstLast?: boolean;\n  className?: string;\n};\n\nexport function Pagination({\n  currentPage,\n  totalPages,\n  onPageChange,\n  siblingCount = 1,\n  showFirstLast = true,\n  className,\n}: PaginationProps) {\n  const items = React.useMemo(\n    () => paginate(currentPage, totalPages, siblingCount),\n    [currentPage, totalPages, siblingCount],\n  );\n\n  const canPrev = currentPage > 1;\n  const canNext = currentPage < totalPages;\n\n  const navBtn = (\n    label: string,\n    icon: React.ReactNode,\n    disabled: boolean,\n    onClick: () => void,\n  ) => (\n    <button\n      type=\"button\"\n      aria-label={label}\n      disabled={disabled}\n      aria-disabled={disabled || undefined}\n      onClick={() => !disabled && onClick()}\n      className={cn(\n        \"h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-xs)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-tint-accent)] hover:text-[color:var(--text-primary)] focus-visible:shadow-[var(--shadow-focus)] focus-visible:outline-none disabled:opacity-30 disabled:pointer-events-none\",\n      )}\n    >\n      {icon}\n    </button>\n  );\n\n  return (\n    <nav\n      data-slot=\"pagination\"\n      aria-label=\"Pagination\"\n      className={cn(\"inline-flex items-center gap-1 lumen-tnum\", className)}\n    >\n      {showFirstLast && navBtn(\"First page\", <ChevronsLeft size={14} aria-hidden />, !canPrev, () => onPageChange?.(1))}\n      {navBtn(\"Previous page\", <ChevronLeft size={14} aria-hidden />, !canPrev, () => onPageChange?.(currentPage - 1))}\n      {items.map((it, i) =>\n        it === \"ellipsis\" ? (\n          <span\n            key={`e-${i}`}\n            role=\"presentation\"\n            aria-hidden\n            className=\"h-8 w-8 inline-flex items-center justify-center text-[color:var(--text-tertiary)]\"\n          >\n            <MoreHorizontal size={14} />\n          </span>\n        ) : (\n          <button\n            key={it}\n            type=\"button\"\n            aria-label={`Page ${it}`}\n            aria-current={it === currentPage ? \"page\" : undefined}\n            onClick={() => onPageChange?.(it)}\n            className={cn(\n              \"h-8 min-w-8 px-2 inline-flex items-center justify-center rounded-[var(--radius-xs)] text-[length:var(--type-13)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-tint-accent)] hover:text-[color:var(--text-primary)] focus-visible:shadow-[var(--shadow-focus)] focus-visible:outline-none\",\n              it === currentPage &&\n                \"bg-[var(--surface-tint-accent)] text-[color:var(--text-accent)] font-medium\",\n            )}\n          >\n            {it}\n          </button>\n        ),\n      )}\n      {navBtn(\"Next page\", <ChevronRight size={14} aria-hidden />, !canNext, () => onPageChange?.(currentPage + 1))}\n      {showFirstLast &&\n        navBtn(\"Last page\", <ChevronsRight size={14} aria-hidden />, !canNext, () => onPageChange?.(totalPages))}\n    </nav>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/pagination.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "navigation",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native semantic <nav>",
+    "specPath": "design-system/02-components/pagination/pagination.md",
+    "skillPath": "design-system/02-components/pagination/pagination.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

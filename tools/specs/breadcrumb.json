@@ -1,0 +1,47 @@
+{
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "namedExport": "Breadcrumb",
+  "category": "navigation",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Hierarchy crumbs with overflow collapse. Lumen API takes `items={[{href, label}, ...]}` for terse usage. Built on the shadcn Breadcrumb composition (Breadcrumb / BreadcrumbList / BreadcrumbItem / BreadcrumbLink / BreadcrumbPage / BreadcrumbSeparator).",
+  "description": "Hierarchy crumbs. Last item renders as BreadcrumbPage (aria-current=page); others as BreadcrumbLink.",
+  "skillDescription": "Use to show hierarchy + provide back-navigation — Account › Settings › Billing. Pass `items` array; the last item auto-renders as the current page (aria-current=page). For overflow handling in deep hierarchies, the consumer can supply an ellipsis item.",
+  "builtOn": "shadcn Breadcrumb",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": ["text.primary", "text.tertiary", "text.accent", "tracking.tight"],
+  "useWhen": ["Deep hierarchy (Account › Settings › Billing).", "Project navigation (Workspace › Project › Document).", "File / asset browsers."],
+  "anatomy": [
+    "<nav aria-label='breadcrumb'> root",
+    "<ol> BreadcrumbList",
+    "<li> BreadcrumbItem × N",
+    "Link variants: BreadcrumbLink (clickable) + BreadcrumbPage (current, aria-current)",
+    "BreadcrumbSeparator (chevron-right)"
+  ],
+  "api": ["`items` — Crumb[] of { href?, label }. Last item is aria-current=page automatically."],
+  "never": [
+    "NEVER omit aria-current=page on the last item (the API handles this).",
+    "NEVER use Breadcrumb for a single-level page — it's noise.",
+    "NEVER nest a Breadcrumb inside another Breadcrumb."
+  ],
+  "a11yRules": [
+    "Nav has aria-label='breadcrumb'.",
+    "Current page (last item) has aria-current=page.",
+    "Separators are aria-hidden."
+  ],
+  "do": ["Use for ≥ 2 levels of hierarchy.", "Truncate middle items in long crumbs."],
+  "dont": ["Don't use for top-level navigation.", "Don't omit aria-current."],
+  "related": ["Link", "Sidebar", "TopBar", "Tabs"],
+  "stories": [
+    { "name": "Default", "args": { "items": [{ "href": "/", "label": "Home" }, { "href": "/lanes", "label": "Lanes" }, { "label": "LAX → SFO" }] }, "children": "" }
+  ],
+  "variants": ["default", "with-icons", "truncated"],
+  "propsList": [{ "name": "items", "type": "Crumb[]", "required": true }],
+  "exampleSnippet": "import { Breadcrumb } from \"@/components/ui/breadcrumb\";\n\nexport function Example() {\n  return (\n    <Breadcrumb items={[\n      { href: \"/\", label: \"Home\" },\n      { href: \"/lanes\", label: \"Lanes\" },\n      { label: \"LAX → SFO\" },\n    ]} />\n  );\n}",
+  "testChildren": ""
+}

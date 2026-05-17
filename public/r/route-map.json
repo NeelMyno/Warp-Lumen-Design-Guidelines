@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "route-map",
+  "title": "RouteMap",
+  "description": "Provider-agnostic map surface with lane overlays + markers + truck pin.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lane-arc",
+    "@lumen/live-dot"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/route-map/route-map.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/route-map — v0.13 Phase 2 freight-domain composite.\n * ----------------------------------------------------------------------------\n * Provider-agnostic map. Default renderer = stylized SVG placeholder (no\n * external map dep). Swap to Mapbox / Leaflet / Google via `mapProvider` prop.\n * Lane arcs + endpoint markers + optional live truck pin.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { LaneArc } from \"../lane-arc/lane-arc\";\nimport { LiveDot } from \"../live-dot/live-dot\";\n\ntype Pt = { x: number; y: number };\n\nexport type RouteLane = {\n  id: string;\n  origin: Pt;\n  destination: Pt;\n  label?: string;\n  color?: string;\n};\n\nexport type RouteMapProps = {\n  lanes?: RouteLane[];\n  truck?: { x: number; y: number; label?: string; active?: boolean };\n  width?: number;\n  height?: number;\n  mapProvider?: React.ReactNode;\n  label?: string;\n  className?: string;\n};\n\nfunction PlaceholderBaseMap({ width, height }: { width: number; height: number }) {\n  // Subtle dotted grid that suggests \"map area\" without claiming geography.\n  const dotR = 1;\n  const step = 24;\n  const dots: React.ReactNode[] = [];\n  for (let y = step; y < height; y += step) {\n    for (let x = step; x < width; x += step) {\n      dots.push(\n        <circle\n          key={`${x}-${y}`}\n          cx={x}\n          cy={y}\n          r={dotR}\n          fill=\"var(--border-hairline)\"\n        />,\n      );\n    }\n  }\n  return <g aria-hidden>{dots}</g>;\n}\n\nexport function RouteMap({\n  lanes = [],\n  truck,\n  width = 480,\n  height = 240,\n  mapProvider,\n  label = \"Route map\",\n  className,\n}: RouteMapProps) {\n  return (\n    <div\n      data-slot=\"route-map\"\n      role=\"img\"\n      aria-label={label}\n      className={cn(\n        \"relative overflow-hidden border border-[var(--border-hairline)] bg-[var(--surface-sunken)] rounded-[var(--radius-lg)]\",\n        className,\n      )}\n      style={{ width, height }}\n    >\n      {mapProvider ? (\n        <div className=\"absolute inset-0\">{mapProvider}</div>\n      ) : (\n        <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className=\"absolute inset-0\">\n          <PlaceholderBaseMap width={width} height={height} />\n        </svg>\n      )}\n      {/* Overlay lanes */}\n      <div className=\"absolute inset-0\">\n        {lanes.map((l) => (\n          <div key={l.id} className=\"absolute inset-0\">\n            <LaneArc\n              start={l.origin}\n              end={l.destination}\n              color={l.color}\n              width={width}\n              height={height}\n              label={l.label}\n              animated={false}\n            />\n          </div>\n        ))}\n      </div>\n      {/* Truck pin */}\n      {truck && (\n        <span\n          className=\"absolute -translate-x-1/2 -translate-y-1/2\"\n          style={{\n            left: (truck.x <= 1 ? truck.x * width : truck.x) + \"px\",\n            top: (truck.y <= 1 ? truck.y * height : truck.y) + \"px\",\n          }}\n        >\n          {truck.active ? <LiveDot label={truck.label} hideLabel={!truck.label} /> : (\n            <span\n              aria-label={truck.label ?? \"Truck position\"}\n              className=\"size-2.5 rounded-full bg-[var(--color-accent)] block ring-2 ring-[var(--surface-canvas)]\"\n            />\n          )}\n        </span>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/route-map.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native SVG + LaneArc composition",
+    "specPath": "design-system/02-components/route-map/route-map.md",
+    "skillPath": "design-system/02-components/route-map/route-map.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

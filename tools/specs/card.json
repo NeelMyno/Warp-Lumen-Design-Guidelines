@@ -1,0 +1,75 @@
+{
+  "name": "card",
+  "title": "Card",
+  "namedExport": "Card",
+  "category": "surface",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Raised surface container. Hairline border, --surface-raised bg, --radius-xl. v0.12.4 corner-clip contract: when padding=none, child surfaces (e.g. inner header strip) get overflow-hidden on the parent to prevent stair-step past the rounded edge. Six sub-components: Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter.",
+  "description": "Token-driven raised surface — the canonical Lumen container for grouped content.",
+  "skillDescription": "Use when grouping content into a raised panel — KPI rows, settings cards, AI message bubbles, landing pricing tiles. Hairline border + --surface-raised bg. Compose Card with CardHeader/CardTitle/CardDescription/CardAction/CardContent/CardFooter for the standard layout.",
+  "builtOn": "Native <div> composition",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.xl",
+    "shadow.sm",
+    "tracking.tight"
+  ],
+  "useWhen": [
+    "Any grouped block — KPI row, settings panel, pricing tier, AI message bubble.",
+    "When you want raised separation from canvas without a heavy shadow.",
+    "Inside dashboards as the standard container around Stat / StatGrid / LiveDot composites."
+  ],
+  "anatomy": [
+    "Card root — bg + hairline + radius-xl + flex-col + gap-6",
+    "CardHeader — grid layout with optional CardAction in col 2",
+    "CardTitle — leading-none font-semibold tracking-tight",
+    "CardDescription — text-tertiary text-sm",
+    "CardContent — px-6 padding",
+    "CardFooter — flex items-center px-6 with optional border-t separation"
+  ],
+  "api": [
+    "Card — standard div, accepts className override.",
+    "CardHeader — grid layout; auto-detects CardAction child via has-data attribute.",
+    "CardTitle / CardDescription — semantic labels for the header.",
+    "CardAction — positioned in col 2 of CardHeader; row-span-2.",
+    "CardContent / CardFooter — body and footer slots."
+  ],
+  "never": [
+    "NEVER hardcode hex / radius. All values come from tokens.",
+    "NEVER add backdrop-filter to Card — Card is a dense surface; glass goes on floating shells only (hard rule 16).",
+    "NEVER nest Card inside Card without a clear hierarchy reason — flattens visual depth.",
+    "NEVER strip the hairline border — it's the brutalist voice element."
+  ],
+  "a11yRules": [
+    "Card itself is presentational — assign role / aria-* to its children semantically.",
+    "When used as a clickable target, wrap in <a> or <button>; do NOT add onClick to a div."
+  ],
+  "do": [
+    "Compose Header → Content → Footer for the standard layout.",
+    "Use padding=none + overflow-hidden when children paint full-bleed surfaces.",
+    "Pair with hairline divider via border-t in CardFooter."
+  ],
+  "dont": [
+    "Don't apply backdrop-filter.",
+    "Don't nest more than 2 deep.",
+    "Don't use Card as a clickable target without a wrapping <a>/<button>."
+  ],
+  "related": ["Panel", "Sheet", "Drawer", "Stat", "StatGrid", "EmptyState", "KpiCard", "PricingCard"],
+  "stories": [
+    { "name": "Default", "args": {}, "children": "Card body" },
+    { "name": "WithHeader", "args": {}, "children": "WithHeader" }
+  ],
+  "variants": ["default", "padding-none"],
+  "propsList": [{ "name": "className", "type": "string" }],
+  "exampleSnippet": "import { Card, CardHeader, CardTitle, CardContent } from \"@/components/ui/card\";\n\nexport function Example() {\n  return (\n    <Card>\n      <CardHeader><CardTitle>On-time index</CardTitle></CardHeader>\n      <CardContent>98.2%</CardContent>\n    </Card>\n  );\n}",
+  "testChildren": "Body"
+}

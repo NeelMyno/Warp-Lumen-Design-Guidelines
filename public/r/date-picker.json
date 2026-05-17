@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker",
+  "title": "DatePicker",
+  "description": "Input + popover-calendar composite for single date or range.",
+  "dependencies": [
+    "react-day-picker",
+    "date-fns",
+    "@radix-ui/react-popover",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/calendar",
+    "@lumen/popover"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/date-picker/date-picker.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/date-picker — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Input + popover-calendar composite. Single date or range. date-fns format.\n */\nimport * as React from \"react\";\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\";\nimport { format } from \"date-fns\";\nimport { Calendar as CalendarIcon } from \"lucide-react\";\nimport type { DateRange } from \"react-day-picker\";\n\nimport { cn } from \"@/lib/utils\";\nimport { Calendar } from \"../calendar/calendar\";\n\nexport type DatePickerValue = Date | DateRange | undefined;\n\nexport type DatePickerProps = {\n  value?: DatePickerValue;\n  onChange?: (v: DatePickerValue) => void;\n  mode?: \"single\" | \"range\";\n  formatStr?: string;\n  placeholder?: string;\n  disabled?: boolean;\n  className?: string;\n};\n\nexport function DatePicker({\n  value,\n  onChange,\n  mode = \"single\",\n  formatStr,\n  placeholder = \"Select date\",\n  disabled,\n  className,\n}: DatePickerProps) {\n  const [open, setOpen] = React.useState(false);\n\n  const display = React.useMemo(() => {\n    if (!value) return null;\n    if (mode === \"single\" && value instanceof Date) {\n      return format(value, formatStr ?? \"PP\");\n    }\n    if (mode === \"range\" && value && typeof value === \"object\" && \"from\" in value) {\n      const r = value as DateRange;\n      if (!r.from) return null;\n      if (!r.to) return format(r.from, formatStr ?? \"PP\");\n      return `${format(r.from, formatStr ?? \"PP\")} – ${format(r.to, formatStr ?? \"PP\")}`;\n    }\n    return null;\n  }, [value, mode, formatStr]);\n\n  return (\n    <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>\n      <PopoverPrimitive.Trigger\n        data-slot=\"date-picker-trigger\"\n        disabled={disabled}\n        className={cn(\n          \"flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 text-[length:var(--type-14)] text-[color:var(--text-primary)] outline-none\",\n          \"shadow-[var(--shadow-input-lit-edge)]\",\n          \"transition-[color,box-shadow,border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n          \"hover:border-[var(--border-strong)]\",\n          \"data-[state=open]:border-[var(--border-focus)] data-[state=open]:shadow-[var(--shadow-input-focus)]\",\n          \"focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-input-focus)]\",\n          \"disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[color:var(--text-disabled)] disabled:border-[var(--border-input-disabled)]\",\n          className,\n        )}\n      >\n        <span\n          className={cn(\n            \"truncate text-left flex-1\",\n            !display && \"text-[color:var(--text-placeholder)]\",\n          )}\n        >\n          {display ?? placeholder}\n        </span>\n        <CalendarIcon size={16} aria-hidden className=\"opacity-60 shrink-0\" />\n      </PopoverPrimitive.Trigger>\n      <PopoverPrimitive.Portal>\n        <PopoverPrimitive.Content\n          align=\"start\"\n          sideOffset={4}\n          className=\"z-[var(--z-overlay)] bg-[var(--surface-popover)] rounded-[var(--radius-lg)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] outline-none p-0\"\n        >\n          {mode === \"single\" ? (\n            <Calendar\n              mode=\"single\"\n              selected={value as Date | undefined}\n              onSelect={(d) => {\n                onChange?.(d);\n                if (d) setOpen(false);\n              }}\n              initialFocus\n            />\n          ) : (\n            <Calendar\n              mode=\"range\"\n              selected={value as DateRange | undefined}\n              onSelect={(r) => {\n                onChange?.(r);\n              }}\n              initialFocus\n            />\n          )}\n        </PopoverPrimitive.Content>\n      </PopoverPrimitive.Portal>\n    </PopoverPrimitive.Root>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/date-picker.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "form",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Calendar + Popover + date-fns",
+    "specPath": "design-system/02-components/date-picker/date-picker.md",
+    "skillPath": "design-system/02-components/date-picker/date-picker.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

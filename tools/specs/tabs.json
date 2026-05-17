@@ -1,0 +1,55 @@
+{
+  "name": "tabs",
+  "title": "Tabs",
+  "namedExport": "Tabs",
+  "category": "navigation",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Tabbed surface built on Radix Tabs. Sunken track + raised active state. Composes Tabs, TabsList, TabsTrigger, TabsContent.",
+  "description": "Token-driven tabs with sunken track + raised active state.",
+  "skillDescription": "Use for view switchers — settings sections, dashboard pages, document tabs. Built on Radix Tabs. Default style is the segmented sunken-track pattern; for inline label-style tabs use InlineTabs.",
+  "builtOn": "Radix Tabs",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-tabs"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.sunken",
+    "surface.raised",
+    "text.tertiary",
+    "text.primary",
+    "shadow.sm",
+    "shadow.focus",
+    "radius.md",
+    "radius.sm",
+    "z-index.popover"
+  ],
+  "useWhen": ["Settings panel sections.", "Dashboard view switchers (overview / details / activity).", "Document tabs."],
+  "anatomy": ["Tabs root (flex-col gap-2)", "TabsList (sunken track)", "TabsTrigger (raised on data-state=active)", "TabsContent (flex-1)"],
+  "api": [
+    "`defaultValue`, `value`, `onValueChange` — controlled/uncontrolled.",
+    "All Radix Tabs props pass through."
+  ],
+  "never": [
+    "NEVER use Tabs for primary navigation between routes — use <nav> / Sidebar / TopBar.",
+    "NEVER stack more than 7 tabs — paginate or move to dropdown.",
+    "NEVER nest Tabs without strong reason."
+  ],
+  "a11yRules": [
+    "Radix manages role=tablist, role=tab, role=tabpanel, aria-controls, aria-selected, arrow-key navigation, focus trap within the list.",
+    "TabsTrigger focus-visible has the lumen --shadow-focus halo."
+  ],
+  "do": ["Use for in-page section switching.", "Pair with consistent content shape (each panel similar layout)."],
+  "dont": ["Don't use for route navigation.", "Don't stack 7+ tabs."],
+  "related": ["Segmented", "Sidebar", "Breadcrumb", "InlineTabs"],
+  "stories": [{ "name": "Default", "args": { "defaultValue": "overview" }, "children": "" }],
+  "variants": ["default", "underline"],
+  "propsList": [
+    { "name": "defaultValue", "type": "string" },
+    { "name": "value", "type": "string" },
+    { "name": "onValueChange", "type": "(v: string) => void" }
+  ],
+  "exampleSnippet": "import { Tabs, TabsList, TabsTrigger, TabsContent } from \"@/components/ui/tabs\";\n\nexport function Example() {\n  return (\n    <Tabs defaultValue=\"overview\">\n      <TabsList>\n        <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n        <TabsTrigger value=\"activity\">Activity</TabsTrigger>\n      </TabsList>\n      <TabsContent value=\"overview\">Overview content</TabsContent>\n    </Tabs>\n  );\n}",
+  "testChildren": ""
+}

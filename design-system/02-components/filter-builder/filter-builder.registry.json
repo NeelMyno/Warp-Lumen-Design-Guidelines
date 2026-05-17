@@ -1,0 +1,44 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-builder",
+  "type": "registry:ui",
+  "title": "FilterBuilder",
+  "description": "Query-DSL editor with operator chip rows + composable AND/OR groups.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/button",
+    "@lumen/select",
+    "@lumen/combobox",
+    "@lumen/input",
+    "@lumen/tag"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/filter-builder/filter-builder.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/filter-builder.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Lumen primitives (Select + Combobox + Input + Tag)",
+    "specPath": "design-system/02-components/filter-builder/filter-builder.md",
+    "skillPath": "design-system/02-components/filter-builder/filter-builder.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

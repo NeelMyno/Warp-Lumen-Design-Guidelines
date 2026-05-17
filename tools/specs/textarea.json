@@ -1,0 +1,72 @@
+{
+  "name": "textarea",
+  "title": "Textarea",
+  "namedExport": "Textarea",
+  "category": "form",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Multi-line text input. Adopts the v0.6 field-shell contract — paints its own border, bg, focus halo standalone; renders bare inside <Field>. Auto-grows via `field-sizing: content`; cap via min-height / max-height in consumer style.",
+  "description": "Token-driven multi-line text input with auto-grow via field-sizing.",
+  "skillDescription": "Use when generating a multi-line text input — long notes, descriptions, comments, AI prompt input. Auto-grows with content; honors the v0.6 field-shell visual contract. For AI prompts specifically, prefer @lumen/ai-prompt-input.",
+  "builtOn": "Native <textarea>",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.input.rest",
+    "surface.input.disabled",
+    "border.default",
+    "border.strong",
+    "border.focus",
+    "border.error",
+    "border.input.disabled",
+    "text.primary",
+    "text.placeholder",
+    "text.disabled",
+    "shadow.input.lit-edge",
+    "shadow.input.focus",
+    "shadow.input.error",
+    "radius.md",
+    "motion.duration.fast",
+    "motion.easing.standard"
+  ],
+  "useWhen": [
+    "Multi-line entry — comments, descriptions, special instructions.",
+    "Inside <Field> shell with a <Label> and optional <ValidationMessage>.",
+    "Long-form input where height should grow with content."
+  ],
+  "anatomy": [
+    "Hairline border + surface bg (matches Input)",
+    "Min-height 22 (5.5rem) by default; consumer can override via style.height or className",
+    "Placeholder text (--text-placeholder)",
+    "Focus + error halos identical to Input"
+  ],
+  "api": ["Standard `<textarea>` attributes pass through.", "`field-sizing: content` is default — height grows with content."],
+  "never": [
+    "NEVER hardcode color / spacing / radius.",
+    "NEVER pair with type=password (textarea has no type attribute).",
+    "NEVER strip the focus ring."
+  ],
+  "a11yRules": [
+    "Pair with <Label htmlFor> in <Field>, or supply aria-label / aria-labelledby.",
+    "Use aria-describedby when paired with a ValidationMessage.",
+    "aria-invalid triggers the error halo."
+  ],
+  "do": ["Pair with <Field> for the label + validation chain.", "Let it auto-grow; do not force fixed height unless necessary."],
+  "dont": ["Don't use for single-line input — use <Input>.", "Don't disable field-sizing without strong reason."],
+  "related": ["Input", "Field", "ValidationMessage", "AIPromptInput"],
+  "stories": [
+    { "name": "Default", "args": { "placeholder": "Notes for the carrier…" }, "children": "" },
+    { "name": "Error", "args": { "placeholder": "Required", "aria-invalid": true }, "children": "" }
+  ],
+  "variants": ["default", "disabled", "error"],
+  "propsList": [
+    { "name": "placeholder", "type": "string" },
+    { "name": "disabled", "type": "boolean" },
+    { "name": "aria-invalid", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { Textarea } from \"@/components/ui/textarea\";\n\nexport function Example() {\n  return <Textarea placeholder=\"Pickup notes…\" />;\n}",
+  "testChildren": ""
+}

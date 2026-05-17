@@ -1,0 +1,43 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "Token-driven multi-select checkbox with .lumen-checkbox shell + lime accent.",
+  "props": [
+    {
+      "name": "checked",
+      "type": "boolean | 'indeterminate'"
+    },
+    {
+      "name": "onCheckedChange",
+      "type": "(c: boolean | 'indeterminate') => void"
+    }
+  ],
+  "variants": [
+    "default",
+    "checked",
+    "indeterminate",
+    "disabled"
+  ],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "color.action.primary.fg",
+    "border.default",
+    "border.strong",
+    "shadow.focus",
+    "radius.xs"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=checkbox + aria-checked + keyboard (Space).",
+      "Pair with a <Label htmlFor> — clicking the label toggles.",
+      "aria-checked='mixed' for tri-state."
+    ]
+  },
+  "usage": "import { Checkbox } from \"@/components/ui/checkbox\";\n\nexport function Example() {\n  return <Checkbox defaultChecked />;\n}",
+  "storiesPath": "02-components/checkbox/checkbox.stories.tsx",
+  "sourcePath": "02-components/checkbox/checkbox.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "tag",
+  "title": "Tag",
+  "description": "Token-driven removable tag — Badge with optional close X.",
+  "props": [
+    {
+      "name": "status",
+      "type": "enum"
+    },
+    {
+      "name": "size",
+      "type": "enum"
+    },
+    {
+      "name": "onRemove",
+      "type": "() => void"
+    },
+    {
+      "name": "leadingIcon",
+      "type": "ReactNode"
+    }
+  ],
+  "variants": [
+    "default",
+    "removable"
+  ],
+  "tokensConsumed": [
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.neutral.border",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.accent.bg",
+    "pill.accent.fg",
+    "radius.full",
+    "tracking.tight"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Remove button has aria-label='Remove {label}' for screen readers.",
+      "Tag itself is non-interactive unless onRemove (then the X is a button).",
+      "Inside a multi-select context, the parent listbox manages aria-selected; Tag is the visual."
+    ]
+  },
+  "usage": "import { Tag } from \"@/components/ui/tag\";\n\nexport function Example() {\n  return <Tag onRemove={() => console.log(\"remove\")}>LAX → SFO</Tag>;\n}",
+  "storiesPath": "02-components/tag/tag.stories.tsx",
+  "sourcePath": "02-components/tag/tag.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

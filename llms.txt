@@ -3,8 +3,12 @@
 > Warp's design system for freight logistics SaaS. Dark-first, operator-density,
 > Spring Green (#00FA8A) on obsidian (#0D0D0D), Satoshi typeface, dual-mode
 > (restrained | expressive), LLM-first MD-driven, DTCG 2025.10 tokens, shadcn
-> registry. v0.13.0 — Phase 0 foundation reset in progress; v0.12.6 token names
-> and component contracts preserved verbatim (additive, not destructive).
+> registry. v0.13.0 — Phase 0 (DTCG foundation) + Phase 1 (expressive mode +
+> ModeScope) + Phase 2 (component library → shadcn registry under `@lumen/*`)
+> shipped. 48 components in the registry plus 69 legacy v0.12.6 sidecars (121
+> total registry items). Foundation: `@lumen/lumen-base` installs the whole
+> system in one command. v0.12.6 token names and component contracts preserved
+> verbatim — additive, never destructive.
 
 This file is the agent-readable index. Fetch one section at a time; each section
 points to specific MD or JSON files that an agent can load to resolve a query.
@@ -71,24 +75,42 @@ task.
 ### Component-bound
 - See `/design-system/01-tokens/components/{name}.tokens.json` — per-component bound tokens for button / card / checkbox / combobox / date-picker / field / file-dropzone / input / number-input / otp-input / password-input / radio / range-slider / segmented / select / switch / tags-input / textarea / time-picker
 
-## Components (98 — machine-readable contracts; Phase 2 lands Vercel-format SKILL.md)
+## Components — shadcn registry under `@lumen/*` (121 items; v0.13 Phase 2)
 
-> v0.12.6 added 63 new contracts closing the LLM-facing gap with Apple HIG / Material / Polaris / Atlassian. See [PRIMITIVE-COVERAGE.md](/PRIMITIVE-COVERAGE.md) for the canonical user-list → Lumen primitive map.
+Registry endpoint: `https://warp-lumen-design-guidelines.vercel.app/r/{name}.json`
+Consumer install: `npx shadcn add @lumen/<name>` from any project (after `components.json` is configured per the [shadcn 4 docs](https://ui.shadcn.com/docs/registry)).
+Single-payload install: `npx shadcn add @lumen/lumen-base` brings tokens + font + ModeScope + utils in one command.
 
-Categories (see /design-system/02-components/{name}/ for each):
-- **Foundations** — Badge, IconButton, LiveDot, Stat, RateTicker
-- **Buttons + actions** — Button, ButtonGroup, SplitButton, Fab, Toggle, Segmented, CommandPaletteButton
-- **Inputs (forms layer)** — Input, Textarea, NumberInput, PasswordInput, OtpInput, Select, Combobox, TagsInput, DatePicker, TimePicker, RangeSlider, FileDropzone, Checkbox, RadioGroup, Switch, Field, ValidationMessage, Form, Slider, ColorPicker, SearchField
-- **Navigation** — Tabs, Breadcrumbs, Pagination, Stepper, DropdownMenu, Navbar, Sidebar, BottomNav, Toolbar, ActionSheet
-- **Feedback** — Tooltip, Popover, Snackbar, Toast, NotificationCenter, Spinner, Progress, Skeleton
-- **Display** — Avatar, Tag, List, CodeBlock, CopyButton, Kbd, Trend, Divider, Link, Alert, Banner, EmptyState
-- **Container** — Card, Drawer, Sheet, Panel, Dialog, Accordion, Table
-- **Mobile** — PhoneFrame, StatusBar, SwipeAction, PullToRefresh, PermissionPrompt, CoachMark, Carousel
-- **Advanced display** — Timeline, Calendar, TreeView, Kanban, DataGrid, Chart, Sparkline, KpiCard
-- **AI + collaboration** — AIPromptInput, AISuggestion, AIBadge, CitationCard, ChatBubble, CommentThread, ReactionBar, PresenceIndicator
-- **Commerce/marketing** — PricingCard, TestimonialCard, LogoCloud, InventoryStatus, CartDrawer
+### Foundation registries (REG tier)
+- [lumen-base](/public/r/lumen-base.json) — `registry:base` single-payload installer (the whole system in one command)
+- [font-satoshi](/public/r/font-satoshi.json) — `registry:lib` self-hosted Satoshi Variable + Italic (ITF-FFL)
+- [tokens](/public/r/tokens.json) — `registry:style` DTCG 2025.10 token graph (CSS variables)
+- [utils](/public/r/utils.json) — `registry:lib` cn() class-merger
+- [mode-scope](/public/r/mode-scope.json) — Phase 1 ModeScope primitive
 
-(Phase 2 lands the @lumen shadcn registry; one folder per registry item under `02-components/<name>/` with `<name>.md` + `<name>.skill.md` + `<name>.tsx` + `<name>.registry.json` + `<name>.stories.tsx`.)
+### Tier 1 — Primitives (20 items)
+button · input · textarea · card · sheet · popover · tooltip · toast · badge · tag · avatar · skeleton · spinner · tabs · breadcrumb · switch · checkbox · radio · slider · progress
+
+### Tier 2 — Composed (15 items)
+data-table (TanStack-virtualized) · command-palette (cmdk) · drawer · modal · dropdown-menu · combobox · calendar (react-day-picker) · date-picker · filter-builder · filter-chip · saved-view · sidebar · top-bar · pagination · select
+
+### Tier 3 — Lumen signatures (3 items — preserved v0.12.4 behavior verbatim)
+stat · live-dot · rate-ticker
+
+### Tier 4 — Freight-domain composites (10 items — new in v0.13)
+lane-code · lane-arc · shipment-timeline · route-map · dock-bay · cross-dock-grid · carrier-badge · pallet-tile · otr-truck-iso · quote-builder
+
+### Legacy v0.12.6 sidecars (69 items — preserved during the v0.13 migration window)
+accordion · action-sheet · ai-badge · ai-prompt-input · ai-suggestion · alert · banner · bottom-nav · breadcrumbs (alias of breadcrumb) · button-group · carousel · cart-drawer · chart · chat-bubble · citation-card · coach-mark · code-block · color-picker · command-palette-button · comment-thread · copy-button · data-grid · dialog · divider · empty-state · fab · field · file-dropzone · form · icon-button · inventory-status · kanban · kbd · kpi-card · link · list · logo-cloud · navbar · notification-center · number-input · otp-input · panel · password-input · permission-prompt · phone-frame · presence-indicator · pricing-card · pull-to-refresh · radio-group (alias of radio) · range-slider · reaction-bar · search-field · segmented · snackbar · sparkline · split-button · status-bar · stepper · swipe-action · table · tags-input · testimonial-card · time-picker · timeline · toggle · toolbar · tree-view · trend · validation-message
+
+Per-component LLM contract (v0.13 shape — every registry item):
+- `02-components/<name>/<name>.md` — frontmatter + prose + anatomy + do/don't + code
+- `02-components/<name>/<name>.skill.md` — Vercel-format SKILL.md with NEVER rules verbatim
+- `02-components/<name>/<name>.tsx` — canonical React implementation (token-driven, mode-agnostic, zero hex literals)
+- `02-components/<name>/<name>.test.tsx` — Vitest + @testing-library/react smoke + behavior tests
+- `02-components/<name>/<name>.stories.tsx` — Storybook 10.3 CSF Factory format (Component Manifest auto-emitted)
+- `02-components/<name>/<name>.registry.json` — shadcn registry-item.json
+- `02-components/<name>/manifest.json` — Storybook 10.3 Component Manifest entry
 
 ## Patterns (multi-component flows — see `/design-system/05-patterns/`)
 

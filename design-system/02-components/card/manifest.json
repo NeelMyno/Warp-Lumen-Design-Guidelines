@@ -1,0 +1,37 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "card",
+  "title": "Card",
+  "description": "Token-driven raised surface — the canonical Lumen container for grouped content.",
+  "props": [
+    {
+      "name": "className",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default",
+    "padding-none"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.xl",
+    "shadow.sm",
+    "tracking.tight"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Card itself is presentational — assign role / aria-* to its children semantically.",
+      "When used as a clickable target, wrap in <a> or <button>; do NOT add onClick to a div."
+    ]
+  },
+  "usage": "import { Card, CardHeader, CardTitle, CardContent } from \"@/components/ui/card\";\n\nexport function Example() {\n  return (\n    <Card>\n      <CardHeader><CardTitle>On-time index</CardTitle></CardHeader>\n      <CardContent>98.2%</CardContent>\n    </Card>\n  );\n}",
+  "storiesPath": "02-components/card/card.stories.tsx",
+  "sourcePath": "02-components/card/card.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

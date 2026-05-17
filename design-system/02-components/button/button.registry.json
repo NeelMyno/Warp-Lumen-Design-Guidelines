@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "description": "A button triggers an action. The primary way users commit to a decision in a flow.",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/button/button.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "form",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Slot + class-variance-authority",
+    "specPath": "design-system/02-components/button/button.md",
+    "skillPath": "design-system/02-components/button/button.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

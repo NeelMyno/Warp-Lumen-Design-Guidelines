@@ -1,0 +1,44 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "title": "Button",
+  "description": "A button triggers an action. The primary way users commit to a decision in a flow.",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/button/button.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/button — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Five sizes × eight intents × three shapes. Built on Radix Slot for composition\n * (e.g. wrap an <a> via asChild). Styling lives in the .lumen-btn-* class family\n * shipped by @lumen/tokens (lumen.css). No hex literals in this file — every\n * surface, shadow, border, radius, and motion duration reads from a Lumen CSS\n * variable.\n *\n * Hard rules carried forward:\n *   - Hard rule 9 — no white on accent (primary fg is --color-action-primary-fg).\n *   - Hard rule 11 — focus ring is outline + box-shadow, never box-shadow alone.\n *   - Hard rule 15 — mode-agnostic; no data-mode references here.\n *   - ADR 0016 / 0022 — primary glow ladder dialed via lumen.css tokens.\n *\n * Loading vs success vs disabled: visually distinct. Loading keeps color +\n * shows spinner + aria-busy=true + suppresses click. Success replaces leading\n * icon with a checkmark for SUCCESS_HOLD_MS, then auto-clears. Disabled sets\n * aria-disabled (not the disabled attribute when inside a form, so the button\n * stays in tab order).\n */\nimport * as React from \"react\";\nimport { Slot } from \"@radix-ui/react-slot\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { Loader2, Check } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst buttonVariants = cva(\"lumen-btn\", {\n  variants: {\n    intent: {\n      primary: \"lumen-btn-primary\",\n      secondary: \"lumen-btn-secondary\",\n      outline: \"lumen-btn-outline\",\n      tertiary: \"lumen-btn-tertiary\",\n      ghost: \"lumen-btn-ghost\",\n      danger: \"lumen-btn-danger\",\n      \"danger-soft\": \"lumen-btn-danger-soft\",\n      ai: \"lumen-btn-ai\",\n      glass: \"lumen-btn-glass\",\n      link: \"lumen-btn-ghost underline-offset-4 hover:underline\",\n      destructive: \"lumen-btn-danger\",\n    },\n    size: {\n      xs: \"lumen-btn-xs\",\n      sm: \"lumen-btn-sm\",\n      md: \"lumen-btn-md\",\n      lg: \"lumen-btn-lg\",\n      xl: \"lumen-btn-xl\",\n      icon: \"lumen-btn-md lumen-icon-button\",\n    },\n    shape: {\n      rect: \"\",\n      pill: \"lumen-btn-pill\",\n      round: \"lumen-icon-button lumen-btn-round\",\n    },\n  },\n  defaultVariants: { intent: \"secondary\", size: \"md\", shape: \"rect\" },\n});\n\nconst SUCCESS_HOLD_MS = 1600;\n\nexport type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &\n  VariantProps<typeof buttonVariants> & {\n    asChild?: boolean;\n    leadingIcon?: React.ReactNode;\n    trailingIcon?: React.ReactNode;\n    fullWidth?: boolean;\n    loading?: boolean;\n    success?: boolean;\n    pressed?: boolean;\n    pill?: boolean;\n    glow?: boolean;\n  };\n\nexport const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(\n  {\n    intent,\n    size,\n    shape,\n    asChild = false,\n    leadingIcon,\n    trailingIcon,\n    fullWidth,\n    loading,\n    success: successProp = false,\n    pressed,\n    pill,\n    glow,\n    disabled,\n    className,\n    children,\n    ...props\n  },\n  ref,\n) {\n  const Comp = asChild ? Slot : \"button\";\n\n  /* Transient success state — when `success` flips true we hold the checkmark\n     for 1.6s, then auto-clear. Honors prefers-reduced-motion via the CSS in\n     @lumen/tokens lumen.css; this hook just manages the data-attribute. */\n  const [holdSuccess, setHoldSuccess] = React.useState(false);\n  React.useEffect(() => {\n    if (!successProp) return;\n    setHoldSuccess(true);\n    const id = window.setTimeout(() => setHoldSuccess(false), SUCCESS_HOLD_MS);\n    return () => window.clearTimeout(id);\n  }, [successProp]);\n\n  const resolvedShape = shape ?? (pill ? \"pill\" : undefined);\n  const isLoading = !!loading;\n  const isSuccess = holdSuccess;\n  const isDisabled = !!disabled || isLoading;\n\n  return (\n    <Comp\n      ref={ref}\n      data-slot=\"button\"\n      data-intent={intent ?? \"secondary\"}\n      data-shape={resolvedShape ?? \"rect\"}\n      data-success={isSuccess || undefined}\n      data-pressed={pressed || undefined}\n      aria-busy={isLoading || undefined}\n      aria-pressed={pressed || undefined}\n      aria-disabled={isDisabled || undefined}\n      disabled={isDisabled}\n      className={cn(\n        buttonVariants({ intent, size, shape: resolvedShape }),\n        fullWidth && \"w-full\",\n        glow && intent === \"primary\" && \"lumen-glow-cta\",\n        pressed && \"lumen-btn-selected\",\n        className,\n      )}\n      onClick={(e) => {\n        if (isLoading) return;\n        props.onClick?.(e);\n      }}\n      {...props}\n    >\n      {isLoading ? (\n        <Loader2 className=\"lumen-btn-spinner shrink-0\" aria-hidden />\n      ) : isSuccess ? (\n        <Check className=\"lumen-btn-success-icon shrink-0\" aria-hidden />\n      ) : leadingIcon ? (\n        <span aria-hidden className=\"shrink-0\">\n          {leadingIcon}\n        </span>\n      ) : null}\n      {children}\n      {trailingIcon && !isLoading && !isSuccess ? (\n        <span aria-hidden className=\"shrink-0\">\n          {trailingIcon}\n        </span>\n      ) : null}\n    </Comp>\n  );\n});\n\nexport { buttonVariants };\n",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "form",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Slot + class-variance-authority",
+    "specPath": "design-system/02-components/button/button.md",
+    "skillPath": "design-system/02-components/button/button.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

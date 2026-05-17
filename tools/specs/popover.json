@@ -1,0 +1,51 @@
+{
+  "name": "popover",
+  "title": "Popover",
+  "namedExport": "Popover",
+  "category": "overlay",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Floating panel anchored to a trigger. Portaled to document.body per ADR 0021 to escape ancestor overflow contexts. Position math is `position: fixed` + `getBoundingClientRect()` re-tracked on scroll + resize. v0.12.4 cascade-fix closed the regression where inline-absolute popovers were clipped inside corner-rounded Cards.",
+  "description": "Token-driven floating panel. Portaled to document.body; outside-click + escape dismiss; arrow key navigation.",
+  "skillDescription": "Use when surfacing transient content tied to a trigger — settings, info, contextual help, dropdowns. Built on Radix Popover (already portaled). Composes Popover root + PopoverTrigger + PopoverContent. Width default w-72 (288px); customize via className.",
+  "builtOn": "Radix Popover",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-popover"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": ["surface.popover", "border.default", "shadow.popover", "text.primary", "radius.lg", "z-index.overlay"],
+  "useWhen": [
+    "Inline settings panel (filter dropdown, format options).",
+    "Contextual help bubble with rich content (vs Tooltip which is single-line).",
+    "Field affordances — date picker calendar, color picker, time selector."
+  ],
+  "anatomy": ["Popover root (Radix Root)", "PopoverTrigger — the anchor", "PopoverContent — the floating panel, portaled", "PopoverAnchor — alternate anchor element"],
+  "api": [
+    "`open`, `onOpenChange` — controlled or uncontrolled.",
+    "`align` — start | center (default) | end on PopoverContent.",
+    "`sideOffset` — px between trigger + content (default 4).",
+    "`side` — top | right | bottom | left."
+  ],
+  "never": [
+    "NEVER render as inline `<div absolute>` — must portal (hard rule 10).",
+    "NEVER strip the focus management — Radix handles it correctly.",
+    "NEVER apply backdrop-filter to PopoverContent on dense surfaces — popover IS a floating shell, glass is allowed via .lumen-glass-default if needed."
+  ],
+  "a11yRules": [
+    "Radix manages role + aria-haspopup + escape-to-close + outside-click dismiss.",
+    "Outside-click dismiss exempts the portaled list itself (don't double-dismiss).",
+    "Focus moves into Popover on open; returns to trigger on close."
+  ],
+  "do": ["Use Popover for rich content (Tooltip for single-line).", "Portal — never render inline absolute."],
+  "dont": ["Don't reach for Popover when Tooltip suffices.", "Don't disable the portal."],
+  "related": ["Tooltip", "DropdownMenu", "Combobox", "Calendar", "DatePicker", "HoverCard"],
+  "stories": [
+    { "name": "Default", "args": {}, "children": "" },
+    { "name": "RightAligned", "args": { "align": "end" }, "children": "" }
+  ],
+  "variants": ["default", "wide"],
+  "propsList": [{ "name": "align", "type": "enum" }, { "name": "sideOffset", "type": "number" }],
+  "exampleSnippet": "import { Popover, PopoverTrigger, PopoverContent } from \"@/components/ui/popover\";\n\nexport function Example() {\n  return (\n    <Popover>\n      <PopoverTrigger>Open</PopoverTrigger>\n      <PopoverContent>Hello</PopoverContent>\n    </Popover>\n  );\n}",
+  "testChildren": ""
+}

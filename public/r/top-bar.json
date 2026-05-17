@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "top-bar",
+  "title": "TopBar",
+  "description": "Horizontal app chrome — brand mark + breadcrumb + global search trigger + user menu.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/top-bar/top-bar.tsx",
+      "content": "/**\n * @lumen/top-bar — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Horizontal app chrome — brand mark + breadcrumb + search trigger + user menu.\n * h-14 sticky-top, hairline bottom border. Mode-agnostic.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport function TopBar({\n  children,\n  className,\n  sticky = true,\n}: React.HTMLAttributes<HTMLElement> & { sticky?: boolean }) {\n  return (\n    <header\n      data-slot=\"top-bar\"\n      data-sticky={sticky || undefined}\n      className={cn(\n        \"h-14 flex items-center gap-4 px-4 bg-[var(--surface-canvas)] text-[color:var(--text-primary)] border-b border-[var(--border-hairline)]\",\n        sticky && \"sticky top-0 z-[var(--z-sticky)]\",\n        className,\n      )}\n    >\n      {children}\n    </header>\n  );\n}\n\nexport function TopBarLeft({ children, className }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div data-slot=\"top-bar-left\" className={cn(\"flex items-center gap-3 shrink-0\", className)}>\n      {children}\n    </div>\n  );\n}\n\nexport function TopBarCenter({ children, className }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div data-slot=\"top-bar-center\" className={cn(\"flex-1 flex items-center justify-center min-w-0 gap-2\", className)}>\n      {children}\n    </div>\n  );\n}\n\nexport function TopBarRight({ children, className }: React.HTMLAttributes<HTMLDivElement>) {\n  return (\n    <div data-slot=\"top-bar-right\" className={cn(\"flex items-center gap-2 shrink-0\", className)}>\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/top-bar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "navigation",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native semantic <header>",
+    "specPath": "design-system/02-components/top-bar/top-bar.md",
+    "skillPath": "design-system/02-components/top-bar/top-bar.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

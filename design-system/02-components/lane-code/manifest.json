@@ -1,0 +1,57 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "lane-code",
+  "title": "LaneCode",
+  "description": "Freight lane code with arrow + optional inline rate. Mono numerics.",
+  "props": [
+    {
+      "name": "origin",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "destination",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "rate",
+      "type": "string"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "md"
+    },
+    {
+      "name": "bordered",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "plain",
+    "bordered",
+    "with-rate"
+  ],
+  "tokensConsumed": [
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "radius.xs",
+    "type.13"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Renders the arrow as a real character (→) — screen readers read it naturally.",
+      "aria-label='Lane: {origin} to {destination}{', rate ' + rate}' for clarity."
+    ]
+  },
+  "usage": "import { LaneCode } from \"@/components/ui/lane-code\";\n\nexport function Example() {\n  return <LaneCode origin=\"LAX\" destination=\"SFO\" rate=\"$262\" />;\n}",
+  "storiesPath": "02-components/lane-code/lane-code.stories.tsx",
+  "sourcePath": "02-components/lane-code/lane-code.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

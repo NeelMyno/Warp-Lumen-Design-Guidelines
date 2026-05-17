@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reaction-bar",
+  "title": "Reaction Bar",
+  "description": "Emoji reaction row. Toggle chips + Add-reaction picker trigger.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/reaction-bar/examples/primary.tsx",
+      "content": "// Lumen ReactionBar — Web React example.\n\n\"use client\";\n\nimport { Plus } from \"lucide-react\";\n\nexport type Reaction = { emoji: string; count: number; mine?: boolean };\n\nexport function ReactionBar({\n  reactions,\n  onToggle,\n  onAdd,\n  size = \"sm\",\n}: {\n  reactions: Reaction[];\n  onToggle: (emoji: string) => void;\n  onAdd?: () => void;\n  size?: \"xs\" | \"sm\";\n}) {\n  const h = size === \"xs\" ? \"h-5\" : \"h-6\";\n  const text = size === \"xs\" ? \"text-[10px]\" : \"text-[var(--type-label-sm)]\";\n  return (\n    <div role=\"group\" aria-label=\"Reactions\" className=\"inline-flex flex-wrap items-center gap-1\">\n      {reactions.map((r) => (\n        <button\n          key={r.emoji}\n          type=\"button\"\n          aria-pressed={r.mine || undefined}\n          aria-label={`${r.emoji}, ${r.count} reactions${r.mine ? \", you reacted\" : \"\"}`}\n          onClick={() => onToggle(r.emoji)}\n          className={[\n            \"inline-flex items-center gap-1 rounded-[var(--radius-pill)] px-2\",\n            h, text,\n            r.mine\n              ? \"bg-[var(--color-action-selected-bg)] border border-[var(--color-action-selected-border)] text-[var(--color-text-accent)]\"\n              : \"border border-[var(--color-border-hairline)] bg-[var(--color-surface-raised)] text-[var(--color-text-secondary)] hover:bg-[var(--color-action-ghost-bg-hover)] hover:text-[var(--color-text-primary)]\",\n            \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n            \"transition-colors duration-[var(--motion-duration-fast)]\",\n          ].join(\" \")}\n        >\n          <span aria-hidden>{r.emoji}</span>\n          <span className=\"lumen-tnum\">{r.count}</span>\n        </button>\n      ))}\n      {onAdd && (\n        <button\n          type=\"button\"\n          onClick={onAdd}\n          aria-label=\"Add reaction\"\n          className={[\n            \"inline-flex items-center justify-center rounded-[var(--radius-pill)] w-6\",\n            h,\n            \"border border-[var(--color-border-hairline)] bg-transparent text-[var(--color-text-tertiary)] hover:bg-[var(--color-action-ghost-bg-hover)] hover:text-[var(--color-text-primary)]\",\n            \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n          ].join(\" \")}\n        >\n          <Plus size={10} aria-hidden />\n        </button>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/reaction-bar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/reaction-bar/component.json",
+    "docsPath": "design-system/02-components/reaction-bar/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

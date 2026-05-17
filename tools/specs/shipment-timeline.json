@@ -1,0 +1,67 @@
+{
+  "name": "shipment-timeline",
+  "title": "ShipmentTimeline",
+  "namedExport": "ShipmentTimeline",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Vertical timeline. Standard freight stages — pickup → cross-dock → line haul → last mile → delivered. Each stage: status (pending / active / done / failed), timestamp, optional ETA bubble. Active stage gets lime accent + pulsing LiveDot.",
+  "description": "Vertical timeline for freight shipment lifecycle stages.",
+  "skillDescription": "Use to surface a shipment's stage history + current state. Each stage takes status + timestamp + optional notes. Active stage gets LiveDot. ETA bubble appears on stages in the future (pending). Compact density default; expanded for shipment detail pages.",
+  "builtOn": "Native composition + LiveDot",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/live-dot", "@lumen/badge"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "color.accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "border.default",
+    "lumen.red.5",
+    "radius.full",
+    "radius.xs"
+  ],
+  "useWhen": ["Shipment detail page.", "Tracking page (customer-facing).", "Cross-dock manifest detail."],
+  "anatomy": [
+    "Vertical rail (1px hairline)",
+    "Stage node (circle, status-colored)",
+    "Stage row: status icon, label, timestamp, optional ETA bubble",
+    "Active stage: LiveDot pulse + lime accent",
+    "Failed stage: red ring + label"
+  ],
+  "api": [
+    "`stages` — { id, label, status, timestamp?, etaIso?, note? }[].",
+    "`density` — default | compact.",
+    "`orientation` — vertical (default) | horizontal."
+  ],
+  "never": [
+    "NEVER use color alone for stage status — pair with icon or label.",
+    "NEVER hide the rail between stages (the visual continuity is the point).",
+    "NEVER fake an ETA — omit if unknown."
+  ],
+  "a11yRules": [
+    "Each stage is a <li> with aria-current=step on active.",
+    "Status conveyed via icon + label, not color alone.",
+    "LiveDot inherits its motion contract."
+  ],
+  "do": ["Use standard freight stages (pickup → cross-dock → line haul → last mile → delivered).", "Use compact in side panels.", "Pair active stage with LiveDot."],
+  "dont": ["Don't use color alone.", "Don't fake ETAs."],
+  "related": ["LiveDot", "Stepper", "Timeline", "RouteMap"],
+  "stories": [
+    { "name": "Default", "args": { "stages": [{ "id": "1", "label": "Picked up", "status": "done", "timestamp": "08:14" }, { "id": "2", "label": "In transit", "status": "active", "timestamp": "10:42" }, { "id": "3", "label": "Delivered", "status": "pending", "etaIso": "2026-05-17T14:00:00Z" }] }, "children": "" }
+  ],
+  "variants": ["vertical", "horizontal", "compact"],
+  "propsList": [
+    { "name": "stages", "type": "Stage[]" },
+    { "name": "density", "type": "enum", "default": "default" },
+    { "name": "orientation", "type": "enum", "default": "vertical" }
+  ],
+  "exampleSnippet": "import { ShipmentTimeline } from \"@/components/ui/shipment-timeline\";\n\nexport function Example() {\n  return (\n    <ShipmentTimeline stages={[\n      { id: \"1\", label: \"Picked up\", status: \"done\", timestamp: \"08:14\" },\n      { id: \"2\", label: \"In transit\", status: \"active\" },\n      { id: \"3\", label: \"Delivered\", status: \"pending\", etaIso: \"2026-05-17T14:00:00Z\" },\n    ]} />\n  );\n}",
+  "testChildren": ""
+}

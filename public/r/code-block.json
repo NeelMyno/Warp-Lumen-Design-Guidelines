@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block",
+  "title": "Code Block",
+  "description": "Mono-typeface code with optional language/filename label, line numbers, line highlight, copy button.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/code-block/examples/primary.tsx",
+      "content": "// Lumen CodeBlock — Web React example.\n// Mono-typeface code with language/filename label, optional line numbers + highlight,\n// and copy button.\n\n\"use client\";\n\nimport { Check, Copy } from \"lucide-react\";\nimport { useState } from \"react\";\n\nexport type CodeBlockProps = {\n  code: string;\n  language?: string;\n  filename?: string;\n  showLineNumbers?: boolean;\n  highlightLines?: string;\n  wrap?: \"scroll\" | \"soft\" | \"wrap\";\n  copy?: boolean;\n  maxHeight?: string;\n};\n\nfunction parseHighlights(spec?: string): Set<number> {\n  if (!spec) return new Set();\n  const out = new Set<number>();\n  for (const part of spec.split(\",\")) {\n    const [a, b] = part.split(\"-\").map((v) => parseInt(v.trim(), 10));\n    if (Number.isNaN(a)) continue;\n    if (Number.isNaN(b)) out.add(a);\n    else for (let i = a; i <= b; i++) out.add(i);\n  }\n  return out;\n}\n\nexport function CodeBlock({\n  code,\n  language,\n  filename,\n  showLineNumbers,\n  highlightLines,\n  wrap = \"scroll\",\n  copy = true,\n  maxHeight,\n}: CodeBlockProps) {\n  const [copied, setCopied] = useState(false);\n  const onCopy = async () => {\n    await navigator.clipboard.writeText(code);\n    setCopied(true);\n    setTimeout(() => setCopied(false), 1600);\n  };\n\n  const lines = code.split(\"\\n\");\n  const highlights = parseHighlights(highlightLines);\n  const wrapClass: Record<typeof wrap, string> = {\n    scroll: \"overflow-x-auto whitespace-pre\",\n    soft:   \"whitespace-pre-wrap break-words\",\n    wrap:   \"whitespace-pre-wrap break-all\",\n  };\n\n  return (\n    <figure\n      role=\"region\"\n      aria-label={`Code block${language ? `, ${language}` : \"\"}${filename ? `, ${filename}` : \"\"}`}\n      className={[\n        \"rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\",\n        \"bg-[var(--color-surface-sunken)] overflow-hidden\",\n      ].join(\" \")}\n    >\n      <div className=\"flex items-center justify-between gap-2 px-[var(--space-inset-lg)] py-[var(--space-inset-md)] border-b border-[var(--color-border-subtle)]\">\n        <span className=\"text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)] truncate\">\n          {filename ?? language ?? \"\"}\n        </span>\n        {copy && (\n          <button\n            type=\"button\"\n            onClick={onCopy}\n            aria-label=\"Copy code\"\n            aria-live=\"polite\"\n            className={[\n              \"shrink-0 inline-flex h-7 items-center gap-1 rounded-[var(--radius-control-sm)] px-2\",\n              \"text-[var(--type-eyebrow-mono)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]\",\n              \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n              \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n              \"transition-colors duration-150\",\n            ].join(\" \")}\n          >\n            {copied ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}\n            <span>{copied ? \"Copied\" : \"Copy\"}</span>\n          </button>\n        )}\n      </div>\n      <pre\n        className={[\n          \"m-0 px-[var(--space-inset-lg)] py-[var(--space-inset-md)]\",\n          \"text-[var(--color-text-primary)] text-[var(--type-code-md, 13px)] leading-relaxed\",\n          \"font-mono\",\n          wrapClass[wrap],\n        ].join(\" \")}\n        style={{ maxHeight, overflowY: maxHeight ? \"auto\" : undefined }}\n      >\n        <code>\n          {lines.map((line, i) => {\n            const n = i + 1;\n            const hl = highlights.has(n);\n            return (\n              <span\n                key={n}\n                className={[\n                  \"block\",\n                  hl ? \"-mx-[var(--space-inset-lg)] px-[var(--space-inset-lg)] bg-[var(--color-alpha-accent-12,rgba(0,250,138,0.12))] border-l-2 border-[var(--color-text-accent)]\" : \"\",\n                ].join(\" \")}\n              >\n                {showLineNumbers && (\n                  <span aria-hidden className=\"select-none mr-4 text-[var(--color-text-tertiary)] lumen-tnum\">\n                    {String(n).padStart(2, \" \")}\n                  </span>\n                )}\n                {line || \" \"}\n              </span>\n            );\n          })}\n        </code>\n      </pre>\n    </figure>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/code-block.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/code-block/component.json",
+    "docsPath": "design-system/02-components/code-block/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

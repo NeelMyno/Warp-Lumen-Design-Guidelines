@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inventory-status",
+  "title": "Inventory Status",
+  "description": "Stock state chip. In-stock / low-stock / backorder / preorder / sold-out.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/inventory-status/examples/primary.tsx",
+      "content": "// Lumen InventoryStatus — Web React example. Five tones.\n\nimport { Check, AlertTriangle, Clock, AlertOctagon, Package } from \"lucide-react\";\n\ntype Status = \"in-stock\" | \"low-stock\" | \"backorder\" | \"preorder\" | \"sold-out\";\n\nconst CONFIG: Record<Status, { label: string; icon: typeof Check; bg: string; fg: string }> = {\n  \"in-stock\":  { label: \"In stock\",   icon: Check,         bg: \"bg-[var(--color-status-success-bg)]\", fg: \"text-[var(--color-status-success-fg)]\" },\n  \"low-stock\": { label: \"Low stock\",  icon: AlertTriangle, bg: \"bg-[var(--color-status-warning-bg)]\", fg: \"text-[var(--color-status-warning-fg)]\" },\n  \"backorder\": { label: \"Backorder\",  icon: Clock,         bg: \"bg-[var(--color-status-info-bg)]\",    fg: \"text-[var(--color-status-info-fg)]\" },\n  \"preorder\":  { label: \"Preorder\",   icon: Package,       bg: \"bg-[var(--color-status-info-bg)]\",    fg: \"text-[var(--color-status-info-fg)]\" },\n  \"sold-out\":  { label: \"Sold out\",   icon: AlertOctagon,  bg: \"bg-[var(--color-status-danger-bg)]\",  fg: \"text-[var(--color-status-danger-fg)]\" },\n};\n\nexport function InventoryStatus({\n  status,\n  quantity,\n  size = \"sm\",\n  compact,\n}: {\n  status: Status;\n  quantity?: number;\n  size?: \"sm\" | \"md\";\n  compact?: boolean;\n}) {\n  const c = CONFIG[status];\n  const Icon = c.icon;\n  const label =\n    status === \"low-stock\" && typeof quantity === \"number\"\n      ? `Only ${quantity} left`\n      : c.label;\n  const h = size === \"md\" ? \"h-7 px-2.5\" : \"h-5 px-2\";\n  return (\n    <span\n      role=\"img\"\n      aria-label={label}\n      className={[\n        \"inline-flex items-center gap-1 rounded-[var(--radius-pill)]\",\n        h, \"text-[var(--type-label-sm)]\",\n        c.bg, c.fg,\n      ].join(\" \")}\n    >\n      <Icon size={10} aria-hidden />\n      {!compact && (\n        <span className=\"lumen-tnum\">{label}</span>\n      )}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/inventory-status.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/inventory-status/component.json",
+    "docsPath": "design-system/02-components/inventory-status/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

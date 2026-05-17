@@ -1,0 +1,50 @@
+{
+  "name": "pagination",
+  "title": "Pagination",
+  "namedExport": "Pagination",
+  "category": "navigation",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Page numbers + first / prev / next / last + optional jump-to-page. Mono-numerics. Active page gets lime accent. Truncates with ellipsis for large page counts.",
+  "description": "Token-driven pagination — numbers + nav buttons + ellipsis truncation.",
+  "skillDescription": "Use beneath any paginated list / DataTable. Always show first + last + current ± 2 in the middle. Replace large gaps with an ellipsis (...). Provide aria-label='Pagination' on the root.",
+  "builtOn": "Native semantic <nav>",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.tint-accent",
+    "text.primary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "radius.xs",
+    "shadow.focus"
+  ],
+  "useWhen": ["Below DataTable or list views.", "Search result pagination.", "Multi-page report navigation."],
+  "anatomy": ["Nav root (<nav aria-label='Pagination'>)", "First / Prev buttons", "Page number buttons", "Ellipsis truncation", "Next / Last buttons", "Optional 'Jump to page' input"],
+  "api": [
+    "`currentPage` — number (1-indexed).",
+    "`totalPages` — number.",
+    "`onPageChange` — (page: number) => void.",
+    "`siblingCount` — number (default 1) — pages shown adjacent to current.",
+    "`showFirstLast` — boolean (default true)."
+  ],
+  "never": ["NEVER stack pagination above AND below — pick one.", "NEVER use Pagination for non-paginated content.", "NEVER omit aria-current on the active page."],
+  "a11yRules": ["<nav aria-label='Pagination'>.", "Active page has aria-current=page.", "Disabled buttons have aria-disabled=true."],
+  "do": ["Use ellipsis for >7 pages.", "Show current ± 1 minimum.", "Provide first/last when totalPages > 5."],
+  "dont": ["Don't stack above + below.", "Don't omit aria-current."],
+  "related": ["DataTable", "list"],
+  "stories": [{ "name": "Default", "args": { "currentPage": 3, "totalPages": 10 }, "children": "" }],
+  "variants": ["compact", "full", "with-jump"],
+  "propsList": [
+    { "name": "currentPage", "type": "number" },
+    { "name": "totalPages", "type": "number" },
+    { "name": "onPageChange", "type": "(p: number) => void" },
+    { "name": "siblingCount", "type": "number", "default": 1 }
+  ],
+  "exampleSnippet": "import { Pagination } from \"@/components/ui/pagination\";\n\nexport function Example() {\n  const [page, setPage] = useState(3);\n  return <Pagination currentPage={page} totalPages={10} onPageChange={setPage} />;\n}",
+  "testChildren": ""
+}

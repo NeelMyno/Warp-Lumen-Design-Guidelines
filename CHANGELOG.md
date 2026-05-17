@@ -6,7 +6,58 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13 refactor in progress — see Phase 0 and Phase 1 entries below. Phases 2–6 land additional entries here as they ship._
+_v0.13 refactor in progress — see Phase 0, Phase 1, and Phase 2 entries below. Phases 3–6 land additional entries here as they ship._
+
+---
+
+## [0.13.0-phase.2] — 2026-05-16 — Component library → shadcn registry under `@lumen/*` · Phase 2 of the v0.13 master refactor
+
+Phase 2 of the seven-phase v0.13 refactor. Lands the **48 v0.13 components** under `design-system/02-components/<name>/` with the seven-file shadcn contract (`<name>.md` + `<name>.skill.md` + `<name>.tsx` + `<name>.test.tsx` + `<name>.stories.tsx` + `<name>.registry.json` + `manifest.json` per component = 336 files). Plus four foundation registries (`lumen-base` for single-payload install, `font-satoshi` for self-hosted Satoshi, `tokens` for the DTCG 2025.10 graph, `utils` for `cn()`), the legacy 69 v0.12.6 sidecars preserved verbatim, and the scaffolder / registry-builder / audit-tokens / audit-mode tooling. Storybook 10.4 wired at `audit-dashboard/.storybook/` (10.3 contract — Component Manifests default-on). **Hard gates: registry build PASS (121 items); audit-tokens PASS (145 files, 0 hex); audit-mode PASS (144 files, 0 violations); 13/15 self-critique questions answered no, 2 deferred to operator with documented rationale.** See [`design-system/06-claude-code-briefings/phase-2-report.md`](design-system/06-claude-code-briefings/phase-2-report.md) for the full report.
+
+### Added
+
+- **48 v0.13 components** under `02-components/<name>/`:
+  - **Tier 1 — Primitives (20):** button, input, textarea, card, sheet, popover, tooltip, toast, badge, tag, avatar, skeleton, spinner, tabs, breadcrumb, switch, checkbox, radio, slider, progress
+  - **Tier 2 — Composed (15):** data-table (TanStack-virtualized), command-palette (cmdk), drawer, modal, dropdown-menu, combobox, calendar (react-day-picker), date-picker, filter-builder, filter-chip, saved-view, sidebar, top-bar, pagination, select
+  - **Tier 3 — Lumen signatures (3):** stat, live-dot, rate-ticker — preserved v0.12.4 behavior verbatim including v0.11.16/.17 cross-column alignment + fluid spark
+  - **Tier 4 — Freight-domain composites (10, all new):** lane-code, lane-arc, shipment-timeline, route-map, dock-bay, cross-dock-grid, carrier-badge, pallet-tile, otr-truck-iso (Phase 4 will swap the SVG body for gpt-image-2 render), quote-builder
+- **Per-component contract (7 files each):** `<name>.md` (master-doc §8.4 frontmatter), `<name>.skill.md` (Vercel-format with ≥ 3 NEVER rules verbatim), `<name>.tsx` (canonical React impl — token-driven, mode-agnostic, zero hex literals), `<name>.test.tsx` (Vitest + @testing-library/react), `<name>.stories.tsx` (Storybook 10.3 CSF Factory), `<name>.registry.json` (shadcn registry-item.json), `manifest.json` (Storybook 10.3 Component Manifest entry).
+- **Foundation registries (4 NEW):**
+  - **`registry/lumen-base/lumen-base.json`** — `registry:base` single-payload installer. The killer-feature entry: `npx shadcn add @lumen/lumen-base` brings tokens + font + ModeScope + utils in one command.
+  - **`registry/font-satoshi/font-satoshi.json`** — `registry:lib` self-hosted Satoshi Variable + Italic (ITF-FFL). Demoted from `registry:font` because shadcn 4's font type supports `provider: google` only (Satoshi is not on Google Fonts).
+  - **`registry/tokens/tokens.json`** — `registry:style` for the DTCG 2025.10 token graph.
+  - **`design-system/02-components/_lib/{utils.ts, utils.registry.json}`** — the `@lumen/utils` registry:lib item (cn() class-merger built on clsx + tailwind-merge). Every component declares it as a registryDependency.
+- **`tools/inventory.csv`** — 115-row inventory per master doc §1.2.
+- **`tools/audit-tokens.ts`** — Phase 2 hex-literal gate (`pnpm audit:tokens`).
+- **`tools/audit-mode.ts`** — Phase 2 mode-prop gate (`pnpm audit:mode`).
+- **`tools/scaffold-component.mjs`** — spec-driven 6-file generator.
+- **`tools/build-registry.mjs`** — registry assembly (consolidates `02-components/<name>/<name>.registry.json` + foundation `registry/<name>/<name>.json` + legacy `_registry/<name>.json` into root `registry.json`).
+- **`tools/specs/<name>.json` × 48** — per-component specs feeding the scaffolder.
+- **`audit-dashboard/.storybook/{main.ts, preview.ts}`** — Storybook 10.4 config. `@storybook/nextjs` framework. Stories from `../../design-system/02-components/**/*.stories.tsx`. `addon-a11y`. `features.componentsManifest: true` (10.3 default; explicit for v0.13 contract). Mode toggle (restrained / expressive) + theme toggle (dark / light) in the preview toolbar.
+- **`public/r/<name>.json` × 121** — built shadcn registry payload (each item with full TSX `content` inlined for consumer install).
+- **`design-system/06-claude-code-briefings/phase-2-report.md`** — Phase 2 report per master doc §10.3.
+
+### Changed
+
+- **`registry.json` (root)** — was 1 item (mode-scope) from Phase 1; now 121 items sorted by tier (REG → FOUNDATION → T1 → T2 → T3 → T4 → EXT) via `pnpm registry`.
+- **`llms.txt`** — `## Components` section rewritten with the v0.13 registry layout (REG / Tier 1-4 / legacy v0.12.6 sidecars). Description bumped to reflect Phase 2 complete + the 121-item registry endpoint.
+- **`package.json`** — added `audit:tokens`, `audit:mode`, `registry`, `registry:build`, `scaffold` scripts; aliased the legacy registry builder to `registry:legacy`. Added `shadcn@^4.7.0` devDep.
+- **`audit-dashboard/package.json`** — added `storybook@^10.4`, `@storybook/nextjs@^10.4`, `@storybook/addon-a11y@^10.4`, `vitest@^4`, `@vitest/ui@^4`, `jsdom@^25`, `@testing-library/react@^16`, `@testing-library/jest-dom@^6`, `@testing-library/user-event@^14`.
+
+### Fixed
+
+- **shadcn 4 build rejected `font-satoshi` initially with `Invalid registry file`.** Root cause: shadcn 4's `registry:font` schema supports `provider: google` only (uses `next/font/google`); Satoshi is ITF-FFL self-hosted and not on Google Fonts. **Fix:** Demoted to `registry:lib` with woff2 + license as `registry:file` children. End-state identical to a hypothetical `registry:font` install (woff2 copied to `public/fonts/`, `@font-face` declaration via `@lumen/tokens`).
+
+### Notes for next phase
+
+- **Phase 3 — Platform translations** per master doc §7 Phase 3. iOS (SwiftUI), Android (Compose with `dev.chrisbanes.haze` for glass), macOS (AppKit `NSVisualEffectView` bridge), Windows (WinUI Acrylic), Shopify (Polaris budget ≤ 15%), browser extension (shadow DOM `:host { all: initial }`), CLI / TUI (Lipgloss / Ink), MCP host (voice + tone only — no UI).
+- **Operator-side verification gates:**
+  - `pnpm storybook` to verify the 48 stories render with mode + theme toggles (config + stories ship; Storybook bundler not run in this env due to Turbopack OOM risk per audit-dashboard CLAUDE.md guidance).
+  - `npx shadcn@latest add @lumen/lumen-base` in a fresh Next.js 15 app to verify the single-command install path.
+  - `npx shadcn@latest add @lumen/button` (and others) to verify per-component install copies the right files + dependencies.
+  - Push the `public/r/*.json` artifacts to Vercel (next deploy) so `https://warp-lumen-design-guidelines.vercel.app/r/{name}.json` is reachable for live consumer installs.
+- **The 87 pre-existing `tokens:validate` errors from v0.12.6** continue to surface as Phase 2 didn't touch the token graph. Phase 6 (or a dedicated cleanup) will reconcile them as each legacy component migrates to the v0.13 contract surface.
+- **`llms-full.txt` regeneration** is Phase 6 scope per master doc §7 Phase 6. Phase 2's `llms.txt` rewrite is incremental.
 
 ---
 

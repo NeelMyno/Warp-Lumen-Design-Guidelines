@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-chip",
+  "type": "registry:ui",
+  "title": "FilterChip",
+  "description": "Applied-filter chip — {field} {operator} {value} with edit popover + dismiss X.",
+  "dependencies": [
+    "@radix-ui/react-popover",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/popover",
+    "@lumen/tag"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/filter-chip/filter-chip.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/filter-chip.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Lumen primitives (Tag + Popover)",
+    "specPath": "design-system/02-components/filter-chip/filter-chip.md",
+    "skillPath": "design-system/02-components/filter-chip/filter-chip.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "title": "Alert",
+  "description": "Inline persistent status block. Four tones with paired glyphs. Optional dismiss + inline action.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/alert/examples/primary.tsx",
+      "content": "// Lumen Alert — Web React example.\n// Inline, persistent, region-scoped status block. Four tones, each with a paired glyph.\n\n\"use client\";\n\nimport { AlertOctagon, AlertTriangle, CheckCircle, Info, X } from \"lucide-react\";\nimport { ReactNode } from \"react\";\n\ntype Tone = \"info\" | \"success\" | \"warning\" | \"danger\";\n\nconst TONE: Record<Tone, { icon: typeof Info; bg: string; fg: string; border: string }> = {\n  info:    { icon: Info,          bg: \"bg-[var(--color-status-info-bg)]\",    fg: \"text-[var(--color-status-info-fg)]\",    border: \"border-[var(--color-status-info-border)]\" },\n  success: { icon: CheckCircle,   bg: \"bg-[var(--color-status-success-bg)]\", fg: \"text-[var(--color-status-success-fg)]\", border: \"border-[var(--color-status-success-border)]\" },\n  warning: { icon: AlertTriangle, bg: \"bg-[var(--color-status-warning-bg)]\", fg: \"text-[var(--color-status-warning-fg)]\", border: \"border-[var(--color-status-warning-border)]\" },\n  danger:  { icon: AlertOctagon,  bg: \"bg-[var(--color-status-danger-bg)]\",  fg: \"text-[var(--color-status-danger-fg)]\",  border: \"border-[var(--color-status-danger-border)]\" },\n};\n\nexport type AlertProps = {\n  tone?: Tone;\n  title?: string;\n  description: ReactNode;\n  icon?: ReactNode | null;\n  action?: ReactNode;\n  dismissible?: boolean;\n  onDismiss?: () => void;\n  compact?: boolean;\n  live?: \"off\" | \"polite\" | \"assertive\";\n};\n\nexport function Alert({\n  tone = \"info\",\n  title,\n  description,\n  icon,\n  action,\n  dismissible,\n  onDismiss,\n  compact,\n  live,\n}: AlertProps) {\n  const t = TONE[tone];\n  const Icon = t.icon;\n  const role = tone === \"danger\" ? \"alert\" : \"status\";\n  const ariaLive = live ?? (tone === \"danger\" ? \"assertive\" : \"polite\");\n  return (\n    <div\n      role={role}\n      aria-live={ariaLive}\n      className={[\n        \"flex items-start gap-[var(--space-inline-md)]\",\n        compact ? \"p-[var(--space-inset-md)]\" : \"p-[var(--space-inset-lg)]\",\n        \"rounded-[var(--radius-card-default)] border\",\n        t.bg,\n        t.border,\n      ].join(\" \")}\n    >\n      {icon !== null && (\n        <span className={[\"shrink-0 mt-[2px]\", t.fg].join(\" \")}>\n          {icon ?? <Icon size={compact ? 14 : 16} aria-hidden />}\n        </span>\n      )}\n      <div className=\"min-w-0 flex-1 flex flex-col gap-[var(--space-stack-xs)]\">\n        {title && (\n          <p className={[\"font-medium leading-snug\", \"text-[var(--color-text-primary)]\", compact ? \"text-[var(--type-label-md)]\" : \"text-[var(--type-heading-h4)]\"].join(\" \")}>\n            {title}\n          </p>\n        )}\n        <div className={[\"text-[var(--color-text-secondary)]\", compact ? \"text-[var(--type-body-sm)]\" : \"text-[var(--type-body-md)]\"].join(\" \")}>\n          {description}\n        </div>\n        {action && <div className=\"mt-[var(--space-stack-xs)]\">{action}</div>}\n      </div>\n      {dismissible && (\n        <button\n          type=\"button\"\n          aria-label={`Dismiss ${tone} alert${title ? `: ${title}` : \"\"}`}\n          onClick={onDismiss}\n          className={[\n            \"shrink-0 inline-flex h-6 w-6 items-center justify-center rounded-[var(--radius-control-sm)]\",\n            \"text-[var(--color-text-tertiary)] hover:text-[var(--color-text-primary)]\",\n            \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n            \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1\",\n            \"focus-visible:shadow-[var(--shadow-focus)]\",\n            \"transition-colors duration-[var(--motion-duration-fast)]\",\n          ].join(\" \")}\n        >\n          <X size={14} aria-hidden />\n        </button>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/alert.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/alert/component.json",
+    "docsPath": "design-system/02-components/alert/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-button",
+  "title": "IconButton",
+  "description": "Square Button with required aria-label. Five sizes, rect or round shape, full intent ladder.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/icon-button/examples/primary.tsx",
+      "content": "// Lumen IconButton — Web React example (v0.9)\n// Square Button containing only an icon. aria-label is REQUIRED.\n\nimport { ButtonHTMLAttributes, ReactNode } from \"react\";\n\ntype Intent = \"primary\" | \"secondary\" | \"tertiary\" | \"ghost\" | \"outline\" | \"danger\" | \"ai\";\ntype Size = \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\";\ntype Shape = \"rect\" | \"round\";\n\nconst INTENT: Record<Intent, string> = {\n  primary:   \"lumen-btn-primary\",\n  secondary: \"lumen-btn-secondary\",\n  tertiary:  \"lumen-btn-tertiary\",\n  ghost:     \"lumen-btn-ghost\",\n  outline:   \"lumen-btn-outline\",\n  danger:    \"lumen-btn-danger\",\n  ai:        \"lumen-btn-ai\",\n};\n\nconst SIZE: Record<Size, string> = {\n  xs: \"lumen-btn-xs\",\n  sm: \"lumen-btn-sm\",\n  md: \"lumen-btn-md\",\n  lg: \"lumen-btn-lg\",\n  xl: \"lumen-btn-xl\",\n};\n\nexport type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, \"aria-label\"> & {\n  \"aria-label\": string; // REQUIRED — TS will refuse to compile without\n  intent?: Intent;\n  size?: Size;\n  shape?: Shape;\n  pressed?: boolean;\n  children: ReactNode;\n};\n\nexport function IconButton({\n  intent = \"ghost\",\n  size = \"md\",\n  shape = \"rect\",\n  pressed,\n  \"aria-label\": ariaLabel,\n  className,\n  children,\n  ...props\n}: IconButtonProps) {\n  return (\n    <button\n      type={props.type ?? \"button\"}\n      aria-label={ariaLabel}\n      aria-pressed={pressed || undefined}\n      {...props}\n      className={[\n        \"lumen-btn\",\n        INTENT[intent],\n        SIZE[size],\n        \"lumen-icon-button\",\n        shape === \"round\" ? \"lumen-btn-round\" : \"\",\n        pressed ? \"lumen-btn-selected\" : \"\",\n        className ?? \"\",\n      ].filter(Boolean).join(\" \")}\n    >\n      {children}\n    </button>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/icon-button.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.9.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/icon-button/component.json",
+    "docsPath": "design-system/02-components/icon-button/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

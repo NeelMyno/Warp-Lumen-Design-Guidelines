@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kanban",
+  "title": "Kanban",
+  "description": "Horizontal board of columns + cards. Keyboard drag-equivalent required.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/kanban/examples/primary.tsx",
+      "content": "// Lumen Kanban — Web React example.\n// Static skeleton. Production: integrate with react-aria's useDrag/useDrop +\n// dnd-kit for the gesture, AND maintain keyboard Arrow/Space drag-equivalents.\n\n\"use client\";\n\nimport { ReactNode } from \"react\";\n\nexport type KanbanColumn = { id: string; title: string; count?: number; wipLimit?: number };\nexport type KanbanCard = {\n  id: string;\n  columnId: string;\n  title: ReactNode;\n  body?: ReactNode;\n  meta?: ReactNode;\n  severity?: \"low\" | \"med\" | \"high\" | \"critical\";\n};\n\nexport function Kanban({\n  columns,\n  cards,\n  onCardClick,\n  ariaLabel = \"Kanban board\",\n}: {\n  columns: KanbanColumn[];\n  cards: KanbanCard[];\n  onCardClick?: (id: string) => void;\n  ariaLabel?: string;\n}) {\n  return (\n    <div role=\"region\" aria-label={ariaLabel} className=\"flex gap-3 overflow-x-auto pb-2\">\n      {columns.map((col) => {\n        const colCards = cards.filter((c) => c.columnId === col.id);\n        const overWip = col.wipLimit !== undefined && colCards.length > col.wipLimit;\n        return (\n          <section\n            key={col.id}\n            aria-label={`${col.title}, ${colCards.length} cards`}\n            className=\"shrink-0 w-[280px] flex flex-col bg-[var(--color-surface-sunken)] rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\"\n          >\n            <header className=\"flex items-center justify-between gap-2 px-3 h-10 border-b border-[var(--color-border-hairline)]\">\n              <span className=\"text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)] truncate\">\n                {col.title}\n              </span>\n              <span className={[\n                \"lumen-tnum text-[var(--type-eyebrow-mono)]\",\n                overWip ? \"text-[var(--color-status-danger-fg)]\" : \"text-[var(--color-text-tertiary)]\",\n              ].join(\" \")}>\n                {colCards.length}{col.wipLimit !== undefined ? ` / ${col.wipLimit}` : \"\"}\n              </span>\n            </header>\n            <ol role=\"list\" className=\"flex-1 overflow-y-auto p-2 flex flex-col gap-2\">\n              {colCards.map((card) => (\n                <li key={card.id}>\n                  <button\n                    type=\"button\"\n                    onClick={() => onCardClick?.(card.id)}\n                    className={[\n                      \"block w-full text-left rounded-[var(--radius-popover)] bg-[var(--color-surface-raised)] border border-[var(--color-border-hairline)]\",\n                      \"p-[var(--space-inset-md)]\",\n                      \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n                      \"hover:shadow-[var(--shadow-elevation-md)] hover:border-[var(--color-border-default)]\",\n                      \"transition-shadow duration-[var(--motion-duration-base)]\",\n                    ].join(\" \")}\n                  >\n                    <p className=\"text-[var(--type-label-md)] font-medium text-[var(--color-text-primary)] mb-1\">{card.title}</p>\n                    {card.body && <p className=\"text-[var(--type-body-sm)] text-[var(--color-text-secondary)] line-clamp-2\">{card.body}</p>}\n                    {card.meta && <div className=\"mt-2 flex items-center gap-2 text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\">{card.meta}</div>}\n                  </button>\n                </li>\n              ))}\n            </ol>\n          </section>\n        );\n      })}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/kanban.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/kanban/component.json",
+    "docsPath": "design-system/02-components/kanban/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "title": "Copy Button",
+  "description": "Clipboard write affordance. Three variants (ghost / pill / inline). Reduced-motion-safe flash.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/copy-button/examples/primary.tsx",
+      "content": "// Lumen CopyButton — Web React example. Three variants, three sizes.\n\n\"use client\";\n\nimport { Check, Copy } from \"lucide-react\";\nimport { useState } from \"react\";\n\ntype Variant = \"ghost\" | \"pill\" | \"inline\";\ntype Size = \"xs\" | \"sm\" | \"md\";\n\nconst SIZE: Record<Size, { box: string; icon: number; type: string }> = {\n  xs: { box: \"h-5 px-1\",   icon: 10, type: \"text-[var(--type-eyebrow-mono)]\" },\n  sm: { box: \"h-6 px-1.5\", icon: 12, type: \"text-[var(--type-eyebrow-mono)]\" },\n  md: { box: \"h-8 px-3\",   icon: 14, type: \"text-[var(--type-label-sm)]\" },\n};\n\nexport type CopyButtonProps = {\n  value: string;\n  variant?: Variant;\n  size?: Size;\n  label?: string;\n  successLabel?: string;\n  onCopied?: () => void;\n  ariaLabel?: string;\n};\n\nexport function CopyButton({\n  value,\n  variant = \"ghost\",\n  size = \"sm\",\n  label = \"Copy\",\n  successLabel = \"Copied\",\n  onCopied,\n  ariaLabel,\n}: CopyButtonProps) {\n  const [copied, setCopied] = useState(false);\n  const s = SIZE[size];\n\n  const onClick = async () => {\n    await navigator.clipboard.writeText(value);\n    setCopied(true);\n    onCopied?.();\n    setTimeout(() => setCopied(false), 1600);\n  };\n\n  const chrome = variant === \"pill\"\n    ? \"border border-[var(--color-border-hairline)] rounded-[var(--radius-pill)]\"\n    : \"rounded-[var(--radius-control-sm)]\";\n  const inner =\n    variant === \"ghost\" ? (\n      <>{copied ? <Check size={s.icon} aria-hidden /> : <Copy size={s.icon} aria-hidden />}</>\n    ) : (\n      <>\n        {copied ? <Check size={s.icon} aria-hidden /> : <Copy size={s.icon} aria-hidden />}\n        <span>{copied ? successLabel : label}</span>\n      </>\n    );\n\n  return (\n    <button\n      type=\"button\"\n      onClick={onClick}\n      aria-label={ariaLabel ?? (variant === \"ghost\" ? \"Copy\" : undefined)}\n      aria-live=\"polite\"\n      className={[\n        \"inline-flex items-center gap-1\",\n        s.box,\n        s.type,\n        chrome,\n        \"text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]\",\n        \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n        \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n        \"transition-colors duration-[var(--motion-duration-fast)]\",\n        copied ? \"text-[var(--color-text-accent)]\" : \"\",\n      ].join(\" \")}\n    >\n      {inner}\n    </button>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/copy-button.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/copy-button/component.json",
+    "docsPath": "design-system/02-components/copy-button/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet",
+  "title": "Sheet",
+  "description": "Side panel overlay built on Radix Dialog. Sides: left | right (default) | top | bottom.",
+  "dependencies": [
+    "@radix-ui/react-dialog",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/sheet/sheet.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/sheet — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Side-anchored panel built on Radix Dialog. Side: left | right (default) |\n * top | bottom. Keyboard / scrim / focus-trap behavior inherited from Radix.\n * No backdrop-filter on the overlay — it's a scrim, not glass.\n */\nimport * as React from \"react\";\nimport * as SheetPrimitive from \"@radix-ui/react-dialog\";\nimport { XIcon } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nfunction Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {\n  return <SheetPrimitive.Root data-slot=\"sheet\" {...props} />;\n}\nfunction SheetTrigger({ ...props }: React.ComponentProps<typeof SheetPrimitive.Trigger>) {\n  return <SheetPrimitive.Trigger data-slot=\"sheet-trigger\" {...props} />;\n}\nfunction SheetClose({ ...props }: React.ComponentProps<typeof SheetPrimitive.Close>) {\n  return <SheetPrimitive.Close data-slot=\"sheet-close\" {...props} />;\n}\nfunction SheetPortal({ ...props }: React.ComponentProps<typeof SheetPrimitive.Portal>) {\n  return <SheetPrimitive.Portal data-slot=\"sheet-portal\" {...props} />;\n}\n\nfunction SheetOverlay({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Overlay>) {\n  return (\n    <SheetPrimitive.Overlay\n      data-slot=\"sheet-overlay\"\n      className={cn(\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[var(--z-modal)] bg-[var(--surface-scrim)]\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nfunction SheetContent({\n  className,\n  children,\n  side = \"right\",\n  ...props\n}: React.ComponentProps<typeof SheetPrimitive.Content> & {\n  side?: \"top\" | \"right\" | \"bottom\" | \"left\";\n}) {\n  return (\n    <SheetPortal>\n      <SheetOverlay />\n      <SheetPrimitive.Content\n        data-slot=\"sheet-content\"\n        data-side={side}\n        className={cn(\n          \"bg-[var(--surface-popover)] text-[color:var(--text-primary)] data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-[var(--z-modal)] flex flex-col gap-4 shadow-[var(--shadow-modal)] transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\",\n          side === \"right\" &&\n            \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l border-[var(--border-default)] sm:max-w-sm\",\n          side === \"left\" &&\n            \"data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r border-[var(--border-default)] sm:max-w-sm\",\n          side === \"top\" &&\n            \"data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b border-[var(--border-default)]\",\n          side === \"bottom\" &&\n            \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t border-[var(--border-default)]\",\n          className,\n        )}\n        {...props}\n      >\n        {children}\n        <SheetPrimitive.Close className=\"data-[state=open]:bg-[var(--surface-sunken)] absolute top-4 right-4 rounded-[var(--radius-xs)] opacity-70 transition-opacity hover:opacity-100 focus-visible:shadow-[var(--shadow-focus)] focus:outline-hidden disabled:pointer-events-none\">\n          <XIcon className=\"size-4\" />\n          <span className=\"sr-only\">Close</span>\n        </SheetPrimitive.Close>\n      </SheetPrimitive.Content>\n    </SheetPortal>\n  );\n}\n\nfunction SheetHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"sheet-header\" className={cn(\"flex flex-col gap-1.5 p-4\", className)} {...props} />\n  );\n}\n\nfunction SheetFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"sheet-footer\" className={cn(\"mt-auto flex flex-col gap-2 p-4\", className)} {...props} />\n  );\n}\n\nfunction SheetTitle({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Title>) {\n  return (\n    <SheetPrimitive.Title\n      data-slot=\"sheet-title\"\n      className={cn(\"text-[color:var(--text-primary)] font-semibold tracking-[var(--tracking-tight)]\", className)}\n      {...props}\n    />\n  );\n}\n\nfunction SheetDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof SheetPrimitive.Description>) {\n  return (\n    <SheetPrimitive.Description\n      data-slot=\"sheet-description\"\n      className={cn(\"text-[color:var(--text-tertiary)] text-sm\", className)}\n      {...props}\n    />\n  );\n}\n\nexport {\n  Sheet,\n  SheetTrigger,\n  SheetClose,\n  SheetContent,\n  SheetHeader,\n  SheetFooter,\n  SheetTitle,\n  SheetDescription,\n};\n",
+      "type": "registry:ui",
+      "target": "components/ui/sheet.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "overlay",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Dialog",
+    "specPath": "design-system/02-components/sheet/sheet.md",
+    "skillPath": "design-system/02-components/sheet/sheet.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

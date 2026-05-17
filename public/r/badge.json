@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "Token-driven status pill with six health states unified via --pill-{tone}-* tokens.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/badge/badge.tsx",
+      "content": "/**\n * @lumen/badge — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Six health states unified via the --pill-{tone}-{bg|fg|border} token contract\n * (v0.11.3 ADR). All three pill primitives (Badge, Tag, StatusPill) share one\n * contract — change once, repaint all.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype Status = \"neutral\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"accent\";\ntype Size = \"sm\" | \"md\";\n\nconst STYLES: Record<Status, string> = {\n  neutral:\n    \"bg-[var(--pill-neutral-bg)] text-[var(--pill-neutral-fg)] border border-[var(--pill-neutral-border)]\",\n  success:\n    \"bg-[var(--pill-success-bg)] text-[var(--pill-success-fg)] border border-[var(--pill-success-border)]\",\n  warning:\n    \"bg-[var(--pill-warn-bg)]    text-[var(--pill-warn-fg)]    border border-[var(--pill-warn-border)]\",\n  danger:\n    \"bg-[var(--pill-danger-bg)]  text-[var(--pill-danger-fg)]  border border-[var(--pill-danger-border)]\",\n  info:\n    \"bg-[var(--pill-info-bg)]    text-[var(--pill-info-fg)]    border border-[var(--pill-info-border)]\",\n  accent:\n    \"bg-[var(--pill-accent-bg)]  text-[var(--pill-accent-fg)]  border border-[var(--pill-accent-border)]\",\n};\n\nconst SIZE: Record<Size, string> = {\n  sm: \"h-5 px-[var(--space-1_5)] text-[length:var(--type-11)] gap-1 rounded-[var(--radius-full)]\",\n  md: \"h-6 px-2 text-[length:var(--type-12)] gap-[var(--space-1_5)] rounded-[var(--radius-full)]\",\n};\n\nexport type BadgeProps = React.HTMLAttributes<HTMLSpanElement> & {\n  status?: Status;\n  size?: Size;\n  leadingDot?: boolean;\n  leadingIcon?: React.ReactNode;\n};\n\nexport function Badge({\n  status = \"neutral\",\n  size = \"sm\",\n  className,\n  children,\n  leadingDot,\n  leadingIcon,\n  ...props\n}: BadgeProps) {\n  return (\n    <span\n      data-slot=\"badge\"\n      data-status={status}\n      className={cn(\n        \"inline-flex items-center font-medium tracking-[var(--tracking-tight)] whitespace-nowrap align-middle\",\n        SIZE[size],\n        STYLES[status],\n        className,\n      )}\n      {...props}\n    >\n      {leadingDot && (\n        <span\n          aria-hidden\n          className=\"h-[var(--size-dot-sm)] w-[var(--size-dot-sm)] rounded-full bg-current shrink-0\"\n        />\n      )}\n      {leadingIcon && (\n        <span aria-hidden className=\"opacity-80\">\n          {leadingIcon}\n        </span>\n      )}\n      {children}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/badge.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "display",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native <span>",
+    "specPath": "design-system/02-components/badge/badge.md",
+    "skillPath": "design-system/02-components/badge/badge.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

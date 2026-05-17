@@ -1,0 +1,47 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "rate-ticker",
+  "title": "RateTicker",
+  "description": "Horizontal lane-rate marquee. Warp SIGNATURE — landing-page only.",
+  "props": [
+    {
+      "name": "rates",
+      "type": "Rate[]"
+    },
+    {
+      "name": "speed",
+      "type": "enum",
+      "default": "normal"
+    }
+  ],
+  "variants": [
+    "slow",
+    "normal",
+    "fast"
+  ],
+  "tokensConsumed": [
+    "surface.sunken",
+    "border.hairline",
+    "border.strong",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "status.success.fg",
+    "status.danger.fg",
+    "type.13",
+    "type.11"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "aria-label='Live freight rates' on the root.",
+      "Honors prefers-reduced-motion (track becomes static).",
+      "Trend arrows are aria-hidden — the up/down meaning is in the price comparison."
+    ]
+  },
+  "usage": "import { RateTicker } from \"@/components/ui/rate-ticker\";\n\nexport function Example() {\n  return <RateTicker />;\n}",
+  "storiesPath": "02-components/rate-ticker/rate-ticker.stories.tsx",
+  "sourcePath": "02-components/rate-ticker/rate-ticker.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T3-SIG"
+}

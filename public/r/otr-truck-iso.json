@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "otr-truck-iso",
+  "title": "OTRTruckIso",
+  "description": "Isometric truck illustration — inline SVG placeholder; Phase 4 swaps for gpt-image-2.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/otr-truck-iso/otr-truck-iso.tsx",
+      "content": "/**\n * @lumen/otr-truck-iso — v0.13 Phase 2 freight-domain illustration.\n * ----------------------------------------------------------------------------\n * Inline SVG placeholder. Phase 4 swaps the SVG body for a gpt-image-2-generated\n * atmospheric render via the prompt library; this public API stays stable.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst SIZE_MAP: Record<\"sm\" | \"md\" | \"lg\", number> = {\n  sm: 64,\n  md: 96,\n  lg: 160,\n};\n\nexport type OTRTruckIsoProps = {\n  size?: \"sm\" | \"md\" | \"lg\" | number;\n  tint?: \"accent\" | \"neutral\";\n  label?: string;\n  className?: string;\n};\n\nexport function OTRTruckIso({ size = \"md\", tint = \"accent\", label = \"Long-haul truck\", className }: OTRTruckIsoProps) {\n  const px = typeof size === \"number\" ? size : SIZE_MAP[size];\n  const cab = tint === \"accent\" ? \"var(--color-accent)\" : \"var(--text-tertiary)\";\n  const body = \"var(--text-tertiary)\";\n\n  return (\n    <svg\n      data-slot=\"otr-truck-iso\"\n      role=\"img\"\n      aria-label={label}\n      width={px}\n      height={px * 0.6}\n      viewBox=\"0 0 160 96\"\n      className={cn(\"block\", className)}\n    >\n      {/* Trailer body (isometric box) */}\n      <g stroke={body} strokeWidth=\"1.5\" strokeLinejoin=\"round\" fill=\"none\">\n        <path d=\"M20,60 L20,28 L84,16 L84,48 Z\" />\n        <path d=\"M20,60 L84,48 L130,55 L66,67 Z\" />\n        <path d=\"M84,16 L130,22 L130,55 L84,48 Z\" />\n        {/* Trailer slats */}\n        <line x1=\"38\" y1=\"55\" x2=\"38\" y2=\"24\" />\n        <line x1=\"56\" y1=\"51\" x2=\"56\" y2=\"20\" />\n        <line x1=\"72\" y1=\"49\" x2=\"72\" y2=\"18\" />\n      </g>\n      {/* Cab */}\n      <g stroke={cab} strokeWidth=\"1.5\" strokeLinejoin=\"round\" fill=\"none\">\n        <path d=\"M130,30 L150,30 L150,55 L130,55 Z\" />\n        <path d=\"M130,55 L150,55 L156,60 L136,60 Z\" />\n        <path d=\"M150,30 L156,35 L156,60 L150,55 Z\" />\n        {/* Windshield */}\n        <path d=\"M132,32 L148,32 L148,42 L132,42 Z\" fill={cab} fillOpacity=\"0.12\" />\n      </g>\n      {/* Wheels */}\n      <g fill={body}>\n        <circle cx=\"30\" cy=\"72\" r=\"5\" />\n        <circle cx=\"60\" cy=\"76\" r=\"5\" />\n        <circle cx=\"120\" cy=\"68\" r=\"5\" />\n        <circle cx=\"146\" cy=\"71\" r=\"5\" />\n      </g>\n      {/* Ground line */}\n      <line x1=\"0\" y1=\"92\" x2=\"160\" y2=\"92\" stroke=\"var(--border-hairline)\" strokeWidth=\"1\" />\n    </svg>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/otr-truck-iso.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Inline SVG (line-art, replaceable in Phase 4)",
+    "specPath": "design-system/02-components/otr-truck-iso/otr-truck-iso.md",
+    "skillPath": "design-system/02-components/otr-truck-iso/otr-truck-iso.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

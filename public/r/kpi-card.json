@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kpi-card",
+  "title": "KPI Card",
+  "description": "Single-metric card. Label / value / delta / sparkline / context.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/kpi-card/examples/primary.tsx",
+      "content": "// Lumen KpiCard — Web React example. Composes label + value + Trend + Sparkline.\n\nimport { ReactNode } from \"react\";\n\nexport function KpiCard({\n  label,\n  value,\n  valueSuffix,\n  delta,\n  deltaSuffix = \"%\",\n  polarity = \"positive-is-good\",\n  deltaPeriod,\n  sparkline,\n  context,\n  tone = \"default\",\n  loading,\n  onClick,\n}: {\n  label: string;\n  value: ReactNode;\n  valueSuffix?: ReactNode;\n  delta?: number;\n  deltaSuffix?: string;\n  polarity?: \"positive-is-good\" | \"negative-is-good\" | \"neutral\";\n  deltaPeriod?: string;\n  sparkline?: ReactNode;\n  context?: ReactNode;\n  tone?: \"default\" | \"accent\";\n  loading?: boolean;\n  onClick?: () => void;\n}) {\n  const ariaLabel = `${label}, ${typeof value === \"string\" || typeof value === \"number\" ? value : \"\"}${valueSuffix ? \"\" : \"\"}${delta !== undefined ? `, ${delta > 0 ? \"up\" : delta < 0 ? \"down\" : \"unchanged\"} ${Math.abs(delta)}${deltaSuffix}${deltaPeriod ? ` versus ${deltaPeriod}` : \"\"}` : \"\"}`;\n\n  const Tag = onClick ? \"button\" : \"article\";\n  return (\n    <Tag\n      role={onClick ? undefined : \"region\"}\n      aria-label={ariaLabel}\n      aria-busy={loading || undefined}\n      onClick={onClick}\n      className={[\n        \"text-left w-full\",\n        \"rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\",\n        \"bg-[var(--color-surface-raised)] p-[var(--space-inset-lg)]\",\n        \"flex flex-col gap-[var(--space-stack-sm)]\",\n        onClick ? \"hover:shadow-[var(--shadow-elevation-sm)] hover:border-[var(--color-border-default)] cursor-pointer outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:shadow-[var(--shadow-focus)] transition-shadow duration-[var(--motion-duration-fast)]\" : \"\",\n      ].join(\" \")}\n    >\n      <span className=\"text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)]\">{label}</span>\n      <div className=\"flex items-baseline gap-2\">\n        <span className={[\n          \"lumen-tnum text-[var(--type-heading-h2)] font-semibold tracking-tight\",\n          tone === \"accent\" ? \"text-[var(--color-text-accent)]\" : \"text-[var(--color-text-primary)]\",\n        ].join(\" \")}>\n          {loading ? \"—\" : value}\n        </span>\n        {valueSuffix && <span className=\"text-[var(--type-label-sm)] text-[var(--color-text-tertiary)]\">{valueSuffix}</span>}\n      </div>\n      <div className=\"flex items-center justify-between gap-2\">\n        {delta !== undefined && !loading && (\n          <span className=\"text-[var(--type-body-sm)]\">\n            <DeltaInline delta={delta} suffix={deltaSuffix} polarity={polarity} />\n            {deltaPeriod && <span className=\"ml-1 text-[var(--color-text-tertiary)]\">vs {deltaPeriod}</span>}\n          </span>\n        )}\n        {sparkline && <span className=\"ml-auto\">{sparkline}</span>}\n      </div>\n      {context && <p className=\"text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\">{context}</p>}\n    </Tag>\n  );\n}\n\nfunction DeltaInline({ delta, suffix, polarity }: { delta: number; suffix: string; polarity: \"positive-is-good\" | \"negative-is-good\" | \"neutral\" }) {\n  const sign = delta > 0 ? 1 : delta < 0 ? -1 : 0;\n  const good = polarity === \"neutral\" ? null : polarity === \"positive-is-good\" ? sign > 0 : sign < 0;\n  const tone = polarity === \"neutral\" ? \"text-[var(--color-text-tertiary)]\" : good ? \"text-[var(--color-text-accent)]\" : sign === 0 ? \"text-[var(--color-text-tertiary)]\" : \"text-[var(--color-text-error)]\";\n  return <span className={[\"lumen-tnum font-medium\", tone].join(\" \")}>{sign >= 0 ? \"+\" : \"−\"}{Math.abs(delta).toFixed(1)}{suffix}</span>;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/kpi-card.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/kpi-card/component.json",
+    "docsPath": "design-system/02-components/kpi-card/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

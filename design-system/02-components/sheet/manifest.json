@@ -1,0 +1,52 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "sheet",
+  "title": "Sheet",
+  "description": "Side panel overlay built on Radix Dialog. Sides: left | right (default) | top | bottom.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void"
+    },
+    {
+      "name": "side",
+      "type": "enum",
+      "default": "right"
+    }
+  ],
+  "variants": [
+    "right",
+    "left",
+    "top",
+    "bottom"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.scrim",
+    "surface.sunken",
+    "text.primary",
+    "text.tertiary",
+    "border.default",
+    "shadow.modal",
+    "shadow.focus",
+    "radius.xs",
+    "z-index.modal"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=dialog, aria-modal, focus trap, escape-to-close, click-outside-to-close.",
+      "Always provide a SheetTitle (visible or sr-only); Radix warns if missing.",
+      "Use SheetDescription for the assistive technology description."
+    ]
+  },
+  "usage": "import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from \"@/components/ui/sheet\";\n\nexport function Example() {\n  return (\n    <Sheet>\n      <SheetTrigger>Filters</SheetTrigger>\n      <SheetContent side=\"right\">\n        <SheetHeader><SheetTitle>Filters</SheetTitle></SheetHeader>\n      </SheetContent>\n    </Sheet>\n  );\n}",
+  "storiesPath": "02-components/sheet/sheet.stories.tsx",
+  "sourcePath": "02-components/sheet/sheet.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

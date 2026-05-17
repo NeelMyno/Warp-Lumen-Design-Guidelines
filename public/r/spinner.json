@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "Indeterminate loader; lucide Loader2 + slower spin (0.9s) for premium feel.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/spinner/spinner.tsx",
+      "content": "/**\n * @lumen/spinner — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Indeterminate loader; 0.9s rotation honors prefers-reduced-motion (CSS slows\n * it to 2s under the global @media rule).\n */\nimport * as React from \"react\";\nimport { Loader2 } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport function Spinner({\n  size = 16,\n  className = \"\",\n  ...props\n}: React.HTMLAttributes<SVGSVGElement> & { size?: number }) {\n  return (\n    <Loader2\n      data-slot=\"spinner\"\n      size={size}\n      strokeWidth={2.5}\n      className={cn(\"lumen-spinner shrink-0 animate-spin motion-reduce:[animation-duration:2s]\", className)}\n      aria-label=\"Loading\"\n      role=\"status\"\n      style={{ animationDuration: \"0.9s\" }}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/spinner.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "feedback",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "lucide-react Loader2",
+    "specPath": "design-system/02-components/spinner/spinner.md",
+    "skillPath": "design-system/02-components/spinner/spinner.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

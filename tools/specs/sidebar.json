@@ -1,0 +1,49 @@
+{
+  "name": "sidebar",
+  "title": "Sidebar",
+  "namedExport": "Sidebar",
+  "category": "navigation",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Multi-level navigation rail. Collapsible. Sections (heading + items) with optional icons. Active state via aria-current=page. Optional collapsed mode shrinks to icon-only with tooltips for labels.",
+  "description": "Multi-level navigation sidebar with collapsible state.",
+  "skillDescription": "Use for primary nav in operator dashboards. Pair with @lumen/top-bar (top) for a two-axis chrome. Sections group related items; the active item gets aria-current=page + lime accent. Collapsed mode shrinks to 56px icon rail.",
+  "builtOn": "Native semantic <aside><nav>",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/tooltip"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.canvas",
+    "surface.sunken",
+    "surface.tint-accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "radius.md",
+    "space.2"
+  ],
+  "useWhen": ["Primary navigation in operator dashboards.", "Multi-section nav with grouped items.", "Collapsible chrome for tablet / small viewports."],
+  "anatomy": ["Sidebar root (<aside>)", "SidebarHeader (brand mark + collapse toggle)", "SidebarSection (heading + items)", "SidebarItem (icon + label, active state)", "SidebarFooter (user menu)"],
+  "api": [
+    "`collapsed` — boolean.",
+    "`onCollapsedChange` — (c: boolean) => void.",
+    "Sections + items via composition (children)."
+  ],
+  "never": ["NEVER use Sidebar for in-page navigation (Tabs).", "NEVER hide the collapse toggle.", "NEVER omit aria-current on the active item."],
+  "a11yRules": ["<nav aria-label='Primary navigation'>.", "Active item uses aria-current=page.", "When collapsed, items use Tooltip for labels."],
+  "do": ["Group items by section.", "Pair active state with aria-current.", "Use Tooltip in collapsed mode."],
+  "dont": ["Don't use for in-page nav.", "Don't hide the collapse toggle."],
+  "related": ["TopBar", "Tabs", "Breadcrumb"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }, { "name": "Collapsed", "args": { "collapsed": true }, "children": "" }],
+  "variants": ["expanded", "collapsed"],
+  "propsList": [
+    { "name": "collapsed", "type": "boolean" },
+    { "name": "onCollapsedChange", "type": "(c: boolean) => void" }
+  ],
+  "exampleSnippet": "import { Sidebar, SidebarHeader, SidebarSection, SidebarItem, SidebarFooter } from \"@/components/ui/sidebar\";\nimport { Truck, Home } from \"lucide-react\";\n\nexport function Example() {\n  return (\n    <Sidebar>\n      <SidebarHeader>Warp</SidebarHeader>\n      <SidebarSection heading=\"Operate\">\n        <SidebarItem icon={<Home size={14} />} active>Overview</SidebarItem>\n        <SidebarItem icon={<Truck size={14} />}>Lanes</SidebarItem>\n      </SidebarSection>\n    </Sidebar>\n  );\n}",
+  "testChildren": ""
+}

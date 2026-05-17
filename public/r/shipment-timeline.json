@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shipment-timeline",
+  "title": "ShipmentTimeline",
+  "description": "Vertical timeline for freight shipment lifecycle stages.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/live-dot",
+    "@lumen/badge"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/shipment-timeline/shipment-timeline.tsx",
+      "content": "/**\n * @lumen/shipment-timeline — v0.13 Phase 2 freight-domain composite.\n * ----------------------------------------------------------------------------\n * Vertical timeline for freight stages. Active stage = LiveDot pulse + lime\n * accent. Pending stages can carry an ETA bubble. Status conveyed via icon +\n * label, never color alone.\n */\nimport * as React from \"react\";\nimport { Check, AlertCircle, Clock, Circle } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { LiveDot } from \"../live-dot/live-dot\";\n\nexport type StageStatus = \"pending\" | \"active\" | \"done\" | \"failed\";\n\nexport type Stage = {\n  id: string;\n  label: string;\n  status: StageStatus;\n  timestamp?: string;\n  etaIso?: string;\n  note?: string;\n};\n\nconst STATUS_ICON: Record<StageStatus, React.ReactNode> = {\n  pending: <Clock size={12} aria-hidden />,\n  active: <Circle size={12} aria-hidden className=\"fill-current\" />,\n  done: <Check size={12} aria-hidden />,\n  failed: <AlertCircle size={12} aria-hidden />,\n};\n\nfunction nodeChrome(status: StageStatus): { bg: string; fg: string; ring?: string } {\n  if (status === \"done\") return { bg: \"var(--color-accent)\", fg: \"var(--color-action-primary-fg)\" };\n  if (status === \"active\") return { bg: \"var(--color-accent)\", fg: \"var(--color-action-primary-fg)\" };\n  if (status === \"failed\")\n    return { bg: \"var(--lumen-red-5)\", fg: \"#fff\", ring: \"var(--lumen-red-5)\" };\n  return { bg: \"var(--surface-raised)\", fg: \"var(--text-tertiary)\", ring: \"var(--border-default)\" };\n}\n\nexport type ShipmentTimelineProps = {\n  stages: Stage[];\n  density?: \"default\" | \"compact\";\n  className?: string;\n};\n\nexport function ShipmentTimeline({ stages, density = \"default\", className }: ShipmentTimelineProps) {\n  const pad = density === \"compact\" ? \"py-2\" : \"py-3\";\n  return (\n    <ol\n      data-slot=\"shipment-timeline\"\n      className={cn(\"relative flex flex-col\", className)}\n    >\n      {stages.map((s, i) => {\n        const isLast = i === stages.length - 1;\n        const chrome = nodeChrome(s.status);\n        return (\n          <li\n            key={s.id}\n            data-status={s.status}\n            aria-current={s.status === \"active\" ? \"step\" : undefined}\n            className={cn(\"relative flex gap-3\", pad)}\n          >\n            {/* Rail */}\n            {!isLast && (\n              <span\n                aria-hidden\n                className=\"absolute left-[13px] top-7 bottom-0 w-px bg-[var(--border-hairline)]\"\n              />\n            )}\n            {/* Node */}\n            <span\n              aria-hidden\n              className=\"relative shrink-0 inline-flex items-center justify-center size-7 rounded-full border z-10\"\n              style={{\n                background: chrome.bg,\n                color: chrome.fg,\n                borderColor: chrome.ring ?? chrome.bg,\n              }}\n            >\n              {STATUS_ICON[s.status]}\n            </span>\n            {/* Content */}\n            <div className=\"flex flex-col gap-0.5 flex-1 min-w-0\">\n              <div className=\"flex items-baseline justify-between gap-2\">\n                <span\n                  className={cn(\n                    \"font-medium text-[length:var(--type-13)]\",\n                    s.status === \"done\"\n                      ? \"text-[color:var(--text-secondary)]\"\n                      : s.status === \"active\"\n                        ? \"text-[color:var(--text-primary)]\"\n                        : s.status === \"failed\"\n                          ? \"text-[color:var(--lumen-red-5)]\"\n                          : \"text-[color:var(--text-tertiary)]\",\n                  )}\n                >\n                  {s.label}\n                </span>\n                {s.timestamp && (\n                  <span className=\"lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-tertiary)] shrink-0\">\n                    {s.timestamp}\n                  </span>\n                )}\n              </div>\n              {s.status === \"active\" && <LiveDot label=\"Live\" />}\n              {s.status === \"pending\" && s.etaIso && (\n                <span className=\"inline-flex w-fit items-center gap-1 px-1.5 h-5 rounded-[var(--radius-full)] text-[length:var(--type-10)] font-medium bg-[var(--pill-info-bg)] text-[var(--pill-info-fg)] border border-[var(--pill-info-border)] lumen-tnum\">\n                  <Clock size={10} aria-hidden /> ETA {new Date(s.etaIso).toLocaleTimeString([], { hour: \"2-digit\", minute: \"2-digit\" })}\n                </span>\n              )}\n              {s.note && (\n                <p className=\"text-[length:var(--type-11)] text-[color:var(--text-tertiary)] mt-0.5\">\n                  {s.note}\n                </p>\n              )}\n            </div>\n          </li>\n        );\n      })}\n    </ol>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/shipment-timeline.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native composition + LiveDot",
+    "specPath": "design-system/02-components/shipment-timeline/shipment-timeline.md",
+    "skillPath": "design-system/02-components/shipment-timeline/shipment-timeline.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "swipe-action",
+  "title": "Swipe Action",
+  "description": "Mobile row wrapper revealing trailing/leading actions on swipe. WCAG 2.5.7 non-drag fallback required.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/swipe-action/examples/primary.tsx",
+      "content": "// Lumen SwipeAction — Web React example.\n// Simplified swipe handler — production code should integrate with @use-gesture\n// or framer-motion for true rubberband + velocity. The non-drag fallback (long-press\n// → ActionSheet) is the consumer's responsibility per WCAG 2.5.7.\n\n\"use client\";\n\nimport { ReactNode, useRef, useState, PointerEvent } from \"react\";\n\nexport type SwipeItem = {\n  id: string;\n  label: string;\n  icon?: ReactNode;\n  tone?: \"neutral\" | \"danger\";\n  onSelect: () => void;\n  fullSwipe?: boolean;\n};\n\nexport function SwipeAction({\n  trailing = [],\n  leading = [],\n  snapDistance = 80,\n  children,\n}: {\n  trailing?: SwipeItem[];\n  leading?: SwipeItem[];\n  snapDistance?: number;\n  children: ReactNode;\n}) {\n  const [offset, setOffset] = useState(0);\n  const startX = useRef<number | null>(null);\n\n  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {\n    startX.current = e.clientX - offset;\n    (e.target as HTMLElement).setPointerCapture(e.pointerId);\n  };\n  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {\n    if (startX.current === null) return;\n    const next = e.clientX - startX.current;\n    // Clamp: left-only when trailing present; right-only when leading present.\n    const min = trailing.length ? -snapDistance * Math.min(trailing.length, 3) : 0;\n    const max = leading.length ? snapDistance * Math.min(leading.length, 3) : 0;\n    setOffset(Math.min(max, Math.max(min, next)));\n  };\n  const onPointerUp = () => {\n    startX.current = null;\n    // Snap to the nearest multiple of snapDistance\n    const k = Math.round(offset / snapDistance);\n    setOffset(k * snapDistance);\n  };\n  const close = () => setOffset(0);\n\n  return (\n    <div role=\"group\" className=\"relative overflow-hidden\">\n      {/* Trailing actions (revealed on swipe-left). */}\n      <div\n        aria-hidden={offset >= 0}\n        className=\"absolute inset-y-0 right-0 flex\"\n      >\n        {trailing.map((it) => (\n          <button\n            key={it.id}\n            type=\"button\"\n            onClick={() => { it.onSelect(); close(); }}\n            aria-label={it.label}\n            className={[\n              \"h-full flex flex-col items-center justify-center gap-1\",\n              \"text-[var(--type-label-sm)] font-medium\",\n              it.tone === \"danger\"\n                ? \"bg-[var(--color-action-danger-bg-rest)] text-[var(--color-action-danger-fg)]\"\n                : \"bg-[var(--color-action-secondary-bg-rest)] text-[var(--color-action-secondary-fg)]\",\n            ].join(\" \")}\n            style={{ width: snapDistance }}\n          >\n            {it.icon}\n            {it.label}\n          </button>\n        ))}\n      </div>\n      {/* Leading actions (revealed on swipe-right). */}\n      <div\n        aria-hidden={offset <= 0}\n        className=\"absolute inset-y-0 left-0 flex\"\n      >\n        {leading.map((it) => (\n          <button\n            key={it.id}\n            type=\"button\"\n            onClick={() => { it.onSelect(); close(); }}\n            aria-label={it.label}\n            className={[\n              \"h-full flex flex-col items-center justify-center gap-1\",\n              \"text-[var(--type-label-sm)] font-medium\",\n              it.tone === \"danger\"\n                ? \"bg-[var(--color-action-danger-bg-rest)] text-[var(--color-action-danger-fg)]\"\n                : \"bg-[var(--color-action-secondary-bg-rest)] text-[var(--color-action-secondary-fg)]\",\n            ].join(\" \")}\n            style={{ width: snapDistance }}\n          >\n            {it.icon}\n            {it.label}\n          </button>\n        ))}\n      </div>\n      {/* Row content — moves with the pointer */}\n      <div\n        onPointerDown={onPointerDown}\n        onPointerMove={onPointerMove}\n        onPointerUp={onPointerUp}\n        onPointerCancel={onPointerUp}\n        className={[\n          \"relative bg-[var(--color-surface-raised)] border-b border-[var(--color-border-hairline)]\",\n          \"touch-pan-y select-none cursor-grab active:cursor-grabbing\",\n          \"motion-reduce:transition-none\",\n        ].join(\" \")}\n        style={{\n          transform: `translateX(${offset}px)`,\n          transition: startX.current === null\n            ? \"transform var(--motion-duration-base, 240ms) cubic-bezier(0.2, 0, 0, 1)\"\n            : \"none\",\n        }}\n      >\n        {children}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/swipe-action.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/swipe-action/component.json",
+    "docsPath": "design-system/02-components/swipe-action/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

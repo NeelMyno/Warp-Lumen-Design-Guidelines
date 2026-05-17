@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "split-button",
+  "title": "SplitButton",
+  "description": "Primary action + dropdown caret in a joined affordance. aria-haspopup='menu' on the trigger; required menuLabel.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/split-button/examples/primary.tsx",
+      "content": "// Lumen SplitButton — Web React example (v0.9)\n// Primary action half + dropdown trigger half, joined.\n//\n// Icons via lucide-react (the Lumen icon system as of v0.10.2).\n\nimport { ButtonHTMLAttributes, ReactNode } from \"react\";\nimport { ChevronDown } from \"lucide-react\";\n\ntype Intent = \"primary\" | \"secondary\" | \"outline\" | \"ghost\" | \"danger\" | \"ai\";\ntype Size = \"sm\" | \"md\" | \"lg\" | \"xl\";\n\nexport type SplitButtonProps = {\n  children: ReactNode;\n  intent?: Intent;\n  size?: Size;\n  onAction?: ButtonHTMLAttributes<HTMLButtonElement>[\"onClick\"];\n  onMenuOpen?: ButtonHTMLAttributes<HTMLButtonElement>[\"onClick\"];\n  menuLabel: string;\n  leadingIcon?: ReactNode;\n  loading?: boolean;\n  disabled?: boolean;\n  className?: string;\n};\n\nconst INTENT: Record<Intent, string> = {\n  primary:   \"lumen-btn-primary\",\n  secondary: \"lumen-btn-secondary\",\n  outline:   \"lumen-btn-outline\",\n  ghost:     \"lumen-btn-ghost\",\n  danger:    \"lumen-btn-danger\",\n  ai:        \"lumen-btn-ai\",\n};\n\nconst SIZE: Record<Size, string> = {\n  sm: \"lumen-btn-sm\",\n  md: \"lumen-btn-md\",\n  lg: \"lumen-btn-lg\",\n  xl: \"lumen-btn-xl\",\n};\n\nexport function SplitButton({\n  children,\n  intent = \"primary\",\n  size = \"md\",\n  onAction,\n  onMenuOpen,\n  menuLabel,\n  leadingIcon,\n  loading,\n  disabled,\n  className,\n}: SplitButtonProps) {\n  const sharedClass = [\"lumen-btn\", INTENT[intent], SIZE[size]].join(\" \");\n  return (\n    <div role=\"group\" className={[\"lumen-split-button\", className ?? \"\"].join(\" \")}>\n      <button\n        type=\"button\"\n        className={sharedClass}\n        onClick={onAction}\n        disabled={disabled || loading}\n        aria-busy={loading || undefined}\n      >\n        {leadingIcon && <span aria-hidden>{leadingIcon}</span>}\n        {children}\n      </button>\n      <button\n        type=\"button\"\n        className={[sharedClass, \"lumen-icon-button\"].join(\" \")}\n        aria-label={menuLabel}\n        aria-haspopup=\"menu\"\n        onClick={onMenuOpen}\n        disabled={disabled || loading}\n      >\n        <ChevronDown size={14} strokeWidth={2} aria-hidden focusable={false} />\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/split-button.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.9.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/split-button/component.json",
+    "docsPath": "design-system/02-components/split-button/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,62 @@
+{
+  "name": "rate-ticker",
+  "title": "RateTicker",
+  "namedExport": "RateTicker",
+  "category": "data",
+  "tier": "T3-SIG",
+  "status": "stable",
+  "summary": "Warp signature. Horizontal marquee of freight lane rates. Pure CSS animation. Edge-fade gradients give it the 'windowed view onto a stream' feel. Three speeds (slow/normal/fast). Mono-numeric prices with up/down arrows. Honors prefers-reduced-motion (track becomes static).",
+  "description": "Horizontal lane-rate marquee. Warp SIGNATURE — landing-page only.",
+  "skillDescription": "Use on the landing hero or a marketing surface to surface live freight rates. The animation establishes 'this is a live system' visually. Three speeds for context (hero = slow, in-product = normal). NEVER use in dense operator chrome — it's a marketing voice element.",
+  "builtOn": "Native composition + CSS marquee",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "signature": true,
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.sunken",
+    "border.hairline",
+    "border.strong",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "status.success.fg",
+    "status.danger.fg",
+    "type.13",
+    "type.11"
+  ],
+  "useWhen": ["Landing hero (slow speed).", "Marketing surface signaling live rates.", "Dashboard 'live rates' panel (normal speed)."],
+  "anatomy": [
+    "Bordered track (sunken bg + hairline top/bottom)",
+    "Marquee container (.lumen-ticker-track, duplicated content for seamless loop)",
+    "Rate row: from → to · price · trend arrow · separator dot",
+    "Edge fade gradients (sunken → transparent, left + right 48px)"
+  ],
+  "api": [
+    "`rates` — Rate[] (default: a 10-rate freight sample).",
+    "`speed` — slow | normal (default) | fast."
+  ],
+  "never": [
+    "NEVER use in dense operator chrome (it's a marketing voice element).",
+    "NEVER allow rates count to drop below 5 (marquee becomes obviously short).",
+    "NEVER animate faster than 40s — too anxious."
+  ],
+  "a11yRules": [
+    "aria-label='Live freight rates' on the root.",
+    "Honors prefers-reduced-motion (track becomes static).",
+    "Trend arrows are aria-hidden — the up/down meaning is in the price comparison."
+  ],
+  "do": ["Use on landing surfaces.", "Use slow speed for hero context.", "Keep ≥ 5 rates."],
+  "dont": ["Don't use in dense chrome.", "Don't speed faster than 40s."],
+  "related": ["LiveDot", "Stat", "Sparkline"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }, { "name": "Slow", "args": { "speed": "slow" }, "children": "" }],
+  "variants": ["slow", "normal", "fast"],
+  "propsList": [
+    { "name": "rates", "type": "Rate[]" },
+    { "name": "speed", "type": "enum", "default": "normal" }
+  ],
+  "exampleSnippet": "import { RateTicker } from \"@/components/ui/rate-ticker\";\n\nexport function Example() {\n  return <RateTicker />;\n}",
+  "testChildren": ""
+}

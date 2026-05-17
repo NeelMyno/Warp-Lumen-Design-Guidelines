@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "command-palette",
+  "type": "registry:ui",
+  "title": "CommandPalette",
+  "description": "⌘K palette built on cmdk inside Dialog. Glass-strong shell, grouped results, footer kbd hints.",
+  "dependencies": [
+    "cmdk",
+    "@radix-ui/react-dialog",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/dialog"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/command-palette/command-palette.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/command-palette.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "overlay",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "cmdk + Radix Dialog",
+    "specPath": "design-system/02-components/command-palette/command-palette.md",
+    "skillPath": "design-system/02-components/command-palette/command-palette.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

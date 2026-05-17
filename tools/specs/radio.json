@@ -1,0 +1,48 @@
+{
+  "name": "radio",
+  "title": "Radio",
+  "namedExport": "RadioGroup",
+  "category": "form",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Single-select group built on Radix RadioGroup. .lumen-radio shell; inner dot composed via CSS ::after on data-state=checked. Items render as RadioGroupItem inside a RadioGroup. Grid layout with gap-3 by default.",
+  "description": "Token-driven single-select radio group with .lumen-radio shell.",
+  "skillDescription": "Use for single-select choices — payment method, shipping option, role. For 2-3 options consider Segmented instead. For 4+ in a tight space use Select.",
+  "builtOn": "Radix RadioGroup",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-radio-group"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "border.default",
+    "border.strong",
+    "shadow.focus"
+  ],
+  "useWhen": ["Single-select choices (payment method, role, shipping option).", "Settings with 3+ mutually exclusive options.", "Survey responses."],
+  "anatomy": ["RadioGroup root (grid gap-3)", "RadioGroupItem × N (.lumen-radio shell)", "Inner dot (CSS ::after, animated in on checked)"],
+  "api": ["`value`, `onValueChange` — controlled.", "`defaultValue` — uncontrolled.", "Standard Radix RadioGroup props."],
+  "never": [
+    "NEVER use Radio for 2 options — use Switch or Segmented.",
+    "NEVER use Radio outside a RadioGroup — single Radio doesn't make sense.",
+    "NEVER mix Radio styles within a single group."
+  ],
+  "a11yRules": [
+    "Radix manages role=radiogroup / role=radio, arrow-key navigation, focus management.",
+    "Pair each item with a <Label htmlFor>.",
+    "Group has aria-labelledby for the group label."
+  ],
+  "do": ["Pair each option with a Label.", "Use for 3+ options."],
+  "dont": ["Don't use for 2 options.", "Don't omit RadioGroup wrapper."],
+  "related": ["RadioGroup", "Segmented", "Select", "Switch"],
+  "stories": [{ "name": "Default", "args": { "defaultValue": "a" }, "children": "" }],
+  "variants": ["default", "horizontal"],
+  "propsList": [
+    { "name": "value", "type": "string" },
+    { "name": "onValueChange", "type": "(v: string) => void" },
+    { "name": "defaultValue", "type": "string" }
+  ],
+  "exampleSnippet": "import { RadioGroup, RadioGroupItem } from \"@/components/ui/radio\";\n\nexport function Example() {\n  return (\n    <RadioGroup defaultValue=\"ftl\">\n      <RadioGroupItem value=\"ftl\" />\n      <RadioGroupItem value=\"ltl\" />\n    </RadioGroup>\n  );\n}",
+  "testChildren": ""
+}

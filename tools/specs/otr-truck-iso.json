@@ -1,0 +1,43 @@
+{
+  "name": "otr-truck-iso",
+  "title": "OTRTruckIso",
+  "namedExport": "OTRTruckIso",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Reusable isometric truck illustration. v0.13 Phase 2 ships an inline SVG line-art placeholder (~1.5px stroke, single-accent tint). Phase 4 will swap the SVG body for a gpt-image-2-generated atmospheric render via the prompt library. Public API stays stable across both versions.",
+  "description": "Isometric truck illustration — inline SVG placeholder; Phase 4 swaps for gpt-image-2.",
+  "skillDescription": "Use anywhere a truck illustration belongs — landing hero, empty state, marketing cards. Three sizes (sm/md/lg). Phase 4 will replace the inline SVG body with a generated atmospheric render via the @import 05-prompts/style-anchor.md prompt; the public API stays stable. NEVER use a stock photo or hand-drawn raster — Lumen iconography contract.",
+  "builtOn": "Inline SVG (line-art, replaceable in Phase 4)",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": ["text.tertiary", "color.accent"],
+  "useWhen": ["Landing hero (medium / large).", "Empty state — 'No shipments yet'.", "Marketing card / pricing tier illustration."],
+  "anatomy": ["SVG canvas (configurable size)", "Isometric truck body (line art)", "Optional accent color tint on the cab"],
+  "api": [
+    "`size` — sm (64px) | md (96px) | lg (160px) | number (custom px).",
+    "`tint` — 'accent' (lime cab) | 'neutral' (full tertiary).",
+    "`label` — optional aria-label."
+  ],
+  "never": [
+    "NEVER use a stock photo for trucks.",
+    "NEVER replace with raster.",
+    "NEVER use as a clickable affordance (it's illustrative, not interactive)."
+  ],
+  "a11yRules": ["role=img + aria-label (default: 'Long-haul truck').", "aria-hidden if purely decorative."],
+  "do": ["Use Phase 4 generated render when available.", "Use accent tint sparingly."],
+  "dont": ["Don't use stock photos.", "Don't make interactive."],
+  "related": ["PalletTile", "DockBay", "LaneArc", "RouteMap"],
+  "stories": [{ "name": "Default", "args": { "size": "md" }, "children": "" }],
+  "variants": ["sm", "md", "lg"],
+  "propsList": [
+    { "name": "size", "type": "enum | number", "default": "md" },
+    { "name": "tint", "type": "enum", "default": "accent" },
+    { "name": "label", "type": "string" }
+  ],
+  "exampleSnippet": "import { OTRTruckIso } from \"@/components/ui/otr-truck-iso\";\n\nexport function Example() {\n  return <OTRTruckIso size=\"lg\" tint=\"accent\" />;\n}",
+  "testChildren": ""
+}

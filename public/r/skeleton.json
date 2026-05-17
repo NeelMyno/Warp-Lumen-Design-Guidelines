@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "Token-driven loading placeholder for content-aware skeleton states.",
+  "dependencies": [
+    "tw-animate-css"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/skeleton/skeleton.tsx",
+      "content": "/**\n * @lumen/skeleton — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Loading placeholder with animate-pulse from tw-animate-css. Honors\n * prefers-reduced-motion (drops the pulse). Always aria-hidden — parent sets\n * aria-busy.\n */\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport function Skeleton({\n  width,\n  height = 14,\n  className = \"\",\n  rounded = \"var(--radius-sm)\",\n  ...props\n}: React.HTMLAttributes<HTMLDivElement> & {\n  width?: number | string;\n  height?: number | string;\n  rounded?: string;\n}) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      aria-hidden\n      className={cn(\n        \"inline-block bg-[var(--surface-sunken)] animate-pulse\",\n        \"motion-reduce:animate-none\",\n        className,\n      )}\n      style={{\n        width: typeof width === \"number\" ? `${width}px` : width ?? \"100%\",\n        height: typeof height === \"number\" ? `${height}px` : height,\n        borderRadius: rounded,\n      }}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/skeleton.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "feedback",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native <div> + tw-animate-css",
+    "specPath": "design-system/02-components/skeleton/skeleton.md",
+    "skillPath": "design-system/02-components/skeleton/skeleton.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

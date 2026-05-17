@@ -1,0 +1,45 @@
+{
+  "name": "checkbox",
+  "title": "Checkbox",
+  "namedExport": "Checkbox",
+  "category": "form",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Multi-select binary control. Built on Radix Checkbox with .lumen-checkbox shell. Lime accent on checked; --radius-xs corners. Lucide Check (stroke-width=3) for the indicator.",
+  "description": "Token-driven multi-select checkbox with .lumen-checkbox shell + lime accent.",
+  "skillDescription": "Use for multi-select binary — agreeing to ToS, picking multiple filters, multi-row selection in a table. For single binary use Switch. For multi-row table selection consider the DataTable's built-in selection rather than rolling your own checkbox column.",
+  "builtOn": "Radix Checkbox",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-checkbox", "lucide-react"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "color.action.primary.fg",
+    "border.default",
+    "border.strong",
+    "shadow.focus",
+    "radius.xs"
+  ],
+  "useWhen": ["Multi-select lists.", "ToS agreement.", "Multi-row table selection.", "Tri-state (parent of a group)."],
+  "anatomy": ["Checkbox root (.lumen-checkbox shell)", "Indicator (lucide Check, stroke 3, size-3)"],
+  "api": ["`checked`, `onCheckedChange` — controlled (use 'indeterminate' for tri-state).", "Standard Radix Checkbox props."],
+  "never": ["NEVER use Checkbox for a single binary setting — use Switch.", "NEVER skip the focus ring.", "NEVER fake tri-state with two checkboxes — use checked='indeterminate'."],
+  "a11yRules": [
+    "Radix manages role=checkbox + aria-checked + keyboard (Space).",
+    "Pair with a <Label htmlFor> — clicking the label toggles.",
+    "aria-checked='mixed' for tri-state."
+  ],
+  "do": ["Pair with Label.", "Use 'indeterminate' for partial-selection parent rows."],
+  "dont": ["Don't use for single binary.", "Don't fake tri-state."],
+  "related": ["Switch", "RadioGroup", "DataTable selection"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }, { "name": "Checked", "args": { "defaultChecked": true }, "children": "" }],
+  "variants": ["default", "checked", "indeterminate", "disabled"],
+  "propsList": [
+    { "name": "checked", "type": "boolean | 'indeterminate'" },
+    { "name": "onCheckedChange", "type": "(c: boolean | 'indeterminate') => void" }
+  ],
+  "exampleSnippet": "import { Checkbox } from \"@/components/ui/checkbox\";\n\nexport function Example() {\n  return <Checkbox defaultChecked />;\n}",
+  "testChildren": ""
+}

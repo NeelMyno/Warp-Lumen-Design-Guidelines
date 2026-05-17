@@ -1,0 +1,51 @@
+{
+  "name": "filter-chip",
+  "title": "FilterChip",
+  "namedExport": "FilterChip",
+  "category": "data",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Applied-filter chip with operator + value display + optional dropdown editor + dismiss X. Shape is `{label} {operator-label} {value}`. Used in the row above a DataTable to show what's currently filtering the view.",
+  "description": "Applied-filter chip — {field} {operator} {value} with edit popover + dismiss X.",
+  "skillDescription": "Use above a DataTable / list to show what's currently filtering the view. Each chip = one applied filter. Click the chip to edit (optional Popover); X to remove. For full query building use @lumen/filter-builder.",
+  "builtOn": "Lumen primitives (Tag + Popover)",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-popover", "lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/popover", "@lumen/tag"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.neutral.border",
+    "pill.accent.bg",
+    "pill.accent.fg",
+    "surface.sunken",
+    "radius.full"
+  ],
+  "useWhen": ["Above a DataTable showing applied filters.", "Active-state indicator on a saved view.", "Compact filter display in a TopBar context."],
+  "anatomy": ["Chip root (Tag visual)", "Label (field name)", "Operator label (gray, smaller)", "Value (white, bold)", "Optional edit popover trigger", "Dismiss X"],
+  "api": [
+    "`field` — string.",
+    "`operator` — string (display only).",
+    "`value` — string.",
+    "`onRemove` — () => void.",
+    "`onEdit` — () => void (optional)."
+  ],
+  "never": ["NEVER omit onRemove — the point of a chip is dismissibility.", "NEVER use FilterChip for non-applied filters (use Tag).", "NEVER chain 10+ chips — use FilterBuilder."],
+  "a11yRules": ["Chip has aria-label='Filter: {field} {operator} {value}'.", "Remove button has aria-label='Remove filter'.", "If editable, role=button + aria-haspopup."],
+  "do": ["Always provide onRemove.", "Show all three parts (field + operator + value) for clarity."],
+  "dont": ["Don't chain 10+.", "Don't omit dismissibility."],
+  "related": ["Tag", "FilterBuilder", "SavedView", "Popover"],
+  "stories": [{ "name": "Default", "args": { "field": "Lane", "operator": "is", "value": "LAX→SFO" }, "children": "" }],
+  "variants": ["default", "active", "editable"],
+  "propsList": [
+    { "name": "field", "type": "string" },
+    { "name": "operator", "type": "string" },
+    { "name": "value", "type": "string" },
+    { "name": "onRemove", "type": "() => void" },
+    { "name": "onEdit", "type": "() => void" }
+  ],
+  "exampleSnippet": "import { FilterChip } from \"@/components/ui/filter-chip\";\n\nexport function Example() {\n  return (\n    <FilterChip\n      field=\"Lane\"\n      operator=\"is\"\n      value=\"LAX → SFO\"\n      onRemove={() => {}}\n    />\n  );\n}",
+  "testChildren": ""
+}

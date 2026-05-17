@@ -1,0 +1,53 @@
+{
+  "name": "date-picker",
+  "title": "DatePicker",
+  "namedExport": "DatePicker",
+  "category": "form",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Input + popover-calendar composite. Built on Combobox-style trigger (Input visual) + Calendar in a Popover. Single date or range. date-fns for formatting.",
+  "description": "Input + popover-calendar composite for single date or range.",
+  "skillDescription": "Use for date entry in forms — pickup, delivery, billing cycle. Composes the v0.6 field-shell input visual with a Calendar popover. For inline calendar use @lumen/calendar. For range use mode='range'.",
+  "builtOn": "Calendar + Popover + date-fns",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["react-day-picker", "date-fns", "@radix-ui/react-popover", "lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/calendar", "@lumen/popover"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.input.rest",
+    "surface.popover",
+    "border.default",
+    "border.focus",
+    "text.primary",
+    "text.placeholder",
+    "shadow.input.lit-edge",
+    "shadow.input.focus",
+    "shadow.popover",
+    "radius.md"
+  ],
+  "useWhen": ["Date entry in forms — pickup, delivery, billing cycle.", "Range — analytics date range filter.", "When the calendar should appear in a popover, not inline."],
+  "anatomy": ["Trigger (Input visual with calendar icon)", "Popover calendar (Calendar inside Radix Popover)", "Formatted display (date-fns format)"],
+  "api": [
+    "`value`, `onChange` — Date | DateRange | undefined.",
+    "`mode` — single | range (default: single).",
+    "`format` — date-fns format string (default: 'PP' / 'PP – PP' for range).",
+    "`placeholder` — string.",
+    "`disabled` — boolean."
+  ],
+  "never": ["NEVER use a native <input type='date'> (different per-browser visual).", "NEVER omit the calendar icon (it's the affordance).", "NEVER skip the portal."],
+  "a11yRules": ["Calendar a11y inherited from react-day-picker.", "Trigger button has aria-haspopup=dialog.", "Format the date in aria-label for screen readers."],
+  "do": ["Use date-fns formatting.", "Provide a clear placeholder ('Pickup date')."],
+  "dont": ["Don't use native <input type='date'>."],
+  "related": ["Calendar", "Popover", "Input", "Field"],
+  "stories": [{ "name": "Single", "args": {}, "children": "" }, { "name": "Range", "args": { "mode": "range" }, "children": "" }],
+  "variants": ["single", "range"],
+  "propsList": [
+    { "name": "value", "type": "Date | DateRange" },
+    { "name": "onChange", "type": "(v) => void" },
+    { "name": "mode", "type": "enum", "default": "single" },
+    { "name": "format", "type": "string" }
+  ],
+  "exampleSnippet": "import { DatePicker } from \"@/components/ui/date-picker\";\n\nexport function Example() {\n  return <DatePicker placeholder=\"Pickup date\" />;\n}",
+  "testChildren": ""
+}

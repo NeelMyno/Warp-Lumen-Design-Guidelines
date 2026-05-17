@@ -1,0 +1,70 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "User / carrier identity tile with initials + deterministic palette fallback.",
+  "props": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "md"
+    },
+    {
+      "name": "src",
+      "type": "string"
+    },
+    {
+      "name": "alt",
+      "type": "string"
+    },
+    {
+      "name": "badge",
+      "type": "ReactNode"
+    },
+    {
+      "name": "ring",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "initials",
+    "image",
+    "with-ring",
+    "with-badge"
+  ],
+  "tokensConsumed": [
+    "lumen.accent.2",
+    "lumen.accent.9",
+    "lumen.cream.2",
+    "lumen.cream.9",
+    "lumen.amber.2",
+    "lumen.amber.9",
+    "lumen.red.2",
+    "lumen.red.9",
+    "lumen.obsidian.2",
+    "lumen.obsidian.9",
+    "surface.sunken",
+    "surface.canvas",
+    "border.default",
+    "text.tertiary",
+    "tracking.tight"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "When src is missing, AvatarFallback renders initials; aria-label=name is provided via sr-only span.",
+      "Image alt is required when src is provided.",
+      "Badge slot is decorative — provide its own a11y label."
+    ]
+  },
+  "usage": "import { Avatar, AvatarGroup } from \"@/components/ui/avatar\";\n\nexport function Example() {\n  return <Avatar name=\"Avery Mercer\" size=\"md\" />;\n}",
+  "storiesPath": "02-components/avatar/avatar.stories.tsx",
+  "sourcePath": "02-components/avatar/avatar.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

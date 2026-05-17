@@ -1,0 +1,51 @@
+{
+  "name": "route-map",
+  "title": "RouteMap",
+  "namedExport": "RouteMap",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Bounded map surface with lane overlays + pickup/dropoff markers + optional live truck position pin. Provider-agnostic — accepts a map renderer prop (default: a stylized SVG placeholder for prototyping). Consumers pass Mapbox/Leaflet/Google instances as `mapProvider` for production.",
+  "description": "Provider-agnostic map surface with lane overlays + markers + truck pin.",
+  "skillDescription": "Use to visualize routes on a map. Default renderer is a stylized SVG placeholder (no external map dep) — good for prototyping. Pass `mapProvider` for production (Mapbox / Leaflet / Google). Lanes render as curved arcs (LaneArc); markers for endpoints; optional pulsing truck pin for live tracking.",
+  "builtOn": "Native SVG + LaneArc composition",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils", "@lumen/lane-arc", "@lumen/live-dot"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.canvas",
+    "surface.sunken",
+    "color.accent",
+    "border.hairline",
+    "text.primary",
+    "text.tertiary",
+    "radius.lg"
+  ],
+  "useWhen": ["Shipment tracking page (single route + live pin).", "Lane analytics (multiple lanes overlaid).", "Carrier coverage area map."],
+  "anatomy": ["Map canvas (configurable w × h, hairline border, radius-lg)", "Optional base map (SVG placeholder OR consumer-provided renderer)", "Lane arcs (LaneArc components)", "Endpoint markers (origin + destination)", "Optional live truck pin (LiveDot)"],
+  "api": [
+    "`lanes` — { id, origin: {x,y}, destination: {x,y}, label? }[].",
+    "`truck` — { x, y, label?, active? } (renders LiveDot at coords).",
+    "`width`, `height` — canvas px.",
+    "`mapProvider` — optional consumer-rendered base map.",
+    "`label` — aria-label."
+  ],
+  "never": ["NEVER ship the default placeholder to production.", "NEVER mix more than 5 overlaid lanes (visual noise)."],
+  "a11yRules": ["role=img + aria-label.", "Each lane has an inner aria-label on its LaneArc."],
+  "do": ["Use default placeholder for prototypes.", "Swap to a real map provider for prod."],
+  "dont": ["Don't ship the placeholder.", "Don't overlay 6+ lanes."],
+  "related": ["LaneArc", "LaneCode", "LiveDot", "ShipmentTimeline"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["placeholder", "with-truck"],
+  "propsList": [
+    { "name": "lanes", "type": "Lane[]" },
+    { "name": "truck", "type": "{x, y, label?, active?}" },
+    { "name": "width", "type": "number" },
+    { "name": "height", "type": "number" },
+    { "name": "mapProvider", "type": "ReactNode" }
+  ],
+  "exampleSnippet": "import { RouteMap } from \"@/components/ui/route-map\";\n\nexport function Example() {\n  return (\n    <RouteMap\n      lanes={[{ id: \"1\", origin: { x: 0.1, y: 0.8 }, destination: { x: 0.9, y: 0.2 } }]}\n      truck={{ x: 0.5, y: 0.5, active: true }}\n      width={480}\n      height={240}\n    />\n  );\n}",
+  "testChildren": ""
+}

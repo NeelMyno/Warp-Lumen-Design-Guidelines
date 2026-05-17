@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-builder",
+  "title": "FilterBuilder",
+  "description": "Query-DSL editor with operator chip rows + composable AND/OR groups.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/button",
+    "@lumen/select",
+    "@lumen/combobox",
+    "@lumen/input",
+    "@lumen/tag"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/filter-builder/filter-builder.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/filter-builder — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Query-DSL editor — operator/field/value chip rows. Each row is a triple.\n * Built from Lumen primitives (no external deps beyond lucide).\n */\nimport * as React from \"react\";\nimport { Plus, X, Filter as FilterIcon } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport type FilterFieldType = \"text\" | \"number\" | \"date\" | \"select\";\n\nexport type FilterField = {\n  value: string;\n  label: string;\n  type: FilterFieldType;\n  options?: { value: string; label: string }[];\n};\n\nexport type FilterOperator =\n  | \"equals\"\n  | \"not-equals\"\n  | \"contains\"\n  | \"starts-with\"\n  | \"ends-with\"\n  | \"gt\"\n  | \"lt\"\n  | \"between\"\n  | \"in\"\n  | \"before\"\n  | \"after\";\n\nexport type FilterRow = {\n  id: string;\n  field?: string;\n  operator?: FilterOperator;\n  value?: string;\n};\n\nconst OPERATORS_BY_TYPE: Record<FilterFieldType, FilterOperator[]> = {\n  text: [\"equals\", \"not-equals\", \"contains\", \"starts-with\", \"ends-with\"],\n  number: [\"equals\", \"not-equals\", \"gt\", \"lt\", \"between\"],\n  date: [\"equals\", \"before\", \"after\", \"between\"],\n  select: [\"equals\", \"not-equals\", \"in\"],\n};\n\nconst OPERATOR_LABEL: Record<FilterOperator, string> = {\n  equals: \"is\",\n  \"not-equals\": \"is not\",\n  contains: \"contains\",\n  \"starts-with\": \"starts with\",\n  \"ends-with\": \"ends with\",\n  gt: \"greater than\",\n  lt: \"less than\",\n  between: \"between\",\n  in: \"is one of\",\n  before: \"before\",\n  after: \"after\",\n};\n\nexport type FilterBuilderProps = {\n  fields: FilterField[];\n  value?: FilterRow[];\n  onChange?: (v: FilterRow[]) => void;\n  className?: string;\n  emptyMessage?: string;\n};\n\nfunction newRow(): FilterRow {\n  return { id: Math.random().toString(36).slice(2, 9) };\n}\n\nexport function FilterBuilder({\n  fields,\n  value,\n  onChange,\n  className,\n  emptyMessage = \"No filters yet.\",\n}: FilterBuilderProps) {\n  const [internal, setInternal] = React.useState<FilterRow[]>(value ?? []);\n  const rows = value ?? internal;\n  const setRows = (next: FilterRow[]) => {\n    if (!value) setInternal(next);\n    onChange?.(next);\n  };\n\n  const update = (id: string, patch: Partial<FilterRow>) =>\n    setRows(rows.map((r) => (r.id === id ? { ...r, ...patch } : r)));\n  const remove = (id: string) => setRows(rows.filter((r) => r.id !== id));\n  const add = () => setRows([...rows, newRow()]);\n\n  return (\n    <div\n      data-slot=\"filter-builder\"\n      role=\"group\"\n      aria-label=\"Filter builder\"\n      className={cn(\n        \"flex flex-col gap-2 p-3 rounded-[var(--radius-md)] border border-[var(--border-hairline)] bg-[var(--surface-raised)]\",\n        className,\n      )}\n    >\n      {rows.length === 0 && (\n        <p className=\"text-[length:var(--type-13)] text-[color:var(--text-tertiary)] text-center py-2\">\n          {emptyMessage}\n        </p>\n      )}\n      {rows.map((row, i) => {\n        const fieldDef = fields.find((f) => f.value === row.field);\n        const operators = fieldDef ? OPERATORS_BY_TYPE[fieldDef.type] : [];\n        return (\n          <div\n            key={row.id}\n            role=\"group\"\n            aria-label={`Filter row ${i + 1}`}\n            className=\"flex items-center gap-2 flex-wrap\"\n          >\n            {i > 0 && (\n              <span className=\"lumen-mono-cap text-[length:var(--type-10)] tracking-[var(--tracking-wider)] text-[color:var(--text-tertiary)] shrink-0 mr-1\">\n                AND\n              </span>\n            )}\n\n            <select\n              aria-label=\"Field\"\n              value={row.field ?? \"\"}\n              onChange={(e) => update(row.id, { field: e.target.value, operator: undefined, value: \"\" })}\n              className=\"h-8 px-2 rounded-[var(--radius-xs)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] text-[length:var(--type-13)] text-[color:var(--text-primary)] outline-none focus-visible:border-[var(--border-focus)]\"\n            >\n              <option value=\"\">Field…</option>\n              {fields.map((f) => (\n                <option key={f.value} value={f.value}>\n                  {f.label}\n                </option>\n              ))}\n            </select>\n\n            <select\n              aria-label=\"Operator\"\n              value={row.operator ?? \"\"}\n              disabled={!fieldDef}\n              onChange={(e) => update(row.id, { operator: e.target.value as FilterOperator })}\n              className=\"h-8 px-2 rounded-[var(--radius-xs)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] text-[length:var(--type-13)] text-[color:var(--text-primary)] outline-none focus-visible:border-[var(--border-focus)] disabled:opacity-50\"\n            >\n              <option value=\"\">Operator…</option>\n              {operators.map((op) => (\n                <option key={op} value={op}>\n                  {OPERATOR_LABEL[op]}\n                </option>\n              ))}\n            </select>\n\n            {fieldDef?.type === \"select\" && fieldDef.options ? (\n              <select\n                aria-label=\"Value\"\n                value={row.value ?? \"\"}\n                onChange={(e) => update(row.id, { value: e.target.value })}\n                className=\"h-8 px-2 rounded-[var(--radius-xs)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] text-[length:var(--type-13)] text-[color:var(--text-primary)] outline-none focus-visible:border-[var(--border-focus)]\"\n              >\n                <option value=\"\">Value…</option>\n                {fieldDef.options.map((o) => (\n                  <option key={o.value} value={o.value}>\n                    {o.label}\n                  </option>\n                ))}\n              </select>\n            ) : (\n              <input\n                aria-label=\"Value\"\n                type={fieldDef?.type === \"number\" ? \"number\" : fieldDef?.type === \"date\" ? \"date\" : \"text\"}\n                value={row.value ?? \"\"}\n                onChange={(e) => update(row.id, { value: e.target.value })}\n                placeholder=\"Value\"\n                disabled={!row.operator}\n                className=\"h-8 px-2 min-w-[140px] rounded-[var(--radius-xs)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] text-[length:var(--type-13)] text-[color:var(--text-primary)] outline-none focus-visible:border-[var(--border-focus)] disabled:opacity-50\"\n              />\n            )}\n\n            <button\n              type=\"button\"\n              onClick={() => remove(row.id)}\n              aria-label={`Remove filter ${i + 1}`}\n              className=\"h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-xs)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)] focus-visible:shadow-[var(--shadow-focus)] focus-visible:outline-none\"\n            >\n              <X size={14} aria-hidden />\n            </button>\n          </div>\n        );\n      })}\n\n      <div className=\"flex items-center gap-2 mt-1\">\n        <button\n          type=\"button\"\n          onClick={add}\n          className=\"lumen-btn lumen-btn-ghost lumen-btn-sm inline-flex items-center gap-2\"\n        >\n          <Plus size={14} aria-hidden />\n          Add filter\n        </button>\n        {rows.length > 0 && (\n          <span className=\"ml-auto inline-flex items-center gap-1.5 text-[length:var(--type-12)] text-[color:var(--text-tertiary)]\">\n            <FilterIcon size={12} aria-hidden />\n            {rows.length} filter{rows.length === 1 ? \"\" : \"s\"}\n          </span>\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/filter-builder.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Lumen primitives (Select + Combobox + Input + Tag)",
+    "specPath": "design-system/02-components/filter-builder/filter-builder.md",
+    "skillPath": "design-system/02-components/filter-builder/filter-builder.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

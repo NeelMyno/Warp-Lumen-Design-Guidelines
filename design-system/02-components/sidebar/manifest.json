@@ -1,0 +1,45 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "sidebar",
+  "title": "Sidebar",
+  "description": "Multi-level navigation sidebar with collapsible state.",
+  "props": [
+    {
+      "name": "collapsed",
+      "type": "boolean"
+    },
+    {
+      "name": "onCollapsedChange",
+      "type": "(c: boolean) => void"
+    }
+  ],
+  "variants": [
+    "expanded",
+    "collapsed"
+  ],
+  "tokensConsumed": [
+    "surface.canvas",
+    "surface.sunken",
+    "surface.tint-accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "radius.md",
+    "space.2"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "<nav aria-label='Primary navigation'>.",
+      "Active item uses aria-current=page.",
+      "When collapsed, items use Tooltip for labels."
+    ]
+  },
+  "usage": "import { Sidebar, SidebarHeader, SidebarSection, SidebarItem, SidebarFooter } from \"@/components/ui/sidebar\";\nimport { Truck, Home } from \"lucide-react\";\n\nexport function Example() {\n  return (\n    <Sidebar>\n      <SidebarHeader>Warp</SidebarHeader>\n      <SidebarSection heading=\"Operate\">\n        <SidebarItem icon={<Home size={14} />} active>Overview</SidebarItem>\n        <SidebarItem icon={<Truck size={14} />}>Lanes</SidebarItem>\n      </SidebarSection>\n    </Sidebar>\n  );\n}",
+  "storiesPath": "02-components/sidebar/sidebar.stories.tsx",
+  "sourcePath": "02-components/sidebar/sidebar.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

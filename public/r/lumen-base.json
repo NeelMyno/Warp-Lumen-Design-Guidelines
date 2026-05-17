@@ -1,0 +1,63 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "lumen-base",
+  "title": "Lumen Design System (full)",
+  "description": "Warp's complete design system: tokens (DTCG 2025.10), Satoshi font, ModeScope primitive, restrained + expressive mode CSS. Installs everything as a single payload — the killer-feature entry point for vibe-coders. `npx shadcn add @lumen/lumen-base` in a fresh Next.js 15+ app gives you the whole system in one command.",
+  "dependencies": [
+    "lucide-react",
+    "tw-animate-css",
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "@lumen/font-satoshi",
+    "@lumen/tokens",
+    "@lumen/mode-scope"
+  ],
+  "files": [],
+  "cssVars": {
+    "theme": {
+      "font-sans": "'Satoshi Variable', system-ui, sans-serif",
+      "font-mono": "'Satoshi Variable', ui-monospace, SFMono-Regular, monospace",
+      "radius": "0.5rem"
+    },
+    "light": {
+      "background": "oklch(0.99 0 0)",
+      "foreground": "oklch(0.075 0 0)",
+      "card": "oklch(0.96 0 0)",
+      "card-foreground": "oklch(0.075 0 0)",
+      "primary": "oklch(0.875 0.225 152)",
+      "primary-foreground": "oklch(0.105 0.04 152)",
+      "border": "oklch(0.86 0 0)",
+      "ring": "oklch(0.875 0.225 152)"
+    },
+    "dark": {
+      "background": "oklch(0.075 0 0)",
+      "foreground": "oklch(0.92 0 0)",
+      "card": "oklch(0.105 0 0)",
+      "card-foreground": "oklch(0.92 0 0)",
+      "primary": "oklch(0.875 0.225 152)",
+      "primary-foreground": "oklch(0.105 0.04 152)",
+      "border": "oklch(0.25 0 0)",
+      "ring": "oklch(0.875 0.225 152)"
+    }
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "REG",
+    "presets": [
+      "dark-first",
+      "operator-density",
+      "freight-domain"
+    ],
+    "modes": [
+      "restrained",
+      "expressive"
+    ],
+    "tokenContract": "DTCG-2025.10",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:base"
+}

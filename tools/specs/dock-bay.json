@@ -1,0 +1,65 @@
+{
+  "name": "dock-bay",
+  "title": "DockBay",
+  "namedExport": "DockBay",
+  "category": "freight-domain",
+  "tier": "T4",
+  "status": "stable",
+  "summary": "Grid of dock-bay cards. Each bay shows: bay number (mono), state (open / occupied / reserved / out-of-service), optional carrier + ETA. Color-coded by state via PILL tokens. Click to drill into bay detail.",
+  "description": "Grid of dock-bay cards with state-coded chrome.",
+  "skillDescription": "Use to visualize cross-dock floor occupancy. State-coded: open=success, occupied=neutral, reserved=info, out=danger. Pass `bays={[]}` to render; consumer wires onClick for drill-in. For top-down pallet-cell view inside an occupied bay use @lumen/cross-dock-grid.",
+  "builtOn": "Card grid composition",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/carrier-badge"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "pill.success.bg",
+    "pill.success.fg",
+    "pill.neutral.bg",
+    "pill.neutral.fg",
+    "pill.info.bg",
+    "pill.info.fg",
+    "pill.danger.bg",
+    "pill.danger.fg",
+    "radius.md",
+    "radius.xs"
+  ],
+  "useWhen": ["Cross-dock floor overview.", "Dock scheduling dashboard.", "Bay-by-bay occupancy at a glance."],
+  "anatomy": [
+    "Grid root (configurable cols)",
+    "Bay card (radius-md hairline border)",
+    "Bay number (lumen-mono-cap, large)",
+    "State chip (PILL tone)",
+    "Optional carrier badge + ETA"
+  ],
+  "api": [
+    "`bays` — { id, number, state, carrier?, eta? }[].",
+    "`cols` — number (default 6).",
+    "`onSelect` — (id) => void."
+  ],
+  "never": ["NEVER mix occupied + open + reserved without distinct colors.", "NEVER fake an ETA (omit if unknown — don't show 'TBD' as a number)."],
+  "a11yRules": [
+    "Each bay card is a <button> with aria-label='Bay {number}, {state}{', carrier ' + carrier}{', ETA ' + eta}'.",
+    "Grid uses role=grid; cells role=gridcell."
+  ],
+  "do": ["Use 5-7 cols on desktop; 2-3 on mobile.", "Color-code by state."],
+  "dont": ["Don't mix tones.", "Don't fake ETAs."],
+  "related": ["CrossDockGrid", "ShipmentTimeline", "CarrierBadge", "PalletTile"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["default", "compact"],
+  "propsList": [
+    { "name": "bays", "type": "Bay[]" },
+    { "name": "cols", "type": "number", "default": 6 },
+    { "name": "onSelect", "type": "(id) => void" }
+  ],
+  "exampleSnippet": "import { DockBay } from \"@/components/ui/dock-bay\";\n\nexport function Example() {\n  return <DockBay bays={[\n    { id: \"1\", number: 1, state: \"open\" },\n    { id: \"2\", number: 2, state: \"occupied\", carrier: \"Sterling LTL\", eta: \"08:30\" },\n  ]} />;\n}",
+  "testChildren": ""
+}

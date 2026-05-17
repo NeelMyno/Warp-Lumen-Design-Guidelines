@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drawer",
+  "title": "Drawer",
+  "description": "Side or bottom panel for navigation / menu / quick form surfaces.",
+  "dependencies": [
+    "@radix-ui/react-dialog",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/drawer/drawer.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/drawer — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Side-anchored or bottom-anchored panel. Built on Radix Dialog with the\n * .lumen-drawer surface contract. Distinguished from Sheet by use case —\n * Drawer is for navigation / menu / notifications; Sheet is for focused tasks.\n */\nimport * as React from \"react\";\nimport * as DialogPrimitive from \"@radix-ui/react-dialog\";\nimport { XIcon } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nfunction Drawer({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {\n  return <DialogPrimitive.Root data-slot=\"drawer\" {...props} />;\n}\nfunction DrawerTrigger({ ...props }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {\n  return <DialogPrimitive.Trigger data-slot=\"drawer-trigger\" {...props} />;\n}\nfunction DrawerClose({ ...props }: React.ComponentProps<typeof DialogPrimitive.Close>) {\n  return <DialogPrimitive.Close data-slot=\"drawer-close\" {...props} />;\n}\n\nfunction DrawerContent({\n  className,\n  children,\n  side = \"right\",\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Content> & {\n  side?: \"right\" | \"bottom\";\n}) {\n  return (\n    <DialogPrimitive.Portal>\n      <DialogPrimitive.Overlay\n        className=\"fixed inset-0 z-[var(--z-modal)] bg-[var(--surface-scrim)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0\"\n      />\n      <DialogPrimitive.Content\n        data-slot=\"drawer-content\"\n        data-side={side}\n        className={cn(\n          \"fixed z-[var(--z-modal)] bg-[var(--surface-popover)] text-[color:var(--text-primary)] shadow-[var(--shadow-modal)] flex flex-col gap-4\",\n          \"data-[state=open]:animate-in data-[state=closed]:animate-out transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500\",\n          side === \"right\" &&\n            \"data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 max-w-sm border-l border-[var(--border-default)]\",\n          side === \"bottom\" &&\n            \"data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto max-h-[80vh] rounded-t-[var(--radius-xl)] border-t border-[var(--border-default)]\",\n          className,\n        )}\n        {...props}\n      >\n        {children}\n        <DialogPrimitive.Close className=\"absolute top-4 right-4 rounded-[var(--radius-xs)] opacity-70 transition-opacity hover:opacity-100 focus-visible:shadow-[var(--shadow-focus)] focus:outline-hidden disabled:pointer-events-none\">\n          <XIcon className=\"size-4\" />\n          <span className=\"sr-only\">Close</span>\n        </DialogPrimitive.Close>\n      </DialogPrimitive.Content>\n    </DialogPrimitive.Portal>\n  );\n}\n\nfunction DrawerHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"drawer-header\" className={cn(\"flex flex-col gap-1.5 p-4\", className)} {...props} />;\n}\n\nfunction DrawerFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"drawer-footer\" className={cn(\"mt-auto flex flex-col gap-2 p-4\", className)} {...props} />;\n}\n\nfunction DrawerTitle({ className, ...props }: React.ComponentProps<typeof DialogPrimitive.Title>) {\n  return (\n    <DialogPrimitive.Title\n      data-slot=\"drawer-title\"\n      className={cn(\"text-[color:var(--text-primary)] font-semibold tracking-[var(--tracking-tight)]\", className)}\n      {...props}\n    />\n  );\n}\n\nfunction DrawerDescription({\n  className,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Description>) {\n  return (\n    <DialogPrimitive.Description\n      data-slot=\"drawer-description\"\n      className={cn(\"text-[color:var(--text-tertiary)] text-sm\", className)}\n      {...props}\n    />\n  );\n}\n\nexport { Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription };\n",
+      "type": "registry:ui",
+      "target": "components/ui/drawer.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T2",
+    "category": "overlay",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Dialog",
+    "specPath": "design-system/02-components/drawer/drawer.md",
+    "skillPath": "design-system/02-components/drawer/drawer.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

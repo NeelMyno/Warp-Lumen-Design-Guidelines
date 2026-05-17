@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pallet-tile",
+  "title": "PalletTile",
+  "description": "Per-pallet card — weight, dims, hazmat, lane, class. Mono numerics.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lane-code"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/pallet-tile/pallet-tile.tsx",
+      "content": "/**\n * @lumen/pallet-tile — v0.13 Phase 2 freight-domain composite.\n * ----------------------------------------------------------------------------\n * Per-pallet card. Weight + dims + class + hazmat + lane. Mono numerics.\n */\nimport * as React from \"react\";\nimport { AlertTriangle, GripVertical } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { LaneCode } from \"../lane-code/lane-code\";\n\nexport type PalletStatus = \"open\" | \"tendered\" | \"enroute\" | \"delivered\";\n\nexport type PalletTileProps = {\n  id: string;\n  weightLbs?: number;\n  dims?: { l: number; w: number; h: number };\n  freightClass?: number;\n  hazmat?: boolean;\n  lane?: { origin: string; destination: string } | string;\n  status?: PalletStatus;\n  density?: \"default\" | \"compact\";\n  draggable?: boolean;\n  className?: string;\n};\n\nconst STATUS_LABEL: Record<PalletStatus, string> = {\n  open: \"Open\",\n  tendered: \"Tendered\",\n  enroute: \"En route\",\n  delivered: \"Delivered\",\n};\n\nexport function PalletTile({\n  id,\n  weightLbs,\n  dims,\n  freightClass,\n  hazmat,\n  lane,\n  status,\n  density = \"default\",\n  draggable,\n  className,\n}: PalletTileProps) {\n  const padding = density === \"compact\" ? \"p-2\" : \"p-3\";\n  return (\n    <div\n      data-slot=\"pallet-tile\"\n      data-status={status || undefined}\n      data-hazmat={hazmat || undefined}\n      className={cn(\n        \"relative flex flex-col gap-1.5 bg-[var(--surface-raised)] border rounded-[var(--radius-md)] shadow-[var(--shadow-sm)]\",\n        hazmat\n          ? \"border-[var(--lumen-amber-5)] bg-[var(--lumen-amber-0)]\"\n          : \"border-[var(--border-hairline)]\",\n        padding,\n        className,\n      )}\n    >\n      {draggable && (\n        <span\n          aria-label={`Drag pallet ${id}`}\n          role=\"button\"\n          tabIndex={0}\n          className=\"absolute left-0.5 top-1/2 -translate-y-1/2 text-[color:var(--text-tertiary)] cursor-grab\"\n        >\n          <GripVertical size={12} aria-hidden />\n        </span>\n      )}\n      {/* Header row */}\n      <div className=\"flex items-center justify-between gap-2\">\n        <span className=\"lumen-mono lumen-tnum text-[length:var(--type-12)] font-semibold text-[color:var(--text-primary)]\">\n          {id}\n        </span>\n        {lane && (\n          typeof lane === \"string\" ? (\n            <span className=\"text-[length:var(--type-11)] text-[color:var(--text-secondary)] lumen-mono\">{lane}</span>\n          ) : (\n            <LaneCode origin={lane.origin} destination={lane.destination} size=\"sm\" />\n          )\n        )}\n      </div>\n      {/* Numeric row */}\n      {(weightLbs != null || dims) && (\n        <div className=\"flex items-center gap-3 lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-secondary)]\">\n          {weightLbs != null && (\n            <span>\n              <span className=\"text-[color:var(--text-tertiary)]\">wt</span>{\" \"}\n              <span className=\"text-[color:var(--text-primary)] font-medium\">{weightLbs.toLocaleString()}</span>\n              <span className=\"text-[color:var(--text-tertiary)] ml-0.5\">lb</span>\n            </span>\n          )}\n          {dims && (\n            <span>\n              <span className=\"text-[color:var(--text-tertiary)]\">dim</span>{\" \"}\n              <span className=\"text-[color:var(--text-primary)] font-medium\">\n                {dims.l}×{dims.w}×{dims.h}\n              </span>\n              <span className=\"text-[color:var(--text-tertiary)] ml-0.5\">in</span>\n            </span>\n          )}\n        </div>\n      )}\n      {/* Footer row */}\n      {(freightClass != null || hazmat || status) && (\n        <div className=\"flex items-center gap-2 text-[length:var(--type-10)]\">\n          {freightClass != null && (\n            <span className=\"inline-flex items-center px-1.5 h-4 rounded-[var(--radius-xs)] bg-[var(--surface-sunken)] text-[color:var(--text-secondary)] lumen-mono lumen-tnum font-medium\">\n              CL {freightClass}\n            </span>\n          )}\n          {hazmat && (\n            <span className=\"inline-flex items-center gap-1 px-1.5 h-4 rounded-[var(--radius-xs)] bg-[var(--lumen-amber-2)] text-[color:var(--lumen-amber-9)] font-semibold tracking-[var(--tracking-wider)] uppercase\">\n              <AlertTriangle size={10} aria-hidden />\n              <span>Hazmat</span>\n            </span>\n          )}\n          {status && (\n            <span className=\"ml-auto text-[color:var(--text-tertiary)] lumen-mono-cap tracking-[var(--tracking-wider)]\">\n              {STATUS_LABEL[status]}\n            </span>\n          )}\n        </div>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/pallet-tile.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Card composition",
+    "specPath": "design-system/02-components/pallet-tile/pallet-tile.md",
+    "skillPath": "design-system/02-components/pallet-tile/pallet-tile.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

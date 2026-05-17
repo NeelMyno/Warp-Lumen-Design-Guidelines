@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "Inline keyboard-key cue. Platform-aware glyphs (⌘ vs Ctrl). SR-friendly aria-label.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/kbd/examples/primary.tsx",
+      "content": "// Lumen Kbd — Web React example. Platform-aware glyph rendering.\n\n\"use client\";\n\nimport { useEffect, useState } from \"react\";\n\ntype Platform = \"auto\" | \"mac\" | \"win\" | \"linux\";\ntype Size = \"xs\" | \"sm\";\n\nconst SIZE: Record<Size, string> = {\n  xs: \"h-4 min-w-4 px-1 text-[10px]\",\n  sm: \"h-5 min-w-5 px-1.5 text-[11px]\",\n};\n\nconst MAC_GLYPHS: Record<string, string> = {\n  cmd: \"⌘\", command: \"⌘\", meta: \"⌘\",\n  alt: \"⌥\", option: \"⌥\", opt: \"⌥\",\n  shift: \"⇧\",\n  ctrl: \"⌃\", control: \"⌃\",\n  enter: \"↵\", return: \"↵\",\n  esc: \"⎋\", escape: \"⎋\",\n  tab: \"⇥\",\n  backspace: \"⌫\", delete: \"⌫\",\n  up: \"↑\", down: \"↓\", left: \"←\", right: \"→\",\n  space: \"␣\",\n};\n\nconst WIN_NAMES: Record<string, string> = {\n  cmd: \"Ctrl\", command: \"Ctrl\", meta: \"Win\",\n  alt: \"Alt\", option: \"Alt\", opt: \"Alt\",\n  shift: \"Shift\",\n  ctrl: \"Ctrl\", control: \"Ctrl\",\n  enter: \"Enter\", return: \"Enter\",\n  esc: \"Esc\", escape: \"Esc\",\n  tab: \"Tab\",\n  backspace: \"Backspace\", delete: \"Delete\",\n  up: \"↑\", down: \"↓\", left: \"←\", right: \"→\",\n  space: \"Space\",\n};\n\nconst SR_NAMES: Record<string, string> = {\n  cmd: \"Command\", command: \"Command\", meta: \"Meta\",\n  alt: \"Alt\", option: \"Option\", opt: \"Option\",\n  shift: \"Shift\",\n  ctrl: \"Control\", control: \"Control\",\n  enter: \"Enter\", return: \"Return\",\n  esc: \"Escape\", escape: \"Escape\",\n};\n\nfunction detectPlatform(): \"mac\" | \"win\" | \"linux\" {\n  if (typeof navigator === \"undefined\") return \"mac\";\n  const p = navigator.platform?.toLowerCase() ?? \"\";\n  if (p.includes(\"mac\")) return \"mac\";\n  if (p.includes(\"win\")) return \"win\";\n  return \"linux\";\n}\n\nexport type KbdProps = {\n  keys: string;\n  platform?: Platform;\n  size?: Size;\n};\n\nexport function Kbd({ keys, platform = \"auto\", size = \"sm\" }: KbdProps) {\n  const [resolved, setResolved] = useState<\"mac\" | \"win\" | \"linux\">(\"mac\");\n  useEffect(() => {\n    if (platform === \"auto\") setResolved(detectPlatform());\n    else setResolved(platform);\n  }, [platform]);\n\n  const tokens = keys.trim().split(/\\s+/);\n  const isMac = resolved === \"mac\";\n\n  const display = tokens.map((t) => {\n    const k = t.toLowerCase();\n    return isMac ? (MAC_GLYPHS[k] ?? t) : (WIN_NAMES[k] ?? t);\n  });\n  const srLabel = tokens.map((t) => SR_NAMES[t.toLowerCase()] ?? t).join(\" \");\n\n  return (\n    <span aria-label={srLabel} className=\"inline-flex items-center gap-[var(--space-inline-xs)] align-middle\">\n      {display.map((d, i) => (\n        <>\n          {i > 0 && <span aria-hidden className=\"text-[var(--color-text-tertiary)]\">+</span>}\n          <kbd\n            key={i}\n            className={[\n              \"inline-flex items-center justify-center font-mono uppercase\",\n              \"rounded-[var(--radius-control-sm)] border border-[var(--color-border-default)]\",\n              \"bg-[var(--color-surface-sunken)]\",\n              \"text-[var(--color-text-secondary)]\",\n              SIZE[size],\n              \"shadow-[var(--shadow-kbd,inset_0_-1px_0_var(--color-border-default))]\",\n            ].join(\" \")}\n          >\n            {d}\n          </kbd>\n        </>\n      ))}\n    </span>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/kbd.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/kbd/component.json",
+    "docsPath": "design-system/02-components/kbd/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

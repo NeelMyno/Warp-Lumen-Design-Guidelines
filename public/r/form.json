@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form",
+  "title": "Form",
+  "description": "Semantic form wrapper with dual-mode validation. Native mode (v0.6) is the default — manual `validate` callback, blur-validation, focus-on-first-error. RHF mode (v0.7) activates when a Zod `schema` prop is passed — wraps children in a FormProvider, auto-registers nested Fields by `name`, and surfaces field-level errors automatically.",
+  "dependencies": [
+    "react-hook-form",
+    "@hookform/resolvers",
+    "zod"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/form/examples/web-react-rhf.tsx",
+      "content": "// Lumen Form — Web React (v0.7 RHF mode) example\n//\n// Copy this into your repo at /components/forms/example.tsx and tweak.\n// Tokens come from /_build/tailwind/theme.css which you import in your\n// global css. The Form + Field primitives live at:\n//   /audit-dashboard/src/components/primitives/form.tsx\n//   /audit-dashboard/src/components/primitives/form-rhf.tsx\n//   /audit-dashboard/src/components/primitives/field.tsx\n//\n// Required deps (see audit-dashboard/package.json):\n//   react-hook-form       ^7\n//   @hookform/resolvers   ^3\n//   zod                   ^3\n//\n// What this example shows:\n//   1. A Zod schema with four field types: string + email, string min, number\n//      with a minimum, boolean that must be true.\n//   2. <Form schema={…} defaultValues={…} onSubmit={…}> — schema activates\n//      RHF mode. defaultValues are recommended whenever schema is set.\n//   3. <Field name=\"…\"> — the `name` is the bridge to RHF. The Field knows\n//      to read formState.errors[name] from FormProvider context and surface\n//      it as its own error message.\n//   4. onSubmit receives the typed, schema-inferred payload.\n//   5. onError is called when validation blocks; receives RHF's FieldErrors.\n\n\"use client\";\n\nimport { Form, Field } from \"@/components/primitives/form-rhf\";\nimport { Button } from \"@/components/ui/button\";\nimport { z } from \"zod\";\n\n// Schema: TypeScript types are inferred from this — `Values` is the payload\n// type that flows to onSubmit.\nconst schema = z.object({\n  email: z.string().min(1, \"Email is required\").email(\"Enter a valid email\"),\n  name: z.string().min(2, \"Name must be at least 2 characters\"),\n  age: z.coerce\n    .number({ invalid_type_error: \"Age must be a number\" })\n    .int(\"Age must be a whole number\")\n    .min(18, \"You must be 18 or older\"),\n  terms: z.literal(true, {\n    errorMap: () => ({ message: \"You must accept the terms to continue\" }),\n  }),\n});\n\ntype Values = z.infer<typeof schema>;\n\nconst defaultValues: Partial<Values> = {\n  email: \"\",\n  name: \"\",\n  // age intentionally omitted — RHF will treat the input as empty until typed,\n  // and the schema's z.coerce.number() will surface the right error message.\n  terms: false as unknown as true,\n};\n\nexport function FormRHFExample() {\n  return (\n    <Form\n      schema={schema}\n      defaultValues={defaultValues as Values}\n      mode=\"onBlur\"\n      onSubmit={(data) => {\n        // `data` is fully typed: { email: string; name: string; age: number; terms: true }\n        // eslint-disable-next-line no-console\n        console.log(\"Form submitted with:\", data);\n      }}\n      onError={(errors) => {\n        // RHF FieldErrors map. Useful for analytics / surfacing a top-level\n        // ValidationMessage summary.\n        // eslint-disable-next-line no-console\n        console.warn(\"Form blocked by validation:\", errors);\n      }}\n    >\n      <Field\n        name=\"email\"\n        label=\"Email\"\n        type=\"email\"\n        autoComplete=\"email\"\n        placeholder=\"you@example.com\"\n      />\n\n      <Field\n        name=\"name\"\n        label=\"Full name\"\n        autoComplete=\"name\"\n        placeholder=\"Jordan Rivera\"\n      />\n\n      <Field\n        name=\"age\"\n        label=\"Age\"\n        type=\"number\"\n        inputMode=\"numeric\"\n        min={0}\n        hint=\"Must be 18 or older.\"\n      />\n\n      {/*\n        Terms is a boolean; the convenience Field surface accepts a checkbox\n        type and bridges to RHF the same way. For a richer Switch / Checkbox\n        experience pair Form with the Lumen Switch / Checkbox primitives\n        wrapped in a Controller — same pattern, different inner control.\n      */}\n      <Field\n        name=\"terms\"\n        label=\"I accept the terms and conditions\"\n        type=\"checkbox\"\n      />\n\n      <Button type=\"submit\">Create account</Button>\n    </Form>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/lumen/form.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.7.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/form/component.json",
+    "docsPath": "design-system/02-components/form/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

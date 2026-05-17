@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rate-ticker",
+  "title": "RateTicker",
+  "description": "Horizontal lane-rate marquee. Warp SIGNATURE — landing-page only.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/rate-ticker/rate-ticker.tsx",
+      "content": "/**\n * @lumen/rate-ticker — v0.13 Phase 2 canonical implementation (preserves v0.12 behavior).\n * ----------------------------------------------------------------------------\n * SIGNATURE primitive. Horizontal lane-rate marquee with edge-fade gradients.\n * Honors prefers-reduced-motion (track becomes static).\n */\nimport * as React from \"react\";\n\ntype Rate = { from: string; to: string; price: string; trend?: \"up\" | \"down\" };\n\nconst DEFAULT_RATES: Rate[] = [\n  { from: \"LAX\", to: \"SFO\", price: \"$262\", trend: \"down\" },\n  { from: \"ORD\", to: \"ATL\", price: \"$485\", trend: \"up\" },\n  { from: \"DFW\", to: \"PHX\", price: \"$390\" },\n  { from: \"SEA\", to: \"DEN\", price: \"$612\", trend: \"down\" },\n  { from: \"MIA\", to: \"JFK\", price: \"$724\", trend: \"up\" },\n  { from: \"LAX\", to: \"ORD\", price: \"$1,230\", trend: \"down\" },\n  { from: \"BOS\", to: \"CLT\", price: \"$540\" },\n  { from: \"SAN\", to: \"SLC\", price: \"$455\", trend: \"up\" },\n  { from: \"MSP\", to: \"MCI\", price: \"$280\", trend: \"down\" },\n  { from: \"PHL\", to: \"RDU\", price: \"$370\" },\n];\n\nexport function RateTicker({\n  rates = DEFAULT_RATES,\n  speed = \"normal\",\n}: {\n  rates?: Rate[];\n  speed?: \"slow\" | \"normal\" | \"fast\";\n}) {\n  const repeated = [...rates, ...rates];\n  const dur = speed === \"slow\" ? \"90s\" : speed === \"fast\" ? \"40s\" : \"60s\";\n  return (\n    <div\n      data-slot=\"rate-ticker\"\n      data-speed={speed}\n      className=\"relative overflow-hidden border-y border-[var(--border-hairline)] bg-[var(--surface-sunken)]\"\n      aria-label=\"Live freight rates\"\n    >\n      <div className=\"lumen-ticker-track flex gap-10 whitespace-nowrap py-3\">\n        {repeated.map((r, i) => (\n          <div\n            key={i}\n            className=\"flex items-center gap-2 lumen-mono lumen-tnum text-[length:var(--type-13)]\"\n          >\n            <span className=\"text-[color:var(--text-secondary)]\">{r.from}</span>\n            <span className=\"text-[color:var(--text-tertiary)]\">→</span>\n            <span className=\"text-[color:var(--text-secondary)]\">{r.to}</span>\n            <span className=\"text-[color:var(--text-primary)] font-medium\">{r.price}</span>\n            {r.trend && (\n              <span\n                aria-hidden\n                className={\n                  \"text-[length:var(--type-11)] font-medium leading-none ml-[1px] \" +\n                  (r.trend === \"up\" ? \"text-[var(--status-success-fg)]\" : \"text-[var(--status-danger-fg)]\")\n                }\n              >\n                {r.trend === \"up\" ? \"▲\" : \"▼\"}\n              </span>\n            )}\n            <span aria-hidden className=\"text-[var(--border-strong)] mx-1\">·</span>\n          </div>\n        ))}\n      </div>\n      <div\n        aria-hidden\n        className=\"pointer-events-none absolute inset-y-0 left-0 w-12\"\n        style={{ background: \"linear-gradient(to right, var(--surface-sunken), transparent)\" }}\n      />\n      <div\n        aria-hidden\n        className=\"pointer-events-none absolute inset-y-0 right-0 w-12\"\n        style={{ background: \"linear-gradient(to left, var(--surface-sunken), transparent)\" }}\n      />\n      <style>{`\n        @keyframes lumen-ticker {\n          0%   { transform: translateX(0); }\n          100% { transform: translateX(-50%); }\n        }\n        .lumen-ticker-track {\n          animation: lumen-ticker ${dur} linear infinite;\n          width: max-content;\n        }\n        @media (prefers-reduced-motion: reduce) {\n          .lumen-ticker-track { animation: none; }\n        }\n      `}</style>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/rate-ticker.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T3-SIG",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": true,
+    "builtOn": "Native composition + CSS marquee",
+    "specPath": "design-system/02-components/rate-ticker/rate-ticker.md",
+    "skillPath": "design-system/02-components/rate-ticker/rate-ticker.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

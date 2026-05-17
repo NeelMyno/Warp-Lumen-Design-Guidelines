@@ -1,0 +1,61 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "input",
+  "title": "Input",
+  "description": "Token-driven single-line text input with the v0.6 field-shell visual contract.",
+  "props": [
+    {
+      "name": "type",
+      "type": "string",
+      "default": "text"
+    },
+    {
+      "name": "placeholder",
+      "type": "string"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean"
+    },
+    {
+      "name": "aria-invalid",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "default",
+    "disabled",
+    "error"
+  ],
+  "tokensConsumed": [
+    "surface.input.rest",
+    "surface.input.disabled",
+    "border.default",
+    "border.strong",
+    "border.focus",
+    "border.error",
+    "border.input.disabled",
+    "text.primary",
+    "text.placeholder",
+    "text.disabled",
+    "shadow.input.lit-edge",
+    "shadow.input.focus",
+    "shadow.input.error",
+    "radius.md",
+    "motion.duration.fast",
+    "motion.easing.standard"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Pair with <Label htmlFor> in <Field>, or supply aria-label / aria-labelledby standalone.",
+      "Use aria-describedby when paired with a ValidationMessage.",
+      "aria-invalid triggers the error halo + ring; pair with descriptive ValidationMessage."
+    ]
+  },
+  "usage": "import { Input } from \"@/components/ui/input\";\n\nexport function Example() {\n  return <Input placeholder=\"LAX → SFO\" />;\n}",
+  "storiesPath": "02-components/input/input.stories.tsx",
+  "sourcePath": "02-components/input/input.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

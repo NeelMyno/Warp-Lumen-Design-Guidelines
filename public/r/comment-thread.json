@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "comment-thread",
+  "title": "Comment Thread",
+  "description": "Threaded discussion attached to an entity. One reply level.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/comment-thread/examples/primary.tsx",
+      "content": "// Lumen CommentThread — Web React example. Simplified.\n\n\"use client\";\n\nimport { Check, MessageSquare } from \"lucide-react\";\nimport { ReactNode } from \"react\";\n\nexport type Comment = {\n  id: string;\n  author: string;\n  avatar?: ReactNode;\n  time: string;\n  dateTime: string;\n  body: ReactNode;\n  reactions?: ReactNode;\n  edited?: boolean;\n  replies?: Comment[];\n};\n\nexport function CommentThread({\n  comments,\n  resolved,\n  onResolve,\n  composerSlot,\n  ariaLabel = \"Comment thread\",\n}: {\n  comments: Comment[];\n  resolved?: boolean;\n  onResolve?: () => void;\n  composerSlot?: ReactNode;\n  ariaLabel?: string;\n}) {\n  return (\n    <section\n      role=\"region\"\n      aria-label={ariaLabel}\n      className={[\n        \"rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\",\n        \"bg-[var(--color-surface-raised)] p-[var(--space-inset-lg)]\",\n        resolved ? \"opacity-70\" : \"\",\n      ].join(\" \")}\n    >\n      <header className=\"flex items-center justify-between gap-2 mb-3\">\n        <span className=\"inline-flex items-center gap-2 text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)]\">\n          <MessageSquare size={12} aria-hidden />\n          <span className=\"lumen-tnum\">{comments.length}</span> Comments\n          {resolved && <span className=\"text-[var(--color-text-accent)]\">· Resolved</span>}\n        </span>\n        {onResolve && !resolved && (\n          <button\n            type=\"button\"\n            onClick={onResolve}\n            className=\"inline-flex h-7 items-center gap-1 px-2 rounded-[var(--radius-control-md)] text-[var(--color-text-secondary)] hover:bg-[var(--color-action-ghost-bg-hover)] hover:text-[var(--color-text-primary)] text-[var(--type-body-sm)]\"\n          >\n            <Check size={12} aria-hidden />\n            Resolve\n          </button>\n        )}\n      </header>\n      <ol role=\"log\" aria-live=\"polite\" className=\"flex flex-col gap-3\">\n        {comments.map((c) => (\n          <CommentRow key={c.id} comment={c} depth={0} />\n        ))}\n      </ol>\n      {composerSlot && <div className=\"mt-3 border-t border-[var(--color-border-hairline)] pt-3\">{composerSlot}</div>}\n    </section>\n  );\n}\n\nfunction CommentRow({ comment, depth }: { comment: Comment; depth: number }) {\n  return (\n    <li className={[depth === 1 ? \"pl-8 border-l border-[var(--color-border-subtle)]\" : \"\"].join(\" \")}>\n      <div className=\"flex gap-2\">\n        {comment.avatar && <span className=\"shrink-0 mt-0.5\">{comment.avatar}</span>}\n        <div className=\"min-w-0 flex-1\">\n          <div className=\"flex items-baseline gap-2 text-[var(--type-label-md)]\">\n            <span className=\"font-medium text-[var(--color-text-primary)]\">{comment.author}</span>\n            <time dateTime={comment.dateTime} className=\"lumen-tnum text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)]\">\n              {comment.time}\n            </time>\n            {comment.edited && <span className=\"text-[var(--type-eyebrow-mono)] text-[var(--color-text-tertiary)]\">(edited)</span>}\n          </div>\n          <div className=\"text-[var(--type-body-md)] text-[var(--color-text-primary)] mt-0.5 whitespace-pre-wrap\">{comment.body}</div>\n          {comment.reactions && <div className=\"mt-1\">{comment.reactions}</div>}\n          {comment.replies && depth === 0 && (\n            <ol className=\"mt-2 flex flex-col gap-2\">\n              {comment.replies.map((r) => (\n                <CommentRow key={r.id} comment={r} depth={depth + 1} />\n              ))}\n            </ol>\n          )}\n        </div>\n      </div>\n    </li>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/comment-thread.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/comment-thread/component.json",
+    "docsPath": "design-system/02-components/comment-thread/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

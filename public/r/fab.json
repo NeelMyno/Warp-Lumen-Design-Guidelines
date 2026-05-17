@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "fab",
+  "title": "FAB",
+  "description": "Floating Action Button. Round, fixed bottom-end, primary CTA glow. 56 px (Material 3 floor).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/fab/examples/primary.tsx",
+      "content": "// Lumen FAB — Web React example (v0.9)\n// Floating Action Button. Round, fixed bottom-end, primary CTA glow.\n\nimport { ButtonHTMLAttributes, ReactNode } from \"react\";\n\ntype Intent = \"primary\" | \"ai\";\ntype Size = \"lg\" | \"xl\";\n\nexport type FabProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, \"aria-label\"> & {\n  \"aria-label\": string;\n  intent?: Intent;\n  size?: Size;\n  position?: \"bottom-end\" | \"bottom-start\" | \"bottom-center\";\n  children: ReactNode;\n};\n\nconst INTENT: Record<Intent, string> = {\n  primary: \"lumen-btn-primary\",\n  ai:      \"lumen-btn-ai\",\n};\n\nconst SIZE: Record<Size, string> = {\n  lg: \"lumen-btn-lg\",\n  xl: \"lumen-btn-xl\",\n};\n\nexport function FAB({\n  intent = \"primary\",\n  size = \"xl\",\n  position = \"bottom-end\",\n  className,\n  children,\n  \"aria-label\": ariaLabel,\n  ...props\n}: FabProps) {\n  return (\n    <button\n      type=\"button\"\n      aria-label={ariaLabel}\n      data-position={position}\n      {...props}\n      className={[\n        \"lumen-btn\",\n        INTENT[intent],\n        SIZE[size],\n        \"lumen-icon-button lumen-btn-round lumen-fab\",\n        intent === \"primary\" ? \"lumen-glow-cta\" : \"\",\n        className ?? \"\",\n      ].filter(Boolean).join(\" \")}\n    >\n      {children}\n    </button>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/fab.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.9.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/fab/component.json",
+    "docsPath": "design-system/02-components/fab/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

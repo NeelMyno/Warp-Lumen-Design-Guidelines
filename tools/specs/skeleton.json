@@ -1,0 +1,52 @@
+{
+  "name": "skeleton",
+  "title": "Skeleton",
+  "namedExport": "Skeleton",
+  "category": "feedback",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Loading placeholder. Accepts width / height / rounded shorthand. Animated via tw-animate-css animate-pulse; honors prefers-reduced-motion (drops the pulse).",
+  "description": "Token-driven loading placeholder for content-aware skeleton states.",
+  "skillDescription": "Use during async loads to indicate the shape of incoming content. Pass width/height to match the final content layout (CLS guard). Always set aria-hidden — the screen reader skips it; pair with `aria-busy` on the parent.",
+  "builtOn": "Native <div> + tw-animate-css",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["tw-animate-css"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": ["surface.sunken", "radius.sm", "motion.duration.slower"],
+  "useWhen": [
+    "Async data loads where the shape is known (table rows, card grids).",
+    "Image / avatar placeholders before src resolves.",
+    "Above-the-fold sections during SSR hydration."
+  ],
+  "anatomy": ["Inline-block div with bg + radius + animate-pulse"],
+  "api": [
+    "`width` — number (px) or string (any CSS length).",
+    "`height` — number (px) or string (default: 14).",
+    "`rounded` — CSS radius (default: var(--radius-sm)).",
+    "`className` — override classes."
+  ],
+  "never": [
+    "NEVER use Skeleton for static content — only loading.",
+    "NEVER skip dimensions — the CLS guard depends on width + height matching final content.",
+    "NEVER mount inside aria-live regions — Skeleton is aria-hidden."
+  ],
+  "a11yRules": [
+    "aria-hidden=true (presentational).",
+    "Parent should set aria-busy=true while loading.",
+    "Honors prefers-reduced-motion (drops the pulse animation)."
+  ],
+  "do": ["Match the final content dimensions.", "Pair parent with aria-busy.", "Honor reduced-motion."],
+  "dont": ["Don't omit width/height.", "Don't use as static content."],
+  "related": ["Spinner", "Progress", "EmptyState"],
+  "stories": [{ "name": "Default", "args": { "width": 120, "height": 14 }, "children": "" }],
+  "variants": ["default", "circular", "rect"],
+  "propsList": [
+    { "name": "width", "type": "number | string" },
+    { "name": "height", "type": "number | string", "default": 14 },
+    { "name": "rounded", "type": "string", "default": "var(--radius-sm)" }
+  ],
+  "exampleSnippet": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport function Example() {\n  return <Skeleton width={120} height={14} />;\n}",
+  "testChildren": ""
+}

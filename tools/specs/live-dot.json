@@ -1,0 +1,40 @@
+{
+  "name": "live-dot",
+  "title": "LiveDot",
+  "namedExport": "LiveDot",
+  "category": "feedback",
+  "tier": "T3-SIG",
+  "status": "stable",
+  "summary": "Warp signature. Filled dot + 1.5px ring that pulses outward on a 3s loop (scale 1 → 2.4, opacity 0.7 → 0, ease-out). Slow enough to never trigger flash thresholds, fast enough to read as 'alive'. Honors prefers-reduced-motion (ring becomes static).",
+  "description": "Filled dot + ring pulse. Warp SIGNATURE — never decorative.",
+  "skillDescription": "Use for 'live' status — Live freight rates, Active lanes, Connection state. Never decorative — the pulse is precious. Default color is --color-accent (Spring Green); override for status indicators (red for down, amber for degraded). Pair with an inline label.",
+  "builtOn": "Native composition + keyframe animation",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "signature": true,
+  "dependencies": [],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react", "ios", "android"],
+  "tokensConsumed": ["color.accent", "text.secondary"],
+  "useWhen": ["Live status indicator (live rates, active connection).", "Operational state (LIVE on a streaming chart).", "Service status on a system page (paired with status pill)."],
+  "anatomy": ["Filled dot (--color-accent default)", "1.5px ring (.lumen-live-dot-pulse — 3s loop, scale 1→2.4)", "Optional label (overline + text-secondary)"],
+  "api": ["`label` — optional string.", "`color` — CSS color (default: var(--color-accent)).", "`size` — px (default 8).", "`hideLabel` — boolean (renders dot only)."],
+  "never": ["NEVER use LiveDot decoratively.", "NEVER animate faster than 2s (anxious).", "NEVER stack two LiveDots — one signature per region."],
+  "a11yRules": ["Ring is aria-hidden (decorative).", "Honors prefers-reduced-motion (ring stays static).", "The label or its parent should convey live state to assistive tech."],
+  "do": ["Use for true live state.", "Use only one per visible region.", "Pair with a label."],
+  "dont": ["Don't use decoratively.", "Don't stack."],
+  "related": ["Stat", "RateTicker", "Badge", "PresenceIndicator"],
+  "stories": [
+    { "name": "Default", "args": { "label": "Live" }, "children": "" },
+    { "name": "Red", "args": { "label": "Down", "color": "var(--lumen-red-5)" }, "children": "" }
+  ],
+  "variants": ["default", "small", "large"],
+  "propsList": [
+    { "name": "label", "type": "string" },
+    { "name": "color", "type": "string" },
+    { "name": "size", "type": "number", "default": 8 },
+    { "name": "hideLabel", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { LiveDot } from \"@/components/ui/live-dot\";\n\nexport function Example() {\n  return <LiveDot label=\"Live\" />;\n}",
+  "testChildren": ""
+}

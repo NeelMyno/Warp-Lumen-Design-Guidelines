@@ -1,0 +1,57 @@
+{
+  "name": "filter-builder",
+  "title": "FilterBuilder",
+  "namedExport": "FilterBuilder",
+  "category": "data",
+  "tier": "T2",
+  "status": "stable",
+  "summary": "Query-DSL editor — operator/field/value chip rows. Each row is a (field, operator, value) triple. Composable AND/OR groups. Add-condition button + Save-as-view CTA.",
+  "description": "Query-DSL editor with operator chip rows + composable AND/OR groups.",
+  "skillDescription": "Use to build composable queries — Linear/Asana-style filter editor. Each row is { field, operator, value }. Stack rows under AND or OR groups. Pair with @lumen/saved-view to save the resulting query state.",
+  "builtOn": "Lumen primitives (Select + Combobox + Input + Tag)",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["lucide-react"],
+  "registryDependencies": ["@lumen/utils", "@lumen/button", "@lumen/select", "@lumen/combobox", "@lumen/input", "@lumen/tag"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "border.default",
+    "radius.md",
+    "space.2",
+    "space.3"
+  ],
+  "useWhen": ["Lane filter — origin = LAX AND destination IN (SFO, OAK) AND status != cancelled.", "Shipment filter — pickup-date BETWEEN x AND y AND lane = LAX→SFO.", "Saved query state via SavedView."],
+  "anatomy": [
+    "FilterBuilder root",
+    "FilterRow × N — { field-select, operator-select, value-input/combobox, remove-button }",
+    "FilterGroup — wraps rows; AND/OR connector chip",
+    "Add condition button",
+    "Save-as-view button"
+  ],
+  "api": [
+    "`fields` — { value: string, label: string, type: 'text' | 'number' | 'date' | 'select', options?: ComboboxOption[] }[].",
+    "`value` — Filter[] (controlled).",
+    "`onChange` — (v: Filter[]) => void.",
+    "`operators` — per field type."
+  ],
+  "never": ["NEVER allow ambiguous operators (e.g. don't use 'is' for both equality and is-defined — split them).", "NEVER hide the remove-row button.", "NEVER let one row collapse the layout — use min-widths."],
+  "a11yRules": ["Each row is a labeled group with role=group + aria-label='Filter row N'.", "Add/remove buttons have descriptive aria-labels.", "Use semantic HTML — <fieldset> for the whole builder."],
+  "do": ["Provide type-appropriate operators (text: contains/equals; date: before/after/between).", "Pair with SavedView."],
+  "dont": ["Don't allow ambiguous operators.", "Don't hide the remove button."],
+  "related": ["FilterChip", "SavedView", "Combobox", "DatePicker"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }],
+  "variants": ["default", "with-or-group"],
+  "propsList": [
+    { "name": "fields", "type": "Field[]" },
+    { "name": "value", "type": "Filter[]" },
+    { "name": "onChange", "type": "(v: Filter[]) => void" }
+  ],
+  "exampleSnippet": "import { FilterBuilder } from \"@/components/ui/filter-builder\";\n\nexport function Example() {\n  return <FilterBuilder fields={[{ value: \"lane\", label: \"Lane\", type: \"text\" }]} />;\n}",
+  "testChildren": ""
+}

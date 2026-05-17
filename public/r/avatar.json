@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "User / carrier identity tile with initials + deterministic palette fallback.",
+  "dependencies": [
+    "@radix-ui/react-avatar"
+  ],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/avatar/avatar.tsx",
+      "content": "\"use client\";\n\n/**\n * @lumen/avatar — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * Radix Avatar + Lumen `name` → initials + deterministic palette API.\n * AvatarGroup stacks with overflow +N pill.\n */\nimport * as React from \"react\";\nimport * as AvatarPrimitive from \"@radix-ui/react-avatar\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype Size = \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\";\n\nconst SIZE_CLS: Record<Size, string> = {\n  xs: \"size-5 text-[10px]\",\n  sm: \"size-6 text-[length:var(--type-11)]\",\n  md: \"size-8 text-[length:var(--type-13)]\",\n  lg: \"size-10 text-[length:var(--type-14)]\",\n  xl: \"size-12 text-[length:var(--type-15)]\",\n  \"2xl\": \"size-16 text-[length:var(--type-18)]\",\n};\n\nconst SIZE_PX: Record<Size, number> = {\n  xs: 20,\n  sm: 24,\n  md: 32,\n  lg: 40,\n  xl: 48,\n  \"2xl\": 64,\n};\n\nfunction initials(name: string): string {\n  return name\n    .split(/\\s+/)\n    .filter(Boolean)\n    .slice(0, 2)\n    .map((p) => p[0]?.toUpperCase())\n    .join(\"\");\n}\n\nfunction paletteFor(seed: string): { bg: string; fg: string } {\n  const families = [\n    { bg: \"var(--lumen-accent-2)\", fg: \"var(--lumen-accent-9)\" },\n    { bg: \"var(--lumen-cream-2)\", fg: \"var(--lumen-cream-9)\" },\n    { bg: \"var(--lumen-amber-2)\", fg: \"var(--lumen-amber-9)\" },\n    { bg: \"var(--lumen-red-2)\", fg: \"var(--lumen-red-9)\" },\n    { bg: \"var(--lumen-cream-3)\", fg: \"var(--lumen-cream-9)\" },\n    { bg: \"var(--lumen-obsidian-2)\", fg: \"var(--lumen-obsidian-9)\" },\n  ];\n  let h = 0;\n  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;\n  return families[h % families.length];\n}\n\nexport type AvatarProps = {\n  name: string;\n  size?: Size;\n  src?: string;\n  alt?: string;\n  badge?: React.ReactNode;\n  ring?: boolean;\n  className?: string;\n};\n\nexport function Avatar({ name, size = \"md\", src, alt, badge, ring, className }: AvatarProps) {\n  const palette = paletteFor(name);\n  return (\n    <span data-slot=\"avatar\" className={cn(\"relative inline-flex shrink-0\", className)}>\n      <AvatarPrimitive.Root\n        className={cn(\n          \"inline-flex items-center justify-center rounded-full overflow-hidden\",\n          SIZE_CLS[size],\n          ring && \"ring-2 ring-offset-2 ring-offset-[var(--surface-canvas)] ring-[var(--border-default)]\",\n        )}\n      >\n        {src && (\n          <AvatarPrimitive.Image\n            src={src}\n            alt={alt ?? name}\n            className=\"size-full object-cover\"\n          />\n        )}\n        <AvatarPrimitive.Fallback\n          delayMs={src ? 200 : 0}\n          className=\"flex h-full w-full items-center justify-center font-semibold tracking-[var(--tracking-tight)]\"\n          style={{ background: palette.bg, color: palette.fg }}\n        >\n          {initials(name)}\n        </AvatarPrimitive.Fallback>\n      </AvatarPrimitive.Root>\n      {badge && <span className=\"absolute -right-0.5 -bottom-0.5\">{badge}</span>}\n      <span className=\"sr-only\">{name}</span>\n    </span>\n  );\n}\n\nexport function AvatarGroup({\n  names,\n  max = 4,\n  size = \"sm\",\n}: {\n  names: string[];\n  max?: number;\n  size?: Size;\n}) {\n  const visible = names.slice(0, max);\n  const overflow = names.length - visible.length;\n  return (\n    <div data-slot=\"avatar-group\" className=\"inline-flex items-center -space-x-2\">\n      {visible.map((n) => (\n        <Avatar key={n} name={n} size={size} ring />\n      ))}\n      {overflow > 0 && (\n        <span\n          className=\"inline-flex items-center justify-center rounded-full bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] font-medium text-[10px] ring-2 ring-offset-2 ring-offset-[var(--surface-canvas)] ring-[var(--border-default)]\"\n          style={{ width: SIZE_PX[size], height: SIZE_PX[size] }}\n        >\n          +{overflow}\n        </span>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/avatar.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "display",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Radix Avatar",
+    "specPath": "design-system/02-components/avatar/avatar.md",
+    "skillPath": "design-system/02-components/avatar/avatar.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "button",
+  "title": "Button",
+  "description": "A button triggers an action. The primary way users commit to a decision in a flow.",
+  "props": [
+    {
+      "name": "intent",
+      "type": "enum",
+      "default": "secondary"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "md"
+    },
+    {
+      "name": "shape",
+      "type": "enum",
+      "default": "rect"
+    },
+    {
+      "name": "leadingIcon",
+      "type": "ReactNode"
+    },
+    {
+      "name": "trailingIcon",
+      "type": "ReactNode"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "pressed",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "asChild",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "variants": [
+    "primary",
+    "secondary",
+    "outline",
+    "tertiary",
+    "ghost",
+    "danger",
+    "danger-soft",
+    "ai",
+    "glass",
+    "link"
+  ],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "color.action.primary.bg.hover",
+    "color.action.primary.bg.press",
+    "color.action.primary.fg",
+    "color.action.secondary.bg.rest",
+    "color.action.secondary.fg",
+    "color.action.outline.fg",
+    "color.action.outline.border.rest",
+    "color.action.ghost.fg",
+    "color.action.danger.bg.rest",
+    "color.action.danger.fg",
+    "color.action.danger-soft.bg.rest",
+    "color.action.danger-soft.fg",
+    "color.action.ai.bg.rest",
+    "color.action.ai.fg",
+    "color.action.glass.bg.rest",
+    "color.action.glass.fg",
+    "shadow.button.glow.rest",
+    "shadow.button.glow.hover",
+    "shadow.button.glow.active",
+    "shadow.focus",
+    "shadow.focus.dual.stack",
+    "button.height.xs",
+    "button.height.sm",
+    "button.height.md",
+    "button.height.lg",
+    "button.height.xl",
+    "button.radius.rect",
+    "button.radius.pill",
+    "button.radius.round",
+    "motion.duration.fast",
+    "motion.easing.standard"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Visible focus ring required — do NOT remove via `outline: none`. Primary intent uses dual-ring focus (canvas-colored 2px inner + lime 4px outer; Atlassian 2024 fix; WCAG 2.4.13).",
+      "Disabled state inside a form uses `aria-disabled`, not the `disabled` attribute, so the button stays in tab order.",
+      "Loading state sets `aria-busy=true` and suppresses `onClick`.",
+      "Label must contain ≥ 1 visible character. Icon-only requires the IconButton component with `aria-label`.",
+      "Honor prefers-reduced-motion — hover-color transitions + glow pulses are dropped; the resting glow stays steady."
+    ]
+  },
+  "usage": "import { Button } from \"@/components/ui/button\";\n\nexport function Example() {\n  return (\n    <div className=\"flex gap-3\">\n      <Button intent=\"primary\">Get rates</Button>\n      <Button intent=\"secondary\">Cancel</Button>\n    </div>\n  );\n}",
+  "storiesPath": "02-components/button/button.stories.tsx",
+  "sourcePath": "02-components/button/button.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

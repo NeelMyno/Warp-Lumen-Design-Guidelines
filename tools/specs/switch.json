@@ -1,0 +1,51 @@
+{
+  "name": "switch",
+  "title": "Switch",
+  "namedExport": "Switch",
+  "category": "form",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "On/off toggle. Built on Radix Switch with the .lumen-switch shell. Thumb is composed via CSS ::before; Radix's data-state='checked|unchecked' drives the visual. Inline position math via style.left (no Tailwind arbitrary translate — hard rule 12).",
+  "description": "Token-driven on/off toggle with the .lumen-switch shell. Thumb position via inline style + native transition.",
+  "skillDescription": "Use for binary settings — Enabled/Disabled, Notifications on/off, Dark mode. For multi-option selection use RadioGroup. For multiple binary settings use a list of Switches with consistent label placement (left or right, not mixed).",
+  "builtOn": "Radix Switch",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-switch"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "color.action.primary.bg.rest",
+    "surface.sunken",
+    "surface.raised",
+    "border.default",
+    "shadow.focus",
+    "motion.duration.fast",
+    "motion.easing.standard"
+  ],
+  "useWhen": ["Binary on/off settings (Notifications, Dark mode, Auto-save).", "List of toggleable preferences.", "Real-time settings without a Save button."],
+  "anatomy": ["Switch root (.lumen-switch)", "Inner thumb (CSS ::before, position via inline style)", "Track (--surface-sunken rest, --color-action-primary-bg-rest checked)"],
+  "api": ["Standard Radix Switch props.", "`checked`, `onCheckedChange` — controlled.", "`defaultChecked` — uncontrolled."],
+  "never": [
+    "NEVER use a Switch for actions (Save, Delete) — that's a Button.",
+    "NEVER mix Switch + Checkbox in the same list — pick one pattern.",
+    "NEVER use Tailwind arbitrary translate for the thumb (hard rule 12)."
+  ],
+  "a11yRules": [
+    "Radix manages role=switch + aria-checked + keyboard (Space, Enter to toggle).",
+    "Pair with a <Label htmlFor> — clicking the label toggles the switch.",
+    "Honor prefers-reduced-motion (transition becomes instant)."
+  ],
+  "do": ["Pair with a label.", "Use for binary real-time settings."],
+  "dont": ["Don't use for actions.", "Don't mix Switch + Checkbox."],
+  "related": ["Checkbox", "Toggle", "RadioGroup"],
+  "stories": [{ "name": "Default", "args": {}, "children": "" }, { "name": "Checked", "args": { "defaultChecked": true }, "children": "" }],
+  "variants": ["default", "checked", "disabled"],
+  "propsList": [
+    { "name": "checked", "type": "boolean" },
+    { "name": "onCheckedChange", "type": "(c: boolean) => void" },
+    { "name": "disabled", "type": "boolean" }
+  ],
+  "exampleSnippet": "import { Switch } from \"@/components/ui/switch\";\n\nexport function Example() {\n  return <Switch defaultChecked />;\n}",
+  "testChildren": ""
+}

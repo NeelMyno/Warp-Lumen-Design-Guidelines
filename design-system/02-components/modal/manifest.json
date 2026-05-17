@@ -1,0 +1,52 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "modal",
+  "title": "Modal",
+  "description": "Centered Radix Dialog with the Lumen surface contract.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "default": "md"
+    },
+    {
+      "name": "destructive",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "destructive"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.scrim",
+    "text.primary",
+    "text.tertiary",
+    "border.default",
+    "border.error",
+    "shadow.modal",
+    "radius.xl",
+    "z-index.modal"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=dialog + aria-modal + focus trap + escape.",
+      "ModalTitle required (visible or sr-only).",
+      "ModalDescription provides screen-reader context."
+    ]
+  },
+  "usage": "import { Modal, ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalFooter } from \"@/components/ui/modal\";\n\nexport function Example() {\n  return (\n    <Modal>\n      <ModalTrigger>Open</ModalTrigger>\n      <ModalContent>\n        <ModalHeader><ModalTitle>Confirm</ModalTitle></ModalHeader>\n        <ModalFooter>{/* buttons */}</ModalFooter>\n      </ModalContent>\n    </Modal>\n  );\n}",
+  "storiesPath": "02-components/modal/modal.stories.tsx",
+  "sourcePath": "02-components/modal/modal.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

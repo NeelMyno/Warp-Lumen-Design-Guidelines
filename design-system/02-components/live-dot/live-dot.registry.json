@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "live-dot",
+  "type": "registry:ui",
+  "title": "LiveDot",
+  "description": "Filled dot + ring pulse. Warp SIGNATURE — never decorative.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/live-dot/live-dot.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/live-dot.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T3-SIG",
+    "category": "feedback",
+    "platforms": [
+      "web-react",
+      "ios",
+      "android"
+    ],
+    "modeAware": false,
+    "signature": true,
+    "builtOn": "Native composition + keyframe animation",
+    "specPath": "design-system/02-components/live-dot/live-dot.md",
+    "skillPath": "design-system/02-components/live-dot/live-dot.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

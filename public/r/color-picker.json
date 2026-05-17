@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "color-picker",
+  "title": "Color Picker",
+  "description": "Color selection. Swatches (restricted) + full (saturation/hue + hex).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/color-picker/examples/primary.tsx",
+      "content": "// Lumen ColorPicker — Web React example. Swatches variant.\n\n\"use client\";\n\nimport { Check } from \"lucide-react\";\n\nconst DEFAULT_SWATCHES = [\n  \"#00FA8A\", \"#0D0D0D\", \"#E6E6E6\", \"#FAFAFA\",\n  \"#3B82F6\", \"#A855F7\", \"#EC4899\", \"#F59E0B\",\n  \"#22C55E\", \"#EF4444\", \"#06B6D4\", \"#94A3B8\",\n];\n\nexport function ColorPicker({\n  value,\n  onValueChange,\n  variant = \"swatches\",\n  swatches = DEFAULT_SWATCHES,\n  allowAlpha = false,\n  ariaLabel = \"Color\",\n}: {\n  value: string;\n  onValueChange: (v: string) => void;\n  variant?: \"swatches\" | \"full\";\n  swatches?: string[];\n  allowAlpha?: boolean;\n  ariaLabel?: string;\n}) {\n  return (\n    <div role=\"group\" aria-label={ariaLabel} className=\"flex flex-col gap-2\">\n      {variant === \"swatches\" && (\n        <div className=\"grid grid-cols-6 gap-1.5\">\n          {swatches.map((s) => {\n            const selected = s.toLowerCase() === value.toLowerCase();\n            return (\n              <button\n                key={s}\n                type=\"button\"\n                aria-label={`Hex ${s}`}\n                aria-pressed={selected}\n                onClick={() => onValueChange(s)}\n                className={[\n                  \"relative h-7 w-7 rounded-[var(--radius-control-sm)] border border-[var(--color-border-hairline)]\",\n                  \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:shadow-[var(--shadow-focus)]\",\n                  selected ? \"ring-2 ring-[var(--color-accent-500)]\" : \"\",\n                  \"transition-shadow duration-[var(--motion-duration-fast)]\",\n                ].join(\" \")}\n                style={{ background: s }}\n              >\n                {selected && (\n                  <Check\n                    aria-hidden\n                    size={12}\n                    className=\"absolute inset-0 m-auto\"\n                    style={{\n                      color: isLight(s) ? \"#0D0D0D\" : \"#FAFAFA\",\n                    }}\n                  />\n                )}\n              </button>\n            );\n          })}\n        </div>\n      )}\n      <label className=\"flex items-center gap-2\">\n        <span className=\"text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)]\">Hex</span>\n        <input\n          aria-label=\"Hex value\"\n          value={value}\n          onChange={(e) => onValueChange(e.target.value)}\n          spellCheck={false}\n          className={[\n            \"flex-1 h-8 px-2 rounded-[var(--radius-control-sm)] border border-[var(--color-border-default)]\",\n            \"bg-[var(--color-surface-sunken)] text-[var(--color-text-primary)] text-[var(--type-label-sm)] font-mono\",\n            \"outline-none focus-visible:shadow-[var(--shadow-focus)] focus-visible:border-[var(--color-accent-500)]\",\n          ].join(\" \")}\n        />\n      </label>\n    </div>\n  );\n}\n\nfunction isLight(hex: string): boolean {\n  const c = hex.replace(\"#\", \"\");\n  if (c.length < 6) return false;\n  const r = parseInt(c.slice(0, 2), 16);\n  const g = parseInt(c.slice(2, 4), 16);\n  const b = parseInt(c.slice(4, 6), 16);\n  return r * 0.299 + g * 0.587 + b * 0.114 > 156;\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/color-picker.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/color-picker/component.json",
+    "docsPath": "design-system/02-components/color-picker/component.md",
+    "status": "beta",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

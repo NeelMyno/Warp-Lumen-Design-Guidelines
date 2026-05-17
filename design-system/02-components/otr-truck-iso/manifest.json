@@ -1,0 +1,43 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "otr-truck-iso",
+  "title": "OTRTruckIso",
+  "description": "Isometric truck illustration — inline SVG placeholder; Phase 4 swaps for gpt-image-2.",
+  "props": [
+    {
+      "name": "size",
+      "type": "enum | number",
+      "default": "md"
+    },
+    {
+      "name": "tint",
+      "type": "enum",
+      "default": "accent"
+    },
+    {
+      "name": "label",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "sm",
+    "md",
+    "lg"
+  ],
+  "tokensConsumed": [
+    "text.tertiary",
+    "color.accent"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "role=img + aria-label (default: 'Long-haul truck').",
+      "aria-hidden if purely decorative."
+    ]
+  },
+  "usage": "import { OTRTruckIso } from \"@/components/ui/otr-truck-iso\";\n\nexport function Example() {\n  return <OTRTruckIso size=\"lg\" tint=\"accent\" />;\n}",
+  "storiesPath": "02-components/otr-truck-iso/otr-truck-iso.stories.tsx",
+  "sourcePath": "02-components/otr-truck-iso/otr-truck-iso.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

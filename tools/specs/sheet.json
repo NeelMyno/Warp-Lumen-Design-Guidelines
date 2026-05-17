@@ -1,0 +1,76 @@
+{
+  "name": "sheet",
+  "title": "Sheet",
+  "namedExport": "Sheet",
+  "category": "overlay",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Side-anchored or top/bottom-anchored panel built on Radix Dialog. Sliding entry from the chosen side. Includes Sheet, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription.",
+  "description": "Side panel overlay built on Radix Dialog. Sides: left | right (default) | top | bottom.",
+  "skillDescription": "Use when an action requires a focused side surface — settings, filters, contextual help, AI conversation. Composed from Radix Dialog so keyboard / scrim / focus-trap behavior is correct. Side defaults to right; switch to bottom for mobile.",
+  "builtOn": "Radix Dialog",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-dialog", "lucide-react"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.scrim",
+    "surface.sunken",
+    "text.primary",
+    "text.tertiary",
+    "border.default",
+    "shadow.modal",
+    "shadow.focus",
+    "radius.xs",
+    "z-index.modal"
+  ],
+  "useWhen": [
+    "Settings panel.",
+    "Filter editor (FilterBuilder).",
+    "Contextual help.",
+    "AI conversation embedded in a dashboard.",
+    "Mobile bottom-sheet via side=bottom."
+  ],
+  "anatomy": [
+    "Sheet root (Radix Root)",
+    "SheetTrigger — opens the sheet",
+    "SheetContent — the sliding panel, 75% viewport width default, max-w-sm",
+    "SheetHeader / SheetTitle / SheetDescription — header content",
+    "SheetFooter — flex column footer",
+    "SheetClose — the X button (icon-only, top-right)"
+  ],
+  "api": [
+    "`open`, `onOpenChange` — controlled or uncontrolled (Radix pattern).",
+    "`side` — left | right (default) | top | bottom on SheetContent.",
+    "All Radix Dialog props pass through.",
+    "Modal / non-modal via Radix `modal` prop on the Root."
+  ],
+  "never": [
+    "NEVER nest a Sheet inside another Sheet without an a11y reason.",
+    "NEVER replace the close X without preserving the SheetClose role and aria-label.",
+    "NEVER remove the focus trap.",
+    "NEVER apply backdrop-filter to the overlay — it's a scrim, not a glass surface."
+  ],
+  "a11yRules": [
+    "Radix manages role=dialog, aria-modal, focus trap, escape-to-close, click-outside-to-close.",
+    "Always provide a SheetTitle (visible or sr-only); Radix warns if missing.",
+    "Use SheetDescription for the assistive technology description."
+  ],
+  "do": ["Compose Header → content → Footer.", "Use side=bottom for mobile.", "Provide a SheetTitle for screen readers."],
+  "dont": ["Don't disable Radix's focus trap.", "Don't replace the scrim with a backdrop-filter blur."],
+  "related": ["Drawer", "Modal", "Dialog", "Popover", "CommandPalette"],
+  "stories": [
+    { "name": "Right", "args": {}, "children": "Sheet" },
+    { "name": "Bottom", "args": {}, "children": "Sheet" }
+  ],
+  "variants": ["right", "left", "top", "bottom"],
+  "propsList": [
+    { "name": "open", "type": "boolean" },
+    { "name": "onOpenChange", "type": "(open: boolean) => void" },
+    { "name": "side", "type": "enum", "default": "right" }
+  ],
+  "exampleSnippet": "import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle } from \"@/components/ui/sheet\";\n\nexport function Example() {\n  return (\n    <Sheet>\n      <SheetTrigger>Filters</SheetTrigger>\n      <SheetContent side=\"right\">\n        <SheetHeader><SheetTitle>Filters</SheetTitle></SheetHeader>\n      </SheetContent>\n    </Sheet>\n  );\n}",
+  "testChildren": "Sheet"
+}

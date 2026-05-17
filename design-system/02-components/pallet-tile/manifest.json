@@ -1,0 +1,68 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "pallet-tile",
+  "title": "PalletTile",
+  "description": "Per-pallet card — weight, dims, hazmat, lane, class. Mono numerics.",
+  "props": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "weightLbs",
+      "type": "number"
+    },
+    {
+      "name": "dims",
+      "type": "{l, w, h}"
+    },
+    {
+      "name": "freightClass",
+      "type": "number"
+    },
+    {
+      "name": "hazmat",
+      "type": "boolean"
+    },
+    {
+      "name": "lane",
+      "type": "{origin, destination} | string"
+    },
+    {
+      "name": "status",
+      "type": "enum"
+    }
+  ],
+  "variants": [
+    "default",
+    "compact",
+    "hazmat"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "surface.tint-accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.hairline",
+    "border.strong",
+    "lumen.amber.5",
+    "lumen.amber.0",
+    "radius.md",
+    "shadow.sm"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Drag handle has aria-label='Drag pallet {id}'.",
+      "Hazmat icon has visible label 'HAZMAT' for screen-reader users.",
+      "Numbers use lumen-tnum + lumen-mono."
+    ]
+  },
+  "usage": "import { PalletTile } from \"@/components/ui/pallet-tile\";\n\nexport function Example() {\n  return <PalletTile id=\"PAL-1247\" weightLbs={840} dims={{ l: 48, w: 40, h: 60 }} freightClass={100} lane={{ origin: \"LAX\", destination: \"SFO\" }} />;\n}",
+  "storiesPath": "02-components/pallet-tile/pallet-tile.stories.tsx",
+  "sourcePath": "02-components/pallet-tile/pallet-tile.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

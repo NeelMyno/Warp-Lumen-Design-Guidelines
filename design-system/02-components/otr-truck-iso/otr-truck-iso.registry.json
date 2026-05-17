@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "otr-truck-iso",
+  "type": "registry:ui",
+  "title": "OTRTruckIso",
+  "description": "Isometric truck illustration — inline SVG placeholder; Phase 4 swaps for gpt-image-2.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/otr-truck-iso/otr-truck-iso.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/otr-truck-iso.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T4",
+    "category": "freight-domain",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Inline SVG (line-art, replaceable in Phase 4)",
+    "specPath": "design-system/02-components/otr-truck-iso/otr-truck-iso.md",
+    "skillPath": "design-system/02-components/otr-truck-iso/otr-truck-iso.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "command-palette",
+  "title": "CommandPalette",
+  "description": "⌘K palette built on cmdk inside Dialog. Glass-strong shell, grouped results, footer kbd hints.",
+  "props": [
+    {
+      "name": "open",
+      "type": "boolean"
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(o: boolean) => void"
+    },
+    {
+      "name": "items",
+      "type": "CommandItem[]"
+    }
+  ],
+  "variants": [
+    "default",
+    "with-recent"
+  ],
+  "tokensConsumed": [
+    "surface.popover",
+    "surface.tint-accent",
+    "surface.sunken",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "border.default",
+    "border.hairline",
+    "shadow.modal",
+    "radius.md",
+    "radius.lg",
+    "z-index.modal"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Dialog manages role + focus trap + escape.",
+      "cmdk manages role=listbox + role=option + aria-selected + aria-activedescendant.",
+      "Provide DialogTitle (sr-only is fine) + DialogDescription for screen readers."
+    ]
+  },
+  "usage": "import { useState } from \"react\";\nimport { CommandPalette } from \"@/components/ui/command-palette\";\n\nexport function Example() {\n  const [open, setOpen] = useState(false);\n  return (\n    <CommandPalette\n      open={open}\n      onOpenChange={setOpen}\n      items={[{ id: \"lanes\", label: \"Lanes\", group: \"Go to\", onSelect: () => {} }]}\n    />\n  );\n}",
+  "storiesPath": "02-components/command-palette/command-palette.stories.tsx",
+  "sourcePath": "02-components/command-palette/command-palette.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

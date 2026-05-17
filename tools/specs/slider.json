@@ -1,0 +1,61 @@
+{
+  "name": "slider",
+  "title": "Slider",
+  "namedExport": "Slider",
+  "category": "form",
+  "tier": "T1",
+  "status": "stable",
+  "summary": "Numeric range input. Built on Radix Slider. Single-handle by default; range when defaultValue=[lo, hi] (two thumbs). Lime accent track + bordered thumb with ring on hover/focus. Touch + keyboard accessible.",
+  "description": "Token-driven slider (single + range) built on Radix Slider.",
+  "skillDescription": "Use for numeric range entry where the value is continuous — weight, distance, price ceiling. For discrete steps use steps prop; for binary use Switch. RangeSlider is the same component with two thumbs — pass defaultValue={[lo, hi]}.",
+  "builtOn": "Radix Slider",
+  "modeAware": false,
+  "registryType": "registry:ui",
+  "dependencies": ["@radix-ui/react-slider"],
+  "registryDependencies": ["@lumen/utils"],
+  "platforms": ["web-react"],
+  "tokensConsumed": [
+    "lumen.accent.4",
+    "lumen.accent.5",
+    "lumen.lime.a14",
+    "lumen.lime.a32",
+    "surface.sunken",
+    "surface.raised",
+    "shadow.focus"
+  ],
+  "useWhen": ["Continuous numeric input (weight, distance, price).", "Range filtering (price between $50 and $500).", "Volume / opacity / blur controls."],
+  "anatomy": ["Slider root (relative flex)", "Track (--surface-sunken)", "Range (lime accent on the filled portion)", "Thumb × N (1 or 2 — render based on defaultValue.length)"],
+  "api": [
+    "`defaultValue` — number[] (e.g. [40] for single, [20, 80] for range).",
+    "`min`, `max`, `step` — numeric bounds.",
+    "`onValueChange` — (v: number[]) => void.",
+    "`disabled` — boolean."
+  ],
+  "never": [
+    "NEVER use Slider for non-continuous values (use Select / RadioGroup).",
+    "NEVER omit aria-label or aria-labelledby on the thumb.",
+    "NEVER use Tailwind arbitrary translate for the thumb (hard rule 12 — Radix handles position via inline style)."
+  ],
+  "a11yRules": [
+    "Radix manages role=slider + aria-valuemin/max/now + arrow keys + home/end.",
+    "Provide aria-label on the Slider root for screen readers.",
+    "Honor prefers-reduced-motion (transition stays instant)."
+  ],
+  "do": ["Use for continuous numeric input.", "Pair with a numeric display."],
+  "dont": ["Don't use for discrete options.", "Don't omit aria-label."],
+  "related": ["RangeSlider", "NumberInput", "Switch"],
+  "stories": [
+    { "name": "Default", "args": { "defaultValue": [40] }, "children": "" },
+    { "name": "Range", "args": { "defaultValue": [20, 80] }, "children": "" }
+  ],
+  "variants": ["single", "range", "vertical"],
+  "propsList": [
+    { "name": "defaultValue", "type": "number[]" },
+    { "name": "min", "type": "number", "default": 0 },
+    { "name": "max", "type": "number", "default": 100 },
+    { "name": "step", "type": "number", "default": 1 },
+    { "name": "onValueChange", "type": "(v: number[]) => void" }
+  ],
+  "exampleSnippet": "import { Slider } from \"@/components/ui/slider\";\n\nexport function Example() {\n  return <Slider defaultValue={[40]} />;\n}",
+  "testChildren": ""
+}

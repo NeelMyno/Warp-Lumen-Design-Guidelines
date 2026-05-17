@@ -1,0 +1,46 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "saved-view",
+  "title": "SavedView",
+  "description": "Named query state with diff indicator + share URL.",
+  "props": [
+    {
+      "name": "views",
+      "type": "{id, name, query}[]"
+    },
+    {
+      "name": "currentView",
+      "type": "string | null"
+    },
+    {
+      "name": "isDirty",
+      "type": "boolean"
+    }
+  ],
+  "variants": [
+    "clean",
+    "dirty",
+    "empty"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "color.accent",
+    "text.primary",
+    "text.tertiary",
+    "border.hairline",
+    "radius.md"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Trigger button has aria-label='Saved views, current: {name}{', unsaved' if dirty}'.",
+      "Dropdown items have descriptive labels.",
+      "Save-as modal has DialogTitle."
+    ]
+  },
+  "usage": "import { SavedView } from \"@/components/ui/saved-view\";\n\nexport function Example() {\n  return (\n    <SavedView\n      views={[{ id: \"1\", name: \"My lanes\", query: {} }]}\n      currentView=\"1\"\n      isDirty\n    />\n  );\n}",
+  "storiesPath": "02-components/saved-view/saved-view.stories.tsx",
+  "sourcePath": "02-components/saved-view/saved-view.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

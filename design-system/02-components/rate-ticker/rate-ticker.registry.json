@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rate-ticker",
+  "type": "registry:ui",
+  "title": "RateTicker",
+  "description": "Horizontal lane-rate marquee. Warp SIGNATURE — landing-page only.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/rate-ticker/rate-ticker.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/rate-ticker.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T3-SIG",
+    "category": "data",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": true,
+    "builtOn": "Native composition + CSS marquee",
+    "specPath": "design-system/02-components/rate-ticker/rate-ticker.md",
+    "skillPath": "design-system/02-components/rate-ticker/rate-ticker.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  }
+}

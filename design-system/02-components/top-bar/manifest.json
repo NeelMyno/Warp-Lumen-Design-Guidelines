@@ -1,0 +1,33 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "top-bar",
+  "title": "TopBar",
+  "description": "Horizontal app chrome — brand mark + breadcrumb + global search trigger + user menu.",
+  "props": [
+    {
+      "name": "className",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default"
+  ],
+  "tokensConsumed": [
+    "surface.canvas",
+    "text.primary",
+    "border.hairline",
+    "z-index.sticky"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "<header> semantic element.",
+      "Skip-to-content link in the first slot (sr-only)."
+    ]
+  },
+  "usage": "import { TopBar, TopBarLeft, TopBarCenter, TopBarRight } from \"@/components/ui/top-bar\";\n\nexport function Example() {\n  return (\n    <TopBar>\n      <TopBarLeft>Warp</TopBarLeft>\n      <TopBarCenter>Lanes</TopBarCenter>\n      <TopBarRight>⌘K · A</TopBarRight>\n    </TopBar>\n  );\n}",
+  "storiesPath": "02-components/top-bar/top-bar.stories.tsx",
+  "sourcePath": "02-components/top-bar/top-bar.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

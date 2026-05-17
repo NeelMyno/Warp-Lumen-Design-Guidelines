@@ -1,0 +1,37 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "description": "Hierarchy crumbs. Last item renders as BreadcrumbPage (aria-current=page); others as BreadcrumbLink.",
+  "props": [
+    {
+      "name": "items",
+      "type": "Crumb[]",
+      "required": true
+    }
+  ],
+  "variants": [
+    "default",
+    "with-icons",
+    "truncated"
+  ],
+  "tokensConsumed": [
+    "text.primary",
+    "text.tertiary",
+    "text.accent",
+    "tracking.tight"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Nav has aria-label='breadcrumb'.",
+      "Current page (last item) has aria-current=page.",
+      "Separators are aria-hidden."
+    ]
+  },
+  "usage": "import { Breadcrumb } from \"@/components/ui/breadcrumb\";\n\nexport function Example() {\n  return (\n    <Breadcrumb items={[\n      { href: \"/\", label: \"Home\" },\n      { href: \"/lanes\", label: \"Lanes\" },\n      { label: \"LAX → SFO\" },\n    ]} />\n  );\n}",
+  "storiesPath": "02-components/breadcrumb/breadcrumb.stories.tsx",
+  "sourcePath": "02-components/breadcrumb/breadcrumb.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T1"
+}

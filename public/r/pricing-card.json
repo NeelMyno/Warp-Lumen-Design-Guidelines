@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pricing-card",
+  "title": "Pricing Card",
+  "description": "Single tier on a pricing page. Highlight variant with v0.12.5 peak-end lift.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/pricing-card/examples/primary.tsx",
+      "content": "// Lumen PricingCard — Web React example. Highlight variant uses v0.12.5 peak-end lift.\n\nimport { Check, X } from \"lucide-react\";\nimport { ReactNode, useId } from \"react\";\n\nexport type PricingFeature = { label: ReactNode; included?: boolean };\n\nexport function PricingCard({\n  name,\n  price,\n  cadence,\n  subline,\n  description,\n  features,\n  cta,\n  highlight = false,\n  badge,\n}: {\n  name: string;\n  price: ReactNode;\n  cadence?: string;\n  subline?: ReactNode;\n  description?: ReactNode;\n  features: PricingFeature[];\n  cta: ReactNode;\n  highlight?: boolean;\n  badge?: ReactNode;\n}) {\n  const titleId = useId();\n  return (\n    <article\n      aria-labelledby={titleId}\n      data-highlight={highlight}\n      className={[\n        \"relative rounded-[var(--radius-card-hero)] border bg-[var(--color-surface-raised)]\",\n        \"p-[var(--space-inset-xl)] flex flex-col gap-[var(--space-stack-md)]\",\n        highlight\n          ? \"border-[var(--color-border-accent)] shadow-[var(--shadow-glow-accent)] hover:-translate-y-[1px]\"\n          : \"border-[var(--color-border-default)] hover:shadow-[var(--shadow-elevation-md)] hover:-translate-y-[1px]\",\n        \"transition-[box-shadow,transform] duration-[var(--motion-duration-base)] motion-reduce:transition-none\",\n      ].join(\" \")}\n    >\n      {highlight && <span className=\"sr-only\">Recommended plan</span>}\n      {badge && (\n        <span className=\"absolute -top-2 right-4 rounded-[var(--radius-pill)] bg-[var(--color-accent-500)] text-[var(--color-action-primary-fg)] px-2 py-0.5 text-[var(--type-eyebrow-mono)] uppercase tracking-wider\">\n          {badge}\n        </span>\n      )}\n      <header>\n        <h3 id={titleId} className=\"text-[var(--type-heading-h3)] font-medium tracking-tight text-[var(--color-text-primary)]\">{name}</h3>\n        <div className=\"mt-2 flex items-baseline gap-2\">\n          <span className=\"lumen-tnum text-[var(--type-heading-h1)] font-semibold tracking-tight text-[var(--color-text-primary)]\">{price}</span>\n          {cadence && <span className=\"text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\">{cadence}</span>}\n        </div>\n        {subline && <p className=\"mt-1 text-[var(--type-body-sm)] text-[var(--color-text-tertiary)]\">{subline}</p>}\n        {description && <p className=\"mt-3 text-[var(--type-body-md)] text-[var(--color-text-secondary)]\">{description}</p>}\n      </header>\n      <ul role=\"list\" className=\"flex flex-col gap-1.5\">\n        {features.map((f, i) => {\n          const inc = f.included !== false;\n          return (\n            <li key={i} className=\"flex items-start gap-2 text-[var(--type-body-md)]\">\n              {inc\n                ? <Check aria-label=\"Included\" size={14} className=\"mt-0.5 shrink-0 text-[var(--color-text-accent)]\" />\n                : <X aria-label=\"Not included\" size={14} className=\"mt-0.5 shrink-0 text-[var(--color-text-tertiary)]\" />\n              }\n              <span className={inc ? \"text-[var(--color-text-primary)]\" : \"text-[var(--color-text-tertiary)] line-through\"}>{f.label}</span>\n            </li>\n          );\n        })}\n      </ul>\n      <div className=\"mt-auto pt-2\">{cta}</div>\n    </article>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/pricing-card.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.12.6",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/pricing-card/component.json",
+    "docsPath": "design-system/02-components/pricing-card/component.md",
+    "status": "stable",
+    "warpSignature": false
+  },
+  "type": "registry:ui"
+}

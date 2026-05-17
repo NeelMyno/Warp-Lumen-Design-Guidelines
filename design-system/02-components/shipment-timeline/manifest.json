@@ -1,0 +1,53 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "shipment-timeline",
+  "title": "ShipmentTimeline",
+  "description": "Vertical timeline for freight shipment lifecycle stages.",
+  "props": [
+    {
+      "name": "stages",
+      "type": "Stage[]"
+    },
+    {
+      "name": "density",
+      "type": "enum",
+      "default": "default"
+    },
+    {
+      "name": "orientation",
+      "type": "enum",
+      "default": "vertical"
+    }
+  ],
+  "variants": [
+    "vertical",
+    "horizontal",
+    "compact"
+  ],
+  "tokensConsumed": [
+    "surface.raised",
+    "color.accent",
+    "text.primary",
+    "text.secondary",
+    "text.tertiary",
+    "text.accent",
+    "border.hairline",
+    "border.default",
+    "lumen.red.5",
+    "radius.full",
+    "radius.xs"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Each stage is a <li> with aria-current=step on active.",
+      "Status conveyed via icon + label, not color alone.",
+      "LiveDot inherits its motion contract."
+    ]
+  },
+  "usage": "import { ShipmentTimeline } from \"@/components/ui/shipment-timeline\";\n\nexport function Example() {\n  return (\n    <ShipmentTimeline stages={[\n      { id: \"1\", label: \"Picked up\", status: \"done\", timestamp: \"08:14\" },\n      { id: \"2\", label: \"In transit\", status: \"active\" },\n      { id: \"3\", label: \"Delivered\", status: \"pending\", etaIso: \"2026-05-17T14:00:00Z\" },\n    ]} />\n  );\n}",
+  "storiesPath": "02-components/shipment-timeline/shipment-timeline.stories.tsx",
+  "sourcePath": "02-components/shipment-timeline/shipment-timeline.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T4"
+}

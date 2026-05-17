@@ -1,0 +1,55 @@
+{
+  "$schema": "https://storybook.js.org/schema/component-manifest.json",
+  "name": "select",
+  "title": "Select",
+  "description": "Token-driven single-select dropdown built on Radix Select.",
+  "props": [
+    {
+      "name": "value",
+      "type": "string"
+    },
+    {
+      "name": "onValueChange",
+      "type": "(v: string) => void"
+    },
+    {
+      "name": "defaultValue",
+      "type": "string"
+    }
+  ],
+  "variants": [
+    "default",
+    "sm",
+    "with-groups"
+  ],
+  "tokensConsumed": [
+    "surface.input.rest",
+    "surface.input.disabled",
+    "surface.popover",
+    "surface.tint-accent",
+    "border.default",
+    "border.strong",
+    "border.focus",
+    "border.error",
+    "text.primary",
+    "text.tertiary",
+    "text.placeholder",
+    "shadow.input.lit-edge",
+    "shadow.input.focus",
+    "shadow.popover",
+    "radius.md",
+    "radius.xs"
+  ],
+  "a11y": {
+    "wcag": "2.2-AA",
+    "rules": [
+      "Radix manages role=combobox + role=listbox + aria-* + arrow-key + type-ahead.",
+      "SelectValue shows the selected item or placeholder for screen readers."
+    ]
+  },
+  "usage": "import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from \"@/components/ui/select\";\n\nexport function Example() {\n  return (\n    <Select>\n      <SelectTrigger>\n        <SelectValue placeholder=\"Service\" />\n      </SelectTrigger>\n      <SelectContent>\n        <SelectItem value=\"ltl\">LTL</SelectItem>\n        <SelectItem value=\"ftl\">FTL</SelectItem>\n      </SelectContent>\n    </Select>\n  );\n}",
+  "storiesPath": "02-components/select/select.stories.tsx",
+  "sourcePath": "02-components/select/select.tsx",
+  "lumenVersion": "0.13.0",
+  "tier": "T2"
+}

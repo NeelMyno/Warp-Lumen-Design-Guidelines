@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "Token-driven single-line text input with the v0.6 field-shell visual contract.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@lumen/utils"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/input/input.tsx",
+      "content": "/**\n * @lumen/input — v0.13 Phase 2 canonical implementation.\n * ----------------------------------------------------------------------------\n * v0.6 field-shell contract. Standalone, this input paints its own border, bg,\n * and focus halo. Inside <Field> (.lumen-field wrapper), the wrapper paints\n * and the bare input renders via globals.css `.lumen-field input` rules — no\n * double ring.\n *\n * Body type is text-body-md (14px). The previous text-base md:text-sm (16/14)\n * chain fought Lumen's 14px body floor — removed in v0.6.\n */\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nfunction Input({ className, type, ...props }: React.ComponentProps<\"input\">) {\n  return (\n    <input\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        /* Shell — used standalone. Inside .lumen-field these are overridden. */\n        \"flex h-10 w-full min-w-0 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-input-rest)] px-3 text-[length:var(--type-14)] text-[color:var(--text-primary)] outline-none\",\n        \"placeholder:text-[color:var(--text-placeholder)] selection:bg-[var(--lumen-lime-a32)] selection:text-[color:var(--text-primary)] file:text-[color:var(--text-primary)] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium\",\n        \"transition-[color,box-shadow,border-color,background-color] duration-[var(--motion-fast)] ease-[var(--easing-standard)]\",\n        \"shadow-[var(--shadow-input-lit-edge)]\",\n        /* States — hover, focus, error, disabled, readonly. */\n        \"hover:border-[var(--border-strong)]\",\n        \"focus-visible:border-[var(--border-focus)] focus-visible:shadow-[var(--shadow-input-focus)]\",\n        \"aria-invalid:border-[var(--border-error)] aria-invalid:focus-visible:shadow-[var(--shadow-input-error)]\",\n        \"disabled:cursor-not-allowed disabled:bg-[var(--surface-input-disabled)] disabled:text-[color:var(--text-disabled)] disabled:border-[var(--border-input-disabled)] disabled:pointer-events-none\",\n        \"read-only:cursor-default\",\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Input };\n",
+      "type": "registry:ui",
+      "target": "components/ui/input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T1",
+    "category": "form",
+    "platforms": [
+      "web-react"
+    ],
+    "modeAware": false,
+    "signature": false,
+    "builtOn": "Native <input>",
+    "specPath": "design-system/02-components/input/input.md",
+    "skillPath": "design-system/02-components/input/input.skill.md",
+    "aiNaming": "lumen-native",
+    "phase": "v0.13-phase-2"
+  },
+  "type": "registry:ui"
+}
