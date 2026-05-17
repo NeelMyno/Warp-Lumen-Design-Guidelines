@@ -110,7 +110,38 @@ Reserved names — Phase 0 declares the slots; Phase 1 implements them in `01-to
 
 ---
 
-## 7. Decision rubric
+## 7. Contrast contract on expressive hero (the cliff condition)
+
+Mesh backgrounds raise the effective lightness of the canvas at the brightest blob peaks. The Phase 1 contrast cliff: text rendered DIRECTLY on `surface.hero` in expressive mode passes WCAG 2.2 AA for body and large UI ONLY at master-doc-minimum atmospheric intensity (mesh blobs at 8%, atmospheric overlay at 8%). The audit (`tools/audit-contrast.ts`) gates Phase 1 on this.
+
+### What passes directly on the mesh
+
+| Token | Min contrast on mesh-aurora-spring peak | Status |
+|---|---|---|
+| `text.primary` (#E6E6E6) | 11.4:1 | ✓ passes 4.5:1 body |
+| `text.secondary` (#9A9A9A) | 5.1:1 | ✓ passes 4.5:1 body |
+| `action.primary.fg` (#07120D) on `action.primary.bg.rest` (#00FA8A) | 13.66:1 | ✓ passes (CTA paint is independent of mesh) |
+| `text.tertiary` (#6B6B6B) | 2.7:1 | ✗ fails 3.0:1 large — RESTRICTED |
+
+### What doesn't pass — and how to render it anyway
+
+**`text.tertiary` (the eyebrow / hint / micro-label tier) cannot pass 3:1 against any mesh peak.** Its #6B6B6B luminance is too low. Three options:
+
+1. **Render tertiary text in a scrim-protected zone.** Apply `--gradient-hero-scrim` as a layer beneath the text. The scrim's `rgba(13,13,13,0.62)` top stop composites the underlying mesh down to canvas-level luminance; tertiary text reads at >3.3:1.
+2. **Mount the tertiary text inside an opaque card.** Cards on hero — pricing tiles, testimonial blocks, feature cells — paint their own `surface.raised` background, so the text sees raised, not mesh.
+3. **Move the tertiary text out of expressive scope.** Caption-tier copy that doesn't need atmospheric backdrop renders in restrained — the dashboard / table / settings surfaces where it normally lives.
+
+The audit flags any direct-on-mesh tertiary text as an advisory (focus tier in the audit's tiered exit code), with the contract being: **no `text.tertiary` directly on expressive hero zones without a scrim**. The landing-hero example (audit-dashboard/src/app/examples/landing-hero/) demonstrates the scrim pattern: the brutalist hairline frame's caption uses tertiary text inside the frame (which mounts on raised) — and the only direct-on-mesh text uses primary or secondary.
+
+### Mesh recipe alpha contract
+
+Per master doc Phase 1 §"glass / mesh / noise / gradient" — each mesh blob is "≤10% opacity max over obsidian." Phase 1 ships the mesh-aurora-spring blobs at the master-doc range BOTTOM (8%) to clear the body-tier gate without a scrim. Designers wanting more atmospheric weight can layer additional decorative elements (noise, gradient-card-edge) on top of the mesh — but the canonical mesh alphas stay at 8% so the contrast contract holds.
+
+The atmospheric overlay (`surface.atmosphere` in expressive) is similarly anchored to 8% Spring Green. Above 10%, body-tier contrast slips below 4.5:1 on the brightest mesh peaks.
+
+---
+
+## 8. Decision rubric
 
 When a designer asks "should this be restrained or expressive?", the decision is:
 

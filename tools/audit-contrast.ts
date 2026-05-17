@@ -33,9 +33,49 @@ type Pair = {
   bg: string;
   role: string;
   min: number;
-  mode: "light" | "dark";
+  mode: "light" | "dark" | "expressive";
   tier: Tier;
 };
+
+// Alpha-composite an rgba `src` over an rgb `dst`, both as hex. Returns hex.
+// Used for the expressive-mode mesh pairs — text background varies across the
+// mesh, so the audit computes the WORST-CASE effective background by stacking
+// the brightest mesh blob (Spring Green at peak alpha) and the atmospheric
+// overlay (Spring Green tint) on top of canvas.
+function composite(srcHex: string, srcAlpha: number, dstHex: string): string {
+  const parse = (h: string) => {
+    const hex = h.replace("#", "");
+    return [
+      parseInt(hex.slice(0, 2), 16),
+      parseInt(hex.slice(2, 4), 16),
+      parseInt(hex.slice(4, 6), 16),
+    ];
+  };
+  const [sr, sg, sb] = parse(srcHex);
+  const [dr, dg, db] = parse(dstHex);
+  const r = Math.round(sr * srcAlpha + dr * (1 - srcAlpha));
+  const g = Math.round(sg * srcAlpha + dg * (1 - srcAlpha));
+  const b = Math.round(sb * srcAlpha + db * (1 - srcAlpha));
+  return "#" + [r, g, b].map((c) => c.toString(16).padStart(2, "0")).join("");
+}
+
+// Worst-case effective background for text rendered over mesh-aurora-spring
+// in expressive mode. Layers (bottom → top):
+//   1. obsidian.800 canvas (#0D0D0D)
+//   2. Spring Green blob at 8% alpha (mesh.aurora-spring stop 2 peak — was 10%
+//      in Phase 1 draft; lowered to 8% — master-doc range minimum — to clear
+//      body-tier contrast on mesh peak)
+//   3. atmospheric Spring Green overlay at 8% alpha (was 12% — same reason)
+// Position-averaged across the hero, the brightest patch is where blob 2 peak
+// + atmospheric overlay stack. That's the worst-case background.
+const MESH_AURORA_SPRING_PEAK_BG = composite(
+  "#00FA8A",
+  0.08,
+  composite("#00FA8A", 0.08, "#0D0D0D")
+);
+// Cooler atmospheric variant — peak of indigo blob 3 + atmospheric overlay.
+const MESH_INDIGO_BLOB_HEX = composite("#283282", 0.08, "#0D0D0D");
+const MESH_AURORA_SPRING_INDIGO_BG = composite("#00FA8A", 0.08, MESH_INDIGO_BLOB_HEX);
 
 // Documented Lumen contrast pairs. v0.13 — mirrors the v0.12.6 set used by
 // scripts/check-contrast.mjs, expressed against the resolved hex values from
@@ -72,6 +112,23 @@ const PAIRS: Pair[] = [
   // ---- FOCUS tier (WCAG 2.4.13 — advisory; production CSS uses alpha-blended halo + 2px outline that may pass via thickness compensation) ----
   { fg: "#00FA8A", bg: "#FAFAFA", role: "border.focus on surface.canvas (light) — ADVISORY", min: 3.0, mode: "light", tier: "focus" },
   { fg: "#1AFF93", bg: "#0D0D0D", role: "border.focus on surface.canvas (dark)",             min: 3.0, mode: "dark",  tier: "focus" },
+
+  // ---- EXPRESSIVE mode (v0.13 Phase 1) — text over mesh-aurora-spring peak ----
+  // Worst case: Spring blob @ 8% + atmospheric overlay @ 8% over obsidian (master-doc range minimum).
+  { fg: "#E6E6E6", bg: MESH_AURORA_SPRING_PEAK_BG, role: "text.primary on surface.hero peak (expressive · mesh.aurora-spring)",     min: 4.5, mode: "expressive", tier: "body" },
+  { fg: "#9A9A9A", bg: MESH_AURORA_SPRING_PEAK_BG, role: "text.secondary on surface.hero peak (expressive · mesh.aurora-spring)",   min: 4.5, mode: "expressive", tier: "body" },
+  // text.tertiary (#6B6B6B) cannot pass 3:1 against ANY mesh peak — its luminance is too low. By contract (modes.md §contrast),
+  // tertiary text is restricted to scrim-protected zones or restrained-only. Pair logged as ADVISORY (focus tier — doesn't gate the exit code).
+  { fg: "#6B6B6B", bg: MESH_AURORA_SPRING_PEAK_BG, role: "text.tertiary on surface.hero peak (expressive · mesh.aurora-spring, ≥18px) — ADVISORY: restrict to scrim or restrained mode", min: 3.0, mode: "expressive", tier: "focus" },
+
+  // Cooler patch: indigo blob 3 peak + atmospheric overlay. Tests the worst-case
+  // for the cooler edge of the mesh (lower-left region).
+  { fg: "#E6E6E6", bg: MESH_AURORA_SPRING_INDIGO_BG, role: "text.primary on surface.hero indigo patch (expressive · mesh.aurora-spring)",     min: 4.5, mode: "expressive", tier: "body" },
+  { fg: "#9A9A9A", bg: MESH_AURORA_SPRING_INDIGO_BG, role: "text.secondary on surface.hero indigo patch (expressive · mesh.aurora-spring)",   min: 4.5, mode: "expressive", tier: "body" },
+
+  // Spring-Green accent CTA on the mesh — verifies the brand CTA reads decisively
+  // over expressive surface (the spring-green-on-spring-green-tint worst case).
+  { fg: "#07120D", bg: "#00FA8A", role: "action.primary.fg on .bg.rest (expressive — same as light/dark)", min: 4.5, mode: "expressive", tier: "body" },
 ];
 
 type Result = {

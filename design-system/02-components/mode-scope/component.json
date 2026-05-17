@@ -1,0 +1,57 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ModeScope",
+  "version": "0.1.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Sets data-mode='restrained' | 'expressive' on a container so descendants resolve mode-aware semantic tokens. The single source-of-truth for switching Lumen modes. Components are mode-agnostic; semantic surface / atmosphere / motion tokens rebind under the scope.",
+  "props": {
+    "mode": { "type": "'restrained' | 'expressive'", "optional": true, "default": "'restrained'", "description": "The Lumen mode applied to descendants. Restrained for dense operator surfaces (dashboards, tables, settings, terminals, command palette); expressive for landing surfaces, marketing, AI surfaces, onboarding, empty states, hero panels." },
+    "as":   { "type": "'div' | 'section' | 'main' | 'article'", "optional": true, "default": "'div'", "description": "HTML element used as the scope container." },
+    "className": { "type": "string", "optional": true, "description": "Forwarded to the container element." },
+    "children": { "type": "ReactNode", "optional": false }
+  },
+  "tokens": {
+    "consumed": [
+      "surface.canvas",
+      "surface.hero",
+      "surface.canvas-ambient",
+      "surface.atmosphere",
+      "motion.atmosphere"
+    ]
+  },
+  "a11y": {
+    "keyboard": [],
+    "wcag": [
+      "1.4.1 Use of Color — atmospheric overlays never carry meaning (decorative only).",
+      "1.4.13 Content on Hover or Focus — glass surfaces inside scope honor the master backdrop-filter policy.",
+      "2.3.3 Animation from Interactions — mesh-drift animation gates on prefers-reduced-motion.",
+      "1.4.10 Reflow — mode does not affect layout reflow; mode rebinds only surface and motion tokens."
+    ],
+    "rules": [
+      "ModeScope itself is a semantic-neutral container — no aria attributes needed; the data-mode attribute is for CSS variable scoping, not assistive tech.",
+      "Mesh + grain + aurora animations gate on prefers-reduced-motion via @media in dist/css/lumen.scoping.css.",
+      "Glass blur + atmospheric overlays gate on prefers-reduced-transparency via @media in dist/css/lumen.scoping.css."
+    ]
+  },
+  "rules": {
+    "do": [
+      "Wrap landing / marketing / AI / onboarding / empty-state / hero panels in <ModeScope mode='expressive'>.",
+      "Default to restrained — explicit mode prop optional; omitting it leaves descendants on restrained tokens.",
+      "Use as='section' or as='main' for semantic html when wrapping a page-level region.",
+      "Compose at the largest scope where mode applies — one ModeScope per page section, not per component."
+    ],
+    "dont": [
+      "NEVER nest a ModeScope of opposite mode inside another ModeScope. Mode-mixing on the same page invites contrast bugs and is undefined behavior.",
+      "NEVER pass mode as a prop to any individual component. Mode is a scope attribute; components do not branch on mode.",
+      "NEVER apply data-mode directly to a primitive element. Use ModeScope so the attribute is paired with the right React semantics and the CSS scoping has a known anchor.",
+      "NEVER use expressive mode on a data table, row, cell, chart axis, or any surface where atmospheric overlay would reduce text contrast.",
+      "NEVER assume mode controls layout — it does not. Mode only rebinds surface / atmosphere / motion tokens."
+    ]
+  },
+  "examples": { "web-react": "./examples/primary.tsx" },
+  "related": ["LiveDot", "Card", "Stat", "RateTicker"],
+  "changelog": [
+    { "version": "0.1.0", "type": "Added", "note": "v0.13 Phase 1 initial release. The mode-switch primitive — sets data-mode on a container so descendants resolve mode-aware semantic tokens." }
+  ]
+}

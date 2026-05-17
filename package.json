@@ -16,6 +16,7 @@
     "validate:contrast":  "node scripts/check-contrast.mjs",
     "audit":              "pnpm audit:contrast",
     "audit:contrast":     "tsx tools/audit-contrast.ts",
+    "audit:lighthouse":   "tsx tools/audit-lighthouse.ts",
     "registry":           "node scripts/build-registry.mjs",
     "docs:dev":           "cd audit-dashboard && pnpm dev",
     "docs:build":         "cd audit-dashboard && pnpm build",

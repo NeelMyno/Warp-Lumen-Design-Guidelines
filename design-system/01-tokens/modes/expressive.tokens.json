@@ -1,17 +1,26 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "Lumen v0.13 — EXPRESSIVE mode rebind set. PHASE 0 SCAFFOLD — Phase 1 builds out the actual rebinds (mesh recipes, animated gradients, atmospheric layers, hero device shells). Expressive is opt-in via `[data-mode='expressive']` scope on a container; it never replaces components, only rebinds semantic surface/atmosphere/motion tokens. Used for: landing surfaces, marketing pages, AI surfaces (chat, agents, generation), onboarding flows, empty states, hero panels. The accent, type, grid, focus rings, and a11y contract are UNCHANGED across modes — only ambient atmosphere differs.",
+  "$description": "Lumen v0.13 — EXPRESSIVE mode rebind set. Opt-in via `[data-mode='expressive']` scope on a container. NEVER replaces components or primitives — only rebinds a small set of mode-aware semantic tokens (surface.hero / surface.canvas-ambient / surface.atmosphere / motion.atmosphere) to their expressive values (mesh recipes + ambient gradients + animated mesh-drift). Used on landing surfaces, marketing pages, AI surfaces (chat / agents / generation), onboarding flows, empty states, hero panels. The accent (`#00FA8A`), type (Satoshi), grid (4-pt base), focus rings, and the WCAG 2.2 AA contract are UNCHANGED across modes — only ambient atmosphere differs. The runtime CSS scoping in dist/css/lumen.scoping.css adds the @property registrations + @keyframes mesh-drift + @media reduced-{motion,transparency} fallback + @supports not (backdrop-filter) fallback. Restrained mode opts out — surface.hero collapses back to solid canvas, mesh-drift freezes.",
   "mode": {
     "$type": "string",
-    "name": { "$value": "expressive", "$description": "v0.13 — the opt-in mode. NEVER the default; restrained is the default." },
-    "atmosphere": { "$value": "12", "$description": "Expressive surfaces boost atmospheric opacity to 10–14% — aurora ambient glow, named mesh recipe, optional grain at 8%. Honours prefers-reduced-motion (mesh + grain animation freeze) and prefers-reduced-transparency (atmosphere collapses to opaque tint)." },
-    "glass-policy": { "$value": "expanded", "$description": "Expressive allows blur radius up to 28px on hero shells. Still NEVER on data table / row / cell. Hero device frame, hero overlay, navigation glass are all in-scope." },
-    "motion-policy": { "$value": "atmospheric-decelerate", "$description": "Aurora fades, mesh drifts, grain shimmers — all gated on prefers-reduced-motion. Default easing is still decelerate; atmospheric loops use linear." }
+    "name":            { "$value": "expressive", "$description": "v0.13 — the opt-in mode. NEVER the default; restrained is the default." },
+    "atmosphere":      { "$value": "12", "$description": "Expressive surfaces boost atmospheric opacity to 10–14% — aurora ambient glow, named mesh recipe, optional grain at 8%. Honours prefers-reduced-motion (mesh-drift freeze) AND prefers-reduced-transparency (atmosphere collapses to opaque tint)." },
+    "glass-policy":    { "$value": "expanded", "$description": "Expressive allows blur radius up to 28px on hero shells. Still NEVER on data table / row / cell. Hero device frame, hero overlay, navigation glass are all in-scope." },
+    "motion-policy":   { "$value": "atmospheric-decelerate", "$description": "Aurora fades, mesh drifts, grain shimmers — all gated on prefers-reduced-motion. Default easing is still decelerate; atmospheric loops use linear." }
   },
   "surface": {
-    "$description": "Phase 1 will rebind surface.hero, surface.canvas-ambient, surface.atmosphere here. Phase 0 declares the intent slots so consumers can see them.",
-    "hero":            { "$value": "{color.surface.page}",   "$description": "PHASE 0 STUB — Phase 1 rebinds to a layered composite (canvas + named mesh recipe + grain). For now resolves to canvas." },
-    "canvas-ambient":  { "$value": "{color.surface.page}",   "$description": "PHASE 0 STUB — Phase 1 rebinds to canvas + aurora alpha overlay. For now resolves to canvas." },
-    "atmosphere":      { "$value": "{color.alpha.accent.12}","$description": "PHASE 0 STUB — Phase 1 names the active mesh recipe. For now resolves to a spring-green tint at 12% alpha (matches the master doc atmosphere target)." }
+    "$type": "color",
+    "canvas":         { "$value": "{color.obsidian.800}", "$description": "Expressive mode: page canvas stays SOLID obsidian. Mesh goes on surface.hero, not page canvas. Master doc Phase 1 explicit: 'still solid; mesh goes on hero/atmosphere, not page canvas.'" },
+    "hero":           { "$value": "{mesh.aurora-spring}", "$description": "Expressive hero = full aurora-spring mesh recipe. The three-blob radial atmosphere (deep teal + Spring Green + deep indigo). Layered over obsidian.800 as the fallback. Master doc Phase 1: 'surface.hero → {mesh.aurora-spring} (full mesh recipe)'." },
+    "canvas-ambient": { "$value": "{gradient.canvas-ambient}", "$description": "Expressive page canvas-ambient = subtle radial gradient (obsidian.900 center → obsidian.800 edges). A faint lit-from-within feel without committing to a mesh. Master doc Phase 1: 'surface.canvas-ambient → {gradient.canvas-ambient} (subtle radial)'." },
+    "atmosphere":     { "$value": "{color.alpha.accent.08}", "$description": "Expressive atmospheric overlay — Spring Green at 8% alpha (was 12% in Phase 1 draft; lowered to clear the body-tier contrast gate for text rendered on mesh). Composes on hero / panel chrome to signal expressive scope without competing with content." }
+  },
+  "motion": {
+    "$type": "string",
+    "atmosphere":     { "$value": "mesh-drift 24s ease-in-out infinite alternate", "$description": "Expressive mode: animates the mesh stop positions via @property + @keyframes mesh-drift (defined in dist/css/lumen.scoping.css). 24s loop, ease-in-out, infinite, alternate. Stops drift 8–12% over the cycle. Gated on prefers-reduced-motion → 'none'." }
+  },
+  "noise": {
+    "$type": "string",
+    "overlay":        { "$value": "{noise.default}", "$description": "Expressive mode: 8% SVG feTurbulence grain overlay on hero surfaces. Dithers gradient banding. Restrained mode: no overlay (the .noise-overlay element resolves to opacity 0)." }
   }
 }

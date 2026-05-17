@@ -1,16 +1,16 @@
 {
   "$schema": "lumen-v0.13-contrast-baseline",
-  "generatedAt": "2026-05-17T05:21:22.840Z",
+  "generatedAt": "2026-05-17T05:45:40.549Z",
   "mode": "restrained",
   "threshold": {
     "body": 4.5,
     "large": 3
   },
   "summary": {
-    "total": 21,
-    "passed": 20,
-    "failed": 1,
-    "passRate": 0.9523809523809523
+    "total": 27,
+    "passed": 25,
+    "failed": 2,
+    "passRate": 0.9259259259259259
   },
   "results": [
     {
@@ -222,6 +222,66 @@
       "pass": true,
       "mode": "dark",
       "tier": "focus"
+    },
+    {
+      "role": "text.primary on surface.hero peak (expressive · mesh.aurora-spring)",
+      "fg": "#E6E6E6",
+      "bg": "#0b3120",
+      "ratio": 11.411983046791963,
+      "min": 4.5,
+      "pass": true,
+      "mode": "expressive",
+      "tier": "body"
+    },
+    {
+      "role": "text.secondary on surface.hero peak (expressive · mesh.aurora-spring)",
+      "fg": "#9A9A9A",
+      "bg": "#0b3120",
+      "ratio": 5.061588495912524,
+      "min": 4.5,
+      "pass": true,
+      "mode": "expressive",
+      "tier": "body"
+    },
+    {
+      "role": "text.tertiary on surface.hero peak (expressive · mesh.aurora-spring, ≥18px) — ADVISORY: restrict to scrim or restrained mode",
+      "fg": "#6B6B6B",
+      "bg": "#0b3120",
+      "ratio": 2.6726225243548334,
+      "min": 3,
+      "pass": false,
+      "mode": "expressive",
+      "tier": "focus"
+    },
+    {
+      "role": "text.primary on surface.hero indigo patch (expressive · mesh.aurora-spring)",
+      "fg": "#E6E6E6",
+      "bg": "#0e231f",
+      "ratio": 13.156885901571524,
+      "min": 4.5,
+      "pass": true,
+      "mode": "expressive",
+      "tier": "body"
+    },
+    {
+      "role": "text.secondary on surface.hero indigo patch (expressive · mesh.aurora-spring)",
+      "fg": "#9A9A9A",
+      "bg": "#0e231f",
+      "ratio": 5.835510099197758,
+      "min": 4.5,
+      "pass": true,
+      "mode": "expressive",
+      "tier": "body"
+    },
+    {
+      "role": "action.primary.fg on .bg.rest (expressive — same as light/dark)",
+      "fg": "#07120D",
+      "bg": "#00FA8A",
+      "ratio": 13.65686431158993,
+      "min": 4.5,
+      "pass": true,
+      "mode": "expressive",
+      "tier": "body"
     }
   ]
 }

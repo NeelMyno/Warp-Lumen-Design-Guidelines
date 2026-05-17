@@ -1,0 +1,42 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — EXPRESSIVE-mode glass primitives. Four named recipes for floating shells (popover, sheet, command palette, hero device frame, nav). NEVER on canvas / data table / row / cell — see AGENTS.md hard rule 16. Each recipe ships four atomic tokens (tint / blur / saturate / border) plus a CSS-shorthand `filter` string for consumers that want a single `backdrop-filter` declaration. Each also carries a `fallback` solid surface for `@supports not (backdrop-filter)` and `prefers-reduced-transparency` — the v0.13 modes/expressive scaffolding wires these as @media + @supports overrides in dist/css/lumen.scoping.css. Restrained mode keeps the v0.12.6 semantic surface.glass alias (which resolves to alpha.ink.62 on dark, alpha.paper.72 on light) — these primitives are the expressive equivalents.",
+  "glass": {
+    "subtle": {
+      "$description": "Inline glass moments — tag chips, inline pills, soft popovers. 40% alpha + 12px blur reads barely-there.",
+      "tint":     { "$type": "color",     "$value": "{color.alpha.ink.40}", "$description": "40% ink alpha on dark canvas. (Light-mode equivalent rebinds via the semantic surface.glass alias.)" },
+      "blur":     { "$type": "dimension", "$value": { "value": 12, "unit": "px" } },
+      "saturate": { "$type": "string",    "$value": "120%" },
+      "filter":   { "$type": "string",    "$value": "blur(12px) saturate(120%)", "$description": "CSS backdrop-filter shorthand. Consumers: `backdrop-filter: var(--glass-subtle-filter)`." },
+      "border":   { "$type": "color",     "$value": "{color.alpha.paper.06}", "$description": "Hairline at paper-alpha-6% — the system's default border.hairline value on dark." },
+      "fallback": { "$type": "color",     "$value": "{color.surface.popover}", "$description": "Solid surface for @supports not (backdrop-filter) and prefers-reduced-transparency." }
+    },
+    "default": {
+      "$description": "Default popover / sheet glass per /foundations page. 50% alpha + 20px blur + 140% saturate — the v0.12.6 anchor. Master doc Phase 0 specifies this as the canonical floating-shell glass.",
+      "tint":     { "$type": "color",     "$value": "{color.alpha.ink.62}", "$description": "v0.11.13-anchored 62% ink alpha — the master surface.glass value on dark." },
+      "blur":     { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
+      "saturate": { "$type": "string",    "$value": "140%" },
+      "filter":   { "$type": "string",    "$value": "blur(20px) saturate(140%)" },
+      "border":   { "$type": "color",     "$value": "{color.alpha.paper.10}" },
+      "fallback": { "$type": "color",     "$value": "{color.surface.popover}" }
+    },
+    "strong": {
+      "$description": "Modal + full-screen sheet + hero device frame. 60% alpha + 28px blur + 160% saturate — the heavier glass for moments where the floating shell needs to read decisively above its backdrop.",
+      "tint":     { "$type": "color",     "$value": "{color.alpha.ink.72}" },
+      "blur":     { "$type": "dimension", "$value": { "value": 28, "unit": "px" } },
+      "saturate": { "$type": "string",    "$value": "160%" },
+      "filter":   { "$type": "string",    "$value": "blur(28px) saturate(160%)" },
+      "border":   { "$type": "color",     "$value": "{color.alpha.paper.10}" },
+      "fallback": { "$type": "color",     "$value": "{color.alpha.ink.84}", "$description": "Heavy ink at 84% — reads decisively without backdrop-filter support." }
+    },
+    "tinted-accent": {
+      "$description": "Spring-Green tinted floating shell — for AI surface popovers, live-update toasts, success-state sheets. The accent appears AT the moment of action — these glass shells are mounted at action-moments only.",
+      "tint":     { "$type": "color",     "$value": "{color.alpha.accent.12}", "$description": "8–12% Spring Green tint over the ink alpha — composed via background: linear-gradient at consumption." },
+      "blur":     { "$type": "dimension", "$value": { "value": 20, "unit": "px" } },
+      "saturate": { "$type": "string",    "$value": "140%" },
+      "filter":   { "$type": "string",    "$value": "blur(20px) saturate(140%)" },
+      "border":   { "$type": "color",     "$value": "{color.alpha.accent.40}", "$description": "Spring-green hairline — the master-doc-named border.accent value." },
+      "fallback": { "$type": "color",     "$value": "{color.alpha.accent.24}", "$description": "Spring-green tint at 24% over canvas — reads as 'accent surface' without backdrop-filter." }
+    }
+  }
+}

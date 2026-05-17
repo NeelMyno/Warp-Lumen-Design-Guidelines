@@ -1,0 +1,288 @@
+/* ============================================================================
+   LUMEN · v0.13 — MODE SCOPING + EXPRESSIVE PRIMITIVES
+   ----------------------------------------------------------------------------
+   Canonical source: design-system/01-tokens/lumen-scoping.css
+   Runtime copy:     audit-dashboard/src/app/lumen-scoping.css (this file)
+   Imported from:    globals.css (Phase 1 wiring)
+
+   This file carries everything CSS-only that the DTCG JSON cannot express:
+     - @property registrations for animatable mesh stop positions
+     - @keyframes mesh-drift (the 24s ease-in-out infinite alternate drift)
+     - @media (prefers-reduced-motion) + (prefers-reduced-transparency) gates
+     - @supports not (backdrop-filter) solid-surface fallback
+     - Utility classes (.lumen-hero / .lumen-canvas-ambient / .lumen-noise-overlay
+       / .lumen-glass-default) that consumers paint with directly.
+
+   Mode mechanism:
+     ModeScope (02-components/mode-scope/) sets `data-mode="restrained" | "expressive"`
+     on a container. The semantic surface / atmosphere / motion tokens rebind under
+     [data-mode='expressive'] via dist/css/lumen.expressive.css (Style Dictionary
+     output from modes/expressive.tokens.json). This file adds the CSS-only pieces.
+
+   Hard rules (AGENTS.md):
+     15. mode is a scope attribute, never a per-component prop.
+     16. backdrop-filter only on floating shells. NEVER on canvas / table / row / cell.
+     8.  honor prefers-reduced-motion AND prefers-reduced-transparency.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   @property — animatable mesh stop positions
+
+   Registered as CSS custom properties with explicit <percentage> syntax so the
+   browser interpolates them smoothly during the mesh-drift keyframe. Without
+   @property, drifting `--mesh-x: 30% → 35%` would jump instantly because the
+   browser treats unregistered custom properties as opaque strings.
+
+   Defaults match the rest-state positions baked into mesh.tokens.json — when
+   the animation is gated off (reduced-motion), the mesh stays at these values.
+   ---------------------------------------------------------------------------- */
+
+@property --mesh-aurora-spring-x1 { syntax: '<percentage>'; initial-value: 30%; inherits: false; }
+@property --mesh-aurora-spring-y1 { syntax: '<percentage>'; initial-value: 20%; inherits: false; }
+@property --mesh-aurora-spring-x2 { syntax: '<percentage>'; initial-value: 70%; inherits: false; }
+@property --mesh-aurora-spring-y2 { syntax: '<percentage>'; initial-value: 60%; inherits: false; }
+@property --mesh-aurora-spring-x3 { syntax: '<percentage>'; initial-value: 20%; inherits: false; }
+@property --mesh-aurora-spring-y3 { syntax: '<percentage>'; initial-value: 80%; inherits: false; }
+
+@property --mesh-aurora-cool-x1 { syntax: '<percentage>'; initial-value: 25%; inherits: false; }
+@property --mesh-aurora-cool-y1 { syntax: '<percentage>'; initial-value: 25%; inherits: false; }
+@property --mesh-aurora-cool-x2 { syntax: '<percentage>'; initial-value: 75%; inherits: false; }
+@property --mesh-aurora-cool-y2 { syntax: '<percentage>'; initial-value: 65%; inherits: false; }
+@property --mesh-aurora-cool-x3 { syntax: '<percentage>'; initial-value: 60%; inherits: false; }
+@property --mesh-aurora-cool-y3 { syntax: '<percentage>'; initial-value: 20%; inherits: false; }
+
+@property --mesh-dock-bay-x1 { syntax: '<percentage>'; initial-value: 30%; inherits: false; }
+@property --mesh-dock-bay-y1 { syntax: '<percentage>'; initial-value: 30%; inherits: false; }
+@property --mesh-dock-bay-x2 { syntax: '<percentage>'; initial-value: 70%; inherits: false; }
+@property --mesh-dock-bay-y2 { syntax: '<percentage>'; initial-value: 70%; inherits: false; }
+
+@property --mesh-lane-arc-x1 { syntax: '<percentage>'; initial-value: 50%; inherits: false; }
+@property --mesh-lane-arc-y1 { syntax: '<percentage>'; initial-value: 50%; inherits: false; }
+@property --mesh-lane-arc-x2 { syntax: '<percentage>'; initial-value: 18%; inherits: false; }
+@property --mesh-lane-arc-y2 { syntax: '<percentage>'; initial-value: 18%; inherits: false; }
+@property --mesh-lane-arc-x3 { syntax: '<percentage>'; initial-value: 82%; inherits: false; }
+@property --mesh-lane-arc-y3 { syntax: '<percentage>'; initial-value: 82%; inherits: false; }
+
+@property --mesh-cross-dock-x1 { syntax: '<percentage>'; initial-value: 25%; inherits: false; }
+@property --mesh-cross-dock-y1 { syntax: '<percentage>'; initial-value: 25%; inherits: false; }
+@property --mesh-cross-dock-x2 { syntax: '<percentage>'; initial-value: 75%; inherits: false; }
+@property --mesh-cross-dock-y2 { syntax: '<percentage>'; initial-value: 25%; inherits: false; }
+@property --mesh-cross-dock-x3 { syntax: '<percentage>'; initial-value: 25%; inherits: false; }
+@property --mesh-cross-dock-y3 { syntax: '<percentage>'; initial-value: 75%; inherits: false; }
+@property --mesh-cross-dock-x4 { syntax: '<percentage>'; initial-value: 75%; inherits: false; }
+@property --mesh-cross-dock-y4 { syntax: '<percentage>'; initial-value: 75%; inherits: false; }
+
+/* ----------------------------------------------------------------------------
+   @keyframes mesh-drift
+
+   The single shared mesh animation. Drifts each mesh's stop positions 8–12%
+   from rest to peak, then back. 24s loop, ease-in-out, infinite, alternate
+   (so the second half mirrors the first — no jarring jump at iteration end).
+
+   Why animate POSITIONS, not hue: positional drift reads as 'subtle weather'.
+   Hue drift reads as 'broken color theme'. Per master doc Phase 1 §"How to
+   animate mesh-drift": "Default: animate gradient stop positions, not hue,
+   not feTurbulence."
+
+   Note: animation is paused under prefers-reduced-motion (see @media below).
+   ---------------------------------------------------------------------------- */
+
+@keyframes mesh-drift {
+  0% {
+    --mesh-aurora-spring-x1: 30%; --mesh-aurora-spring-y1: 20%;
+    --mesh-aurora-spring-x2: 70%; --mesh-aurora-spring-y2: 60%;
+    --mesh-aurora-spring-x3: 20%; --mesh-aurora-spring-y3: 80%;
+    --mesh-aurora-cool-x1:   25%; --mesh-aurora-cool-y1:   25%;
+    --mesh-aurora-cool-x2:   75%; --mesh-aurora-cool-y2:   65%;
+    --mesh-aurora-cool-x3:   60%; --mesh-aurora-cool-y3:   20%;
+    --mesh-dock-bay-x1:      30%; --mesh-dock-bay-y1:      30%;
+    --mesh-dock-bay-x2:      70%; --mesh-dock-bay-y2:      70%;
+    --mesh-lane-arc-x1:      50%; --mesh-lane-arc-y1:      50%;
+    --mesh-lane-arc-x2:      18%; --mesh-lane-arc-y2:      18%;
+    --mesh-lane-arc-x3:      82%; --mesh-lane-arc-y3:      82%;
+    --mesh-cross-dock-x1:    25%; --mesh-cross-dock-y1:    25%;
+    --mesh-cross-dock-x2:    75%; --mesh-cross-dock-y2:    25%;
+    --mesh-cross-dock-x3:    25%; --mesh-cross-dock-y3:    75%;
+    --mesh-cross-dock-x4:    75%; --mesh-cross-dock-y4:    75%;
+  }
+  100% {
+    --mesh-aurora-spring-x1: 35%; --mesh-aurora-spring-y1: 28%;
+    --mesh-aurora-spring-x2: 65%; --mesh-aurora-spring-y2: 55%;
+    --mesh-aurora-spring-x3: 25%; --mesh-aurora-spring-y3: 72%;
+    --mesh-aurora-cool-x1:   30%; --mesh-aurora-cool-y1:   32%;
+    --mesh-aurora-cool-x2:   70%; --mesh-aurora-cool-y2:   58%;
+    --mesh-aurora-cool-x3:   55%; --mesh-aurora-cool-y3:   28%;
+    --mesh-dock-bay-x1:      35%; --mesh-dock-bay-y1:      35%;
+    --mesh-dock-bay-x2:      65%; --mesh-dock-bay-y2:      65%;
+    --mesh-lane-arc-x1:      55%; --mesh-lane-arc-y1:      45%;
+    --mesh-lane-arc-x2:      22%; --mesh-lane-arc-y2:      22%;
+    --mesh-lane-arc-x3:      78%; --mesh-lane-arc-y3:      78%;
+    --mesh-cross-dock-x1:    28%; --mesh-cross-dock-y1:    28%;
+    --mesh-cross-dock-x2:    72%; --mesh-cross-dock-y2:    28%;
+    --mesh-cross-dock-x3:    28%; --mesh-cross-dock-y3:    72%;
+    --mesh-cross-dock-x4:    72%; --mesh-cross-dock-y4:    72%;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Mode-aware utility classes
+
+   These compose the mode-rebound semantic tokens (resolved by
+   dist/css/lumen.expressive.css under [data-mode='expressive']) into single
+   utility classes that consumers paint with directly:
+
+     - .lumen-hero            — surface.hero background (mesh in expressive, flat in restrained)
+     - .lumen-canvas-ambient  — surface.canvas-ambient background
+     - .lumen-atmosphere      — surface.atmosphere overlay (Spring tint, expressive only)
+     - .lumen-noise-overlay   — noise.default overlay (expressive only; opacity 0 in restrained)
+
+   Glass surfaces compose blur + tint + border in one declaration:
+
+     - .lumen-glass-subtle    — 12px blur, 40% ink alpha
+     - .lumen-glass-default   — 20px blur, 62% ink alpha (the v0.12.6 anchor)
+     - .lumen-glass-strong    — 28px blur, 72% ink alpha
+     - .lumen-glass-tinted    — 20px blur + Spring Green tint
+
+   The `animation: var(--motion-atmosphere)` declaration on .lumen-hero is the
+   single hook the mesh-drift keyframes attach to. Restrained mode sets
+   --motion-atmosphere to 'none', so the same .lumen-hero class is animated in
+   expressive and static in restrained. Zero JS branching.
+   ---------------------------------------------------------------------------- */
+
+.lumen-hero {
+  background: var(--surface-hero);
+  animation: var(--motion-atmosphere, none);
+  position: relative;
+  isolation: isolate;
+}
+
+.lumen-canvas-ambient {
+  background: var(--surface-canvas-ambient);
+}
+
+.lumen-atmosphere {
+  position: absolute;
+  inset: 0;
+  background: var(--surface-atmosphere, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lumen-noise-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise-overlay, none);
+  background-repeat: repeat;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 320ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Expressive mode opt-in: the noise overlay fades in. Restrained leaves opacity 0. */
+[data-mode="expressive"] .lumen-noise-overlay { opacity: 1; }
+
+/* Glass utilities. Pair backdrop-filter with -webkit prefix.
+   The `var(--glass-X-fallback)` background paints when @supports not (backdrop-filter)
+   activates the fallback block below. */
+.lumen-glass-subtle {
+  background-color: var(--glass-subtle-tint);
+  -webkit-backdrop-filter: var(--glass-subtle-filter);
+  backdrop-filter: var(--glass-subtle-filter);
+  border: 1px solid var(--glass-subtle-border);
+}
+.lumen-glass-default {
+  background-color: var(--glass-default-tint);
+  -webkit-backdrop-filter: var(--glass-default-filter);
+  backdrop-filter: var(--glass-default-filter);
+  border: 1px solid var(--glass-default-border);
+}
+.lumen-glass-strong {
+  background-color: var(--glass-strong-tint);
+  -webkit-backdrop-filter: var(--glass-strong-filter);
+  backdrop-filter: var(--glass-strong-filter);
+  border: 1px solid var(--glass-strong-border);
+}
+.lumen-glass-tinted {
+  background-color: var(--glass-tinted-accent-tint);
+  -webkit-backdrop-filter: var(--glass-tinted-accent-filter);
+  backdrop-filter: var(--glass-tinted-accent-filter);
+  border: 1px solid var(--glass-tinted-accent-border);
+}
+
+/* ----------------------------------------------------------------------------
+   @media (prefers-reduced-motion: reduce)
+
+   Master doc hard rule 8 + accessibility.md + WCAG 2.3.3:
+   ALWAYS honor prefers-reduced-motion. Per-animation fallback PLUS this :root-
+   level gate.
+
+   Strategy: freeze the mesh-drift animation. Stops stay at their @property
+   initial-values (rest positions). The mesh recipe still renders — just
+   stationary.
+   ---------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mode="expressive"] .lumen-hero {
+    animation: none;
+  }
+  /* Per-animation safety net — if a consumer attaches mesh-drift directly,
+     this kills it too. */
+  * {
+    animation-name: none !important;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   @media (prefers-reduced-transparency: reduce)
+
+   WCAG 2.2 / Apple HIG / Microsoft Inclusive Design — users who prefer reduced
+   transparency get opaque surfaces. Glass alphas bump to ≥ 0.85; backdrop-filter
+   drops to 0. Mesh collapses to the underlying fallback solid surface.
+
+   The mesh fallback resolves via the var() defaulting — each mesh's $value
+   carries `var(--color-obsidian-800, #0D0D0D)` as the last paint layer, so
+   even when the gradient layers above it disappear (we override surface.hero
+   to the solid fallback), the canvas is still painted.
+   ---------------------------------------------------------------------------- */
+
+@media (prefers-reduced-transparency: reduce) {
+  [data-mode="expressive"] {
+    /* Mesh + ambient gradient collapse to solid obsidian canvas. */
+    --surface-hero: var(--color-obsidian-800);
+    --surface-canvas-ambient: var(--color-obsidian-800);
+    --surface-atmosphere: transparent;
+    /* Stop mesh-drift even if reduced-motion wasn't already set. */
+    --motion-atmosphere: none;
+  }
+  [data-mode="expressive"] .lumen-noise-overlay {
+    opacity: 0;
+  }
+  /* Glass alphas bump to ≥ 0.85 via the *-strong tier; backdrop-filter neutralised. */
+  .lumen-glass-subtle,
+  .lumen-glass-default,
+  .lumen-glass-strong,
+  .lumen-glass-tinted {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .lumen-glass-subtle  { background-color: var(--color-alpha-ink-84, rgba(13, 13, 13, 0.85)); }
+  .lumen-glass-default { background-color: var(--color-alpha-ink-86, rgba(13, 13, 13, 0.86)); }
+  .lumen-glass-strong  { background-color: var(--color-alpha-ink-86, rgba(13, 13, 13, 0.86)); }
+  .lumen-glass-tinted  { background-color: var(--color-alpha-accent-40, rgba(0, 250, 138, 0.40)); }
+}
+
+/* ----------------------------------------------------------------------------
+   @supports not (backdrop-filter)
+
+   For browsers (rare in 2026; mostly old Firefox without the flag) that don't
+   support backdrop-filter, glass surfaces fall back to the solid fallback color
+   declared on each glass recipe.
+   ---------------------------------------------------------------------------- */
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .lumen-glass-subtle  { background-color: var(--glass-subtle-fallback); }
+  .lumen-glass-default { background-color: var(--glass-default-fallback); }
+  .lumen-glass-strong  { background-color: var(--glass-strong-fallback); }
+  .lumen-glass-tinted  { background-color: var(--glass-tinted-accent-fallback); }
+}

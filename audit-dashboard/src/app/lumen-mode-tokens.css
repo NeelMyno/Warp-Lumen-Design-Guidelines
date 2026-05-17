@@ -1,0 +1,113 @@
+/* ============================================================================
+   LUMEN · v0.13 — MODE-AWARE TOKEN BRIDGE
+   ----------------------------------------------------------------------------
+   Audit-dashboard runtime mirror of dist/css/lumen.css + lumen.expressive.css
+   for the mode-aware tokens introduced in Phase 1. Manually mirrored here
+   because the audit-dashboard's globals.css is hand-authored and does not yet
+   @import the Style Dictionary output. Phase 2 will replace this with a direct
+   @import dist/css/lumen.css + lumen.expressive.css and this file will go away.
+
+   Source values mirror:
+     - design-system/01-tokens/primitives/glass.tokens.json
+     - design-system/01-tokens/primitives/mesh.tokens.json
+     - design-system/01-tokens/primitives/noise.tokens.json
+     - design-system/01-tokens/primitives/gradient.tokens.json
+     - design-system/01-tokens/modes/restrained.tokens.json
+     - design-system/01-tokens/modes/expressive.tokens.json
+
+   If you edit a value here, also edit the matching primitive .tokens.json so
+   the SD-built dist/css/lumen.css stays in sync. The lint pass in Phase 2 will
+   close this loop.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   GLASS PRIMITIVES (mode-agnostic — same on both modes)
+   ---------------------------------------------------------------------------- */
+
+:root {
+  /* glass.subtle */
+  --glass-subtle-tint:     rgba(13, 13, 13, 0.40);
+  --glass-subtle-filter:   blur(12px) saturate(120%);
+  --glass-subtle-border:   rgba(255, 255, 255, 0.06);
+  --glass-subtle-fallback: #1F1F1F;
+
+  /* glass.default — the v0.12.6 anchor */
+  --glass-default-tint:     rgba(13, 13, 13, 0.62);
+  --glass-default-filter:   blur(20px) saturate(140%);
+  --glass-default-border:   rgba(255, 255, 255, 0.10);
+  --glass-default-fallback: #1F1F1F;
+
+  /* glass.strong — modal + full-screen sheet */
+  --glass-strong-tint:     rgba(13, 13, 13, 0.72);
+  --glass-strong-filter:   blur(28px) saturate(160%);
+  --glass-strong-border:   rgba(255, 255, 255, 0.10);
+  --glass-strong-fallback: rgba(13, 13, 13, 0.84);
+
+  /* glass.tinted-accent — AI surface popovers + live-update toasts */
+  --glass-tinted-accent-tint:     rgba(0, 250, 138, 0.12);
+  --glass-tinted-accent-filter:   blur(20px) saturate(140%);
+  --glass-tinted-accent-border:   rgba(0, 250, 138, 0.40);
+  --glass-tinted-accent-fallback: rgba(0, 250, 138, 0.24);
+
+  /* gradient.canvas-ambient — subtle lit-from-within radial */
+  --gradient-canvas-ambient: radial-gradient(
+    ellipse 1400px 800px at 50% 50%,
+    var(--color-obsidian-900, #080808),
+    var(--color-obsidian-800, #0D0D0D) 70%
+  );
+
+  /* gradient.hero-scrim — text-overlay safety scrim */
+  --gradient-hero-scrim: linear-gradient(
+    180deg,
+    rgba(13, 13, 13, 0.62) 0%,
+    rgba(13, 13, 13, 0.40) 20%,
+    transparent 40%
+  );
+
+  /* noise.default — 8% opacity SVG feTurbulence */
+  --noise-default: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+
+  /* mesh.aurora-spring — DEFAULT expressive hero atmosphere.
+     Blob alphas at 8% (master-doc range minimum) — Phase 1 verification gate
+     drove this from a 10% draft to 8% to clear text.secondary on mesh peak
+     at WCAG 4.5:1. text.tertiary is restricted to scrim-protected zones in
+     expressive — see modes.md §contrast. */
+  --mesh-aurora-spring: radial-gradient(
+      circle 480px at var(--mesh-aurora-spring-x1, 30%) var(--mesh-aurora-spring-y1, 20%),
+      rgba(20, 100, 100, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle 600px at var(--mesh-aurora-spring-x2, 70%) var(--mesh-aurora-spring-y2, 60%),
+      rgba(0, 250, 138, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle 540px at var(--mesh-aurora-spring-x3, 20%) var(--mesh-aurora-spring-y3, 80%),
+      rgba(40, 50, 130, 0.08),
+      transparent 60%
+    ),
+    var(--color-obsidian-800, #0D0D0D);
+}
+
+/* ----------------------------------------------------------------------------
+   MODE REBINDS — restrained (default) vs expressive
+   ---------------------------------------------------------------------------- */
+
+:root,
+[data-mode="restrained"],
+[data-mood="quiet-industrial"] {
+  --surface-hero:           var(--color-obsidian-800, #0D0D0D);
+  --surface-canvas-ambient: var(--color-obsidian-800, #0D0D0D);
+  --surface-atmosphere:     transparent;
+  --motion-atmosphere:      none;
+  --noise-overlay:          none;
+}
+
+[data-mode="expressive"] {
+  --surface-hero:           var(--mesh-aurora-spring);
+  --surface-canvas-ambient: var(--gradient-canvas-ambient);
+  --surface-atmosphere:     rgba(0, 250, 138, 0.08); /* atmospheric 8% — was 12% Phase 1 draft; lowered to clear body-tier contrast on mesh peak */
+  --motion-atmosphere:      mesh-drift 24s ease-in-out infinite alternate;
+  --noise-overlay:          var(--noise-default);
+}

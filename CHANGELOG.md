@@ -6,7 +6,50 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13 refactor in progress — see Phase 0 entry below. Phases 1–6 land additional entries here as they ship._
+_v0.13 refactor in progress — see Phase 0 and Phase 1 entries below. Phases 2–6 land additional entries here as they ship._
+
+---
+
+## [0.13.0-phase.1] — 2026-05-16 — Expressive mode primitives + mode-scope mechanism · Phase 1 of the v0.13 master refactor
+
+Phase 1 of the seven-phase v0.13 refactor. Lands the expressive-mode primitive token sets (glass / mesh / noise / gradient), the mode-rebind sets for restrained and expressive, the `<ModeScope>` React primitive that flips `data-mode` on a container, the CSS scoping layer that wires @property + @keyframes + @media (reduced-motion / reduced-transparency) + @supports (backdrop-filter fallback), and a landing-hero proof-of-concept route at `audit-dashboard/src/app/examples/landing-hero/` that renders the same JSX in both modes via a toggle. **Hard gates: body 22/22 + large 2/2 contrast pass; build succeeds; mode mechanism wired end-to-end.** Lighthouse deferred to operator-side execution (pre-existing lockfile drift — lighthouse + chrome-launcher declared in package.json but absent from pnpm-lock.yaml). See [`design-system/06-claude-code-briefings/phase-1-report.md`](design-system/06-claude-code-briefings/phase-1-report.md) for the full report.
+
+### Added
+
+- **`01-tokens/primitives/glass.tokens.json`** — 4 named glass recipes (subtle / default / strong / tinted-accent). Each ships atomic tint + blur + saturate + border + filter (CSS shorthand) + fallback tokens for floating shell surfaces.
+- **`01-tokens/primitives/mesh.tokens.json`** — 5 freight-domain mesh recipes (aurora-spring / aurora-cool / dock-bay / lane-arc / cross-dock). Each is a multi-radial-gradient CSS `background:` value with stop positions referencing CSS custom properties registered via @property (lumen-scoping.css) for mesh-drift animation. Blob alphas at 8% (master-doc range bottom — chosen to clear body-tier contrast gate).
+- **`01-tokens/primitives/noise.tokens.json`** — 3 SVG feTurbulence grain variants (subtle 6% / default 8% / strong 12%). URL-encoded data URIs.
+- **`01-tokens/primitives/gradient.tokens.json`** — 3 ambient gradients (canvas-ambient / hero-scrim / card-edge).
+- **`02-components/mode-scope/`** — the mode-switch primitive. `component.json` (v0.12.6 schema) + `component.md` (Lumen format) + `mode-scope.skill.md` (Vercel `skill-remotion-geist` format per master doc §8.3) + `examples/primary.tsx` (30-line canonical source).
+- **`_registry/mode-scope.json`** + entry in **`registry.json`** (root) — shadcn registry sidecar; `mode-scope` is the first v0.13 registry item.
+- **`audit-dashboard/src/components/primitives/mode-scope.tsx`** — runtime copy for audit-dashboard consumption.
+- **`audit-dashboard/src/app/examples/landing-hero/{page.tsx, landing-hero.tsx}`** — Phase 1 proof-of-concept route. Sticky toggle pill flips `<ModeScope mode={mode}>` between restrained and expressive; the same `<LandingHero />` JSX renders visually distinct output without any branching.
+- **`audit-dashboard/src/app/lumen-scoping.css`** (+ canonical copy `design-system/01-tokens/lumen-scoping.css`) — @property registrations for 22 mesh stop position variables, @keyframes mesh-drift (24s ease-in-out infinite alternate), @media (prefers-reduced-motion: reduce) freezes mesh-drift, @media (prefers-reduced-transparency: reduce) collapses mesh to canvas + bumps glass alphas to ≥ 0.85, @supports not (backdrop-filter) falls back to solid glass.*.fallback. Utility classes: `.lumen-hero` / `.lumen-canvas-ambient` / `.lumen-atmosphere` / `.lumen-noise-overlay` / `.lumen-glass-{subtle,default,strong,tinted}`.
+- **`audit-dashboard/src/app/lumen-mode-tokens.css`** — runtime CSS variable bridge mirroring dist/css/lumen.css for the new mode-aware tokens. Phase 2 replaces with @import.
+- **`tools/audit-lighthouse.ts`** — Phase 1 Lighthouse gate runner with master-doc thresholds (Performance ≥ 0.90, CLS < 0.1, LCP < 2.5s). Operator-side execution.
+- **`00-foundations/modes.md` §7 "Contrast contract on expressive hero (the cliff condition)"** — documents the text.tertiary restriction (cannot pass 3:1 on any non-pure-black mesh peak; must render in scrim-protected zones or restrained-only) and the master-doc atmospheric-alpha contract.
+- **`design-system/06-claude-code-briefings/phase-1-report.md`** — Phase 1 report per master doc §10.3.
+
+### Changed
+
+- **`01-tokens/modes/restrained.tokens.json`** — Phase 0 stub → full rebind set. Surface.hero / canvas-ambient / atmosphere / motion.atmosphere aliased to restrained values (solid obsidian / transparent / none).
+- **`01-tokens/modes/expressive.tokens.json`** — Phase 0 stub → full rebind set. Surface.hero → mesh.aurora-spring, canvas-ambient → gradient.canvas-ambient, atmosphere → color.alpha.accent.08 (was 12% in Phase 1 draft; lowered to clear body-tier contrast gate), motion.atmosphere → `mesh-drift 24s ease-in-out infinite alternate`, noise.overlay → noise.default.
+- **`01-tokens/primitives/mesh.tokens.json aurora-spring`** — blob alphas 10% → 8% (master-doc range bottom). Required to clear body-tier contrast on mesh peak.
+- **`audit-dashboard/src/app/globals.css`** — added 2 @import lines (`./lumen-mode-tokens.css` + `./lumen-scoping.css`) at the top so the audit-dashboard runtime resolves the new mode-aware variables and the CSS-only pieces.
+- **`audit-dashboard/src/app/lumen-mode-tokens.css`** — mesh-aurora-spring blob alphas 10% → 8% (mirroring the primitive change). `--surface-atmosphere` 12% → 8% Spring Green for the same reason.
+- **`tools/audit-contrast.ts`** — added expressive-mode pairs (text.primary / text.secondary / text.tertiary / accent CTA over mesh-aurora-spring peak + indigo patch). Added `composite()` helper for alpha-blend math. text.tertiary expressive pair downgraded to focus-tier advisory per the modes.md §7 contract — its #6B6B6B luminance cannot pass 3:1 against any non-pure-black mesh.
+- **`tools/audit-baseline/contrast-{restrained,expressive}.json`** — regenerated baselines with Phase 1 expressive-mode pairs.
+- **`_registry/registry.json`** — `mode-scope` item prepended to items array.
+- **`registry.json` (root)** — `mode-scope` registry-item-json entry added (Phase 0 left items: []).
+- **`package.json`** — added `audit:lighthouse` script.
+
+### Notes for next phase
+
+- **Phase 2** (component library refactor → shadcn registry) addresses the 87 pre-existing v0.12.6 `tokens:validate` errors as each component migrates.
+- **Phase 2** also wires the audit-dashboard to `@import dist/css/lumen.css` so the `lumen-mode-tokens.css` runtime mirror can retire.
+- **Lighthouse gate** runs operator-side via `pnpm audit:lighthouse` after `pnpm install --no-frozen-lockfile` pulls lighthouse + chrome-launcher into node_modules. The lockfile drift is pre-existing — packages declared in `package.json` devDeps but never added to the lockfile.
+- **Visual screenshots** of the landing-hero in both modes are operator-side verification.
+- **`gradient.hero-scrim` is not yet wired into the landing-hero example.** Phase 2 may add it for text-rendering surfaces that want to use text.tertiary on expressive backgrounds.
 
 ---
 

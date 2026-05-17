@@ -1,0 +1,31 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — EXPRESSIVE-mode ambient gradient primitives. Three lighter-weight gradients for surfaces that want a hint of expressive atmosphere without a full mesh recipe. Use these on cards, hero scrims, edge lighting — anything that wants the expressive mood without the four-radial mesh cost. All three are CSS `background:` value strings; consumers paste directly. Same prefers-reduced-transparency fallback policy as mesh.tokens.json (collapses to solid surface via @media in dist/css/lumen.scoping.css).",
+  "gradient": {
+    "$type": "string",
+    "canvas-ambient": {
+      "$description": "Very subtle radial gradient from obsidian.900 at center to obsidian.800 at edges — suggests a faint lit-from-within feel. Used as the default expressive page canvas where mesh would be too heavy.",
+      "$value": "radial-gradient(ellipse 1400px 800px at 50% 50%, var(--color-obsidian-900, #080808), var(--color-obsidian-800, #0D0D0D) 70%)",
+      "$extensions": {
+        "lumen.gradient": { "shape": "radial-ellipse", "stops": [{ "color": "{color.obsidian.900}", "position": "center" }, { "color": "{color.obsidian.800}", "position": "70%" }] },
+        "lumen.fallback": "var(--color-obsidian-800)"
+      }
+    },
+    "hero-scrim": {
+      "$description": "Vertical fade from surface.glass at top to transparent at 40% — for text overlay on a mesh background. Sits BETWEEN the mesh and the headline so the headline reads at high contrast over the brightest mesh stops.",
+      "$value": "linear-gradient(180deg, var(--color-alpha-ink-62, rgba(13,13,13,0.62)) 0%, var(--color-alpha-ink-40, rgba(13,13,13,0.40)) 20%, transparent 40%)",
+      "$extensions": {
+        "lumen.gradient": { "shape": "linear", "direction": "180deg", "stops": [{ "color": "{color.alpha.ink.62}", "position": "0%" }, { "color": "{color.alpha.ink.40}", "position": "20%" }, { "color": "transparent", "position": "40%" }] },
+        "lumen.fallback": "var(--color-alpha-ink-62)"
+      }
+    },
+    "card-edge": {
+      "$description": "Diagonal hairline gradient for card edges in expressive mode — lifts them subtly above the mesh. Composed on the card border, not the body.",
+      "$value": "linear-gradient(135deg, var(--color-alpha-paper-10, rgba(255,255,255,0.10)) 0%, transparent 50%, var(--color-alpha-paper-06, rgba(255,255,255,0.06)) 100%)",
+      "$extensions": {
+        "lumen.gradient": { "shape": "linear", "direction": "135deg", "stops": [{ "color": "{color.alpha.paper.10}", "position": "0%" }, { "color": "transparent", "position": "50%" }, { "color": "{color.alpha.paper.06}", "position": "100%" }] },
+        "lumen.fallback": "var(--color-alpha-paper-06)"
+      }
+    }
+  }
+}

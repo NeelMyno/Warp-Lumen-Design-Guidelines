@@ -4,6 +4,7 @@
   "homepage": "https://lumen.warp.dev",
   "description": "Lumen — Warp's vertically integrated design system. Obsidian canvas, Satoshi single-typeface system, Spring Green (#00FA8A) action-only accent. v0.12.6 ships the primitive coverage drop — 63 new component contracts (Tabs, Breadcrumbs, Pagination, Stepper, DropdownMenu, Tooltip, Popover, Accordion, Divider, Link, Alert, Banner, Spinner, Progress, Skeleton, NotificationCenter, Snackbar, Avatar, Tag, List, CodeBlock, CopyButton, Kbd, Trend, Drawer, Sheet, Panel, Navbar, Sidebar, BottomNav, Toolbar, ActionSheet, PhoneFrame, StatusBar, SwipeAction, PullToRefresh, PermissionPrompt, CoachMark, Carousel, Timeline, Calendar, TreeView, Kanban, DataGrid, Chart, Sparkline, KpiCard, AIPromptInput, AISuggestion, AIBadge, CitationCard, ChatBubble, CommentThread, ReactionBar, PresenceIndicator, Slider, ColorPicker, SearchField, PricingCard, TestimonialCard, LogoCloud, InventoryStatus, CartDrawer). Install: `npx shadcn@latest add <registry-url>/<name>`.",
   "items": [
+    { "$ref": "./mode-scope.json" },
     { "$ref": "./button.json" },
     { "$ref": "./input.json" },
     { "$ref": "./card.json" },

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "mode-scope",
+  "type": "registry:ui",
+  "title": "ModeScope",
+  "description": "Sets data-mode='restrained' | 'expressive' on a container so descendants resolve mode-aware Lumen semantic tokens. The single source-of-truth for switching Lumen modes. Components are mode-agnostic; semantic surface / atmosphere / motion tokens rebind under the scope.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "design-system/02-components/mode-scope/examples/primary.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/mode-scope.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "platforms": [
+      "web-react"
+    ],
+    "specPath": "design-system/02-components/mode-scope/component.json",
+    "docsPath": "design-system/02-components/mode-scope/component.md",
+    "skillPath": "design-system/02-components/mode-scope/mode-scope.skill.md",
+    "status": "stable",
+    "warpSignature": false,
+    "modeAware": true,
+    "phase": "v0.13-phase-1"
+  }
+}

@@ -1,11 +1,22 @@
 {
   "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
-  "$description": "Lumen v0.13 — RESTRAINED mode rebind set. Restrained is the default and is empty by design — no token rebinds happen here. The semantic tokens at `color.surface.*`, `color.text.*`, `color.border.*`, `color.action.*` already encode the restrained voice (dense surfaces, hairline frames, no glass on canvas/table/row/cell, atmosphere muted to 4–6% if any). This file exists as the explicit mode-route placeholder: a Style Dictionary build can target `[data-mode='restrained']` scope here without having to special-case the no-overrides case. Phase 1 will fill expressive.tokens.json; restrained stays a thin placeholder.",
+  "$description": "Lumen v0.13 — RESTRAINED mode rebind set. Restrained is the DEFAULT mode and most surfaces already resolve to restrained values via the v0.12.6 semantic layer (color.surface.*, etc.). This file re-aliases the mode-aware tokens (surface.hero / surface.canvas-ambient / motion.atmosphere) to their restrained values for clarity — calm flat-canvas heroes, no animated mesh, no ambient gradients. The semantic split files (surface/text/border/action.tokens.json) carry the actual rebinds for the rest of the system. The atmosphere is muted to zero on restrained; the mode is identified by `[data-mode='restrained']` on a scope container.",
   "mode": {
     "$type": "string",
-    "name": { "$value": "restrained", "$description": "v0.13 — the default mode. Used for SaaS dashboards, tables, settings, terminals, command palette, every dense operator surface." },
-    "atmosphere": { "$value": "0", "$description": "Restrained surfaces drop all ambient atmosphere — no aurora, no mesh, no grain. Hairline-frame + content-only." },
-    "glass-policy": { "$value": "floating-only", "$description": "backdrop-filter is only legal on floating shells (popover, sheet, command palette, nav). NEVER on canvas, table, row, cell." },
-    "motion-policy": { "$value": "decelerate-default", "$description": "All transitions use motion.easing.decelerate (the Lumen default). Bounce + emphasised reserved for celebration moments only." }
+    "name":            { "$value": "restrained", "$description": "v0.13 — the default mode. SaaS dashboards, tables, settings, terminals, command palette, every dense operator surface." },
+    "atmosphere":      { "$value": "0", "$description": "Restrained surfaces drop all ambient atmosphere — no aurora, no mesh, no grain. Hairline-frame + content-only." },
+    "glass-policy":    { "$value": "floating-only", "$description": "backdrop-filter is only legal on floating shells (popover, sheet, command palette, nav). NEVER on canvas, table, row, cell." },
+    "motion-policy":   { "$value": "decelerate-default", "$description": "All transitions use motion.easing.decelerate (the Lumen default). Bounce + emphasised reserved for celebration moments only." }
+  },
+  "surface": {
+    "$type": "color",
+    "canvas":         { "$value": "{color.obsidian.800}", "$description": "Solid obsidian canvas #0D0D0D. NEVER mesh on the page canvas — even in expressive mode the canvas stays solid; mesh sits on surface.hero." },
+    "hero":           { "$value": "{color.obsidian.800}", "$description": "Restrained hero = flat obsidian. Calm. The brutalist headline + italic accent word + mono-cap label carry the voice; the surface is intentionally quiet so they pop." },
+    "canvas-ambient": { "$value": "{color.obsidian.800}", "$description": "Restrained mode: ambient layer collapses to canvas (no gradient overlay)." },
+    "atmosphere":     { "$value": "transparent", "$description": "Restrained mode: zero atmospheric overlay. Hairlines do the surface separation." }
+  },
+  "motion": {
+    "$type": "string",
+    "atmosphere":     { "$value": "none", "$description": "Restrained mode: no animated atmosphere. Aurora, mesh-drift, grain animations all gated off." }
   }
 }

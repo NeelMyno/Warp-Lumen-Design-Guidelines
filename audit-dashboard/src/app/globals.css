@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* v0.13 Phase 1 — mode-aware token bridge + CSS scoping (@property, @keyframes,
+   @media reduced-motion/transparency, @supports not (backdrop-filter), utility
+   classes). lumen-mode-tokens.css mirrors dist/css/lumen.css for the new
+   mode-aware variables until Phase 2 wires the SD pipeline. lumen-scoping.css
+   carries the CSS-only pieces the DTCG JSON cannot express. */
+@import "./lumen-mode-tokens.css";
+@import "./lumen-scoping.css";
+
 /* shadcn/ui animation utilities (compatible with Radix primitives' data-state). */
 @custom-variant dark (&:is([data-theme="dark"] *));
 

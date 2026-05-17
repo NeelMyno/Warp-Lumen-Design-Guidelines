@@ -1,0 +1,72 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — EXPRESSIVE-mode mesh primitives. Five named freight-domain recipes. Each is a multi-radial-gradient CSS `background:` value layered over the obsidian canvas. Per master doc §7 Phase 1: each mesh stays at 8–12% opacity max so text contrast is preserved (the audit-contrast tool's expressive-mode pairs validate this); each is gated on prefers-reduced-motion (mesh-drift animation freezes) and prefers-reduced-transparency (mesh collapses to solid canvas via @media in dist/css/lumen.scoping.css). The five recipes map to the five reserved slots in 00-foundations/modes.md §6. Position values reference CSS custom-properties registered via @property in lumen.scoping.css so the mesh stops are animatable (mesh-drift keyframes drift positions 8–12% over 24s).",
+  "mesh": {
+    "$type": "string",
+    "aurora-spring": {
+      "$description": "DEFAULT landing-hero atmosphere. Three radial blobs over obsidian: (1) deep teal at 30% 20% — the cool anchor; (2) Spring Green at 70% 60% — the brand presence; (3) deep indigo at 20% 80% — the cool counter-balance. Each blob at 8% opacity (master-doc range bottom — chosen to clear the body-tier contrast gate for text rendered directly on mesh). Together they read as a layered atmospheric backdrop, not a decorative gradient. The Spring Green stop is the focal element. NOTE: text.tertiary (color.brand.400 = #6B6B6B) does NOT clear WCAG 2.2 AA Large 3:1 against ANY mesh peak — large-tier hint text must be rendered in scrim-protected zones (gradient.hero-scrim) or restricted to restrained mode. See modes.md §contrast.",
+      "$value": "radial-gradient(circle 480px at var(--mesh-aurora-spring-x1, 30%) var(--mesh-aurora-spring-y1, 20%), rgba(20, 100, 100, 0.08), transparent 60%), radial-gradient(circle 600px at var(--mesh-aurora-spring-x2, 70%) var(--mesh-aurora-spring-y2, 60%), rgba(0, 250, 138, 0.08), transparent 60%), radial-gradient(circle 540px at var(--mesh-aurora-spring-x3, 20%) var(--mesh-aurora-spring-y3, 80%), rgba(40, 50, 130, 0.08), transparent 60%), var(--color-obsidian-800, #0D0D0D)",
+      "$extensions": {
+        "lumen.atmosphere": { "intensity": 8, "minIntensity": 4, "maxIntensity": 12 },
+        "lumen.mesh.stops": [
+          { "color": "rgba(20,100,100,0.08)", "size": "480px", "position": [30, 20] },
+          { "color": "rgba(0,250,138,0.08)",  "size": "600px", "position": [70, 60] },
+          { "color": "rgba(40,50,130,0.08)",  "size": "540px", "position": [20, 80] }
+        ],
+        "lumen.fallback": "var(--color-obsidian-800)"
+      }
+    },
+    "aurora-cool": {
+      "$description": "AI surface variant. Same three-blob structure as aurora-spring, retuned cooler: cool indigo + slate + a faint Spring accent. Used on AI chat / agent / generation surfaces — the cooler temperature reads as 'thinking', the Spring accent reminds the operator this surface is alive.",
+      "$value": "radial-gradient(circle 500px at var(--mesh-aurora-cool-x1, 25%) var(--mesh-aurora-cool-y1, 25%), rgba(60, 70, 140, 0.12), transparent 60%), radial-gradient(circle 580px at var(--mesh-aurora-cool-x2, 75%) var(--mesh-aurora-cool-y2, 65%), rgba(80, 90, 130, 0.10), transparent 60%), radial-gradient(circle 420px at var(--mesh-aurora-cool-x3, 60%) var(--mesh-aurora-cool-y3, 20%), rgba(0, 250, 138, 0.06), transparent 60%), var(--color-obsidian-800, #0D0D0D)",
+      "$extensions": {
+        "lumen.atmosphere": { "intensity": 10, "minIntensity": 4, "maxIntensity": 14 },
+        "lumen.mesh.stops": [
+          { "color": "rgba(60,70,140,0.12)",  "size": "500px", "position": [25, 25] },
+          { "color": "rgba(80,90,130,0.10)",  "size": "580px", "position": [75, 65] },
+          { "color": "rgba(0,250,138,0.06)",  "size": "420px", "position": [60, 20] }
+        ],
+        "lumen.fallback": "var(--color-obsidian-800)"
+      }
+    },
+    "dock-bay": {
+      "$description": "Shipment-related onboarding atmosphere. Two large soft blobs simulating a top-down view of a cross-dock floor at dawn — warmer cool tone at 30% 30% (a single overhead light source), dimmer Spring accent at 70% 70% (a distant active dock bay). Quieter than aurora-spring; reads as 'first shift, lights coming up'.",
+      "$value": "radial-gradient(circle 620px at var(--mesh-dock-bay-x1, 30%) var(--mesh-dock-bay-y1, 30%), rgba(140, 130, 90, 0.10), transparent 60%), radial-gradient(circle 520px at var(--mesh-dock-bay-x2, 70%) var(--mesh-dock-bay-y2, 70%), rgba(0, 250, 138, 0.06), transparent 60%), var(--color-obsidian-800, #0D0D0D)",
+      "$extensions": {
+        "lumen.atmosphere": { "intensity": 8, "minIntensity": 4, "maxIntensity": 12 },
+        "lumen.mesh.stops": [
+          { "color": "rgba(140,130,90,0.10)", "size": "620px", "position": [30, 30] },
+          { "color": "rgba(0,250,138,0.06)",  "size": "520px", "position": [70, 70] }
+        ],
+        "lumen.fallback": "var(--color-obsidian-800)"
+      }
+    },
+    "lane-arc": {
+      "$description": "Empty-state atmosphere for routing surfaces. A diagonal sweep from upper-left to lower-right, simulating a long-haul route arc on a map. Spring accent emerges at the midpoint — the arc's brightest segment. Reads as 'a route in motion, partially complete'.",
+      "$value": "radial-gradient(ellipse 800px 200px at var(--mesh-lane-arc-x1, 50%) var(--mesh-lane-arc-y1, 50%), rgba(0, 250, 138, 0.10), transparent 60%), radial-gradient(circle 420px at var(--mesh-lane-arc-x2, 18%) var(--mesh-lane-arc-y2, 18%), rgba(60, 80, 120, 0.10), transparent 60%), radial-gradient(circle 420px at var(--mesh-lane-arc-x3, 82%) var(--mesh-lane-arc-y3, 82%), rgba(60, 80, 120, 0.08), transparent 60%), var(--color-obsidian-800, #0D0D0D)",
+      "$extensions": {
+        "lumen.atmosphere": { "intensity": 10, "minIntensity": 4, "maxIntensity": 14 },
+        "lumen.mesh.stops": [
+          { "color": "rgba(0,250,138,0.10)",  "size": "800px 200px", "position": [50, 50], "shape": "ellipse" },
+          { "color": "rgba(60,80,120,0.10)",  "size": "420px",        "position": [18, 18] },
+          { "color": "rgba(60,80,120,0.08)",  "size": "420px",        "position": [82, 82] }
+        ],
+        "lumen.fallback": "var(--color-obsidian-800)"
+      }
+    },
+    "cross-dock": {
+      "$description": "Dashboard hero atmosphere — grid-tinted ambient simulating a cross-dock pallet layout (2×2 soft regions). Quieter intensity (8%) so operator-density tables still pop above. Used for dashboard hero panels that need atmosphere without losing operator-density feel.",
+      "$value": "radial-gradient(circle 400px at var(--mesh-cross-dock-x1, 25%) var(--mesh-cross-dock-y1, 25%), rgba(0, 250, 138, 0.08), transparent 55%), radial-gradient(circle 400px at var(--mesh-cross-dock-x2, 75%) var(--mesh-cross-dock-y2, 25%), rgba(60, 80, 120, 0.08), transparent 55%), radial-gradient(circle 400px at var(--mesh-cross-dock-x3, 25%) var(--mesh-cross-dock-y3, 75%), rgba(60, 80, 120, 0.08), transparent 55%), radial-gradient(circle 400px at var(--mesh-cross-dock-x4, 75%) var(--mesh-cross-dock-y4, 75%), rgba(0, 250, 138, 0.06), transparent 55%), var(--color-obsidian-800, #0D0D0D)",
+      "$extensions": {
+        "lumen.atmosphere": { "intensity": 8, "minIntensity": 4, "maxIntensity": 12 },
+        "lumen.mesh.stops": [
+          { "color": "rgba(0,250,138,0.08)",  "size": "400px", "position": [25, 25] },
+          { "color": "rgba(60,80,120,0.08)",  "size": "400px", "position": [75, 25] },
+          { "color": "rgba(60,80,120,0.08)",  "size": "400px", "position": [25, 75] },
+          { "color": "rgba(0,250,138,0.06)",  "size": "400px", "position": [75, 75] }
+        ],
+        "lumen.fallback": "var(--color-obsidian-800)"
+      }
+    }
+  }
+}
