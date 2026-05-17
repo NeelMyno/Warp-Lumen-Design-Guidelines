@@ -10,7 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:mode-toggle": "playwright test tests/mode-toggle-visual.spec.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -60,6 +61,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.48.0",
     "@storybook/addon-a11y": "^10.4.0",
     "@storybook/nextjs": "^10.4.0",
     "@tailwindcss/postcss": "^4",
@@ -67,12 +69,16 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
+    "@types/pixelmatch": "^5.2.6",
+    "@types/pngjs": "^6.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitest/ui": "^4.1.6",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "jsdom": "^25.0.1",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
     "storybook": "^10.4.0",
     "tailwindcss": "^4",
     "typescript": "^5",

@@ -42,45 +42,59 @@ export default function FoundationsPage() {
             <span aria-hidden>·</span>
             <span className="text-[color:var(--text-accent)]">obsidian</span>
           </div>
-          <div className="lumen-frame-brutalist">
-            <h1 className="text-display-lg sm:text-display-2xl lg:text-display-2xl text-[color:var(--text-primary)]">
-              Foundations.{" "}
-              {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
-              <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[color:var(--text-accent)]">
-                Tuned.
-              </em>
-            </h1>
-            {/* v0.11.6 — system-at-a-glance row inside the brutalist frame.
-                Color stops + motion (live dot) + type specimen, separated by
-                hairline rule-offs. v0.11.8 — tightened headline→divider→row
-                rhythm from mt-10/pt-8 (72px) to mt-8/pt-6 (56px); the
-                brutalist-frame outer padding (up to 80px) made the original
-                gap read as oversized empty space. */}
-            <div className="mt-8 pt-6 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-5">
-              {/* Brand color stops — v0.11.10: equal-weight specimens for the
-                  50ms halo. All five tiles get a consistent border-default so
-                  the canvas+raised pair is recognisable as a specimen (not a
-                  ghost outline) and the row reads as five equal anchors of
-                  the system rather than three saturated colours plus two
-                  faint outlines. */}
-              <div className="flex items-center gap-2" aria-label="Color anchors">
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--surface-canvas)" }} title="surface.canvas" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--surface-raised)" }} title="surface.raised" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-accent-4)" }} title="accent.500 · #00FA8A" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-amber-5)" }} title="status.warning" />
-                <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-red-5)" }} title="status.danger" />
-              </div>
-              <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
-              {/* Live indicator */}
-              <div className="flex items-center gap-2 lumen-mono-cap text-[color:var(--text-tertiary)]">
-                <span className="lumen-dot-pulse" aria-hidden />
-                <span className="text-[color:var(--text-accent)]">Live</span>
-              </div>
-              <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
-              {/* Satoshi specimen */}
-              <div className="flex items-baseline gap-3">
-                <span className="text-display-md font-bold text-[color:var(--text-primary)] leading-none">Aa</span>
-                <span className="lumen-mono text-body-xs text-[color:var(--text-tertiary)]">Satoshi · 300–900 · OpenType</span>
+          {/* v0.13.4 Phase 10 — Foundations hero gains mode-aware atmosphere.
+              The brutalist hairline frame (border + radius + padding) is
+              preserved verbatim; .lumen-hero is composed onto the same element
+              so `surface.hero` rebinds via the [data-mode] cascade. Atmosphere
+              + noise overlays paint NOTHING in restrained (transparent + opacity 0)
+              and the aurora-spring mesh + 8% Spring Green wash + 8% SVG grain
+              in expressive. Hard rules 15 + 16 preserved — mode is a scope
+              attribute, no glass on this dense system surface. */}
+          <div className="lumen-frame-brutalist lumen-hero relative overflow-hidden">
+            {/* Atmospheric overlays — absolute / pointer-events:none. */}
+            <div className="lumen-atmosphere" aria-hidden />
+            <div className="lumen-noise-overlay" aria-hidden />
+            {/* Content frame — same JSX, lifted above the overlays via z-10. */}
+            <div className="relative z-10">
+              <h1 className="text-display-lg sm:text-display-2xl lg:text-display-2xl text-[color:var(--text-primary)]">
+                Foundations.{" "}
+                {/* lumen-lint-allow: typography — italic accent override on display heading; brand-specific tracking override */}
+                <em className="not-italic font-bold tracking-[var(--tracking-tightest)] text-[color:var(--text-accent)]">
+                  Tuned.
+                </em>
+              </h1>
+              {/* v0.11.6 — system-at-a-glance row inside the brutalist frame.
+                  Color stops + motion (live dot) + type specimen, separated by
+                  hairline rule-offs. v0.11.8 — tightened headline→divider→row
+                  rhythm from mt-10/pt-8 (72px) to mt-8/pt-6 (56px); the
+                  brutalist-frame outer padding (up to 80px) made the original
+                  gap read as oversized empty space. */}
+              <div className="mt-8 pt-6 border-t border-dashed border-[var(--border-hairline)] flex flex-wrap items-center gap-x-8 gap-y-5">
+                {/* Brand color stops — v0.11.10: equal-weight specimens for the
+                    50ms halo. All five tiles get a consistent border-default so
+                    the canvas+raised pair is recognisable as a specimen (not a
+                    ghost outline) and the row reads as five equal anchors of
+                    the system rather than three saturated colours plus two
+                    faint outlines. */}
+                <div className="flex items-center gap-2" aria-label="Color anchors">
+                  <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--surface-canvas)" }} title="surface.canvas" />
+                  <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--surface-raised)" }} title="surface.raised" />
+                  <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-accent-4)" }} title="accent.500 · #00FA8A" />
+                  <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-amber-5)" }} title="status.warning" />
+                  <span className="h-7 w-7 rounded-[var(--radius-sm)] border border-[var(--border-default)]" style={{ background: "var(--lumen-red-5)" }} title="status.danger" />
+                </div>
+                <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
+                {/* Live indicator */}
+                <div className="flex items-center gap-2 lumen-mono-cap text-[color:var(--text-tertiary)]">
+                  <span className="lumen-dot-pulse" aria-hidden />
+                  <span className="text-[color:var(--text-accent)]">Live</span>
+                </div>
+                <span aria-hidden className="hidden sm:inline-block h-8 w-px bg-[var(--border-hairline)]" />
+                {/* Satoshi specimen */}
+                <div className="flex items-baseline gap-3">
+                  <span className="text-display-md font-bold text-[color:var(--text-primary)] leading-none">Aa</span>
+                  <span className="lumen-mono text-body-xs text-[color:var(--text-tertiary)]">Satoshi · 300–900 · OpenType</span>
+                </div>
               </div>
             </div>
           </div>

@@ -29,9 +29,33 @@ export default function LandingPage() {
             v0.11.13 — wrapped focal-point children in ScrollReveal so the eye
             is led into the hero instead of arriving on a fully-painted page.
             Above-the-fold reveals fire on first frame because IntersectionObserver
-            considers them already-intersecting at mount. */}
-        <section className="relative bg-[var(--surface-canvas)] px-10 pt-24 pb-20 lumen-grid-architectural overflow-hidden">
-          <div className="relative max-w-default mx-auto flex flex-col gap-7">
+            considers them already-intersecting at mount.
+            v0.13.4 Phase 10 — Marketing hero gains mode-aware atmosphere.
+            `bg-[var(--surface-canvas)]` is replaced with `.lumen-hero` so the
+            background rebinds: flat obsidian in restrained (identical to v0.12.6),
+            aurora-spring mesh in expressive. The architectural grid lattice is
+            preserved by moving it from a background-image utility on this
+            section to an absolutely-positioned overlay child — otherwise
+            `lumen-grid-architectural`'s `background-image` would override the
+            mesh radials in expressive. Atmosphere + noise paint nothing in
+            restrained, paint the 8% Spring Green wash + 8% feTurbulence grain
+            in expressive. Per Phase 10 prompt: "marketing surface is allowed
+            up to three hero panels with mesh treatment, separated by canvas-flat
+            sections" — this is the second hero on /landing (the first being
+            the page-intro PageHeader at the top of the route). */}
+        <section className="relative lumen-hero px-10 pt-24 pb-20 overflow-hidden">
+          {/* Mode-aware atmospheric overlays — absolute / pointer-events-none. */}
+          <div className="lumen-atmosphere" aria-hidden />
+          {/* Architectural grid lattice as an absolute overlay so it composes
+              ON TOP of the mesh in expressive (z-index 0 in the .lumen-hero
+              isolation context) instead of overriding `background-image`. */}
+          <div
+            aria-hidden
+            className="lumen-grid-architectural absolute inset-0 pointer-events-none"
+            style={{ zIndex: 0 }}
+          />
+          <div className="lumen-noise-overlay" aria-hidden />
+          <div className="relative z-10 max-w-default mx-auto flex flex-col gap-7">
             <ScrollReveal>
               <div className="inline-flex items-center gap-2 lumen-mono-cap text-[color:var(--text-accent)]">
                 <span className="lumen-dot-pulse" aria-hidden />

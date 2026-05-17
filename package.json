@@ -36,6 +36,8 @@
     "dashboard-indexes": "pnpm token-index && pnpm component-index && pnpm prompt-index",
     "docs:dev": "cd audit-dashboard && pnpm dev",
     "docs:build": "cd audit-dashboard && pnpm build",
+    "test:mode-toggle": "cd audit-dashboard && pnpm test:mode-toggle",
+    "capture-screenshots": "tsx tools/capture-mode-screenshots.ts",
     "lint": "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography && pnpm lint:no-arbitrary-form-values && pnpm lint:no-off-grid-spacing && pnpm lint:no-white-on-accent && pnpm lint:button-conventions && pnpm lint:token-naming",
     "lint:no-primitives": "node scripts/lint-no-primitives-in-components.mjs",
     "lint:no-arbitrary-typography": "node scripts/lint-no-arbitrary-typography.mjs",

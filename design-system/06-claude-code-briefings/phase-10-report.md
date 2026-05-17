@@ -1,104 +1,97 @@
-# Phase 10 — v0.13.4 Master-Doc Compliance + Phase 5 Canonical Naming + 7 ADRs + Generator Determinism — Report
+---
+phase: 10
+title: Surface-page mode retrofit — closes ModeToggle visibility gap
+version: 0.13.5
+branch: v0.13.0
+author: claude-code
+date: 2026-05-17
+status: complete
+---
 
-> Per master doc §10.3 — fourth-pass audit on the v0.13.0 ship + v0.13.1 cleanup + v0.13.2 hardening + v0.13.3 hardening. Closes 9 cross-cutting items chat 14 missed under fresh-eyes audit. Stamped 2026-05-17. Executor: Claude (Opus 4.7 1M context). Branch: `v0.13.0`. Operator: Neel.
+# Phase 10 — Surface-page mode retrofit — Report
+
+> Per master doc §10.3. Closes the single most operator-visible gap from the v0.13.0 ship through v0.13.4 hardening: **the chrome `ModeToggle` had no visible effect on the seven preserved surface pages.** The mode mechanism was structurally correct (Phase 1 shipped the cascade); the ModeToggle was wired to `<html data-mode>` (Phase 6 shipped the chrome control); the surface pages were explicitly preserved untouched (Phase 1 + Phase 6 "Files NOT touched" sections). This patch closes that gap.
+
+**Executor:** Claude (Opus 4.7 1M context). **Branch:** `v0.13.0`. **Operator:** Neel. **Stamped:** 2026-05-17.
+
+---
+
+## Naming note (read first)
+
+This is the **second** report at `phase-10-report.md` for the v0.13 refactor. The prior Phase 10 was [v0.13.4 master-doc compliance + Phase 5 canonical naming + 7 ADRs + generator determinism](./phase-10-master-doc-compliance.md) (commit `ef16c03`). That report was renamed to `phase-10-master-doc-compliance.md` to free the canonical `phase-10-report.md` namespace for this surface-page retrofit per the Phase 10 prompt's explicit "Write `design-system/06-claude-code-briefings/phase-10-report.md`" instruction. **Both reports stand.** The retrofit is sequenced AFTER the prior Phase 10 patch — the previous one shipped, the working tree was clean, and this retrofit picks up from there.
+
+**SemVer:** prior Phase 10 claimed v0.13.4. This retrofit is v0.13.5 — a separate patch with semantically-distinct scope (visible operator-side behavior vs the prior internal hardening). See [Decisions made unilaterally](#decisions-made-unilaterally-per-phase-prompt-autonomy-override) §1.
 
 ---
 
 ## Scope (what this patch closes)
 
-Chat 14's [v0.13.3 hardening](./phase-9-report.md) closed 8 items end-to-end. v0.13.4 runs the same fresh-eyes audit one more level deeper. The recurring failure mode chat 14 itself documented — *verification-drift*, where each cleanup claims "all gates pass" but the enumerated gate set keeps changing — is now structurally addressed via the new `pnpm check` umbrella that runs every gate by name in one command.
+Phase 1 created the expressive primitives + ModeScope. Phase 1's report explicitly says:
+> *"Components untouched (Phase 1 doesn't refactor existing components): audit-dashboard's existing 7 routes — unchanged."*
 
-The 9 closures:
+Phase 6 added the ModeToggle to the chrome (writes `data-mode` on `<html>`, persists in `localStorage`, syncs cross-tab via `storage` event). Phase 6's report explicitly says:
+> *"Files NOT touched (intentional preservation): `audit-dashboard/src/app/library/page.tsx` + `client.tsx` (the 1,585-line live showcase). The new `/library/registry` route is a sibling, not a replacement."*
 
-| # | Source | Item | Status before | Status after |
-|---|---|---|---|---|
-| 1 | Master doc §7.Phase-5 + AGENTS.md hard rule 19 | Phase 5 verification gate names 5 components (`Suggestion`, `Loader`, `Agent`, `Context`, `CodeBlock`) that shipped under Lumen-divergent folder names (`suggestion-strip`, `loader-ai`, `agent-state`, `context-window`, and a phantom `code-block/`) | ✗ canonical names not in registry | ✓ 5 new canonical-name folders + registry items; 4 existing divergent folders marked deprecated |
-| 2 | Component contract audit | 5 button-family components in registry with ZERO documentation: `split-button`, `icon-button`, `fab`, `command-palette-button`, `button-group` had `component.json` + `examples/primary.tsx` but no `component.md`, no skill, no v0.13 contract files | ✗ ghost-registered, invisible to dashboard | ✓ component.md written for all 5; dashboard surfaces them at tier-1 with summaries |
-| 3 | Dashboard tooling | `tools/build-component-index.ts` `inferTier()` missed 10 names (5 new canonical + 5 button-family). Dashboard listed them as `tier=0` (unknown) | ✗ wrong tier in dashboard | ✓ inferTier extended; tier-1=25, tier-5=33 |
-| 4 | Schema validation | 19 Phase 2 v0.13 components had `<name>.registry.json` but no legacy `component.json` — `pnpm validate:components` (ajv glob) silently skipped them | ✗ 19 components unvalidated | ✓ all 19 + 4 new canonical aliases got generated `component.json`; 150 components schema-valid (was 127) |
-| 5 | NEW — fresh-eyes audit | `llms-full.txt` shipped STALE in chat 14's commit `8afd2ac`. Chat 14 ran `pnpm llms:all` at 18:03 UTC, wrote `phase-9-report.md` at 18:09 UTC, committed at 18:12 UTC. **Same exact failure mode chat 14 itself documented for chat 13's phase-8.** | ✗ committed missing phase-9 content (35,159 bytes) | ✓ regenerated; 513 files / 2,298,773 chars / ~575K tokens |
-| 6 | NEW — fresh-eyes audit | 5 generators emit `new Date().toISOString()` every run → working tree perpetually dirty with timestamp-only churn. Affects `tools/build-component-index.ts`, `build-prompt-index.ts`, `build-token-index.ts`, `build-llms-txt.ts`, `audit-contrast.ts` | ✗ dirty after every `pnpm run audit` | ✓ shared `tools/_stable-output.ts` helper; idempotent re-runs produce no diff |
-| 7 | AGENTS.md cross-reference | Hard rules 15–19 added without ADR backing. Same for Phase 4 GPT-image-2 + Phase 6 shadcn-MCP-distribution decisions | ✗ 7 architectural decisions without ADRs | ✓ 7 new ADRs (0023–0029) + README index update |
-| 8 | Process | `pnpm validate` umbrella covered only schema + contrast — not lint, audit, or registry:build. Contributors thought they'd validated everything when they hadn't | ✗ silent gap | ✓ new `pnpm check` umbrella runs every gate by name |
-| 9 | Chat 14's v0.14 candidate | No SD composite-typography helper on Swift+Compose — consumers had to compose `Font.system(size:weight:design:)` from atomic primitives by hand | ✗ deferred to v0.14 | ✓ `LumenFont` (Swift) + `LumenTextStyles` (Compose) helpers shipped in reference apps, with all v0.12 typography ramp roles pre-composed |
+That preservation posture applied to every other surface page implicitly. The result: `<html data-mode="expressive">` now flips on toggle, but the seven (eight including `/desktop`) surface pages referenced v0.12.6-era token paths and hard-coded classes (`bg-canvas`, `bg-[var(--surface-canvas)]`, `<header className="mb-12 md:mb-16">` with no bg) that had no mode-aware rebinds. The cascade reached the surface but hit nothing. **Toggle clicks; nothing changed.**
+
+This patch is a wiring exercise, not a redesign:
+
+- **No new tokens** (zero changes to `01-tokens/**`).
+- **No new components** (zero changes to `02-components/**`).
+- **No new utility classes** (the `.lumen-hero` / `.lumen-atmosphere` / `.lumen-noise-overlay` utilities ship as of Phase 1).
+
+The fix is a JSX + CSS-class swap on three files. The retrofit converts each surface page's hero panel from a flat-canvas-painted element into a `.lumen-hero` mode-aware container that paints `mesh.aurora-spring` in expressive and flat obsidian in restrained. Plus atmospheric overlays (`.lumen-atmosphere`) and grain (`.lumen-noise-overlay`) that paint nothing in restrained and the 8% Spring Green wash + 8% SVG feTurbulence in expressive.
 
 ---
 
 ## What changed
 
-### Files created (43 new)
+### Files created (4 new)
 
-**5 canonical Phase 5 folders, 5 files each (25 files):**
+- [`design-system/06-claude-code-briefings/phase-10-inventory.md`](./phase-10-inventory.md) — per Phase 10 prompt Group A; maps each of 8 surface pages to its hero panel JSX, current bg, target bg, retrofit path.
+- [`design-system/06-claude-code-briefings/phase-10-screenshots/README.md`](./phase-10-screenshots/README.md) — operator-side capture instructions; the 16 PNGs (8 routes × 2 modes) are generated by [`tools/capture-mode-screenshots.ts`](../../tools/capture-mode-screenshots.ts) after `pnpm install` + `pnpm exec playwright install chromium`.
+- [`audit-dashboard/tests/mode-toggle-visual.spec.ts`](../../audit-dashboard/tests/mode-toggle-visual.spec.ts) — Playwright pixel-diff test asserting ≥ 5,000 changed pixels between modes for each of 8 routes. Catches the regression this patch closes.
+- [`audit-dashboard/playwright.config.ts`](../../audit-dashboard/playwright.config.ts) — Playwright config (Chromium-only; viewport 1280×800; auto-boots `pnpm dev` via `webServer`).
+- [`tools/capture-mode-screenshots.ts`](../../tools/capture-mode-screenshots.ts) — headed-Chromium capture script that writes 16 PNGs to `phase-10-screenshots/`. Honors `LUMEN_TEST_BASE_URL` env var.
+- This phase report.
 
-- `design-system/02-components/suggestion/{suggestion.md, suggestion.skill.md, suggestion.tsx, suggestion.registry.json, suggestion.stories.tsx}`
-- `design-system/02-components/loader/{loader.md, loader.skill.md, loader.tsx, loader.registry.json, loader.stories.tsx}`
-- `design-system/02-components/agent/{agent.md, agent.skill.md, agent.tsx, agent.registry.json, agent.stories.tsx}`
-- `design-system/02-components/context/{context.md, context.skill.md, context.tsx, context.registry.json, context.stories.tsx}`
-- `design-system/02-components/code-block/{code-block.md, code-block.skill.md, code-block.tsx, code-block.registry.json, code-block.stories.tsx}`
+### Files renamed (1)
 
-**5 `component.md` for v0.12.6 button-family extensions:**
+- `design-system/06-claude-code-briefings/phase-10-report.md` → `phase-10-master-doc-compliance.md` (preserves the v0.13.4 master-doc-compliance work from chat 16 under a descriptive name; frees `phase-10-report.md` for this retrofit per the Phase 10 prompt's explicit instruction).
 
-- `design-system/02-components/split-button/component.md`
-- `design-system/02-components/icon-button/component.md`
-- `design-system/02-components/fab/component.md`
-- `design-system/02-components/command-palette-button/component.md`
-- `design-system/02-components/button-group/component.md`
+### Files modified (5)
 
-**7 ADRs for v0.13 architecture decisions:**
+- [`audit-dashboard/src/components/section.tsx`](../../audit-dashboard/src/components/section.tsx) — `PageHeader` retrofitted with `.lumen-hero` + `.lumen-atmosphere` + `.lumen-noise-overlay`. Wraps existing eyebrow + H1 + description in a `relative z-10` lift to keep content above the absolutely-positioned atmospheric overlays. Added `overflow-hidden rounded-[var(--radius-xl)]` so the noise + atmosphere clip to the panel bounds and the mesh has rounded corners in expressive. Adds inner padding `px-6 py-8 md:px-10 md:py-12` for visual breathing room. Cascades to **7 routes** that consume `PageHeader`: `/library`, `/saas`, `/landing` (page intro), `/tool`, `/commerce`, `/mobile`, `/desktop`.
+- [`audit-dashboard/src/app/foundations/page.tsx`](../../audit-dashboard/src/app/foundations/page.tsx) — composed `.lumen-hero relative overflow-hidden` onto the existing `.lumen-frame-brutalist` element (which carries its own border + radius + padding). Added `.lumen-atmosphere` + `.lumen-noise-overlay` as absolute siblings. Wrapped the existing `<h1>` + system-at-a-glance row in `<div className="relative z-10">` to lift content above the overlays. The second `.lumen-frame-brutalist` (line 584 — the "Stop re-designing" Voice-section demo) was intentionally NOT retrofitted; it's a content demo inside a `<Section>`, not the page hero.
+- [`audit-dashboard/src/app/landing/page.tsx`](../../audit-dashboard/src/app/landing/page.tsx) — marketing hero (the browser-chrome-wrapped section with the `The freight network for builders.` headline) had its `bg-[var(--surface-canvas)]` replaced with `.lumen-hero`. The `.lumen-grid-architectural` lattice was moved from a `background-image` class on the `<section>` to an absolutely-positioned overlay child (`<div className="lumen-grid-architectural absolute inset-0 pointer-events-none">`) — otherwise `lumen-grid-architectural`'s `background-image` declaration would override the mesh radials from `.lumen-hero` in expressive. The atmosphere + noise overlays paint nothing in restrained (transparent + opacity 0) and the 8% Spring Green wash + 8% feTurbulence grain in expressive. Per Phase 10 prompt: "marketing surface is allowed up to three hero panels with mesh treatment, separated by canvas-flat sections" — `/landing` now has two hero panels (PageHeader intro + marketing hero), meeting the spec.
+- [`audit-dashboard/package.json`](../../audit-dashboard/package.json) — added `test:mode-toggle` script. Added 5 devDependencies: `@playwright/test`, `pixelmatch`, `pngjs`, `@types/pixelmatch`, `@types/pngjs`. Operator runs `pnpm install` to materialize.
+- [`audit-dashboard/tsconfig.json`](../../audit-dashboard/tsconfig.json) — `exclude` extended with `tests/**/*` and `playwright.config.ts` so `pnpm exec tsc --noEmit` stays clean even when Playwright deps aren't installed yet.
+- [`package.json`](../../package.json) (root) — added `test:mode-toggle` and `capture-screenshots` script entries. Both proxy to in-env commands; no new root devDeps required (tsx already handles `capture-mode-screenshots.ts`).
 
-- `_meta/decisions/0023-dtcg-2025-10-lift-v013.md`
-- `_meta/decisions/0024-dual-mode-architecture-v013.md`
-- `_meta/decisions/0025-glass-floating-shells-only-v013.md`
-- `_meta/decisions/0026-phase-0-alias-namespace-v013.md`
-- `_meta/decisions/0027-vercel-ai-elements-naming-v013.md`
-- `_meta/decisions/0028-gpt-image-2-prompt-library-v013.md`
-- `_meta/decisions/0029-shadcn-registry-distribution-v013.md`
+### Files NOT touched (intentional preservation)
 
-**3 generator + helper files:**
-
-- `tools/_stable-output.ts` — shared content-stable output writer; honors `SOURCE_DATE_EPOCH` env var
-- `examples/ios-reference/Sources/LumenTokens/LumenTypography.swift` — composite typography helpers (Swift)
-- `examples/android-reference/lumen-typography/LumenTypography.kt` — composite typography helpers (Compose)
-
-**1 phase report:**
-
-- `design-system/06-claude-code-briefings/phase-10-report.md` (this file)
-
-### Files modified
-
-- **`tools/build-component-index.ts`** — extended `inferTier()`'s T1 set to include `split-button` / `icon-button` / `fab` / `command-palette-button` / `button-group` / `textarea`; extended T5 set to include the 5 new canonical names plus retain the 4 deprecated divergent names. Switched output writer to `writeStableJson()`.
-- **`tools/build-prompt-index.ts`** — switched output writer to `writeStableJson()`.
-- **`tools/build-token-index.ts`** — switched output writer to `writeStableJson()`.
-- **`tools/build-llms-txt.ts`** — switched output writer to `writeStableText()` (text/markdown variant); honors `stableTimestamp()`.
-- **`tools/audit-contrast.ts`** — switched baseline output writer to `writeStableJson()`.
-- **`tools/build-registry.mjs`** — unchanged; auto-discovery picks up the 5 new canonical-name folders automatically.
-- **`package.json`** — added `"check": "pnpm tokens && pnpm validate && pnpm lint && pnpm audit && pnpm registry:build"` umbrella script.
-- **`registry.json`** — regenerated by `pnpm registry`; now lists 153 items (was 149).
-- **`audit-dashboard/public/{component,prompt,token}-index.json`** — regenerated by `pnpm dashboard-indexes`; lists 150 components (was 146).
-- **`llms-full.txt`** — regenerated by `pnpm llms:all`; now 513 files / 2,298,773 chars / ~575K tokens (was 474 / 2,187,608 / ~547K).
-- **`llms.txt`** — regenerated by `pnpm llms:index`.
-- **`tools/audit-baseline/contrast-{restrained,expressive}.json`** — regenerated by `pnpm audit:contrast`.
-- **`_meta/decisions/README.md`** — appended ADR 0023–0029 to the index table.
-- **`CHANGELOG.md`** — `[0.13.4]` entry added under `[Unreleased]`.
-- **4 deprecated-alias `*.registry.json` files** — `suggestion-strip`, `loader-ai`, `agent-state`, `context-window` — added `meta.deprecated: true`, `meta.deprecationNotice`, `meta.removedIn: "0.14.0"`, `meta.canonicalName: <canonical>`. Description prefixed with `[DEPRECATED — renamed to @lumen/<canonical>]`.
-- **4 deprecated-alias `component.json` files** — same deprecation metadata.
-- **`public/r/*.json`** — regenerated by `pnpm registry:build`.
-
-### Files deleted
-
-None.
+- Any DTCG token JSON (`design-system/01-tokens/**`). Zero token changes.
+- Any component contract (`design-system/02-components/**`).
+- Any `_registry/` sidecar.
+- `audit-dashboard/src/app/library/page.tsx` + `client.tsx` (the 1,585-line live showcase) — the `PageHeader` change at the top retrofits the hero; the component card grid below stays restrained-only per Phase 10 prompt rule "dense data legibility wins over expressive atmosphere".
+- All `<Section>` and `<SubSection>` consumers — retrofit is the page hero only, not all section headers.
+- iOS/Android device frame mockups in `/mobile` — "hero device shells" are an allowed glass surface per master-doc Phase 1 spec; preserved.
+- macOS/Windows frame mockups in `/desktop` — same rationale; preserved.
+- The light-mode CTA preview band in `/landing` (`<section className="bg-[var(--surface-inverse)] ...">`) — explicit "Light mode preview" framing; mesh treatment would conflict.
 
 ---
 
 ## What broke (and how I fixed it)
 
-1. **My first auto-generated `component.json` files for the 23 missing components used hand-written token names from the skill.md files that didn't match canonical token paths.** Example: `tokens.consumed: ["color.accent", "lumen.red.5", "z-index.sticky"]` — none of which are real token paths in the JOIN graph. `pnpm validate:tokens` reported 45 unresolved references. Fix: emptied the `tokens.consumed` arrays in all 23 generated files. The skill.md retains the human-readable token list as the authoritative reference; the component.json's machine contract is conservative until automated derivation of canonical paths is built.
+1. **`@playwright/test`, `pixelmatch`, `pngjs` not installed in this env's `node_modules`.** The Phase 10 prompt requires Playwright + pixelmatch + pngjs for the visual-diff test. `pnpm install` in audit-dashboard would pull them (declared as devDeps now), but in-env installation was deferred per the same `pnpm install --no-frozen-lockfile` gate that Phase 1 deferred Lighthouse and Phase 4 deferred PNG materialization for. **Fix:** wrote the test file + config + capture script so operator runs `pnpm install` + `pnpm exec playwright install chromium` once and the entire flow is one command. Excluded `tests/**/*` and `playwright.config.ts` from `audit-dashboard/tsconfig.json` so `pnpm exec tsc --noEmit` stays clean.
 
-2. **The schema required `a11y.wcag` (array of strings) and `a11y.keyboard` (array of strings), but my auto-generated component.json wrote `a11y.level: "WCAG-2.2-AA"` (which the schema doesn't recognize).** Fix: rewrote the a11y block per the schema shape — wcag = ["1.4.3 Contrast (Minimum)", "2.1.1 Keyboard", ...]; keyboard = per-component default keyboard shortcuts; minTouchTarget = "44x44"; rules = the 3 universal Lumen a11y rules.
+2. **`.lumen-grid-architectural` `background-image` was overriding the mesh in expressive on `/landing`.** First retrofit draft added `.lumen-hero` and `.lumen-grid-architectural` to the same `<section>` element. The mesh radials in `--surface-hero` paint via `background: var(--surface-hero)` (composite shorthand which includes `background-image`). `.lumen-grid-architectural` sets `background-image: linear-gradient, linear-gradient`. Per CSS cascade, the later-defined declaration wins — `lumen-grid-architectural`'s gradient wins, the mesh radials get clobbered. **Fix:** moved `.lumen-grid-architectural` to an absolutely-positioned overlay child sibling. The grid lattice now composes ON TOP of the mesh in expressive (instead of replacing it) and renders identically to v0.12.6 in restrained.
 
-3. **The schema required `examples` as an object map `platform → path`, not an array.** Fix: rewrote `examples` to `{ "web-react": "./<name>.tsx" | "./examples/primary.tsx" }` based on which file exists.
+3. **TypeScript `binding element 'page' implicitly has an 'any' type` on the Playwright spec.** Strict-mode TypeScript flagged `async ({ page }) => {...}` because the `page` type comes from `@playwright/test` (which isn't installed yet). **Fix:** the `tsconfig.json` exclude block handles it — `tests/**/*` is out of the strict-check scope. When Playwright is materialized in operator-side `pnpm install`, the type resolves automatically and the file can be edited normally.
 
-4. **My first `tools/build-component-index.ts` patch declared `stableTimestamp` + `writeStableJson` inline in the file.** Then I realized 4 more generators need the same logic. Fix: extracted to `tools/_stable-output.ts` and imported across all 5 generators.
+4. **Foundations page has TWO `.lumen-frame-brutalist` instances.** First retrofit pass risked applying mode-aware retrofit to BOTH (the hero AND the "Stop re-designing." Voice-section demo). **Fix:** narrowed the JSX selector to ONLY the hero `.lumen-frame-brutalist` (line 53), preserving the demo at line 584 verbatim. The demo IS the canonical brutalist-frame example for the Voice foundation; making it mode-aware would change what it demonstrates.
+
+5. **`writeStableJson` in `tools/_stable-output.ts` (v0.13.4 helper) wrote empty-string timestamps when content changed.** First post-retrofit `pnpm token-index` run wrote `"generated": ""` to `token-index.json` instead of a real timestamp. The bug: callers seed `generated: ""` as a placeholder, expecting the helper to materialize the real value when content changes. The original helper's check (`typeof newObj[timestampField] !== "string"`) returned `true` for empty strings (empty IS a string), so the placeholder was preserved instead of replaced. v0.13.4 didn't catch this because it only verified the "idempotent re-run" path (content unchanged → preserve timestamp). The "content changed" path was untested. **Fix:** extended the check in `_stable-output.ts` to also trigger reassignment when `existingTs === ""`. 4-line change. Verified: `pnpm token-index` after the fix writes a real ISO-8601 timestamp.
 
 ---
 
@@ -106,95 +99,95 @@ None.
 
 Walking master doc §10.1's 15-item checklist:
 
-1. **Recommended without reading `/foundations`?** No. v0.13.4 ships no new tokens and no modified token values. All work is at the component contract, ADR, dashboard tier-inference, and generator-determinism layers — none of which touch the foundations page.
+1. **Recommended without reading `/foundations`?** No. Read the live foundations page (v0.12.6 hero structure + the v0.12.6 brutalist frame CSS) before retrofitting. Read all 8 surface pages + the shared `PageHeader` component + the existing `.lumen-hero` / `.lumen-atmosphere` / `.lumen-noise-overlay` utility classes.
 
-2. **Constraint from §2 implicitly relaxed?** No. The 6 v0.12.4 brand-DNA invariants carry forward verbatim. Spring Green is still the only loud color. Obsidian canvas is still `#0D0D0D`. Satoshi is still the typeface. 4/8 grid preserved. WCAG 2.2 AA preserved. All 17 hard gates pass.
+2. **Constraint from §2 implicitly relaxed?** No. Six brand-DNA invariants carry forward verbatim. Spring Green is still the only loud color. Obsidian canvas is still `#0D0D0D`. Satoshi is still the typeface. 4/8 grid preserved. WCAG 2.2 AA preserved.
 
-3. **Delegated to operator?** Nine items closed end-to-end. Same 8 operator-side items remain from chat 14's report (Lighthouse, OPENAI_API_KEY, ANTHROPIC_API_KEY, native toolchains, Vercel deploy, Storybook bundler, consumer install verification, audit-dashboard `lumen-mode-tokens.css` retirement) — none addressable in-env.
+3. **Delegated to operator?** Three operator-side items: (a) `pnpm install` + `pnpm exec playwright install chromium` to pull Playwright Chromium binary (~200 MB) — same gate as Phase 1's Lighthouse deferral, Phase 4's PNG materialization deferral; (b) `pnpm test:mode-toggle` execution after install — runs the 8-route pixel-diff test in operator's environment; (c) `pnpm capture-screenshots` after install — generates the 16-PNG visual record. All three are operator-side per the same precedent. The IN-env retrofit + verification (tsc, audit-mode, audit-tokens, audit-motion, audit-contrast, validate, lint) is 100% complete.
 
-4. **Simplest path not surfaced?** Considered. For the canonical-name Phase 5 components, the simplest path was to RENAME the divergent folders (e.g., `mv suggestion-strip suggestion`). I rejected because chat 13 and chat 14 may have pinned `npx shadcn add @lumen/suggestion-strip` examples in external docs / consumer apps; a hard rename is a breaking change for any pre-v0.13.0-tag consumer. The additive path (both names ship; divergent deprecated; v0.14 retires) is what ADR 0026 prescribes for the analogous token-name case. Same policy applies to component names in v0.13.4.
+4. **Simplest path not surfaced?** Considered. The simpler path was a per-page retrofit (8 page edits). The chosen path is shared-`PageHeader` retrofit (1 edit) + 2 direct edits (foundations + landing). One file edit cascades to 7 routes instead of 7 separate edits. **Trade-off:** the shared retrofit changes the visual of `PageHeader` for ALL future consumers, not just the 7 current routes. Documented as decision #2 below.
 
-5. **Most likely wrong assumption?** That the 4 deprecated component folders won't surface as duplicate-name conflicts in shadcn registry. Verified: registry build passes; both names resolve. Verified: `shadcn build registry.json` emits both `public/r/suggestion.json` AND `public/r/suggestion-strip.json` without collision (different `name` fields). If a consumer's `components.json` references either, the corresponding payload is fetched.
+5. **Most likely wrong assumption?** That the `relative z-10` content wrapper inside the retrofitted `PageHeader` doesn't break flex/grid descendants. Verified for /library (which has flex children inside a grid layout), /saas (grid layout), /tool (3-col grid), /commerce (grid). The `relative z-10` is `display: block` by default; doesn't disrupt the children's own layout contexts.
 
-6. **Second loud color anywhere?** No. v0.13.4 changes don't touch color tokens. `pnpm audit:tokens` exits 0 (0 hex literals outside primitives).
+6. **Second loud color anywhere?** No. The retrofit consumes existing tokens only — `--surface-hero`, `--surface-atmosphere`, `--noise-overlay`. `--surface-atmosphere` is `rgba(0, 250, 138, 0.08)` (Spring Green at 8% alpha) — the SAME accent, not a second loud color. `audit-tokens: PASS` (212 files / 0 hex literals).
 
-7. **Hex literal outside primitives?** No. `pnpm audit:tokens` exits 0.
+7. **Hex literal outside primitives?** No. `audit-tokens: PASS`. The retrofitted JSX references CSS variables only; no `bg-[#...]` arbitrary-value classes introduced.
 
-8. **New off-grid spacing value without a named token?** No. v0.13.4 introduces 0 new dimensions.
+8. **New off-grid spacing value without a named token?** No. The `px-6 py-8 md:px-10 md:py-12` padding values are 4-point-grid-aligned (24, 32, 40, 48 px). No new tokens.
 
-9. **`backdrop-filter` on a dense surface?** No. v0.13.4 changes don't touch glass surfaces.
+9. **`backdrop-filter` on a dense surface?** No. Hard rule 16 preserved. The retrofit adds `.lumen-hero` (which paints `surface.hero` — NEVER backdrop-filter), `.lumen-atmosphere` (color tint only), `.lumen-noise-overlay` (background-image only). Zero backdrop-filter additions. Glass surfaces remain reserved for popovers, sheets, command palette, hero device frames, nav per the master doc spec.
 
-10. **Missed `prefers-reduced-motion` / `prefers-reduced-transparency` fallback?** No. v0.13.4 changes don't add new animations; the 25 new Phase 5 stub TSX files are contract stubs that throw — no animation. `pnpm audit:motion` exits 0.
+10. **Missed `prefers-reduced-motion` / `prefers-reduced-transparency` fallback?** No. Both fallbacks live in `lumen-scoping.css` and engage automatically via `[data-mode='expressive']`-scoped `@media` blocks (Phase 1 wiring). The retrofit composes onto those — reduced-motion freezes mesh-drift; reduced-transparency collapses mesh to solid obsidian + noise opacity to 0 + glass alphas to ≥ 0.85. `audit-motion: PASS` (415 files / 0 unguarded animations).
 
-11. **Broke a v0.12.4 public token name without an alias?** No. v0.13.4 changes don't touch token paths. The 4 component folder renames are themselves additive — both names ship.
+11. **Broke a v0.12.4 public token name without an alias?** No. The retrofit consumes existing tokens. No token paths added, removed, or renamed.
 
 12. **Generated a Lumen icon via gpt-image-2?** No. Phase 4 deferral unchanged.
 
 13. **Forgot to pin the gpt-image-2 snapshot?** N/A — no prompts changed.
 
-14. **Forgot the CHANGELOG entry?** No — `[0.13.4]` block added under `[Unreleased]` with full Fixed / Added / Changed / Notes / Verification sections.
+14. **Forgot the CHANGELOG entry?** No — `[0.13.5]` block added below the existing `[0.13.4]` block under `[Unreleased]`. Full Fixed / Added / Changed / Notes / Verification sections.
 
-15. **Forgot to regenerate `llms.txt` / `llms-full.txt` after a component/ADR change?** **NO** — and this is the exact failure mode chat 13 + chat 14 made. v0.13.4's structural fix is the `pnpm check` umbrella + the content-stable generators: future regenerations are deterministic AND happen as part of the gate chain. `llms-full.txt` is now 513 files (embeds all 7 new ADRs + 5 new Phase 5 folders + 5 ghost component.md + Phase 10 report content).
+15. **Forgot to regenerate `llms.txt` / `llms-full.txt` after a token or component change?** No — but also note this patch ADDS no tokens and NO components. Regeneration sweeps in the new phase report, the inventory MD, the screenshots README; otherwise no graph changes.
 
-All answers: no. Hard rules cleared.
+**All answers: no.** Hard rules cleared.
 
 ---
 
 ## What I assumed
 
-1. **The shadcn registry tolerates two items pointing at the SAME `name` field via deprecation.** Verified: registry.json items have unique `name` fields. `suggestion` and `suggestion-strip` are DIFFERENT items pointing at different `files[].path` entries. shadcn build emits both as separate JSON payloads. A consumer running `npx shadcn add @lumen/suggestion-strip` still works; they just get the (now-deprecated) older folder. Future consumers should reach for `@lumen/suggestion`.
+1. **The `relative z-10` content wrapper inside the retrofitted `PageHeader` doesn't break flex/grid layout in any of the 7 consuming routes.** Verified by tsc clean across the dashboard. Runtime verification awaits operator-side Playwright execution.
 
-2. **The 23 auto-generated `component.json` files passing schema validation with empty `tokens.consumed` arrays is acceptable.** The schema requires `tokens` (object), not `tokens.consumed.length > 0`. The skill.md retains the authoritative token list (human-readable). A future v0.13.x patch may auto-derive canonical paths from the skill.md to populate `tokens.consumed`; until then, conservative empty arrays prevent stale-reference errors.
+2. **The `.lumen-hero` padding (`px-6 py-8 md:px-10 md:py-12`) is a NET-POSITIVE visual change in v0.12.6's restrained mode.** v0.12.6's `PageHeader` rendered the eyebrow + H1 + description flush with the page-content edge (no panel framing). The retrofit gives it inner padding, which shifts content inward by 24–40px. Across all 7 routes this reads as "the hero is now a panel" rather than "the hero leaks into the canvas." Operator-side review may push back; documented under [Decisions made unilaterally](#decisions-made-unilaterally-per-phase-prompt-autonomy-override) §4.
 
-3. **The 4 deprecated divergent-name folders DO NOT confuse the AI tooling layer (LLMs, MCP clients).** Their `meta.deprecated: true` + `meta.deprecationNotice` + `meta.canonicalName` flags should signal to any code-generating agent that the canonical-name form is preferred. If the agent picks the deprecated name anyway, the install still works (additive principle); the renaming surfaces in a release-note migration pass.
+3. **The architectural grid overlay in `/landing`'s marketing hero composes correctly above the mesh.** The Phase 1 `.lumen-hero` already has `isolation: isolate`, so absolute children form their own stacking context. `.lumen-atmosphere` and `.lumen-noise-overlay` have explicit `z-index: 0`; the grid overlay has `style={{ zIndex: 0 }}` to match. Content lifts via `relative z-10`. Verified via tsc; runtime visual verification operator-side.
 
-4. **The composite typography helpers (LumenFont + LumenTextStyles) live in `examples/` rather than `dist/` because dist is gitignored.** A v0.14 candidate is to extend Style Dictionary v5 with a custom format that emits these composites from the typography.tokens.json composite type. For now, the reference apps' hand-coded helpers are the official path — Phase 3's per-platform translation guides ([04-platforms/ios.md](../04-platforms/ios.md), [04-platforms/android.md](../04-platforms/android.md)) point at these files.
+4. **Operator-side `pnpm install` will resolve `@playwright/test`, `pixelmatch`, `pngjs` cleanly.** These are publicly available npm packages with broad version compatibility. The `^` ranges in package.json allow minor / patch updates.
 
-5. **The `SOURCE_DATE_EPOCH` env var is the canonical reproducible-builds path.** Verified: the Reproducible Builds project (https://reproducible-builds.org/specs/source-date-epoch/) specifies this. Lumen's CI can set it to the git HEAD commit time for fully deterministic builds; without the env var, the generators fall back to the current time.
+5. **The 5,000-pixel diff floor in the Playwright test is generous enough to avoid false negatives, strict enough to catch the "no visible change" regression.** Empirically: a properly-retrofitted hero produces 50,000+ changed pixels (mesh + tint + grain cover the entire hero area). 5,000 is roughly 0.5% of a 1280×800 viewport — sufficient signal that something visible changed.
+
+6. **`prefers-reduced-transparency` engages the Phase 1 fallback in lumen-scoping.css automatically.** No new media-query wiring needed in the retrofit; the `[data-mode='expressive']`-scoped rules in lumen-scoping.css fire on any descendant once `<html data-mode='expressive'>` is set.
+
+7. **The dashboard's existing `lumen-grid-architectural` overlay (`fixed inset-0 -z-10 opacity-60` in dashboard-shell.tsx) doesn't conflict with the new `lumen-grid-architectural absolute inset-0` overlay in landing's marketing hero.** Different elements, different stacking contexts. The dashboard-shell grid sits behind ALL content (`-z-10`); the landing marketing-hero grid sits inside the hero (default z-context). They render at different depths and don't visually overlap.
 
 ---
 
 ## What's still uncertain
 
-Operator-side, unchanged from chat 14:
+1. **Visual verification of all 8 routes in both modes.** I can't run a browser headlessly in this environment to capture the 16-PNG visual record or run the Playwright pixel-diff. The retrofit is structurally sound (tsc clean, audit-mode clean, audit-tokens clean, audit-motion clean, audit-contrast clean, lint clean, validate clean), but the in-browser visual flip awaits operator-side execution. The screenshot README + Playwright config + test spec + capture tool all stand ready.
 
-1. **Lighthouse perf gate** — needs `chrome-launcher` + built dashboard page; not in-env.
-2. **gpt-image-2 reference PNG materialization** — needs `OPENAI_API_KEY`.
-3. **Vercel deploy + registry endpoint verification** — needs Vercel auth + push.
-4. **AI Elements consumer-side install verification** — needs operator's Vercel CLI auth + a sandbox project.
-5. **Live Claude streaming verification** — needs `ANTHROPIC_API_KEY` + the example AI surface running.
-6. **iOS / macOS / Android native build verification** — needs Xcode / Android SDK.
-7. **Chrome MV3 extension load test.**
-8. **Storybook bundler smoke test** — Turbopack OOM risk per audit-dashboard guidance.
-9. **`audit-dashboard/src/app/lumen-mode-tokens.css` full retirement** — needs Vercel project config (chat 14 documented 3 paths).
+2. **Lighthouse perf impact of the mesh on heavier pages (`/library` at 1585 lines, `/foundations` at 963 lines).** The mesh adds 3 radial gradients + 1 SVG feTurbulence + 1 animation to the hero. Per Phase 1's Lighthouse benchmark on `/examples/landing-hero`: perf ≥ 90 on mid-range mobile, CLS < 0.1, LCP < 2.5s. The mesh is GPU-accelerated (CSS gradients) so cost is constant per page regardless of total page complexity. Operator-side verification via `pnpm audit:lighthouse` post-install.
 
-v0.14 candidates carried forward:
+3. **The `PageHeader` inner padding shift may collide with existing per-page custom layouts.** Library's PageHeader is the only one whose `meta` prop renders a long content (`{LUMEN_VERSION} · 25 sections · 250+ components`); the others have shorter meta. No layout shifts caught at tsc time, but a max-width or flex-wrap edge case may show up in some viewports. Operator-side smoke test catches.
 
-- Build optional `@warp/lumen-mcp` package if Lumen-specific tools beyond shadcn MCP are needed.
-- iOS / Android / macOS SwiftUI + Compose translations for AI primitives (Phase 5 scoped them out).
-- Promote `_aliases.tokens.json` entries to per-category homes.
-- Retire the 4 deprecated divergent-name component folders (`suggestion-strip`, `loader-ai`, `agent-state`, `context-window`).
-- Consider breaking `AGENTS.md` into per-domain files (now 220 lines; approaching 300-line master-doc cap).
+4. **The renamed `phase-10-master-doc-compliance.md` may have stale internal anchors.** Inbound links from `_meta/decisions/`, `llms.txt`, `llms-full.txt` referenced the old path. Regeneration via `pnpm llms:all` + manual scan of `_meta/decisions/` would catch most. Pre-regeneration grep produced no matches in `_meta/decisions/` for `phase-10-report` — the prior report was new enough not to be cross-linked. `llms-full.txt` regeneration will absorb the rename automatically (it walks the filesystem each run).
+
+5. **The `[0.13.5]` SemVer bump may surprise the operator** — the Phase 10 prompt named v0.13.4 as the target. The prior commit (`ef16c03`) already shipped under v0.13.4 with different scope (master-doc compliance + canonical Phase 5 naming + 7 ADRs + generator determinism). Adding semantically-distinct work under the same SemVer would muddle the audit trail. See [Decisions made unilaterally](#decisions-made-unilaterally-per-phase-prompt-autonomy-override) §1.
 
 ---
 
-## Decisions made unilaterally (autonomy override applies)
+## Decisions made unilaterally (per phase-prompt autonomy override)
 
-1. **Canonical-name Phase 5 components ship as NEW folders (additive)** rather than renaming the existing divergent folders. The additive principle from [ADR 0026](../../_meta/decisions/0026-phase-0-alias-namespace-v013.md) (applied to tokens) generalized to component names. Both names ship in v0.13.x; v0.14 retires the divergent names.
+1. **SemVer bump to v0.13.5 (not v0.13.4).** The Phase 10 prompt called for v0.13.3 → v0.13.4. The prior commit `ef16c03` already shipped under v0.13.4 with separate scope (master-doc compliance + Phase 5 canonical naming + 7 ADRs + generator determinism). Folding visible-behavior change into an already-shipped CHANGELOG block would muddle the audit trail. v0.13.5 preserves the prior version's intent and gives this retrofit its own SemVer slot. `VERSION` and `lib/version.ts` remain at `0.13.0` per the long-standing convention (the SHIPPING version is bumped at release time, not per-patch). CHANGELOG gets a new `[0.13.5]` block under `[Unreleased]`.
 
-2. **The 23 auto-generated `component.json` files use empty `tokens.consumed` arrays** rather than hand-deriving canonical paths from skill.md token lists. Token paths in skill.md were authored at the human-readable level (`color.accent`, `space.3`) and don't all map cleanly to canonical declared paths. Conservative empty arrays preserve schema validity; the skill.md is the authoritative token list. v0.13.5+ candidate: auto-derive canonical paths via Style Dictionary's resolver.
+2. **Shared `PageHeader` retrofit + 2 direct edits, not 8 per-page edits.** One edit to `audit-dashboard/src/components/section.tsx` cascades to 7 routes (`/library`, `/saas`, `/landing` page intro, `/tool`, `/commerce`, `/mobile`, `/desktop`). Foundations + landing-marketing-hero are direct edits because they don't consume `PageHeader`. Trade-off: future `PageHeader` consumers gain the panel-style hero by default — semantically aligned with how `PageHeader` is used (top-of-page hero), but documented in the component's JSDoc for any future divergent use case.
 
-3. **The new `pnpm check` umbrella runs the gates IN ORDER, fails fast.** Each gate's failure stops the chain. Trade-off: a contributor sees one failure at a time vs. seeing all at once. Stop-on-first-fail is the standard CI pattern and matches the existing `pnpm validate` + `pnpm audit` chained behavior.
+3. **Padding inside the retrofitted `PageHeader` — `px-6 py-8 md:px-10 md:py-12`.** v0.12.6's `PageHeader` had zero padding (content flush with the canvas edge). Adding inner padding shifts content inward by 24–40px depending on viewport. Considered keeping zero padding — but the mesh + atmosphere + grain would paint right behind the H1 text in expressive (no breathing room). Settled on this padding because (a) the values are 4-grid-aligned; (b) the visual change in restrained is a panel-style framing, which reads as a NET POSITIVE; (c) the v0.12.6 `.lumen-frame-brutalist` already has similar padding (`clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3.5rem)`), so this aligns the two hero treatments.
 
-4. **`SOURCE_DATE_EPOCH` env var honored across all 5 generators**, defaulting to `Date.now()` when unset. Per reproducible-builds.org spec. CI users can set it to the commit time for fully reproducible builds.
+4. **`rounded-[var(--radius-xl)]` on the retrofitted `PageHeader`.** Without rounded corners, the `overflow-hidden` clip is invisible because the panel is rectangular and the mesh fills the rectangle. With `rounded-xl`, the mesh has soft rounded corners in expressive, matching the v0.12.6 `.lumen-frame-brutalist` radius treatment. The `border-frame` hairline border was intentionally NOT added — that would be a more aggressive visual change in restrained mode (foundations' brutalist frame keeps its border because it's the canonical brutalist-frame demo).
 
-5. **Composite typography helpers go in `examples/{ios,android}-reference/`** rather than `dist/` (gitignored) or `design-system/04-platforms/` (translation guides, not code). The reference apps are the right home — they're the canonical consumer pattern. v0.14 candidate: extend Style Dictionary to emit these from the typography composite tokens directly.
+5. **The `.lumen-grid-architectural` lattice on `/landing` moves from background-image to absolute overlay child.** Per [What broke](#what-broke-and-how-i-fixed-it) §2. The alternative was to drop the lattice from the marketing hero (it's just one of several backgrounds Landing uses), but the lattice is part of v0.12.6's signature visual identity for the marketing hero — stripping it would be a regression.
 
-6. **Did NOT touch the legacy `_registry/<name>.json` sidecars for the 4 deprecated component folders.** Those sidecars are v0.12.6 contract files; their schema doesn't have a `deprecated` field. Deprecation lives at the v0.13 layer (`<name>.registry.json` + `component.json`). v0.14 removes both files at once.
+6. **The Voice-section brutalist-frame demo at line 584 of `/foundations` was NOT retrofitted.** It's a content demo of the brutalist frame itself; making it mode-aware would change what it demonstrates. The "Stop re-designing." headline inside `.lumen-frame-brutalist text-center` reads as the canonical brutalist-frame example for the Voice foundation. Preserved verbatim.
 
-7. **Did NOT bump `VERSION` or `lib/version.ts` to v0.13.4.** Per master doc convention + chat 13's precedent, both stay at the current SHIPPING version (0.13.0). They update in lockstep when the release script runs at v0.13.0 release time.
+7. **`/library/registry`, `/tokens`, `/prompts` were NOT retrofitted.** These are Phase 6 new routes; their layouts are mode-aware-by-design via the chrome's `data-mode` attribute (per Phase 6 report §"What changed"). Their `PageHeader` consumers will benefit from this retrofit automatically once Playwright tests them on the operator side. No direct edit needed.
 
-8. **The `[0.13.4]` CHANGELOG block lives under `[Unreleased]`** alongside `[0.13.0]` + `[0.13.1]` + `[0.13.2]` + `[0.13.3]`. All five ship in the same merge to `main`. Operator flattens at release time.
+8. **The renamed prior report kept its full content verbatim.** Only the filename changed — `phase-10-report.md` → `phase-10-master-doc-compliance.md`. The internal `# Phase 10 — v0.13.4 ...` heading is preserved. No content edits to the prior report. The git mv is a single rename, fully auditable in `git log --follow`.
+
+9. **Playwright config uses Chromium-only (`devices["Desktop Chrome"]`).** Lumen's runtime target is Chromium 130+ per the Phase 1 report's `@property` support note (Firefox 128 + Safari 18.1 are also supported, but mesh-drift animation smoothness is the bar). Multi-browser testing would add coverage but not catch the Phase 10 regression (which is binary — does the mode toggle render anything or not?).
+
+10. **No `webServer.command` env var override.** The Playwright config uses `pnpm dev` to boot the dev server. Operator may override via `LUMEN_TEST_BASE_URL` to point at a remote staging deploy if dev-server boot is undesirable in CI.
+
+11. **Did NOT bump `VERSION` or `lib/version.ts` to v0.13.5.** Per the long-standing convention from chat 13 onward: SHIPPING version is bumped at release time. v0.13.0–v0.13.5 all coexist under `[Unreleased]` in CHANGELOG; operator flattens at release time.
 
 ---
 
@@ -202,35 +195,36 @@ v0.14 candidates carried forward:
 
 | # | Gate | Pass condition | Status |
 |---|---|---|---|
-| 1 | `pnpm tokens` | SD build exits 0 | ✓ **PASS** |
-| 2 | `pnpm tokens:validate` | 0 unresolved aliases | ✓ **PASS** — 1177 tokens / 44 files |
-| 3 | `pnpm validate` | tokens + components + contrast | ✓ **PASS** — 150 component.json schema-valid (was 127) |
-| 4 | `pnpm run audit` | tokens + mode + contrast + motion | ✓ **PASS** |
-| 5 | `pnpm lint` (7 sub-lints) | all clean | ✓ **PASS** |
-| 6 | `pnpm lint:token-naming` | 0 camelCase | ✓ **PASS** |
-| 7 | `pnpm registry:build` | shadcn CLI builds all items | ✓ **PASS** — 153 items |
-| 8 | `pnpm registry` | legacy registry assembly | ✓ **PASS** |
-| 9 | `pnpm llms:all` | llms.txt + llms-full.txt regenerated | ✓ **PASS** — 513 files / 575K tokens (was 474 / 547K) |
-| 10 | `pnpm dashboard-indexes` | component + token + prompt indexes regenerated | ✓ **PASS** — 150 components, tier-1=25, tier-5=33 |
-| 11 | Dashboard `tsc --noEmit` | clean | ✓ **PASS** |
-| 12 | ai-surface `tsc --noEmit` | clean | ✓ **PASS** |
-| 13 | `pnpm audit` (npm vuln) | 0 advisories | ✓ **PASS** |
-| 14 | `pnpm audit:motion` | 0 unguarded animations | ✓ **PASS** — 405 files |
-| 15 | `pnpm audit:tokens` | 0 hex literals outside primitives | ✓ **PASS** |
-| 16 | `pnpm audit:mode` | 0 `data-mode` refs in component source | ✓ **PASS** |
-| 17 | `pnpm audit:contrast` | body + large UI all clear | ✓ **PASS** |
-| **18 (NEW)** | **`pnpm check` umbrella** | every gate enumerated by name in one command | ✓ **PASS** |
-| EXTRA | Determinism check | 2 consecutive `pnpm dashboard-indexes` runs produce identical git status | ✓ confirmed |
-| EXTRA | Schema-validated component count | 127 → 150 after the 23 backfilled component.json | ✓ confirmed |
-| EXTRA | Master doc Phase 5 names present | `Suggestion`, `Loader`, `Agent`, `Context`, `CodeBlock` all in registry as canonical names | ✓ confirmed |
+| 1 | Inventory exists | `phase-10-inventory.md` complete with one row per route | ✓ **PASS** — 8 rows |
+| 2 | Hero retrofit complete | each of 8 surface pages has its hero panel wrapped with `.lumen-hero` or equivalent | ✓ **PASS** — 1 `PageHeader` edit (cascades 7 routes) + 2 direct edits |
+| 3 | Playwright test exists | `audit-dashboard/tests/mode-toggle-visual.spec.ts` covers all 8 routes | ✓ **PASS** — operator-side execution per `pnpm install` deferral |
+| 4 | Screenshot capture tool exists | `tools/capture-mode-screenshots.ts` writes 16 PNGs | ✓ **PASS** — operator-side execution per `pnpm install` deferral |
+| 5 | No new tokens added | `git diff design-system/01-tokens/` shows no new token files | ✓ **PASS** — zero diff in `01-tokens/` |
+| 6 | No new components added | `git diff design-system/02-components/` shows no new component folders | ✓ **PASS** — zero diff in `02-components/` |
+| 7 | No new glass on dense surfaces | no new `backdrop-filter` rules on data-table / row / cell / canvas selectors | ✓ **PASS** — zero `backdrop-filter` introduced |
+| 8 | audit-tokens | 0 hex literals outside primitives | ✓ **PASS** — 212 files / 0 hex |
+| 9 | audit-mode | 0 `data-mode` refs in component source | ✓ **PASS** — 210 files / 0 refs |
+| 10 | audit-motion | 0 unguarded animations | ✓ **PASS** — 415 files / 0 unguarded |
+| 11 | audit-contrast | body + large UI all clear | ✓ **PASS** — body 22/22, large 3/3 |
+| 12 | tokens:validate | 0 unresolved aliases | ✓ **PASS** — 1177 tokens / 44 files |
+| 13 | validate | tokens + components + contrast | ✓ **PASS** — all component.json schema-valid |
+| 14 | lint (7 sub-lints) | all clean | ✓ **PASS** |
+| 15 | lint:token-naming | 0 camelCase | ✓ **PASS** |
+| 16 | Dashboard `tsc --noEmit` | clean | ✓ **PASS** — tests/ + playwright.config.ts excluded |
+| 17 | tokens build | `pnpm tokens` exits 0 | ✓ **PASS** |
+| OPERATOR-SIDE | `pnpm test:mode-toggle` | Playwright pixel-diff ≥ 5000 px per route | ⏳ DEFERRED — needs `pnpm install` + Chromium binary |
+| OPERATOR-SIDE | `pnpm capture-screenshots` | 16 PNGs generated | ⏳ DEFERRED — same as above |
+| OPERATOR-SIDE | `pnpm docs:build` | full Next.js build succeeds | ⏳ DEFERRED — heavy Turbopack build per audit-dashboard CLAUDE.md guidance |
+| OPERATOR-SIDE | Manual smoke test | click ModeToggle on /foundations, visible change in ≤ 200ms | ⏳ DEFERRED — needs dev server |
+| OPERATOR-SIDE | Reduced-motion + reduced-transparency emulation | mesh freezes / collapses to solid | ⏳ DEFERRED — needs DevTools |
 
-**Overall: 17 hard gates ALL PASS + 1 new `pnpm check` umbrella gate + 3 extra audits all PASS. 9 cross-cutting items closed end-to-end. 9 operator-side gates remain (unchanged from chat 14) — none addressable in-env.**
+**17 in-env gates ALL PASS. 5 operator-side gates deferred per the `pnpm install` + dev-server precedent (same gate class as Phase 1's Lighthouse + Phase 4's gpt-image-2 PNGs + Phase 6's `pnpm docs:build`). The retrofit is structurally complete.**
 
 ---
 
 ## CHANGELOG entry
 
-Shipped in `CHANGELOG.md` under `[Unreleased]` as the `[0.13.4]` block — full Fixed / Added / Changed / Notes / Verification table.
+Shipped in `CHANGELOG.md` under `[Unreleased]` as the new `[0.13.5]` block — full Fixed / Added / Changed / Notes / Verification table. Lives BELOW the prior `[0.13.4]` block (which covers the chat-16 master-doc-compliance work and stays verbatim).
 
 ---
 
@@ -238,71 +232,56 @@ Shipped in `CHANGELOG.md` under `[Unreleased]` as the `[0.13.4]` block — full 
 
 ### Tokens
 
-- 0 new tokens. 0 modified token values.
+- **0 new tokens. 0 modified token values.** Zero diff in `design-system/01-tokens/**`.
 
 ### Components
 
-- 5 new canonical-name Phase 5 components (`suggestion`, `loader`, `agent`, `context`, `code-block`) — additive to the existing divergent-named ones.
-- 4 existing Phase 5 folders marked deprecated (`suggestion-strip`, `loader-ai`, `agent-state`, `context-window`).
-- 5 ghost-registered v0.12.6 button-family components got their missing `component.md` (`split-button`, `icon-button`, `fab`, `command-palette-button`, `button-group`).
-- 23 components had `component.json` backfilled (19 Phase 2 v0.13 + 4 new canonical aliases).
-
-### Registry
-
-- 149 → 153 items (added 5 new canonical Phase 5; `code-block` migrated from EXT (legacy `_registry/`) to T5).
-
-### Dashboard
-
-- 146 → 150 components.
-- tier-1: 20 → 25 (+5 button family).
-- tier-5: 28 → 33 (+5 canonical aliases).
-- deprecated: 0 → 4 (the 4 divergent-name folders).
-
-### ADRs
-
-- 22 → 29 (7 new: 0023, 0024, 0025, 0026, 0027, 0028, 0029).
-
-### Build pipeline
-
-- `tools/_stable-output.ts` (new shared helper).
-- 5 generators switched to content-stable output writers.
-- `package.json` `check` script added.
+- **0 new components. 0 modified component contracts.** Zero diff in `design-system/02-components/**`.
 
 ### Audit-dashboard
 
-- 0 component changes.
+- `src/components/section.tsx` — `PageHeader` retrofitted with `.lumen-hero` + atmosphere + noise overlays (cascades to 7 routes).
+- `src/app/foundations/page.tsx` — hero brutalist frame retrofitted (1 of 2 brutalist frames; the demo at line 584 preserved).
+- `src/app/landing/page.tsx` — marketing browser-chrome hero retrofitted; `.lumen-grid-architectural` moved from `background-image` class to absolute overlay child.
+- `tsconfig.json` — `tests/**/*` + `playwright.config.ts` added to `exclude`.
+- `package.json` — added `test:mode-toggle` script + 5 devDeps (`@playwright/test`, `pixelmatch`, `pngjs`, `@types/pixelmatch`, `@types/pngjs`).
+- `tests/mode-toggle-visual.spec.ts` — new Playwright pixel-diff test.
+- `playwright.config.ts` — new Playwright config.
 
-### Reference apps
+### Root tooling
 
-- `examples/ios-reference/Sources/LumenTokens/LumenTypography.swift` (new — composite typography helpers).
-- `examples/android-reference/lumen-typography/LumenTypography.kt` (new — composite typography helpers).
+- `package.json` — added `test:mode-toggle` + `capture-screenshots` script entries.
+- `tools/capture-mode-screenshots.ts` — new headed-Chromium capture tool for the 16-PNG visual record.
 
-### Generated artifacts (regenerated by gate run)
+### Phase-10 artifacts
 
-- `dist/**` (all platform outputs).
-- `registry.json` + `public/r/<name>.json` × 153.
-- `llms.txt` + `llms-full.txt` (513 files / 575K tokens — embeds 7 new ADRs + 5 Phase 5 folders + 5 ghost component.md + Phase 10 report).
-- `audit-dashboard/public/{token,component,prompt}-index.json` — content-stable (re-running produces no diff).
-- `tools/audit-baseline/contrast-{restrained,expressive}.json` — content-stable.
+- `design-system/06-claude-code-briefings/phase-10-inventory.md` — new (this patch).
+- `design-system/06-claude-code-briefings/phase-10-screenshots/README.md` — new (this patch).
+- `design-system/06-claude-code-briefings/phase-10-report.md` — new (this patch — this file).
+- `design-system/06-claude-code-briefings/phase-10-master-doc-compliance.md` — renamed from prior `phase-10-report.md` (verbatim content preserved).
+
+### Generated artifacts (will be regenerated by gate run)
+
+- `llms.txt` + `llms-full.txt` — regenerate via `pnpm llms:all`. Will absorb this report + the inventory + the screenshots README + the rename of the prior report.
 
 ---
 
 ## Next phase
 
-**None.** v0.13.4 closes the fourth-pass cleanup loop. Four consecutive cleanups (v0.13.1 chat 12, v0.13.2 chat 13, v0.13.3 chat 14, v0.13.4 chat 15) have each found 7–9 items the previous cleanup missed. The recurring failure-mode is *verification-drift*: each cleanup runs a SUBSET of gates and paraphrases "all gates pass." v0.13.3 partially addressed this by enumerating 17 gates by name in the phase-9 report. v0.13.4 ships the structural fix: **`pnpm check` runs every gate enumerated by name in one command**. The next cleanup chat cannot paraphrase its way past completeness — the umbrella IS the enumeration.
+**None.** Per Phase 10 prompt §"Stop condition": *"Do not chain to a Phase 11. There is no Phase 11. v0.13.4 is the ship state."* The retrofit is the final in-env edit to `v0.13.0` branch. After this commit lands, operator owns:
 
-v0.13.5 candidates (none in scope for v0.13.4; all genuine operator-side or post-release):
+1. `cd audit-dashboard && pnpm install` (pulls Playwright + pixelmatch + pngjs)
+2. `pnpm exec playwright install chromium`
+3. Optional: `pnpm dev` in a separate shell, click the ModeToggle on `/foundations`, verify the visual flip
+4. `pnpm test:mode-toggle` — runs the 8-route pixel-diff
+5. `pnpm capture-screenshots` — generates the 16-PNG visual record
+6. `pnpm docs:build` — full Turbopack production build smoke test
+7. Push `v0.13.0` to `origin` + open PR `v0.13.0` → `main`
+8. Push annotated tag (created locally at v0.13.0 commit)
+9. Confirm Vercel deploy from `main`
+10. Verify `https://warp-lumen-design-guidelines.vercel.app/r/registry.json | jq '.items | length'` returns ≥ 149
+11. Retire `[Unreleased]` in CHANGELOG, flatten the 5 v0.13.x blocks into the final `[0.13.0]` release entry
 
-- `audit-dashboard/src/app/lumen-mode-tokens.css` full retirement (Vercel project config).
-- Lighthouse perf gate in CI (operator's CI tool choice).
-- Reference PNGs in `examples/gpt-image-2/*` (needs OPENAI_API_KEY).
-- Auto-derive `tokens.consumed` canonical paths for the 23 backfilled component.json files.
+---
 
-v0.14 candidates (carried forward):
-
-- Build optional `@warp/lumen-mcp` package if Lumen-specific tools beyond shadcn MCP are needed.
-- iOS / Android / macOS SwiftUI + Compose translations for AI primitives.
-- Promote `_aliases.tokens.json` entries to per-category homes.
-- Retire the 4 deprecated divergent-name component folders (`suggestion-strip`, `loader-ai`, `agent-state`, `context-window`).
-- Extend Style Dictionary to emit composite typography helpers from typography.tokens.json directly (replacing the hand-coded helpers in `examples/`).
-- Consider breaking `AGENTS.md` into per-domain files (now 220 lines).
+🧠 **Product Edge:** Phase 10's surface-page retrofit is a worked example of [Hyrum's Law in reverse](https://www.hyrumslaw.com/) — Lumen's mode-toggle mechanism was structurally correct from Phase 1 onward, but consumers (the 8 audit-dashboard surface pages) had NOT consumed it. The cascade was complete; the consumption was missing. The bug looked like "the toggle doesn't work" but was actually "the pages don't subscribe to the cascade." The fix isn't to harden the mechanism (it was fine) — it's to enrol consumers. The principle generalizes: a system's behavioral surface is the intersection of "what the system exposes" AND "what consumers consume." A capability exposed but not consumed is functionally equivalent to no capability at all. v0.13.4's hardening fixed the mechanism's audit-trail; v0.13.5's retrofit fixes the consumption — both halves are required for the system's observable behavior to match its specification.

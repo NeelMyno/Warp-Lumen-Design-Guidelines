@@ -57,7 +57,16 @@ export function writeStableJson(
       // existing file unreadable; fall through to overwrite
     }
   }
-  if (!(timestampField in newObj) || typeof newObj[timestampField] !== "string") {
+  // Replace timestamp when missing, non-string, OR empty-string placeholder
+  // (the convention from build-token-index.ts / build-component-index.ts / etc:
+  // callers seed `generated: ""` so the helper materializes the real timestamp
+  // when content changes and preserves it when content is byte-equivalent).
+  const existingTs = newObj[timestampField];
+  if (
+    !(timestampField in newObj) ||
+    typeof existingTs !== "string" ||
+    existingTs === ""
+  ) {
     newObj[timestampField] = stableTimestamp();
   }
   writeFileSync(outPath, JSON.stringify(newObj, null, 2) + "\n", "utf-8");

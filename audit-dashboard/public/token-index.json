@@ -1,9 +1,9 @@
 {
-  "generated": "2026-05-17T20:48:42Z",
+  "generated": "2026-05-17T21:32:56Z",
   "version": "0.13.0",
   "totals": {
     "tokens": 1285,
-    "references": 2913,
+    "references": 2916,
     "byLayer": {
       "primitive": 375,
       "semantic": 406,
@@ -18644,17 +18644,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 113
+        "line": 137
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 173
+        "line": 197
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 357
+        "line": 381
       },
       {
         "type": "component-tsx",
@@ -19412,92 +19412,92 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 67
+        "line": 80
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 67
+        "line": 80
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 67
+        "line": 80
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 321
+        "line": 335
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 321
+        "line": 335
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 321
+        "line": 335
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 437
+        "line": 451
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 437
+        "line": 451
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 437
+        "line": 451
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 443
+        "line": 457
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 443
+        "line": 457
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 443
+        "line": 457
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 465
+        "line": 479
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 465
+        "line": 479
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 465
+        "line": 479
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 33
+        "line": 34
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 33
+        "line": 34
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 33
+        "line": 34
       },
       {
         "type": "component-tsx",
@@ -19895,52 +19895,52 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 67
+        "line": 80
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 68
+        "line": 81
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 69
+        "line": 82
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 70
+        "line": 83
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 71
+        "line": 84
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 322
+        "line": 336
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 419
+        "line": 433
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 944
+        "line": 958
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 77
+        "line": 101
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 329
+        "line": 353
       },
       {
         "type": "component-tsx",
@@ -20903,92 +20903,82 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 75
+        "line": 88
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 83
+        "line": 96
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 219
+        "line": 233
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 223
+        "line": 237
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 227
+        "line": 241
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 231
+        "line": 245
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 236
+        "line": 250
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 282
+        "line": 296
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 288
+        "line": 302
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 307
+        "line": 321
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 309
+        "line": 323
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 312
+        "line": 326
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 328
+        "line": 342
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 375
+        "line": 389
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 398
+        "line": 412
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 406
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 408
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 416
+        "line": 420
       },
       {
         "type": "component-tsx",
@@ -20998,7 +20988,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 424
+        "line": 430
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 436
       },
       {
         "type": "component-tsx",
@@ -21008,67 +21003,62 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 446
+        "line": 452
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 448
+        "line": 460
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 453
+        "line": 462
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 455
+        "line": 467
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 473
+        "line": 469
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 579
+        "line": 487
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 707
+        "line": 593
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 840
+        "line": 721
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 865
+        "line": 854
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 870
+        "line": 879
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 890
+        "line": 884
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 893
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 895
+        "line": 904
       },
       {
         "type": "component-tsx",
@@ -21078,42 +21068,52 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 913
+        "line": 909
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 926
+        "line": 921
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 928
+        "line": 927
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 956
+        "line": 940
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 942
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 970
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 96
+        "line": 120
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 195
+        "line": 219
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 227
+        "line": 251
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 338
+        "line": 362
       },
       {
         "type": "component-tsx",
@@ -22493,17 +22493,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 18
+        "line": 56
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 60
+        "line": 99
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 87
+        "line": 126
       },
       {
         "type": "component-tsx",
@@ -22675,7 +22675,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 77
+        "line": 101
       },
       {
         "type": "component-tsx",
@@ -23519,87 +23519,87 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 46
+        "line": 59
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 82
+        "line": 95
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 220
+        "line": 234
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 224
+        "line": 238
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 228
+        "line": 242
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 281
+        "line": 295
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 373
+        "line": 387
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 396
+        "line": 410
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 870
+        "line": 884
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 891
+        "line": 905
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 906
+        "line": 920
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 908
+        "line": 922
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 954
+        "line": 968
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 43
+        "line": 67
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 77
+        "line": 101
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 188
+        "line": 212
       },
       {
         "type": "component-tsx",
@@ -24279,12 +24279,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 21
+        "line": 59
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 54
+        "line": 93
       },
       {
         "type": "component-tsx",
@@ -24500,47 +24500,37 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 49
+        "line": 62
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 77
+        "line": 90
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 201
+        "line": 215
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 210
+        "line": 224
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 414
+        "line": 428
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 469
+        "line": 483
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 581
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 585
+        "line": 566
       },
       {
         "type": "component-tsx",
@@ -24550,27 +24540,37 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 945
+        "line": 599
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 609
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 959
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 36
+        "line": 60
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 48
+        "line": 72
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 301
+        "line": 325
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 365
+        "line": 389
       },
       {
         "type": "component-tsx",
@@ -25127,7 +25127,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 420
+        "line": 434
       },
       {
         "type": "component-tsx",
@@ -25570,47 +25570,47 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 68
+        "line": 81
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 322
+        "line": 336
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 393
+        "line": 407
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 411
+        "line": 425
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 419
+        "line": 433
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 77
+        "line": 101
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 210
+        "line": 234
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 364
+        "line": 388
       },
       {
         "type": "component-tsx",
@@ -26218,17 +26218,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 945
+        "line": 959
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 301
+        "line": 325
       },
       {
         "type": "component-tsx",
@@ -26751,47 +26751,47 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 59
+        "line": 72
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 73
+        "line": 86
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 79
+        "line": 92
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 393
+        "line": 407
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 437
+        "line": 451
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 443
+        "line": 457
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 465
+        "line": 479
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 930
+        "line": 944
       },
       {
         "type": "component-tsx",
@@ -26801,57 +26801,57 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 89
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/landing/page.tsx",
         "line": 113
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 153
+        "line": 137
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 173
+        "line": 177
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 202
+        "line": 197
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 210
+        "line": 226
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 210
+        "line": 234
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 238
+        "line": 234
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 301
+        "line": 262
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 357
+        "line": 325
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 364
+        "line": 381
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/landing/page.tsx",
+        "line": 388
       },
       {
         "type": "component-tsx",
@@ -27696,7 +27696,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 49
+        "line": 88
       },
       {
         "type": "component-tsx",
@@ -27917,12 +27917,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 930
+        "line": 566
       },
       {
         "type": "component-tsx",
@@ -27931,13 +27926,18 @@
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 301
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 958
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 364
+        "line": 325
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/landing/page.tsx",
+        "line": 388
       },
       {
         "type": "component-tsx",
@@ -28822,67 +28822,67 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 88
+        "line": 102
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 209
+        "line": 223
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 232
+        "line": 246
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 237
+        "line": 251
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 484
+        "line": 498
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 490
+        "line": 504
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 496
+        "line": 510
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 502
+        "line": 516
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 910
+        "line": 924
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 229
+        "line": 253
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 305
+        "line": 329
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 342
+        "line": 366
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 364
+        "line": 388
       },
       {
         "type": "component-tsx",
@@ -29307,7 +29307,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/section.tsx",
-        "line": 24
+        "line": 62
       },
       {
         "type": "component-tsx",
@@ -29372,17 +29372,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 393
+        "line": 407
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 445
+        "line": 459
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 452
+        "line": 466
       },
       {
         "type": "component-tsx",
@@ -29481,6 +29481,11 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/components/section.tsx",
+        "line": 41
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/components/ui/card.tsx",
         "line": 10
       },
@@ -29526,7 +29531,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 322
+        "line": 336
       },
       {
         "type": "component-tsx",
@@ -30554,17 +30559,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 321
+        "line": 335
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 322
+        "line": 336
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 210
+        "line": 234
       },
       {
         "type": "component-tsx",
@@ -31030,32 +31035,32 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 67
+        "line": 80
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 68
+        "line": 81
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 69
+        "line": 82
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 70
+        "line": 83
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 71
+        "line": 84
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 324
+        "line": 338
       },
       {
         "type": "component-tsx",
@@ -31538,12 +31543,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 300
+        "line": 324
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 329
+        "line": 353
       },
       {
         "type": "component-tsx",
@@ -31570,12 +31575,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 238
+        "line": 262
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 262
+        "line": 286
       },
       {
         "type": "component-tsx",
@@ -31632,27 +31637,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 242
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 248
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/landing/page.tsx",
         "line": 266
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 273
+        "line": 272
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 280
+        "line": 290
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/landing/page.tsx",
+        "line": 297
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/landing/page.tsx",
+        "line": 304
       },
       {
         "type": "component-tsx",
@@ -31775,27 +31780,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 405
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 411
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/app/foundations/page.tsx",
         "line": 419
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 437
+        "line": 425
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 443
+        "line": 433
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 451
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/foundations/page.tsx",
+        "line": 457
       },
       {
         "type": "component-tsx",
@@ -31843,17 +31848,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 411
+        "line": 425
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 552
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 870
+        "line": 884
       },
       {
         "type": "component-tsx",
@@ -31945,14 +31950,14 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/foundations/page.tsx",
-        "line": 465
+        "line": 479
       }
     ],
     "shadow.glow-accent": [
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 328
+        "line": 352
       },
       {
         "type": "component-tsx",
@@ -31974,7 +31979,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",
-        "line": 328
+        "line": 352
       },
       {
         "type": "component-tsx",
@@ -32110,6 +32115,18 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
         "line": 88
+      }
+    ],
+    "motion.atmosphere": [
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/section.tsx",
+        "line": 17
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/section.tsx",
+        "line": 17
       }
     ]
   }
