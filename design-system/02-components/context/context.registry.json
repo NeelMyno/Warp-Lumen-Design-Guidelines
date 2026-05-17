@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "context",
+  "type": "registry:ui",
+  "title": "Context",
+  "description": "Token usage / context window display. Stat + progress meter composition showing model context budget consumption. Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/context-window` (deprecated in v0.13.4, retired in v0.14).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base",
+    "@lumen/stat"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/context/context.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/context.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Agent",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Context",
+      "installCommand": "npx ai-elements@latest add context"
+    },
+    "platforms": [
+      "web-react"
+    ],
+    "aliases": [
+      "context-window"
+    ]
+  }
+}

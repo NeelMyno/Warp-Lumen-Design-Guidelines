@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "suggestion",
+  "title": "Suggestion",
+  "description": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler. Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/suggestion-strip` (deprecated in v0.13.4, retired in v0.14).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/suggestion/suggestion.tsx",
+      "content": "/**\n * Lumen Suggestion — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Canonical Vercel-AI-Elements-named entry per AGENTS.md hard rule 19.\n * The earlier `suggestion-strip/` folder remains as a deprecated alias for\n * v0.13.0 backward-compat; v0.14 retires it.\n *\n * Lumen ships the contract (this file + ./suggestion.md + ./suggestion.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add suggestion\n *\n * Then import from `@/components/ai-elements/suggestion` and theme via\n * <LumenAIProvider>. See:\n *   - ./suggestion.md for the API contract\n *   - ./suggestion.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/suggestion` get this file copied to\n * `components/ai-elements/suggestion.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface SuggestionProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add suggestion`\n * Then import from `@/components/ai-elements/suggestion`.\n */\nexport function Suggestion(_props: SuggestionProps): never {\n  throw new Error(\n    \"[Lumen] <Suggestion> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add suggestion`. \" +\n    \"Then import { Suggestion } from `@/components/ai-elements/suggestion`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/suggestion.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Suggestion",
+      "installCommand": "npx ai-elements@latest add suggestion"
+    },
+    "platforms": [
+      "web-react"
+    ],
+    "aliases": [
+      "suggestion-strip"
+    ]
+  },
+  "type": "registry:ui"
+}

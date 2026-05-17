@@ -1,0 +1,38 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "LaneCode",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Lane identifier \u2014 renders as `LAX \u2192 SFO` with a proper arrow glyph (\u2192 U+2192, not -> ascii) and mono-numerics. Optional inline rate (e.g. '$262'). Compact horizontal pill with hairline border. Use everywhere a freight lane is referenced.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use ASCII '->' for the arrow \u2014 use U+2192 ('\u2192').",
+      "NEVER use Title Case for codes (always uppercase).",
+      "NEVER nest a LaneCode inside another LaneCode."
+    ]
+  },
+  "examples": {
+    "web-react": "./lane-code.tsx"
+  }
+}

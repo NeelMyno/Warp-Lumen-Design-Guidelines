@@ -3,7 +3,7 @@
   "name": "LoaderAi",
   "version": "0.13.0",
   "status": "stable",
-  "deprecated": false,
+  "deprecated": true,
   "summary": "Lumen-branded spinner for AI surfaces. Reuses the v0.12.4 Spinner primitive at AI surface densities. Mirrors Vercel AI Elements `Loader` verbatim; visual is Lumen-native.",
   "props": {
     "className": {
@@ -73,5 +73,7 @@
     "family": "Shared",
     "lumenVersion": "0.13.0",
     "phase": 5
-  }
+  },
+  "deprecationNotice": "Renamed to loader in v0.13.4 to match Vercel AI Elements naming. Use loader instead; this alias will be removed in v0.14.0.",
+  "removedIn": "0.14.0"
 }

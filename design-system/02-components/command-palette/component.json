@@ -1,0 +1,43 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CommandPalette",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "\u2318K global search + action surface. Built on cmdk (the canonical headless command-menu lib used by Linear, Vercel, GitHub). Composed inside a Dialog for portal + focus management. Glass-strong shell, search-shaped input, grouped results, kbd hints in footer. Lumen API: pass `items` + `onSelect` for the basic usage; compose Command primitives for advanced.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Cmd+K / Ctrl+K - open",
+      "Esc - close",
+      "ArrowUp/Down - navigate items",
+      "Enter - activate selected"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER stack 100+ items without virtualization (cmdk handles it).",
+      "NEVER omit the kbd \u2191\u2193\u21b5 esc hints \u2014 they teach the interaction.",
+      "NEVER auto-open on page load \u2014 wait for the keyboard shortcut."
+    ]
+  },
+  "examples": {
+    "web-react": "./command-palette.tsx"
+  }
+}

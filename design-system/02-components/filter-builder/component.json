@@ -1,0 +1,42 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "FilterBuilder",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Query-DSL editor \u2014 operator/field/value chip rows. Each row is a (field, operator, value) triple. Composable AND/OR groups. Add-condition button + Save-as-view CTA.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - move focus across filter rules",
+      "Enter - commit a rule",
+      "Delete - remove a rule"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER allow ambiguous operators (e.g. don't use 'is' for both equality and is-defined \u2014 split them).",
+      "NEVER hide the remove-row button.",
+      "NEVER let one row collapse the layout \u2014 use min-widths."
+    ]
+  },
+  "examples": {
+    "web-react": "./filter-builder.tsx"
+  }
+}

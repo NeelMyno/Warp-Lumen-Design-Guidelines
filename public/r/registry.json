@@ -2195,10 +2195,51 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "agent",
+      "type": "registry:ui",
+      "title": "Agent",
+      "description": "Six-state visual indicator for an AI agent's current lifecycle phase (idle / thinking / running-tool / awaiting-approval / done / error). Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/agent-state` (deprecated in v0.13.4, retired in v0.14).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/agent/agent.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/agent.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Agent",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Agent",
+          "installCommand": "npx ai-elements@latest add agent"
+        },
+        "platforms": [
+          "web-react"
+        ],
+        "aliases": [
+          "agent-state"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "agent-state",
       "type": "registry:ui",
       "title": "Agent",
-      "description": "State indicator for an agent: idle / thinking / running tool / awaiting approval / done / error. Six visual states; pairs with LiveDot for the pulse.",
+      "description": "[DEPRECATED — renamed to @lumen/agent] State indicator for an agent: idle / thinking / running tool / awaiting approval / done / error. Six visual states; pairs with LiveDot for the pulse.",
       "dependencies": [
         "lucide-react"
       ],
@@ -2228,7 +2269,11 @@
         },
         "platforms": [
           "web-react"
-        ]
+        ],
+        "deprecated": true,
+        "deprecationNotice": "Renamed to @lumen/agent in v0.13.4 to match Vercel AI Elements naming (AGENTS.md hard rule 19). Install @lumen/agent instead; this alias will be removed in v0.14.0.",
+        "removedIn": "0.14.0",
+        "canonicalName": "agent"
       }
     },
     {
@@ -2715,17 +2760,20 @@
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "code-block",
       "type": "registry:ui",
-      "title": "Code Block",
-      "description": "Mono-typeface code with optional language/filename label, line numbers, line highlight, copy button.",
+      "title": "CodeBlock",
+      "description": "Multi-line AI-surface code block with syntax highlighting, language label, copy-to-clipboard, and optional line numbers / line highlighting. Per master doc §7.Phase-5 Family 5: formalize the existing v0.12.4 code block per Vercel AI Elements naming.",
       "dependencies": [
         "lucide-react"
       ],
-      "registryDependencies": [],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
       "files": [
         {
-          "path": "design-system/02-components/code-block/examples/primary.tsx",
+          "path": "design-system/02-components/code-block/code-block.tsx",
           "type": "registry:ui",
-          "target": "components/ui/code-block.tsx"
+          "target": "components/ai-elements/code-block.tsx"
         }
       ],
       "cssVars": {
@@ -2733,14 +2781,17 @@
         "dark": {}
       },
       "meta": {
-        "lumenVersion": "0.12.6",
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "CodeBlock",
+          "installCommand": "npx ai-elements@latest add code-block"
+        },
         "platforms": [
           "web-react"
-        ],
-        "specPath": "design-system/02-components/code-block/component.json",
-        "docsPath": "design-system/02-components/code-block/component.md",
-        "status": "stable",
-        "warpSignature": false
+        ]
       }
     },
     {
@@ -2920,10 +2971,52 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "context",
+      "type": "registry:ui",
+      "title": "Context",
+      "description": "Token usage / context window display. Stat + progress meter composition showing model context budget consumption. Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/context-window` (deprecated in v0.13.4, retired in v0.14).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base",
+        "@lumen/stat"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/context/context.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/context.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Agent",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Context",
+          "installCommand": "npx ai-elements@latest add context"
+        },
+        "platforms": [
+          "web-react"
+        ],
+        "aliases": [
+          "context-window"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "context-window",
       "type": "registry:ui",
       "title": "Context",
-      "description": "Token usage / context window display. Composition of Stat (tokens used / limit) + horizontal progress meter. Color shifts to amber at 80%, lumen-red at 95%.",
+      "description": "[DEPRECATED — renamed to @lumen/context] Token usage / context window display. Composition of Stat (tokens used / limit) + horizontal progress meter. Color shifts to amber at 80%, lumen-red at 95%.",
       "dependencies": [
         "lucide-react"
       ],
@@ -2953,7 +3046,11 @@
         },
         "platforms": [
           "web-react"
-        ]
+        ],
+        "deprecated": true,
+        "deprecationNotice": "Renamed to @lumen/context in v0.13.4 to match Vercel AI Elements naming (AGENTS.md hard rule 19). Install @lumen/context instead; this alias will be removed in v0.14.0.",
+        "removedIn": "0.14.0",
+        "canonicalName": "context"
       }
     },
     {
@@ -3579,10 +3676,52 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "loader",
+      "type": "registry:ui",
+      "title": "Loader",
+      "description": "Lumen-branded loading indicator for AI surfaces. Reuses the v0.12.4 Spinner primitive with three intensity levels (`subtle`, `default`, `pulse`). Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/loader-ai` (deprecated in v0.13.4, retired in v0.14).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base",
+        "@lumen/spinner"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/loader/loader.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/loader.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Loader",
+          "installCommand": "npx ai-elements@latest add loader"
+        },
+        "platforms": [
+          "web-react"
+        ],
+        "aliases": [
+          "loader-ai"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "loader-ai",
       "type": "registry:ui",
       "title": "Loader",
-      "description": "AI-context loader. Wraps Lumen's v0.12.4 Spinner primitive; adds an 'AI thinking' label slot. Use during pre-stream wait when the model is queued but no tokens have arrived.",
+      "description": "[DEPRECATED — renamed to @lumen/loader] AI-context loader. Wraps Lumen's v0.12.4 Spinner primitive; adds an 'AI thinking' label slot. Use during pre-stream wait when the model is queued but no tokens have arrived.",
       "dependencies": [
         "lucide-react"
       ],
@@ -3612,7 +3751,11 @@
         },
         "platforms": [
           "web-react"
-        ]
+        ],
+        "deprecated": true,
+        "deprecationNotice": "Renamed to @lumen/loader in v0.13.4 to match Vercel AI Elements naming (AGENTS.md hard rule 19). Install @lumen/loader instead; this alias will be removed in v0.14.0.",
+        "removedIn": "0.14.0",
+        "canonicalName": "loader"
       }
     },
     {
@@ -4736,10 +4879,51 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "suggestion",
+      "type": "registry:ui",
+      "title": "Suggestion",
+      "description": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler. Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/suggestion-strip` (deprecated in v0.13.4, retired in v0.14).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/suggestion/suggestion.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/suggestion.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Suggestion",
+          "installCommand": "npx ai-elements@latest add suggestion"
+        },
+        "platforms": [
+          "web-react"
+        ],
+        "aliases": [
+          "suggestion-strip"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "suggestion-strip",
       "type": "registry:ui",
       "title": "Suggestion",
-      "description": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
+      "description": "[DEPRECATED — renamed to @lumen/suggestion] Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
       "dependencies": [
         "lucide-react"
       ],
@@ -4769,7 +4953,11 @@
         },
         "platforms": [
           "web-react"
-        ]
+        ],
+        "deprecated": true,
+        "deprecationNotice": "Renamed to @lumen/suggestion in v0.13.4 to match Vercel AI Elements naming (AGENTS.md hard rule 19). Install @lumen/suggestion instead; this alias will be removed in v0.14.0.",
+        "removedIn": "0.14.0",
+        "canonicalName": "suggestion"
       }
     },
     {

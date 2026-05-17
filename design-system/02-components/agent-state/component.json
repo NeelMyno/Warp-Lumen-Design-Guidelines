@@ -3,7 +3,7 @@
   "name": "AgentState",
   "version": "0.13.0",
   "status": "stable",
-  "deprecated": false,
+  "deprecated": true,
   "summary": "Six-state visual indicator for agent runtime: idle / thinking / running tool / awaiting approval / done / error. Mirrors Vercel AI Elements `Agent` state badge verbatim; the brutalist hairline frame is Lumen-native to the awaiting-approval state.",
   "props": {
     "className": {
@@ -73,5 +73,7 @@
     "family": "AgentTask",
     "lumenVersion": "0.13.0",
     "phase": 5
-  }
+  },
+  "deprecationNotice": "Renamed to agent in v0.13.4 to match Vercel AI Elements naming. Use agent instead; this alias will be removed in v0.14.0.",
+  "removedIn": "0.14.0"
 }

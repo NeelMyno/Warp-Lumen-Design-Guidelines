@@ -37,8 +37,9 @@
  * Zero external dependencies.
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { stableTimestamp, writeStableJson } from "./_stable-output.js";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const OUT = join(ROOT, "audit-dashboard/public/component-index.json");
@@ -171,6 +172,7 @@ function inferTier(slug: string): number {
   const T1 = new Set([
     "button",
     "input",
+    "textarea",
     "card",
     "sheet",
     "popover",
@@ -188,6 +190,13 @@ function inferTier(slug: string): number {
     "radio",
     "slider",
     "progress",
+    // v0.13.4 — button family extensions (legacy v0.12.6 preserved; backfilled
+    // with component.md so they appear in the dashboard with summaries).
+    "split-button",
+    "icon-button",
+    "fab",
+    "command-palette-button",
+    "button-group",
   ]);
   const T2 = new Set([
     "data-table",
@@ -230,9 +239,7 @@ function inferTier(slug: string): number {
     "sources",
     "inline-citation",
     "prompt-input",
-    "suggestion-strip",
     "actions",
-    "loader-ai",
     "artifact",
     "web-preview",
     "jsx-preview",
@@ -241,13 +248,22 @@ function inferTier(slug: string): number {
     "snippet",
     "stack-trace",
     "terminal",
-    "agent-state",
     "task-card",
     "commit-card",
-    "context-window",
     "response-text",
     "voice-audio-stub",
     "workflow-canvas-stub",
+    // v0.13.4 canonical Vercel-AI-Elements-named entries (master doc Phase 5).
+    "suggestion",
+    "loader",
+    "agent",
+    "context",
+    "code-block",
+    // v0.13.4 deprecated aliases — still T5, renamed in their meta.
+    "suggestion-strip",
+    "loader-ai",
+    "agent-state",
+    "context-window",
   ]);
   if (T1.has(slug)) return 1;
   if (T2.has(slug)) return 2;
@@ -390,7 +406,7 @@ for (const c of components) {
 }
 
 const index: ComponentIndex = {
-  generated: new Date().toISOString().replace(/\.\d{3}Z$/, "Z"),
+  generated: stableTimestamp(),  // placeholder; writeStableJson may preserve existing
   version: VERSION,
   totals: {
     components: components.length,
@@ -400,7 +416,7 @@ const index: ComponentIndex = {
   components,
 };
 
-writeFileSync(OUT, JSON.stringify(index, null, 2) + "\n", "utf-8");
+writeStableJson(OUT, index as unknown as Record<string, unknown>, "generated");
 console.log(
   `Wrote ${OUT.replace(ROOT, "")} — ${components.length} components, tier breakdown ${Object.entries(
     byTier,

@@ -39,8 +39,9 @@
  * Zero external dependencies.
  */
 
-import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
+import { writeStableJson } from "./_stable-output.js";
 
 const ROOT = new URL("..", import.meta.url).pathname;
 const OUT = join(ROOT, "audit-dashboard/public/token-index.json");
@@ -400,7 +401,7 @@ const totalReferences = Object.values(references).reduce(
 );
 
 const index: TokenIndex = {
-  generated: new Date().toISOString().replace(/\.\d{3}Z$/, "Z"),
+  generated: "",  // overwritten by writeStableJson
   version: VERSION,
   totals: {
     tokens: tokens.length,
@@ -412,7 +413,7 @@ const index: TokenIndex = {
   references,
 };
 
-writeFileSync(OUT, JSON.stringify(index, null, 2) + "\n", "utf-8");
+writeStableJson(OUT, index as unknown as Record<string, unknown>, "generated");
 console.log(
   `Wrote ${OUT.replace(ROOT, "")} — ${tokens.length} tokens, ${totalReferences} references, ${Object.keys(references).length} tokens referenced.`,
 );

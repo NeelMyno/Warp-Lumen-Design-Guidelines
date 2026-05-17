@@ -1,0 +1,42 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Radio",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Single-select group built on Radix RadioGroup. .lumen-radio shell; inner dot composed via CSS ::after on data-state=checked. Items render as RadioGroupItem inside a RadioGroup. Grid layout with gap-3 by default.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus group",
+      "ArrowUp/Down - move between options",
+      "Space - select focused option"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use Radio for 2 options \u2014 use Switch or Segmented.",
+      "NEVER use Radio outside a RadioGroup \u2014 single Radio doesn't make sense.",
+      "NEVER mix Radio styles within a single group."
+    ]
+  },
+  "examples": {
+    "web-react": "./radio.tsx"
+  }
+}

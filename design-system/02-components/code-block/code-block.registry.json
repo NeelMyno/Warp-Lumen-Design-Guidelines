@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block",
+  "type": "registry:ui",
+  "title": "CodeBlock",
+  "description": "Multi-line AI-surface code block with syntax highlighting, language label, copy-to-clipboard, and optional line numbers / line highlighting. Per master doc §7.Phase-5 Family 5: formalize the existing v0.12.4 code block per Vercel AI Elements naming.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/code-block/code-block.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/code-block.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "CodeBlock",
+      "installCommand": "npx ai-elements@latest add code-block"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

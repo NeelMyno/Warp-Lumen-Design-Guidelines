@@ -26,6 +26,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { hex as wcagHex } from "wcag-contrast";
+import { writeStableJson } from "./_stable-output.js";
 
 type Tier = "body" | "large" | "focus";
 type Pair = {
@@ -191,7 +192,7 @@ function writeBaseline(mode: "restrained" | "expressive", results: Result[]) {
   const outPath = path.join(outDir, `contrast-${mode}.json`);
   const payload = {
     $schema: "lumen-v0.13-contrast-baseline",
-    generatedAt: new Date().toISOString(),
+    generatedAt: "",  // overwritten by writeStableJson
     mode,
     threshold: { body: 4.5, large: 3.0 },
     summary: {
@@ -202,7 +203,10 @@ function writeBaseline(mode: "restrained" | "expressive", results: Result[]) {
     },
     results,
   };
-  fs.writeFileSync(outPath, JSON.stringify(payload, null, 2) + "\n", "utf8");
+  // v0.13.4 — use content-stable writer so the baseline only updates when the
+  // computed contrast values change (not on every re-run). Eliminates the
+  // dirty-baseline noise that chat 14 left in working trees.
+  writeStableJson(outPath, payload as unknown as Record<string, unknown>, "generatedAt");
   console.log(`\nBaseline written: ${path.relative(process.cwd(), outPath)}`);
 }
 

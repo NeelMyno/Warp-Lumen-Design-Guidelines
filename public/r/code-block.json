@@ -1,18 +1,21 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "code-block",
-  "title": "Code Block",
-  "description": "Mono-typeface code with optional language/filename label, line numbers, line highlight, copy button.",
+  "title": "CodeBlock",
+  "description": "Multi-line AI-surface code block with syntax highlighting, language label, copy-to-clipboard, and optional line numbers / line highlighting. Per master doc §7.Phase-5 Family 5: formalize the existing v0.12.4 code block per Vercel AI Elements naming.",
   "dependencies": [
     "lucide-react"
   ],
-  "registryDependencies": [],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
   "files": [
     {
-      "path": "design-system/02-components/code-block/examples/primary.tsx",
-      "content": "// Lumen CodeBlock — Web React example.\n// Mono-typeface code with language/filename label, optional line numbers + highlight,\n// and copy button.\n\n\"use client\";\n\nimport { Check, Copy } from \"lucide-react\";\nimport { useState } from \"react\";\n\nexport type CodeBlockProps = {\n  code: string;\n  language?: string;\n  filename?: string;\n  showLineNumbers?: boolean;\n  highlightLines?: string;\n  wrap?: \"scroll\" | \"soft\" | \"wrap\";\n  copy?: boolean;\n  maxHeight?: string;\n};\n\nfunction parseHighlights(spec?: string): Set<number> {\n  if (!spec) return new Set();\n  const out = new Set<number>();\n  for (const part of spec.split(\",\")) {\n    const [a, b] = part.split(\"-\").map((v) => parseInt(v.trim(), 10));\n    if (Number.isNaN(a)) continue;\n    if (Number.isNaN(b)) out.add(a);\n    else for (let i = a; i <= b; i++) out.add(i);\n  }\n  return out;\n}\n\nexport function CodeBlock({\n  code,\n  language,\n  filename,\n  showLineNumbers,\n  highlightLines,\n  wrap = \"scroll\",\n  copy = true,\n  maxHeight,\n}: CodeBlockProps) {\n  const [copied, setCopied] = useState(false);\n  const onCopy = async () => {\n    await navigator.clipboard.writeText(code);\n    setCopied(true);\n    setTimeout(() => setCopied(false), 1600);\n  };\n\n  const lines = code.split(\"\\n\");\n  const highlights = parseHighlights(highlightLines);\n  const wrapClass: Record<typeof wrap, string> = {\n    scroll: \"overflow-x-auto whitespace-pre\",\n    soft:   \"whitespace-pre-wrap break-words\",\n    wrap:   \"whitespace-pre-wrap break-all\",\n  };\n\n  return (\n    <figure\n      role=\"region\"\n      aria-label={`Code block${language ? `, ${language}` : \"\"}${filename ? `, ${filename}` : \"\"}`}\n      className={[\n        \"rounded-[var(--radius-card-default)] border border-[var(--color-border-hairline)]\",\n        \"bg-[var(--color-surface-sunken)] overflow-hidden\",\n      ].join(\" \")}\n    >\n      <div className=\"flex items-center justify-between gap-2 px-[var(--space-inset-lg)] py-[var(--space-inset-md)] border-b border-[var(--color-border-subtle)]\">\n        <span className=\"text-[var(--type-eyebrow-mono)] uppercase tracking-wider text-[var(--color-text-tertiary)] truncate\">\n          {filename ?? language ?? \"\"}\n        </span>\n        {copy && (\n          <button\n            type=\"button\"\n            onClick={onCopy}\n            aria-label=\"Copy code\"\n            aria-live=\"polite\"\n            className={[\n              \"shrink-0 inline-flex h-7 items-center gap-1 rounded-[var(--radius-control-sm)] px-2\",\n              \"text-[var(--type-eyebrow-mono)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]\",\n              \"hover:bg-[var(--color-action-ghost-bg-hover)]\",\n              \"outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:shadow-[var(--shadow-focus)]\",\n              \"transition-colors duration-150\",\n            ].join(\" \")}\n          >\n            {copied ? <Check size={12} aria-hidden /> : <Copy size={12} aria-hidden />}\n            <span>{copied ? \"Copied\" : \"Copy\"}</span>\n          </button>\n        )}\n      </div>\n      <pre\n        className={[\n          \"m-0 px-[var(--space-inset-lg)] py-[var(--space-inset-md)]\",\n          \"text-[var(--color-text-primary)] text-[var(--type-code-md, 13px)] leading-relaxed\",\n          \"font-mono\",\n          wrapClass[wrap],\n        ].join(\" \")}\n        style={{ maxHeight, overflowY: maxHeight ? \"auto\" : undefined }}\n      >\n        <code>\n          {lines.map((line, i) => {\n            const n = i + 1;\n            const hl = highlights.has(n);\n            return (\n              <span\n                key={n}\n                className={[\n                  \"block\",\n                  hl ? \"-mx-[var(--space-inset-lg)] px-[var(--space-inset-lg)] bg-[var(--color-alpha-accent-12,rgba(0,250,138,0.12))] border-l-2 border-[var(--color-text-accent)]\" : \"\",\n                ].join(\" \")}\n              >\n                {showLineNumbers && (\n                  <span aria-hidden className=\"select-none mr-4 text-[var(--color-text-tertiary)] lumen-tnum\">\n                    {String(n).padStart(2, \" \")}\n                  </span>\n                )}\n                {line || \" \"}\n              </span>\n            );\n          })}\n        </code>\n      </pre>\n    </figure>\n  );\n}\n",
+      "path": "design-system/02-components/code-block/code-block.tsx",
+      "content": "/**\n * Lumen CodeBlock — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Per master doc §7.Phase-5 Family 5: formalize the existing v0.12.4 code\n * block per the Vercel AI Elements naming convention. The v0.12.4 legacy\n * `code-block` shipped only as `component.json` + `component.md`; this\n * v0.13.4 entry adds the contract stub + skill + stories.\n *\n * Lumen ships the contract (this file + ./code-block.md + ./code-block.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add code-block\n *\n * Then import from `@/components/ai-elements/code-block` and theme via\n * <LumenAIProvider>. See:\n *   - ./code-block.md for the API contract\n *   - ./code-block.skill.md for NEVER rules\n *   - ../snippet/snippet.md for the short-code variant\n *   - ../artifact/artifact.md for the wrapper when type === \"code\"\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/code-block` get this file copied to\n * `components/ai-elements/code-block.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface CodeBlockProps {\n  code: string;\n  language?: string;\n  showLineNumbers?: boolean;\n  highlightLines?: number[];\n  copyable?: boolean;\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add code-block`\n * Then import from `@/components/ai-elements/code-block`.\n */\nexport function CodeBlock(_props: CodeBlockProps): never {\n  throw new Error(\n    \"[Lumen] <CodeBlock> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add code-block`. \" +\n    \"Then import { CodeBlock } from `@/components/ai-elements/code-block`.\"\n  );\n}\n",
       "type": "registry:ui",
-      "target": "components/ui/code-block.tsx"
+      "target": "components/ai-elements/code-block.tsx"
     }
   ],
   "cssVars": {
@@ -20,14 +23,17 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.12.6",
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "CodeBlock",
+      "installCommand": "npx ai-elements@latest add code-block"
+    },
     "platforms": [
       "web-react"
-    ],
-    "specPath": "design-system/02-components/code-block/component.json",
-    "docsPath": "design-system/02-components/code-block/component.md",
-    "status": "stable",
-    "warpSignature": false
+    ]
   },
   "type": "registry:ui"
 }

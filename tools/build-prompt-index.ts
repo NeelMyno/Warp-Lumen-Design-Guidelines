@@ -26,8 +26,10 @@
  *     ]
  *   }
  *
- * Zero external dependencies.
+ * Zero external runtime dependencies. Uses shared `_stable-output` helper to
+ * suppress timestamp-only churn (v0.13.4 fix — chat 14 missed this).
  */
+import { writeStableJson } from "./_stable-output.js";
 
 import {
   readFileSync,
@@ -166,7 +168,7 @@ for (const slug of TEMPLATE_SLUGS) {
 }
 
 const index: PromptIndex = {
-  generated: new Date().toISOString().replace(/\.\d{3}Z$/, "Z"),
+  generated: "",  // overwritten by writeStableJson
   version: VERSION,
   modelPin: "gpt-image-2-2026-04-21",
   anchor: {
@@ -177,7 +179,7 @@ const index: PromptIndex = {
   templates,
 };
 
-writeFileSync(OUT, JSON.stringify(index, null, 2) + "\n", "utf-8");
+writeStableJson(OUT, index as unknown as Record<string, unknown>, "generated");
 console.log(
   `Wrote ${OUT.replace(ROOT, "")} — ${templates.length} templates, ${templates.filter((t) => t.referencePng).length} with reference PNGs.`,
 );

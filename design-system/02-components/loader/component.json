@@ -1,0 +1,39 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Loader",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Lumen-branded loading indicator for AI surfaces. Reuses the v0.12.4 Spinner primitive with AI-surface-specific affordances: streaming-aware sizing, suggestion-strip-adjacent placement, and three intensity levels (`subtle`, `default`, `pulse`).",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use Loader for non-AI surfaces \u2014 Lumen's Spinner primitive handles all non-AI loading. Loader exists for the AI surface idiom.",
+      "NEVER pair Loader with a separate \"Loading...\" text node \u2014 the `label` prop drives sr-only announcement; sighted users see the motion.",
+      "NEVER suppress motion silently on `prefers-reduced-motion` \u2014 replace rotation with an opacity pulse so the affordance survives.",
+      "NEVER stack multiple Loaders on the same surface \u2014 one per active AI operation."
+    ]
+  },
+  "examples": {
+    "web-react": "./loader.tsx"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "DockBay",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Grid of dock-bay cards. Each bay shows: bay number (mono), state (open / occupied / reserved / out-of-service), optional carrier + ETA. Color-coded by state via PILL tokens. Click to drill into bay detail.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - cycle bays",
+      "Enter - select bay"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER mix occupied + open + reserved without distinct colors.",
+      "NEVER fake an ETA (omit if unknown \u2014 don't show 'TBD' as a number)."
+    ]
+  },
+  "examples": {
+    "web-react": "./dock-bay.tsx"
+  }
+}

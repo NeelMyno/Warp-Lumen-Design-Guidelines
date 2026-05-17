@@ -1,0 +1,41 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SavedView",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Named query state with diff + share. Saves a FilterBuilder state under a name. Shows a diff indicator when the current filters differ from the saved state (lime dot). Share via copyable URL. Manage via a popover dropdown \u2014 Save / Save as / Rename / Share / Delete.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus",
+      "Enter - activate"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER allow duplicate view names without disambiguation.",
+      "NEVER skip the dirty indicator (it's the trust signal).",
+      "NEVER share without explicit user action."
+    ]
+  },
+  "examples": {
+    "web-react": "./saved-view.tsx"
+  }
+}

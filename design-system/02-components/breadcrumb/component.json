@@ -1,0 +1,40 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Breadcrumb",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Hierarchy crumbs with overflow collapse. Lumen API takes `items={[{href, label}, ...]}` for terse usage. Built on the shadcn Breadcrumb composition (Breadcrumb / BreadcrumbList / BreadcrumbItem / BreadcrumbLink / BreadcrumbPage / BreadcrumbSeparator).",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - move focus to next breadcrumb link"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER omit aria-current=page on the last item (the API handles this).",
+      "NEVER use Breadcrumb for a single-level page \u2014 it's noise.",
+      "NEVER nest a Breadcrumb inside another Breadcrumb."
+    ]
+  },
+  "examples": {
+    "web-react": "./breadcrumb.tsx"
+  }
+}

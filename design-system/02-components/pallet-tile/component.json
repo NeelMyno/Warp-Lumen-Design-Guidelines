@@ -1,0 +1,40 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PalletTile",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Individual pallet card. Weight + dimensions + hazmat flag + lane assignment + freight class. Mono numerics. Drag-handle slot for kanban-style reassignment. Hazmat flag is amber-tinted with a small \u26a0 icon.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus (when interactive)"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER omit weight + dims \u2014 they're the load-bearing identity.",
+      "NEVER use Pallet for non-freight items (cartons \u2192 use CartonTile).",
+      "NEVER hide hazmat flag \u2014 regulatory requirement."
+    ]
+  },
+  "examples": {
+    "web-react": "./pallet-tile.tsx"
+  }
+}

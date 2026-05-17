@@ -1,0 +1,38 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "LaneArc",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "SVG arc renderer over a faint base map. The arc draws in on mount via stroke-dasharray animation (cubic-bezier(0.2,0,0,1), 1200ms). Lime-accent tinted by default. Origin + destination markers at endpoints. Honors prefers-reduced-motion (arc renders instantly).",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use LaneArc as a static decoration \u2014 the animation is the point.",
+      "NEVER stack more than 3 arcs (visual noise).",
+      "NEVER animate faster than 800ms."
+    ]
+  },
+  "examples": {
+    "web-react": "./lane-arc.tsx"
+  }
+}

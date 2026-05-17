@@ -1,0 +1,38 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "OTRTruckIso",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Reusable isometric truck illustration. v0.13 Phase 2 ships an inline SVG line-art placeholder (~1.5px stroke, single-accent tint). Phase 4 will swap the SVG body for a gpt-image-2-generated atmospheric render via the prompt library. Public API stays stable across both versions.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use a stock photo for trucks.",
+      "NEVER replace with raster.",
+      "NEVER use as a clickable affordance (it's illustrative, not interactive)."
+    ]
+  },
+  "examples": {
+    "web-react": "./otr-truck-iso.tsx"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "TopBar",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Horizontal app chrome \u2014 brand mark + breadcrumb + global search trigger + user menu. h-14 (56px); hairline bottom border. Pair with Sidebar (left) for the two-axis dashboard chrome.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - cycle focusable elements"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER add backdrop-filter to TopBar \u2014 hard rule 16 (dense chrome).",
+      "NEVER stack TopBars.",
+      "NEVER skip the brand mark in left slot."
+    ]
+  },
+  "examples": {
+    "web-react": "./top-bar.tsx"
+  }
+}

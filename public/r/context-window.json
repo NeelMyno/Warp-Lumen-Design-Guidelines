@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "context-window",
   "title": "Context",
-  "description": "Token usage / context window display. Composition of Stat (tokens used / limit) + horizontal progress meter. Color shifts to amber at 80%, lumen-red at 95%.",
+  "description": "[DEPRECATED — renamed to @lumen/context] Token usage / context window display. Composition of Stat (tokens used / limit) + horizontal progress meter. Color shifts to amber at 80%, lumen-red at 95%.",
   "dependencies": [
     "lucide-react"
   ],
@@ -33,7 +33,11 @@
     },
     "platforms": [
       "web-react"
-    ]
+    ],
+    "deprecated": true,
+    "deprecationNotice": "Renamed to @lumen/context in v0.13.4 to match Vercel AI Elements naming (AGENTS.md hard rule 19). Install @lumen/context instead; this alias will be removed in v0.14.0.",
+    "removedIn": "0.14.0",
+    "canonicalName": "context"
   },
   "type": "registry:ui"
 }

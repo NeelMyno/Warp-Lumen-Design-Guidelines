@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader",
+  "title": "Loader",
+  "description": "Lumen-branded loading indicator for AI surfaces. Reuses the v0.12.4 Spinner primitive with three intensity levels (`subtle`, `default`, `pulse`). Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/loader-ai` (deprecated in v0.13.4, retired in v0.14).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base",
+    "@lumen/spinner"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/loader/loader.tsx",
+      "content": "/**\n * Lumen Loader — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Canonical Vercel-AI-Elements-named entry per AGENTS.md hard rule 19.\n * The earlier `loader-ai/` folder remains as a deprecated alias for v0.13.0\n * backward-compat; v0.14 retires it.\n *\n * Lumen ships the contract (this file + ./loader.md + ./loader.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add loader\n *\n * Then import from `@/components/ai-elements/loader` and theme via\n * <LumenAIProvider>. See:\n *   - ./loader.md for the API contract\n *   - ./loader.skill.md for NEVER rules\n *   - ../spinner/component.md for the underlying Lumen primitive\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/loader` get this file copied to\n * `components/ai-elements/loader.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface LoaderProps {\n  intensity?: \"subtle\" | \"default\" | \"pulse\";\n  size?: \"sm\" | \"md\" | \"lg\";\n  label?: string;\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add loader`\n * Then import from `@/components/ai-elements/loader`.\n */\nexport function Loader(_props: LoaderProps): never {\n  throw new Error(\n    \"[Lumen] <Loader> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add loader`. \" +\n    \"Then import { Loader } from `@/components/ai-elements/loader`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/loader.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Loader",
+      "installCommand": "npx ai-elements@latest add loader"
+    },
+    "platforms": [
+      "web-react"
+    ],
+    "aliases": [
+      "loader-ai"
+    ]
+  },
+  "type": "registry:ui"
+}

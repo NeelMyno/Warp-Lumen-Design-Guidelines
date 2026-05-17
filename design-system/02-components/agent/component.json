@@ -1,0 +1,41 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Agent",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Six-state visual indicator for an AI agent's current lifecycle phase: `idle`, `thinking`, `running-tool`, `awaiting-approval`, `done`, `error`.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus state indicator"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER swap status colors. Each state has a canonical color: thinking + done = accent, awaiting-approval = warning, error = danger.",
+      "NEVER hide the Agent during streaming \u2014 even idle state should remain visible so the user knows the agent is reachable.",
+      "NEVER nest Agents \u2014 one per Conversation root.",
+      "NEVER use Agent for non-agentic AI surfaces \u2014 plain chat has no Agent state."
+    ]
+  },
+  "examples": {
+    "web-react": "./agent.tsx"
+  }
+}

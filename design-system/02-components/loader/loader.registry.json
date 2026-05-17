@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader",
+  "type": "registry:ui",
+  "title": "Loader",
+  "description": "Lumen-branded loading indicator for AI surfaces. Reuses the v0.12.4 Spinner primitive with three intensity levels (`subtle`, `default`, `pulse`). Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/loader-ai` (deprecated in v0.13.4, retired in v0.14).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base",
+    "@lumen/spinner"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/loader/loader.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/loader.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Loader",
+      "installCommand": "npx ai-elements@latest add loader"
+    },
+    "platforms": [
+      "web-react"
+    ],
+    "aliases": [
+      "loader-ai"
+    ]
+  }
+}

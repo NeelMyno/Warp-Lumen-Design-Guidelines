@@ -28,6 +28,13 @@
 | [0020](./0020-obsidian-recolor-mint-retired-v012.md) | v0.12 Obsidian recolor — mint retired (neutral `#0D0D0D` canvas) | Accepted (amends [0018](./0018-premium-psychology-recolor.md)'s canvas anchor) |
 | [0021](./0021-card-corner-clip-contract-v0121.md) | v0.12.1 Card corner-clip contract — `padding="none"` auto-clips edge-touching children to the rounded shape | Accepted |
 | [0022](./0022-hover-glow-ladder-retune-v0122.md) | v0.12.2 Hover-glow ladder retune — primary-button hover bloom dialed down at the token + layered-halo level | Accepted |
+| [0023](./0023-dtcg-2025-10-lift-v013.md) | v0.13 Phase 0 — Lift token contract to DTCG 2025.10 | Accepted (partially supersedes [0001](./0001-dtcg-format.md) for the schema version) |
+| [0024](./0024-dual-mode-architecture-v013.md) | v0.13 — Dual-mode architecture (restrained + expressive) via `data-mode` scope attribute | Accepted |
+| [0025](./0025-glass-floating-shells-only-v013.md) | v0.13 — Glass surfaces only on floating shells (popover, sheet, command palette, hero, nav) | Accepted |
+| [0026](./0026-phase-0-alias-namespace-v013.md) | v0.13 Phase 0 — Alias namespace (additive: `color.obsidian.*`, `color.spring.*`, `color.lumen-red.*`, `color.lumen-amber.*`) | Accepted |
+| [0027](./0027-vercel-ai-elements-naming-v013.md) | v0.13 Phase 5 — Vercel AI Elements naming verbatim for AI primitives | Accepted |
+| [0028](./0028-gpt-image-2-prompt-library-v013.md) | v0.13 Phase 4 — GPT-image-2 prompt library + immutable style anchor | Accepted |
+| [0029](./0029-shadcn-registry-distribution-v013.md) | v0.13 Phase 6 — shadcn registry distribution (no custom Lumen MCP in v0.13) | Accepted |
 
 ## Adding a new ADR
 

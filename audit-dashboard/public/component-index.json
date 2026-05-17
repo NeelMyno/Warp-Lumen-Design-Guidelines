@@ -1,17 +1,17 @@
 {
-  "generated": "2026-05-17T18:05:43Z",
+  "generated": "2026-05-17T21:00:46Z",
   "version": "0.13.0",
   "totals": {
-    "components": 146,
+    "components": 150,
     "byTier": {
       "tier-2": 15,
-      "tier-0": 71,
-      "tier-5": 28,
-      "tier-1": 19,
+      "tier-0": 64,
+      "tier-5": 33,
+      "tier-1": 25,
       "tier-4": 10,
       "tier-3": 3
     },
-    "deprecated": 0
+    "deprecated": 4
   },
   "components": [
     {
@@ -85,13 +85,37 @@
       "installCount": 1
     },
     {
+      "slug": "agent",
+      "name": "Agent",
+      "tier": 5,
+      "category": "uncategorized",
+      "family": "Agent",
+      "status": "stable",
+      "deprecated": false,
+      "summary": "Six-state visual indicator for an AI agent's current lifecycle phase: `idle`, `thinking`, `running-tool`, `awaiting-approval`, `done`, `error`.",
+      "installCommand": "npx shadcn@latest add @lumen/agent",
+      "tokens": [],
+      "mode": "agnostic",
+      "neverRuleCount": 4,
+      "hasComponentJson": true,
+      "hasSkillMd": true,
+      "hasStorybook": true,
+      "hasTsx": true,
+      "platforms": [
+        "web"
+      ],
+      "phase": 5,
+      "vercelAiElements": "Agent",
+      "installCount": 1
+    },
+    {
       "slug": "agent-state",
       "name": "AgentState",
       "tier": 5,
       "category": "uncategorized",
       "family": "AgentTask",
       "status": "stable",
-      "deprecated": false,
+      "deprecated": true,
       "summary": "Six-state visual indicator for agent runtime: idle / thinking / running tool / awaiting approval / done / error. Mirrors Vercel AI Elements `Agent` state badge verbatim; the brutalist hairline frame is Lumen-native to the awaiting-approval state.",
       "installCommand": "npx shadcn@latest add @lumen/agent-state",
       "tokens": [],
@@ -352,7 +376,7 @@
       "category": "navigation",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Hierarchy crumbs with overflow collapse. Lumen API takes `items={[{href, label}, ...]}` for terse usage. Built on the shadcn Breadcrumb composition (Breadcrumb / BreadcrumbList / BreadcrumbItem / BreadcrumbLink / BreadcrumbPage / BreadcrumbSeparator).",
       "installCommand": "npx shadcn@latest add @lumen/breadcrumb",
       "tokens": [
         "text.primary",
@@ -362,7 +386,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -451,7 +475,7 @@
     {
       "slug": "button-group",
       "name": "ButtonGroup",
-      "tier": 0,
+      "tier": 1,
       "category": "uncategorized",
       "status": "beta",
       "deprecated": false,
@@ -465,7 +489,10 @@
       "hasStorybook": false,
       "hasTsx": false,
       "platforms": [
-        "web"
+        "web-react",
+        "react-native",
+        "ios-native",
+        "android-native"
       ],
       "installCount": 1
     },
@@ -558,7 +585,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Carrier identity chip. Logo slot + name + rating (★) + vehicle type (FTL / LTL / Reefer / Flatbed) + on-time percentage. Use synthetic names (Sterling LTL, Estes Express, ODFL) per privacy rule — no real-person names.",
       "installCommand": "npx shadcn@latest add @lumen/carrier-badge",
       "tokens": [
         "surface.raised",
@@ -577,7 +604,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -726,22 +753,25 @@
     {
       "slug": "code-block",
       "name": "CodeBlock",
-      "tier": 0,
+      "tier": 5,
       "category": "uncategorized",
+      "family": "Content",
       "status": "stable",
       "deprecated": false,
       "summary": "Mono-typeface code display with optional language label, line numbers, copy button, and token highlight. For inline single-token code, use `<code>` or the Kbd primitive. CodeBlock is the multi-line variant. Renders pre-formatted whitespace, wraps on long lines via wrap='wrap' or 'soft', and exposes copy via CopyButton.",
       "installCommand": "npx shadcn@latest add @lumen/code-block",
       "tokens": [],
       "mode": "agnostic",
-      "neverRuleCount": 0,
+      "neverRuleCount": 5,
       "hasComponentJson": true,
-      "hasSkillMd": false,
-      "hasStorybook": false,
-      "hasTsx": false,
+      "hasSkillMd": true,
+      "hasStorybook": true,
+      "hasTsx": true,
       "platforms": [
-        "web-react"
+        "web"
       ],
+      "phase": 5,
+      "vercelAiElements": "CodeBlock",
       "installCount": 1
     },
     {
@@ -806,7 +836,7 @@
       "category": "overlay",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "⌘K global search + action surface. Built on cmdk (the canonical headless command-menu lib used by Linear, Vercel, GitHub). Composed inside a Dialog for portal + focus management. Glass-strong shell, search-shaped input, grouped results, kbd hints in footer. Lumen API: pass `items` + `onSelect` for the basic usage; compose Command primitives for advanced.",
       "installCommand": "npx shadcn@latest add @lumen/command-palette",
       "tokens": [
         "surface.popover",
@@ -824,7 +854,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -836,7 +866,7 @@
     {
       "slug": "command-palette-button",
       "name": "CommandPaletteButton",
-      "tier": 0,
+      "tier": 1,
       "category": "uncategorized",
       "status": "beta",
       "deprecated": false,
@@ -850,7 +880,11 @@
       "hasStorybook": false,
       "hasTsx": false,
       "platforms": [
-        "web"
+        "web-react",
+        "ios-native",
+        "android-native",
+        "macos-native",
+        "windows-native"
       ],
       "installCount": 1
     },
@@ -924,13 +958,37 @@
       "installCount": 1
     },
     {
+      "slug": "context",
+      "name": "Context",
+      "tier": 5,
+      "category": "uncategorized",
+      "family": "Agent",
+      "status": "stable",
+      "deprecated": false,
+      "summary": "Token usage / context window display. Stat-style composition showing how much of the model's context budget is consumed, with a progress meter and a tracked-out label.",
+      "installCommand": "npx shadcn@latest add @lumen/context",
+      "tokens": [],
+      "mode": "agnostic",
+      "neverRuleCount": 4,
+      "hasComponentJson": true,
+      "hasSkillMd": true,
+      "hasStorybook": true,
+      "hasTsx": true,
+      "platforms": [
+        "web"
+      ],
+      "phase": 5,
+      "vercelAiElements": "Context",
+      "installCount": 1
+    },
+    {
       "slug": "context-window",
       "name": "ContextWindow",
       "tier": 5,
       "category": "uncategorized",
       "family": "Shared",
       "status": "stable",
-      "deprecated": false,
+      "deprecated": true,
       "summary": "Token usage / context window display. Stat + progress meter composition. Shows used / total / percentage with semantic color thresholds. Mirrors Vercel AI Elements `Context` verbatim.",
       "installCommand": "npx shadcn@latest add @lumen/context-window",
       "tokens": [],
@@ -999,7 +1057,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Top-down floor layout. Each cell = pallet position; color-coded by destination lane. Hover for pallet detail; click to drill in. Configurable rows × cols. Empty cells use surface-sunken; occupied cells inherit the lane's tinted color from a palette rotation.",
       "installCommand": "npx shadcn@latest add @lumen/cross-dock-grid",
       "tokens": [
         "surface.raised",
@@ -1016,7 +1074,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 2,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1053,7 +1111,7 @@
       "category": "data",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Virtualized data table — consumer brings the data (TanStack Table model); Lumen brings the visual contract. Sticky header, lime-tinted hover, brutalist hairlines, mono-numeric numerics. Composed sub-components: DataTable, DataTableHeader, DataTableHeaderCell, DataTableBody, DataTableRow, DataTableCell.",
       "installCommand": "npx shadcn@latest add @lumen/data-table",
       "tokens": [
         "surface.raised",
@@ -1071,7 +1129,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1166,7 +1224,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Grid of dock-bay cards. Each bay shows: bay number (mono), state (open / occupied / reserved / out-of-service), optional carrier + ETA. Color-coded by state via PILL tokens. Click to drill into bay detail.",
       "installCommand": "npx shadcn@latest add @lumen/dock-bay",
       "tokens": [
         "surface.raised",
@@ -1188,7 +1246,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 2,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1287,7 +1345,7 @@
     {
       "slug": "fab",
       "name": "FAB",
-      "tier": 0,
+      "tier": 1,
       "category": "uncategorized",
       "status": "beta",
       "deprecated": false,
@@ -1301,7 +1359,10 @@
       "hasStorybook": false,
       "hasTsx": false,
       "platforms": [
-        "web"
+        "web-react",
+        "react-native",
+        "ios-native",
+        "android-native"
       ],
       "installCount": 1
     },
@@ -1357,7 +1418,7 @@
       "category": "data",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Query-DSL editor — operator/field/value chip rows. Each row is a (field, operator, value) triple. Composable AND/OR groups. Add-condition button + Save-as-view CTA.",
       "installCommand": "npx shadcn@latest add @lumen/filter-builder",
       "tokens": [
         "surface.raised",
@@ -1373,7 +1434,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1389,7 +1450,7 @@
       "category": "data",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Applied-filter chip with operator + value display + optional dropdown editor + dismiss X. Shape is `{label} {operator-label} {value}`. Used in the row above a DataTable to show what's currently filtering the view.",
       "installCommand": "npx shadcn@latest add @lumen/filter-chip",
       "tokens": [
         "pill.neutral.bg",
@@ -1402,7 +1463,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1438,7 +1499,7 @@
     {
       "slug": "icon-button",
       "name": "IconButton",
-      "tier": 0,
+      "tier": 1,
       "category": "uncategorized",
       "status": "stable",
       "deprecated": false,
@@ -1452,7 +1513,11 @@
       "hasStorybook": false,
       "hasTsx": false,
       "platforms": [
-        "web"
+        "web-react",
+        "react-native",
+        "ios-native",
+        "android-native",
+        "shopify-liquid"
       ],
       "installCount": 1
     },
@@ -1637,7 +1702,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "SVG arc renderer over a faint base map. The arc draws in on mount via stroke-dasharray animation (cubic-bezier(0.2,0,0,1), 1200ms). Lime-accent tinted by default. Origin + destination markers at endpoints. Honors prefers-reduced-motion (arc renders instantly).",
       "installCommand": "npx shadcn@latest add @lumen/lane-arc",
       "tokens": [
         "color.accent",
@@ -1646,7 +1711,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1662,7 +1727,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Lane identifier — renders as `LAX → SFO` with a proper arrow glyph (→ U+2192, not -> ascii) and mono-numerics. Optional inline rate (e.g. '$262'). Compact horizontal pill with hairline border. Use everywhere a freight lane is referenced.",
       "installCommand": "npx shadcn@latest add @lumen/lane-code",
       "tokens": [
         "text.primary",
@@ -1675,7 +1740,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -1759,13 +1824,37 @@
       "installCount": 1
     },
     {
+      "slug": "loader",
+      "name": "Loader",
+      "tier": 5,
+      "category": "uncategorized",
+      "family": "Shared",
+      "status": "stable",
+      "deprecated": false,
+      "summary": "Lumen-branded loading indicator for AI surfaces. Reuses the v0.12.4 Spinner primitive with AI-surface-specific affordances: streaming-aware sizing, suggestion-strip-adjacent placement, and three intensity levels (`subtle`, `default`, `pulse`).",
+      "installCommand": "npx shadcn@latest add @lumen/loader",
+      "tokens": [],
+      "mode": "agnostic",
+      "neverRuleCount": 4,
+      "hasComponentJson": true,
+      "hasSkillMd": true,
+      "hasStorybook": true,
+      "hasTsx": true,
+      "platforms": [
+        "web"
+      ],
+      "phase": 5,
+      "vercelAiElements": "Loader",
+      "installCount": 1
+    },
+    {
       "slug": "loader-ai",
       "name": "LoaderAi",
       "tier": 5,
       "category": "uncategorized",
       "family": "Shared",
       "status": "stable",
-      "deprecated": false,
+      "deprecated": true,
       "summary": "Lumen-branded spinner for AI surfaces. Reuses the v0.12.4 Spinner primitive at AI surface densities. Mirrors Vercel AI Elements `Loader` verbatim; visual is Lumen-native.",
       "installCommand": "npx shadcn@latest add @lumen/loader-ai",
       "tokens": [],
@@ -1882,7 +1971,7 @@
       "category": "overlay",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Centered modal dialog. Built on Radix Dialog. Same a11y as Drawer / Sheet (focus trap, escape dismiss, scrim). Use for confirmations, focused forms, AI artifact previews. v0.13 hard rule: brutalist hairline frame on destructive confirmations.",
       "installCommand": "npx shadcn@latest add @lumen/modal",
       "tokens": [
         "surface.popover",
@@ -1897,7 +1986,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2020,7 +2109,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Reusable isometric truck illustration. v0.13 Phase 2 ships an inline SVG line-art placeholder (~1.5px stroke, single-accent tint). Phase 4 will swap the SVG body for a gpt-image-2-generated atmospheric render via the prompt library. Public API stays stable across both versions.",
       "installCommand": "npx shadcn@latest add @lumen/otr-truck-iso",
       "tokens": [
         "text.tertiary",
@@ -2028,7 +2117,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2073,7 +2162,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Individual pallet card. Weight + dimensions + hazmat flag + lane assignment + freight class. Mono numerics. Drag-handle slot for kanban-style reassignment. Hazmat flag is amber-tinted with a small ⚠ icon.",
       "installCommand": "npx shadcn@latest add @lumen/pallet-tile",
       "tokens": [
         "surface.raised",
@@ -2090,7 +2179,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2344,7 +2433,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Composite for the quote flow. Lane input (origin + destination — composes Combobox) + weight input + accessorial chips + rate output (Stat) + book button. Right-rail layout: inputs left (60%), rate output + book right (40%). Mobile collapses to stacked layout.",
       "installCommand": "npx shadcn@latest add @lumen/quote-builder",
       "tokens": [
         "surface.raised",
@@ -2359,7 +2448,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2375,7 +2464,7 @@
       "category": "form",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Single-select group built on Radix RadioGroup. .lumen-radio shell; inner dot composed via CSS ::after on data-state=checked. Items render as RadioGroupItem inside a RadioGroup. Grid layout with gap-3 by default.",
       "installCommand": "npx shadcn@latest add @lumen/radio",
       "tokens": [
         "color.action.primary.bg.rest",
@@ -2385,7 +2474,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2547,7 +2636,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Bounded map surface with lane overlays + pickup/dropoff markers + optional live truck position pin. Provider-agnostic — accepts a map renderer prop (default: a stylized SVG placeholder for prototyping). Consumers pass Mapbox/Leaflet/Google instances as `mapProvider` for production.",
       "installCommand": "npx shadcn@latest add @lumen/route-map",
       "tokens": [
         "surface.canvas",
@@ -2560,7 +2649,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 2,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2600,7 +2689,7 @@
       "category": "data",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Named query state with diff + share. Saves a FilterBuilder state under a name. Shows a diff indicator when the current filters differ from the saved state (lime dot). Share via copyable URL. Manage via a popover dropdown — Save / Save as / Rename / Share / Delete.",
       "installCommand": "npx shadcn@latest add @lumen/saved-view",
       "tokens": [
         "surface.raised",
@@ -2612,7 +2701,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2764,7 +2853,7 @@
       "category": "freight-domain",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Vertical timeline. Standard freight stages — pickup → cross-dock → line haul → last mile → delivered. Each stage: status (pending / active / done / failed), timestamp, optional ETA bubble. Active stage gets lime accent + pulsing LiveDot.",
       "installCommand": "npx shadcn@latest add @lumen/shipment-timeline",
       "tokens": [
         "surface.raised",
@@ -2781,7 +2870,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,
@@ -2995,7 +3084,7 @@
     {
       "slug": "split-button",
       "name": "SplitButton",
-      "tier": 0,
+      "tier": 1,
       "category": "uncategorized",
       "status": "beta",
       "deprecated": false,
@@ -3009,7 +3098,10 @@
       "hasStorybook": false,
       "hasTsx": false,
       "platforms": [
-        "web"
+        "web-react",
+        "react-native",
+        "ios-native",
+        "android-native"
       ],
       "installCount": 1
     },
@@ -3127,13 +3219,37 @@
       "installCount": 1
     },
     {
+      "slug": "suggestion",
+      "name": "Suggestion",
+      "tier": 5,
+      "category": "uncategorized",
+      "family": "Shared",
+      "status": "stable",
+      "deprecated": false,
+      "summary": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
+      "installCommand": "npx shadcn@latest add @lumen/suggestion",
+      "tokens": [],
+      "mode": "agnostic",
+      "neverRuleCount": 4,
+      "hasComponentJson": true,
+      "hasSkillMd": true,
+      "hasStorybook": true,
+      "hasTsx": true,
+      "platforms": [
+        "web"
+      ],
+      "phase": 5,
+      "vercelAiElements": "Suggestion",
+      "installCount": 1
+    },
+    {
       "slug": "suggestion-strip",
       "name": "SuggestionStrip",
       "tier": 5,
       "category": "uncategorized",
       "family": "Shared",
       "status": "stable",
-      "deprecated": false,
+      "deprecated": true,
       "summary": "Above-the-composer strip of clickable suggestion chips. 2-6 dismissible chips that pre-fill PromptInput on click. Mirrors Vercel AI Elements `Suggestion` family verbatim.",
       "installCommand": "npx shadcn@latest add @lumen/suggestion-strip",
       "tokens": [],
@@ -3380,7 +3496,7 @@
     {
       "slug": "textarea",
       "name": "Textarea",
-      "tier": 0,
+      "tier": 1,
       "category": "form",
       "status": "stable",
       "deprecated": false,
@@ -3597,7 +3713,7 @@
       "category": "navigation",
       "status": "stable",
       "deprecated": false,
-      "summary": "",
+      "summary": "Horizontal app chrome — brand mark + breadcrumb + global search trigger + user menu. h-14 (56px); hairline bottom border. Pair with Sidebar (left) for the two-axis dashboard chrome.",
       "installCommand": "npx shadcn@latest add @lumen/top-bar",
       "tokens": [
         "surface.canvas",
@@ -3607,7 +3723,7 @@
       ],
       "mode": "agnostic",
       "neverRuleCount": 3,
-      "hasComponentJson": false,
+      "hasComponentJson": true,
       "hasSkillMd": true,
       "hasStorybook": true,
       "hasTsx": true,

@@ -6,7 +6,95 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below) plus the v0.13.1 deferred-cleanup patch (below) plus the v0.13.2 hardening patch (below) plus the v0.13.3 SD-pipeline + security + token-naming hardening patch (below). After the operator merges `v0.13.0` (with the v0.13.1 + v0.13.2 + v0.13.3 patches folded in) to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below) plus the v0.13.1 deferred-cleanup patch (below) plus the v0.13.2 hardening patch (below) plus the v0.13.3 SD-pipeline + security + token-naming hardening patch (below) plus the v0.13.4 master-doc-compliance patch (below). After the operator merges `v0.13.0` (with all v0.13.x patches folded in) to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+
+---
+
+## [0.13.4] — 2026-05-17 — Master-doc compliance + Phase 5 canonical naming + 7 ADRs + generator determinism · closes 9 items chat 14 missed under fresh-eyes audit
+
+Fourth-pass audit on the v0.13.0 ship. Chat 14's [v0.13.3 hardening](./_meta/decisions/0029-shadcn-registry-distribution-v013.md) closed 8 items but a fresh-eyes audit against the master doc + 7 phase prompts surfaces 9 more — 5 of which were already-shipping consumer-visible gaps (the wrong-name Phase 5 primitives, the missing-doc ghost components, the stale `llms-full.txt` committed in chat 14 itself). v0.13.4 closes all 9 end-to-end. Master doc + AGENTS.md hard rules 15–19 are now ADR-backed (was: rules existed without architectural decision records). All 17 hard gates pass; the new `pnpm check` umbrella runs every gate in one command (no more "all gates pass" paraphrasing of a subset — the gates are enumerated by name, every time).
+
+### Fixed
+
+- **Phase 5 verification gate named 5 components that didn't exist under their canonical names.** Master doc §7.Phase-5 + AGENTS.md hard rule 19 specify Vercel-AI-Elements-verbatim naming for AI primitives (`Suggestion`, `Loader`, `Agent`, `Context`, `CodeBlock`). Chat 10 shipped them under Lumen-divergent folder names: `suggestion-strip/`, `loader-ai/`, `agent-state/`, `context-window/`, and (for code-block) a phantom folder with `component.json` + `component.md` only. Fix: created 5 canonical-name folders with full v0.13 contract (`<name>.md` + `<name>.skill.md` + `<name>.tsx` + `<name>.registry.json` + `<name>.stories.tsx` × 5 = 25 new files). Marked the 4 existing divergent folders deprecated (`meta.deprecated: true`, `meta.deprecationNotice`, `meta.removedIn: "0.14.0"`); both names ship in v0.13.x per the additive principle (ADR 0026), divergent names retire in v0.14. Registry now lists 153 items (was 149); dashboard lists 150 components.
+
+- **5 button-family components shipped in the registry with ZERO documentation.** `split-button`, `icon-button`, `fab`, `command-palette-button`, `button-group` were preserved-from-v0.12.6 legacy entries with `component.json` + `examples/primary.tsx` but no `component.md`. They appeared in the registry, in the legacy `_registry/` sidecar, but were invisible to the dashboard (no summary, no docs). Fix: backfilled `component.md` for all 5 with full anatomy / props / tokens / a11y / related sections matching the Tier 1 button-family pattern (icon-button is sibling to button; FAB extends to floating-action; split-button + button-group are compound affordances; command-palette-button is the global-search summoning element).
+
+- **`tools/build-component-index.ts` tier inference missed the 5 new canonical Phase 5 names + the 5 button-family entries + the deprecated divergent names.** Result: all 10 fell to `tier=0` (unknown) in the dashboard. Fix: extended `inferTier()` T1 set to include `split-button` / `icon-button` / `fab` / `command-palette-button` / `button-group` / `textarea`; extended T5 set to include `suggestion` / `loader` / `agent` / `context` / `code-block` (canonical) plus retain `suggestion-strip` / `loader-ai` / `agent-state` / `context-window` (deprecated aliases — both ship in v0.13.x). Verified: dashboard now lists tier-1=25, tier-5=33 (was 20, 28), deprecated=4.
+
+- **19 Phase 2 v0.13 components were missing the legacy `component.json` schema contract** (they shipped `<name>.registry.json` only). Schema validation (`ajv` via `pnpm validate:components`) glob-skipped them silently. Affected: `breadcrumb`, `carrier-badge`, `command-palette`, `cross-dock-grid`, `data-table`, `dock-bay`, `filter-builder`, `filter-chip`, `lane-arc`, `lane-code`, `modal`, `otr-truck-iso`, `pallet-tile`, `quote-builder`, `radio`, `route-map`, `saved-view`, `shipment-timeline`, `top-bar`. Fix: generated schema-valid `component.json` for all 19 (plus the 4 new canonical Phase 5 aliases) by deriving from existing `<name>.md` + `<name>.skill.md` + `<name>.registry.json`. Schema requires `name`, `version`, `status`, `summary`, `props`, `tokens`, `a11y` (with `wcag` + `keyboard`), `rules`, `examples` (object map `platform → path`). All 23 new component.json files pass ajv validation; total schema-validated component count is now 150.
+
+- **`llms-full.txt` shipped STALE in chat 14's commit `8afd2ac`.** Chat 14 ran `pnpm llms:all` at 18:03 UTC, wrote `phase-9-report.md` at 18:09 UTC, then committed at 18:12 UTC — the committed `llms-full.txt` was missing all 35,159 bytes of the v0.13.3 phase-9 report. This is the EXACT same failure mode chat 14 itself documented for v0.13.2's phase-8 (chat 13 missed it; chat 14 caught for phase-8 but introduced the identical bug for its own phase-9). Fix: (a) regenerated `llms-full.txt` (now 513 files / 2,298,773 chars / ~575K tokens — embeds the phase-9 report content); (b) made the build script deterministic so future re-runs of `pnpm llms:all` without source changes don't dirty the working tree.
+
+- **5 generator scripts produced timestamp-only working-tree churn** after every `pnpm run audit` / `pnpm dashboard-indexes` run, even when content was unchanged. Affected: `tools/build-component-index.ts`, `tools/build-prompt-index.ts`, `tools/build-token-index.ts`, `tools/build-llms-txt.ts`, `tools/audit-contrast.ts`. Each emitted `new Date().toISOString()` into the output's `generated` / `generatedAt` field every run; `git status` was perpetually dirty. Fix: added `tools/_stable-output.ts` shared helper exporting `writeStableJson()` and `writeStableText()`. Each helper reads the existing file (if any), compares content excluding the timestamp field, and preserves the existing timestamp when content is byte-equivalent. Also added `SOURCE_DATE_EPOCH` env-var support per the reproducible-builds convention. Verified: two consecutive `pnpm dashboard-indexes` runs produce identical git status.
+
+- **AGENTS.md hard rules 15–19 had no ADR backing.** v0.13's 5 architectural hard rules (dual-mode, glass-floating-only, DTCG-2025.10, Phase-0-alias-namespace, Vercel-AI-Elements-naming) plus the Phase-4 GPT-image-2 library and Phase-6 shadcn-MCP-distribution decisions had been added to AGENTS.md without corresponding ADRs in `_meta/decisions/`. The system's own meta-policy says architectural decisions get ADRs. Fix: wrote 7 new ADRs (0023–0029) — each ~150-250 lines covering Context, Decision, Consequences, Alternatives — and updated `_meta/decisions/README.md` index to surface them. ADR-0023 partially supersedes ADR-0001 (which was the v0.7 DTCG-format decision); the others are net-new.
+
+- **`pnpm validate` umbrella covered only schema + contrast — not lint, audit, or registry-build.** A contributor running `pnpm validate` thought they'd validated everything when in fact `pnpm lint` (7 sub-lints), `pnpm run audit` (4 sub-audits), `pnpm registry:build`, and `pnpm audit --audit-level=moderate` (npm vuln) were all separate commands. Fix: added `pnpm check` as a new umbrella that runs `pnpm tokens && pnpm validate && pnpm lint && pnpm audit && pnpm registry:build` in order. One command = every gate enumerated by name. Chat 14's Product Edge identified the verification-drift pattern; `pnpm check` is the structural antibody.
+
+### Added
+
+- **7 ADRs covering v0.13 architecture decisions:**
+  - [ADR 0023](./_meta/decisions/0023-dtcg-2025-10-lift-v013.md) — Lift token contract to DTCG 2025.10 (Phase 0; partially supersedes ADR 0001)
+  - [ADR 0024](./_meta/decisions/0024-dual-mode-architecture-v013.md) — Dual-mode architecture via `data-mode` scope attribute (hard rule 15)
+  - [ADR 0025](./_meta/decisions/0025-glass-floating-shells-only-v013.md) — Glass surfaces only on floating shells (hard rule 16)
+  - [ADR 0026](./_meta/decisions/0026-phase-0-alias-namespace-v013.md) — Phase 0 alias namespace (additive — hard rule 18)
+  - [ADR 0027](./_meta/decisions/0027-vercel-ai-elements-naming-v013.md) — Vercel AI Elements naming verbatim for AI primitives (hard rule 19)
+  - [ADR 0028](./_meta/decisions/0028-gpt-image-2-prompt-library-v013.md) — GPT-image-2 prompt library + immutable style anchor (Phase 4)
+  - [ADR 0029](./_meta/decisions/0029-shadcn-registry-distribution-v013.md) — shadcn registry distribution; no custom Lumen MCP in v0.13 (Phase 6)
+- **5 canonical-name Phase 5 component folders** — `suggestion/`, `loader/`, `agent/`, `context/`, `code-block/` — each with `<name>.md` + `<name>.skill.md` + `<name>.tsx` + `<name>.registry.json` + `<name>.stories.tsx`. Honors AGENTS.md hard rule 19 (Vercel AI Elements naming verbatim).
+- **5 `component.md` for the v0.12.6 button-family extensions** — `split-button/component.md`, `icon-button/component.md`, `fab/component.md`, `command-palette-button/component.md`, `button-group/component.md`. Each: anatomy, props table, tokens consumed, states, accessibility, related.
+- **23 `component.json` machine contracts** — auto-derived from existing `<name>.md` + `<name>.skill.md` + `<name>.registry.json` for 19 Phase 2 v0.13 components + 4 new canonical Phase 5 aliases. All pass `ajv` schema validation (required: `name`, `version`, `status`, `summary`, `props`, `tokens`, `a11y` with `wcag` + `keyboard`, `rules`, `examples`).
+- **`tools/_stable-output.ts`** — shared helper exporting `writeStableJson()` and `writeStableText()` for content-stable timestamp preservation. Honors `SOURCE_DATE_EPOCH` env var per the reproducible-builds convention.
+- **`pnpm check`** new umbrella script — runs `pnpm tokens && pnpm validate && pnpm lint && pnpm audit && pnpm registry:build` in order. One command = every gate enumerated by name.
+- **Composite typography helpers** on iOS + Android (closing chat 14's v0.14 candidate):
+  - `examples/ios-reference/Sources/LumenTokens/LumenTypography.swift` — `LumenFont.displayHero / display{2xl,xl,lg,md} / h1..h6 / bodyLG / bodyMD / bodySM / caption / monoCap / monoCode`. Plus `.lumenMonoCap()` and `.lumenDisplayHero()` View-modifier helpers that apply tracking + textCase.
+  - `examples/android-reference/lumen-typography/LumenTypography.kt` — `LumenTextStyles.displayHero / display2xl / displayXL / displayLG / displayMD / h1..h6 / bodyLG / bodyMD / bodySM / caption / monoCap / monoCode` (full `TextStyle` including `letterSpacing` + `fontFeatureSettings`).
+- **Phase 10 report** — `design-system/06-claude-code-briefings/phase-10-report.md` per master doc §10.3 — full verification table with 17 hard gates + 1 new `pnpm check` umbrella gate, all PASS with margin.
+
+### Changed
+
+- **AGENTS.md** still 220 lines; hard rules 15–19 now have ADR-backed traceability via the new `_meta/decisions/0023..0029` entries.
+- **`tools/build-component-index.ts`** — `inferTier()` extended to include the new canonical Phase 5 names + button-family + the deprecated divergent names. Switched output writer to `writeStableJson()`.
+- **`tools/build-prompt-index.ts`** + **`tools/build-token-index.ts`** + **`tools/build-llms-txt.ts`** + **`tools/audit-contrast.ts`** — all switched to content-stable output writers; the 5 dirty-timestamp artifacts no longer churn on idempotent re-runs.
+- **`package.json`** — new `check` script entry (runs the 5-gate umbrella). Schema validation now covers 150 component.json files (was 127).
+- **`_meta/decisions/README.md`** — appended ADR 0023–0029 entries to the index table.
+- **4 existing component folders** — `suggestion-strip/`, `loader-ai/`, `agent-state/`, `context-window/` — marked deprecated with `meta.deprecated: true`, `meta.deprecationNotice`, `meta.removedIn: "0.14.0"`, `meta.canonicalName: "<canonical>"`. Both names ship in v0.13.x per ADR 0026's additive principle.
+
+### Notes / Out of scope
+
+- **v0.13.4 ships zero new tokens. Zero modified token values.** All work is at the component contract, ADR, generator-determinism, and dashboard-tier-inference layers.
+- **The 4 deprecated divergent-name folders retire in v0.14** — `suggestion-strip`, `loader-ai`, `agent-state`, `context-window`. v0.13.x consumers may use either form (both resolve, both validate).
+- **`07-mcp/` folder remains intentionally absent** — ADR 0029 documents the decision explicitly. The shadcn MCP serves as the distribution layer; a custom Lumen MCP is a v0.14 candidate ONLY if a Lumen-specific tool surface beyond what shadcn MCP exposes is needed.
+- **CHANGELOG flatten at v0.13.0 release time** — `[0.13.1]` + `[0.13.2]` + `[0.13.3]` + `[0.13.4]` all live under `[Unreleased]`. Operator flattens when merging to `main` + tagging.
+
+### Verification gates — all PASS
+
+| # | Gate | Status |
+|---|---|---|
+| 1 | `pnpm tokens` | ✓ PASS |
+| 2 | `pnpm tokens:validate` | ✓ PASS — 1177 tokens declared across 44 files; all aliases + component references resolve |
+| 3 | `pnpm validate` | ✓ PASS — 150 component.json schema-valid (was 127 pre-patch) |
+| 4 | `pnpm run audit` | ✓ PASS |
+| 5 | `pnpm lint` (7 sub-lints) | ✓ PASS |
+| 6 | `pnpm lint:token-naming` | ✓ PASS — all token names kebab-case |
+| 7 | `pnpm registry:build` (shadcn) | ✓ PASS — 153 items (was 149) |
+| 8 | `pnpm registry` (legacy build) | ✓ PASS |
+| 9 | `pnpm llms:all` | ✓ PASS — 513 files / 2,298,773 chars / ~575K tokens |
+| 10 | `pnpm dashboard-indexes` | ✓ PASS — 150 components, tier-1=25, tier-5=33 |
+| 11 | dashboard `tsc --noEmit` | ✓ PASS |
+| 12 | ai-surface `tsc --noEmit` | ✓ PASS |
+| 13 | `pnpm audit` (npm vuln) | ✓ PASS — 0 advisories |
+| 14 | `pnpm audit:motion` | ✓ PASS — 405 files / 0 unguarded animations |
+| 15 | `pnpm audit:tokens` | ✓ PASS — 0 hex literals outside primitives |
+| 16 | `pnpm audit:mode` | ✓ PASS — 0 `data-mode` refs in component source |
+| 17 | `pnpm audit:contrast` | ✓ PASS — body + large UI all clear |
+| 18 (NEW) | `pnpm check` umbrella | ✓ PASS — runs every gate in one command |
+
+### Paper trail
+
+- [Phase 10 report](./design-system/06-claude-code-briefings/phase-10-report.md)
+- [7 new ADRs (0023–0029)](./_meta/decisions/)
 
 ---
 

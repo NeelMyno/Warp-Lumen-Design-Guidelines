@@ -1,0 +1,41 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "RouteMap",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Bounded map surface with lane overlays + pickup/dropoff markers + optional live truck position pin. Provider-agnostic \u2014 accepts a map renderer prop (default: a stylized SVG placeholder for prototyping). Consumers pass Mapbox/Leaflet/Google instances as `mapProvider` for production.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus map controls",
+      "ArrowKeys - pan",
+      "+/- - zoom"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER ship the default placeholder to production.",
+      "NEVER mix more than 5 overlaid lanes (visual noise)."
+    ]
+  },
+  "examples": {
+    "web-react": "./route-map.tsx"
+  }
+}

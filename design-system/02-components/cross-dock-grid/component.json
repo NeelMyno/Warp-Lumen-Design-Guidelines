@@ -1,0 +1,40 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CrossDockGrid",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Top-down floor layout. Each cell = pallet position; color-coded by destination lane. Hover for pallet detail; click to drill in. Configurable rows \u00d7 cols. Empty cells use surface-sunken; occupied cells inherit the lane's tinted color from a palette rotation.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - cycle cells",
+      "ArrowUp/Down/Left/Right - navigate"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use 10+ distinct lane colors \u2014 palette is 5-rotation.",
+      "NEVER omit the hover state (it's the affordance)."
+    ]
+  },
+  "examples": {
+    "web-react": "./cross-dock-grid.tsx"
+  }
+}

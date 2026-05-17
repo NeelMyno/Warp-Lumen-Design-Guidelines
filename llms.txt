@@ -52,7 +52,7 @@ The token graph is the single source of truth. Hex literals only inside `primiti
 - **Build output**: `dist/` (gitignored). Style Dictionary v5 emits CSS variables, Tailwind preset, SwiftUI extensions, Compose objects, JSON dump.
 - **Audit baselines**: [`tools/audit-baseline/`](/tools/audit-baseline/) — contrast snapshots per mode.
 
-## Components — shadcn registry under `@lumen/*` (149 items; Phase 2 + 5)
+## Components — shadcn registry under `@lumen/*` (153 items; Phase 2 + 5)
 
 Registry endpoint: `https://warp-lumen-design-guidelines.vercel.app/r/{name}.json`
 Consumer install: `npx shadcn add @lumen/<name>` from any project (after `components.json` is configured per the [shadcn 4 docs](https://ui.shadcn.com/docs/registry)).
@@ -148,11 +148,11 @@ The Lumen registry is shadcn-MCP-compatible out of the box. No separate Lumen MC
 - Install shadcn MCP: `claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp`
 - Register Lumen in consumer's `components.json`: `{ "registries": { "@lumen": "https://warp-lumen-design-guidelines.vercel.app/r/{name}.json" } }`
 - Verify: `/mcp` in Claude Code, then "install @lumen/button" routes through the shadcn MCP `install` tool
-- Endpoint: [`https://warp-lumen-design-guidelines.vercel.app/r/registry.json`](https://warp-lumen-design-guidelines.vercel.app/r/registry.json) — must return ≥149 items (Phase 5 total)
+- Endpoint: [`https://warp-lumen-design-guidelines.vercel.app/r/registry.json`](https://warp-lumen-design-guidelines.vercel.app/r/registry.json) — must return ≥153 items (Phase 5 total)
 - Tools exposed by shadcn MCP: `init`, `add`/`install`, `list`, `search`, `get_item`
 - Full instructions: [AGENTS.md §"MCP integration"](/AGENTS.md)
 - shadcn consumer config: [`components.json`](/components.json) (root)
-- shadcn registry manifest: [`registry.json`](/registry.json) (root; 149 items)
+- shadcn registry manifest: [`registry.json`](/registry.json) (root; 153 items)
 
 > A Lumen-native MCP (for tools beyond shadcn's surface, e.g. `lumen.get_prompt_template`) is deferred to v0.14 as `@warp/lumen-mcp`. v0.13 ships shadcn-only because shadcn covers list / get / search / install over the whole `@lumen` graph.
 

@@ -1,0 +1,40 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CarrierBadge",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Carrier identity chip. Logo slot + name + rating (\u2605) + vehicle type (FTL / LTL / Reefer / Flatbed) + on-time percentage. Use synthetic names (Sterling LTL, Estes Express, ODFL) per privacy rule \u2014 no real-person names.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus (when interactive)"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER use real person names in fixtures.",
+      "NEVER show a fractional OTD% (round to 1 decimal max).",
+      "NEVER stack 4+ carrier badges per row (visual overload)."
+    ]
+  },
+  "examples": {
+    "web-react": "./carrier-badge.tsx"
+  }
+}

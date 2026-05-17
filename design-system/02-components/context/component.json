@@ -1,0 +1,41 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Context",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Token usage / context window display. Stat-style composition showing how much of the model's context budget is consumed, with a progress meter and a tracked-out label.",
+  "props": {},
+  "tokens": {
+    "consumed": []
+  },
+  "a11y": {
+    "wcag": [
+      "1.4.3 Contrast (Minimum)",
+      "2.1.1 Keyboard",
+      "2.4.7 Focus Visible",
+      "4.1.2 Name, Role, Value"
+    ],
+    "keyboard": [
+      "Tab - focus progress meter"
+    ],
+    "minTouchTarget": "44x44",
+    "rules": [
+      "Visible focus ring required (outline + box-shadow per AGENTS.md hard rule 11).",
+      "Honor prefers-reduced-motion and prefers-reduced-transparency.",
+      "Color is never the only signal \u2014 pair with label, shape, or icon."
+    ]
+  },
+  "rules": {
+    "do": [],
+    "dont": [
+      "NEVER hide Context \u2014 if a user is asking the operator to \"summarize and continue\", they need the affordance visible.",
+      "NEVER show only a percentage \u2014 always include the absolute numbers (used / total tokens).",
+      "NEVER swap the warning color. Spring at 0-80%, warning at 80-100%, danger at over-budget.",
+      "NEVER conflate \"context window\" with \"conversation length\" \u2014 they are different. Context = current request payload size."
+    ]
+  },
+  "examples": {
+    "web-react": "./context.tsx"
+  }
+}

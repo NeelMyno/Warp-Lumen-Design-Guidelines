@@ -24,7 +24,8 @@
  * convention; root package.json has no `glob` dep on purpose).
  */
 
-import { readFileSync, writeFileSync, statSync, readdirSync } from "node:fs";
+import { readFileSync, statSync, readdirSync } from "node:fs";
+import { writeStableText, stableTimestamp } from "./_stable-output.js";
 import { resolve, relative, join } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname;
@@ -189,7 +190,7 @@ const HEADER = `# Lumen Design System — Full Reference (v${VERSION})
 > For the indexed (~5-10K-token) version, see [\`llms.txt\`](./llms.txt).
 > For the canonical source, see https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines.
 >
-> Generated: ${new Date().toISOString().replace(/\.\d{3}Z$/, "Z")}
+> Generated: ${stableTimestamp()}
 > Lumen version: v${VERSION}
 > Section order: foundations → tokens → components → patterns → platforms → prompts → briefings
 
@@ -235,7 +236,7 @@ for (const section of SECTIONS) {
   }
 }
 
-const stats = `\n\n---\n\n## Generation stats\n\n- Files: ${fileCount}\n- Total chars: ${out.length.toLocaleString()}\n- Approx tokens: ${Math.round(out.length / 4).toLocaleString()} (rule-of-thumb)\n- Lumen version: v${VERSION}\n- Generated: ${new Date().toISOString().replace(/\.\d{3}Z$/, "Z")}\n`;
+const stats = `\n\n---\n\n## Generation stats\n\n- Files: ${fileCount}\n- Total chars: ${out.length.toLocaleString()}\n- Approx tokens: ${Math.round(out.length / 4).toLocaleString()} (rule-of-thumb)\n- Lumen version: v${VERSION}\n- Generated: ${stableTimestamp()}\n`;
 out += stats;
 
 if (DRY_RUN) {
@@ -243,7 +244,9 @@ if (DRY_RUN) {
     `[dry-run] would write llms-full.txt — ${fileCount} files, ${out.length.toLocaleString()} chars, ~${Math.round(out.length / 4).toLocaleString()} tokens.`,
   );
 } else {
-  writeFileSync(OUT, out, "utf-8");
+  // v0.13.4 — content-stable write: preserve existing `Generated:` timestamps
+  // when the body content is unchanged. Eliminates every-gate-run dirt.
+  writeStableText(OUT, out, /^> Generated: .+$|^- Generated: .+$/gm);
   console.log(
     `Wrote ${relative(ROOT, OUT)} — ${fileCount} files, ${out.length.toLocaleString()} chars, ~${Math.round(out.length / 4).toLocaleString()} tokens.`,
   );

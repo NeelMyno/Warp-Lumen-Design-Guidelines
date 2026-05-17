@@ -3,7 +3,7 @@
   "name": "SuggestionStrip",
   "version": "0.13.0",
   "status": "stable",
-  "deprecated": false,
+  "deprecated": true,
   "summary": "Above-the-composer strip of clickable suggestion chips. 2-6 dismissible chips that pre-fill PromptInput on click. Mirrors Vercel AI Elements `Suggestion` family verbatim.",
   "props": {
     "className": {
@@ -73,5 +73,7 @@
     "family": "Shared",
     "lumenVersion": "0.13.0",
     "phase": 5
-  }
+  },
+  "deprecationNotice": "Renamed to suggestion in v0.13.4 to match Vercel AI Elements naming. Use suggestion instead; this alias will be removed in v0.14.0.",
+  "removedIn": "0.14.0"
 }

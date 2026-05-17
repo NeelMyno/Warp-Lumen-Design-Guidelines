@@ -3,7 +3,7 @@
   "name": "suggestion-strip",
   "type": "registry:ui",
   "title": "Suggestion",
-  "description": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
+  "description": "[DEPRECATED \u2014 renamed to @lumen/suggestion] Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
   "dependencies": [
     "lucide-react"
   ],
@@ -33,6 +33,10 @@
     },
     "platforms": [
       "web-react"
-    ]
+    ],
+    "deprecated": true,
+    "deprecationNotice": "Renamed to @lumen/suggestion in v0.13.4 to match Vercel AI Elements naming (AGENTS.md hard rule 19). Install @lumen/suggestion instead; this alias will be removed in v0.14.0.",
+    "removedIn": "0.14.0",
+    "canonicalName": "suggestion"
   }
 }

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "agent",
+  "type": "registry:ui",
+  "title": "Agent",
+  "description": "Six-state visual indicator for an AI agent's current lifecycle phase (idle / thinking / running-tool / awaiting-approval / done / error). Canonical Vercel-AI-Elements-named entry; supersedes `@lumen/agent-state` (deprecated in v0.13.4, retired in v0.14).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/agent/agent.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/agent.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Agent",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Agent",
+      "installCommand": "npx ai-elements@latest add agent"
+    },
+    "platforms": [
+      "web-react"
+    ],
+    "aliases": [
+      "agent-state"
+    ]
+  }
+}

@@ -3,7 +3,7 @@
   "name": "ContextWindow",
   "version": "0.13.0",
   "status": "stable",
-  "deprecated": false,
+  "deprecated": true,
   "summary": "Token usage / context window display. Stat + progress meter composition. Shows used / total / percentage with semantic color thresholds. Mirrors Vercel AI Elements `Context` verbatim.",
   "props": {
     "className": {
@@ -73,5 +73,7 @@
     "family": "Shared",
     "lumenVersion": "0.13.0",
     "phase": 5
-  }
+  },
+  "deprecationNotice": "Renamed to context in v0.13.4 to match Vercel AI Elements naming. Use context instead; this alias will be removed in v0.14.0.",
+  "removedIn": "0.14.0"
 }

@@ -1,9 +1,9 @@
 {
-  "generated": "2026-05-17T18:05:43Z",
+  "generated": "2026-05-17T20:48:42Z",
   "version": "0.13.0",
   "totals": {
     "tokens": 1285,
-    "references": 2893,
+    "references": 2913,
     "byLayer": {
       "primitive": 375,
       "semantic": 406,
@@ -17712,6 +17712,16 @@
       },
       {
         "type": "component-tsx",
+        "file": "design-system/02-components/agent/agent.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/agent/agent.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
         "file": "design-system/02-components/agent-state/agent-state.stories.tsx",
         "line": 38
       },
@@ -17732,6 +17742,16 @@
       },
       {
         "type": "component-tsx",
+        "file": "design-system/02-components/code-block/code-block.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/code-block/code-block.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
         "file": "design-system/02-components/commit-card/commit-card.stories.tsx",
         "line": 38
       },
@@ -17748,6 +17768,16 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/confirmation/confirmation.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/context/context.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/context/context.stories.tsx",
         "line": 38
       },
       {
@@ -17788,6 +17818,16 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/jsx-preview/jsx-preview.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/loader/loader.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/loader/loader.stories.tsx",
         "line": 38
       },
       {
@@ -17908,6 +17948,16 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/stack-trace/stack-trace.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/suggestion/suggestion.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/suggestion/suggestion.stories.tsx",
         "line": 38
       },
       {
@@ -17994,6 +18044,16 @@
       },
       {
         "type": "component-tsx",
+        "file": "design-system/02-components/agent/agent.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/agent/agent.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
         "file": "design-system/02-components/agent-state/agent-state.stories.tsx",
         "line": 40
       },
@@ -18014,6 +18074,16 @@
       },
       {
         "type": "component-tsx",
+        "file": "design-system/02-components/code-block/code-block.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/code-block/code-block.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
         "file": "design-system/02-components/commit-card/commit-card.stories.tsx",
         "line": 40
       },
@@ -18030,6 +18100,16 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/confirmation/confirmation.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/context/context.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/context/context.stories.tsx",
         "line": 40
       },
       {
@@ -18070,6 +18150,16 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/jsx-preview/jsx-preview.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/loader/loader.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/loader/loader.stories.tsx",
         "line": 40
       },
       {
@@ -18190,6 +18280,16 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/stack-trace/stack-trace.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/suggestion/suggestion.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/suggestion/suggestion.stories.tsx",
         "line": 40
       },
       {

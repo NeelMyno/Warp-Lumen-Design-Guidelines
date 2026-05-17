@@ -11,6 +11,7 @@
     "build": "tsx style-dictionary.config.ts",
     "build:watch": "chokidar 'design-system/01-tokens/**/*.tokens.json' -c 'pnpm build'",
     "validate": "pnpm validate:tokens && pnpm validate:components && pnpm validate:contrast",
+    "check": "pnpm tokens && pnpm validate && pnpm lint && pnpm audit && pnpm registry:build",
     "validate:tokens": "node scripts/validate-tokens.mjs",
     "validate:components": "ajv validate -s design-system/02-components/_schema/component.schema.json -d 'design-system/02-components/*/component.json'",
     "validate:contrast": "node scripts/check-contrast.mjs",
