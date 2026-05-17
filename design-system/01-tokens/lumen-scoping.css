@@ -184,10 +184,16 @@
 
 /* ----------------------------------------------------------------------------
    .lumen-text-scrim — v0.13.1 — closes the text.tertiary on expressive-hero
-   contrast advisory. Per modes.md §"Contrast contract on expressive hero":
+   contrast advisory (Phase 1 #4 + audit-contrast text.tertiary on mesh peak
+   2.67 < 3 advisory). Per modes.md §"Contrast contract on expressive hero":
    tertiary text on the expressive mesh must render inside a scrim zone OR
-   be lifted to text.secondary. The utility paints a `gradient.hero-scrim`
-   behind its child text only under [data-mode='expressive']; no-op in restrained.
+   be lifted to text.secondary.
+
+   This utility paints a `gradient.hero-scrim` (vertical 62% → transparent
+   ink fade) BEHIND its child text — but ONLY when the surrounding scope is
+   `data-mode='expressive'`. In restrained mode the utility is a no-op (the
+   ::before pseudo collapses to transparent). Use this on any tertiary-text
+   block inside a `<ModeScope mode='expressive'>` to keep WCAG 2.4.13 clear.
    ---------------------------------------------------------------------------- */
 .lumen-text-scrim {
   position: relative;
@@ -235,6 +241,151 @@
   border: 1px solid var(--glass-tinted-accent-border);
 }
 
+/* ============================================================================
+   PHASE 11 — v0.13.6 — System-wide expressive retrofit
+   ----------------------------------------------------------------------------
+   Phase 10 (v0.13.5) wired the mode-aware tokens into the page hero only.
+   Operator visual inspection: the toggle reads as a "banner tint" because the
+   only above-the-fold pixels that changed were inside the brutalist frame.
+   Phase 11 closes the gap. Three buckets, all CSS-only:
+
+     BUCKET 1 — canvas-wide ambient via body::before (Spring-Green-free
+                gradient.canvas-ambient overlay; restrained → opacity 0,
+                expressive → opacity 1 with the radial gradient)
+     BUCKET 2 — glass-default / glass-subtle / glass-strong utilities
+                rebind to the tinted-accent variant under
+                [data-mode='expressive']; floating shells (popovers,
+                dropdowns, command palettes, mega menus) pick up the
+                Spring Green tint + accent hairline
+     BUCKET 3 — .lumen-card-edge — opt-in utility that paints a 135deg
+                ambient hairline gradient as a ::after overlay on above-the-
+                fold section cards in expressive mode
+
+   Hard rules preserved across all three buckets:
+     - NEVER backdrop-filter on dense surfaces (data table, row, cell, KPI grid)
+     - NEVER introduce a second loud color (Spring Green only)
+     - ALWAYS provide prefers-reduced-transparency + prefers-reduced-motion
+       fallbacks (extended below in the existing @media blocks)
+     - Public token names + utility class names stable; additive only
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   BUCKET 1 — Canvas-wide ambient overlay (body::before)
+
+   Paints `surface.canvas-ambient` across the entire viewport on every page.
+   In restrained mode `surface.canvas-ambient` resolves to flat obsidian.800
+   → the ::before pseudo paints obsidian which is identical to the canvas
+   underneath → visually invisible. In expressive mode `surface.canvas-ambient`
+   resolves to `gradient.canvas-ambient` (a 1400×800px ellipse radial from
+   obsidian.900 center → obsidian.800 at 70%) → a subtle "lit-from-within"
+   wash appears across the canvas.
+
+   The architectural grid in dashboard-shell.tsx (fixed inset-0 -z-10 opacity-60)
+   sits INSIDE its parent stacking context (the dashboard-shell wrapper, which
+   is `body > *`). By lifting `body > *` to z-index 1, we keep the wrapper +
+   all its descendants (including the grid) ABOVE the body::before layer.
+   The grid hairlines remain visible — they paint over the gradient at hairline
+   pixels, and the gradient shows through the transparent gaps between hairlines.
+   The two layers compose cleanly without obscuring each other.
+
+   Transition uses the master-doc decelerate easing on a 320ms base duration
+   (--motion-base). Reduced-motion drops to 0ms. Reduced-transparency collapses
+   the gradient to flat obsidian (handled in the existing @media block below).
+   ---------------------------------------------------------------------------- */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--surface-canvas-ambient);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity var(--motion-base, 320ms) cubic-bezier(0.2, 0, 0, 1);
+}
+[data-mode="expressive"] body::before {
+  opacity: 1;
+}
+
+/* Lift every body child above the ::before layer so page content paints on
+   top of the canvas-ambient. Within each child's own stacking context, its
+   descendants stack normally (architectural grid at -z-10 etc.). */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ----------------------------------------------------------------------------
+   BUCKET 2 — Glass surfaces rebind to tinted-accent under [data-mode='expressive']
+
+   .lumen-glass-default / .lumen-glass-subtle / .lumen-glass-strong are the
+   canonical floating-shell utilities (popover, dropdown, command palette,
+   sheet, mega menu). In restrained mode they paint with their default
+   ink-alpha tints (12px / 20px / 28px blur respectively). In expressive
+   mode they swap to the Spring-Green-tinted variant: the tint becomes
+   `var(--glass-tinted-accent-tint)` (8% accent alpha), the border becomes
+   `var(--glass-tinted-accent-border)` (40% accent alpha hairline).
+
+   Same blur / saturate values — only tint + border swap. This keeps the
+   "floating shell" feel consistent across modes; mode signals via the
+   chromatic shift only.
+   ---------------------------------------------------------------------------- */
+
+[data-mode="expressive"] .lumen-glass-default {
+  background-color: var(--glass-tinted-accent-tint);
+  border-color: var(--glass-tinted-accent-border);
+}
+[data-mode="expressive"] .lumen-glass-subtle {
+  background-color: var(--glass-tinted-accent-tint);
+  border-color: var(--glass-tinted-accent-border);
+}
+[data-mode="expressive"] .lumen-glass-strong {
+  background-color: var(--glass-tinted-accent-tint);
+  border-color: var(--glass-tinted-accent-border);
+}
+/* .lumen-glass-tinted is ALREADY the accent-tinted variant — no rebind. */
+
+/* ----------------------------------------------------------------------------
+   BUCKET 3 — .lumen-card-edge — opt-in diagonal sheen on above-the-fold cards
+
+   Apply to a section-frame wrapper (the parent that owns the rounded border).
+   In restrained mode the ::after pseudo is opacity 0 → invisible. In
+   expressive mode it fades in to opacity 1, painting a 135deg ambient
+   gradient (10% paper alpha at top-left, transparent at midpoint, 6% paper
+   alpha at bottom-right) — a soft edge sheen that says "this card is
+   catching ambient light".
+
+   Position: absolute / inset 0 / border-radius: inherit so the sheen
+   matches the host card's corners. z-index 0 keeps it BELOW host content
+   (which should have z-index >= 1 OR live in a higher stacking layer via
+   document order). isolation: isolate on the host prevents the ::after
+   from bleeding into ancestor stacking contexts.
+
+   The host card MUST be position: relative (the utility class declares this
+   itself) so absolute positioning anchors correctly. If the host has its
+   own ::after (e.g., focus rings, lumen-frame-brutalist outlines), use a
+   different utility or layer them via :is() / :where().
+   ---------------------------------------------------------------------------- */
+
+.lumen-card-edge {
+  position: relative;
+  isolation: isolate;
+}
+.lumen-card-edge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-card-edge);
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity var(--motion-base, 320ms) cubic-bezier(0.2, 0, 0, 1);
+}
+[data-mode="expressive"] .lumen-card-edge::after {
+  opacity: 1;
+}
+
 /* ----------------------------------------------------------------------------
    @media (prefers-reduced-motion: reduce)
 
@@ -255,6 +406,12 @@
      this kills it too. */
   * {
     animation-name: none !important;
+  }
+  /* Phase 11 — drop the body::before + .lumen-card-edge fade-in transitions.
+     The mode swap remains visual but instantaneous. */
+  body::before,
+  .lumen-card-edge::after {
+    transition: none;
   }
 }
 
@@ -295,6 +452,29 @@
   .lumen-glass-default { background-color: var(--color-alpha-ink-86, rgba(13, 13, 13, 0.86)); }
   .lumen-glass-strong  { background-color: var(--color-alpha-ink-86, rgba(13, 13, 13, 0.86)); }
   .lumen-glass-tinted  { background-color: var(--color-alpha-accent-40, rgba(0, 250, 138, 0.40)); }
+  /* Phase 11 — bucket 2: in expressive mode the glass utilities already
+     swap tint + border to the accent variant. Under reduced-transparency
+     the SAME selectors must collapse to a SOLID accent-tinted surface
+     (≥ 0.85 alpha). Override the above ink-alpha defaults for expressive. */
+  [data-mode="expressive"] .lumen-glass-subtle,
+  [data-mode="expressive"] .lumen-glass-default,
+  [data-mode="expressive"] .lumen-glass-strong {
+    background-color: var(--color-alpha-accent-40, rgba(0, 250, 138, 0.40));
+  }
+  /* Phase 11 — bucket 1: the canvas-ambient gradient collapses to flat
+     obsidian (already handled above via the --surface-canvas-ambient
+     rebind to color.obsidian.800). body::before paints the rebound value,
+     so this is automatic — no extra rule needed. We explicitly null the
+     opacity to belt-and-suspenders disable any in-flight transition. */
+  body::before {
+    opacity: 0;
+  }
+  /* Phase 11 — bucket 3: the .lumen-card-edge ::after gradient is
+     decorative-only; collapse to transparent. */
+  [data-mode="expressive"] .lumen-card-edge::after {
+    background: transparent;
+    opacity: 0;
+  }
 }
 
 /* ----------------------------------------------------------------------------

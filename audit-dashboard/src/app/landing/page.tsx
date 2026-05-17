@@ -43,7 +43,7 @@ export default function LandingPage() {
             up to three hero panels with mesh treatment, separated by canvas-flat
             sections" — this is the second hero on /landing (the first being
             the page-intro PageHeader at the top of the route). */}
-        <section className="relative lumen-hero px-10 pt-24 pb-20 overflow-hidden">
+        <section className="relative lumen-hero lumen-card-edge px-10 pt-24 pb-20 overflow-hidden">
           {/* Mode-aware atmospheric overlays — absolute / pointer-events-none. */}
           <div className="lumen-atmosphere" aria-hidden />
           {/* Architectural grid lattice as an absolute overlay so it composes

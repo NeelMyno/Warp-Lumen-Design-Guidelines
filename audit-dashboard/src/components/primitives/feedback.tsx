@@ -184,7 +184,11 @@ export function ModalCard({
     <div
       role="dialog"
       aria-modal="true"
-      className={["rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-modal)] overflow-hidden", w].join(" ")}
+      // v0.13.6 Phase 11 — modal is a floating shell; .lumen-glass-default
+      // rebinds to Spring-Green-tinted variant in expressive mode. The fallback
+      // chain (reduced-transparency → solid accent-tinted; @supports not
+      // backdrop-filter → solid fallback) is wired in lumen-scoping.css.
+      className={["lumen-glass-default rounded-[var(--radius-xl)] shadow-[var(--shadow-modal)] overflow-hidden", w].join(" ")}
     >
       <div className="px-5 pt-5 pb-2 flex items-start justify-between gap-3">
         <div>
@@ -266,12 +270,18 @@ export function Drawer({ title, children }: { title: string; children: ReactNode
 
 /* ─────────────────────────  POPOVER  ───────────────────────── */
 export function Popover({ children, arrow = true }: { children: ReactNode; arrow?: boolean }) {
+  // v0.13.6 Phase 11 — popover is a floating shell; .lumen-glass-default
+  // rebinds to Spring-Green-tinted variant in expressive mode.
   return (
     <div className="relative inline-block">
-      <div className="rounded-[var(--radius-md)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-3 max-w-[320px]">
+      <div className="lumen-glass-default rounded-[var(--radius-md)] shadow-[var(--shadow-popover)] p-3 max-w-[320px]">
         {children}
       </div>
       {arrow && (
+        // The arrow is a decorative chrome element; keep the popover surface color
+        // to maintain visual continuity with the parent shell (the glass tint applies
+        // to the larger area where the blur effect is meaningful; the arrow is too
+        // small for the blur to be perceptible).
         // lumen-lint-allow: off-grid — 6 px tooltip arrow offset from popover edge (sub-grid optical).
         <span className="absolute -bottom-1.5 left-6 h-3 w-3 rotate-45 bg-[var(--surface-popover)] border-r border-b border-[var(--border-default)]" />
       )}

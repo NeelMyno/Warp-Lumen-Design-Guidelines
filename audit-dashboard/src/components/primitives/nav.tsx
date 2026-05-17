@@ -226,8 +226,12 @@ export function AnchorList({
 
 /* ─────────────────────────  MENU (popover content)  ───────────────────────── */
 export function MenuList({ items }: { items: ({ kind?: "item" | "divider" | "label"; label?: string; shortcut?: string; danger?: boolean; icon?: ReactNode })[] }) {
+  // v0.13.6 Phase 11 — floating-shell surface composes the mode-aware
+  // .lumen-glass-default utility (blur 20px + saturate 140% + ink alpha
+  // border in restrained; Spring Green tinted variant under [data-mode='expressive']).
+  // Hard rule 16 (AGENTS.md): glass only on floating shells.
   return (
-    <div className="rounded-[var(--radius-md)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-1 min-w-[200px]">
+    <div className="lumen-glass-default rounded-[var(--radius-md)] shadow-[var(--shadow-popover)] p-1 min-w-[200px]">
       {items.map((it, i) => {
         if (it.kind === "divider") return <div key={i} className="my-1 h-px bg-[var(--border-hairline)]" />;
         if (it.kind === "label") return <div key={i} className="px-2 py-1 lumen-eyebrow text-[10px]">{it.label}</div>;
@@ -257,11 +261,15 @@ export function MenuList({ items }: { items: ({ kind?: "item" | "divider" | "lab
 
 /* ─────────────────────────  MEGA MENU  ───────────────────────── */
 export function MegaMenu() {
+  // v0.13.6 Phase 11 — outer mega-menu shell uses .lumen-glass-default.
+  // The "Lane intelligence v3" promo card uses .lumen-glass-subtle so it
+  // reads as a soft secondary layer inside the glass. Both rebind to
+  // tinted-accent variants under [data-mode='expressive'].
   return (
-    <div className="rounded-[var(--radius-lg)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-popover)] p-5 w-[640px] grid grid-cols-3 gap-5">
+    <div className="lumen-glass-default rounded-[var(--radius-lg)] shadow-[var(--shadow-popover)] p-5 w-[640px] grid grid-cols-3 gap-5">
       <MegaCol title="By role" links={["Brokers", "Carriers", "Shippers", "Operations"]} />
       <MegaCol title="By need" links={["LTL & FTL rates", "Multi-stop quoting", "Freight audit", "Document AI"]} />
-      <div className="rounded-[var(--radius-md)] bg-[var(--surface-tint-accent)] p-4 flex flex-col justify-between">
+      <div className="lumen-glass-subtle rounded-[var(--radius-md)] p-4 flex flex-col justify-between">
         <div>
           <div className="lumen-eyebrow text-[10px] mb-1">New</div>
           <div className="text-heading-h5">Lane intelligence v3</div>
@@ -504,7 +512,10 @@ export function CommandPalette() {
     { kind: "item", label: "Customer Estes Express" },
   ];
   return (
-    <div className="w-[480px] rounded-[var(--radius-xl)] bg-[var(--surface-popover)] border border-[var(--border-default)] shadow-[var(--shadow-modal)] overflow-hidden">
+    // v0.13.6 Phase 11 — command palette is a floating shell;
+    // .lumen-glass-default composes blur + saturate + ink-alpha border in
+    // restrained and Spring-Green-tinted variant in expressive.
+    <div className="lumen-glass-default w-[480px] rounded-[var(--radius-xl)] shadow-[var(--shadow-modal)] overflow-hidden">
       <div className="h-12 px-3 flex items-center gap-2 border-b border-[var(--border-hairline)]">
         <SearchIcon size={15} className="text-[color:var(--text-tertiary)]" />
         <input

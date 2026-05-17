@@ -6,7 +6,81 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below) plus the v0.13.1 deferred-cleanup patch (below) plus the v0.13.2 hardening patch (below) plus the v0.13.3 SD-pipeline + security + token-naming hardening patch (below) plus the v0.13.4 master-doc-compliance patch (below) plus the v0.13.5 surface-page mode retrofit (below). After the operator merges `v0.13.0` (with all v0.13.x patches folded in) to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below) plus the v0.13.1 deferred-cleanup patch (below) plus the v0.13.2 hardening patch (below) plus the v0.13.3 SD-pipeline + security + token-naming hardening patch (below) plus the v0.13.4 master-doc-compliance patch (below) plus the v0.13.5 surface-page mode retrofit (below) plus the v0.13.6 system-wide expressive retrofit (below). After the operator merges `v0.13.0` (with all v0.13.x patches folded in) to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+
+---
+
+## [0.13.6] — 2026-05-17 — System-wide expressive retrofit · closes Phase 10's banner-only treatment gap
+
+Phase 11 retrofit. The operator-visible gap from Phase 10 (v0.13.5): the ModeToggle visually changed only the hero panel on each surface page — on inspection it read as a "banner tint toggle" rather than a system mode shift. The page canvas, all section frames, all glass-eligible cards (dropdowns, mega menus, command palettes, popovers, modals) rendered bit-identical between modes. v0.13.6 widens the retrofit to canvas-wide ambient + mode-aware glass on floating shells + card-edge sheen on section frames + hero. Toggle Expressive on any page now produces a felt system change across every visible surface above the fold.
+
+The fix is CSS scoping additions + JSX className swaps. **Zero new tokens, zero new components.** Only one new utility class (`.lumen-card-edge`) and one new runtime CSS bridge variable (`--gradient-card-edge` — bridges the `gradient.card-edge` Phase 1 primitive into runtime CSS, was previously declared in DTCG but missing from the bridge).
+
+### Fixed
+
+- **ModeToggle changed only one banner per page.** Phase 10 retrofitted the hero panel only. Operator visual inspection: 600×320 pixels of color shift per page. Section frames, canvas, floating shells all bit-identical between modes. **Fix:** three buckets:
+  - **Bucket 1 (canvas-wide):** `body::before` paints `surface.canvas-ambient`. Restrained: flat obsidian (invisible). Expressive: a subtle radial gradient wash from obsidian.900 center → obsidian.800 at 70%. `body > * { position: relative; z-index: 1 }` lifts every body direct child above the gradient so existing chrome (architectural grid, grain, sticky nav) composes WITH the gradient rather than being obscured.
+  - **Bucket 2 (glass-mode rebind):** `[data-mode='expressive'] .lumen-glass-default/.lumen-glass-subtle/.lumen-glass-strong` swap their tint to `rgba(0, 250, 138, 0.12)` (Spring Green 12% alpha) and border to `rgba(0, 250, 138, 0.40)` (accent hairline). Same blur + saturate preserved across modes — chromatic shift only. Five primitives swapped to consume the new mode-aware utility: `MenuList`, `MegaMenu` outer shell, `MegaMenu` "Lane intelligence v3" promo (uses `.lumen-glass-subtle`), `CommandPalette` demo, `Popover`, `ModalCard`. Plus the foundations Surfaces section `surface.glass` swatch migrated from legacy `.lumen-glass` → `.lumen-glass-default`.
+  - **Bucket 3 (card-edge):** new `.lumen-card-edge` utility paints a 135deg diagonal sheen as `::after` (10% paper alpha at top-left → transparent at midpoint → 6% paper alpha at bottom-right). Opacity 0 in restrained, 1 in expressive. Applied to `PageHeader` + `Section` shared components — cascades to every section frame on every route. Plus the foundations hero brutalist frame + landing marketing hero directly.
+
+### Added
+
+- **`.lumen-card-edge` utility class** in `audit-dashboard/src/app/lumen-scoping.css` + the canonical copy at `design-system/01-tokens/lumen-scoping.css`. Composes diagonal ambient sheen as `::after` on any host card. Opacity gated on `[data-mode='expressive']`. Transitions on `--motion-base` decelerate.
+- **`--gradient-card-edge` runtime CSS bridge variable** in `audit-dashboard/src/app/lumen-mode-tokens.css`. Resolves the `gradient.card-edge` Phase 1 DTCG primitive at runtime — was previously declared in token JSON but missing from the bridge.
+- **`body::before` canvas-ambient overlay** in `audit-dashboard/src/app/lumen-scoping.css`. Paints `var(--surface-canvas-ambient)` across the entire viewport on every page; transparent in restrained, radial gradient in expressive.
+- **`body > *` z-index lift rule** — lifts every body direct child to `z-index: 1; position: relative` so the body::before layer composes cleanly with descendant content.
+- **`design-system/06-claude-code-briefings/phase-11-report.md`** — full phase report per master doc §10.3 (18 in-env gates pass; 6 operator-side gates deferred).
+
+### Changed
+
+- **`audit-dashboard/src/components/section.tsx`** — `PageHeader` gains `.lumen-card-edge` (composes with `.lumen-hero` for layered hero treatment). `Section` gains `.lumen-card-edge` (cascades the sheen to every section frame on every route).
+- **`audit-dashboard/src/components/primitives/nav.tsx`** — `MenuList`, `MegaMenu` outer shell, `MegaMenu` promo card, `CommandPalette` demo: 4 className swaps from `bg-[var(--surface-popover)] border ...` → `.lumen-glass-default` (or `.lumen-glass-subtle` for the promo card).
+- **`audit-dashboard/src/components/primitives/feedback.tsx`** — `Popover` and `ModalCard` swapped to `.lumen-glass-default`. Popover arrow's existing `lumen-lint-allow: off-grid` directive reordered to be immediately above the offending JSX (the lint script only checks `prevLineHadAllow`).
+- **`audit-dashboard/src/app/foundations/page.tsx`** — hero brutalist frame gains `.lumen-card-edge`; Surfaces section `surface.glass` swatch migrated from legacy `.lumen-glass` → `.lumen-glass-default`.
+- **`audit-dashboard/src/app/landing/page.tsx`** — marketing hero gains `.lumen-card-edge`.
+- **`audit-dashboard/src/app/lumen-scoping.css`** — three Phase 11 blocks added between the existing glass utilities and the @media fallbacks. `@media (prefers-reduced-motion: reduce)` extended to drop body::before + card-edge transitions. `@media (prefers-reduced-transparency: reduce)` extended to (a) collapse body::before opacity, (b) swap expressive glass utilities to solid accent-tinted ≥ 0.85 alpha, (c) collapse card-edge gradient to transparent.
+- **`design-system/01-tokens/lumen-scoping.css`** — canonical copy synced verbatim from the runtime version.
+- **`audit-dashboard/src/app/lumen-mode-tokens.css`** — added `--gradient-card-edge` definition right after `--gradient-hero-scrim`.
+
+### Notes / Out of scope
+
+- **Zero new DTCG tokens. Zero modified token values. Zero new components.** The `gradient.card-edge` primitive shipped in Phase 1; this patch only added the runtime CSS bridge.
+- **Tooltip, Drawer, dashboard chrome (sticky header, sidebar, footer), and the chrome command-palette Radix Dialog were intentionally NOT retrofitted.** Per the Phase 11 prompt's "Decisions you will likely make unilaterally" defaults: chrome stays restrained, tooltips are too transient to reward styling, Drawer is a form-style side panel (not a transient sheet). The chrome command-palette Radix Dialog wrapper uses its own surface contract; touching it would cascade through dashboard chrome — v0.14 candidate if needed.
+- **Surface-roles `surface.popover` swatch was NOT migrated to `.lumen-glass-subtle`.** The Swatch primitive paints the RAW token; migrating would muddy the teaching. Per the prompt's own "Do not apply to the surface-roles gallery cards themselves" rule.
+- **Restrained-mode visual change on the swapped floating-shell primitives.** Switching `MenuList`/`MegaMenu`/`CommandPalette`/`Popover`/`ModalCard` from `bg-surface-popover` to `lumen-glass-default` adds blur + saturate in restrained mode (the primitives were not previously glass). This aligns them with the master-doc hard rule 16 spec — glass goes on floating shells. The tint values are similar in restrained mode so the visual delta is subtle but real.
+- **`body > *` z-index lift may surprise consumers.** Setting `position: relative; z-index: 1` on every body direct child is broad. Any future audit-dashboard route or Radix portal that relies on a specific z-index for body-direct children may collide. Current dashboard has one body direct child (Next.js app root); the rule is safe. Documented in lumen-scoping.css.
+- **CHANGELOG flatten at v0.13.0 release time** — `[0.13.1]` through `[0.13.6]` all live under `[Unreleased]`. Operator flattens when merging to `main` + tagging.
+
+### Verification gates — 18 in-env PASS; 6 operator-side deferred
+
+| # | Gate | Status |
+|---|---|---|
+| 1 | Canvas-wide ambient code path exists | ✓ PASS |
+| 2 | Glass mode rebind code path exists | ✓ PASS |
+| 3 | Card-edge utility code path exists | ✓ PASS |
+| 4 | Glass utilities applied to 5 floating shells | ✓ PASS |
+| 5 | Card-edge applied to hero + Section + landing marketing hero | ✓ PASS |
+| 6 | No glass on dense surfaces | ✓ PASS |
+| 7 | No new tokens | ✓ PASS |
+| 8 | No new components | ✓ PASS |
+| 9 | `pnpm audit:tokens` | ✓ PASS — 212 files / 0 hex |
+| 10 | `pnpm audit:mode` | ✓ PASS — 210 files / 0 refs |
+| 11 | `pnpm audit:motion` | ✓ PASS — 415 files / 0 unguarded |
+| 12 | `pnpm audit:contrast` | ✓ PASS — body 22/22, large 3/3 |
+| 13 | `pnpm tokens:validate` | ✓ PASS — 1177 tokens / 44 files |
+| 14 | `pnpm validate` | ✓ PASS |
+| 15 | `pnpm lint` (7 sub-lints) | ✓ PASS |
+| 16 | `pnpm lint:token-naming` | ✓ PASS |
+| 17 | Dashboard `tsc --noEmit` | ✓ PASS |
+| 18 | `pnpm tokens` (Style Dictionary build) | ✓ PASS |
+| OPERATOR | `pnpm test:mode-toggle` (>15,000 px diff per route) | ⏳ DEFERRED — `pnpm install` + Chromium |
+| OPERATOR | `pnpm capture-screenshots` (16-PNG regen) | ⏳ DEFERRED — same |
+| OPERATOR | `pnpm docs:build` | ⏳ DEFERRED — Turbopack |
+| OPERATOR | Manual ModeToggle smoke test | ⏳ DEFERRED — dev server |
+| OPERATOR | DevTools reduced-transparency emulation | ⏳ DEFERRED — browser |
+| OPERATOR | DevTools reduced-motion emulation | ⏳ DEFERRED — browser |
+
+**18 in-env gates ALL PASS. 6 operator-side gates deferred per the `pnpm install` + dev-server precedent.**
 
 ---
 

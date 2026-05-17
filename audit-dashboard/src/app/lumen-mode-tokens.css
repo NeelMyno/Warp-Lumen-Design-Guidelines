@@ -78,6 +78,21 @@
     transparent 40%
   );
 
+  /* gradient.card-edge — v0.13.6 Phase 11: diagonal hairline gradient for
+     above-the-fold cards in expressive mode. Lifts the card edge subtly above
+     the mesh / canvas-ambient. Composed as a ::after overlay on the card
+     wrapper, NOT on the body. The 135deg direction matches the master-doc
+     "lit from upper-left" convention; the stops fade from a 10% paper alpha
+     at top-left → transparent at midpoint → 6% paper alpha at bottom-right,
+     so the edge reads as a soft 1px-equivalent ambient sheen without a
+     visible stroke at non-edge pixels. */
+  --gradient-card-edge: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+
   /* noise.default — 8% opacity SVG feTurbulence */
   --noise-default: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
 

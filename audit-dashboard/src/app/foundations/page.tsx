@@ -50,7 +50,7 @@ export default function FoundationsPage() {
               and the aurora-spring mesh + 8% Spring Green wash + 8% SVG grain
               in expressive. Hard rules 15 + 16 preserved — mode is a scope
               attribute, no glass on this dense system surface. */}
-          <div className="lumen-frame-brutalist lumen-hero relative overflow-hidden">
+          <div className="lumen-frame-brutalist lumen-hero lumen-card-edge relative overflow-hidden">
             {/* Atmospheric overlays — absolute / pointer-events:none. */}
             <div className="lumen-atmosphere" aria-hidden />
             <div className="lumen-noise-overlay" aria-hidden />
@@ -456,7 +456,11 @@ export default function FoundationsPage() {
           <SubSection title="Glass surface — the floating shell" description="backdrop-filter blur 20px + saturate 140% + hairline border. Reserved for nav, popovers, sheets, hero device shells. Never used as a fashion statement.">
             <div className="relative rounded-[var(--radius-2xl)] border border-[var(--border-hairline)] p-12 overflow-hidden lumen-grid-architectural-fine bg-[var(--surface-canvas)]">
               <div className="relative grid gap-4 md:grid-cols-2">
-                <div className="lumen-glass rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
+                {/* v0.13.6 Phase 11 — swap legacy .lumen-glass to .lumen-glass-default
+                    so the Surfaces glass demo gains the mode-aware tinted-accent rebind
+                    in expressive (the legacy .lumen-glass stays unchanged for the
+                    dashboard-shell sticky nav which must remain chrome-restrained). */}
+                <div className="lumen-glass-default rounded-[var(--radius-xl)] p-6 flex flex-col gap-2">
                   <div className="lumen-mono-cap text-[color:var(--text-tertiary)]">surface.glass</div>
                   <div className="text-heading-h3">Floating shell</div>
                   <div className="text-body-xs text-[color:var(--text-tertiary)]">

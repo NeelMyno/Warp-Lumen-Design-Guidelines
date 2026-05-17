@@ -38,7 +38,11 @@ export function PageHeader({
   meta?: ReactNode;
 }) {
   return (
-    <header className="mb-12 md:mb-16 lumen-hero relative overflow-hidden rounded-[var(--radius-xl)]">
+    <header className="mb-12 md:mb-16 lumen-hero lumen-card-edge relative overflow-hidden rounded-[var(--radius-xl)]">
+      {/* v0.13.6 Phase 11 Bucket 3 — .lumen-card-edge adds the 135deg ambient
+          edge sheen via ::after pseudo, painting only in expressive mode. Composes
+          with .lumen-hero's mesh + atmosphere + noise so the hero gains an
+          additional "lit-from-upper-left" cue when the system enters expressive. */}
       {/* Mode-aware atmospheric overlays. Both are absolute / pointer-events:none
           and paint NOTHING in restrained mode (atmosphere transparent, noise
           opacity 0). In expressive: 8% Spring Green tint + 8% SVG feTurbulence
@@ -83,9 +87,15 @@ export function Section({
   children: ReactNode;
 }) {
   return (
+    // v0.13.6 Phase 11 Bucket 3 — every section frame gains the .lumen-card-edge
+    // utility so its bounding rectangle picks up the ambient edge sheen in
+    // expressive mode. In restrained the ::after pseudo is opacity 0 (invisible).
+    // The section element itself stays hairline-dashed at the top per v0.12.6
+    // visual identity; the sheen composes ON TOP of that hairline without
+    // replacing it.
     <section
       id={id}
-      className="lumen-reveal scroll-mt-32 border-t border-[var(--border-hairline)] pt-12 md:pt-16"
+      className="lumen-reveal lumen-card-edge scroll-mt-32 border-t border-[var(--border-hairline)] pt-12 md:pt-16"
     >
       <div className="mb-8 md:mb-10 flex flex-col gap-2">
         {eyebrow && <div className="lumen-eyebrow mb-1">{eyebrow}</div>}
