@@ -46,34 +46,39 @@
   },
   "a11y": {
     "role": "log",
-    "ariaLive": "polite",
-    "ariaLabel": "Conversation thread",
-    "keyboardSupport": [
+    "keyboard": [
       "Home — scroll to top of thread",
       "End — scroll to bottom of thread (latest message)",
       "PageUp / PageDown — page through thread"
     ],
-    "screenReader": "Each new assistant message is announced via aria-live=polite. The user's own messages are not re-announced (they typed them).",
-    "reducedMotion": "Auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set (no smooth-scroll animation)."
+    "wcag": [
+      "1.3.1 Info and Relationships — role=log + aria-live=polite expose new messages to screen readers.",
+      "1.4.3 Contrast (Minimum) — text inherits Lumen body tokens which clear 4.5:1 against surface.canvas.",
+      "2.1.1 Keyboard — Home / End / PageUp / PageDown scroll the thread without a pointer.",
+      "2.3.3 Animation from Interactions — auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set."
+    ],
+    "rules": [
+      "Each new assistant message is announced via aria-live=polite. The user's own messages are not re-announced (they typed them).",
+      "Auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set (no smooth-scroll animation).",
+      "aria-label defaults to 'Conversation thread'; consumers can override per surface."
+    ]
   },
   "rules": {
-    "never": [
+    "do": [
+      "ALWAYS pair with ConversationContent (or let Conversation auto-wrap children).",
+      "ALWAYS forward aria-live updates to assistive tech for new assistant messages.",
+      "ALWAYS honor prefers-reduced-motion in the auto-scroll behavior."
+    ],
+    "dont": [
       "NEVER hardcode a model name inside Conversation. The model is a property of PromptInputSelect or LumenAIProvider context, not the thread renderer.",
       "NEVER apply backdrop-filter to the thread container — it's a dense surface. Hard rule 16.",
       "NEVER drop the ConversationScrollButton when the user scrolls up. It's the affordance back to live.",
       "NEVER assume streaming is complete on any given render — child MessageResponse may still be partial."
-    ],
-    "always": [
-      "ALWAYS pair with ConversationContent (or let Conversation auto-wrap children).",
-      "ALWAYS forward aria-live updates to assistive tech for new assistant messages.",
-      "ALWAYS honor prefers-reduced-motion in the auto-scroll behavior."
     ]
   },
-  "examples": [
-    "examples/basic-thread.tsx",
-    "examples/with-virtualization.tsx",
-    "examples/empty-state.tsx"
-  ],
+  "examples": {
+    "web-react": "examples/basic-thread.tsx"
+  },
   "vercelAIElements": {
     "name": "Conversation",
     "installCommand": "npx ai-elements@latest add conversation",

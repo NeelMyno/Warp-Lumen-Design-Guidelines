@@ -6,10 +6,10 @@
   "deprecated": false,
   "summary": "Sets data-mode='restrained' | 'expressive' on a container so descendants resolve mode-aware semantic tokens. The single source-of-truth for switching Lumen modes. Components are mode-agnostic; semantic surface / atmosphere / motion tokens rebind under the scope.",
   "props": {
-    "mode": { "type": "'restrained' | 'expressive'", "optional": true, "default": "'restrained'", "description": "The Lumen mode applied to descendants. Restrained for dense operator surfaces (dashboards, tables, settings, terminals, command palette); expressive for landing surfaces, marketing, AI surfaces, onboarding, empty states, hero panels." },
-    "as":   { "type": "'div' | 'section' | 'main' | 'article'", "optional": true, "default": "'div'", "description": "HTML element used as the scope container." },
+    "mode": { "type": "enum", "values": ["restrained", "expressive"], "optional": true, "default": "restrained", "description": "The Lumen mode applied to descendants. Restrained for dense operator surfaces (dashboards, tables, settings, terminals, command palette); expressive for landing surfaces, marketing, AI surfaces, onboarding, empty states, hero panels." },
+    "as":   { "type": "enum", "values": ["div", "section", "main", "article"], "optional": true, "default": "div", "description": "HTML element used as the scope container." },
     "className": { "type": "string", "optional": true, "description": "Forwarded to the container element." },
-    "children": { "type": "ReactNode", "optional": false }
+    "children": { "type": "node", "optional": false, "description": "Descendants that inherit the mode scope." }
   },
   "tokens": {
     "consumed": [

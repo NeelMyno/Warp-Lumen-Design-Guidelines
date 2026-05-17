@@ -43,26 +43,35 @@
   },
   "a11y": {
     "role": "article",
-    "ariaLabel": "Conditional: 'You said: ...' for user, 'Assistant said: ...' for assistant.",
-    "screenReader": "Assistant messages flow through Conversation's aria-live=polite announcer. System messages use aria-live=assertive (rare; reserve for critical state).",
-    "keyboardSupport": ["Tab navigates between Actions strip buttons below message"]
+    "keyboard": [
+      "Tab — navigate between Actions strip buttons below message"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships — role=article semantically scopes each turn for assistive tech.",
+      "1.4.3 Contrast (Minimum) — text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard — Tab reaches every Actions button in source order; no keyboard trap.",
+      "2.4.6 Headings and Labels — aria-label is conditional ('You said: ...' / 'Assistant said: ...')."
+    ],
+    "rules": [
+      "Assistant messages flow through Conversation's aria-live=polite announcer.",
+      "System messages use aria-live=assertive (rare; reserve for critical state).",
+      "aria-label is conditional: 'You said: ...' for user, 'Assistant said: ...' for assistant."
+    ]
   },
   "rules": {
-    "never": [
+    "do": [
+      "ALWAYS pair user messages with right-alignment + neutral surface; assistant messages with left-alignment + tint-accent surface for active streaming, neutral when complete.",
+      "ALWAYS forward the id for InlineCitation anchor jumps."
+    ],
+    "dont": [
       "NEVER render a user bubble with Spring Green chrome. The accent is for assistant action moments only.",
       "NEVER bake the model name into Message. Models live in PromptInputSelect / LumenAIProvider context.",
       "NEVER drop the from prop. Without it, alignment + ARIA semantics break."
-    ],
-    "always": [
-      "ALWAYS pair user messages with right-alignment + neutral surface; assistant messages with left-alignment + tint-accent surface for active streaming, neutral when complete.",
-      "ALWAYS forward the id for InlineCitation anchor jumps."
     ]
   },
-  "examples": [
-    "examples/user-message.tsx",
-    "examples/assistant-message.tsx",
-    "examples/with-reasoning-and-tool.tsx"
-  ],
+  "examples": {
+    "web-react": "examples/assistant-message.tsx"
+  },
   "vercelAIElements": {
     "name": "Message",
     "installCommand": "npx ai-elements@latest add message",
