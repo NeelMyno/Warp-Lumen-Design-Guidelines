@@ -6,7 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13 refactor in progress — see Phase 0, Phase 1, and Phase 2 entries below. Phases 3–6 land additional entries here as they ship._
+_v0.13 refactor in progress — see Phase 0, Phase 1, Phase 2, and Phase 3 entries below. Phases 4–6 land additional entries here as they ship._
+
+---
+
+## [0.13.0-phase.3] — 2026-05-17 — Platform translation guides + six reference apps · Phase 3 of the v0.13 master refactor
+
+Phase 3 of the seven-phase v0.13 refactor. Lands the **v0.13 canonical platform translation layer** at `design-system/04-platforms/` and six minimum-viable reference apps under `examples/` covering iOS, Android, macOS, browser extension, CLI (Go), CLI (Node). Per-platform MD files follow the master-doc 8-section shape (what the platform is, token mapping table, identity budget, glass / blur translation, motion translation, typography translation, specific don'ts, reference snippets). Legacy `03-platforms/` preserved unchanged per the additive principle (hard rule 18). **Hard gates: 10/10 platform MDs land with full token mapping tables and identity budgets; Node CLI reference type-checks + builds clean (verified in env); all references include `.gitignore` files; 13/15 self-critique answers "no", 2 deferred to operator with documented rationale.** See [`design-system/06-claude-code-briefings/phase-3-report.md`](design-system/06-claude-code-briefings/phase-3-report.md) for the full report.
+
+### Added
+
+- **10 platform translation guides** under `design-system/04-platforms/`:
+  - [`README.md`](design-system/04-platforms/README.md) — orientation + relationship to legacy `03-platforms/`.
+  - [`web.md`](design-system/04-platforms/web.md) — Next.js 16+ + React 19+ + Tailwind v4 + `@lumen/*` shadcn registry. The reference platform.
+  - [`ios.md`](design-system/04-platforms/ios.md) — SwiftUI on iOS 17+. `.regularMaterial` / `.thickMaterial` / `.ultraThinMaterial` mapping. Reduce Transparency + Reduce Motion via `@Environment(\.accessibilityReduce*)`.
+  - [`android.md`](design-system/04-platforms/android.md) — Jetpack Compose + `dev.chrisbanes:haze:1.5.4` for backdrop blur. API 31+ caveat documented. `LocalAccessibilityManager.isReduceMotionEnabled` honored.
+  - [`macos.md`](design-system/04-platforms/macos.md) — SwiftUI on macOS 14+ with `NSVisualEffectView` bridge (15-line `VisualEffect` wrapper). `NSWorkspace.accessibilityDisplayShouldReduceTransparency` observed via Notification Center.
+  - [`windows.md`](design-system/04-platforms/windows.md) — Electron `vibrancy: 'acrylic'` default (95% of cases); WinUI 3 `AcrylicBrush` / `MicaBackdrop` documented for the rare native path.
+  - [`shopify.md`](design-system/04-platforms/shopify.md) — Polaris GA (Oct 1, 2025) + App Bridge. **≤15% identity budget** stated honestly. What Lumen can / cannot claim enumerated.
+  - [`extension.md`](design-system/04-platforms/extension.md) — Chrome MV3 with shadow-DOM scoping. `:host { all: initial }` reset. Vite `?inline` CSS import pattern.
+  - [`cli.md`](design-system/04-platforms/cli.md) — Go (Charm Lipgloss + Bubbletea + harmonica) + Node (Ink + chalk). `NO_COLOR` honored, `!stdout.isTTY` → static fallback.
+  - [`mcp-host.md`](design-system/04-platforms/mcp-host.md) — voice & tone only (no UI). Tool naming + parameter descriptions + error messages follow Lumen voice. `@warp/lumen-mcp` Phase 6 deliverable previewed.
+  - [`responsive.md`](design-system/04-platforms/responsive.md) — five breakpoints (phone 0 / tablet 640 / laptop 1024 / desktop 1440 / wide 1920). Container queries on every layout primitive.
+- **Six reference implementations** under `examples/`:
+  - [`examples/README.md`](examples/README.md) — orientation + build status table.
+  - [`examples/ios-reference/`](examples/ios-reference/) — Swift Package · `LumenReferenceApp.swift` · three surfaces (primary button, stat, glass popover).
+  - [`examples/android-reference/`](examples/android-reference/) — Compose app with Haze · `MainActivity.kt` · four surfaces (stat, primary button, glass popover, live-dot).
+  - [`examples/macos-reference/`](examples/macos-reference/) — SwiftUI macOS app · `NSVisualEffectView` bridge · three surfaces (sidebar with glass, stat, primary button).
+  - [`examples/extension-reference/`](examples/extension-reference/) — Chrome MV3 + Vite + React 19 · shadow-DOM scoped sidebar · three surfaces + LiveDot pulse.
+  - [`examples/cli-go-reference/`](examples/cli-go-reference/) — Go + Lipgloss + Bubbletea · `warp quote --interactive` mock · three surfaces.
+  - [`examples/cli-node-reference/`](examples/cli-node-reference/) — Ink + chalk · same surfaces · `pipe-mode` fallback verified in env.
+- **`design-system/06-claude-code-briefings/phase-3-report.md`** — Phase 3 report per master doc §10.3.
+
+### Changed
+
+- **`llms.txt`** — `## Platforms` section rewritten to point at the v0.13 `04-platforms/` files. Legacy `03-platforms/` reference preserved with a note explaining the additive relationship. Description bumped to reflect Phase 3 complete.
+
+### Notes for next phase
+
+- **Phase 4 — gpt-image-2 prompt library.** `05-prompts/` lands the immovable `style-anchor.md` + per-asset-type templates (`hero-background`, `abstract-shape`, `illustration`, `pattern`, `mesh`, `empty-state`, `marketing-card`). Snapshot-pin `gpt-image-2-2026-04-21` in every prompt.
+- **Operator-side verification gates for Phase 3:**
+  - iOS reference: `swift build` in Xcode 15+ with iOS 17 SDK.
+  - macOS reference: `swift run` in Xcode 15+ with macOS 14 SDK.
+  - Android reference: `./gradlew :app:installDebug` with Android Studio + connected device or emulator.
+  - Extension reference: `pnpm install && pnpm build` then `chrome://extensions → Load unpacked → dist/`, navigate to a supported carrier portal.
+  - CLI Go reference: `go run .` with Go 1.22+ installed.
+  - CLI Node reference: ✓ verified in env — `pnpm install && pnpm start` works.
 
 ---
 

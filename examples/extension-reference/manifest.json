@@ -1,0 +1,42 @@
+{
+    "manifest_version": 3,
+    "name": "Warp Companion (Lumen Reference)",
+    "version": "0.13.0",
+    "description": "Lumen v0.13 reference — Chrome MV3 content script with shadow-DOM scoped sidebar. Three surfaces: primary button, stat, glass popover.",
+    "icons": {
+        "16": "icons/icon-16.png",
+        "48": "icons/icon-48.png",
+        "128": "icons/icon-128.png"
+    },
+    "action": {
+        "default_title": "Warp Companion",
+        "default_popup": "popup.html",
+        "default_icon": "icons/icon-48.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.estes-express.com/*",
+                "https://*.odfl.com/*",
+                "https://*.saia.com/*"
+            ],
+            "js": ["content-script.js"],
+            "run_at": "document_idle"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "fonts/Satoshi-Variable.woff2.placeholder",
+                "fonts/Satoshi-VariableItalic.woff2.placeholder"
+            ],
+            "matches": [
+                "https://*.estes-express.com/*",
+                "https://*.odfl.com/*",
+                "https://*.saia.com/*"
+            ]
+        }
+    ],
+    "permissions": ["storage"],
+    "host_permissions": []
+}

@@ -4,10 +4,13 @@
 > Spring Green (#00FA8A) on obsidian (#0D0D0D), Satoshi typeface, dual-mode
 > (restrained | expressive), LLM-first MD-driven, DTCG 2025.10 tokens, shadcn
 > registry. v0.13.0 — Phase 0 (DTCG foundation) + Phase 1 (expressive mode +
-> ModeScope) + Phase 2 (component library → shadcn registry under `@lumen/*`)
-> shipped. 48 components in the registry plus 69 legacy v0.12.6 sidecars (121
-> total registry items). Foundation: `@lumen/lumen-base` installs the whole
-> system in one command. v0.12.6 token names and component contracts preserved
+> ModeScope) + Phase 2 (component library → shadcn registry under `@lumen/*`) +
+> Phase 3 (platform translation guides + six reference apps) shipped. 48
+> components in the registry plus 69 legacy v0.12.6 sidecars (121 total
+> registry items). Foundation: `@lumen/lumen-base` installs the whole system in
+> one command. Per-platform guides at `/design-system/04-platforms/` cover iOS,
+> Android, macOS, Windows, Shopify, browser extension, CLI (Go + Node), MCP
+> server, responsive web. v0.12.6 token names and component contracts preserved
 > verbatim — additive, never destructive.
 
 This file is the agent-readable index. Fetch one section at a time; each section
@@ -123,17 +126,31 @@ Phase 2 lands the freight-native patterns:
 - `shipment-timeline.md` — freight-native shipment lifecycle
 - `quote-builder.md` — freight-native LTL/FTL quote flow
 
-## Platforms (per-platform consumption guides — see `/design-system/03-platforms/`)
+## Platforms — v0.13 canonical (see `/design-system/04-platforms/`)
 
-- [Web · Next.js + React + Tailwind v4 + shadcn](/design-system/03-platforms/web-react/README.md)
-- [React Native · Expo + NativeWind](/design-system/03-platforms/react-native/README.md)
-- [iOS native · SwiftUI](/design-system/03-platforms/ios-native/README.md)
-- [Android native · Compose](/design-system/03-platforms/android-native/README.md)
-- [macOS desktop · SwiftUI + AppKit](/design-system/03-platforms/desktop-mac/README.md)
-- [Windows desktop · WinUI](/design-system/03-platforms/desktop-windows/README.md)
-- [Shopify · Polaris + Liquid](/design-system/03-platforms/shopify-themes/README.md)
-- [Browser extension · shadow DOM scope](/design-system/03-platforms/extension/README.md)
-- [CLI / TUI · Lipgloss / Ink](/design-system/03-platforms/cli/README.md)
+Phase 3 ships per-platform translation guides at the v0.13 contract. Each MD follows the same 8-section shape (what the platform is, token mapping table, identity budget, glass / blur translation, motion translation, typography translation, specific don'ts, reference snippets).
+
+- [Web · Next.js + React + Tailwind v4 + shadcn](/design-system/04-platforms/web.md)
+- [iOS · SwiftUI on iOS 17+](/design-system/04-platforms/ios.md)
+- [Android · Jetpack Compose + Haze](/design-system/04-platforms/android.md)
+- [macOS · SwiftUI + NSVisualEffectView bridge](/design-system/04-platforms/macos.md)
+- [Windows · Electron default + WinUI 3 documentary](/design-system/04-platforms/windows.md)
+- [Shopify · Polaris GA + App Bridge (≤15% identity budget)](/design-system/04-platforms/shopify.md)
+- [Browser extension · Manifest V3 + shadow DOM scoping](/design-system/04-platforms/extension.md)
+- [CLI / TUI · Go Lipgloss + Node Ink](/design-system/04-platforms/cli.md)
+- [MCP server · voice & tone (no UI)](/design-system/04-platforms/mcp-host.md)
+- [Responsive web · container queries + 5 breakpoints](/design-system/04-platforms/responsive.md)
+
+### Reference implementations (Phase 3 ships at `/examples/`)
+- [`examples/ios-reference/`](/examples/ios-reference/) — Swift Package · three surfaces · Reduce Transparency / Motion honored
+- [`examples/android-reference/`](/examples/android-reference/) — Compose + Haze · API 26+ · four surfaces
+- [`examples/macos-reference/`](/examples/macos-reference/) — SwiftUI macOS 14+ · NSVisualEffectView bridge
+- [`examples/extension-reference/`](/examples/extension-reference/) — Chrome MV3 + Vite + shadow DOM
+- [`examples/cli-go-reference/`](/examples/cli-go-reference/) — Lipgloss + Bubbletea TUI
+- [`examples/cli-node-reference/`](/examples/cli-node-reference/) — Ink + chalk TUI
+
+### Legacy v0.12.6 platform guides (preserved, additive — see `/design-system/03-platforms/`)
+The v0.12.6 folder stays in place per hard rule 18 (additive principle). When working on v0.13+ use `04-platforms/`; on v0.12.x the legacy READMEs still apply.
 
 ## Prompt library (Phase 4 lands — `/design-system/05-prompts/`)
 

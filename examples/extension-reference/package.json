@@ -1,0 +1,24 @@
+{
+    "name": "lumen-extension-reference",
+    "version": "0.13.0",
+    "private": true,
+    "description": "Lumen v0.13 reference Chrome MV3 extension. Shadow-DOM scoped sidebar over carrier portals.",
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite build --watch",
+        "type-check": "tsc --noEmit"
+    },
+    "dependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    },
+    "devDependencies": {
+        "@types/chrome": "^0.0.287",
+        "@types/react": "^19.0.0",
+        "@types/react-dom": "^19.0.0",
+        "@vitejs/plugin-react": "^4.3.4",
+        "typescript": "^5.7.0",
+        "vite": "^6.0.0"
+    }
+}

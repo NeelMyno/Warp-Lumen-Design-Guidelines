@@ -1,0 +1,177 @@
+/*
+ * Lumen v0.13 — vendored token subset for the extension reference.
+ *
+ * In production this file is replaced by:
+ *   @import "@lumen/tokens/lumen.css";          (Phase 2)
+ *   @import "@lumen/tokens/lumen-scoping.css";  (Phase 1)
+ * via Vite's ?inline import. The reference inlines the subset the three surfaces
+ * need so the build is portable.
+ */
+
+/* Set tokens on the shadow root's :host so they scope to this shadow tree only. */
+:host {
+    /* Surface */
+    --surface-canvas:           #0D0D0D;
+    --surface-raised:           #171717;
+    --surface-sunken:           #0A0A0A;
+    --surface-popover:          rgba(13, 13, 13, 0.85);
+    --surface-glass:            rgba(13, 13, 13, 0.5);
+    --surface-glass-fallback:   rgba(23, 23, 23, 0.92);
+
+    /* Text */
+    --text-primary:             #FAFAFA;
+    --text-secondary:           #A6A6A6;
+    --text-tertiary:            #737373;
+    --text-accent:              #00FA8A;
+
+    /* Border */
+    --border-hairline:          rgba(255, 255, 255, 0.06);
+    --border-default:           rgba(255, 255, 255, 0.18);
+    --border-strong:            rgba(255, 255, 255, 0.24);
+    --border-accent:            rgba(0, 250, 138, 0.4);
+    --border-focus:             #00FA8A;
+
+    /* Action */
+    --color-action-primary-bg-rest:   #00FA8A;
+    --color-action-primary-bg-hover:  #00D675;
+    --color-action-primary-bg-press:  #00B062;
+    --color-action-primary-fg:        #07120D;  /* hard rule 9 */
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+
+    /* Radius */
+    --radius-xs:   3px;
+    --radius-sm:   4px;
+    --radius-md:   6px;
+    --radius-lg:   12px;
+    --radius-xl:   16px;
+    --radius-full: 999px;
+
+    /* Motion */
+    --motion-duration-micro:  80ms;
+    --motion-duration-fast:   140ms;
+    --motion-duration-base:   200ms;
+    --motion-duration-slow:   320ms;
+    --motion-easing-decelerate: cubic-bezier(0.2, 0, 0, 1);
+
+    /* Elevation */
+    --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-popover:  0 8px 20px rgba(0, 0, 0, 0.18);
+    --shadow-focus:    0 0 0 3.5px rgba(0, 250, 138, 0.4);
+
+    /* Glass */
+    --glass-blur:     20px;
+    --glass-saturate: 140%;
+}
+
+/* Reset host-page CSS bleed (hard rule for extension content scripts). */
+:host {
+    all: initial;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 360px;
+    z-index: 2147483647;     /* Max int — sit above host page UI */
+    font-family: 'Satoshi Variable', system-ui, sans-serif;
+    color: var(--text-primary);
+}
+
+/* Glass surface — hard rule 16. Floating shells only; never on dense data. */
+.lumen-glass {
+    background: var(--surface-glass);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+}
+
+@supports not (backdrop-filter: blur(20px)) {
+    .lumen-glass {
+        background: var(--surface-glass-fallback);
+        backdrop-filter: none;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .lumen-glass {
+        background: var(--surface-glass-fallback);
+        backdrop-filter: none;
+    }
+}
+
+/* Primary button — hard rules 9 + 11 */
+.lumen-btn-primary {
+    background: var(--color-action-primary-bg-rest);
+    color: var(--color-action-primary-fg);  /* never white on lime */
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0 var(--space-4);
+    height: 40px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--motion-duration-micro) var(--motion-easing-decelerate),
+                filter var(--motion-duration-micro) var(--motion-easing-decelerate);
+    outline: none;
+}
+
+.lumen-btn-primary:hover  { background: var(--color-action-primary-bg-hover); }
+.lumen-btn-primary:active { background: var(--color-action-primary-bg-press); }
+.lumen-btn-primary:focus-visible {
+    outline: 2px solid rgba(0, 250, 138, 0.64);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-focus);   /* hard rule 11 — dual ring */
+}
+
+/* Lumen-label utility — mono-uppercase tracked */
+.lumen-label {
+    font-feature-settings: 'tnum' 1;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+}
+
+.lumen-mono {
+    font-feature-settings: 'tnum' 1, 'lnum' 1, 'zero' 1, 'calt' 0;
+}
+
+/* Sidebar surface (the extension's primary host) */
+.lumen-sidebar {
+    height: 100vh;
+    background: var(--surface-canvas);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    color: var(--text-primary);
+    overflow-y: auto;
+}
+
+/* Live dot — Lumen's signature gesture */
+.lumen-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-action-primary-bg-rest);
+    animation: lumen-pulse 3s ease-in-out infinite;
+}
+
+@keyframes lumen-pulse {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.3); opacity: 0.4; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lumen-live-dot { animation: none; }
+}
