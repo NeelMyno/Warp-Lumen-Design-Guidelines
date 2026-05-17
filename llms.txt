@@ -152,12 +152,34 @@ Phase 3 ships per-platform translation guides at the v0.13 contract. Each MD fol
 ### Legacy v0.12.6 platform guides (preserved, additive — see `/design-system/03-platforms/`)
 The v0.12.6 folder stays in place per hard rule 18 (additive principle). When working on v0.13+ use `04-platforms/`; on v0.12.x the legacy READMEs still apply.
 
-## Prompt library (Phase 4 lands — `/design-system/05-prompts/`)
+## Prompt library — gpt-image-2 (v0.13 Phase 4 — `/design-system/05-prompts/`)
 
-- `style-anchor.md` — the immovable master prompt
-- `hero-background.md`, `abstract-shape.md`, `illustration.md`, `pattern.md`
-- `mesh.md`, `empty-state.md`, `marketing-card.md`
-- Model pin: snapshot `gpt-image-2-2026-04-21`
+The paste-ready prompt system for Lumen-branded imagery. One immutable style anchor, seven per-asset templates, a CLI that assembles them, and a reference asset set under `/examples/gpt-image-2/`. See [`05-prompts/README.md`](/design-system/05-prompts/README.md).
+
+### Anchor + templates (8 files)
+
+- [`style-anchor.md`](/design-system/05-prompts/style-anchor.md) — the **immovable** master prompt (verbatim from master doc §9; do not edit in place, version-bump instead)
+- [`hero-background.md`](/design-system/05-prompts/hero-background.md) — landing-page hero backgrounds · 16:9 · 2560×1440 · expressive
+- [`abstract-shape.md`](/design-system/05-prompts/abstract-shape.md) — empty-state covers, secondary heroes, loading screens · 1:1 · 1600×1600 · restrained
+- [`illustration.md`](/design-system/05-prompts/illustration.md) — onboarding step illustrations, feature heroes · 1:1 or 16:9 · expressive
+- [`pattern.md`](/design-system/05-prompts/pattern.md) — seamless tile patterns · 1:1 · 512×512 · restrained
+- [`mesh.md`](/design-system/05-prompts/mesh.md) — five Phase 1 mesh-recipe visual references (`aurora-spring`, `aurora-cool`, `dock-bay`, `lane-arc`, `cross-dock`) · 16:9 · 2560×1440 · expressive
+- [`empty-state.md`](/design-system/05-prompts/empty-state.md) — dashboard empty states · 1:1 or 4:3 · restrained · **anticipatory** mood
+- [`marketing-card.md`](/design-system/05-prompts/marketing-card.md) — OG cards, social shares, blog heroes, landing-page feature blocks · 1.91:1 or 16:9 · expressive
+
+### CLI
+
+- Path: [`tools/lumen-prompts/`](/tools/lumen-prompts/) — `pnpm prompts <template> --subject "..."` emits the fully-assembled prompt; `pnpm prompts:generate-references` (operator-side, requires `OPENAI_API_KEY`) materializes the reference PNGs.
+- Icon rejection: the CLI refuses `icon`, `icons`, `iconography`, `glyph`, `symbol` — Lumen icons are hand-drawn vectors, never gpt-image-2 output.
+
+### Reference assets
+
+- Path: [`examples/gpt-image-2/`](/examples/gpt-image-2/) — one `canonical-subject.md` manifest per template (in repo) + one PNG per template (operator-materializes; not committed by default to avoid silent snapshot drift). Mesh ships 5 PNGs (one per recipe).
+
+### Model pin
+
+- Snapshot: `gpt-image-2-2026-04-21` — pinned in every template and the anchor.
+- Drift policy: per master doc §11, the `gpt-image-2` alias may roll forward silently. Re-baseline by updating the pin in one PR, regenerating the entire reference set, and committing as a versioned bump.
 
 ## MCP (Phase 6 lands — `/design-system/07-mcp/`)
 

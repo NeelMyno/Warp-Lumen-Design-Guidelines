@@ -23,6 +23,8 @@
     "registry:legacy": "node scripts/build-registry.mjs",
     "registry:build": "pnpm dlx shadcn@latest build registry.json --output public/r",
     "scaffold": "node tools/scaffold-component.mjs",
+    "prompts": "tsx tools/lumen-prompts/index.ts",
+    "prompts:generate-references": "tsx tools/lumen-prompts/generate-references.ts",
     "docs:dev": "cd audit-dashboard && pnpm dev",
     "docs:build": "cd audit-dashboard && pnpm build",
     "lint": "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography && pnpm lint:no-arbitrary-form-values && pnpm lint:no-off-grid-spacing && pnpm lint:no-white-on-accent && pnpm lint:button-conventions",

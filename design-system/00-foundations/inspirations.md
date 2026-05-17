@@ -2,12 +2,14 @@
 name: Inspirations
 type: foundation
 version: 0.13.0
-last_updated: 2026-05-16
+last_updated: 2026-05-17
 audience: [designer, engineer, llm-agent]
 related:
   - ./principles.md
   - ./voice-and-tone.md
   - ./modes.md
+  - ../05-prompts/README.md
+  - ../05-prompts/style-anchor.md
   - ../../doc/LUMEN-v0.13-MASTER-REFACTOR.md
 ---
 
@@ -90,9 +92,56 @@ These would feel like reasonable references but they're wrong for Lumen — call
 
 ---
 
+## 6. Image generation (gpt-image-2 prompt library)
+
+Phase 4 lands the [`05-prompts/`](../05-prompts/) library: an immutable style anchor + seven per-asset templates that produce Lumen-branded imagery via `gpt-image-2` (snapshot `gpt-image-2-2026-04-21`). The anchor calibrates the model against the visual references named above — without naming them in the prompt itself.
+
+### What the anchor calibrates against
+
+The five visual references that shape every Lumen image asset (named in [`05-prompts/style-anchor.md`](../05-prompts/style-anchor.md) §"Style references" but **never quoted into the prompt**):
+
+| Reference | What it contributes to the anchor |
+|---|---|
+| **RonDesignLab "Navy Mobile – Truck Management Dashboard"** | The dark canvas + hairline chrome + lime/Spring-Green accent discipline. Mobile-first composition where the operator's primary surface dominates and secondary surfaces stack as restrained tiles. |
+| **RonDesignLab "BizSpeed TMS – Logistics Web Dashboard"** | The lane-arc visual gesture — origin → destination as a single hairline curve, accent appearing only at endpoints or active arcs. Operator-density table treatment under that hero gesture. |
+| **RonDesignLab "SpaceX App – Space Mission Control"** | The instrument-panel mood. Glass on floating chrome only. Mono-uppercase tracked metadata labels. The "held in motion, not chaotic" composition energy. |
+| **Linear's blueprint-grid + calmer-interface aesthetic** | The fewer-pixels-doing-more-work discipline. Hairline-first surface separation. Mono-spaced metadata. Grayscale baseline with accent only at action. |
+| **Vercel Geist's restrained dark palette** | The dark-obsidian foundation. The single-saturated-color allowance. The atmospheric depth that doesn't tip into glow or neon. |
+
+### Why these references are NEVER named in the prompt
+
+If the prompt says "in the style of SpaceX App by RonDesignLab," gpt-image-2 over-fits to literal imagery from that shot — recreating SpaceX-specific visual fingerprints that aren't Lumen's. The anchor's job is to extract the *physics* of those references (canvas, hairline, mono-cap, instrument-panel mood) and encode them as parametric constraints (`Dark obsidian canvas #0D0D0D`, `Hairline 1px white strokes at 6% opacity`, `Instrument-panel mood`). The references stay in the team's mental model; only the parameters reach the model.
+
+### What the prompt library generates
+
+| Template | Surface | Mode |
+|---|---|---|
+| [`hero-background`](../05-prompts/hero-background.md) | Landing-page hero backgrounds | expressive (atmosphere 12%) |
+| [`abstract-shape`](../05-prompts/abstract-shape.md) | Empty-state covers, secondary heroes, loading screens | restrained (atmosphere 4–6%) |
+| [`illustration`](../05-prompts/illustration.md) | Onboarding step illustrations, narrative covers | expressive (atmosphere 10–14%) |
+| [`pattern`](../05-prompts/pattern.md) | Seamless tile patterns for background chrome | restrained (atmosphere 0%) |
+| [`mesh`](../05-prompts/mesh.md) | Five Phase-1 mesh-recipe visual references | expressive (atmosphere 10–14%) |
+| [`empty-state`](../05-prompts/empty-state.md) | Dashboard empty states | restrained (anticipatory mood) |
+| [`marketing-card`](../05-prompts/marketing-card.md) | OG cards, blog heroes, feature blocks | expressive (atmosphere 10–14%) |
+
+### What the prompt library does NOT generate
+
+| Asset | Why not | Where to look instead |
+|---|---|---|
+| Icons | Hand-drawn vectors at 1.5px stroke. Hard rule per master doc §3. | [`00-foundations/iconography.md`](./iconography.md) (legacy) and the v0.12.6 icon set. |
+| Logos | Wordmark + supporting marks are hand-built. | `_meta/brand-assets/` (not in this repo). |
+| Real customer data | Synthetic IDs only (`WRP-9824`, `$84/pallet`). | Templates document the no-real-data rule. |
+| Partner brand marks | Even when illustrating carrier-network-density, nodes are unlabeled. | Templates document the no-partner-brand rule. |
+
+The CLI ([`tools/lumen-prompts/`](../../tools/lumen-prompts/)) **rejects** `icon`, `icons`, `iconography`, `glyph`, `symbol` as templates with a runtime error. This enforcement is the easiest path to keeping the icon hard rule unviolated.
+
+---
+
 ## References
 
 - [`principles.md`](./principles.md) — the 7 principles that synthesise these inspirations
 - [`voice-and-tone.md`](./voice-and-tone.md) — the mono-uppercase signature, the italic accent word, the brutalist frame
 - [`modes.md`](./modes.md) — restrained × expressive routing
-- [`doc/LUMEN-v0.13-MASTER-REFACTOR.md`](../../doc/LUMEN-v0.13-MASTER-REFACTOR.md) — §1.5 named inspiration anchors
+- [`../05-prompts/README.md`](../05-prompts/README.md) — the Phase 4 prompt library index
+- [`../05-prompts/style-anchor.md`](../05-prompts/style-anchor.md) — the immutable style anchor
+- [`doc/LUMEN-v0.13-MASTER-REFACTOR.md`](../../doc/LUMEN-v0.13-MASTER-REFACTOR.md) — §1.5 named inspiration anchors, §9 style anchor source, §11 drift rationale

@@ -6,7 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13 refactor in progress — see Phase 0, Phase 1, Phase 2, and Phase 3 entries below. Phases 4–6 land additional entries here as they ship._
+_v0.13 refactor in progress — see Phase 0, Phase 1, Phase 2, Phase 3, and Phase 4 entries below. Phases 5–6 land additional entries here as they ship._
+
+---
+
+## [0.13.0-phase.4] — 2026-05-17 — gpt-image-2 prompt library + lumen-prompts CLI · Phase 4 of the v0.13 master refactor
+
+Phase 4 of the seven-phase v0.13 refactor. Lands the **paste-ready prompt system for image generation** at `design-system/05-prompts/` — one immutable style anchor (verbatim from master doc §9), seven per-asset templates (hero-background, abstract-shape, illustration, pattern, mesh, empty-state, marketing-card), a zero-dependency CLI at `tools/lumen-prompts/`, and a canonical-subject manifest set at `examples/gpt-image-2/`. Every prompt pins the model snapshot `gpt-image-2-2026-04-21` per master doc §11. **Hard gates: style anchor verbatim ✓ · all 7 templates ship ✓ · every template opens with `@import ./style-anchor.md` and pins the snapshot ✓ · CLI assembly verified (`pnpm prompts hero-background --subject "..."` works, 0 `FILL THIS SLOT` residues) ✓ · llms.txt §"Prompt library" rewritten with 7 template entries ✓ · README documents immutability + snapshot pin policy ✓ · 13/15 self-critique "no" + 2 deferred (PNG materialization + Phase-6 llms-full.txt regeneration). 0 hard-rule violations introduced. Audit-tokens + audit-mode carry-over from Phase 2/3 still PASS.** See [`design-system/06-claude-code-briefings/phase-4-report.md`](design-system/06-claude-code-briefings/phase-4-report.md) for the full report.
+
+### Added — gpt-image-2 prompt library (Phase 4)
+
+- **Style anchor** at [`design-system/05-prompts/style-anchor.md`](design-system/05-prompts/style-anchor.md) — verbatim content from master doc §9 with a DO-NOT-EDIT immutability warning header. This is the master prompt every template `@import`s; modifying it causes silent visual drift across every Lumen asset.
+- **Seven per-asset templates** at [`design-system/05-prompts/`](design-system/05-prompts/) covering hero-background, abstract-shape, illustration, pattern, mesh (5 recipe slots: `aurora-spring`, `aurora-cool`, `dock-bay`, `lane-arc`, `cross-dock`), empty-state, marketing-card. Each opens with `@import ./style-anchor.md`, pins the model snapshot `gpt-image-2-2026-04-21`, ships subject + composition + mode + template-specific-constraints + failure-modes sections.
+- **`lumen-prompts` CLI** at [`tools/lumen-prompts/`](tools/lumen-prompts/) — `pnpm prompts <template> --subject "..."` emits a fully-assembled prompt string with the anchor inlined and the subject slot filled. Flags: `--composition`, `--mode`, `--snapshot` (date-stamped archival header). Icons rejected with `exit 3` (`icon`, `glyph`, `symbol` etc.) — Lumen icons are hand-drawn vectors. Zero external dependencies; uses native Node.js fetch.
+- **`generate-references.ts` script** for operator-side OpenAI invocation. Reads canonical-subject manifests, assembles prompts via the CLI internally, POSTs to `/v1/images/generations` with the snapshot-pinned model, decodes base64 PNGs to `examples/gpt-image-2/<template>/<slug>.png`. `--dry-run` mode validates assembly without API calls. Requires `OPENAI_API_KEY`.
+- **`examples/gpt-image-2/` reference asset directory** — one `canonical-subject.md` manifest per template (in repo, 7 files) + operator-materialized PNGs (not in repo — generation is interactive, budgeted, and requires the snapshot to resolve in the operator's account). Mesh has 5 PNG slots (one per recipe). README documents drift-against-baseline failure modes + regeneration triggers.
+- **`design-system/05-prompts/README.md`** — library index, immutability policy, snapshot pin policy, anchor calibration, CLI summary, icon-rejection rule.
+- **`tools/lumen-prompts/README.md`** — CLI usage documentation.
+- **`examples/gpt-image-2/README.md`** — operator runbook for `pnpm prompts:generate-references` + when to regenerate + diff-against-baseline failure modes.
+
+### Changed
+
+- [`llms.txt`](llms.txt) `## Prompt library — gpt-image-2 (v0.13 Phase 4)` section — rewritten from Phase-0 placeholder (6 bullets) to a 26-line index covering anchor + 7 templates (one bullet each with aspect / output / mode), CLI path + behavior, reference asset path + operator-materialize policy, model pin + drift policy.
+- [`design-system/00-foundations/inspirations.md`](design-system/00-foundations/inspirations.md) — new section 6 "Image generation (gpt-image-2 prompt library)" documenting what the style anchor calibrates against (RonDesignLab Navy Mobile / BizSpeed TMS / SpaceX Mission Control + Linear + Vercel Geist), why those references are NEVER named in the prompt itself, and tabulates what the library generates vs. doesn't. Frontmatter `last_updated: 2026-05-17`; new `related:` entries point at `05-prompts/README.md` + `style-anchor.md`.
+- [`package.json`](package.json) — two new scripts: `prompts` (`tsx tools/lumen-prompts/index.ts`) and `prompts:generate-references` (`tsx tools/lumen-prompts/generate-references.ts`).
+
+### Notes
+
+- **20 files created, 3 files modified.** No tokens touched. No components touched. No platform guides touched. Phase 4 is purely additive.
+- **Audit-tokens + audit-mode carry-over PASS** — 145 files, 0 hex literals; 144 files, 0 data-mode violations. Hex literals inside `05-prompts/` templates are an intentional exemption (the image model requires literal values like `#00FA8A`; audit excludes the prompt library by design).
+- **Snapshot pin `gpt-image-2-2026-04-21` is the contract** per master doc §11. The CLI never overrides it; the anchor never lifts it. Re-baseline happens via a one-PR update to master doc §9 + style-anchor + all 7 templates + regeneration of the full reference set.
+- **PNG materialization is operator-side** — `pnpm prompts:generate-references` requires `OPENAI_API_KEY`; CI does not carry one. Reference manifests + generator script ship in this commit; the actual PNGs land in a follow-up PR after operator review.
+- **`llms-full.txt` regeneration deferred to Phase 6.** Currently v0.12.5-era and behind on Phase 0/1/2/3 too; partial update would mix v0.13 content into v0.12.5 framing. Phase 6 ("documentation polish") regenerates the whole file once.
+- **v0.12.6 paths preserved verbatim.** v0.13 Phase 0–3 outputs unchanged.
 
 ---
 
