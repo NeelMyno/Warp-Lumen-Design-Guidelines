@@ -19,7 +19,7 @@ Lumen is Warp's design system. It serves the small in-house product/software-bui
 git clone <repo-url>
 cd Warp-Lumen-Design-Guidelines
 pnpm install
-pnpm build           # Style Dictionary builds tokens into _build/
+pnpm build           # Style Dictionary v5 builds tokens into dist/ (v0.13; was _build/ pre-v0.13)
 pnpm validate        # JSON schemas + DTCG lint + WCAG contrast
 ```
 
@@ -27,11 +27,22 @@ To work on the audit dashboard:
 ```bash
 cd audit-dashboard
 pnpm install
-pnpm dev             # http://localhost:3000
+pnpm dev             # http://localhost:3000 — Next.js 16 with Turbopack default
 ```
 
 > [!warning]
 > Don't keep `pnpm dev` running while doing heavy file edits in the same session — Turbopack memory pressure can cascade. Run dev when actively viewing; kill it before batch edits.
+
+### Dashboard introspection indexes (v0.13 Phase 6)
+
+The `/tokens`, `/library/registry`, and `/prompts` routes load build-time JSON indexes from `audit-dashboard/public/`. Regenerate them whenever the underlying source files (tokens, component contracts, prompt templates) change:
+
+```bash
+pnpm dashboard-indexes   # builds token-index.json + component-index.json + prompt-index.json
+pnpm llms:all            # regenerates llms.txt (indexed) + llms-full.txt (flattened)
+```
+
+Both composite scripts have individual steps (`pnpm token-index`, `pnpm component-index`, `pnpm prompt-index`, `pnpm llms`, `pnpm llms:index`) for targeted rebuilds during local iteration.
 
 ## How to contribute
 
@@ -85,6 +96,32 @@ A failing check blocks merge. To suppress, open an ADR.
 - CSS / Tailwind: v4 only, tokens via CSS variables (`var(--color-…)`), no raw hex / px.
 - Filenames: kebab-case (`live-dot.json`, `empty-state.md`).
 - Component names in code: PascalCase (`LiveDot`, `EmptyState`).
+
+## Consuming Lumen as a downstream project (v0.13+)
+
+After v0.13.0 ships, Lumen is installed via the [shadcn 4 registry](https://ui.shadcn.com/docs/registry):
+
+```bash
+# In a fresh Next.js 15+ app:
+pnpm dlx shadcn@latest init
+
+# Add the @lumen registry to components.json:
+#   { "registries": { "@lumen": "https://warp-lumen-design-guidelines.vercel.app/r/{name}.json" } }
+
+# Install the whole system in one command:
+pnpm dlx shadcn@latest add @lumen/lumen-base
+
+# Or add a single component:
+pnpm dlx shadcn@latest add @lumen/button
+```
+
+For agent-mediated installs (Claude Code, Cursor, Copilot), add the shadcn MCP:
+
+```bash
+claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp
+```
+
+Then in conversation: "install the Lumen button" → routes through the shadcn MCP `install` tool. Full details: [AGENTS.md §"MCP integration"](./AGENTS.md).
 
 ## Versioning & releases
 

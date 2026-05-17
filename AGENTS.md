@@ -118,7 +118,7 @@ Repo root tree:
 | ADRs | `_meta/decisions/` |
 | Prompt fragments | `_meta/prompts/` |
 | GPT-image-2 prompt library (Phase 4) | `design-system/05-prompts/` |
-| MCP server (Phase 6) | `design-system/07-mcp/` |
+| MCP integration (Phase 6 — shadcn MCP, no custom server) | this file §"MCP integration" + `components.json` |
 | Glossary | `_meta/glossary.json` + `design-system/00-foundations/glossary.md` |
 | Reference implementation | `audit-dashboard/` |
 | Runtime version constant | `audit-dashboard/src/lib/version.ts` — `LUMEN_VERSION`, `_MAJOR_MINOR`, `_MAJOR_MINOR_UPPER` |
@@ -148,6 +148,52 @@ Repo root tree:
 - Mark components deprecated via `"deprecated": true` + `"deprecationNotice"` + `"removedIn": "1.0.0"` in `component.json`.
 - A deprecation lives ≥ 1 minor release before removal.
 - Removal happens in the next major.
+
+## MCP integration
+
+Lumen's shadcn registry is MCP-compatible out of the box. There is no custom Lumen MCP server in v0.13 — the shadcn MCP server reads `registry.json` and per-item JSONs directly, so adding a separate Lumen server would duplicate surface without adding capability. (If a Lumen-specific tool surface beyond what shadcn MCP exposes is needed later — e.g., `lumen.get_prompt_template` for the gpt-image-2 library — it ships as a separate `@warp/lumen-mcp` package in v0.14. v0.13 does not block on it.)
+
+### Install (consumer side)
+
+1. **Install the shadcn MCP server** into the consumer's Claude Code project:
+
+   ```bash
+   claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp
+   ```
+
+2. **Add the Lumen registry** to the consumer's `components.json`:
+
+   ```json
+   {
+     "registries": {
+       "@lumen": "https://warp-lumen-design-guidelines.vercel.app/r/{name}.json"
+     }
+   }
+   ```
+
+3. **Restart Claude Code** and run `/mcp` to verify the connection.
+
+4. **Invoke Lumen via natural language**: "install the Lumen button" → resolves to `npx shadcn@latest add @lumen/button` via the shadcn MCP `install` tool.
+
+Other agents (Cursor, Codex, Copilot, Devin) follow the same shadcn MCP install pattern — see [`https://ui.shadcn.com/docs/registry/mcp`](https://ui.shadcn.com/docs/registry/mcp) for tool-specific install commands.
+
+### What the shadcn MCP exposes (out of the box)
+
+- `init` — bootstrap a project with `components.json` pointed at the Lumen registry
+- `add` / `install` — install a Lumen component by name (`@lumen/<name>`)
+- `list` — enumerate the items the registry serves
+- `search` — fuzzy-search the registry index by name or description
+- `get_item` — fetch a single registry item (returns the JSON with `files`, `cssVars`, `dependencies`)
+
+The Lumen registry is structured so each of these maps cleanly: `registry.json` for `list`, per-item `*.registry.json` (built into `public/r/{name}.json` via `pnpm registry:build`) for `get_item` and `install`.
+
+### Verify the registry endpoint
+
+```bash
+curl -sf https://warp-lumen-design-guidelines.vercel.app/r/registry.json | jq '.items | length'
+```
+
+Should return an integer ≥ 149 (Phase 5 final count). If the endpoint 404s, the v0.13.0 branch hasn't been pushed yet — the operator owns the push.
 
 ## Trust levels (for autonomous agents)
 

@@ -6,7 +6,88 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13 refactor in progress — see Phase 0 through Phase 5 entries below. Phase 6 lands additional entries here as it ships._
+_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below). After the operator merges `v0.13.0` to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+
+---
+
+## [0.13.0] — 2026-05-17 — v0.13 ship · DTCG 2025.10 + dual-mode + shadcn registry + AI primitives + gpt-image-2 + dashboard rebuild
+
+The full v0.13 release. Lumen v0.12.6 → v0.13.0 across six executed phases (Phase 0 through Phase 6 in the [`doc/LUMEN-v0.13-MASTER-REFACTOR.md`](./doc/LUMEN-v0.13-MASTER-REFACTOR.md) plan). v0.12.6 token names are preserved verbatim — every existing public path keeps working (additive, not destructive). Brand anchors unchanged from v0.12.0: Spring Green `#00FA8A` (accent), Obsidian `#0D0D0D` (canvas), `#E6E6E6` (light anchor), `#FAFAFA` (paper). Satoshi everywhere. WCAG 2.2 AA hard floor. The seven v0.11 principles + v0.12.1–v0.12.5 hard rules (10–14) all carry forward verbatim. **Hard gates across all six phases: 100% PASS on the discipline-floor audits (audit-tokens, audit-mode); operator-side gates flagged in each phase report.**
+
+### Added — full v0.13 ship
+
+- **DTCG 2025.10 token graph** at [`design-system/01-tokens/`](design-system/01-tokens/) — Phase 0 alias namespace (`color.obsidian.*` aliases `color.brand.*`, `color.spring.*` aliases `color.accent.*`, `color.lumen-red.*` and `color.lumen-amber.*`), 3-stop motion ladder retune (80/140/200/320/480), 3 new elevation tokens (`shadow.glass`, `shadow.focus`, `shadow.glow-accent`), modes/ scaffolding, semantic split into surface/text/border/action.
+- **Style Dictionary v5 build pipeline** — `dist/` outputs (CSS variables, Tailwind preset, SwiftUI extensions, Compose Kotlin objects, JSON dump). `_build/` → `dist/` rename.
+- **Expressive mode primitives** at [`design-system/01-tokens/primitives/{glass,mesh,noise,gradient}.tokens.json`](design-system/01-tokens/primitives/) — 5 named mesh recipes (`aurora-spring`, `aurora-cool`, `dock-bay`, `lane-arc`, `cross-dock`), 3 noise variants (6%, 8%, 12%), 4 gradient surfaces.
+- **`<ModeScope>` React primitive** at [`design-system/02-components/mode-scope/`](design-system/02-components/mode-scope/) — sets `data-mode="restrained" | "expressive"` on a container. Hard rule 15: mode is a scope attribute, never a per-component prop.
+- **Component library refactor to shadcn registry** at [`registry.json`](./registry.json) — 149 items under `@lumen/*`:
+  - Tier 1 primitives (19) · Tier 2 composed (15) · Tier 3 Lumen signatures (3 — Stat, LiveDot, RateTicker) · Tier 4 freight-domain composites (10 — LaneCode, LaneArc, ShipmentTimeline, RouteMap, DockBay, CrossDockGrid, CarrierBadge, PalletTile, OTRTruckIso, QuoteBuilder) · Tier 5 AI-native primitives (28 — mirror Vercel AI Elements naming verbatim)
+  - `registry:base` single-payload install via [`@lumen/lumen-base`](public/r/lumen-base.json) · `registry:font` Satoshi delivery via [`@lumen/font-satoshi`](public/r/font-satoshi.json)
+  - Per-component shape: `<name>.md` + `<name>.skill.md` + `<name>.registry.json` + `<name>.stories.tsx` (Storybook 10.3 Component Manifests for MCP)
+- **AI-native primitive contracts** — Vercel AI Elements naming verbatim. Anthropic Citations API JSON shape verbatim in [`sources/sources.md`](design-system/02-components/sources/sources.md) + [`inline-citation/inline-citation.md`](design-system/02-components/inline-citation/inline-citation.md). OpenAI ChatKit theme bridge at [`_chatkit-theme/lumen-chatkit-theme.ts`](design-system/02-components/_chatkit-theme/lumen-chatkit-theme.ts). `LumenAIProvider` context at [`audit-dashboard/src/lib/lumen-ai-provider.tsx`](audit-dashboard/src/lib/lumen-ai-provider.tsx).
+- **Seven freight-native + generic patterns** at [`design-system/03-patterns/`](design-system/03-patterns/) — chat-thread (canonical), lane-search, shipment-timeline, quote-builder, citation-card, agent-approval-flow, command-palette-flow + README index.
+- **Platform translation guides** at [`design-system/04-platforms/`](design-system/04-platforms/) — README + web, ios, android, macos, windows, shopify, extension, cli, mcp-host, responsive. Each follows the same 8-section shape: what-it-is → token mapping → identity budget → glass/blur → motion → typography → don'ts → reference snippets.
+- **Six reference apps** at [`examples/`](examples/) — `ios-reference` (Swift Package), `android-reference` (Compose + Haze), `macos-reference` (SwiftUI + NSVisualEffectView bridge), `extension-reference` (Chrome MV3 + Vite + shadow DOM), `cli-go-reference` (Lipgloss + Bubbletea), `cli-node-reference` (Ink + chalk; type-check verified in-env).
+- **gpt-image-2 prompt library** at [`design-system/05-prompts/`](design-system/05-prompts/) — immutable [`style-anchor.md`](design-system/05-prompts/style-anchor.md) + 7 paste-ready templates (hero-background, abstract-shape, illustration, pattern, mesh, empty-state, marketing-card). Every template opens with `@import ./style-anchor.md`, pins `gpt-image-2-2026-04-21`. CLI at [`tools/lumen-prompts/`](tools/lumen-prompts/): `pnpm prompts <template> --subject "..."` assembles the full prompt; `--snapshot` flag; icon rejection. Canonical-subject manifests at [`examples/gpt-image-2/`](examples/gpt-image-2/).
+- **Two AI reference apps** at [`examples/ai-surface/`](examples/ai-surface/) (Next.js 15 + React 19 + AI SDK v6 with mock-stream fallback) and [`examples/chatkit/`](examples/chatkit/) (standalone HTML embed with inline Lumen tokens).
+- **`AGENTS.md` + `CLAUDE.md` + `llms.txt` + `llms-full.txt`** — the LLM-first context layering. `AGENTS.md` carries the universal hard rules + MCP integration instructions. `CLAUDE.md` adds Claude-specific MCP hints. `llms.txt` is the indexed (≈14K-char) entry point per llmstxt.org; `llms-full.txt` is the single-fetch flattened dump (≈2MB, 495K tokens, 444 files) for agents that prefer one read over multiple lookups.
+- **shadcn MCP wired** — Phase 6 ships the consumer-side install pattern (no custom Lumen MCP server). The shadcn MCP reads `registry.json` and per-item JSONs directly. Install: `claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp`, then register `@lumen` in the consumer's `components.json`. See [AGENTS.md §"MCP integration"](./AGENTS.md).
+- **Audit-dashboard rebuilt** at [`audit-dashboard/`](audit-dashboard/) (Phase 6) — three new routes plus a persistent mode toggle in the chrome:
+  - **`<ModeToggle>`** in the sticky header (`audit-dashboard/src/components/mode-toggle.tsx`) — flips `data-mode` on `<html>`, persists in `localStorage`, syncs across tabs via `storage` event.
+  - **`/tokens`** — interactive DTCG token browser with layer + category filters, fuzzy search, click-to-detail panel (resolved value + references list + copy-to-clipboard for CSS var / DTCG path / source file). Loads `audit-dashboard/public/token-index.json` (1,218 tokens, 2,598 references, 88 referenced tokens) emitted by [`tools/build-token-index.ts`](tools/build-token-index.ts).
+  - **`/library/registry`** — data-driven registry browser; complements the existing live-component showcase at `/library`. Shows install command, tokens consumed (linked to `/tokens` filter), mode badge (agnostic / restrained-only / expressive-only), SKILL.md NEVER-rule count, tier filter, sortable by name / tier / NEVER-rule count. Loads `audit-dashboard/public/component-index.json` (146 components) emitted by [`tools/build-component-index.ts`](tools/build-component-index.ts).
+  - **`/prompts`** — gpt-image-2 template browser with collapsible immutable style anchor, per-template assembled-prompt copy button, canonical-subject manifest sidecar, inline reference PNG when materialized (operator-side per Phase 4 deferral). Loads `audit-dashboard/public/prompt-index.json` emitted by [`tools/build-prompt-index.ts`](tools/build-prompt-index.ts).
+  - Existing surface pages (`/foundations`, `/library`, `/saas`, `/landing`, `/tool`, `/commerce`, `/mobile`, `/desktop`) all inherit the mode toggle automatically since every component is mode-agnostic per hard rule 15.
+- **Phase reports** at [`design-system/06-claude-code-briefings/phase-{0..6}-report.md`](design-system/06-claude-code-briefings/) — one per phase, each with master-doc §10.3 shape: what changed · what broke · hard-rule violations caught · what assumed · what uncertain · CHANGELOG entry · tokens/components touched · next phase.
+
+### Changed — v0.13 surface changes
+
+- **Token format** v0.12.4 ad-hoc CSS → DTCG 2025.10 JSON. Every token: `$value` + `$type` + `$description`. Alias syntax `{token.path.name}`.
+- **Component distribution** from manual copy-paste to shadcn registry — `npx shadcn add @lumen/<name>` resolves against the public registry endpoint.
+- **Documentation layering** from human-only to LLM-first — `llms.txt` (5-10K-token index) → `AGENTS.md` (operational digest) → per-component `<name>.skill.md` (Vercel-format hard-rule contracts) → registry JSON → component source. Smallest-correct-context wins.
+- **`llms.txt`** (Phase 4 + 5 + 6) — Phase 6 regenerates the indexed version against final v0.13.0 counts (149 registry items, 7 patterns, 10 platforms, 7 prompts) via [`tools/build-llms-index.ts`](tools/build-llms-index.ts). MCP section rewritten to reflect the shadcn-only path.
+- **`llms-full.txt`** (Phase 6) — full regeneration end-to-end against v0.13.0 framing (Phase 4 + 5 deferred this; Phase 6 owned). 444 files flattened, ~495K tokens. Regenerator at [`tools/build-llms-txt.ts`](tools/build-llms-txt.ts).
+- **AGENTS.md** (Phase 6) — added `## MCP integration` section, retired the `MCP server (Phase 6)` row from the where-things-live table.
+- **CLAUDE.md** (Phase 6) — MCP section rewritten to remove the Lumen-native server block; documents the Lumen-only-shadcn path with a note explaining the v0.14 deferral.
+
+### Preserved (intentionally)
+
+- Every v0.12.6 public token name retains an alias for backward compatibility. `color.brand.800` still resolves to `#0D0D0D`. `color.accent.500` still resolves to `#00FA8A`.
+- All visual values from the live `/foundations` page match exactly (11 obsidian stops, 8 surface roles, 9 radius stops, 6 control heights, 5 motion durations).
+- Spring Green `#00FA8A` single-accent discipline. Action / live / success only. No second loud color introduced anywhere.
+- Obsidian `#0D0D0D` canvas, resolved value unchanged.
+- Satoshi as the only typeface (Geist Mono allowed only as `code.fallback` per hard rule typography section).
+- 4-pt base / 8-pt soft grid. The 5 named off-grid exceptions (`--space-1_5: 6px`, `--size-control-cozy: 36px`, `--radius-xs: 3px`, `--size-dot-md: 19px`, `--shadow-focus-ring: 3px`) all preserved.
+- WCAG 2.2 AA contrast minimums.
+- LiveDot, RateTicker, Stat as signature primitives.
+- Brutalist hairline frame voice element, mono-uppercase tracked label, italic accent word.
+- v0.11 hierarchy + first-impression + micro-interactions foundations.
+- v0.12.1–v0.12.5 hard rules (10–14): corner-clip pattern, floating-UI portal default, focus-ring outline+box-shadow contract, inline-style position math, version constant single-source-of-truth, `<details>`/`<summary>` marker contract.
+
+### Migration
+
+- v0.12.6 consumers update by replacing manual imports with shadcn registry pulls: `npx shadcn add @lumen/<name>` after configuring `components.json` per [shadcn 4 docs](https://ui.shadcn.com/docs/registry).
+- v0.12.6 token references (`--lumen-*` CSS vars) continue to resolve via aliases through v1.0; explicit migration to DTCG-generated CSS vars is recommended but not required for v0.13.0.
+- New AI primitive installs flow through `npx ai-elements@latest add <name>` for the TSX implementation (Lumen ships the contract; Vercel ships the TSX); install commands documented in every Tier 5 component's SKILL.md.
+
+### Operator-side gates carried into v0.13.0 ship
+
+These are the gates the operator owns — code is staged, docs explain how to clear each:
+
+1. **Push `v0.13.0` to remote** (operator owns) — unblocks `warp-lumen-design-guidelines.vercel.app/r/registry.json` for the shadcn MCP install path.
+2. **Merge `v0.13.0` → `main`** (operator owns) — `gh pr create` from `v0.13.0` to `main`; PR reviews land via the six phase reports.
+3. **Annotated tag `v0.13.0`** (a local annotated tag exists on the Phase 6 commit, **unpushed**; operator pushes when ready).
+4. **Vercel production deploy from `main`** (auto-triggers on merge; operator confirms the deploy from the Vercel dashboard).
+5. **Verify** `curl https://warp-lumen-design-guidelines.vercel.app/r/registry.json | jq '.items | length'` returns `149`.
+6. **`pnpm storybook` boot** in a future session (deferred — Turbopack OOM risk during heavy file edits).
+7. **`npx shadcn@latest add @lumen/lumen-base` in fresh Next.js 15** (deferred — consumer sandbox verification).
+8. **87 pre-existing `tokens:validate` errors from v0.12.6** (deferred — orthogonal to v0.13 ship; tracked for v0.13.1 cleanup).
+9. **iOS / Android / macOS / Go reference apps toolchain verification** (deferred — operator-side, toolchain-bound).
+10. **PNG materialization for `examples/gpt-image-2/`** (deferred — needs `OPENAI_API_KEY`; CLI + manifests + runbook all ship).
+11. **`pnpm install` + live Claude streaming verification** for `examples/ai-surface/` (deferred — mock-stream is the in-env verified path).
+12. **Mode dual-render** for `examples/ai-surface/` (deferred to v0.13.1 — restrained renders correctly; expressive wiring is a one-line ModeScope wrap when shipped).
+
+See [`design-system/06-claude-code-briefings/phase-6-report.md`](design-system/06-claude-code-briefings/phase-6-report.md) for the full Phase 6 close-out.
 
 ---
 

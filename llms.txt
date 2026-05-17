@@ -1,223 +1,160 @@
 # Lumen Design System
 
 > Warp's design system for freight logistics SaaS. Dark-first, operator-density,
-> Spring Green (#00FA8A) on obsidian (#0D0D0D), Satoshi typeface, dual-mode
+> Spring Green (`#00FA8A`) on obsidian (`#0D0D0D`), Satoshi typeface, dual-mode
 > (restrained | expressive), LLM-first MD-driven, DTCG 2025.10 tokens, shadcn
-> registry. v0.13.0 — Phase 0 (DTCG foundation) + Phase 1 (expressive mode +
-> ModeScope) + Phase 2 (component library → shadcn registry under `@lumen/*`) +
-> Phase 3 (platform translation guides + six reference apps) shipped. 48
-> components in the registry plus 69 legacy v0.12.6 sidecars (121 total
-> registry items). Foundation: `@lumen/lumen-base` installs the whole system in
-> one command. Per-platform guides at `/design-system/04-platforms/` cover iOS,
-> Android, macOS, Windows, Shopify, browser extension, CLI (Go + Node), MCP
-> server, responsive web. v0.12.6 token names and component contracts preserved
-> verbatim — additive, never destructive.
+> registry under `@lumen/*`, gpt-image-2 prompt library for atmosphere.
 
-This file is the agent-readable index. Fetch one section at a time; each section
-points to specific MD or JSON files that an agent can load to resolve a query.
-Do NOT load the whole repo as context — load the master briefing, the AGENTS
-digest, then the specific foundation / token / component files relevant to the
-task.
+**Version:** v0.13.0
+**Live preview:** https://warp-lumen-design-guidelines.vercel.app
+**Generated:** 2026-05-17 (`tools/build-llms-index.ts`)
+
+---
 
 ## Read first
 
-- [AGENTS.md](/AGENTS.md) — universal agent rules + the 19 hard rules. Read first.
-- [CLAUDE.md](/CLAUDE.md) — Claude-specific addenda (MCP hints, skill priority, voice).
-- [doc/LUMEN-v0.13-MASTER-REFACTOR.md](/doc/LUMEN-v0.13-MASTER-REFACTOR.md) — canonical v0.13 refactor briefing (modes, DTCG, shadcn registry, MCP, gpt-image-2).
-- [USING-LUMEN.md](/USING-LUMEN.md) — comprehensive end-to-end manual (every tier, every consumption surface, every governance rule).
-- [README.md](/README.md) — human-facing front door.
+- [`AGENTS.md`](/AGENTS.md) — universal agent rules. Read before touching anything.
+- [`CLAUDE.md`](/CLAUDE.md) — Claude-specific addenda on top of AGENTS.md.
+- [`doc/LUMEN-v0.13-MASTER-REFACTOR.md`](/doc/LUMEN-v0.13-MASTER-REFACTOR.md) — canonical v0.13 source of truth (briefing for the seven-phase refactor).
+- [`llms-full.txt`](/llms-full.txt) — single-fetch flatten of the entire system (60-120K tokens) for agents that prefer one read over multiple lookups.
 
-## Foundations (17 docs — v0.13 adds modes, inspirations, glossary)
+## Foundations (17 docs — v0.13 includes modes, inspirations, glossary)
 
-- [Principles](/design-system/00-foundations/principles.md) — the seven operating principles
-- [Hierarchy](/design-system/00-foundations/hierarchy.md) — v0.11 aggressive hierarchy / one focal point per section
-- [First impression](/design-system/00-foundations/first-impression.md) — v0.11 50ms halo, hero anatomy
-- [Micro-interactions](/design-system/00-foundations/micro-interactions.md) — v0.11 peak-end rule, the catalog of moments
-- [Color](/design-system/00-foundations/color.md) — the four-color floor + Spring Green discipline
-- [Typography](/design-system/00-foundations/typography.md) — Satoshi-only single-typeface system
-- [Spacing](/design-system/00-foundations/spacing.md) — 4-pt base / 8-pt soft grid
-- [Elevation](/design-system/00-foundations/elevation.md) — hairline + two-stop shadows, accent-glow signature
-- [Voice & tone](/design-system/00-foundations/voice-and-tone.md) — how Lumen sounds
-- [Accessibility](/design-system/00-foundations/accessibility.md) — WCAG 2.2 AA floor
-- [Motion language](/design-system/00-foundations/motion-language.md) — timing tokens, easing, choreography
-- [Density](/design-system/00-foundations/density.md) — marketing-vs-operator split
-- [Buttons](/design-system/00-foundations/buttons.md) — comprehensive button language
-- [Forms and inputs](/design-system/00-foundations/forms-and-inputs.md) — the v0.6 .lumen-field shell architecture
-- [Modes](/design-system/00-foundations/modes.md) — v0.13 NEW. Restrained × Expressive routing
-- [Inspirations](/design-system/00-foundations/inspirations.md) — v0.13 NEW. Named anchors (RonDesignLab, Linear, Vercel skill, Nordhealth)
-- [Glossary](/design-system/00-foundations/glossary.md) — v0.13 NEW. Freight terms + system terminology
+The principles, voice, accessibility floor, motion language, and dual-mode routing.
+
+- [`principles.md`](/design-system/00-foundations/principles.md) — the seven v0.11 principles, restated.
+- [`voice-and-tone.md`](/design-system/00-foundations/voice-and-tone.md) — brutalist hairline frames, mono-uppercase tracked labels, italic accent word.
+- [`accessibility.md`](/design-system/00-foundations/accessibility.md) — WCAG 2.2 AA, `prefers-reduced-motion`, `prefers-reduced-transparency`.
+- [`motion.md`](/design-system/00-foundations/motion.md) — 80 / 140 / 200 / 320 / 480 ladder + 6 easings + 2 springs.
+- [`modes.md`](/design-system/00-foundations/modes.md) — restrained × expressive routing rules (v0.13).
+- [`hierarchy.md`](/design-system/00-foundations/hierarchy.md), [`first-impression.md`](/design-system/00-foundations/first-impression.md), [`micro-interactions.md`](/design-system/00-foundations/micro-interactions.md) — the v0.11 craft-grade foundations.
+- [`inspirations.md`](/design-system/00-foundations/inspirations.md) — named anchors (Navy Mobile, BizSpeed TMS, SpaceX, Linear, Geist, Nordhealth).
+- [`glossary.md`](/design-system/00-foundations/glossary.md) — freight-domain + system terminology.
 
 ## Tokens — DTCG 2025.10 (primitives → semantic → modes → components)
 
-### Primitives
-- [Color](/design-system/01-tokens/primitives/color.tokens.json) — 11 obsidian + 10 neutral + 10 spring + 10 lumen-red + 10 lumen-amber + alpha ramps + Phase 0 alias namespace
-- [Dimension](/design-system/01-tokens/primitives/dimension.tokens.json) — 4-pt spacing/sizing scale + named off-grid exceptions
-- [Spacing](/design-system/01-tokens/primitives/spacing.tokens.json) — v0.13 NEW. 10-stop structural ladder + named exceptions catalog
-- [Radius](/design-system/01-tokens/primitives/radius.tokens.json) — 9 stops xs through 4xl + full
-- [Typography](/design-system/01-tokens/primitives/typography.tokens.json) — Satoshi family / weight / size / leading / tracking + OpenType features + code.fallback
-- [Elevation](/design-system/01-tokens/primitives/elevation.tokens.json) — 6 standard shadows + accent-glow + glow-accent (3-layer) + glass + focus
-- [Motion](/design-system/01-tokens/primitives/motion.tokens.json) — 5 durations + 6 easings + 2 springs + atmosphere presets
+The token graph is the single source of truth. Hex literals only inside `primitives/`. No exceptions.
 
-### Semantic
-- [Color (light)](/design-system/01-tokens/semantic/color.light.tokens.json) — surface/text/border/action/status/aurora for light mode
-- [Color (dark)](/design-system/01-tokens/semantic/color.dark.tokens.json) — same paths for dark mode
-- [Surface](/design-system/01-tokens/semantic/surface.tokens.json) — v0.13 Phase 0 split. 8 surface roles + glass-strong
-- [Text](/design-system/01-tokens/semantic/text.tokens.json) — v0.13 Phase 0 split. Primary/secondary/tertiary/accent/inverse + state variants
-- [Border](/design-system/01-tokens/semantic/border.tokens.json) — v0.13 Phase 0 split. Hairline/default/strong/frame/accent/focus + state variants
-- [Action](/design-system/01-tokens/semantic/action.tokens.json) — v0.13 Phase 0 split. 5 canonical intents + variants
-- [Space](/design-system/01-tokens/semantic/space.tokens.json) — semantic spacing aliases
-- [Type](/design-system/01-tokens/semantic/type.tokens.json) — typography role composites
-- [Motion](/design-system/01-tokens/semantic/motion.tokens.json) — semantic motion presets
-- [Radius (semantic)](/design-system/01-tokens/semantic/radius.tokens.json) — radius aliases
-- [Shadow (semantic)](/design-system/01-tokens/semantic/shadow.tokens.json) — focus, card, popover, menu, modal, toast, floating, button-glow, ai-shimmer, input
+- **Primitives** at [`design-system/01-tokens/primitives/`](/design-system/01-tokens/primitives/):
+  - `color.tokens.json` — obsidian/spring/lumen-red/lumen-amber + Phase 0 alias namespace
+  - `spacing.tokens.json` — 4-pt base, 8-pt soft, named exceptions
+  - `typography.tokens.json` — Satoshi roles + OpenType feature flags + `code.fallback`
+  - `radius.tokens.json` — 9 stops (xs through 4xl + full)
+  - `elevation.tokens.json` — 6 shadows + `shadow.glass` + `shadow.focus` + `shadow.glow-accent` (3-layer)
+  - `motion.tokens.json` — 5 durations + 6 easings + 2 springs
+  - `glass.tokens.json`, `mesh.tokens.json` (5 named recipes), `noise.tokens.json` (3 variants), `gradient.tokens.json` — expressive-only (Phase 1)
+- **Semantic** at [`design-system/01-tokens/semantic/`](/design-system/01-tokens/semantic/):
+  - `surface.tokens.json` — canvas, raised, sunken, popover, glass, tint-accent, inverse
+  - `text.tokens.json`, `border.tokens.json`, `action.tokens.json` (Phase 0 split)
+- **Modes** at [`design-system/01-tokens/modes/`](/design-system/01-tokens/modes/):
+  - `restrained.tokens.json` — default rebind set
+  - `expressive.tokens.json` — mesh/gradient/glass rebind set
+- **Build output**: `dist/` (gitignored). Style Dictionary v5 emits CSS variables, Tailwind preset, SwiftUI extensions, Compose objects, JSON dump.
+- **Audit baselines**: [`tools/audit-baseline/`](/tools/audit-baseline/) — contrast snapshots per mode.
 
-### Modes (v0.13 NEW)
-- [Restrained](/design-system/01-tokens/modes/restrained.tokens.json) — default mode placeholder (no overrides)
-- [Expressive](/design-system/01-tokens/modes/expressive.tokens.json) — opt-in mode scaffold (Phase 1 fills)
-
-### Component-bound
-- See `/design-system/01-tokens/components/{name}.tokens.json` — per-component bound tokens for button / card / checkbox / combobox / date-picker / field / file-dropzone / input / number-input / otp-input / password-input / radio / range-slider / segmented / select / switch / tags-input / textarea / time-picker
-
-## Components — shadcn registry under `@lumen/*` (149 items; v0.13 Phases 2 + 5)
+## Components — shadcn registry under `@lumen/*` (149 items; Phase 2 + 5)
 
 Registry endpoint: `https://warp-lumen-design-guidelines.vercel.app/r/{name}.json`
 Consumer install: `npx shadcn add @lumen/<name>` from any project (after `components.json` is configured per the [shadcn 4 docs](https://ui.shadcn.com/docs/registry)).
 Single-payload install: `npx shadcn add @lumen/lumen-base` brings tokens + font + ModeScope + utils in one command.
 
 ### Foundation registries (REG tier)
-- [lumen-base](/public/r/lumen-base.json) — `registry:base` single-payload installer (the whole system in one command)
-- [font-satoshi](/public/r/font-satoshi.json) — `registry:lib` self-hosted Satoshi Variable + Italic (ITF-FFL)
-- [tokens](/public/r/tokens.json) — `registry:style` DTCG 2025.10 token graph (CSS variables)
-- [utils](/public/r/utils.json) — `registry:lib` cn() class-merger
-- [mode-scope](/public/r/mode-scope.json) — Phase 1 ModeScope primitive
 
-### Tier 1 — Primitives (20 items)
-button · input · textarea · card · sheet · popover · tooltip · toast · badge · tag · avatar · skeleton · spinner · tabs · breadcrumb · switch · checkbox · radio · slider · progress
+- [`lumen-base`](/public/r/lumen-base.json) — `registry:base` single-payload installer (the whole system in one command).
+- [`font-satoshi`](/public/r/font-satoshi.json) — `registry:font` Satoshi delivery (4 weights + italic).
 
-### Tier 2 — Composed (15 items)
-data-table (TanStack-virtualized) · command-palette (cmdk) · drawer · modal · dropdown-menu · combobox · calendar (react-day-picker) · date-picker · filter-builder · filter-chip · saved-view · sidebar · top-bar · pagination · select
+### Tier 1 — primitives (19 items)
 
-### Tier 3 — Lumen signatures (3 items — preserved v0.12.4 behavior verbatim)
+button · input · card · sheet · popover · tooltip · toast · badge · tag · avatar · skeleton · spinner · tabs · breadcrumb · switch · checkbox · radio · slider · progress
+
+### Tier 2 — composed (15 items)
+
+data-table · command-palette · drawer · modal · dropdown-menu · combobox · calendar · date-picker · filter-builder · filter-chip · saved-view · sidebar · top-bar · pagination · accordion
+
+### Tier 3 — Lumen signatures (3 items)
+
 stat · live-dot · rate-ticker
 
-### Tier 4 — Freight-domain composites (10 items — new in v0.13)
+### Tier 4 — freight-domain composites (10 items — new in v0.13)
+
 lane-code · lane-arc · shipment-timeline · route-map · dock-bay · cross-dock-grid · carrier-badge · pallet-tile · otr-truck-iso · quote-builder
 
-### Tier 5 — AI primitives (28 items — new in v0.13 Phase 5; Vercel AI Elements naming verbatim)
+### Tier 5 — AI-native primitives (28 items — new in v0.13 Phase 5, mirroring Vercel AI Elements naming verbatim)
 
-**Family 1 — Conversation:** [conversation](/public/r/conversation.json) (root container with auto-scroll + TanStack-virtualization at >100 messages + ConversationContent + ConversationScrollButton + ConversationEmptyState)
+conversation · message · message-response · message-branch · reasoning · tool · confirmation · sources · inline-citation · prompt-input · suggestion-strip · actions · loader-ai · artifact · web-preview · jsx-preview · sandbox-block · schema-display · snippet · stack-trace · terminal · agent-state · task-card · commit-card · context-window · response-text · voice-audio-stub · workflow-canvas-stub
 
-**Family 2 — Message:** [message](/public/r/message.json) (Message + MessageContent; four roles) · [message-response](/public/r/message-response.json) (streaming-optimized markdown with shimmer) · [message-branch](/public/r/message-branch.json) (regeneration navigation)
+> **AI primitive contracts**: Lumen ships the contract (MD + SKILL.md + token bindings + voice). Vercel ships the TSX via `npx ai-elements@latest add <name>`. The seam where they meet is `LumenAIProvider` at [`audit-dashboard/src/lib/lumen-ai-provider.tsx`](/audit-dashboard/src/lib/lumen-ai-provider.tsx).
+> **Citations** consume the Anthropic Citations API JSON shape verbatim — see [`sources.md`](/design-system/02-components/sources/sources.md).
+> **ChatKit theme** at [`_chatkit-theme/lumen-chatkit-theme.ts`](/design-system/02-components/_chatkit-theme/lumen-chatkit-theme.ts) — Lumen tokens mapped to OpenAI ChatKit theme variables. A Lumen-themed ChatKit embed is a single import.
 
-**Family 3 — AI Insight:** [reasoning](/public/r/reasoning.json) (collapsible chain-of-thought) · [tool](/public/r/tool.json) (Tool + ToolHeader + ToolInput + ToolOutput) · [confirmation](/public/r/confirmation.json) (brutalist hairline frame for destructive approvals) · [sources](/public/r/sources.json) (Anthropic Citations API footer) · [inline-citation](/public/r/inline-citation.json) (matching superscripts)
+## Patterns (multi-component flows — 7 patterns at `/design-system/03-patterns/`)
 
-**Family 4 — PromptInput:** [prompt-input](/public/r/prompt-input.json) (root + Textarea + Tools + Button + Footer + Submit + Select — provider pattern with usePromptInput hook)
+- [`chat-thread.md`](/design-system/03-patterns/chat-thread.md) — the canonical AI chat shape; every other AI surface mimics it.
+- [`lane-search.md`](/design-system/03-patterns/lane-search.md) — freight-native natural-language lane quoting.
+- [`shipment-timeline.md`](/design-system/03-patterns/shipment-timeline.md) — freight-native status inquiry with provenance.
+- [`quote-builder.md`](/design-system/03-patterns/quote-builder.md) — freight-native multi-turn iterative quote build.
+- [`citation-card.md`](/design-system/03-patterns/citation-card.md) — Anthropic Citations API rendering pattern.
+- [`agent-approval-flow.md`](/design-system/03-patterns/agent-approval-flow.md) — destructive-tool gating via Confirmation.
+- [`command-palette-flow.md`](/design-system/03-patterns/command-palette-flow.md) — slash-command + AI suggestion routing.
 
-**Family 5 — Content:** [artifact](/public/r/artifact.json) (Anthropic-style code/doc/HTML/SVG/Mermaid container) · [web-preview](/public/r/web-preview.json) (sandboxed iframe) · [jsx-preview](/public/r/jsx-preview.json) (live React preview via @babel/standalone) · [sandbox-block](/public/r/sandbox-block.json) (E2B-style code+output tabbed container — `experimental`) · [schema-display](/public/r/schema-display.json) (REST endpoint viz) · [snippet](/public/r/snippet.json) (single-line code) · [stack-trace](/public/r/stack-trace.json) (clickable JS/Node stack) · [terminal](/public/r/terminal.json) (ANSI-color console output)
+> Legacy `/design-system/05-patterns/` (v0.12.6) is preserved for backward compatibility but `/03-patterns/` is canonical for v0.13.
 
-**Family 6 — Voice & Audio:** [voice-audio-stub](/public/r/voice-audio-stub.json) (AudioPlayer + Transcription + VoiceSelector + SpeechInput + MicSelector — `experimental` stub)
+## Platforms — v0.13 canonical (10 platforms at `/design-system/04-platforms/`)
 
-**Family 7 — Workflow:** [workflow-canvas-stub](/public/r/workflow-canvas-stub.json) (Canvas + Node + Edge + Connection + Controls + Panel + Toolbar — React Flow under the hood; `experimental` stub)
+Per-platform translation guides. Token mapping, identity budget, glass/blur strategy, motion treatment, typography, don'ts, reference snippets.
 
-**Family 8 — Agent / Task / Commit:** [agent-state](/public/r/agent-state.json) (6-state indicator: idle/thinking/running-tool/awaiting-approval/done/error) · [task-card](/public/r/task-card.json) (plan visualization) · [commit-card](/public/r/commit-card.json) (agent change card)
+- [`web.md`](/design-system/04-platforms/web.md) — React canonical; consumed via shadcn registry.
+- [`ios.md`](/design-system/04-platforms/ios.md) — SwiftUI; `.regularMaterial` / `.thickMaterial` for glass; `accessibilityReduceTransparency` honored.
+- [`android.md`](/design-system/04-platforms/android.md) — Jetpack Compose + `dev.chrisbanes.haze` for backdrop blur (API 31+).
+- [`macos.md`](/design-system/04-platforms/macos.md) — SwiftUI + `NSVisualEffectView` bridge for vibrancy.
+- [`windows.md`](/design-system/04-platforms/windows.md) — Electron canonical with `vibrancy: 'acrylic'`; native WinUI deferred.
+- [`shopify.md`](/design-system/04-platforms/shopify.md) — Polaris GA Oct-2025; identity budget ≤ 15% (chips, badges, onboarding illustration only).
+- [`extension.md`](/design-system/04-platforms/extension.md) — Chrome MV3 + Vite + Shadow DOM (`:host { all: initial; }` reset).
+- [`cli.md`](/design-system/04-platforms/cli.md) — Go (Lipgloss + Bubbletea) and Node (Ink + chalk) reference implementations.
+- [`mcp-host.md`](/design-system/04-platforms/mcp-host.md) — voice & tone only (no UI); tool names + parameter descriptions follow Lumen voice.
+- [`responsive.md`](/design-system/04-platforms/responsive.md) — five breakpoints (phone 0 / tablet 640 / laptop 1024 / desktop 1440 / wide 1920).
 
-**Shared:** [actions](/public/r/actions.json) (regenerate/copy/like/dislike strip) · [suggestion-strip](/public/r/suggestion-strip.json) (chip strip above PromptInput) · [loader-ai](/public/r/loader-ai.json) (AI-context Spinner wrapper) · [context-window](/public/r/context-window.json) (token usage display) · [response-text](/public/r/response-text.json) (non-streaming markdown renderer)
+## Prompt library — gpt-image-2 (v0.13 Phase 4 — 7 templates at `/design-system/05-prompts/`)
 
-Plus **ChatKit theme bridge** at `02-components/_chatkit-theme/lumen-chatkit-theme.ts` — maps every Lumen semantic token onto the OpenAI ChatKit theme variable shape (`lumenChatKitTheme` for in-app, `lumenChatKitThemeResolved` for standalone embeds). One-line CSS handoff for a Lumen-themed ChatKit embed.
+The paste-ready prompt system for Lumen-on-brand image generation. Every template opens with `@import ./style-anchor.md` and pins the model snapshot.
 
-Vercel AI Elements install: `npx ai-elements@latest add <component>` (each Tier-5 sidecar names its install command in `meta.vercelAIElements.installCommand`). Lumen contracts (MD + SKILL.md + registry sidecar + Storybook story) ship in this repo; the TSX comes from upstream and is themed via the LumenAIProvider context (`audit-dashboard/src/lib/lumen-ai-provider.tsx`).
+### Style anchor (immutable)
 
-### Legacy v0.12.6 sidecars (69 items — preserved during the v0.13 migration window)
-accordion · action-sheet · ai-badge · ai-prompt-input · ai-suggestion · alert · banner · bottom-nav · breadcrumbs (alias of breadcrumb) · button-group · carousel · cart-drawer · chart · chat-bubble · citation-card · coach-mark · code-block · color-picker · command-palette-button · comment-thread · copy-button · data-grid · dialog · divider · empty-state · fab · field · file-dropzone · form · icon-button · inventory-status · kanban · kbd · kpi-card · link · list · logo-cloud · navbar · notification-center · number-input · otp-input · panel · password-input · permission-prompt · phone-frame · presence-indicator · pricing-card · pull-to-refresh · radio-group (alias of radio) · range-slider · reaction-bar · search-field · segmented · snackbar · sparkline · split-button · status-bar · stepper · swipe-action · table · tags-input · testimonial-card · time-picker · timeline · toggle · toolbar · tree-view · trend · validation-message
+- [`style-anchor.md`](/design-system/05-prompts/style-anchor.md) — verbatim from master doc §9. The single source of truth for tone, color discipline, composition constraints, style references. Never edit in place — version-bump to `style-anchor.v2.md` if a change is truly needed.
 
-Per-component LLM contract (v0.13 shape — every registry item):
-- `02-components/<name>/<name>.md` — frontmatter + prose + anatomy + do/don't + code
-- `02-components/<name>/<name>.skill.md` — Vercel-format SKILL.md with NEVER rules verbatim
-- `02-components/<name>/<name>.tsx` — canonical React implementation (token-driven, mode-agnostic, zero hex literals)
-- `02-components/<name>/<name>.test.tsx` — Vitest + @testing-library/react smoke + behavior tests
-- `02-components/<name>/<name>.stories.tsx` — Storybook 10.3 CSF Factory format (Component Manifest auto-emitted)
-- `02-components/<name>/<name>.registry.json` — shadcn registry-item.json
-- `02-components/<name>/manifest.json` — Storybook 10.3 Component Manifest entry
+### Templates (7 — each opens with `@import ./style-anchor.md`)
 
-## Patterns (multi-component flows — `/design-system/03-patterns/` is v0.13 canonical; `/design-system/05-patterns/` is legacy v0.12.6)
-
-**Phase 5 ships seven freight-native + generic AI patterns at `/design-system/03-patterns/`:**
-
-- [`chat-thread.md`](/design-system/03-patterns/chat-thread.md) — canonical AI conversation surface (Conversation + Message + MessageResponse + Reasoning + Tool + Sources + InlineCitation + Actions + PromptInput + Suggestion)
-- [`lane-search.md`](/design-system/03-patterns/lane-search.md) — freight-native natural-language lane quoting (PromptInput → Reasoning → Confirmation → Tool → freight-domain result)
-- [`shipment-timeline.md`](/design-system/03-patterns/shipment-timeline.md) — freight-native status inquiry (Tool → ShipmentTimeline → Sources cites carrier scans)
-- [`quote-builder.md`](/design-system/03-patterns/quote-builder.md) — freight-native multi-turn iterative quote-build conversation
-- [`citation-card.md`](/design-system/03-patterns/citation-card.md) — Anthropic Citations API JSON-shape rendering (Sources + InlineCitation)
-- [`agent-approval-flow.md`](/design-system/03-patterns/agent-approval-flow.md) — destructive tool gating with brutalist hairline Confirmation
-- [`command-palette-flow.md`](/design-system/03-patterns/command-palette-flow.md) — slash-command + AI-mediated suggestions
-
-**Reference implementation:** [`examples/ai-surface/`](/examples/ai-surface/) — Next.js 15 + React 19 + Vercel AI SDK app demonstrating all six flows end-to-end. Falls back to a deterministic mock stream when `ANTHROPIC_API_KEY` is unset so the reference runs in any environment.
-
-**ChatKit reference embed:** [`examples/chatkit/`](/examples/chatkit/) — standalone HTML page demonstrating Lumen-themed OpenAI ChatKit embedding (CSS-variable handoff, no per-component overrides).
-
-**Cross-cutting:** [`audit-dashboard/src/lib/lumen-ai-provider.tsx`](/audit-dashboard/src/lib/lumen-ai-provider.tsx) — React context for default model, streaming, citation styling, destructive-tool Confirmation gating, virtualization threshold, reduced-motion/reduced-transparency awareness.
-
-## Platforms — v0.13 canonical (see `/design-system/04-platforms/`)
-
-Phase 3 ships per-platform translation guides at the v0.13 contract. Each MD follows the same 8-section shape (what the platform is, token mapping table, identity budget, glass / blur translation, motion translation, typography translation, specific don'ts, reference snippets).
-
-- [Web · Next.js + React + Tailwind v4 + shadcn](/design-system/04-platforms/web.md)
-- [iOS · SwiftUI on iOS 17+](/design-system/04-platforms/ios.md)
-- [Android · Jetpack Compose + Haze](/design-system/04-platforms/android.md)
-- [macOS · SwiftUI + NSVisualEffectView bridge](/design-system/04-platforms/macos.md)
-- [Windows · Electron default + WinUI 3 documentary](/design-system/04-platforms/windows.md)
-- [Shopify · Polaris GA + App Bridge (≤15% identity budget)](/design-system/04-platforms/shopify.md)
-- [Browser extension · Manifest V3 + shadow DOM scoping](/design-system/04-platforms/extension.md)
-- [CLI / TUI · Go Lipgloss + Node Ink](/design-system/04-platforms/cli.md)
-- [MCP server · voice & tone (no UI)](/design-system/04-platforms/mcp-host.md)
-- [Responsive web · container queries + 5 breakpoints](/design-system/04-platforms/responsive.md)
-
-### Reference implementations (Phase 3 ships at `/examples/`)
-- [`examples/ios-reference/`](/examples/ios-reference/) — Swift Package · three surfaces · Reduce Transparency / Motion honored
-- [`examples/android-reference/`](/examples/android-reference/) — Compose + Haze · API 26+ · four surfaces
-- [`examples/macos-reference/`](/examples/macos-reference/) — SwiftUI macOS 14+ · NSVisualEffectView bridge
-- [`examples/extension-reference/`](/examples/extension-reference/) — Chrome MV3 + Vite + shadow DOM
-- [`examples/cli-go-reference/`](/examples/cli-go-reference/) — Lipgloss + Bubbletea TUI
-- [`examples/cli-node-reference/`](/examples/cli-node-reference/) — Ink + chalk TUI
-
-### Legacy v0.12.6 platform guides (preserved, additive — see `/design-system/03-platforms/`)
-The v0.12.6 folder stays in place per hard rule 18 (additive principle). When working on v0.13+ use `04-platforms/`; on v0.12.x the legacy READMEs still apply.
-
-## Prompt library — gpt-image-2 (v0.13 Phase 4 — `/design-system/05-prompts/`)
-
-The paste-ready prompt system for Lumen-branded imagery. One immutable style anchor, seven per-asset templates, a CLI that assembles them, and a reference asset set under `/examples/gpt-image-2/`. See [`05-prompts/README.md`](/design-system/05-prompts/README.md).
-
-### Anchor + templates (8 files)
-
-- [`style-anchor.md`](/design-system/05-prompts/style-anchor.md) — the **immovable** master prompt (verbatim from master doc §9; do not edit in place, version-bump instead)
-- [`hero-background.md`](/design-system/05-prompts/hero-background.md) — landing-page hero backgrounds · 16:9 · 2560×1440 · expressive
-- [`abstract-shape.md`](/design-system/05-prompts/abstract-shape.md) — empty-state covers, secondary heroes, loading screens · 1:1 · 1600×1600 · restrained
-- [`illustration.md`](/design-system/05-prompts/illustration.md) — onboarding step illustrations, feature heroes · 1:1 or 16:9 · expressive
-- [`pattern.md`](/design-system/05-prompts/pattern.md) — seamless tile patterns · 1:1 · 512×512 · restrained
-- [`mesh.md`](/design-system/05-prompts/mesh.md) — five Phase 1 mesh-recipe visual references (`aurora-spring`, `aurora-cool`, `dock-bay`, `lane-arc`, `cross-dock`) · 16:9 · 2560×1440 · expressive
-- [`empty-state.md`](/design-system/05-prompts/empty-state.md) — dashboard empty states · 1:1 or 4:3 · restrained · **anticipatory** mood
-- [`marketing-card.md`](/design-system/05-prompts/marketing-card.md) — OG cards, social shares, blog heroes, landing-page feature blocks · 1.91:1 or 16:9 · expressive
+- [`hero-background.md`](/design-system/05-prompts/hero-background.md) — 16:9 landing-page hero atmosphere.
+- [`abstract-shape.md`](/design-system/05-prompts/abstract-shape.md) — 1:1 empty-state / loading shape.
+- [`illustration.md`](/design-system/05-prompts/illustration.md) — narrative onboarding-step illustration.
+- [`pattern.md`](/design-system/05-prompts/pattern.md) — 512×512 seamless tile.
+- [`mesh.md`](/design-system/05-prompts/mesh.md) — 5 named mesh recipes (aurora-spring / aurora-cool / dock-bay / lane-arc / cross-dock).
+- [`empty-state.md`](/design-system/05-prompts/empty-state.md) — 1024×1024 anticipatory absence.
+- [`marketing-card.md`](/design-system/05-prompts/marketing-card.md) — 1.91:1 OG card / feature block.
 
 ### CLI
 
-- Path: [`tools/lumen-prompts/`](/tools/lumen-prompts/) — `pnpm prompts <template> --subject "..."` emits the fully-assembled prompt; `pnpm prompts:generate-references` (operator-side, requires `OPENAI_API_KEY`) materializes the reference PNGs.
-- Icon rejection: the CLI refuses `icon`, `icons`, `iconography`, `glyph`, `symbol` — Lumen icons are hand-drawn vectors, never gpt-image-2 output.
-
-### Reference assets
-
-- Path: [`examples/gpt-image-2/`](/examples/gpt-image-2/) — one `canonical-subject.md` manifest per template (in repo) + one PNG per template (operator-materializes; not committed by default to avoid silent snapshot drift). Mesh ships 5 PNGs (one per recipe).
+`pnpm prompts <template> --subject "..."` assembles the full prompt with the style anchor inlined and the model pin baked in. `--snapshot` flag emits an archival header. Icon prompts rejected with `exit 3` (Lumen icons stay vector). Source: [`tools/lumen-prompts/`](/tools/lumen-prompts/).
 
 ### Model pin
 
 - Snapshot: `gpt-image-2-2026-04-21` — pinned in every template and the anchor.
 - Drift policy: per master doc §11, the `gpt-image-2` alias may roll forward silently. Re-baseline by updating the pin in one PR, regenerating the entire reference set, and committing as a versioned bump.
 
-## MCP (Phase 6 lands — `/design-system/07-mcp/`)
+## MCP — shadcn (v0.13 Phase 6 — shipped, no custom server)
 
-- Install: `claude mcp add --transport http lumen https://lumen.warp.dev/mcp`
-- Tools: `list_components`, `get_component`, `get_tokens`, `search`, `install`, `get_prompt_template`
+The Lumen registry is shadcn-MCP-compatible out of the box. No separate Lumen MCP server in v0.13.
+
+- Install shadcn MCP: `claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp`
+- Register Lumen in consumer's `components.json`: `{ "registries": { "@lumen": "https://warp-lumen-design-guidelines.vercel.app/r/{name}.json" } }`
+- Verify: `/mcp` in Claude Code, then "install @lumen/button" routes through the shadcn MCP `install` tool
+- Endpoint: [`https://warp-lumen-design-guidelines.vercel.app/r/registry.json`](https://warp-lumen-design-guidelines.vercel.app/r/registry.json) — must return ≥149 items (Phase 5 total)
+- Tools exposed by shadcn MCP: `init`, `add`/`install`, `list`, `search`, `get_item`
+- Full instructions: [AGENTS.md §"MCP integration"](/AGENTS.md)
 - shadcn consumer config: [`components.json`](/components.json) (root)
-- shadcn registry manifest: [`registry.json`](/registry.json) (root, Phase 2 fills)
+- shadcn registry manifest: [`registry.json`](/registry.json) (root; 149 items)
+
+> A Lumen-native MCP (for tools beyond shadcn's surface, e.g. `lumen.get_prompt_template`) is deferred to v0.14 as `@warp/lumen-mcp`. v0.13 ships shadcn-only because shadcn covers list / get / search / install over the whole `@lumen` graph.
 
 ## Hard rules (must follow — see AGENTS.md for the full prose)
 
@@ -233,15 +170,17 @@ The paste-ready prompt system for Lumen-branded imagery. One immutable style anc
 10. `<details>`/`<summary>` accordions with custom chevron get `class="lumen-summary"`.
 11. v0.13 — Mode is a scope attribute, never a per-component prop.
 12. v0.13 — `backdrop-filter` only on floating shells (popover, sheet, command palette, nav, hero device frame). NEVER on canvas, data table, row, cell.
-13. v0.13 — DTCG 2025.10. `$value` + `$type` + `$description` on every token. Alias syntax `{token.path}`. No hex literals outside primitives.
-14. v0.13 — Phase 0 alias namespace (`color.obsidian/spring/lumen-red/lumen-amber`) is first-class but additive. v0.12.6 names preserved verbatim.
-15. v0.13 — Vercel AI Elements naming for AI primitives (Conversation, Message, Reasoning, Tool, Sources, InlineCitation, PromptInput, Suggestion, Confirmation, Artifact, WebPreview, Agent). Anthropic Citations API JSON shape for citation UI.
-16. v0.13 — gpt-image-2 generates atmosphere, NEVER icons. Snapshot-pin `gpt-image-2-2026-04-21` in every prompt. Open every prompt with `@import 05-prompts/style-anchor.md`.
+13. v0.13 — DTCG 2025.10 token format. Every token: `$value` + `$type` + `$description`. Alias syntax `{token.path.name}`.
+14. v0.13 — Phase 0 alias namespace is additive. `color.obsidian.*` aliases `color.brand.*`. `color.spring.*` aliases `color.accent.*`. Both ship.
+15. v0.13 — Vercel AI Elements naming verbatim for AI primitives. Anthropic Citations API shape for citation UI.
+16. v0.13 — gpt-image-2 generates atmosphere; icons stay vector. Every prompt opens with `@import 05-prompts/style-anchor.md` and pins `gpt-image-2-2026-04-21`.
 
 ## Operating context
 
 - Repo: github.com/NeelMyno/Warp-Lumen-Design-Guidelines
-- Live preview: https://warp-lumen-design-guidelines.vercel.app
+- Live preview: warp-lumen-design-guidelines.vercel.app
 - Build: `pnpm tokens` → `dist/` (v0.13; was `_build/` pre-v0.13)
 - Audit: `pnpm audit:contrast` → `tools/audit-baseline/contrast-{restrained,expressive}.json`
+- Flatten for LLM ingest: `pnpm llms` → `llms-full.txt` (60-120K tokens)
+- Regenerate this index: `pnpm llms:index` (this file)
 - Version: see `/VERSION` (currently `0.13.0`) and `/audit-dashboard/src/lib/version.ts`

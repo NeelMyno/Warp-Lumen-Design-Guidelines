@@ -1,6 +1,8 @@
 export type TabSlug =
   | "foundations"
   | "library"
+  | "tokens"
+  | "prompts"
   | "saas"
   | "landing"
   | "tool"
@@ -34,6 +36,24 @@ export const TABS: Tab[] = [
     shortLabel: "Library",
     description:
       "Every component, state, and pattern in one navigable surface. Apple HIG / Material / Polaris-grade coverage, Lumen-tuned.",
+    group: "system",
+  },
+  {
+    slug: "tokens",
+    href: "/tokens",
+    label: "Token Browser",
+    shortLabel: "Tokens",
+    description:
+      "Live introspection of the DTCG 2025.10 token graph. Filter by layer + category, search by name, click for resolved value + references + copy commands.",
+    group: "system",
+  },
+  {
+    slug: "prompts",
+    href: "/prompts",
+    label: "Prompt Library",
+    shortLabel: "Prompts",
+    description:
+      "gpt-image-2 templates — style anchor + 7 paste-ready prompts with copy buttons, reference assets, and canonical-subject manifests.",
     group: "system",
   },
   {

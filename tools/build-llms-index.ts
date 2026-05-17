@@ -1,0 +1,283 @@
+#!/usr/bin/env tsx
+/**
+ * build-llms-index — regenerate llms.txt (the small indexed version of the
+ * design system). Complement to build-llms-txt.ts (which writes the full
+ * flattened llms-full.txt).
+ *
+ * Usage:
+ *   pnpm llms:index             → writes llms.txt at repo root
+ *   pnpm llms:index -- --dry-run → prints what would change without writing
+ *
+ * llms.txt convention (per llmstxt.org): a short markdown file with a level-1
+ * title, a brief description, then linked sections. Bullet entries point to
+ * the canonical source paths so an agent can fetch the smallest correct
+ * context for a task instead of slurping the full graph.
+ *
+ * Why a separate index from llms-full.txt:
+ *   - llms.txt = 5-10K tokens, fits a single context budget, links out
+ *   - llms-full.txt = 60-120K tokens, single-fetch flatten of every MD/JSON
+ *
+ * This script regenerates the curated index with current counts (component
+ * count, pattern count, platform count) derived from the actual filesystem.
+ * Zero external dependencies — uses node:fs (matches the audit-tokens.ts
+ * convention; root package.json has no `glob` dep on purpose).
+ */
+
+import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import { join, relative } from "node:path";
+
+const ROOT = new URL("..", import.meta.url).pathname;
+const OUT = join(ROOT, "llms.txt");
+
+const DRY_RUN = process.argv.includes("--dry-run");
+
+const VERSION = readFileSync(join(ROOT, "VERSION"), "utf-8").trim();
+
+function countFiles(dir: string, suffix: string): number {
+  try {
+    return readdirSync(join(ROOT, dir)).filter((n) => n.endsWith(suffix))
+      .length;
+  } catch {
+    return 0;
+  }
+}
+
+function listDirs(dir: string): string[] {
+  try {
+    return readdirSync(join(ROOT, dir)).filter((n) => {
+      try {
+        return statSync(join(ROOT, dir, n)).isDirectory();
+      } catch {
+        return false;
+      }
+    });
+  } catch {
+    return [];
+  }
+}
+
+// Live counts pulled from the filesystem so the index never drifts.
+const foundationsCount = countFiles("design-system/00-foundations", ".md");
+const componentDirs = listDirs("design-system/02-components").filter((d) => {
+  if (d === "_schema" || d.startsWith("_") === false) {
+    // Keep only directories with at least one .md
+    const inner = (() => {
+      try {
+        return readdirSync(join(ROOT, "design-system/02-components", d));
+      } catch {
+        return [];
+      }
+    })();
+    return inner.some((n) => n.endsWith(".md"));
+  }
+  return false;
+});
+const componentCount = componentDirs.length;
+const patternCount = countFiles("design-system/03-patterns", ".md") - 1; // minus README
+const platformCount = countFiles("design-system/04-platforms", ".md") - 1; // minus README
+const promptCount = countFiles("design-system/05-prompts", ".md") - 2; // minus README + style-anchor
+
+// Read registry to get exact item count.
+const registryJson = JSON.parse(
+  readFileSync(join(ROOT, "registry.json"), "utf-8"),
+) as { items: Array<{ name: string }> };
+const registryItemCount = registryJson.items.length;
+
+const TEMPLATE = `# Lumen Design System
+
+> Warp's design system for freight logistics SaaS. Dark-first, operator-density,
+> Spring Green (\`#00FA8A\`) on obsidian (\`#0D0D0D\`), Satoshi typeface, dual-mode
+> (restrained | expressive), LLM-first MD-driven, DTCG 2025.10 tokens, shadcn
+> registry under \`@lumen/*\`, gpt-image-2 prompt library for atmosphere.
+
+**Version:** v${VERSION}
+**Live preview:** https://warp-lumen-design-guidelines.vercel.app
+**Generated:** ${new Date().toISOString().slice(0, 10)} (\`tools/build-llms-index.ts\`)
+
+---
+
+## Read first
+
+- [\`AGENTS.md\`](/AGENTS.md) — universal agent rules. Read before touching anything.
+- [\`CLAUDE.md\`](/CLAUDE.md) — Claude-specific addenda on top of AGENTS.md.
+- [\`doc/LUMEN-v0.13-MASTER-REFACTOR.md\`](/doc/LUMEN-v0.13-MASTER-REFACTOR.md) — canonical v0.13 source of truth (briefing for the seven-phase refactor).
+- [\`llms-full.txt\`](/llms-full.txt) — single-fetch flatten of the entire system (60-120K tokens) for agents that prefer one read over multiple lookups.
+
+## Foundations (${foundationsCount} docs — v0.13 includes modes, inspirations, glossary)
+
+The principles, voice, accessibility floor, motion language, and dual-mode routing.
+
+- [\`principles.md\`](/design-system/00-foundations/principles.md) — the seven v0.11 principles, restated.
+- [\`voice-and-tone.md\`](/design-system/00-foundations/voice-and-tone.md) — brutalist hairline frames, mono-uppercase tracked labels, italic accent word.
+- [\`accessibility.md\`](/design-system/00-foundations/accessibility.md) — WCAG 2.2 AA, \`prefers-reduced-motion\`, \`prefers-reduced-transparency\`.
+- [\`motion.md\`](/design-system/00-foundations/motion.md) — 80 / 140 / 200 / 320 / 480 ladder + 6 easings + 2 springs.
+- [\`modes.md\`](/design-system/00-foundations/modes.md) — restrained × expressive routing rules (v0.13).
+- [\`hierarchy.md\`](/design-system/00-foundations/hierarchy.md), [\`first-impression.md\`](/design-system/00-foundations/first-impression.md), [\`micro-interactions.md\`](/design-system/00-foundations/micro-interactions.md) — the v0.11 craft-grade foundations.
+- [\`inspirations.md\`](/design-system/00-foundations/inspirations.md) — named anchors (Navy Mobile, BizSpeed TMS, SpaceX, Linear, Geist, Nordhealth).
+- [\`glossary.md\`](/design-system/00-foundations/glossary.md) — freight-domain + system terminology.
+
+## Tokens — DTCG 2025.10 (primitives → semantic → modes → components)
+
+The token graph is the single source of truth. Hex literals only inside \`primitives/\`. No exceptions.
+
+- **Primitives** at [\`design-system/01-tokens/primitives/\`](/design-system/01-tokens/primitives/):
+  - \`color.tokens.json\` — obsidian/spring/lumen-red/lumen-amber + Phase 0 alias namespace
+  - \`spacing.tokens.json\` — 4-pt base, 8-pt soft, named exceptions
+  - \`typography.tokens.json\` — Satoshi roles + OpenType feature flags + \`code.fallback\`
+  - \`radius.tokens.json\` — 9 stops (xs through 4xl + full)
+  - \`elevation.tokens.json\` — 6 shadows + \`shadow.glass\` + \`shadow.focus\` + \`shadow.glow-accent\` (3-layer)
+  - \`motion.tokens.json\` — 5 durations + 6 easings + 2 springs
+  - \`glass.tokens.json\`, \`mesh.tokens.json\` (5 named recipes), \`noise.tokens.json\` (3 variants), \`gradient.tokens.json\` — expressive-only (Phase 1)
+- **Semantic** at [\`design-system/01-tokens/semantic/\`](/design-system/01-tokens/semantic/):
+  - \`surface.tokens.json\` — canvas, raised, sunken, popover, glass, tint-accent, inverse
+  - \`text.tokens.json\`, \`border.tokens.json\`, \`action.tokens.json\` (Phase 0 split)
+- **Modes** at [\`design-system/01-tokens/modes/\`](/design-system/01-tokens/modes/):
+  - \`restrained.tokens.json\` — default rebind set
+  - \`expressive.tokens.json\` — mesh/gradient/glass rebind set
+- **Build output**: \`dist/\` (gitignored). Style Dictionary v5 emits CSS variables, Tailwind preset, SwiftUI extensions, Compose objects, JSON dump.
+- **Audit baselines**: [\`tools/audit-baseline/\`](/tools/audit-baseline/) — contrast snapshots per mode.
+
+## Components — shadcn registry under \`@lumen/*\` (${registryItemCount} items; Phase 2 + 5)
+
+Registry endpoint: \`https://warp-lumen-design-guidelines.vercel.app/r/{name}.json\`
+Consumer install: \`npx shadcn add @lumen/<name>\` from any project (after \`components.json\` is configured per the [shadcn 4 docs](https://ui.shadcn.com/docs/registry)).
+Single-payload install: \`npx shadcn add @lumen/lumen-base\` brings tokens + font + ModeScope + utils in one command.
+
+### Foundation registries (REG tier)
+
+- [\`lumen-base\`](/public/r/lumen-base.json) — \`registry:base\` single-payload installer (the whole system in one command).
+- [\`font-satoshi\`](/public/r/font-satoshi.json) — \`registry:font\` Satoshi delivery (4 weights + italic).
+
+### Tier 1 — primitives (19 items)
+
+button · input · card · sheet · popover · tooltip · toast · badge · tag · avatar · skeleton · spinner · tabs · breadcrumb · switch · checkbox · radio · slider · progress
+
+### Tier 2 — composed (15 items)
+
+data-table · command-palette · drawer · modal · dropdown-menu · combobox · calendar · date-picker · filter-builder · filter-chip · saved-view · sidebar · top-bar · pagination · accordion
+
+### Tier 3 — Lumen signatures (3 items)
+
+stat · live-dot · rate-ticker
+
+### Tier 4 — freight-domain composites (10 items — new in v0.13)
+
+lane-code · lane-arc · shipment-timeline · route-map · dock-bay · cross-dock-grid · carrier-badge · pallet-tile · otr-truck-iso · quote-builder
+
+### Tier 5 — AI-native primitives (28 items — new in v0.13 Phase 5, mirroring Vercel AI Elements naming verbatim)
+
+conversation · message · message-response · message-branch · reasoning · tool · confirmation · sources · inline-citation · prompt-input · suggestion-strip · actions · loader-ai · artifact · web-preview · jsx-preview · sandbox-block · schema-display · snippet · stack-trace · terminal · agent-state · task-card · commit-card · context-window · response-text · voice-audio-stub · workflow-canvas-stub
+
+> **AI primitive contracts**: Lumen ships the contract (MD + SKILL.md + token bindings + voice). Vercel ships the TSX via \`npx ai-elements@latest add <name>\`. The seam where they meet is \`LumenAIProvider\` at [\`audit-dashboard/src/lib/lumen-ai-provider.tsx\`](/audit-dashboard/src/lib/lumen-ai-provider.tsx).
+> **Citations** consume the Anthropic Citations API JSON shape verbatim — see [\`sources.md\`](/design-system/02-components/sources/sources.md).
+> **ChatKit theme** at [\`_chatkit-theme/lumen-chatkit-theme.ts\`](/design-system/02-components/_chatkit-theme/lumen-chatkit-theme.ts) — Lumen tokens mapped to OpenAI ChatKit theme variables. A Lumen-themed ChatKit embed is a single import.
+
+## Patterns (multi-component flows — ${patternCount} patterns at \`/design-system/03-patterns/\`)
+
+- [\`chat-thread.md\`](/design-system/03-patterns/chat-thread.md) — the canonical AI chat shape; every other AI surface mimics it.
+- [\`lane-search.md\`](/design-system/03-patterns/lane-search.md) — freight-native natural-language lane quoting.
+- [\`shipment-timeline.md\`](/design-system/03-patterns/shipment-timeline.md) — freight-native status inquiry with provenance.
+- [\`quote-builder.md\`](/design-system/03-patterns/quote-builder.md) — freight-native multi-turn iterative quote build.
+- [\`citation-card.md\`](/design-system/03-patterns/citation-card.md) — Anthropic Citations API rendering pattern.
+- [\`agent-approval-flow.md\`](/design-system/03-patterns/agent-approval-flow.md) — destructive-tool gating via Confirmation.
+- [\`command-palette-flow.md\`](/design-system/03-patterns/command-palette-flow.md) — slash-command + AI suggestion routing.
+
+> Legacy \`/design-system/05-patterns/\` (v0.12.6) is preserved for backward compatibility but \`/03-patterns/\` is canonical for v0.13.
+
+## Platforms — v0.13 canonical (${platformCount} platforms at \`/design-system/04-platforms/\`)
+
+Per-platform translation guides. Token mapping, identity budget, glass/blur strategy, motion treatment, typography, don'ts, reference snippets.
+
+- [\`web.md\`](/design-system/04-platforms/web.md) — React canonical; consumed via shadcn registry.
+- [\`ios.md\`](/design-system/04-platforms/ios.md) — SwiftUI; \`.regularMaterial\` / \`.thickMaterial\` for glass; \`accessibilityReduceTransparency\` honored.
+- [\`android.md\`](/design-system/04-platforms/android.md) — Jetpack Compose + \`dev.chrisbanes.haze\` for backdrop blur (API 31+).
+- [\`macos.md\`](/design-system/04-platforms/macos.md) — SwiftUI + \`NSVisualEffectView\` bridge for vibrancy.
+- [\`windows.md\`](/design-system/04-platforms/windows.md) — Electron canonical with \`vibrancy: 'acrylic'\`; native WinUI deferred.
+- [\`shopify.md\`](/design-system/04-platforms/shopify.md) — Polaris GA Oct-2025; identity budget ≤ 15% (chips, badges, onboarding illustration only).
+- [\`extension.md\`](/design-system/04-platforms/extension.md) — Chrome MV3 + Vite + Shadow DOM (\`:host { all: initial; }\` reset).
+- [\`cli.md\`](/design-system/04-platforms/cli.md) — Go (Lipgloss + Bubbletea) and Node (Ink + chalk) reference implementations.
+- [\`mcp-host.md\`](/design-system/04-platforms/mcp-host.md) — voice & tone only (no UI); tool names + parameter descriptions follow Lumen voice.
+- [\`responsive.md\`](/design-system/04-platforms/responsive.md) — five breakpoints (phone 0 / tablet 640 / laptop 1024 / desktop 1440 / wide 1920).
+
+## Prompt library — gpt-image-2 (v0.13 Phase 4 — ${promptCount} templates at \`/design-system/05-prompts/\`)
+
+The paste-ready prompt system for Lumen-on-brand image generation. Every template opens with \`@import ./style-anchor.md\` and pins the model snapshot.
+
+### Style anchor (immutable)
+
+- [\`style-anchor.md\`](/design-system/05-prompts/style-anchor.md) — verbatim from master doc §9. The single source of truth for tone, color discipline, composition constraints, style references. Never edit in place — version-bump to \`style-anchor.v2.md\` if a change is truly needed.
+
+### Templates (${promptCount} — each opens with \`@import ./style-anchor.md\`)
+
+- [\`hero-background.md\`](/design-system/05-prompts/hero-background.md) — 16:9 landing-page hero atmosphere.
+- [\`abstract-shape.md\`](/design-system/05-prompts/abstract-shape.md) — 1:1 empty-state / loading shape.
+- [\`illustration.md\`](/design-system/05-prompts/illustration.md) — narrative onboarding-step illustration.
+- [\`pattern.md\`](/design-system/05-prompts/pattern.md) — 512×512 seamless tile.
+- [\`mesh.md\`](/design-system/05-prompts/mesh.md) — 5 named mesh recipes (aurora-spring / aurora-cool / dock-bay / lane-arc / cross-dock).
+- [\`empty-state.md\`](/design-system/05-prompts/empty-state.md) — 1024×1024 anticipatory absence.
+- [\`marketing-card.md\`](/design-system/05-prompts/marketing-card.md) — 1.91:1 OG card / feature block.
+
+### CLI
+
+\`pnpm prompts <template> --subject "..."\` assembles the full prompt with the style anchor inlined and the model pin baked in. \`--snapshot\` flag emits an archival header. Icon prompts rejected with \`exit 3\` (Lumen icons stay vector). Source: [\`tools/lumen-prompts/\`](/tools/lumen-prompts/).
+
+### Model pin
+
+- Snapshot: \`gpt-image-2-2026-04-21\` — pinned in every template and the anchor.
+- Drift policy: per master doc §11, the \`gpt-image-2\` alias may roll forward silently. Re-baseline by updating the pin in one PR, regenerating the entire reference set, and committing as a versioned bump.
+
+## MCP — shadcn (v0.13 Phase 6 — shipped, no custom server)
+
+The Lumen registry is shadcn-MCP-compatible out of the box. No separate Lumen MCP server in v0.13.
+
+- Install shadcn MCP: \`claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp\`
+- Register Lumen in consumer's \`components.json\`: \`{ "registries": { "@lumen": "https://warp-lumen-design-guidelines.vercel.app/r/{name}.json" } }\`
+- Verify: \`/mcp\` in Claude Code, then "install @lumen/button" routes through the shadcn MCP \`install\` tool
+- Endpoint: [\`https://warp-lumen-design-guidelines.vercel.app/r/registry.json\`](https://warp-lumen-design-guidelines.vercel.app/r/registry.json) — must return ≥${registryItemCount} items (Phase 5 total)
+- Tools exposed by shadcn MCP: \`init\`, \`add\`/\`install\`, \`list\`, \`search\`, \`get_item\`
+- Full instructions: [AGENTS.md §"MCP integration"](/AGENTS.md)
+- shadcn consumer config: [\`components.json\`](/components.json) (root)
+- shadcn registry manifest: [\`registry.json\`](/registry.json) (root; ${registryItemCount} items)
+
+> A Lumen-native MCP (for tools beyond shadcn's surface, e.g. \`lumen.get_prompt_template\`) is deferred to v0.14 as \`@warp/lumen-mcp\`. v0.13 ships shadcn-only because shadcn covers list / get / search / install over the whole \`@lumen\` graph.
+
+## Hard rules (must follow — see AGENTS.md for the full prose)
+
+1. Never invent tokens. Always reference semantic, never primitives.
+2. Every component ships \`component.json\` + (Phase 2) \`<name>.skill.md\`.
+3. WCAG 2.2 AA hard floor. \`prefers-reduced-motion\` + \`prefers-reduced-transparency\` honored.
+4. Spring Green (\`#00FA8A\`) is the only loud color. Action / live / success only. Never decorative.
+5. White on accent surface ≈ 1.4:1 — AA fail. Use \`color.accent.fg\` (\`#07120D\`) or \`.lumen-btn-*\` defensive classes.
+6. Floating UI portals to \`document.body\`. Never inline \`<div absolute>\`.
+7. Focus rings ride \`outline + box-shadow\`, never box-shadow alone.
+8. Position math via inline \`style\`, not Tailwind arbitrary classes.
+9. Version labels import from \`lib/version.ts\`, never hardcoded literals.
+10. \`<details>\`/\`<summary>\` accordions with custom chevron get \`class="lumen-summary"\`.
+11. v0.13 — Mode is a scope attribute, never a per-component prop.
+12. v0.13 — \`backdrop-filter\` only on floating shells (popover, sheet, command palette, nav, hero device frame). NEVER on canvas, data table, row, cell.
+13. v0.13 — DTCG 2025.10 token format. Every token: \`$value\` + \`$type\` + \`$description\`. Alias syntax \`{token.path.name}\`.
+14. v0.13 — Phase 0 alias namespace is additive. \`color.obsidian.*\` aliases \`color.brand.*\`. \`color.spring.*\` aliases \`color.accent.*\`. Both ship.
+15. v0.13 — Vercel AI Elements naming verbatim for AI primitives. Anthropic Citations API shape for citation UI.
+16. v0.13 — gpt-image-2 generates atmosphere; icons stay vector. Every prompt opens with \`@import 05-prompts/style-anchor.md\` and pins \`gpt-image-2-2026-04-21\`.
+
+## Operating context
+
+- Repo: github.com/NeelMyno/Warp-Lumen-Design-Guidelines
+- Live preview: warp-lumen-design-guidelines.vercel.app
+- Build: \`pnpm tokens\` → \`dist/\` (v0.13; was \`_build/\` pre-v0.13)
+- Audit: \`pnpm audit:contrast\` → \`tools/audit-baseline/contrast-{restrained,expressive}.json\`
+- Flatten for LLM ingest: \`pnpm llms\` → \`llms-full.txt\` (60-120K tokens)
+- Regenerate this index: \`pnpm llms:index\` (this file)
+- Version: see \`/VERSION\` (currently \`${VERSION}\`) and \`/audit-dashboard/src/lib/version.ts\`
+`;
+
+if (DRY_RUN) {
+  console.log(
+    `[dry-run] would regenerate llms.txt — ${TEMPLATE.length.toLocaleString()} chars, ${componentCount} component dirs, ${registryItemCount} registry items, ${patternCount} patterns, ${platformCount} platforms, ${promptCount} prompts.`,
+  );
+} else {
+  writeFileSync(OUT, TEMPLATE, "utf-8");
+  console.log(
+    `Wrote ${relative(ROOT, OUT)} — ${TEMPLATE.length.toLocaleString()} chars, ${componentCount} component dirs, ${registryItemCount} registry items, ${patternCount} patterns, ${platformCount} platforms, ${promptCount} prompts.`,
+  );
+}

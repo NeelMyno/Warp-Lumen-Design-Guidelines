@@ -2,6 +2,7 @@ import Link from "next/link";
 import { TabNav } from "./tab-nav";
 import { ThemeToggle } from "./theme-toggle";
 import { MoodSwitcher } from "./mood-switcher";
+import { ModeToggle } from "./mode-toggle";
 import { CommandPaletteTrigger } from "./command-palette-trigger";
 import { LUMEN_VERSION } from "@/lib/version";
 
@@ -64,6 +65,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <CommandPaletteTrigger />
 
             <div className="flex items-center gap-3">
+              <ModeToggle />
               <MoodSwitcher />
               <ThemeToggle />
             </div>

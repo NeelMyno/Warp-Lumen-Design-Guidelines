@@ -7,28 +7,25 @@
 > [!note]
 > **v0.13.0 (in progress).** Phase 0 lifts the token graph to DTCG 2025.10, adds the Phase 0 alias namespace (`color.obsidian/spring/lumen-red/lumen-amber`), retunes motion durations to 80/140/200/320/480, adds 3 new elevation tokens (`shadow.glass`, `shadow.focus`, `shadow.glow-accent` 3-layer), creates the modes/ scaffolding, splits semantic tokens into the four Phase 0 files, switches the build output from `_build/` → `dist/`, and refreshes the agent docs. v0.12.6 token names are preserved verbatim (additive, not destructive). Phases 1–6 follow per the master doc. Brand anchors unchanged from v0.12.0: Spring Green `#00FA8A`, Obsidian `#0D0D0D`, `#E6E6E6` light anchor, `#FAFAFA` paper.
 
-## MCP — shadcn registry
+## MCP — shadcn registry (Phase 6, shipped)
 
-When Phase 2 ships the `@lumen` shadcn registry, the consumer install pattern is:
+Lumen ships the shadcn MCP — no custom Lumen MCP server in v0.13. The shadcn MCP reads `registry.json` and per-item JSONs directly, so a separate Lumen server would duplicate surface without adding capability. Consumer install:
 
 ```bash
-# Install shadcn MCP for the current Claude Code project
+# 1. Install shadcn MCP for the current Claude Code project
 claude mcp add --transport http shadcn https://ui.shadcn.com/api/mcp
 
-# Then in conversation, ask Claude to install a Lumen component
-# Example: "Install @lumen/button"
-# Claude will call shadcn's MCP `install` tool with the registry URL configured in components.json.
+# 2. Add @lumen to the consumer's components.json:
+#    { "registries": { "@lumen": "https://warp-lumen-design-guidelines.vercel.app/r/{name}.json" } }
+
+# 3. Restart Claude Code, run /mcp to verify, then in conversation:
+#    "Install the Lumen button" → resolves to npx shadcn@latest add @lumen/button
 ```
 
-For Lumen-specific MCP introspection (Phase 6), the Lumen MCP server installs as:
+Full install instructions live in [AGENTS.md §"MCP integration"](./AGENTS.md). Use `/mcp` to debug MCP server connection state.
 
-```bash
-# Phase 6 — Lumen-native MCP for direct token/component/skill queries
-claude mcp add --transport http lumen https://lumen.warp.dev/mcp
-# Tools: list_components, get_component, get_tokens, search, install, get_prompt_template
-```
-
-Use `/mcp` to debug MCP server connection state.
+> [!note]
+> If Lumen-specific tools beyond shadcn's surface are ever needed (e.g., `lumen.get_prompt_template` for the gpt-image-2 library), they ship as a separate `@warp/lumen-mcp` package in v0.14. v0.13 ships only the shadcn path because it's complete.
 
 ## Skill priority for this repo
 
