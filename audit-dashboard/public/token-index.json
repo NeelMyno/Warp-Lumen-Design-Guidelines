@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-17T16:52:45Z",
+  "generated": "2026-05-17T18:05:43Z",
   "version": "0.13.0",
   "totals": {
     "tokens": 1285,
@@ -35,21 +35,21 @@
       "card": 13,
       "checkbox": 17,
       "combobox": 19,
-      "datePicker": 28,
+      "date-picker": 28,
       "field": 23,
-      "fileDropzone": 32,
+      "file-dropzone": 32,
       "input": 41,
-      "numberInput": 13,
-      "otpInput": 7,
-      "passwordInput": 11,
+      "number-input": 13,
+      "otp-input": 7,
+      "password-input": 11,
       "radio": 17,
-      "rangeSlider": 13,
+      "range-slider": 13,
       "segmented": 17,
       "select": 21,
       "switch": 17,
-      "tagsInput": 17,
+      "tags-input": 17,
       "textarea": 6,
-      "timePicker": 16
+      "time-picker": 16
     }
   },
   "tokens": [
@@ -5960,7 +5960,7 @@
       "cssVar": "--color-surface-input-focus"
     },
     {
-      "path": "color.surface.input.readOnly",
+      "path": "color.surface.input.read-only",
       "layer": "semantic",
       "category": "color",
       "file": "design-system/01-tokens/semantic/color.dark.tokens.json",
@@ -5968,7 +5968,7 @@
       "resolvedValue": "#151515",
       "type": "unknown",
       "description": "Read-only keeps full contrast — same bg as rest. Caret hidden, content selectable.",
-      "cssVar": "--color-surface-input-readonly"
+      "cssVar": "--color-surface-input-read-only"
     },
     {
       "path": "color.surface.input.disabled",
@@ -7046,7 +7046,7 @@
       "cssVar": "--color-surface-input-focus"
     },
     {
-      "path": "color.surface.input.readOnly",
+      "path": "color.surface.input.read-only",
       "layer": "semantic",
       "category": "color",
       "file": "design-system/01-tokens/semantic/color.light.tokens.json",
@@ -7054,7 +7054,7 @@
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--color-surface-input-readonly"
+      "cssVar": "--color-surface-input-read-only"
     },
     {
       "path": "color.surface.input.disabled",
@@ -13783,7 +13783,7 @@
       "cssVar": "--checkbox-label-gap"
     },
     {
-      "path": "combobox.trigger.caretColor",
+      "path": "combobox.trigger.caret-color",
       "layer": "component",
       "category": "combobox",
       "file": "design-system/01-tokens/components/combobox.tokens.json",
@@ -13791,10 +13791,10 @@
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--combobox-trigger-caretcolor"
+      "cssVar": "--combobox-trigger-caret-color"
     },
     {
-      "path": "combobox.trigger.caretRotation",
+      "path": "combobox.trigger.caret-rotation",
       "layer": "component",
       "category": "combobox",
       "file": "design-system/01-tokens/components/combobox.tokens.json",
@@ -13802,7 +13802,7 @@
       "resolvedValue": "180deg",
       "type": "unknown",
       "description": "Trailing chevron rotates 180° when the popover is open. CSS: transform applied via [data-state='open'].",
-      "cssVar": "--combobox-trigger-caretrotation"
+      "cssVar": "--combobox-trigger-caret-rotation"
     },
     {
       "path": "combobox.listbox.background",
@@ -13867,7 +13867,7 @@
       "cssVar": "--combobox-listbox-shadow"
     },
     {
-      "path": "combobox.listbox.maxHeight",
+      "path": "combobox.listbox.max-height",
       "layer": "component",
       "category": "combobox",
       "file": "design-system/01-tokens/components/combobox.tokens.json",
@@ -13878,7 +13878,7 @@
       },
       "type": "unknown",
       "description": "192 px — internal scroll past this.",
-      "cssVar": "--combobox-listbox-maxheight"
+      "cssVar": "--combobox-listbox-max-height"
     },
     {
       "path": "combobox.listbox.padding",
@@ -14040,42 +14040,42 @@
       "cssVar": "--combobox-empty-color"
     },
     {
-      "path": "datePicker.trigger.iconColor",
+      "path": "date-picker.trigger.icon-color",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-trigger-iconcolor"
+      "cssVar": "--date-picker-trigger-icon-color"
     },
     {
-      "path": "datePicker.calendar.background",
+      "path": "date-picker.calendar.background",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.surface.popover}",
       "resolvedValue": "#1F1F1F",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-background"
+      "cssVar": "--date-picker-calendar-background"
     },
     {
-      "path": "datePicker.calendar.border",
+      "path": "date-picker.calendar.border",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.border.default}",
       "resolvedValue": "rgba(255,255,255,0.12)",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-border"
+      "cssVar": "--date-picker-calendar-border"
     },
     {
-      "path": "datePicker.calendar.radius",
+      "path": "date-picker.calendar.radius",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{radius.popover}",
       "resolvedValue": {
@@ -14084,12 +14084,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-radius"
+      "cssVar": "--date-picker-calendar-radius"
     },
     {
-      "path": "datePicker.calendar.shadow",
+      "path": "date-picker.calendar.shadow",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{shadow.popover}",
       "resolvedValue": [
@@ -14110,12 +14110,12 @@
       ],
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-shadow"
+      "cssVar": "--date-picker-calendar-shadow"
     },
     {
-      "path": "datePicker.calendar.padding",
+      "path": "date-picker.calendar.padding",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{space.3}",
       "resolvedValue": {
@@ -14124,12 +14124,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-padding"
+      "cssVar": "--date-picker-calendar-padding"
     },
     {
-      "path": "datePicker.calendar.width",
+      "path": "date-picker.calendar.width",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{dimension.64}",
       "resolvedValue": {
@@ -14138,12 +14138,12 @@
       },
       "type": "unknown",
       "description": "256 px — fits 7 columns × 32 px cells with breathing room.",
-      "cssVar": "--datepicker-calendar-width"
+      "cssVar": "--date-picker-calendar-width"
     },
     {
-      "path": "datePicker.calendar.header.type",
+      "path": "date-picker.calendar.header.type",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{type.body.sm}",
       "resolvedValue": {
@@ -14155,45 +14155,45 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-header-type"
+      "cssVar": "--date-picker-calendar-header-type"
     },
     {
-      "path": "datePicker.calendar.header.color",
+      "path": "date-picker.calendar.header.color",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-header-color"
+      "cssVar": "--date-picker-calendar-header-color"
     },
     {
-      "path": "datePicker.calendar.header.navColor.rest",
+      "path": "date-picker.calendar.header.nav-color.rest",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-header-navcolor-rest"
+      "cssVar": "--date-picker-calendar-header-nav-color-rest"
     },
     {
-      "path": "datePicker.calendar.header.navColor.hover",
+      "path": "date-picker.calendar.header.nav-color.hover",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-header-navcolor-hover"
+      "cssVar": "--date-picker-calendar-header-nav-color-hover"
     },
     {
-      "path": "datePicker.calendar.weekday.type",
+      "path": "date-picker.calendar.weekday.type",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{type.overline}",
       "resolvedValue": {
@@ -14206,23 +14206,23 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-weekday-type"
+      "cssVar": "--date-picker-calendar-weekday-type"
     },
     {
-      "path": "datePicker.calendar.weekday.color",
+      "path": "date-picker.calendar.weekday.color",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-weekday-color"
+      "cssVar": "--date-picker-calendar-weekday-color"
     },
     {
-      "path": "datePicker.calendar.day.size",
+      "path": "date-picker.calendar.day.size",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{dimension.8}",
       "resolvedValue": {
@@ -14231,12 +14231,12 @@
       },
       "type": "unknown",
       "description": "32 px cell — square tap target.",
-      "cssVar": "--datepicker-calendar-day-size"
+      "cssVar": "--date-picker-calendar-day-size"
     },
     {
-      "path": "datePicker.calendar.day.radius",
+      "path": "date-picker.calendar.day.radius",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{radius.sm}",
       "resolvedValue": {
@@ -14245,12 +14245,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-radius"
+      "cssVar": "--date-picker-calendar-day-radius"
     },
     {
-      "path": "datePicker.calendar.day.type",
+      "path": "date-picker.calendar.day.type",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{type.caption}",
       "resolvedValue": {
@@ -14262,122 +14262,122 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-type"
+      "cssVar": "--date-picker-calendar-day-type"
     },
     {
-      "path": "datePicker.calendar.day.background.rest",
+      "path": "date-picker.calendar.day.background.rest",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-background-rest"
+      "cssVar": "--date-picker-calendar-day-background-rest"
     },
     {
-      "path": "datePicker.calendar.day.background.hover",
+      "path": "date-picker.calendar.day.background.hover",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-background-hover"
+      "cssVar": "--date-picker-calendar-day-background-hover"
     },
     {
-      "path": "datePicker.calendar.day.background.selected",
+      "path": "date-picker.calendar.day.background.selected",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.accent.400}",
       "resolvedValue": "#1AFF93",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-background-selected"
+      "cssVar": "--date-picker-calendar-day-background-selected"
     },
     {
-      "path": "datePicker.calendar.day.background.today",
+      "path": "date-picker.calendar.day.background.today",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "Today is marked by border, not fill — so it doesn't compete with selection.",
-      "cssVar": "--datepicker-calendar-day-background-today"
+      "cssVar": "--date-picker-calendar-day-background-today"
     },
     {
-      "path": "datePicker.calendar.day.color.rest",
+      "path": "date-picker.calendar.day.color.rest",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.secondary}",
       "resolvedValue": "#9A9A9A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-color-rest"
+      "cssVar": "--date-picker-calendar-day-color-rest"
     },
     {
-      "path": "datePicker.calendar.day.color.hover",
+      "path": "date-picker.calendar.day.color.hover",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-color-hover"
+      "cssVar": "--date-picker-calendar-day-color-hover"
     },
     {
-      "path": "datePicker.calendar.day.color.selected",
+      "path": "date-picker.calendar.day.color.selected",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.accent.fg}",
       "resolvedValue": "#07120D",
       "type": "unknown",
       "description": "Near-black-green ink on lime fill — AA contrast.",
-      "cssVar": "--datepicker-calendar-day-color-selected"
+      "cssVar": "--date-picker-calendar-day-color-selected"
     },
     {
-      "path": "datePicker.calendar.day.color.muted",
+      "path": "date-picker.calendar.day.color.muted",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.disabled}",
       "resolvedValue": "#404040",
       "type": "unknown",
       "description": "Out-of-month days.",
-      "cssVar": "--datepicker-calendar-day-color-muted"
+      "cssVar": "--date-picker-calendar-day-color-muted"
     },
     {
-      "path": "datePicker.calendar.day.color.disabled",
+      "path": "date-picker.calendar.day.color.disabled",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.text.disabled}",
       "resolvedValue": "#404040",
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-calendar-day-color-disabled"
+      "cssVar": "--date-picker-calendar-day-color-disabled"
     },
     {
-      "path": "datePicker.calendar.day.border.today",
+      "path": "date-picker.calendar.day.border.today",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{color.border.strong}",
       "resolvedValue": "rgba(255,255,255,0.24)",
       "type": "unknown",
       "description": "1 px border marks today without competing with selection fill.",
-      "cssVar": "--datepicker-calendar-day-border-today"
+      "cssVar": "--date-picker-calendar-day-border-today"
     },
     {
-      "path": "datePicker.transition.open",
+      "path": "date-picker.transition.open",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{motion.transition.fast}",
       "resolvedValue": {
@@ -14390,12 +14390,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-transition-open"
+      "cssVar": "--date-picker-transition-open"
     },
     {
-      "path": "datePicker.transition.close",
+      "path": "date-picker.transition.close",
       "layer": "component",
-      "category": "datePicker",
+      "category": "date-picker",
       "file": "design-system/01-tokens/components/date-picker.tokens.json",
       "value": "{motion.transition.fast}",
       "resolvedValue": {
@@ -14408,7 +14408,7 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--datepicker-transition-close"
+      "cssVar": "--date-picker-transition-close"
     },
     {
       "path": "field.gap.label",
@@ -14718,9 +14718,9 @@
       "cssVar": "--field-success-color"
     },
     {
-      "path": "fileDropzone.shell.radius",
+      "path": "file-dropzone.shell.radius",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{radius.lg}",
       "resolvedValue": {
@@ -14729,12 +14729,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-radius"
+      "cssVar": "--file-dropzone-shell-radius"
     },
     {
-      "path": "fileDropzone.shell.padding.x",
+      "path": "file-dropzone.shell.padding.x",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{space.4}",
       "resolvedValue": {
@@ -14743,12 +14743,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-padding-x"
+      "cssVar": "--file-dropzone-shell-padding-x"
     },
     {
-      "path": "fileDropzone.shell.padding.y",
+      "path": "file-dropzone.shell.padding.y",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{space.8}",
       "resolvedValue": {
@@ -14757,111 +14757,111 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-padding-y"
+      "cssVar": "--file-dropzone-shell-padding-y"
     },
     {
-      "path": "fileDropzone.shell.borderWidth",
+      "path": "file-dropzone.shell.border-width",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "1px",
       "resolvedValue": "1px",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-borderwidth"
+      "cssVar": "--file-dropzone-shell-border-width"
     },
     {
-      "path": "fileDropzone.shell.borderStyle",
+      "path": "file-dropzone.shell.border-style",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "dashed",
       "resolvedValue": "dashed",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-borderstyle"
+      "cssVar": "--file-dropzone-shell-border-style"
     },
     {
-      "path": "fileDropzone.shell.border.rest",
+      "path": "file-dropzone.shell.border.rest",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.border.default}",
       "resolvedValue": "rgba(255,255,255,0.12)",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-border-rest"
+      "cssVar": "--file-dropzone-shell-border-rest"
     },
     {
-      "path": "fileDropzone.shell.border.hover",
+      "path": "file-dropzone.shell.border.hover",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.border.strong}",
       "resolvedValue": "rgba(255,255,255,0.24)",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-border-hover"
+      "cssVar": "--file-dropzone-shell-border-hover"
     },
     {
-      "path": "fileDropzone.shell.border.dragover",
+      "path": "file-dropzone.shell.border.dragover",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.accent.500}",
       "resolvedValue": "#00FA8A",
       "type": "unknown",
       "description": "Lime border when files are being dragged over.",
-      "cssVar": "--filedropzone-shell-border-dragover"
+      "cssVar": "--file-dropzone-shell-border-dragover"
     },
     {
-      "path": "fileDropzone.shell.border.error",
+      "path": "file-dropzone.shell.border.error",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.border.error}",
       "resolvedValue": "#E5484D",
       "type": "unknown",
       "description": "Border color when the file fails accept/size validation.",
-      "cssVar": "--filedropzone-shell-border-error"
+      "cssVar": "--file-dropzone-shell-border-error"
     },
     {
-      "path": "fileDropzone.shell.background.rest",
+      "path": "file-dropzone.shell.background.rest",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-background-rest"
+      "cssVar": "--file-dropzone-shell-background-rest"
     },
     {
-      "path": "fileDropzone.shell.background.hover",
+      "path": "file-dropzone.shell.background.hover",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-background-hover"
+      "cssVar": "--file-dropzone-shell-background-hover"
     },
     {
-      "path": "fileDropzone.shell.background.dragover",
+      "path": "file-dropzone.shell.background.dragover",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.alpha.accent.12}",
       "resolvedValue": "rgba(0,250,138,0.12)",
       "type": "unknown",
       "description": "Subtle lime tint reinforces the dragover border.",
-      "cssVar": "--filedropzone-shell-background-dragover"
+      "cssVar": "--file-dropzone-shell-background-dragover"
     },
     {
-      "path": "fileDropzone.shell.transition",
+      "path": "file-dropzone.shell.transition",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{motion.transition.fast}",
       "resolvedValue": {
@@ -14874,12 +14874,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-shell-transition"
+      "cssVar": "--file-dropzone-shell-transition"
     },
     {
-      "path": "fileDropzone.icon.size",
+      "path": "file-dropzone.icon.size",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{dimension.10}",
       "resolvedValue": {
@@ -14888,12 +14888,12 @@
       },
       "type": "unknown",
       "description": "40 px circle.",
-      "cssVar": "--filedropzone-icon-size"
+      "cssVar": "--file-dropzone-icon-size"
     },
     {
-      "path": "fileDropzone.icon.radius",
+      "path": "file-dropzone.icon.radius",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{radius.full}",
       "resolvedValue": {
@@ -14902,34 +14902,34 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-icon-radius"
+      "cssVar": "--file-dropzone-icon-radius"
     },
     {
-      "path": "fileDropzone.icon.background",
+      "path": "file-dropzone.icon.background",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-icon-background"
+      "cssVar": "--file-dropzone-icon-background"
     },
     {
-      "path": "fileDropzone.icon.color",
+      "path": "file-dropzone.icon.color",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.text.secondary}",
       "resolvedValue": "#9A9A9A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-icon-color"
+      "cssVar": "--file-dropzone-icon-color"
     },
     {
-      "path": "fileDropzone.icon.iconSize",
+      "path": "file-dropzone.icon.icon-size",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{dimension.5}",
       "resolvedValue": {
@@ -14938,12 +14938,12 @@
       },
       "type": "unknown",
       "description": "18–20 px + glyph.",
-      "cssVar": "--filedropzone-icon-iconsize"
+      "cssVar": "--file-dropzone-icon-icon-size"
     },
     {
-      "path": "fileDropzone.title.type",
+      "path": "file-dropzone.title.type",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{type.body.sm}",
       "resolvedValue": {
@@ -14955,45 +14955,45 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-title-type"
+      "cssVar": "--file-dropzone-title-type"
     },
     {
-      "path": "fileDropzone.title.color",
+      "path": "file-dropzone.title.color",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-title-color"
+      "cssVar": "--file-dropzone-title-color"
     },
     {
-      "path": "fileDropzone.browseLink.color",
+      "path": "file-dropzone.browse-link.color",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.text.accent}",
       "resolvedValue": "#4DFFA8",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-browselink-color"
+      "cssVar": "--file-dropzone-browse-link-color"
     },
     {
-      "path": "fileDropzone.browseLink.textDecoration",
+      "path": "file-dropzone.browse-link.text-decoration",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "underline",
       "resolvedValue": "underline",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-browselink-textdecoration"
+      "cssVar": "--file-dropzone-browse-link-text-decoration"
     },
     {
-      "path": "fileDropzone.hint.type",
+      "path": "file-dropzone.hint.type",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{type.caption}",
       "resolvedValue": {
@@ -15005,34 +15005,34 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-hint-type"
+      "cssVar": "--file-dropzone-hint-type"
     },
     {
-      "path": "fileDropzone.hint.color",
+      "path": "file-dropzone.hint.color",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-hint-color"
+      "cssVar": "--file-dropzone-hint-color"
     },
     {
-      "path": "fileDropzone.fileRow.background",
+      "path": "file-dropzone.file-row.background",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-background"
+      "cssVar": "--file-dropzone-file-row-background"
     },
     {
-      "path": "fileDropzone.fileRow.radius",
+      "path": "file-dropzone.file-row.radius",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{radius.sm}",
       "resolvedValue": {
@@ -15041,12 +15041,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-radius"
+      "cssVar": "--file-dropzone-file-row-radius"
     },
     {
-      "path": "fileDropzone.fileRow.padding.x",
+      "path": "file-dropzone.file-row.padding.x",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{space.2}",
       "resolvedValue": {
@@ -15055,12 +15055,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-padding-x"
+      "cssVar": "--file-dropzone-file-row-padding-x"
     },
     {
-      "path": "fileDropzone.fileRow.padding.y",
+      "path": "file-dropzone.file-row.padding.y",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{space.1}",
       "resolvedValue": {
@@ -15069,12 +15069,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-padding-y"
+      "cssVar": "--file-dropzone-file-row-padding-y"
     },
     {
-      "path": "fileDropzone.fileRow.name.type",
+      "path": "file-dropzone.file-row.name.type",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{type.caption}",
       "resolvedValue": {
@@ -15086,23 +15086,23 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-name-type"
+      "cssVar": "--file-dropzone-file-row-name-type"
     },
     {
-      "path": "fileDropzone.fileRow.name.color",
+      "path": "file-dropzone.file-row.name.color",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.text.secondary}",
       "resolvedValue": "#9A9A9A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-name-color"
+      "cssVar": "--file-dropzone-file-row-name-color"
     },
     {
-      "path": "fileDropzone.fileRow.meta.type",
+      "path": "file-dropzone.file-row.meta.type",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{type.overline}",
       "resolvedValue": {
@@ -15115,18 +15115,18 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-meta-type"
+      "cssVar": "--file-dropzone-file-row-meta-type"
     },
     {
-      "path": "fileDropzone.fileRow.meta.color",
+      "path": "file-dropzone.file-row.meta.color",
       "layer": "component",
-      "category": "fileDropzone",
+      "category": "file-dropzone",
       "file": "design-system/01-tokens/components/file-dropzone.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--filedropzone-filerow-meta-color"
+      "cssVar": "--file-dropzone-file-row-meta-color"
     },
     {
       "path": "input.height.sm",
@@ -15316,15 +15316,15 @@
       "cssVar": "--input-background-focus"
     },
     {
-      "path": "input.background.readOnly",
+      "path": "input.background.read-only",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
-      "value": "{color.surface.input.readOnly}",
+      "value": "{color.surface.input.read-only}",
       "resolvedValue": "#151515",
       "type": "unknown",
       "description": "",
-      "cssVar": "--input-background-readonly"
+      "cssVar": "--input-background-read-only"
     },
     {
       "path": "input.background.disabled",
@@ -15415,7 +15415,7 @@
       "cssVar": "--input-border-disabled"
     },
     {
-      "path": "input.border.readOnly",
+      "path": "input.border.read-only",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
@@ -15423,7 +15423,7 @@
       "resolvedValue": "rgba(255,255,255,0.12)",
       "type": "unknown",
       "description": "",
-      "cssVar": "--input-border-readonly"
+      "cssVar": "--input-border-read-only"
     },
     {
       "path": "input.foreground.value",
@@ -15437,7 +15437,7 @@
       "cssVar": "--input-foreground-value"
     },
     {
-      "path": "input.foreground.valueDisabled",
+      "path": "input.foreground.value-disabled",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
@@ -15445,10 +15445,10 @@
       "resolvedValue": "#404040",
       "type": "unknown",
       "description": "",
-      "cssVar": "--input-foreground-valuedisabled"
+      "cssVar": "--input-foreground-value-disabled"
     },
     {
-      "path": "input.foreground.valueReadOnly",
+      "path": "input.foreground.value-read-only",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
@@ -15456,7 +15456,7 @@
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "Read-only keeps full contrast — only the caret + interactivity changes.",
-      "cssVar": "--input-foreground-valuereadonly"
+      "cssVar": "--input-foreground-value-read-only"
     },
     {
       "path": "input.foreground.placeholder",
@@ -15470,7 +15470,7 @@
       "cssVar": "--input-foreground-placeholder"
     },
     {
-      "path": "input.foreground.iconLeading",
+      "path": "input.foreground.icon-leading",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
@@ -15478,10 +15478,10 @@
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--input-foreground-iconleading"
+      "cssVar": "--input-foreground-icon-leading"
     },
     {
-      "path": "input.foreground.iconTrailing",
+      "path": "input.foreground.icon-trailing",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
@@ -15489,7 +15489,7 @@
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--input-foreground-icontrailing"
+      "cssVar": "--input-foreground-icon-trailing"
     },
     {
       "path": "input.foreground.addon",
@@ -15615,7 +15615,7 @@
       "cssVar": "--input-ring-success"
     },
     {
-      "path": "input.ring.litEdge",
+      "path": "input.ring.lit-edge",
       "layer": "component",
       "category": "input",
       "file": "design-system/01-tokens/components/input.tokens.json",
@@ -15632,7 +15632,7 @@
       ],
       "type": "unknown",
       "description": "Stacked under focus/error halo to keep the lit-edge effect on dark mode.",
-      "cssVar": "--input-ring-litedge"
+      "cssVar": "--input-ring-lit-edge"
     },
     {
       "path": "input.transition",
@@ -15653,9 +15653,9 @@
       "cssVar": "--input-transition"
     },
     {
-      "path": "numberInput.stepper.padding.x",
+      "path": "number-input.stepper.padding.x",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{space.3}",
       "resolvedValue": {
@@ -15664,78 +15664,78 @@
       },
       "type": "unknown",
       "description": "Horizontal padding around the +/− glyph.",
-      "cssVar": "--numberinput-stepper-padding-x"
+      "cssVar": "--number-input-stepper-padding-x"
     },
     {
-      "path": "numberInput.stepper.background.rest",
+      "path": "number-input.stepper.background.rest",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-stepper-background-rest"
+      "cssVar": "--number-input-stepper-background-rest"
     },
     {
-      "path": "numberInput.stepper.background.hover",
+      "path": "number-input.stepper.background.hover",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-stepper-background-hover"
+      "cssVar": "--number-input-stepper-background-hover"
     },
     {
-      "path": "numberInput.stepper.background.press",
+      "path": "number-input.stepper.background.press",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-stepper-background-press"
+      "cssVar": "--number-input-stepper-background-press"
     },
     {
-      "path": "numberInput.stepper.color.rest",
+      "path": "number-input.stepper.color.rest",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.text.secondary}",
       "resolvedValue": "#9A9A9A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-stepper-color-rest"
+      "cssVar": "--number-input-stepper-color-rest"
     },
     {
-      "path": "numberInput.stepper.color.hover",
+      "path": "number-input.stepper.color.hover",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-stepper-color-hover"
+      "cssVar": "--number-input-stepper-color-hover"
     },
     {
-      "path": "numberInput.stepper.color.disabled",
+      "path": "number-input.stepper.color.disabled",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.text.disabled}",
       "resolvedValue": "#404040",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-stepper-color-disabled"
+      "cssVar": "--number-input-stepper-color-disabled"
     },
     {
-      "path": "numberInput.stepper.iconSize",
+      "path": "number-input.stepper.icon-size",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{dimension.3}",
       "resolvedValue": {
@@ -15744,12 +15744,12 @@
       },
       "type": "unknown",
       "description": "12 px — Lucide minus / plus glyph.",
-      "cssVar": "--numberinput-stepper-iconsize"
+      "cssVar": "--number-input-stepper-icon-size"
     },
     {
-      "path": "numberInput.value.type",
+      "path": "number-input.value.type",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{type.data.md}",
       "resolvedValue": {
@@ -15762,34 +15762,34 @@
       },
       "type": "unknown",
       "description": "Mono with tnum/lnum on for ledger-aligned digits.",
-      "cssVar": "--numberinput-value-type"
+      "cssVar": "--number-input-value-type"
     },
     {
-      "path": "numberInput.value.color",
+      "path": "number-input.value.color",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-value-color"
+      "cssVar": "--number-input-value-color"
     },
     {
-      "path": "numberInput.value.align",
+      "path": "number-input.value.align",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "center",
       "resolvedValue": "center",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-value-align"
+      "cssVar": "--number-input-value-align"
     },
     {
-      "path": "numberInput.suffix.type",
+      "path": "number-input.suffix.type",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{type.eyebrow.mono}",
       "resolvedValue": {
@@ -15803,23 +15803,23 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-suffix-type"
+      "cssVar": "--number-input-suffix-type"
     },
     {
-      "path": "numberInput.suffix.color",
+      "path": "number-input.suffix.color",
       "layer": "component",
-      "category": "numberInput",
+      "category": "number-input",
       "file": "design-system/01-tokens/components/number-input.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--numberinput-suffix-color"
+      "cssVar": "--number-input-suffix-color"
     },
     {
-      "path": "otpInput.cell.size.sm",
+      "path": "otp-input.cell.size.sm",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{dimension.8}",
       "resolvedValue": {
@@ -15828,12 +15828,12 @@
       },
       "type": "unknown",
       "description": "32 px square — compact.",
-      "cssVar": "--otpinput-cell-size-sm"
+      "cssVar": "--otp-input-cell-size-sm"
     },
     {
-      "path": "otpInput.cell.size.md",
+      "path": "otp-input.cell.size.md",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{dimension.10}",
       "resolvedValue": {
@@ -15842,12 +15842,12 @@
       },
       "type": "unknown",
       "description": "40 px square — default.",
-      "cssVar": "--otpinput-cell-size-md"
+      "cssVar": "--otp-input-cell-size-md"
     },
     {
-      "path": "otpInput.cell.size.lg",
+      "path": "otp-input.cell.size.lg",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{dimension.12}",
       "resolvedValue": {
@@ -15856,12 +15856,12 @@
       },
       "type": "unknown",
       "description": "48 px square — touch / marketing.",
-      "cssVar": "--otpinput-cell-size-lg"
+      "cssVar": "--otp-input-cell-size-lg"
     },
     {
-      "path": "otpInput.value.type",
+      "path": "otp-input.value.type",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{type.data.lg}",
       "resolvedValue": {
@@ -15874,23 +15874,23 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--otpinput-value-type"
+      "cssVar": "--otp-input-value-type"
     },
     {
-      "path": "otpInput.value.color",
+      "path": "otp-input.value.color",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--otpinput-value-color"
+      "cssVar": "--otp-input-value-color"
     },
     {
-      "path": "otpInput.gap.row",
+      "path": "otp-input.gap.row",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{space.2}",
       "resolvedValue": {
@@ -15899,12 +15899,12 @@
       },
       "type": "unknown",
       "description": "Default gap between cells.",
-      "cssVar": "--otpinput-gap-row"
+      "cssVar": "--otp-input-gap-row"
     },
     {
-      "path": "otpInput.gap.groupSep",
+      "path": "otp-input.gap.group-sep",
       "layer": "component",
-      "category": "otpInput",
+      "category": "otp-input",
       "file": "design-system/01-tokens/components/otp-input.tokens.json",
       "value": "{space.3}",
       "resolvedValue": {
@@ -15913,12 +15913,12 @@
       },
       "type": "unknown",
       "description": "Optional wider gap between 3-3 grouped cells (e.g. 123 456).",
-      "cssVar": "--otpinput-gap-groupsep"
+      "cssVar": "--otp-input-gap-group-sep"
     },
     {
-      "path": "passwordInput.reveal.type",
+      "path": "password-input.reveal.type",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{type.eyebrow.mono}",
       "resolvedValue": {
@@ -15932,56 +15932,56 @@
       },
       "type": "unknown",
       "description": "Uppercase mono label — matches the system-metadata signature.",
-      "cssVar": "--passwordinput-reveal-type"
+      "cssVar": "--password-input-reveal-type"
     },
     {
-      "path": "passwordInput.reveal.color.rest",
+      "path": "password-input.reveal.color.rest",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{color.text.secondary}",
       "resolvedValue": "#9A9A9A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-color-rest"
+      "cssVar": "--password-input-reveal-color-rest"
     },
     {
-      "path": "passwordInput.reveal.color.hover",
+      "path": "password-input.reveal.color.hover",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-color-hover"
+      "cssVar": "--password-input-reveal-color-hover"
     },
     {
-      "path": "passwordInput.reveal.background.rest",
+      "path": "password-input.reveal.background.rest",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-background-rest"
+      "cssVar": "--password-input-reveal-background-rest"
     },
     {
-      "path": "passwordInput.reveal.background.hover",
+      "path": "password-input.reveal.background.hover",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-background-hover"
+      "cssVar": "--password-input-reveal-background-hover"
     },
     {
-      "path": "passwordInput.reveal.padding.x",
+      "path": "password-input.reveal.padding.x",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{space.2}",
       "resolvedValue": {
@@ -15990,12 +15990,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-padding-x"
+      "cssVar": "--password-input-reveal-padding-x"
     },
     {
-      "path": "passwordInput.reveal.padding.y",
+      "path": "password-input.reveal.padding.y",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{space.1}",
       "resolvedValue": {
@@ -16004,12 +16004,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-padding-y"
+      "cssVar": "--password-input-reveal-padding-y"
     },
     {
-      "path": "passwordInput.reveal.radius",
+      "path": "password-input.reveal.radius",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{radius.xs}",
       "resolvedValue": {
@@ -16018,12 +16018,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-reveal-radius"
+      "cssVar": "--password-input-reveal-radius"
     },
     {
-      "path": "passwordInput.value.type",
+      "path": "password-input.value.type",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{type.data.sm}",
       "resolvedValue": {
@@ -16036,29 +16036,29 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-value-type"
+      "cssVar": "--password-input-value-type"
     },
     {
-      "path": "passwordInput.value.color",
+      "path": "password-input.value.color",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--passwordinput-value-color"
+      "cssVar": "--password-input-value-color"
     },
     {
-      "path": "passwordInput.value.letterSpacing",
+      "path": "password-input.value.letter-spacing",
       "layer": "component",
-      "category": "passwordInput",
+      "category": "password-input",
       "file": "design-system/01-tokens/components/password-input.tokens.json",
       "value": "0.1em",
       "resolvedValue": "0.1em",
       "type": "unknown",
       "description": "Wider tracking on the masked dots so each character reads as discrete.",
-      "cssVar": "--passwordinput-value-letterspacing"
+      "cssVar": "--password-input-value-letter-spacing"
     },
     {
       "path": "radio.size.sm",
@@ -16258,7 +16258,7 @@
       "cssVar": "--radio-label-gap"
     },
     {
-      "path": "radio.groupGap",
+      "path": "radio.group-gap",
       "layer": "component",
       "category": "radio",
       "file": "design-system/01-tokens/components/radio.tokens.json",
@@ -16269,12 +16269,12 @@
       },
       "type": "unknown",
       "description": "Vertical gap between radios in a group.",
-      "cssVar": "--radio-groupgap"
+      "cssVar": "--radio-group-gap"
     },
     {
-      "path": "rangeSlider.track.height",
+      "path": "range-slider.track.height",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{dimension.1}",
       "resolvedValue": {
@@ -16283,12 +16283,12 @@
       },
       "type": "unknown",
       "description": "4 px — readable but thin.",
-      "cssVar": "--rangeslider-track-height"
+      "cssVar": "--range-slider-track-height"
     },
     {
-      "path": "rangeSlider.track.radius",
+      "path": "range-slider.track.radius",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{radius.full}",
       "resolvedValue": {
@@ -16297,34 +16297,34 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-track-radius"
+      "cssVar": "--range-slider-track-radius"
     },
     {
-      "path": "rangeSlider.track.background",
+      "path": "range-slider.track.background",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-track-background"
+      "cssVar": "--range-slider-track-background"
     },
     {
-      "path": "rangeSlider.range.background",
+      "path": "range-slider.range.background",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{color.accent.500}",
       "resolvedValue": "#00FA8A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-range-background"
+      "cssVar": "--range-slider-range-background"
     },
     {
-      "path": "rangeSlider.thumb.size",
+      "path": "range-slider.thumb.size",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{dimension.4}",
       "resolvedValue": {
@@ -16333,12 +16333,12 @@
       },
       "type": "unknown",
       "description": "16 px — meets minimum touch target with hover-area extension.",
-      "cssVar": "--rangeslider-thumb-size"
+      "cssVar": "--range-slider-thumb-size"
     },
     {
-      "path": "rangeSlider.thumb.radius",
+      "path": "range-slider.thumb.radius",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{radius.full}",
       "resolvedValue": {
@@ -16347,34 +16347,34 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-thumb-radius"
+      "cssVar": "--range-slider-thumb-radius"
     },
     {
-      "path": "rangeSlider.thumb.background",
+      "path": "range-slider.thumb.background",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{color.absolute.white}",
       "resolvedValue": "#FFFFFF",
       "type": "unknown",
       "description": "v0.11.13 — references {color.absolute.white} (was inlined #ffffff).",
-      "cssVar": "--rangeslider-thumb-background"
+      "cssVar": "--range-slider-thumb-background"
     },
     {
-      "path": "rangeSlider.thumb.border",
+      "path": "range-slider.thumb.border",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{color.border.strong}",
       "resolvedValue": "rgba(255,255,255,0.24)",
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-thumb-border"
+      "cssVar": "--range-slider-thumb-border"
     },
     {
-      "path": "rangeSlider.thumb.shadow",
+      "path": "range-slider.thumb.shadow",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{shadow.sm}",
       "resolvedValue": [
@@ -16395,12 +16395,12 @@
       ],
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-thumb-shadow"
+      "cssVar": "--range-slider-thumb-shadow"
     },
     {
-      "path": "rangeSlider.thumb.ringFocus",
+      "path": "range-slider.thumb.ring-focus",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{shadow.focus}",
       "resolvedValue": [
@@ -16414,12 +16414,12 @@
       ],
       "type": "unknown",
       "description": "Lime focus ring around the thumb when keyboard-focused.",
-      "cssVar": "--rangeslider-thumb-ringfocus"
+      "cssVar": "--range-slider-thumb-ring-focus"
     },
     {
-      "path": "rangeSlider.value.type",
+      "path": "range-slider.value.type",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{type.overline}",
       "resolvedValue": {
@@ -16432,23 +16432,23 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-value-type"
+      "cssVar": "--range-slider-value-type"
     },
     {
-      "path": "rangeSlider.value.color",
+      "path": "range-slider.value.color",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--rangeslider-value-color"
+      "cssVar": "--range-slider-value-color"
     },
     {
-      "path": "rangeSlider.trackHeight",
+      "path": "range-slider.track-height",
       "layer": "component",
-      "category": "rangeSlider",
+      "category": "range-slider",
       "file": "design-system/01-tokens/components/range-slider.tokens.json",
       "value": "{dimension.6}",
       "resolvedValue": {
@@ -16457,7 +16457,7 @@
       },
       "type": "unknown",
       "description": "Vertical slot the track + thumbs share. Needs to be at least the thumb diameter so the thumb doesn't clip.",
-      "cssVar": "--rangeslider-trackheight"
+      "cssVar": "--range-slider-track-height"
     },
     {
       "path": "segmented.bar.height",
@@ -16635,7 +16635,7 @@
       "cssVar": "--segmented-segment-color-inactive"
     },
     {
-      "path": "segmented.segment.color.inactiveHover",
+      "path": "segmented.segment.color.inactive-hover",
       "layer": "component",
       "category": "segmented",
       "file": "design-system/01-tokens/components/segmented.tokens.json",
@@ -16643,7 +16643,7 @@
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--segmented-segment-color-inactivehover"
+      "cssVar": "--segmented-segment-color-inactive-hover"
     },
     {
       "path": "segmented.segment.shadow.active",
@@ -16683,7 +16683,7 @@
       "cssVar": "--segmented-segment-transition"
     },
     {
-      "path": "select.trigger.caretColor",
+      "path": "select.trigger.caret-color",
       "layer": "component",
       "category": "select",
       "file": "design-system/01-tokens/components/select.tokens.json",
@@ -16691,7 +16691,7 @@
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "Chevron color in trailing slot.",
-      "cssVar": "--select-trigger-caretcolor"
+      "cssVar": "--select-trigger-caret-color"
     },
     {
       "path": "select.listbox.background",
@@ -16756,7 +16756,7 @@
       "cssVar": "--select-listbox-shadow"
     },
     {
-      "path": "select.listbox.minWidth",
+      "path": "select.listbox.min-width",
       "layer": "component",
       "category": "select",
       "file": "design-system/01-tokens/components/select.tokens.json",
@@ -16767,10 +16767,10 @@
       },
       "type": "unknown",
       "description": "128 px — never narrower than the trigger.",
-      "cssVar": "--select-listbox-minwidth"
+      "cssVar": "--select-listbox-min-width"
     },
     {
-      "path": "select.listbox.maxHeight",
+      "path": "select.listbox.max-height",
       "layer": "component",
       "category": "select",
       "file": "design-system/01-tokens/components/select.tokens.json",
@@ -16781,7 +16781,7 @@
       },
       "type": "unknown",
       "description": "256 px — internal scroll past this.",
-      "cssVar": "--select-listbox-maxheight"
+      "cssVar": "--select-listbox-max-height"
     },
     {
       "path": "select.listbox.padding",
@@ -17111,7 +17111,7 @@
       "cssVar": "--switch-thumb-shadow"
     },
     {
-      "path": "switch.thumb.translateOff",
+      "path": "switch.thumb.translate-off",
       "layer": "component",
       "category": "switch",
       "file": "design-system/01-tokens/components/switch.tokens.json",
@@ -17122,10 +17122,10 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--switch-thumb-translateoff"
+      "cssVar": "--switch-thumb-translate-off"
     },
     {
-      "path": "switch.thumb.translateOn",
+      "path": "switch.thumb.translate-on",
       "layer": "component",
       "category": "switch",
       "file": "design-system/01-tokens/components/switch.tokens.json",
@@ -17136,7 +17136,7 @@
       },
       "type": "unknown",
       "description": "16 px slide. Track width (36) − thumb width (16) − padding gap (4) = 16.",
-      "cssVar": "--switch-thumb-translateon"
+      "cssVar": "--switch-thumb-translate-on"
     },
     {
       "path": "switch.label.type",
@@ -17181,9 +17181,9 @@
       "cssVar": "--switch-label-gap"
     },
     {
-      "path": "tagsInput.shell.minHeight",
+      "path": "tags-input.shell.min-height",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{size.control.md}",
       "resolvedValue": {
@@ -17192,12 +17192,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-shell-minheight"
+      "cssVar": "--tags-input-shell-min-height"
     },
     {
-      "path": "tagsInput.shell.padding.y",
+      "path": "tags-input.shell.padding.y",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{space.1}",
       "resolvedValue": {
@@ -17206,12 +17206,12 @@
       },
       "type": "unknown",
       "description": "Vertical breathing room when chips wrap to a new row.",
-      "cssVar": "--tagsinput-shell-padding-y"
+      "cssVar": "--tags-input-shell-padding-y"
     },
     {
-      "path": "tagsInput.shell.gap.wrap",
+      "path": "tags-input.shell.gap.wrap",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{space.1}",
       "resolvedValue": {
@@ -17220,12 +17220,12 @@
       },
       "type": "unknown",
       "description": "Gap between chips and between chip-row and draft input.",
-      "cssVar": "--tagsinput-shell-gap-wrap"
+      "cssVar": "--tags-input-shell-gap-wrap"
     },
     {
-      "path": "tagsInput.tag.height",
+      "path": "tags-input.tag.height",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{dimension.6}",
       "resolvedValue": {
@@ -17234,12 +17234,12 @@
       },
       "type": "unknown",
       "description": "24 px chip height.",
-      "cssVar": "--tagsinput-tag-height"
+      "cssVar": "--tags-input-tag-height"
     },
     {
-      "path": "tagsInput.tag.padding.x",
+      "path": "tags-input.tag.padding.x",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{space.2}",
       "resolvedValue": {
@@ -17248,12 +17248,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-padding-x"
+      "cssVar": "--tags-input-tag-padding-x"
     },
     {
-      "path": "tagsInput.tag.radius",
+      "path": "tags-input.tag.radius",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{radius.sm}",
       "resolvedValue": {
@@ -17262,12 +17262,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-radius"
+      "cssVar": "--tags-input-tag-radius"
     },
     {
-      "path": "tagsInput.tag.type",
+      "path": "tags-input.tag.type",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{type.caption}",
       "resolvedValue": {
@@ -17279,67 +17279,67 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-type"
+      "cssVar": "--tags-input-tag-type"
     },
     {
-      "path": "tagsInput.tag.background",
+      "path": "tags-input.tag.background",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-background"
+      "cssVar": "--tags-input-tag-background"
     },
     {
-      "path": "tagsInput.tag.color",
+      "path": "tags-input.tag.color",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{color.text.secondary}",
       "resolvedValue": "#9A9A9A",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-color"
+      "cssVar": "--tags-input-tag-color"
     },
     {
-      "path": "tagsInput.tag.border",
+      "path": "tags-input.tag.border",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-border"
+      "cssVar": "--tags-input-tag-border"
     },
     {
-      "path": "tagsInput.tag.remove.color.rest",
+      "path": "tags-input.tag.remove.color.rest",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-remove-color-rest"
+      "cssVar": "--tags-input-tag-remove-color-rest"
     },
     {
-      "path": "tagsInput.tag.remove.color.hover",
+      "path": "tags-input.tag.remove.color.hover",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-tag-remove-color-hover"
+      "cssVar": "--tags-input-tag-remove-color-hover"
     },
     {
-      "path": "tagsInput.tag.remove.iconSize",
+      "path": "tags-input.tag.remove.icon-size",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{dimension.3}",
       "resolvedValue": {
@@ -17348,12 +17348,12 @@
       },
       "type": "unknown",
       "description": "10–12 px X glyph.",
-      "cssVar": "--tagsinput-tag-remove-iconsize"
+      "cssVar": "--tags-input-tag-remove-icon-size"
     },
     {
-      "path": "tagsInput.draft.minWidth",
+      "path": "tags-input.draft.min-width",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{dimension.20}",
       "resolvedValue": {
@@ -17362,12 +17362,12 @@
       },
       "type": "unknown",
       "description": "80 px — enough to type a short tag.",
-      "cssVar": "--tagsinput-draft-minwidth"
+      "cssVar": "--tags-input-draft-min-width"
     },
     {
-      "path": "tagsInput.draft.type",
+      "path": "tags-input.draft.type",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{type.body.sm}",
       "resolvedValue": {
@@ -17379,32 +17379,32 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-draft-type"
+      "cssVar": "--tags-input-draft-type"
     },
     {
-      "path": "tagsInput.draft.color",
+      "path": "tags-input.draft.color",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-draft-color"
+      "cssVar": "--tags-input-draft-color"
     },
     {
-      "path": "tagsInput.draft.placeholder",
+      "path": "tags-input.draft.placeholder",
       "layer": "component",
-      "category": "tagsInput",
+      "category": "tags-input",
       "file": "design-system/01-tokens/components/tags-input.tokens.json",
       "value": "{color.text.placeholder}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--tagsinput-draft-placeholder"
+      "cssVar": "--tags-input-draft-placeholder"
     },
     {
-      "path": "textarea.minHeight.sm",
+      "path": "textarea.min-height.sm",
       "layer": "component",
       "category": "textarea",
       "file": "design-system/01-tokens/components/textarea.tokens.json",
@@ -17415,10 +17415,10 @@
       },
       "type": "unknown",
       "description": "64 px — 2 lines roughly",
-      "cssVar": "--textarea-minheight-sm"
+      "cssVar": "--textarea-min-height-sm"
     },
     {
-      "path": "textarea.minHeight.md",
+      "path": "textarea.min-height.md",
       "layer": "component",
       "category": "textarea",
       "file": "design-system/01-tokens/components/textarea.tokens.json",
@@ -17429,10 +17429,10 @@
       },
       "type": "unknown",
       "description": "80 px — default",
-      "cssVar": "--textarea-minheight-md"
+      "cssVar": "--textarea-min-height-md"
     },
     {
-      "path": "textarea.minHeight.lg",
+      "path": "textarea.min-height.lg",
       "layer": "component",
       "category": "textarea",
       "file": "design-system/01-tokens/components/textarea.tokens.json",
@@ -17443,10 +17443,10 @@
       },
       "type": "unknown",
       "description": "128 px — long-form",
-      "cssVar": "--textarea-minheight-lg"
+      "cssVar": "--textarea-min-height-lg"
     },
     {
-      "path": "textarea.maxHeight.default",
+      "path": "textarea.max-height.default",
       "layer": "component",
       "category": "textarea",
       "file": "design-system/01-tokens/components/textarea.tokens.json",
@@ -17457,7 +17457,7 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--textarea-maxheight-default"
+      "cssVar": "--textarea-max-height-default"
     },
     {
       "path": "textarea.padding.y",
@@ -17485,9 +17485,9 @@
       "cssVar": "--textarea-resize"
     },
     {
-      "path": "timePicker.digit.width",
+      "path": "time-picker.digit.width",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{dimension.8}",
       "resolvedValue": {
@@ -17496,12 +17496,12 @@
       },
       "type": "unknown",
       "description": "~32 px — fits 2 mono digits.",
-      "cssVar": "--timepicker-digit-width"
+      "cssVar": "--time-picker-digit-width"
     },
     {
-      "path": "timePicker.digit.type",
+      "path": "time-picker.digit.type",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{type.data.md}",
       "resolvedValue": {
@@ -17514,56 +17514,56 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-digit-type"
+      "cssVar": "--time-picker-digit-type"
     },
     {
-      "path": "timePicker.digit.color",
+      "path": "time-picker.digit.color",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-digit-color"
+      "cssVar": "--time-picker-digit-color"
     },
     {
-      "path": "timePicker.digit.align",
+      "path": "time-picker.digit.align",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "center",
       "resolvedValue": "center",
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-digit-align"
+      "cssVar": "--time-picker-digit-align"
     },
     {
-      "path": "timePicker.separator.color",
+      "path": "time-picker.separator.color",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-separator-color"
+      "cssVar": "--time-picker-separator-color"
     },
     {
-      "path": "timePicker.ampm.background",
+      "path": "time-picker.ampm.background",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{color.surface.sunken}",
       "resolvedValue": "#080808",
       "type": "unknown",
       "description": "Pill bar background.",
-      "cssVar": "--timepicker-ampm-background"
+      "cssVar": "--time-picker-ampm-background"
     },
     {
-      "path": "timePicker.ampm.padding",
+      "path": "time-picker.ampm.padding",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{dimension.0}",
       "resolvedValue": {
@@ -17572,12 +17572,12 @@
       },
       "type": "unknown",
       "description": "Bar holds 1px inset segments via inner padding.",
-      "cssVar": "--timepicker-ampm-padding"
+      "cssVar": "--time-picker-ampm-padding"
     },
     {
-      "path": "timePicker.ampm.radius",
+      "path": "time-picker.ampm.radius",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{radius.sm}",
       "resolvedValue": {
@@ -17586,12 +17586,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-radius"
+      "cssVar": "--time-picker-ampm-radius"
     },
     {
-      "path": "timePicker.ampm.segment.type",
+      "path": "time-picker.ampm.segment.type",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{type.overline}",
       "resolvedValue": {
@@ -17604,12 +17604,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-type"
+      "cssVar": "--time-picker-ampm-segment-type"
     },
     {
-      "path": "timePicker.ampm.segment.radius",
+      "path": "time-picker.ampm.segment.radius",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{radius.xs}",
       "resolvedValue": {
@@ -17618,12 +17618,12 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-radius"
+      "cssVar": "--time-picker-ampm-segment-radius"
     },
     {
-      "path": "timePicker.ampm.segment.padding.x",
+      "path": "time-picker.ampm.segment.padding.x",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{space.2}",
       "resolvedValue": {
@@ -17632,56 +17632,56 @@
       },
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-padding-x"
+      "cssVar": "--time-picker-ampm-segment-padding-x"
     },
     {
-      "path": "timePicker.ampm.segment.background.active",
+      "path": "time-picker.ampm.segment.background.active",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{color.surface.raised}",
       "resolvedValue": "#151515",
       "type": "unknown",
       "description": "Active segment lifts above the bar with a subtle shadow.",
-      "cssVar": "--timepicker-ampm-segment-background-active"
+      "cssVar": "--time-picker-ampm-segment-background-active"
     },
     {
-      "path": "timePicker.ampm.segment.background.inactive",
+      "path": "time-picker.ampm.segment.background.inactive",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "transparent",
       "resolvedValue": "transparent",
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-background-inactive"
+      "cssVar": "--time-picker-ampm-segment-background-inactive"
     },
     {
-      "path": "timePicker.ampm.segment.color.active",
+      "path": "time-picker.ampm.segment.color.active",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{color.text.primary}",
       "resolvedValue": "#E6E6E6",
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-color-active"
+      "cssVar": "--time-picker-ampm-segment-color-active"
     },
     {
-      "path": "timePicker.ampm.segment.color.inactive",
+      "path": "time-picker.ampm.segment.color.inactive",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{color.text.tertiary}",
       "resolvedValue": "#6B6B6B",
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-color-inactive"
+      "cssVar": "--time-picker-ampm-segment-color-inactive"
     },
     {
-      "path": "timePicker.ampm.segment.shadow.active",
+      "path": "time-picker.ampm.segment.shadow.active",
       "layer": "component",
-      "category": "timePicker",
+      "category": "time-picker",
       "file": "design-system/01-tokens/components/time-picker.tokens.json",
       "value": "{shadow.xs}",
       "resolvedValue": [
@@ -17695,7 +17695,7 @@
       ],
       "type": "unknown",
       "description": "",
-      "cssVar": "--timepicker-ampm-segment-shadow-active"
+      "cssVar": "--time-picker-ampm-segment-shadow-active"
     }
   ],
   "references": {

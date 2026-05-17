@@ -18,7 +18,7 @@
       "segmented.bar.height", "segmented.bar.padding", "segmented.bar.radius", "segmented.bar.background", "segmented.bar.border",
       "segmented.segment.height", "segmented.segment.padding.x", "segmented.segment.radius", "segmented.segment.type",
       "segmented.segment.background.active", "segmented.segment.background.inactive", "segmented.segment.background.hover",
-      "segmented.segment.color.active", "segmented.segment.color.inactive", "segmented.segment.color.inactiveHover",
+      "segmented.segment.color.active", "segmented.segment.color.inactive", "segmented.segment.color.inactive-hover",
       "segmented.segment.shadow.active",
       "segmented.segment.transition"
     ]

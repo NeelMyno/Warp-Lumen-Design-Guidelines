@@ -25,10 +25,10 @@
       "input.padding.y.sm", "input.padding.y.md", "input.padding.y.lg",
       "input.gap.slot",
       "input.radius",
-      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled", "input.background.readOnly",
-      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.success", "input.border.disabled", "input.border.readOnly",
-      "input.foreground.value", "input.foreground.valueDisabled", "input.foreground.valueReadOnly", "input.foreground.placeholder", "input.foreground.iconLeading", "input.foreground.iconTrailing", "input.foreground.addon",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled", "input.background.read-only",
+      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.success", "input.border.disabled", "input.border.read-only",
+      "input.foreground.value", "input.foreground.value-disabled", "input.foreground.value-read-only", "input.foreground.placeholder", "input.foreground.icon-leading", "input.foreground.icon-trailing", "input.foreground.addon",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition",
       "type.body.md", "type.body.sm", "type.body.lg"
     ]

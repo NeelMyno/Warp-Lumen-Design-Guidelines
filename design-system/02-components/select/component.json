@@ -22,9 +22,9 @@
       "input.padding.y.md",
       "input.gap.slot",
       "input.radius",
-      "select.listbox.minWidth", "select.listbox.maxHeight", "select.listbox.padding",
+      "select.listbox.min-width", "select.listbox.max-height", "select.listbox.padding",
       "select.item.height", "select.item.padding.x", "select.item.padding.y", "select.item.radius",
-      "select.trigger.caretColor",
+      "select.trigger.caret-color",
       "select.listbox.background", "select.listbox.border", "select.listbox.radius", "select.listbox.shadow",
       "select.item.type",
       "select.item.background.rest", "select.item.background.hover", "select.item.background.active", "select.item.background.selected",
@@ -32,8 +32,8 @@
       "select.item.indicator",
       "input.background.rest", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
-      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconTrailing",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.icon-trailing",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition"
     ]
   },

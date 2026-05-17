@@ -21,16 +21,16 @@
       "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
       "input.foreground.value", "input.foreground.placeholder",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition",
       "space.inline.sm",
-      "timePicker.digit.width", "timePicker.digit.type", "timePicker.digit.color", "timePicker.digit.align",
-      "timePicker.separator.color",
-      "timePicker.ampm.background", "timePicker.ampm.padding", "timePicker.ampm.radius",
-      "timePicker.ampm.segment.type", "timePicker.ampm.segment.radius", "timePicker.ampm.segment.padding.x",
-      "timePicker.ampm.segment.background.active", "timePicker.ampm.segment.background.inactive",
-      "timePicker.ampm.segment.color.active", "timePicker.ampm.segment.color.inactive",
-      "timePicker.ampm.segment.shadow.active"
+      "time-picker.digit.width", "time-picker.digit.type", "time-picker.digit.color", "time-picker.digit.align",
+      "time-picker.separator.color",
+      "time-picker.ampm.background", "time-picker.ampm.padding", "time-picker.ampm.radius",
+      "time-picker.ampm.segment.type", "time-picker.ampm.segment.radius", "time-picker.ampm.segment.padding.x",
+      "time-picker.ampm.segment.background.active", "time-picker.ampm.segment.background.inactive",
+      "time-picker.ampm.segment.color.active", "time-picker.ampm.segment.color.inactive",
+      "time-picker.ampm.segment.shadow.active"
     ]
   },
   "a11y": {

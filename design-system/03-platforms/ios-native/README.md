@@ -218,7 +218,7 @@ For cases that need real focus-ring depth (the v0.6 `box-shadow` halo doesn't tr
 | `input.ring.error` | same shape, `alpha.danger.32` | |
 | `input.transition` | `.animation(.easeOut(duration: 0.15), value: isFocused)` | matches `--motion-fast` |
 
-**Token I wish existed but doesn't:** the `input.ring.litEdge` inset highlight composes via comma-stacked CSS shadows on web. SwiftUI has no native "inset highlight" overlay primitive — you fake it with a 1 pt-tall `.overlay(LinearGradient(...).mask(top edge))`. A platform-aware variant token (`input.ring.litEdge.web` vs `input.ring.litEdge.swift`) would let Style Dictionary emit the right form per target.
+**Token I wish existed but doesn't:** the `input.ring.lit-edge` inset highlight composes via comma-stacked CSS shadows on web. SwiftUI has no native "inset highlight" overlay primitive — you fake it with a 1 pt-tall `.overlay(LinearGradient(...).mask(top edge))`. A platform-aware variant token (`input.ring.lit-edge.web` vs `input.ring.lit-edge.swift`) would let Style Dictionary emit the right form per target.
 
 ### Density modes
 

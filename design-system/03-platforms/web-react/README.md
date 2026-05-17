@@ -175,7 +175,7 @@ All field-shell tokens emit as CSS custom properties via Style Dictionary. The w
 | `input.border.focus` | `--border-focus` | `border-focus` |
 | `input.ring.focus` | `--shadow-input-focus` | `shadow-[var(--shadow-input-focus)]` |
 | `input.ring.error` | `--shadow-input-error` | `shadow-[var(--shadow-input-error)]` |
-| `input.ring.litEdge` | `--shadow-input-lit-edge` | composes via comma-stack |
+| `input.ring.lit-edge` | `--shadow-input-lit-edge` | composes via comma-stack |
 | `input.transition` | `--motion-fast` + `--easing-standard` | inherited from `.lumen-field` |
 
 Don't reach for primitive color tokens (`bg-[var(--lumen-red-N)]`) directly — `scripts/lint-no-arbitrary-form-values.mjs` flags them.

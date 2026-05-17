@@ -1,37 +1,77 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "switch": {
-    "$description": "v0.6 — Switch (binary toggle). Distinct from Toggle (button-style on/off). Off = sunken track. On = lime track + thumb slides right.",
+    "$description": "v0.6 \u2014 Switch (binary toggle). Distinct from Toggle (button-style on/off). Off = sunken track. On = lime track + thumb slides right.",
     "track": {
       "$description": "The pill-shaped background. Sized to fit a 16 px thumb with 2 px padding on each side.",
-      "width":  { "$value": "{dimension.9}", "$description": "v0.8 — 36 px. Migrated from inline value to dimension.9 primitive (added v0.8 to fill the gap)." },
-      "height": { "$value": "{dimension.5}", "$description": "20 px" },
-      "radius": { "$value": "{radius.full}" },
+      "width": {
+        "$value": "{dimension.9}",
+        "$description": "v0.8 \u2014 36 px. Migrated from inline value to dimension.9 primitive (added v0.8 to fill the gap)."
+      },
+      "height": {
+        "$value": "{dimension.5}",
+        "$description": "20 px"
+      },
+      "radius": {
+        "$value": "{radius.full}"
+      },
       "background": {
-        "off":      { "$value": "{color.surface.sunken}" },
-        "on":       { "$value": "{color.accent.500}" },
-        "disabled": { "$value": "{color.surface.input.disabled}" }
+        "off": {
+          "$value": "{color.surface.sunken}"
+        },
+        "on": {
+          "$value": "{color.accent.500}"
+        },
+        "disabled": {
+          "$value": "{color.surface.input.disabled}"
+        }
       },
       "border": {
-        "rest":  { "$value": "transparent" },
-        "error": { "$value": "{color.border.error}" }
+        "rest": {
+          "$value": "transparent"
+        },
+        "error": {
+          "$value": "{color.border.error}"
+        }
       }
     },
     "thumb": {
       "$description": "The circle that slides between off and on. Lifts subtly on press with a 2 px shadow.",
-      "size":     { "$value": "{dimension.4}", "$description": "16 px thumb." },
-      "color": {
-        "off": { "$value": "{color.surface.raised}" },
-        "on":  { "$value": "{color.accent.fg}", "$description": "Near-black-green so it reads on lime." }
+      "size": {
+        "$value": "{dimension.4}",
+        "$description": "16 px thumb."
       },
-      "shadow":   { "$value": "{shadow.xs}" },
-      "translateOff": { "$value": "{dimension.0}" },
-      "translateOn":  { "$value": "{dimension.4}", "$description": "16 px slide. Track width (36) − thumb width (16) − padding gap (4) = 16." }
+      "color": {
+        "off": {
+          "$value": "{color.surface.raised}"
+        },
+        "on": {
+          "$value": "{color.accent.fg}",
+          "$description": "Near-black-green so it reads on lime."
+        }
+      },
+      "shadow": {
+        "$value": "{shadow.xs}"
+      },
+      "translate-off": {
+        "$value": "{dimension.0}"
+      },
+      "translate-on": {
+        "$value": "{dimension.4}",
+        "$description": "16 px slide. Track width (36) \u2212 thumb width (16) \u2212 padding gap (4) = 16."
+      }
     },
     "label": {
-      "type":  { "$value": "{type.label.md}" },
-      "color": { "$value": "{color.text.primary}" },
-      "gap":   { "$value": "{space.3}", "$description": "Gap between track and label." }
+      "type": {
+        "$value": "{type.label.md}"
+      },
+      "color": {
+        "$value": "{color.text.primary}"
+      },
+      "gap": {
+        "$value": "{space.3}",
+        "$description": "Gap between track and label."
+      }
     }
   }
 }

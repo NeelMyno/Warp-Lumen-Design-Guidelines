@@ -218,7 +218,7 @@ When the map says "see X", X is the canonical contract or doc to read.
 | Empty | ✅ [EmptyState](design-system/02-components/empty-state/component.md) |
 | Expanded / Collapsed | ✅ [Accordion](design-system/02-components/accordion/component.md) / [Panel](design-system/02-components/panel/component.md) `aria-expanded` |
 | Dragging | ✅ [Kanban](design-system/02-components/kanban/component.md) (WCAG 2.5.7 keyboard-equivalent) / [SwipeAction](design-system/02-components/swipe-action/component.md) |
-| Read-only | 🎭 [Input](design-system/02-components/input/component.md) `readOnly` prop + `color.surface.input.readOnly` token |
+| Read-only | 🎭 [Input](design-system/02-components/input/component.md) `readOnly` prop + `color.surface.input.read-only` token |
 
 ## K. Methodology (out of scope for components)
 

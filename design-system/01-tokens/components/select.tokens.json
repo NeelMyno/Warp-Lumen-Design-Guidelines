@@ -1,41 +1,90 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "select": {
-    "$description": "v0.6 — Select inherits the input shell. This file declares only the listbox popover deltas (item height, item padding, item state colors). The trigger uses input.* tokens with a forced trailing chevron slot.",
+    "$description": "v0.6 \u2014 Select inherits the input shell. This file declares only the listbox popover deltas (item height, item padding, item state colors). The trigger uses input.* tokens with a forced trailing chevron slot.",
     "trigger": {
       "$description": "The selected-value display row. Identical shape to input shell.",
-      "caretColor": { "$value": "{color.text.tertiary}", "$description": "Chevron color in trailing slot." }
+      "caret-color": {
+        "$value": "{color.text.tertiary}",
+        "$description": "Chevron color in trailing slot."
+      }
     },
     "listbox": {
       "$description": "The popover that opens beneath the trigger. Uses surface.popover + popover shadow.",
-      "background": { "$value": "{color.surface.popover}" },
-      "border":     { "$value": "{color.border.default}" },
-      "radius":     { "$value": "{radius.popover}" },
-      "shadow":     { "$value": "{shadow.popover}" },
-      "minWidth":   { "$value": "{dimension.32}", "$description": "128 px — never narrower than the trigger." },
-      "maxHeight":  { "$value": "{dimension.64}", "$description": "256 px — internal scroll past this." },
-      "padding":    { "$value": "{space.1}", "$description": "Inner padding around the item list." }
+      "background": {
+        "$value": "{color.surface.popover}"
+      },
+      "border": {
+        "$value": "{color.border.default}"
+      },
+      "radius": {
+        "$value": "{radius.popover}"
+      },
+      "shadow": {
+        "$value": "{shadow.popover}"
+      },
+      "min-width": {
+        "$value": "{dimension.32}",
+        "$description": "128 px \u2014 never narrower than the trigger."
+      },
+      "max-height": {
+        "$value": "{dimension.64}",
+        "$description": "256 px \u2014 internal scroll past this."
+      },
+      "padding": {
+        "$value": "{space.1}",
+        "$description": "Inner padding around the item list."
+      }
     },
     "item": {
-      "height":      { "$value": "{size.control.sm}", "$description": "32 px — tighter than the trigger so the list reads dense." },
-      "padding": {
-        "x": { "$value": "{space.2}" },
-        "y": { "$value": "{space.1}" }
+      "height": {
+        "$value": "{size.control.sm}",
+        "$description": "32 px \u2014 tighter than the trigger so the list reads dense."
       },
-      "radius":      { "$value": "{radius.xs}" },
-      "type":        { "$value": "{type.body.sm}" },
+      "padding": {
+        "x": {
+          "$value": "{space.2}"
+        },
+        "y": {
+          "$value": "{space.1}"
+        }
+      },
+      "radius": {
+        "$value": "{radius.xs}"
+      },
+      "type": {
+        "$value": "{type.body.sm}"
+      },
       "background": {
-        "rest":     { "$value": "transparent" },
-        "hover":    { "$value": "{color.surface.tint-accent}" },
-        "active":   { "$value": "{color.surface.tint-accent}", "$description": "Highlighted via keyboard nav." },
-        "selected": { "$value": "{color.surface.tint-accent}" }
+        "rest": {
+          "$value": "transparent"
+        },
+        "hover": {
+          "$value": "{color.surface.tint-accent}"
+        },
+        "active": {
+          "$value": "{color.surface.tint-accent}",
+          "$description": "Highlighted via keyboard nav."
+        },
+        "selected": {
+          "$value": "{color.surface.tint-accent}"
+        }
       },
       "color": {
-        "rest":     { "$value": "{color.text.secondary}" },
-        "active":   { "$value": "{color.text.primary}" },
-        "selected": { "$value": "{color.text.primary}" }
+        "rest": {
+          "$value": "{color.text.secondary}"
+        },
+        "active": {
+          "$value": "{color.text.primary}"
+        },
+        "selected": {
+          "$value": "{color.text.primary}"
+        }
       },
-      "indicator":   { "$value": "{color.accent.400}", "$description": "Checkmark glyph color for the selected item." }
+      "indicator": {
+        "$value": "{color.accent.400}",
+        "$description": "Checkmark glyph color for the selected item."
+      }
     }
   }
 }

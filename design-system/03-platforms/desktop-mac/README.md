@@ -159,7 +159,7 @@ macOS's coordinate system is `pt` (= `px` at 1×; identical at 2× retina). Toke
 | `input.border.rest` | `.strokeBorder(LumenTokens.color.border.default, lineWidth: 1)` / `layer?.borderColor` | |
 | `input.border.focus` | driven by `@FocusState` (SwiftUI) / `becomeFirstResponder()` (AppKit) | |
 | `input.ring.focus` | stacked overlay or `CALayer` with `shadowColor` + `shadowRadius` | platform compromise — see iOS guide |
-| `input.ring.litEdge` | composes naturally on top of `NSVisualEffectView` vibrancy | macOS-specific win |
+| `input.ring.lit-edge` | composes naturally on top of `NSVisualEffectView` vibrancy | macOS-specific win |
 | `input.transition` | `.animation(.easeOut(duration: 0.15), value: isFocused)` (SwiftUI) / `CABasicAnimation` (AppKit) | |
 
 ### Density modes

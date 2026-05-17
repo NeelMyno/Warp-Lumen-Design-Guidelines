@@ -33,10 +33,10 @@
       "input.height.sm", "input.height.md", "input.height.lg",
       "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
       "input.gap.slot", "input.radius",
-      "input.background.rest", "input.background.disabled", "input.background.readOnly",
+      "input.background.rest", "input.background.disabled", "input.background.read-only",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
-      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconLeading", "input.foreground.iconTrailing", "input.foreground.addon",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.icon-leading", "input.foreground.icon-trailing", "input.foreground.addon",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition"
     ]
   },

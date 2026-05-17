@@ -1,69 +1,158 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "input": {
-    "$description": "v0.6 — Component-bound tokens for the Lumen field shell. ONE shell powers Input, Textarea, Select, Combobox, NumberInput, PasswordInput. The shell is the focusable surface; the inner <input> is bare.",
+    "$description": "v0.6 \u2014 Component-bound tokens for the Lumen field shell. ONE shell powers Input, Textarea, Select, Combobox, NumberInput, PasswordInput. The shell is the focusable surface; the inner <input> is bare.",
     "height": {
       "$type": "dimension",
-      "sm": { "$value": "{size.control.sm}", "$description": "32 px — compact dashboards" },
-      "md": { "$value": "{size.control.md}", "$description": "40 px — default" },
-      "lg": { "$value": "{size.control.lg}", "$description": "48 px — touch / marketing forms" }
+      "sm": {
+        "$value": "{size.control.sm}",
+        "$description": "32 px \u2014 compact dashboards"
+      },
+      "md": {
+        "$value": "{size.control.md}",
+        "$description": "40 px \u2014 default"
+      },
+      "lg": {
+        "$value": "{size.control.lg}",
+        "$description": "48 px \u2014 touch / marketing forms"
+      }
     },
     "padding": {
       "$type": "dimension",
       "x": {
-        "sm": { "$value": "{space.2}" },
-        "md": { "$value": "{space.3}" },
-        "lg": { "$value": "{space.4}" }
+        "sm": {
+          "$value": "{space.2}"
+        },
+        "md": {
+          "$value": "{space.3}"
+        },
+        "lg": {
+          "$value": "{space.4}"
+        }
       },
       "y": {
-        "sm": { "$value": "{space.1}" },
-        "md": { "$value": "{space.2}" },
-        "lg": { "$value": "{space.3}" }
+        "sm": {
+          "$value": "{space.1}"
+        },
+        "md": {
+          "$value": "{space.2}"
+        },
+        "lg": {
+          "$value": "{space.3}"
+        }
       }
     },
     "gap": {
       "$type": "dimension",
-      "slot": { "$value": "{space.2}", "$description": "Gap between leading/trailing slot and the value." }
+      "slot": {
+        "$value": "{space.2}",
+        "$description": "Gap between leading/trailing slot and the value."
+      }
     },
-    "radius": { "$value": "{radius.control.md}" },
+    "radius": {
+      "$value": "{radius.control.md}"
+    },
     "background": {
-      "rest":     { "$value": "{color.surface.input.rest}" },
-      "hover":    { "$value": "{color.surface.input.hover}" },
-      "focus":    { "$value": "{color.surface.input.focus}" },
-      "readOnly": { "$value": "{color.surface.input.readOnly}" },
-      "disabled": { "$value": "{color.surface.input.disabled}" }
+      "rest": {
+        "$value": "{color.surface.input.rest}"
+      },
+      "hover": {
+        "$value": "{color.surface.input.hover}"
+      },
+      "focus": {
+        "$value": "{color.surface.input.focus}"
+      },
+      "read-only": {
+        "$value": "{color.surface.input.read-only}"
+      },
+      "disabled": {
+        "$value": "{color.surface.input.disabled}"
+      }
     },
     "border": {
-      "rest":     { "$value": "{color.border.default}" },
-      "hover":    { "$value": "{color.border.strong}" },
-      "focus":    { "$value": "{color.border.focus}" },
-      "error":    { "$value": "{color.border.error}" },
-      "success":  { "$value": "{color.border.success}" },
-      "warning":  { "$value": "{color.border.warning}" },
-      "disabled": { "$value": "{color.border.disabled}" },
-      "readOnly": { "$value": "{color.border.default}" }
+      "rest": {
+        "$value": "{color.border.default}"
+      },
+      "hover": {
+        "$value": "{color.border.strong}"
+      },
+      "focus": {
+        "$value": "{color.border.focus}"
+      },
+      "error": {
+        "$value": "{color.border.error}"
+      },
+      "success": {
+        "$value": "{color.border.success}"
+      },
+      "warning": {
+        "$value": "{color.border.warning}"
+      },
+      "disabled": {
+        "$value": "{color.border.disabled}"
+      },
+      "read-only": {
+        "$value": "{color.border.default}"
+      }
     },
     "foreground": {
-      "value":         { "$value": "{color.text.primary}" },
-      "valueDisabled": { "$value": "{color.text.disabled}" },
-      "valueReadOnly": { "$value": "{color.text.primary}", "$description": "Read-only keeps full contrast — only the caret + interactivity changes." },
-      "placeholder":   { "$value": "{color.text.placeholder}" },
-      "iconLeading":   { "$value": "{color.text.tertiary}" },
-      "iconTrailing":  { "$value": "{color.text.tertiary}" },
-      "addon":         { "$value": "{color.text.tertiary}", "$description": "Trailing addon (unit chips: lb / STD / %)." },
-      "label":         { "$value": "{color.text.secondary}" },
-      "helper":        { "$value": "{color.text.tertiary}" },
-      "error":         { "$value": "{color.text.error}" },
-      "success":       { "$value": "{color.text.success}" },
-      "warning":       { "$value": "{color.text.warning}" }
+      "value": {
+        "$value": "{color.text.primary}"
+      },
+      "value-disabled": {
+        "$value": "{color.text.disabled}"
+      },
+      "value-read-only": {
+        "$value": "{color.text.primary}",
+        "$description": "Read-only keeps full contrast \u2014 only the caret + interactivity changes."
+      },
+      "placeholder": {
+        "$value": "{color.text.placeholder}"
+      },
+      "icon-leading": {
+        "$value": "{color.text.tertiary}"
+      },
+      "icon-trailing": {
+        "$value": "{color.text.tertiary}"
+      },
+      "addon": {
+        "$value": "{color.text.tertiary}",
+        "$description": "Trailing addon (unit chips: lb / STD / %)."
+      },
+      "label": {
+        "$value": "{color.text.secondary}"
+      },
+      "helper": {
+        "$value": "{color.text.tertiary}"
+      },
+      "error": {
+        "$value": "{color.text.error}"
+      },
+      "success": {
+        "$value": "{color.text.success}"
+      },
+      "warning": {
+        "$value": "{color.text.warning}"
+      }
     },
     "ring": {
       "$description": "Wrapper-scoped focus ring. Drawn on .lumen-field via box-shadow; the inner <input> never paints a ring.",
-      "focus":   { "$value": "{shadow.input.focus}" },
-      "error":   { "$value": "{shadow.input.error}" },
-      "success": { "$value": "{shadow.input.success}" },
-      "litEdge": { "$value": "{shadow.input.lit-edge}", "$description": "Stacked under focus/error halo to keep the lit-edge effect on dark mode." }
+      "focus": {
+        "$value": "{shadow.input.focus}"
+      },
+      "error": {
+        "$value": "{shadow.input.error}"
+      },
+      "success": {
+        "$value": "{shadow.input.success}"
+      },
+      "lit-edge": {
+        "$value": "{shadow.input.lit-edge}",
+        "$description": "Stacked under focus/error halo to keep the lit-edge effect on dark mode."
+      }
     },
-    "transition": { "$value": "{motion.transition.fast}" }
+    "transition": {
+      "$value": "{motion.transition.fast}"
+    }
   }
 }

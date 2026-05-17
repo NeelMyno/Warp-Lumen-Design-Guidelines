@@ -20,11 +20,11 @@
   },
   "tokens": {
     "consumed": [
-      "rangeSlider.track.height", "rangeSlider.track.radius", "rangeSlider.track.background",
-      "rangeSlider.range.background",
-      "rangeSlider.thumb.size", "rangeSlider.thumb.radius", "rangeSlider.thumb.background", "rangeSlider.thumb.border", "rangeSlider.thumb.shadow", "rangeSlider.thumb.ringFocus",
-      "rangeSlider.value.type", "rangeSlider.value.color",
-      "rangeSlider.trackHeight",
+      "range-slider.track.height", "range-slider.track.radius", "range-slider.track.background",
+      "range-slider.range.background",
+      "range-slider.thumb.size", "range-slider.thumb.radius", "range-slider.thumb.background", "range-slider.thumb.border", "range-slider.thumb.shadow", "range-slider.thumb.ring-focus",
+      "range-slider.value.type", "range-slider.value.color",
+      "range-slider.track-height",
       "space.stack.xs",
       "color.surface.sunken",
       "color.accent.500"

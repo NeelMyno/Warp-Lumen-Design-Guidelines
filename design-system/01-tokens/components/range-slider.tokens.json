@@ -1,32 +1,60 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "rangeSlider": {
-    "$description": "v0.7 — Single + dual-handle range slider. Two overlaid <input type='range'> for dual mode. The track is sunken; the active range fills with the spring-green accent; thumbs are pure-white circles with a hairline border for grip affordance. v0.11.13 — thumb.background now references {color.absolute.white} (was inlined #ffffff).",
+  "range-slider": {
+    "$description": "v0.7 \u2014 Single + dual-handle range slider. Two overlaid <input type='range'> for dual mode. The track is sunken; the active range fills with the spring-green accent; thumbs are pure-white circles with a hairline border for grip affordance. v0.11.13 \u2014 thumb.background now references {color.absolute.white} (was inlined #ffffff).",
     "track": {
       "$description": "The full-width 1 px-tall sunken bar behind the active range.",
-      "height":     { "$value": "{dimension.1}", "$description": "4 px — readable but thin." },
-      "radius":     { "$value": "{radius.full}" },
-      "background": { "$value": "{color.surface.sunken}" }
+      "height": {
+        "$value": "{dimension.1}",
+        "$description": "4 px \u2014 readable but thin."
+      },
+      "radius": {
+        "$value": "{radius.full}"
+      },
+      "background": {
+        "$value": "{color.surface.sunken}"
+      }
     },
     "range": {
       "$description": "The lime fill between the two handles (or between min and the single handle).",
-      "background": { "$value": "{color.accent.500}" }
+      "background": {
+        "$value": "{color.accent.500}"
+      }
     },
     "thumb": {
       "$description": "The drag handle. White circle with hairline border. Cursor changes to grab/grabbing on press.",
-      "size":       { "$value": "{dimension.4}", "$description": "16 px — meets minimum touch target with hover-area extension." },
-      "radius":     { "$value": "{radius.full}" },
-      "background": { "$value": "{color.absolute.white}", "$description": "v0.11.13 — references {color.absolute.white} (was inlined #ffffff)." },
-      "border":     { "$value": "{color.border.strong}" },
-      "shadow":     { "$value": "{shadow.sm}" },
-      "ringFocus":  { "$value": "{shadow.focus}", "$description": "Lime focus ring around the thumb when keyboard-focused." }
+      "size": {
+        "$value": "{dimension.4}",
+        "$description": "16 px \u2014 meets minimum touch target with hover-area extension."
+      },
+      "radius": {
+        "$value": "{radius.full}"
+      },
+      "background": {
+        "$value": "{color.absolute.white}",
+        "$description": "v0.11.13 \u2014 references {color.absolute.white} (was inlined #ffffff)."
+      },
+      "border": {
+        "$value": "{color.border.strong}"
+      },
+      "shadow": {
+        "$value": "{shadow.sm}"
+      },
+      "ring-focus": {
+        "$value": "{shadow.focus}",
+        "$description": "Lime focus ring around the thumb when keyboard-focused."
+      }
     },
     "value": {
       "$description": "The numeric value labels rendered beneath the track (left + right).",
-      "type":  { "$value": "{type.overline}" },
-      "color": { "$value": "{color.text.tertiary}" }
+      "type": {
+        "$value": "{type.overline}"
+      },
+      "color": {
+        "$value": "{color.text.tertiary}"
+      }
     },
-    "trackHeight": {
+    "track-height": {
       "$description": "Vertical slot the track + thumbs share. Needs to be at least the thumb diameter so the thumb doesn't clip.",
       "$value": "{dimension.6}"
     }

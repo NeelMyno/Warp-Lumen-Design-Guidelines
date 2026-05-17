@@ -2,170 +2,415 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "color": {
     "$type": "color",
-    "$description": "SEMANTIC color tokens — LIGHT mode (Lumen v0.12). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of the v0.12 neutral obsidian dark mode: clean paper-white + neutral obsidian ink + the same spring-green accent. v0.11 retired the warm-cream paper canvas in favor of cool-neutral paper, anchored to the user-fixed light value (#E6E6E6) used as subtle borders / sunken surfaces. v0.12 stripped the residual +1 G channel drift from the neutral ramp's mid-stops so the light mode is fully neutral end-to-end.",
+    "$description": "SEMANTIC color tokens \u2014 LIGHT mode (Lumen v0.12). Mode parity required: same key paths exist in color.dark.tokens.json with different values. Light mode is the inverse of the v0.12 neutral obsidian dark mode: clean paper-white + neutral obsidian ink + the same spring-green accent. v0.11 retired the warm-cream paper canvas in favor of cool-neutral paper, anchored to the user-fixed light value (#E6E6E6) used as subtle borders / sunken surfaces. v0.12 stripped the residual +1 G channel drift from the neutral ramp's mid-stops so the light mode is fully neutral end-to-end.",
     "surface": {
-      "page":    { "$value": "{color.neutral.50}",  "$description": "Paper canvas #FAFAFA — clean off-white. v0.12 — fully neutral (the v0.11 'whisper of warmth' was 0.4% above neutral; v0.12 normalizes the full neutral ramp). Replaces v0.10 cream paper #fdfcf7." },
-      "raised":  { "$value": "{color.absolute.white}", "$description": "Cards, panels, raised surfaces. Pure white pops above paper canvas. v0.11.13 — references {color.absolute.white}." },
-      "sunken":  { "$value": "{color.neutral.200}", "$description": "Inputs, table-row hover, sidebar — anchored to user-fixed #E6E6E6." },
-      "popover": { "$value": "{color.absolute.white}", "$description": "Floating popover surface. v0.11.13 — references {color.absolute.white}." },
-      "glass":   { "$value": "{color.alpha.paper.72}", "$description": "Floating glass shell — pair with backdrop-filter blur(20px) saturate(140%). v0.11.13 — references {color.alpha.paper.72}." },
-      "overlay": { "$value": "{color.alpha.paper.84}", "$description": "Translucent backdrop for sticky chrome." },
-      "scrim":   { "$value": "{color.alpha.ink.40}",   "$description": "Modal backdrop." },
-      "inverse": { "$value": "{color.brand.800}", "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)." },
-      "tint-accent": { "$value": "{color.alpha.accent.12}", "$description": "Spring-green tint for hover / selection backgrounds." },
+      "page": {
+        "$value": "{color.neutral.50}",
+        "$description": "Paper canvas #FAFAFA \u2014 clean off-white. v0.12 \u2014 fully neutral (the v0.11 'whisper of warmth' was 0.4% above neutral; v0.12 normalizes the full neutral ramp). Replaces v0.10 cream paper #fdfcf7."
+      },
+      "raised": {
+        "$value": "{color.absolute.white}",
+        "$description": "Cards, panels, raised surfaces. Pure white pops above paper canvas. v0.11.13 \u2014 references {color.absolute.white}."
+      },
+      "sunken": {
+        "$value": "{color.neutral.200}",
+        "$description": "Inputs, table-row hover, sidebar \u2014 anchored to user-fixed #E6E6E6."
+      },
+      "popover": {
+        "$value": "{color.absolute.white}",
+        "$description": "Floating popover surface. v0.11.13 \u2014 references {color.absolute.white}."
+      },
+      "glass": {
+        "$value": "{color.alpha.paper.72}",
+        "$description": "Floating glass shell \u2014 pair with backdrop-filter blur(20px) saturate(140%). v0.11.13 \u2014 references {color.alpha.paper.72}."
+      },
+      "overlay": {
+        "$value": "{color.alpha.paper.84}",
+        "$description": "Translucent backdrop for sticky chrome."
+      },
+      "scrim": {
+        "$value": "{color.alpha.ink.40}",
+        "$description": "Modal backdrop."
+      },
+      "inverse": {
+        "$value": "{color.brand.800}",
+        "$description": "Dark surface for contrast moments in light mode (CTA bands, footers)."
+      },
+      "tint-accent": {
+        "$value": "{color.alpha.accent.12}",
+        "$description": "Spring-green tint for hover / selection backgrounds."
+      },
       "input": {
-        "$description": "v0.6 — input field surfaces (light mode). Uses sunken neutral so the field reads as inset on the paper canvas.",
-        "rest":     { "$value": "{color.neutral.200}", "$description": "Sunken neutral — inset feel against paper. v0.11 anchored to user-fixed #E6E6E6." },
-        "hover":    { "$value": "{color.neutral.200}" },
-        "focus":    { "$value": "{color.absolute.white}", "$description": "Pop to paper-white on focus — cognitive-fluency cue: 'you have my attention'. v0.11.13 — references {color.absolute.white}." },
-        "readOnly": { "$value": "{color.neutral.200}" },
-        "disabled": { "$value": "{color.neutral.50}", "$description": "Even quieter than rest." }
+        "$description": "v0.6 \u2014 input field surfaces (light mode). Uses sunken neutral so the field reads as inset on the paper canvas.",
+        "rest": {
+          "$value": "{color.neutral.200}",
+          "$description": "Sunken neutral \u2014 inset feel against paper. v0.11 anchored to user-fixed #E6E6E6."
+        },
+        "hover": {
+          "$value": "{color.neutral.200}"
+        },
+        "focus": {
+          "$value": "{color.absolute.white}",
+          "$description": "Pop to paper-white on focus \u2014 cognitive-fluency cue: 'you have my attention'. v0.11.13 \u2014 references {color.absolute.white}."
+        },
+        "read-only": {
+          "$value": "{color.neutral.200}"
+        },
+        "disabled": {
+          "$value": "{color.neutral.50}",
+          "$description": "Even quieter than rest."
+        }
       }
     },
     "text": {
-      "primary":   { "$value": "{color.neutral.900}", "$description": "Body and titles — #141615. Contrast 17.2:1 on paper canvas." },
-      "secondary": { "$value": "{color.neutral.700}", "$description": "Captions, descriptions. ~10.5:1 — AAA." },
-      "tertiary":  { "$value": "{color.neutral.500}", "$description": "Hints, eyebrow labels. ~5.4:1 — AA Normal." },
-      "placeholder": { "$value": "{color.neutral.500}", "$description": "Input placeholder. AA-safe at 14px+. Distinct alias from tertiary so it can theme independently." },
-      "disabled":  { "$value": "{color.neutral.400}" },
-      "inverse":   { "$value": "{color.brand.100}" },
-      "accent":    { "$value": "{color.accent.800}","$description": "Spring-green text on light surfaces. 4.6:1 on paper — AA at 14px+." },
-      "error":     { "$value": "{color.status.danger.700}", "$description": "v0.6 — error text on light surface. Deep red for AA." },
-      "success":   { "$value": "{color.status.success.700}", "$description": "v0.6 — success text. Deep accent for AA." },
-      "warning":   { "$value": "{color.status.warning.700}", "$description": "v0.6 — warning text. Deep amber for AA." },
-      "link":      { "$value": "{color.neutral.900}" }
+      "primary": {
+        "$value": "{color.neutral.900}",
+        "$description": "Body and titles \u2014 #141615. Contrast 17.2:1 on paper canvas."
+      },
+      "secondary": {
+        "$value": "{color.neutral.700}",
+        "$description": "Captions, descriptions. ~10.5:1 \u2014 AAA."
+      },
+      "tertiary": {
+        "$value": "{color.neutral.500}",
+        "$description": "Hints, eyebrow labels. ~5.4:1 \u2014 AA Normal."
+      },
+      "placeholder": {
+        "$value": "{color.neutral.500}",
+        "$description": "Input placeholder. AA-safe at 14px+. Distinct alias from tertiary so it can theme independently."
+      },
+      "disabled": {
+        "$value": "{color.neutral.400}"
+      },
+      "inverse": {
+        "$value": "{color.brand.100}"
+      },
+      "accent": {
+        "$value": "{color.accent.800}",
+        "$description": "Spring-green text on light surfaces. 4.6:1 on paper \u2014 AA at 14px+."
+      },
+      "error": {
+        "$value": "{color.status.danger.700}",
+        "$description": "v0.6 \u2014 error text on light surface. Deep red for AA."
+      },
+      "success": {
+        "$value": "{color.status.success.700}",
+        "$description": "v0.6 \u2014 success text. Deep accent for AA."
+      },
+      "warning": {
+        "$value": "{color.status.warning.700}",
+        "$description": "v0.6 \u2014 warning text. Deep amber for AA."
+      },
+      "link": {
+        "$value": "{color.neutral.900}"
+      }
     },
     "border": {
-      "hairline": { "$value": "{color.alpha.ink.06}",  "$description": "Default hairline. Cards, table rows, dividers. The breathing-room separator (per principles §1, §3)." },
-      "subtle":   { "$value": "{color.alpha.ink.08}",  "$description": "v0.11.13 — references {color.alpha.ink.08} (was inlined rgba(23,26,24,0.08))." },
-      "default":  { "$value": "{color.alpha.ink.12}", "$description": "Standard control border." },
-      "strong":   { "$value": "{color.alpha.ink.24}", "$description": "Emphasis dividers." },
-      "frame":    { "$value": "{color.alpha.ink.40}", "$description": "v0.4 — brutalist hairline frame border" },
-      "accent":   { "$value": "{color.accent.700}",   "$description": "Accent hairline (deeper green for AAA on light)" },
-      "focus":    { "$value": "{color.accent.800}",   "$description": "Focus ring color (light mode). v0.13.1 bump from accent.500 → accent.800 (#008A4D) to clear the WCAG 2.4.13 advisory: accent.500 on paper resolves to 1.34:1, accent.700 resolves to 2.72:1 (still below the 3:1 floor), accent.800 resolves to 4.16:1 — clearing the floor with margin. Production CSS layers a 2px outline + alpha-32 halo so the rendered ring exceeds the floor further. Always paired with shadow.focus. Dark mode keeps accent.400 (border.focus is composed in color.dark.tokens.json)." },
-      "error":    { "$value": "{color.status.danger.500}", "$description": "v0.6 — input error border. Refined red for AA stroke contrast." },
-      "success":  { "$value": "{color.accent.500}",   "$description": "v0.6 — input success border. Spring green; only after explicit validation." },
-      "warning":  { "$value": "{color.status.warning.500}", "$description": "v0.6 — input warning border. Refined amber." },
-      "disabled": { "$value": "{color.alpha.ink.06}", "$description": "v0.6 — input disabled border. Muted; no hover/focus." }
+      "hairline": {
+        "$value": "{color.alpha.ink.06}",
+        "$description": "Default hairline. Cards, table rows, dividers. The breathing-room separator (per principles \u00a71, \u00a73)."
+      },
+      "subtle": {
+        "$value": "{color.alpha.ink.08}",
+        "$description": "v0.11.13 \u2014 references {color.alpha.ink.08} (was inlined rgba(23,26,24,0.08))."
+      },
+      "default": {
+        "$value": "{color.alpha.ink.12}",
+        "$description": "Standard control border."
+      },
+      "strong": {
+        "$value": "{color.alpha.ink.24}",
+        "$description": "Emphasis dividers."
+      },
+      "frame": {
+        "$value": "{color.alpha.ink.40}",
+        "$description": "v0.4 \u2014 brutalist hairline frame border"
+      },
+      "accent": {
+        "$value": "{color.accent.700}",
+        "$description": "Accent hairline (deeper green for AAA on light)"
+      },
+      "focus": {
+        "$value": "{color.accent.800}",
+        "$description": "Focus ring color (light mode). v0.13.1 bump from accent.500 \u2192 accent.800 (#008A4D) to clear the WCAG 2.4.13 advisory: accent.500 on paper resolves to 1.34:1, accent.700 resolves to 2.72:1 (still below the 3:1 floor), accent.800 resolves to 4.16:1 \u2014 clearing the floor with margin. Production CSS layers a 2px outline + alpha-32 halo so the rendered ring exceeds the floor further. Always paired with shadow.focus. Dark mode keeps accent.400 (border.focus is composed in color.dark.tokens.json)."
+      },
+      "error": {
+        "$value": "{color.status.danger.500}",
+        "$description": "v0.6 \u2014 input error border. Refined red for AA stroke contrast."
+      },
+      "success": {
+        "$value": "{color.accent.500}",
+        "$description": "v0.6 \u2014 input success border. Spring green; only after explicit validation."
+      },
+      "warning": {
+        "$value": "{color.status.warning.500}",
+        "$description": "v0.6 \u2014 input warning border. Refined amber."
+      },
+      "disabled": {
+        "$value": "{color.alpha.ink.06}",
+        "$description": "v0.6 \u2014 input disabled border. Muted; no hover/focus."
+      }
     },
     "action": {
       "primary": {
         "bg": {
-          "rest":  { "$value": "{color.accent.500}" },
-          "hover": { "$value": "{color.accent.600}" },
-          "press": { "$value": "{color.accent.700}" }
+          "rest": {
+            "$value": "{color.accent.500}"
+          },
+          "hover": {
+            "$value": "{color.accent.600}"
+          },
+          "press": {
+            "$value": "{color.accent.700}"
+          }
         },
-        "fg":     { "$value": "{color.accent.fg}", "$description": "Near-black-mint #07120D on spring green — 14.7:1 AAA. Single-source for both themes." },
-        "border": { "$value": "transparent" },
-        "glow":   { "$value": "{shadow.accent-glow}" }
+        "fg": {
+          "$value": "{color.accent.fg}",
+          "$description": "Near-black-mint #07120D on spring green \u2014 14.7:1 AAA. Single-source for both themes."
+        },
+        "border": {
+          "$value": "transparent"
+        },
+        "glow": {
+          "$value": "{shadow.accent-glow}"
+        }
       },
       "secondary": {
         "bg": {
-          "rest":  { "$value": "{color.absolute.white}", "$description": "v0.11.13 — references {color.absolute.white}." },
-          "hover": { "$value": "{color.neutral.100}" },
-          "press": { "$value": "{color.neutral.100}" }
+          "rest": {
+            "$value": "{color.absolute.white}",
+            "$description": "v0.11.13 \u2014 references {color.absolute.white}."
+          },
+          "hover": {
+            "$value": "{color.neutral.100}"
+          },
+          "press": {
+            "$value": "{color.neutral.100}"
+          }
         },
-        "fg":     { "$value": "{color.neutral.900}" },
-        "border": { "$value": "{color.alpha.ink.12}" }
+        "fg": {
+          "$value": "{color.neutral.900}"
+        },
+        "border": {
+          "$value": "{color.alpha.ink.12}"
+        }
       },
       "tertiary": {
-        "$description": "v0.9 alias of ghost — kept for backwards compatibility.",
+        "$description": "v0.9 alias of ghost \u2014 kept for backwards compatibility.",
         "bg": {
-          "rest":  { "$value": "transparent" },
-          "hover": { "$value": "{color.neutral.100}" },
-          "press": { "$value": "{color.neutral.100}" }
+          "rest": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{color.neutral.100}"
+          },
+          "press": {
+            "$value": "{color.neutral.100}"
+          }
         },
-        "fg":     { "$value": "{color.neutral.900}" }
+        "fg": {
+          "$value": "{color.neutral.900}"
+        }
       },
       "ghost": {
-        "$description": "v0.9 — neutral × ghost. No chrome at rest, subtle hover tint.",
+        "$description": "v0.9 \u2014 neutral \u00d7 ghost. No chrome at rest, subtle hover tint.",
         "bg": {
-          "rest":  { "$value": "transparent" },
-          "hover": { "$value": "{color.alpha.ink.06}" },
-          "press": { "$value": "{color.alpha.ink.08}" }
+          "rest": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{color.alpha.ink.06}"
+          },
+          "press": {
+            "$value": "{color.alpha.ink.08}"
+          }
         },
-        "fg":     { "$value": "{color.neutral.900}" }
+        "fg": {
+          "$value": "{color.neutral.900}"
+        }
       },
       "outline": {
-        "$description": "v0.9 — hairline pill / rect (transparent fill + 1px ink hairline). Neutral × outline surface.",
+        "$description": "v0.9 \u2014 hairline pill / rect (transparent fill + 1px ink hairline). Neutral \u00d7 outline surface.",
         "bg": {
-          "rest":  { "$value": "transparent" },
-          "hover": { "$value": "{color.alpha.ink.04}" },
-          "press": { "$value": "{color.alpha.ink.08}" }
+          "rest": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{color.alpha.ink.04}"
+          },
+          "press": {
+            "$value": "{color.alpha.ink.08}"
+          }
         },
-        "fg":     { "$value": "{color.neutral.900}" },
+        "fg": {
+          "$value": "{color.neutral.900}"
+        },
         "border": {
-          "rest":  { "$value": "{color.alpha.ink.16}" },
-          "hover": { "$value": "{color.alpha.ink.24}" }
+          "rest": {
+            "$value": "{color.alpha.ink.16}"
+          },
+          "hover": {
+            "$value": "{color.alpha.ink.24}"
+          }
         }
       },
       "danger": {
-        "$description": "v0.11 — danger CTA. bg deepened red.500→.700 to clear WCAG AA Normal.",
+        "$description": "v0.11 \u2014 danger CTA. bg deepened red.500\u2192.700 to clear WCAG AA Normal.",
         "bg": {
-          "rest":  { "$value": "{color.status.danger.700}" },
-          "hover": { "$value": "{color.status.danger.800}" },
-          "press": { "$value": "{color.status.danger.800}" }
+          "rest": {
+            "$value": "{color.status.danger.700}"
+          },
+          "hover": {
+            "$value": "{color.status.danger.800}"
+          },
+          "press": {
+            "$value": "{color.status.danger.800}"
+          }
         },
-        "fg":     { "$value": "{color.absolute.white}", "$description": "v0.11.13 — references {color.absolute.white}." },
-        "border": { "$value": "transparent" }
+        "fg": {
+          "$value": "{color.absolute.white}",
+          "$description": "v0.11.13 \u2014 references {color.absolute.white}."
+        },
+        "border": {
+          "$value": "transparent"
+        }
       },
       "danger-soft": {
-        "$description": "v0.9 — danger × ghost. Carbon's `danger-ghost` pattern. v0.11.13 — bg.hover/press now reference {color.alpha.danger.08}/{14} primitives.",
+        "$description": "v0.9 \u2014 danger \u00d7 ghost. Carbon's `danger-ghost` pattern. v0.11.13 \u2014 bg.hover/press now reference {color.alpha.danger.08}/{14} primitives.",
         "bg": {
-          "rest":  { "$value": "transparent" },
-          "hover": { "$value": "{color.alpha.danger.08}" },
-          "press": { "$value": "{color.alpha.danger.14}" }
+          "rest": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{color.alpha.danger.08}"
+          },
+          "press": {
+            "$value": "{color.alpha.danger.14}"
+          }
         },
-        "fg": { "$value": "{color.status.danger.700}" }
+        "fg": {
+          "$value": "{color.status.danger.700}"
+        }
       },
       "ai": {
-        "$description": "v0.9 — AI-action variant. Spring-green tonal + sparkle leading icon. Sparingly applied.",
+        "$description": "v0.9 \u2014 AI-action variant. Spring-green tonal + sparkle leading icon. Sparingly applied.",
         "bg": {
-          "rest":  { "$value": "{color.alpha.accent.12}" },
-          "hover": { "$value": "{color.alpha.accent.24}" },
-          "press": { "$value": "{color.alpha.accent.32}" }
+          "rest": {
+            "$value": "{color.alpha.accent.12}"
+          },
+          "hover": {
+            "$value": "{color.alpha.accent.24}"
+          },
+          "press": {
+            "$value": "{color.alpha.accent.32}"
+          }
         },
-        "fg":     { "$value": "{color.accent.800}", "$description": "Deep accent on neutral — 4.6:1 AA pass." },
-        "border": { "$value": "{color.alpha.accent.40}" }
+        "fg": {
+          "$value": "{color.accent.800}",
+          "$description": "Deep accent on neutral \u2014 4.6:1 AA pass."
+        },
+        "border": {
+          "$value": "{color.alpha.accent.40}"
+        }
       },
       "success": {
-        "$description": "v0.9 — success-affirmation feedback variant.",
-        "bg":     { "$value": "{color.alpha.accent.24}" },
-        "fg":     { "$value": "{color.accent.800}" },
-        "border": { "$value": "{color.alpha.accent.40}" }
+        "$description": "v0.9 \u2014 success-affirmation feedback variant.",
+        "bg": {
+          "$value": "{color.alpha.accent.24}"
+        },
+        "fg": {
+          "$value": "{color.accent.800}"
+        },
+        "border": {
+          "$value": "{color.alpha.accent.40}"
+        }
       },
       "selected": {
-        "$description": "v0.9 — aria-pressed=true state for ToggleButton / Segmented option.",
-        "bg":     { "$value": "{color.alpha.accent.12}" },
-        "fg":     { "$value": "{color.neutral.900}" },
-        "border": { "$value": "{color.accent.500}" }
+        "$description": "v0.9 \u2014 aria-pressed=true state for ToggleButton / Segmented option.",
+        "bg": {
+          "$value": "{color.alpha.accent.12}"
+        },
+        "fg": {
+          "$value": "{color.neutral.900}"
+        },
+        "border": {
+          "$value": "{color.accent.500}"
+        }
       },
       "glass": {
-        "$description": "v0.9 — translucent surface for floating overlays. Light mode keeps a paper-tinted glass. v0.11.13 — hover/press now reference {color.alpha.paper.84}/{94} primitives.",
+        "$description": "v0.9 \u2014 translucent surface for floating overlays. Light mode keeps a paper-tinted glass. v0.11.13 \u2014 hover/press now reference {color.alpha.paper.84}/{94} primitives.",
         "bg": {
-          "rest":  { "$value": "{color.surface.glass}" },
-          "hover": { "$value": "{color.alpha.paper.84}" },
-          "press": { "$value": "{color.alpha.paper.94}" }
+          "rest": {
+            "$value": "{color.surface.glass}"
+          },
+          "hover": {
+            "$value": "{color.alpha.paper.84}"
+          },
+          "press": {
+            "$value": "{color.alpha.paper.94}"
+          }
         },
-        "fg":     { "$value": "{color.neutral.900}" },
-        "border": { "$value": "{color.alpha.ink.12}" }
+        "fg": {
+          "$value": "{color.neutral.900}"
+        },
+        "border": {
+          "$value": "{color.alpha.ink.12}"
+        }
       }
     },
     "status": {
-      "success": { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } },
-      "warning": { "bg": { "$value": "{color.status.warning.50}"    }, "fg": { "$value": "{color.status.warning.700}" } },
-      "danger":  { "bg": { "$value": "{color.status.danger.50}"     }, "fg": { "$value": "{color.status.danger.700}"  } },
-      "info":    { "bg": { "$value": "{color.accent.50}"            }, "fg": { "$value": "{color.accent.800}"         } },
+      "success": {
+        "bg": {
+          "$value": "{color.accent.50}"
+        },
+        "fg": {
+          "$value": "{color.accent.800}"
+        }
+      },
+      "warning": {
+        "bg": {
+          "$value": "{color.status.warning.50}"
+        },
+        "fg": {
+          "$value": "{color.status.warning.700}"
+        }
+      },
+      "danger": {
+        "bg": {
+          "$value": "{color.status.danger.50}"
+        },
+        "fg": {
+          "$value": "{color.status.danger.700}"
+        }
+      },
+      "info": {
+        "bg": {
+          "$value": "{color.accent.50}"
+        },
+        "fg": {
+          "$value": "{color.accent.800}"
+        }
+      },
       "neutral": {
-        "$description": "v0.11.15 — neutral status pill bg + fg in light mode. Light mode mirror of the dark fix; raised cream backgrounds already gave neutral pills sufficient contrast pre-v0.11.15, so the value is unchanged in this mode. Declared here for mode parity with the dark token tree.",
-        "bg": { "$value": "{color.neutral.100}", "$description": "Raised neutral surface #F1F2F1 — 16.5:1 on cream-9 ink (AAA)." },
-        "fg": { "$value": "{color.neutral.900}", "$description": "Cool-neutral deep ink #141615." }
+        "$description": "v0.11.15 \u2014 neutral status pill bg + fg in light mode. Light mode mirror of the dark fix; raised cream backgrounds already gave neutral pills sufficient contrast pre-v0.11.15, so the value is unchanged in this mode. Declared here for mode parity with the dark token tree.",
+        "bg": {
+          "$value": "{color.neutral.100}",
+          "$description": "Raised neutral surface #F1F2F1 \u2014 16.5:1 on cream-9 ink (AAA)."
+        },
+        "fg": {
+          "$value": "{color.neutral.900}",
+          "$description": "Cool-neutral deep ink #141615."
+        }
       }
     },
     "aurora": {
-      "$description": "Radial spring-green ambient glow — softer in light mode (paper canvas carries less contrast headroom).",
-      "color":  { "$value": "{color.alpha.accent.24}" },
-      "core":   { "$value": "{color.alpha.accent.40}" }
+      "$description": "Radial spring-green ambient glow \u2014 softer in light mode (paper canvas carries less contrast headroom).",
+      "color": {
+        "$value": "{color.alpha.accent.24}"
+      },
+      "core": {
+        "$value": "{color.alpha.accent.40}"
+      }
     }
   }
 }

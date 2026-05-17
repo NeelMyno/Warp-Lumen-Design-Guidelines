@@ -156,5 +156,5 @@ Per [ADR 0009 — single semver system-wide](./0009-versioning-semver-system-wid
 6. **PasswordStrength dedicated contract.** Currently a sub-primitive in `primitives/inputs.tsx`. Promote in v0.8.
 7. **`space.inset.*` semantic namespace.** Components currently reach for `space.4` directly for inset padding — a `space.inset.{xs,sm,md,lg}` ladder (matching `space.stack.*` / `space.inline.*`) would clean linting.
 8. **`size.control.cozy` (36 px)** for a future `cozy` density mode (between comfortable and compact).
-9. **Lit-edge naming normalization.** `shadow.input.lit-edge` (kebab) vs `input.ring.litEdge` (camel) — cosmetic but worth a sweep.
+9. **Lit-edge naming normalization.** `shadow.input.lit-edge` (kebab) vs `input.ring.lit-edge` (camel) — cosmetic but worth a sweep.
 10. **Decide v1.0 cut criteria.** When `_build/tailwind/theme.css` ships + Vercel is alive + 3 v0.7 betas promote to stable, v1.0 is the natural next bump.

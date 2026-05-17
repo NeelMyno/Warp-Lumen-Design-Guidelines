@@ -1,34 +1,63 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "numberInput": {
-    "$description": "v0.7 — Stepper-flanked numeric input. Reuses input.* shell tokens. This file owns the increment/decrement button surface, value typography (mono), and stepper-button divider rules.",
+  "number-input": {
+    "$description": "v0.7 \u2014 Stepper-flanked numeric input. Reuses input.* shell tokens. This file owns the increment/decrement button surface, value typography (mono), and stepper-button divider rules.",
     "stepper": {
       "$description": "The minus / plus buttons that flank the numeric value. Inline inside the field shell; height matches input.height.*; width is intrinsic (icon + horizontal padding).",
       "padding": {
-        "x": { "$value": "{space.3}", "$description": "Horizontal padding around the +/− glyph." }
+        "x": {
+          "$value": "{space.3}",
+          "$description": "Horizontal padding around the +/\u2212 glyph."
+        }
       },
       "background": {
-        "rest":  { "$value": "transparent" },
-        "hover": { "$value": "{color.surface.sunken}" },
-        "press": { "$value": "{color.surface.sunken}" }
+        "rest": {
+          "$value": "transparent"
+        },
+        "hover": {
+          "$value": "{color.surface.sunken}"
+        },
+        "press": {
+          "$value": "{color.surface.sunken}"
+        }
       },
       "color": {
-        "rest":     { "$value": "{color.text.secondary}" },
-        "hover":    { "$value": "{color.text.primary}" },
-        "disabled": { "$value": "{color.text.disabled}" }
+        "rest": {
+          "$value": "{color.text.secondary}"
+        },
+        "hover": {
+          "$value": "{color.text.primary}"
+        },
+        "disabled": {
+          "$value": "{color.text.disabled}"
+        }
       },
-      "iconSize": { "$value": "{dimension.3}", "$description": "12 px — Lucide minus / plus glyph." }
+      "icon-size": {
+        "$value": "{dimension.3}",
+        "$description": "12 px \u2014 Lucide minus / plus glyph."
+      }
     },
     "value": {
       "$description": "Numeric value renders centered, mono, tabular numerics enabled.",
-      "type":  { "$value": "{type.data.md}", "$description": "Mono with tnum/lnum on for ledger-aligned digits." },
-      "color": { "$value": "{color.text.primary}" },
-      "align": { "$value": "center" }
+      "type": {
+        "$value": "{type.data.md}",
+        "$description": "Mono with tnum/lnum on for ledger-aligned digits."
+      },
+      "color": {
+        "$value": "{color.text.primary}"
+      },
+      "align": {
+        "$value": "center"
+      }
     },
     "suffix": {
       "$description": "Optional trailing addon (e.g. '%', 'lb', 'STD'). Uses the same role as input.foreground.addon for theming continuity.",
-      "type":  { "$value": "{type.eyebrow.mono}" },
-      "color": { "$value": "{color.text.tertiary}" }
+      "type": {
+        "$value": "{type.eyebrow.mono}"
+      },
+      "color": {
+        "$value": "{color.text.tertiary}"
+      }
     }
   }
 }

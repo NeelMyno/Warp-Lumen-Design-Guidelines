@@ -130,7 +130,7 @@ export function Combobox({
             "transition-transform duration-[var(--motion-duration-fast)] ease-[var(--motion-easing-standard)]",
             open && "rotate-180",
           )}
-          style={{ color: "var(--combobox-trigger-caretColor, var(--color-text-tertiary))" }}
+          style={{ color: "var(--combobox-trigger-caret-color, var(--color-text-tertiary))" }}
         >
           <ChevronDown size={14} />
         </span>
@@ -146,7 +146,7 @@ export function Combobox({
             border: "1px solid var(--color-border-default)",
             borderRadius: "var(--radius-popover)",
             boxShadow: "var(--shadow-popover)",
-            maxHeight: "var(--combobox-listbox-maxHeight)",
+            maxHeight: "var(--combobox-listbox-max-height)",
             overflowY: "auto",
           }}
         >

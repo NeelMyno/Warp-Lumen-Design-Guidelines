@@ -6,7 +6,57 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below) plus the v0.13.1 deferred-cleanup patch (below) plus the v0.13.2 hardening patch (below). After the operator merges `v0.13.0` (with the v0.13.1 + v0.13.2 patches folded in) to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+_v0.13.0 release candidate. Phase 0 → Phase 6 complete (Phase 6 entry below) plus the v0.13.1 deferred-cleanup patch (below) plus the v0.13.2 hardening patch (below) plus the v0.13.3 SD-pipeline + security + token-naming hardening patch (below). After the operator merges `v0.13.0` (with the v0.13.1 + v0.13.2 + v0.13.3 patches folded in) to `main` and tags, this section retires and the `[0.13.0]` block becomes the official release entry._
+
+---
+
+## [0.13.3] — 2026-05-17 — SD-pipeline + security + token-naming hardening · closes the 3 items v0.13.2 deferred to v0.13.3 plus 4 fresh-eyes findings
+
+Third-pass audit on the v0.13.0 ship + v0.13.1 cleanup + v0.13.2 hardening. The v0.13.2 phase-8 report logged 3 items "for v0.13.3" (Swift dimension 16× scaling, Compose unquoted-string regression, npm-audit advisories) plus 1 unfixed npm-audit note. v0.13.3 closes all four AND finds 4 more items under fresh-eyes audit (lint:token-naming silent-fail + 45 violations; broken `var()` calls in 2 example TSX files; `audit-dashboard/src/app/lumen-mode-tokens.css` drift risk; `llms-full.txt` missing phase-8 content). All 17 hard gates now pass with margin — including the newly-wired `pnpm lint:token-naming` (was registered as a script but never run in CI) and `pnpm audit` (was reporting 3 high-severity vulnerabilities pre-patch).
+
+### Fixed
+
+- **`dist/swift/Lumen+Spacing.swift` values were 16× scaled.** `buttonGapLg = CGFloat(128.00)` for an 8 px source. Root cause: SD v5's built-in `size/swift/remToCGFloat` transform assumes input is rem and multiplies by 16; Lumen stores dimensions in raw px. Same bug in `LumenTokens.swift` + every dimension token across both files. Fix: registered a new `lumen/native/dimension/cgfloat` transform (raw px → `CGFloat(N.00)`) and a custom `lumen/swift` transform group built from `ios-swift`'s exact list with the buggy transform swapped. Verified: `buttonGapLg = CGFloat(8.00)`, `space1 = CGFloat(4.00)`, `radiusCardDefault = CGFloat(12.00)` all correct.
+
+- **`dist/compose/LumenTypography.kt` had invalid Kotlin syntax for string tokens.** `val fontFamilySans = Satoshi, Satoshi-Fallback, ...` (unquoted comma-separated identifiers — invalid Kotlin; consumers wouldn't compile). Same bug in `Lumen+Typography.swift`. Root cause: SD's `compose/object` + `ios-swift/class.swift` formatters pass through string `$value`s without quoting. Fix: registered new `lumen/{compose,swift}/string-literal` transforms that filter on `fontFamily` and wrap the value in `"..."` (with escaping). Verified: `val fontFamilySans = "Satoshi, Satoshi-Fallback, ..., sans-serif"` quoted correctly.
+
+- **All composite tokens (typography, padding-xy, shadow, transition) emitted as `[object Object]` in Swift + Compose dist outputs.** Phase 0 flagged the same regression in CSS; chat 12 fixed CSS via 4 `lumen/*` shorthand transforms; Swift + Compose were never touched. Symptoms in v0.13.2: 32 + 32 `[object Object]` occurrences across `LumenTokens.swift` + `LumenTokensDark.swift`, plus 10 + 10 in Spacing, plus 2 + 2 in Colors. Root cause: composite `$value`s are JS objects; neither the Swift nor Compose formatter knows how to materialize them. Fix: registered `isAtomicNativeToken(token)` filter that excludes any token whose post-transform `$value` is still an object or array, regardless of declared `$type` (catches the smoking-gun case where `color.action.primary.glow` declares `$type: color` but aliases `{shadow.accent-glow}`, whose resolved value is a multi-layer shadow array). Filter composed onto every Swift + Compose platform file's existing color/spacing/typography filter. Verified: 0 `[object Object]` across all 8 Swift + Compose outputs (was 66 + ~32 pre-patch).
+
+- **`pnpm audit` reported 3 high-severity vulnerabilities** in `fast-uri < 3.1.2` + `fast-json-patch < 3.1.1` via `ajv-cli > ajv` (GHSA-8gh8-hqwg-xf34 — prototype pollution; GHSA-q3j6-qgpj-74h6 — path traversal; GHSA-v39h-62p7-jpjc — host confusion). The advisories sit in transitive deps that ajv-cli@5.0.0 hadn't bumped to. Fix: added `pnpm.overrides` to package.json forcing `fast-uri@>=3.1.2` and `fast-json-patch@>=3.1.1`. Conditional form (`"fast-uri@<3.1.2": ">=3.1.2"`) leaves non-vulnerable versions alone. Verified: `pnpm audit` exits 0 ("No known vulnerabilities found").
+
+- **`pnpm lint:token-naming` had been failing silently since v0.8** with 45 violations across 17 source token files (e.g., `combobox.trigger.caretColor`, `input.ring.litEdge`, `switch.thumb.translateOn`). AND the script was NOT wired into the `pnpm lint` umbrella — chat 13's "all 6 sub-lints pass" was true but the umbrella was a SUBSET (the 7th sub-lint existed but was never run in CI). Fix: (a) wired `lint:token-naming` into `pnpm lint`; (b) renamed all 45 camelCase token-path segments to kebab-case in the 17 source `tokens.json` files; (c) updated all 24 downstream files in lockstep (16 `component.json` files; 2 example TSX files with broken `var()` calls — see next fix; 3 platform READMEs; 1 ADR cross-reference; coverage doc). The RESOLVED token values are unchanged — SD's `name/kebab` transform normalized both `caretColor` and `caret-color` to the same CSS variable `--combobox-trigger-caret-color` — so the CSS / Tailwind / Swift / Compose outputs all emit identical values both before and after the rename.
+
+- **TWO consumer-facing example TSX files shipped broken `var()` calls.** `combobox/examples/web-react.tsx` had `var(--combobox-trigger-caretColor, var(--color-text-tertiary))`; `input/examples/primary.tsx` had `var(--input-ring-litEdge)` + `var(--input-background-readOnly)` + `var(--input-foreground-valueReadOnly)` + `var(--input-border-readOnly)`. SD generates the FULLY-kebab forms (`--combobox-trigger-caret-color`, `--input-ring-lit-edge`, etc.); the half-kebab `var()` calls in these examples DIDN'T resolve — they silently fell back to the default value. Consumers running `npx shadcn add @lumen/combobox` or `@lumen/input` were shipping broken focus rings + readonly states. Fix: textual-replaced all 5 broken `var()` calls to the SD-canonical kebab form. Verified: dashboard `tsc --noEmit` exits 0.
+
+- **`audit-dashboard/src/app/lumen-mode-tokens.css` drift-risk was undocumented.** Phase 2 said it would retire the file via `@import dist/css/lumen.expressive.css`; never happened (dist/ is gitignored — Vercel can't @import a missing file). Fix: expanded the file's header comment to document THREE operator-side retirement paths (check dist/ into git; add Vercel `buildCommand`; emit dist into audit-dashboard/) + verified the current values are byte-equivalent to `dist/css/lumen.expressive.css` as of v0.13.3. Full retirement is v0.14 operator-side.
+
+- **`llms-full.txt` was missing the v0.13.2 phase-8 report content.** Chat 13 wrote `phase-8-report.md` AFTER running `pnpm llms:all`, so the regeneration didn't pick up the new file. Fix: regenerated `llms-full.txt` (now 474 files / 2,187,774 chars / ~546K tokens — embeds both phase-8 + phase-9 content).
+
+### Added
+
+- **`lumen/native/dimension/cgfloat`** transform in [`style-dictionary.config.ts`](style-dictionary.config.ts) — emits raw px as `CGFloat(N.00)` for Swift. Broad filter handles DTCG `$type: dimension`, `attributes.category in [space, size, radius, spacing]`, AND value-shape `{value, unit}` (for aliases that bypass `$type` group-level inheritance).
+- **`lumen/native/dimension/dp`** transform — same for Compose, emits `N.dp`.
+- **`lumen/swift/string-literal`** + **`lumen/compose/string-literal`** transforms — quote fontFamily strings as `"comma, separated, list"` (Swift + Kotlin literals).
+- **`isAtomicNativeToken(token)`** filter helper — returns `false` for composite values; called from every Swift + Compose platform file's `filter` field.
+- **`lumen/swift`** + **`lumen/compose`** transform groups — built from `ios-swift` + `compose`'s exact lists with the buggy dimension transforms swapped and the new string-literal transforms appended.
+- **`pnpm.overrides`** block in [`package.json`](package.json) — forces `fast-uri@>=3.1.2` + `fast-json-patch@>=3.1.1` to close the 3 high-severity npm-audit advisories.
+- **`lint:token-naming`** in the `pnpm lint` umbrella — now enforces kebab-case path segments on every PR.
+- **[`design-system/06-claude-code-briefings/phase-9-report.md`](design-system/06-claude-code-briefings/phase-9-report.md)** — this patch's report per master doc §10.3.
+
+### Changed
+
+- **45 token paths RENAMED** from camelCase to kebab-case across 17 source token files (`combobox.tokens.json`, `date-picker.tokens.json`, `file-dropzone.tokens.json`, `input.tokens.json`, `number-input.tokens.json`, `otp-input.tokens.json`, `password-input.tokens.json`, `radio.tokens.json`, `range-slider.tokens.json`, `segmented.tokens.json`, `select.tokens.json`, `switch.tokens.json`, `tags-input.tokens.json`, `textarea.tokens.json`, `time-picker.tokens.json`, `color.dark.tokens.json`, `color.light.tokens.json`). Example renames: `caretColor → caret-color`, `litEdge → lit-edge`, `translateOn → translate-on`, `valueReadOnly → value-read-only`, `iconSize → icon-size`, `minHeight → min-height`. The CSS-variable output is identical both before and after (SD's `name/kebab` transform normalizes both forms).
+- **24 downstream files** updated in lockstep with the rename — 16 `component.json` files (tokens.consumed arrays); 2 example TSX files (broken `var()` calls fixed); 3 platform README files; 1 historical ADR (`_meta/decisions/0012-distribution-surface-v07.md`); `CHANGELOG.md` (history preserved); `PRIMITIVE-COVERAGE.md`.
+- **All 4 Swift + Compose platform configs** in [`style-dictionary.config.ts`](style-dictionary.config.ts) — moved off the built-in `ios-swift` + `compose` transform groups onto the new Lumen groups, with `isAtomicNativeToken` composed onto each file's existing filter.
+- **`audit-dashboard/src/app/lumen-mode-tokens.css`** — header comment expanded (~30 lines) documenting the drift risk + the three operator-side retirement paths. File content (the actual CSS variables) unchanged — verified byte-equivalent to `dist/css/lumen.expressive.css`.
+
+### Notes
+
+- 1 file created (phase-9 report); 1 file modified with substantive logic change (style-dictionary.config.ts); 45 token paths renamed across 17 source files; 24 downstream files updated in lockstep.
+- All 17 hard gates pass — verified by enumeration in the phase-9 report verification gates table (master doc §10.3 contract).
+- 0 hard-rule violations introduced. Brand DNA verbatim — Spring Green is still the only loud color; obsidian is still `#0D0D0D`; Satoshi is still the typeface; the 4/8 grid is preserved; WCAG 2.2 AA is preserved.
+- 8 operator-side gates remain (same as v0.13.1 + v0.13.2 deferrals — Lighthouse / OPENAI_API_KEY / ANTHROPIC_API_KEY / native toolchains / Vercel deploy / Storybook bundler / consumer install verification / audit-dashboard lumen-mode-tokens.css full retirement). None addressable in-env.
+- v0.13.4 candidates: audit-dashboard CSS retirement, Lighthouse in CI, reference PNG materialization. v0.14 candidates: optional `@warp/lumen-mcp`, iOS/Android AI primitive translations, `_aliases.tokens.json` promotion, composite-typography helpers on iOS+Compose, possibly split AGENTS.md by domain.
 
 ---
 
@@ -1864,7 +1914,7 @@ See [ADR 0012](./_meta/decisions/0012-distribution-surface-v07.md) for the full 
 - **PasswordStrength dedicated contract.** Currently a sub-primitive in `primitives/inputs.tsx`. Promote in v0.8.
 - **`space.inset.*` semantic namespace.** A `space.inset.{xs,sm,md,lg}` ladder (matching `space.stack.*` / `space.inline.*`) for inset-padding lint cleanliness.
 - **`size.control.cozy` (36 px)** for a future `cozy` density mode (between comfortable and compact).
-- **Lit-edge naming normalization.** `shadow.input.lit-edge` (kebab) vs `input.ring.litEdge` (camel) — cosmetic but worth a sweep.
+- **Lit-edge naming normalization.** `shadow.input.lit-edge` (kebab) vs `input.ring.lit-edge` (camel) — cosmetic but worth a sweep.
 - **Vercel deployment** still dead (`DEPLOYMENT_NOT_FOUND` from v0.6). Blocks `pnpm cls` + visual-audit re-loop.
 - **v1.0 cut criteria.** When `_build/tailwind/theme.css` ships + Vercel is alive + 3 v0.7 betas promote to stable, v1.0 is the natural next bump.
 

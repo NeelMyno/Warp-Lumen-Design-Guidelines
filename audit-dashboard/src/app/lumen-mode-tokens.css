@@ -3,9 +3,24 @@
    ----------------------------------------------------------------------------
    Audit-dashboard runtime mirror of dist/css/lumen.css + lumen.expressive.css
    for the mode-aware tokens introduced in Phase 1. Manually mirrored here
-   because the audit-dashboard's globals.css is hand-authored and does not yet
-   @import the Style Dictionary output. Phase 2 will replace this with a direct
-   @import dist/css/lumen.css + lumen.expressive.css and this file will go away.
+   because dist/ is gitignored — the audit-dashboard's Vercel deploy can't
+   @import a file that isn't checked into the repo. The full retirement plan
+   is operator-side via ONE of:
+     (a) check `dist/` into git (drops the build-time dependency); OR
+     (b) add a Vercel `buildCommand`: `pnpm tokens && pnpm docs:build` so
+         dist/ is materialized before audit-dashboard compiles; OR
+     (c) emit dist/css/lumen.expressive.css directly under
+         audit-dashboard/src/app/lumen-dist/ via a new SD output target.
+   None of these are in-env wins for v0.13.3 — they need operator-side Vercel
+   project config. Logged as v0.14 candidate in phase-9 report.
+
+   Drift risk: low but real. The values in this file were authored from the
+   master-doc Phase 1 spec + the Phase 1 report's documented retunes
+   (mesh-aurora-spring blob alpha 10% → 8% to clear body-tier contrast;
+   surface-atmosphere 12% → 8% same reason). As of v0.13.3 they MATCH
+   dist/css/lumen.expressive.css byte-for-byte (whitespace aside). If the
+   SD pipeline emits new mode-aware tokens, this file needs a corresponding
+   update. `pnpm tokens` does NOT regenerate this file.
 
    Source values mirror:
      - design-system/01-tokens/primitives/glass.tokens.json
@@ -16,8 +31,7 @@
      - design-system/01-tokens/modes/expressive.tokens.json
 
    If you edit a value here, also edit the matching primitive .tokens.json so
-   the SD-built dist/css/lumen.css stays in sync. The lint pass in Phase 2 will
-   close this loop.
+   the SD-built dist/css/lumen.css stays in sync.
    ============================================================================ */
 
 /* ----------------------------------------------------------------------------

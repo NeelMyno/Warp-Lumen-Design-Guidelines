@@ -22,13 +22,13 @@
       "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
       "input.foreground.value", "input.foreground.placeholder",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition",
-      "tagsInput.shell.minHeight", "tagsInput.shell.padding.y", "tagsInput.shell.gap.wrap",
-      "tagsInput.tag.height", "tagsInput.tag.padding.x", "tagsInput.tag.radius", "tagsInput.tag.type",
-      "tagsInput.tag.background", "tagsInput.tag.color", "tagsInput.tag.border",
-      "tagsInput.tag.remove.color.rest", "tagsInput.tag.remove.color.hover", "tagsInput.tag.remove.iconSize",
-      "tagsInput.draft.minWidth", "tagsInput.draft.type", "tagsInput.draft.color", "tagsInput.draft.placeholder"
+      "tags-input.shell.min-height", "tags-input.shell.padding.y", "tags-input.shell.gap.wrap",
+      "tags-input.tag.height", "tags-input.tag.padding.x", "tags-input.tag.radius", "tags-input.tag.type",
+      "tags-input.tag.background", "tags-input.tag.color", "tags-input.tag.border",
+      "tags-input.tag.remove.color.rest", "tags-input.tag.remove.color.hover", "tags-input.tag.remove.icon-size",
+      "tags-input.draft.min-width", "tags-input.draft.type", "tags-input.draft.color", "tags-input.draft.placeholder"
     ]
   },
   "a11y": {
