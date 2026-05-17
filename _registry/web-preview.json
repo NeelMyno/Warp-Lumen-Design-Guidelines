@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "web-preview",
+  "type": "registry:ui",
+  "title": "WebPreview",
+  "description": "Iframe with safety wrapper used by Artifact for HTML / web previews. Sandbox attribute defaults to safe; CSP-friendly.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/web-preview/web-preview.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/web-preview.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "WebPreview",
+      "installCommand": "npx ai-elements@latest add web-preview"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "confirmation",
+  "type": "registry:ui",
+  "title": "Confirmation",
+  "description": "Approval gate for destructive tool calls. Brutalist hairline frame; slow-down-and-repeat-the-noun copy. Pairs with Tool when the tool is write-side.",
+  "dependencies": [
+    "@radix-ui/react-alert-dialog",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/confirmation/confirmation.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/confirmation.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Confirmation",
+      "installCommand": "npx ai-elements@latest add confirmation"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

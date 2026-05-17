@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "suggestion-strip",
+  "type": "registry:ui",
+  "title": "Suggestion",
+  "description": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/suggestion-strip/suggestion-strip.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/suggestion.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Suggestion",
+      "installCommand": "npx ai-elements@latest add suggestion"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

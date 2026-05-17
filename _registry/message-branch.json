@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message-branch",
+  "type": "registry:ui",
+  "title": "MessageBranch",
+  "description": "Navigation for regenerated assistant responses. Renders MessageBranch + MessageBranchContent + MessageBranchPrevious / Next / Page / Selector. Mirrors Vercel AI Elements verbatim.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/message-branch/message-branch.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/message-branch.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Message",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "MessageBranch",
+      "installCommand": "npx ai-elements@latest add message"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

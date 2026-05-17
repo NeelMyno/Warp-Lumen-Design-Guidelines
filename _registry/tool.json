@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tool",
+  "type": "registry:ui",
+  "title": "Tool",
+  "description": "Tool-call rendering primitive: Tool + ToolHeader + ToolInput + ToolOutput. Consumes AI SDK ToolUIPart / DynamicToolUIPart. Integrates with Confirmation for destructive calls.",
+  "dependencies": [
+    "lucide-react",
+    "@radix-ui/react-collapsible"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/tool/tool.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/tool.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Tool",
+      "installCommand": "npx ai-elements@latest add tool"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

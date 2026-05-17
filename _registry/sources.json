@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sources",
+  "type": "registry:ui",
+  "title": "Sources",
+  "description": "Citation footer below an assistant Message. Consumes the Anthropic Citations API JSON shape (cited_text, document_title, document_index, char/page/content_block_location). Pairs with InlineCitation superscripts in the body.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/sources/sources.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/sources.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Sources",
+      "installCommand": "npx ai-elements@latest add sources"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

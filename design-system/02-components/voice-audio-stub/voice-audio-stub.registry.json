@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "voice-audio-stub",
+  "type": "registry:ui",
+  "title": "VoiceAudio",
+  "description": "STUB. Voice & Audio family entry point (AudioPlayer + Transcription + VoiceSelector + SpeechInput + MicSelector). Marked experimental until a Warp surface needs voice; flesh out at that point.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/voice-audio-stub/voice-audio-stub.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/voice-audio.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "VoiceAudio",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "AudioPlayer",
+      "installCommand": "npx ai-elements@latest add audio-player"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

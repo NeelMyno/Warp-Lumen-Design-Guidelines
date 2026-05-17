@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader-ai",
+  "type": "registry:ui",
+  "title": "Loader",
+  "description": "AI-context loader. Wraps Lumen's v0.12.4 Spinner primitive; adds an 'AI thinking' label slot. Use during pre-stream wait when the model is queued but no tokens have arrived.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/loader-ai/loader-ai.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/loader.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Loader",
+      "installCommand": "npx ai-elements@latest add loader"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

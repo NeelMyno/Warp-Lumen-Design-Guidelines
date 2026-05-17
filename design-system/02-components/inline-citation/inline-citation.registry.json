@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inline-citation",
+  "type": "registry:ui",
+  "title": "InlineCitation",
+  "description": "Clickable [1]-style superscript inside MessageResponse. Scrolls to the matching Sources entry on click. Consumes Anthropic Citations API document_index.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/inline-citation/inline-citation.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/inline-citation.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "InlineCitation",
+      "installCommand": "npx ai-elements@latest add inline-citation"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

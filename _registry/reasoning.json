@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reasoning",
+  "type": "registry:ui",
+  "title": "Reasoning",
+  "description": "Collapsible chain-of-thought disclosure for assistant turns. Reasoning + ReasoningTrigger + ReasoningContent. Shimmer during streaming, fades to collapsed when complete. Mirrors Vercel AI Elements `Reasoning`.",
+  "dependencies": [
+    "@radix-ui/react-collapsible",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base",
+    "@lumen/message"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/reasoning/reasoning.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/reasoning.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Reasoning",
+      "installCommand": "npx ai-elements@latest add reasoning"
+    },
+    "platforms": ["web-react"]
+  }
+}

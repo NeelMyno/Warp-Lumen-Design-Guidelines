@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "artifact",
+  "type": "registry:ui",
+  "title": "Artifact",
+  "description": "Anthropic-style artifact rendering: code / document / HTML / SVG / Mermaid in a collapsible scoped container. Includes a header (title + type badge), preview pane, and copy / open-in-new-window actions.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/artifact/artifact.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/artifact.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Artifact",
+      "installCommand": "npx ai-elements@latest add artifact"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

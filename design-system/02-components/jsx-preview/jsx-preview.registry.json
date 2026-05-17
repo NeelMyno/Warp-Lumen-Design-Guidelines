@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "jsx-preview",
+  "type": "registry:ui",
+  "title": "JSXPreview",
+  "description": "Live React component preview for assistant-generated JSX. Compiles with @babel/standalone in-browser; surfaces compile errors via StackTrace.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/jsx-preview/jsx-preview.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/jsx-preview.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "JSXPreview",
+      "installCommand": "npx ai-elements@latest add jsx-preview"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "prompt-input",
+  "type": "registry:ui",
+  "title": "PromptInput",
+  "description": "Composable input bar for AI chat. Ships PromptInput root + PromptInputTextarea + PromptInputTools + PromptInputButton + PromptInputFooter + PromptInputSubmit + PromptInputSelect (model picker). Provider pattern with usePromptInput hook; file-attachment validation built in.",
+  "dependencies": [
+    "@radix-ui/react-select",
+    "@radix-ui/react-popover",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/prompt-input/prompt-input.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/prompt-input.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "PromptInput",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "PromptInput",
+      "installCommand": "npx ai-elements@latest add prompt-input"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Message",
+  "version": "0.13.0",
+  "status": "stable",
+  "summary": "Single-turn bubble in an AI conversation. Renders user / assistant / system / tool roles with role-appropriate alignment, surface treatment, and accessibility hooks. Mirrors Vercel AI Elements `Message` verbatim; `MessageContent` is the body slot.",
+  "props": {
+    "from": {
+      "type": "enum",
+      "values": ["user", "assistant", "system", "tool"],
+      "default": "user",
+      "optional": false,
+      "description": "Speaker role. Drives alignment (user right, assistant left), surface treatment, and announce-via-aria behavior."
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "description": "Stable id for the message. Used as React key in long threads + as anchor target for InlineCitation jumps."
+    },
+    "children": {
+      "type": "node",
+      "optional": false,
+      "description": "MessageContent + optional MessageResponse + Reasoning + Tool + Sources + Actions slots."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.surface.tint-accent",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "color.border.frame",
+      "space.3",
+      "space.4",
+      "space.6",
+      "radius.lg",
+      "radius.xl",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "role": "article",
+    "ariaLabel": "Conditional: 'You said: ...' for user, 'Assistant said: ...' for assistant.",
+    "screenReader": "Assistant messages flow through Conversation's aria-live=polite announcer. System messages use aria-live=assertive (rare; reserve for critical state).",
+    "keyboardSupport": ["Tab navigates between Actions strip buttons below message"]
+  },
+  "rules": {
+    "never": [
+      "NEVER render a user bubble with Spring Green chrome. The accent is for assistant action moments only.",
+      "NEVER bake the model name into Message. Models live in PromptInputSelect / LumenAIProvider context.",
+      "NEVER drop the from prop. Without it, alignment + ARIA semantics break."
+    ],
+    "always": [
+      "ALWAYS pair user messages with right-alignment + neutral surface; assistant messages with left-alignment + tint-accent surface for active streaming, neutral when complete.",
+      "ALWAYS forward the id for InlineCitation anchor jumps."
+    ]
+  },
+  "examples": [
+    "examples/user-message.tsx",
+    "examples/assistant-message.tsx",
+    "examples/with-reasoning-and-tool.tsx"
+  ],
+  "vercelAIElements": {
+    "name": "Message",
+    "installCommand": "npx ai-elements@latest add message",
+    "registryUrl": "https://elements.ai-sdk.dev/r/message.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Message",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}

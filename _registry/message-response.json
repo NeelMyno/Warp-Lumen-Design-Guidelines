@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message-response",
+  "type": "registry:ui",
+  "title": "MessageResponse",
+  "description": "Streaming-optimized markdown renderer for assistant message bodies. Shimmer + cursor while streaming; safe markdown by default. Mirrors Vercel AI Elements `MessageResponse` (ships in the same `message` module).",
+  "dependencies": [
+    "react-markdown",
+    "remark-gfm"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/message"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/message-response/message-response.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/message-response.tsx"
+    }
+  ],
+  "cssVars": { "light": {}, "dark": {} },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Message",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "MessageResponse",
+      "installCommand": "npx ai-elements@latest add message"
+    },
+    "platforms": ["web-react"]
+  }
+}

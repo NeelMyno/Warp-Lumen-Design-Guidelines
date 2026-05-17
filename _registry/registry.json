@@ -4,114 +4,386 @@
   "homepage": "https://lumen.warp.dev",
   "description": "Lumen — Warp's vertically integrated design system. Obsidian canvas, Satoshi single-typeface system, Spring Green (#00FA8A) action-only accent. v0.12.6 ships the primitive coverage drop — 63 new component contracts (Tabs, Breadcrumbs, Pagination, Stepper, DropdownMenu, Tooltip, Popover, Accordion, Divider, Link, Alert, Banner, Spinner, Progress, Skeleton, NotificationCenter, Snackbar, Avatar, Tag, List, CodeBlock, CopyButton, Kbd, Trend, Drawer, Sheet, Panel, Navbar, Sidebar, BottomNav, Toolbar, ActionSheet, PhoneFrame, StatusBar, SwipeAction, PullToRefresh, PermissionPrompt, CoachMark, Carousel, Timeline, Calendar, TreeView, Kanban, DataGrid, Chart, Sparkline, KpiCard, AIPromptInput, AISuggestion, AIBadge, CitationCard, ChatBubble, CommentThread, ReactionBar, PresenceIndicator, Slider, ColorPicker, SearchField, PricingCard, TestimonialCard, LogoCloud, InventoryStatus, CartDrawer). Install: `npx shadcn@latest add <registry-url>/<name>`.",
   "items": [
-    { "$ref": "./mode-scope.json" },
-    { "$ref": "./button.json" },
-    { "$ref": "./input.json" },
-    { "$ref": "./card.json" },
-    { "$ref": "./badge.json" },
-    { "$ref": "./stat.json" },
-    { "$ref": "./live-dot.json" },
-    { "$ref": "./rate-ticker.json" },
-    { "$ref": "./table.json" },
-    { "$ref": "./dialog.json" },
-    { "$ref": "./toast.json" },
-    { "$ref": "./empty-state.json" },
-    { "$ref": "./toggle.json" },
-    { "$ref": "./field.json" },
-    { "$ref": "./form.json" },
-    { "$ref": "./textarea.json" },
-    { "$ref": "./select.json" },
-    { "$ref": "./checkbox.json" },
-    { "$ref": "./radio-group.json" },
-    { "$ref": "./switch.json" },
-    { "$ref": "./validation-message.json" },
-    { "$ref": "./combobox.json" },
-    { "$ref": "./number-input.json" },
-    { "$ref": "./password-input.json" },
-    { "$ref": "./otp-input.json" },
-    { "$ref": "./tags-input.json" },
-    { "$ref": "./date-picker.json" },
-    { "$ref": "./time-picker.json" },
-    { "$ref": "./segmented.json" },
-    { "$ref": "./range-slider.json" },
-    { "$ref": "./file-dropzone.json" },
-    { "$ref": "./icon-button.json" },
-    { "$ref": "./button-group.json" },
-    { "$ref": "./split-button.json" },
-    { "$ref": "./command-palette-button.json" },
-    { "$ref": "./fab.json" },
-
-    { "$ref": "./tabs.json" },
-    { "$ref": "./breadcrumbs.json" },
-    { "$ref": "./pagination.json" },
-    { "$ref": "./stepper.json" },
-    { "$ref": "./dropdown-menu.json" },
-    { "$ref": "./tooltip.json" },
-    { "$ref": "./popover.json" },
-    { "$ref": "./accordion.json" },
-    { "$ref": "./divider.json" },
-    { "$ref": "./link.json" },
-
-    { "$ref": "./alert.json" },
-    { "$ref": "./banner.json" },
-    { "$ref": "./spinner.json" },
-    { "$ref": "./progress.json" },
-    { "$ref": "./skeleton.json" },
-    { "$ref": "./notification-center.json" },
-    { "$ref": "./snackbar.json" },
-
-    { "$ref": "./avatar.json" },
-    { "$ref": "./tag.json" },
-    { "$ref": "./list.json" },
-    { "$ref": "./code-block.json" },
-    { "$ref": "./copy-button.json" },
-    { "$ref": "./kbd.json" },
-    { "$ref": "./trend.json" },
-
-    { "$ref": "./drawer.json" },
-    { "$ref": "./sheet.json" },
-    { "$ref": "./panel.json" },
-    { "$ref": "./navbar.json" },
-    { "$ref": "./sidebar.json" },
-    { "$ref": "./bottom-nav.json" },
-    { "$ref": "./toolbar.json" },
-    { "$ref": "./action-sheet.json" },
-
-    { "$ref": "./phone-frame.json" },
-    { "$ref": "./status-bar.json" },
-    { "$ref": "./swipe-action.json" },
-    { "$ref": "./pull-to-refresh.json" },
-    { "$ref": "./permission-prompt.json" },
-    { "$ref": "./coach-mark.json" },
-
-    { "$ref": "./carousel.json" },
-    { "$ref": "./timeline.json" },
-    { "$ref": "./calendar.json" },
-    { "$ref": "./tree-view.json" },
-    { "$ref": "./kanban.json" },
-    { "$ref": "./data-grid.json" },
-
-    { "$ref": "./chart.json" },
-    { "$ref": "./sparkline.json" },
-    { "$ref": "./kpi-card.json" },
-
-    { "$ref": "./ai-prompt-input.json" },
-    { "$ref": "./ai-suggestion.json" },
-    { "$ref": "./ai-badge.json" },
-    { "$ref": "./citation-card.json" },
-    { "$ref": "./chat-bubble.json" },
-    { "$ref": "./comment-thread.json" },
-    { "$ref": "./reaction-bar.json" },
-    { "$ref": "./presence-indicator.json" },
-
-    { "$ref": "./slider.json" },
-    { "$ref": "./color-picker.json" },
-    { "$ref": "./search-field.json" },
-
-    { "$ref": "./pricing-card.json" },
-    { "$ref": "./testimonial-card.json" },
-    { "$ref": "./logo-cloud.json" },
-    { "$ref": "./inventory-status.json" },
-    { "$ref": "./cart-drawer.json" }
+    {
+      "$ref": "./mode-scope.json"
+    },
+    {
+      "$ref": "./button.json"
+    },
+    {
+      "$ref": "./input.json"
+    },
+    {
+      "$ref": "./card.json"
+    },
+    {
+      "$ref": "./badge.json"
+    },
+    {
+      "$ref": "./stat.json"
+    },
+    {
+      "$ref": "./live-dot.json"
+    },
+    {
+      "$ref": "./rate-ticker.json"
+    },
+    {
+      "$ref": "./table.json"
+    },
+    {
+      "$ref": "./dialog.json"
+    },
+    {
+      "$ref": "./toast.json"
+    },
+    {
+      "$ref": "./empty-state.json"
+    },
+    {
+      "$ref": "./toggle.json"
+    },
+    {
+      "$ref": "./field.json"
+    },
+    {
+      "$ref": "./form.json"
+    },
+    {
+      "$ref": "./textarea.json"
+    },
+    {
+      "$ref": "./select.json"
+    },
+    {
+      "$ref": "./checkbox.json"
+    },
+    {
+      "$ref": "./radio-group.json"
+    },
+    {
+      "$ref": "./switch.json"
+    },
+    {
+      "$ref": "./validation-message.json"
+    },
+    {
+      "$ref": "./combobox.json"
+    },
+    {
+      "$ref": "./number-input.json"
+    },
+    {
+      "$ref": "./password-input.json"
+    },
+    {
+      "$ref": "./otp-input.json"
+    },
+    {
+      "$ref": "./tags-input.json"
+    },
+    {
+      "$ref": "./date-picker.json"
+    },
+    {
+      "$ref": "./time-picker.json"
+    },
+    {
+      "$ref": "./segmented.json"
+    },
+    {
+      "$ref": "./range-slider.json"
+    },
+    {
+      "$ref": "./file-dropzone.json"
+    },
+    {
+      "$ref": "./icon-button.json"
+    },
+    {
+      "$ref": "./button-group.json"
+    },
+    {
+      "$ref": "./split-button.json"
+    },
+    {
+      "$ref": "./command-palette-button.json"
+    },
+    {
+      "$ref": "./fab.json"
+    },
+    {
+      "$ref": "./tabs.json"
+    },
+    {
+      "$ref": "./breadcrumbs.json"
+    },
+    {
+      "$ref": "./pagination.json"
+    },
+    {
+      "$ref": "./stepper.json"
+    },
+    {
+      "$ref": "./dropdown-menu.json"
+    },
+    {
+      "$ref": "./tooltip.json"
+    },
+    {
+      "$ref": "./popover.json"
+    },
+    {
+      "$ref": "./accordion.json"
+    },
+    {
+      "$ref": "./divider.json"
+    },
+    {
+      "$ref": "./link.json"
+    },
+    {
+      "$ref": "./alert.json"
+    },
+    {
+      "$ref": "./banner.json"
+    },
+    {
+      "$ref": "./spinner.json"
+    },
+    {
+      "$ref": "./progress.json"
+    },
+    {
+      "$ref": "./skeleton.json"
+    },
+    {
+      "$ref": "./notification-center.json"
+    },
+    {
+      "$ref": "./snackbar.json"
+    },
+    {
+      "$ref": "./avatar.json"
+    },
+    {
+      "$ref": "./tag.json"
+    },
+    {
+      "$ref": "./list.json"
+    },
+    {
+      "$ref": "./code-block.json"
+    },
+    {
+      "$ref": "./copy-button.json"
+    },
+    {
+      "$ref": "./kbd.json"
+    },
+    {
+      "$ref": "./trend.json"
+    },
+    {
+      "$ref": "./drawer.json"
+    },
+    {
+      "$ref": "./sheet.json"
+    },
+    {
+      "$ref": "./panel.json"
+    },
+    {
+      "$ref": "./navbar.json"
+    },
+    {
+      "$ref": "./sidebar.json"
+    },
+    {
+      "$ref": "./bottom-nav.json"
+    },
+    {
+      "$ref": "./toolbar.json"
+    },
+    {
+      "$ref": "./action-sheet.json"
+    },
+    {
+      "$ref": "./phone-frame.json"
+    },
+    {
+      "$ref": "./status-bar.json"
+    },
+    {
+      "$ref": "./swipe-action.json"
+    },
+    {
+      "$ref": "./pull-to-refresh.json"
+    },
+    {
+      "$ref": "./permission-prompt.json"
+    },
+    {
+      "$ref": "./coach-mark.json"
+    },
+    {
+      "$ref": "./carousel.json"
+    },
+    {
+      "$ref": "./timeline.json"
+    },
+    {
+      "$ref": "./calendar.json"
+    },
+    {
+      "$ref": "./tree-view.json"
+    },
+    {
+      "$ref": "./kanban.json"
+    },
+    {
+      "$ref": "./data-grid.json"
+    },
+    {
+      "$ref": "./chart.json"
+    },
+    {
+      "$ref": "./sparkline.json"
+    },
+    {
+      "$ref": "./kpi-card.json"
+    },
+    {
+      "$ref": "./ai-prompt-input.json"
+    },
+    {
+      "$ref": "./ai-suggestion.json"
+    },
+    {
+      "$ref": "./ai-badge.json"
+    },
+    {
+      "$ref": "./citation-card.json"
+    },
+    {
+      "$ref": "./chat-bubble.json"
+    },
+    {
+      "$ref": "./comment-thread.json"
+    },
+    {
+      "$ref": "./reaction-bar.json"
+    },
+    {
+      "$ref": "./presence-indicator.json"
+    },
+    {
+      "$ref": "./slider.json"
+    },
+    {
+      "$ref": "./color-picker.json"
+    },
+    {
+      "$ref": "./search-field.json"
+    },
+    {
+      "$ref": "./pricing-card.json"
+    },
+    {
+      "$ref": "./testimonial-card.json"
+    },
+    {
+      "$ref": "./logo-cloud.json"
+    },
+    {
+      "$ref": "./inventory-status.json"
+    },
+    {
+      "$ref": "./cart-drawer.json"
+    },
+    {
+      "$ref": "./conversation.json"
+    },
+    {
+      "$ref": "./message.json"
+    },
+    {
+      "$ref": "./message-response.json"
+    },
+    {
+      "$ref": "./message-branch.json"
+    },
+    {
+      "$ref": "./reasoning.json"
+    },
+    {
+      "$ref": "./tool.json"
+    },
+    {
+      "$ref": "./confirmation.json"
+    },
+    {
+      "$ref": "./sources.json"
+    },
+    {
+      "$ref": "./inline-citation.json"
+    },
+    {
+      "$ref": "./prompt-input.json"
+    },
+    {
+      "$ref": "./suggestion-strip.json"
+    },
+    {
+      "$ref": "./actions.json"
+    },
+    {
+      "$ref": "./loader-ai.json"
+    },
+    {
+      "$ref": "./artifact.json"
+    },
+    {
+      "$ref": "./web-preview.json"
+    },
+    {
+      "$ref": "./jsx-preview.json"
+    },
+    {
+      "$ref": "./sandbox-block.json"
+    },
+    {
+      "$ref": "./schema-display.json"
+    },
+    {
+      "$ref": "./snippet.json"
+    },
+    {
+      "$ref": "./stack-trace.json"
+    },
+    {
+      "$ref": "./terminal.json"
+    },
+    {
+      "$ref": "./agent-state.json"
+    },
+    {
+      "$ref": "./task-card.json"
+    },
+    {
+      "$ref": "./commit-card.json"
+    },
+    {
+      "$ref": "./context-window.json"
+    },
+    {
+      "$ref": "./response-text.json"
+    },
+    {
+      "$ref": "./voice-audio-stub.json"
+    },
+    {
+      "$ref": "./workflow-canvas-stub.json"
+    }
   ]
 }

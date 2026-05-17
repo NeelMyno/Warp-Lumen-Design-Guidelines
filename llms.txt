@@ -78,7 +78,7 @@ task.
 ### Component-bound
 - See `/design-system/01-tokens/components/{name}.tokens.json` — per-component bound tokens for button / card / checkbox / combobox / date-picker / field / file-dropzone / input / number-input / otp-input / password-input / radio / range-slider / segmented / select / switch / tags-input / textarea / time-picker
 
-## Components — shadcn registry under `@lumen/*` (121 items; v0.13 Phase 2)
+## Components — shadcn registry under `@lumen/*` (149 items; v0.13 Phases 2 + 5)
 
 Registry endpoint: `https://warp-lumen-design-guidelines.vercel.app/r/{name}.json`
 Consumer install: `npx shadcn add @lumen/<name>` from any project (after `components.json` is configured per the [shadcn 4 docs](https://ui.shadcn.com/docs/registry)).
@@ -103,6 +103,30 @@ stat · live-dot · rate-ticker
 ### Tier 4 — Freight-domain composites (10 items — new in v0.13)
 lane-code · lane-arc · shipment-timeline · route-map · dock-bay · cross-dock-grid · carrier-badge · pallet-tile · otr-truck-iso · quote-builder
 
+### Tier 5 — AI primitives (28 items — new in v0.13 Phase 5; Vercel AI Elements naming verbatim)
+
+**Family 1 — Conversation:** [conversation](/public/r/conversation.json) (root container with auto-scroll + TanStack-virtualization at >100 messages + ConversationContent + ConversationScrollButton + ConversationEmptyState)
+
+**Family 2 — Message:** [message](/public/r/message.json) (Message + MessageContent; four roles) · [message-response](/public/r/message-response.json) (streaming-optimized markdown with shimmer) · [message-branch](/public/r/message-branch.json) (regeneration navigation)
+
+**Family 3 — AI Insight:** [reasoning](/public/r/reasoning.json) (collapsible chain-of-thought) · [tool](/public/r/tool.json) (Tool + ToolHeader + ToolInput + ToolOutput) · [confirmation](/public/r/confirmation.json) (brutalist hairline frame for destructive approvals) · [sources](/public/r/sources.json) (Anthropic Citations API footer) · [inline-citation](/public/r/inline-citation.json) (matching superscripts)
+
+**Family 4 — PromptInput:** [prompt-input](/public/r/prompt-input.json) (root + Textarea + Tools + Button + Footer + Submit + Select — provider pattern with usePromptInput hook)
+
+**Family 5 — Content:** [artifact](/public/r/artifact.json) (Anthropic-style code/doc/HTML/SVG/Mermaid container) · [web-preview](/public/r/web-preview.json) (sandboxed iframe) · [jsx-preview](/public/r/jsx-preview.json) (live React preview via @babel/standalone) · [sandbox-block](/public/r/sandbox-block.json) (E2B-style code+output tabbed container — `experimental`) · [schema-display](/public/r/schema-display.json) (REST endpoint viz) · [snippet](/public/r/snippet.json) (single-line code) · [stack-trace](/public/r/stack-trace.json) (clickable JS/Node stack) · [terminal](/public/r/terminal.json) (ANSI-color console output)
+
+**Family 6 — Voice & Audio:** [voice-audio-stub](/public/r/voice-audio-stub.json) (AudioPlayer + Transcription + VoiceSelector + SpeechInput + MicSelector — `experimental` stub)
+
+**Family 7 — Workflow:** [workflow-canvas-stub](/public/r/workflow-canvas-stub.json) (Canvas + Node + Edge + Connection + Controls + Panel + Toolbar — React Flow under the hood; `experimental` stub)
+
+**Family 8 — Agent / Task / Commit:** [agent-state](/public/r/agent-state.json) (6-state indicator: idle/thinking/running-tool/awaiting-approval/done/error) · [task-card](/public/r/task-card.json) (plan visualization) · [commit-card](/public/r/commit-card.json) (agent change card)
+
+**Shared:** [actions](/public/r/actions.json) (regenerate/copy/like/dislike strip) · [suggestion-strip](/public/r/suggestion-strip.json) (chip strip above PromptInput) · [loader-ai](/public/r/loader-ai.json) (AI-context Spinner wrapper) · [context-window](/public/r/context-window.json) (token usage display) · [response-text](/public/r/response-text.json) (non-streaming markdown renderer)
+
+Plus **ChatKit theme bridge** at `02-components/_chatkit-theme/lumen-chatkit-theme.ts` — maps every Lumen semantic token onto the OpenAI ChatKit theme variable shape (`lumenChatKitTheme` for in-app, `lumenChatKitThemeResolved` for standalone embeds). One-line CSS handoff for a Lumen-themed ChatKit embed.
+
+Vercel AI Elements install: `npx ai-elements@latest add <component>` (each Tier-5 sidecar names its install command in `meta.vercelAIElements.installCommand`). Lumen contracts (MD + SKILL.md + registry sidecar + Storybook story) ship in this repo; the TSX comes from upstream and is themed via the LumenAIProvider context (`audit-dashboard/src/lib/lumen-ai-provider.tsx`).
+
 ### Legacy v0.12.6 sidecars (69 items — preserved during the v0.13 migration window)
 accordion · action-sheet · ai-badge · ai-prompt-input · ai-suggestion · alert · banner · bottom-nav · breadcrumbs (alias of breadcrumb) · button-group · carousel · cart-drawer · chart · chat-bubble · citation-card · coach-mark · code-block · color-picker · command-palette-button · comment-thread · copy-button · data-grid · dialog · divider · empty-state · fab · field · file-dropzone · form · icon-button · inventory-status · kanban · kbd · kpi-card · link · list · logo-cloud · navbar · notification-center · number-input · otp-input · panel · password-input · permission-prompt · phone-frame · presence-indicator · pricing-card · pull-to-refresh · radio-group (alias of radio) · range-slider · reaction-bar · search-field · segmented · snackbar · sparkline · split-button · status-bar · stepper · swipe-action · table · tags-input · testimonial-card · time-picker · timeline · toggle · toolbar · tree-view · trend · validation-message
 
@@ -115,16 +139,23 @@ Per-component LLM contract (v0.13 shape — every registry item):
 - `02-components/<name>/<name>.registry.json` — shadcn registry-item.json
 - `02-components/<name>/manifest.json` — Storybook 10.3 Component Manifest entry
 
-## Patterns (multi-component flows — see `/design-system/05-patterns/`)
+## Patterns (multi-component flows — `/design-system/03-patterns/` is v0.13 canonical; `/design-system/05-patterns/` is legacy v0.12.6)
 
-Phase 2 lands the freight-native patterns:
-- `chat-thread.md` — AI conversation surface
-- `citation-card.md` — Anthropic Citations API JSON-shape rendering
-- `agent-approval-flow.md` — destructive action confirmation
-- `command-palette-flow.md` — slash-command + suggestion chips
-- `lane-search.md` — freight-native lane code lookup
-- `shipment-timeline.md` — freight-native shipment lifecycle
-- `quote-builder.md` — freight-native LTL/FTL quote flow
+**Phase 5 ships seven freight-native + generic AI patterns at `/design-system/03-patterns/`:**
+
+- [`chat-thread.md`](/design-system/03-patterns/chat-thread.md) — canonical AI conversation surface (Conversation + Message + MessageResponse + Reasoning + Tool + Sources + InlineCitation + Actions + PromptInput + Suggestion)
+- [`lane-search.md`](/design-system/03-patterns/lane-search.md) — freight-native natural-language lane quoting (PromptInput → Reasoning → Confirmation → Tool → freight-domain result)
+- [`shipment-timeline.md`](/design-system/03-patterns/shipment-timeline.md) — freight-native status inquiry (Tool → ShipmentTimeline → Sources cites carrier scans)
+- [`quote-builder.md`](/design-system/03-patterns/quote-builder.md) — freight-native multi-turn iterative quote-build conversation
+- [`citation-card.md`](/design-system/03-patterns/citation-card.md) — Anthropic Citations API JSON-shape rendering (Sources + InlineCitation)
+- [`agent-approval-flow.md`](/design-system/03-patterns/agent-approval-flow.md) — destructive tool gating with brutalist hairline Confirmation
+- [`command-palette-flow.md`](/design-system/03-patterns/command-palette-flow.md) — slash-command + AI-mediated suggestions
+
+**Reference implementation:** [`examples/ai-surface/`](/examples/ai-surface/) — Next.js 15 + React 19 + Vercel AI SDK app demonstrating all six flows end-to-end. Falls back to a deterministic mock stream when `ANTHROPIC_API_KEY` is unset so the reference runs in any environment.
+
+**ChatKit reference embed:** [`examples/chatkit/`](/examples/chatkit/) — standalone HTML page demonstrating Lumen-themed OpenAI ChatKit embedding (CSS-variable handoff, no per-component overrides).
+
+**Cross-cutting:** [`audit-dashboard/src/lib/lumen-ai-provider.tsx`](/audit-dashboard/src/lib/lumen-ai-provider.tsx) — React context for default model, streaming, citation styling, destructive-tool Confirmation gating, virtualization threshold, reduced-motion/reduced-transparency awareness.
 
 ## Platforms — v0.13 canonical (see `/design-system/04-platforms/`)
 

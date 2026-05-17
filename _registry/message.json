@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message",
+  "type": "registry:ui",
+  "title": "Message",
+  "description": "Single-turn bubble inside a Conversation. Four roles (user / assistant / system / tool) with role-aware alignment + surface + ARIA. Ships Message + MessageContent. Mirrors Vercel AI Elements `Message` verbatim.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base",
+    "@lumen/conversation"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/message/message.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/message.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Message",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Message",
+      "installCommand": "npx ai-elements@latest add message"
+    },
+    "platforms": ["web-react"]
+  }
+}

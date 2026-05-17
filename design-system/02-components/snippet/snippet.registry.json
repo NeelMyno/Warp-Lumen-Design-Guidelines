@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "snippet",
+  "type": "registry:ui",
+  "title": "Snippet",
+  "description": "Lightweight terminal command or short code snippet. Built on shadcn's InputGroup; one-line copy affordance.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/snippet/snippet.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/snippet.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Snippet",
+      "installCommand": "npx ai-elements@latest add snippet"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

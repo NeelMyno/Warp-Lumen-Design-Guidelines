@@ -1,0 +1,37 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "conversation",
+  "type": "registry:ui",
+  "title": "Conversation",
+  "description": "Root container for an AI chat thread. Auto-scroll, virtualization at >100 messages, empty-state slot. Mirrors Vercel AI Elements `Conversation` verbatim; theme via LumenAIProvider.",
+  "dependencies": [
+    "@tanstack/react-virtual",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/conversation/conversation.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/conversation.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Conversation",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Conversation",
+      "installCommand": "npx ai-elements@latest add conversation"
+    },
+    "platforms": ["web-react"]
+  }
+}

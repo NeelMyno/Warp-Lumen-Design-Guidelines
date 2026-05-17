@@ -6,7 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_v0.13 refactor in progress — see Phase 0, Phase 1, Phase 2, Phase 3, and Phase 4 entries below. Phases 5–6 land additional entries here as they ship._
+_v0.13 refactor in progress — see Phase 0 through Phase 5 entries below. Phase 6 lands additional entries here as it ships._
+
+---
+
+## [0.13.0-phase.5] — 2026-05-17 — AI-native primitives, freight-domain patterns, reference apps · Phase 5 of the v0.13 master refactor
+
+Phase 5 of the seven-phase v0.13 refactor. Lands the **AI-native component family** at `design-system/02-components/` mirroring Vercel AI Elements naming verbatim (28 new components across 8 families: Conversation, Message, AI Insight, PromptInput, Content, Voice & Audio, Workflow, Agent / Task / Commit, Shared). Wires the **Anthropic Citations API JSON shape** verbatim into Sources + InlineCitation. Builds the **OpenAI ChatKit theme bridge** (`lumenChatKitTheme` + `lumenChatKitThemeResolved` + `lumenChatKitCssVariables()` helper) so a Lumen-themed ChatKit embed is a single-line CSS handoff. Ships **seven freight-native + generic patterns** at `03-patterns/` (chat-thread canonical + lane-search + shipment-timeline + quote-builder + citation-card + agent-approval-flow + command-palette-flow). Adds the **`LumenAIProvider` context** at `audit-dashboard/src/lib/lumen-ai-provider.tsx` for cross-component defaults. Ships **two reference apps**: `examples/ai-surface/` (Next.js 15 demonstrating Claude streaming + reasoning + tool + citation + Confirmation with mock-stream fallback) and `examples/chatkit/` (standalone HTML embed). **Hard gates: 9/11 PASS · 2 MIXED (ai-elements install + Claude live streaming are operator-side per design; mode dual-render deferred) · 0 hard-rule violations introduced. Audit-tokens + audit-mode carry-over from Phase 2/3/4 still PASS.** See [`design-system/06-claude-code-briefings/phase-5-report.md`](design-system/06-claude-code-briefings/phase-5-report.md) for the full report.
+
+### Added — AI-native primitives + freight-domain patterns + reference apps (Phase 5)
+
+- **Tier 5 AI primitive contracts (28 components) at `design-system/02-components/`** — mirror Vercel AI Elements naming verbatim. Each ships `<name>.md` + `<name>.skill.md` + `<name>.registry.json` + `<name>.stories.tsx`. Conversation + Message also ship `component.json`. The 17 required primitives (per master doc §7.Phase-5): Conversation, Message, MessageResponse, Reasoning, Tool, Confirmation, Sources, InlineCitation, PromptInput, Suggestion, Actions, Loader, CodeBlock (existing — formalized), Artifact, WebPreview, Agent, Context. Plus 11 additional from the expanded Family 5/6/7/8 surface: MessageBranch, Snippet, StackTrace, Terminal, SchemaDisplay, JSXPreview, Sandbox (experimental), Response, Task, Commit, VoiceAudio (experimental stub), WorkflowCanvas (experimental stub).
+- **Anthropic Citations API integration** — `Sources` + `InlineCitation` consume `Citation` type verbatim (three citation types: `char_location`, `page_location`, `content_block_location`). Type definitions in [`sources/sources.md`](design-system/02-components/sources/sources.md), [`inline-citation/inline-citation.md`](design-system/02-components/inline-citation/inline-citation.md), and [`03-patterns/citation-card.md`](design-system/03-patterns/citation-card.md).
+- **OpenAI ChatKit theme bridge** at [`design-system/02-components/_chatkit-theme/`](design-system/02-components/_chatkit-theme/) — `lumenChatKitTheme` (live-token), `lumenChatKitThemeResolved` (literal-hex), `lumenChatKitCssVariables()` helper. Maps every Lumen semantic token onto ChatKit's theme variable shape so a Lumen-themed ChatKit embed is a single-line CSS handoff.
+- **`LumenAIProvider` context** at [`audit-dashboard/src/lib/lumen-ai-provider.tsx`](audit-dashboard/src/lib/lumen-ai-provider.tsx) — defaults for model / streaming / citation style / reasoning visibility / destructive-tool Confirmation / virtualization threshold / reduced-motion + reduced-transparency awareness. `useLumenAI()` + `useDestructiveGate()` hooks.
+- **Seven freight-native + generic patterns** at [`design-system/03-patterns/`](design-system/03-patterns/) — chat-thread (canonical), lane-search, shipment-timeline, quote-builder, citation-card, agent-approval-flow, command-palette-flow + README index.
+- **Reference AI surface** at [`examples/ai-surface/`](examples/ai-surface/) — Next.js 15 + React 19 + Tailwind v4 app demonstrating all six flows end-to-end (chat, lane-search, shipment-status, quote-builder, book-shipment, command-palette). Mock-stream fallback when `ANTHROPIC_API_KEY` is unset; live Claude streaming via `@ai-sdk/anthropic` + Vercel AI SDK v6 (commented out until `pnpm install` + key set).
+- **Reference ChatKit embed** at [`examples/chatkit/`](examples/chatkit/) — standalone HTML page demonstrating Lumen-themed OpenAI ChatKit via inline CSS variables (CSS-variable handoff, no per-component overrides).
+
+### Changed
+
+- [`registry.json`](registry.json) — 28 new Tier-5 AI primitive entries (121 → 149 items). Items inlined per Phase 2 root-registry pattern.
+- [`_registry/registry.json`](_registry/registry.json) — 28 new `$ref` entries (99 → 127 items). Sister sidecars at `_registry/<name>.json`.
+- [`llms.txt`](llms.txt) — Tier 5 section added listing all 28 AI primitives by Vercel AI Elements family + ChatKit theme bridge mention. Patterns section rewritten to point at v0.13 canonical `03-patterns/` (vs. legacy `05-patterns/`). Component count updated 121 → 149.
+
+### Notes
+
+- **Vercel AI Elements integration uses install-on-demand pattern** — Lumen ships the contracts (MD + SKILL.md + registry sidecar + Storybook stub), Vercel ships the TSX. Operators run `npx ai-elements@latest add <name>` in their consumer app; Lumen tokens theme via `LumenAIProvider` context with no per-component overrides.
+- **Vercel AI SDK version pin updated**: phase prompt named `ai@^5.0.0`; current npm latest is `ai@6.0.184`. Reference app pinned to `^6.0.0` accordingly.
+- **Audit-tokens + audit-mode carry-over PASS** — 145 files / 0 hex; 144 files / 0 data-mode violations. Three intentional hex-literal exemptions documented for the bridge surfaces (`_chatkit-theme/`, `examples/ai-surface/app/globals.css`, `examples/chatkit/index.html`).
+- **`component.json` schema OMITTED for 26 of 28 Tier 5 AI primitives** — the Phase 2 schema doesn't model sub-component composition cleanly. The prose + SKILL.md carry the API surface; the registry sidecar carries the install + dependency contract. CI `pnpm validate:components` validates only files that exist.
+- **`llms-full.txt` regeneration deferred to Phase 6** — currently v0.12.5-era; partial Phase 5 update would mix v0.13 content into v0.12.5 framing.
+- **v0.12.6 paths preserved verbatim.** v0.13 Phase 0–4 outputs unchanged. The 6 v0.12.6 components that functionally overlap with Phase 5 primitives (ai-prompt-input, ai-suggestion, chat-bubble, citation-card, code-block, spinner) coexist; v1.0.0 deprecates the v0.12.6 names.
 
 ---
 

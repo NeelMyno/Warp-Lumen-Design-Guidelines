@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "schema-display",
+  "type": "registry:ui",
+  "title": "SchemaDisplay",
+  "description": "REST endpoint visualization: HTTP method badge, path, params, request/response schema. Built for API explorer / agent tool-spec rendering.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/schema-display/schema-display.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/schema-display.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "SchemaDisplay",
+      "installCommand": "npx ai-elements@latest add schema-display"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

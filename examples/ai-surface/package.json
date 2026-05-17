@@ -1,0 +1,43 @@
+{
+  "name": "lumen-ai-surface-reference",
+  "version": "0.13.0",
+  "private": true,
+  "description": "Reference implementation of the Lumen v0.13 AI surface — chat-thread + lane-search + shipment-timeline + quote-builder + agent-approval + command-palette flows. Uses Anthropic Claude via Vercel AI SDK with deterministic mock-stream fallback when ANTHROPIC_API_KEY is unset.",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3010",
+    "build": "next build",
+    "start": "next start --port 3010",
+    "type-check": "tsc --noEmit",
+    "install:ai-elements": "npx ai-elements@latest add conversation message message-response reasoning tool confirmation sources inline-citation prompt-input suggestion actions loader artifact web-preview agent context"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.0",
+    "@ai-sdk/react": "^3.0.0",
+    "ai": "^6.0.0",
+    "@radix-ui/react-alert-dialog": "^1.1.0",
+    "@radix-ui/react-collapsible": "^1.1.0",
+    "@radix-ui/react-popover": "^1.1.0",
+    "@radix-ui/react-select": "^2.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@tanstack/react-virtual": "^3.10.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.460.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^9.0.0",
+    "remark-gfm": "^4.0.0",
+    "tailwind-merge": "^2.5.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "typescript": "^5.6.0"
+  }
+}

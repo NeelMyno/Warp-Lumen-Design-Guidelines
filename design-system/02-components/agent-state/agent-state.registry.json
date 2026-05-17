@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "agent-state",
+  "type": "registry:ui",
+  "title": "Agent",
+  "description": "State indicator for an agent: idle / thinking / running tool / awaiting approval / done / error. Six visual states; pairs with LiveDot for the pulse.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/agent-state/agent-state.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/agent.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AgentTask",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Agent",
+      "installCommand": "npx ai-elements@latest add agent"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

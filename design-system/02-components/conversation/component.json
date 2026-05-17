@@ -1,0 +1,88 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Conversation",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Root container for an AI chat thread. Manages scroll behavior, virtualization for long threads (TanStack Virtual at >100 messages), auto-scroll-to-bottom on new messages, and an empty state. Wraps every Message in the family. Mirrors Vercel AI Elements `Conversation` verbatim.",
+  "props": {
+    "messages": {
+      "type": "node",
+      "optional": true,
+      "description": "Pass child `<Message>` components OR render via render-prop. When passed as children, Conversation auto-wraps in ConversationContent."
+    },
+    "autoScroll": {
+      "type": "boolean",
+      "default": true,
+      "optional": true,
+      "description": "Auto-scroll to the latest message when a new one arrives. Disable for read-only thread review surfaces."
+    },
+    "virtualizeAfter": {
+      "type": "number",
+      "default": 100,
+      "optional": true,
+      "description": "Threshold above which the thread switches to TanStack Virtual rendering. Below this, all messages are mounted simultaneously for smooth in-thread navigation."
+    },
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through for layout overrides. The internal scroll container handles its own padding + overflow."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.canvas",
+      "color.surface.raised",
+      "color.text.primary",
+      "color.text.secondary",
+      "space.4",
+      "space.6",
+      "space.8",
+      "radius.lg",
+      "motion.duration.fast",
+      "motion.easing.standard",
+      "shadow.card"
+    ]
+  },
+  "a11y": {
+    "role": "log",
+    "ariaLive": "polite",
+    "ariaLabel": "Conversation thread",
+    "keyboardSupport": [
+      "Home — scroll to top of thread",
+      "End — scroll to bottom of thread (latest message)",
+      "PageUp / PageDown — page through thread"
+    ],
+    "screenReader": "Each new assistant message is announced via aria-live=polite. The user's own messages are not re-announced (they typed them).",
+    "reducedMotion": "Auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set (no smooth-scroll animation)."
+  },
+  "rules": {
+    "never": [
+      "NEVER hardcode a model name inside Conversation. The model is a property of PromptInputSelect or LumenAIProvider context, not the thread renderer.",
+      "NEVER apply backdrop-filter to the thread container — it's a dense surface. Hard rule 16.",
+      "NEVER drop the ConversationScrollButton when the user scrolls up. It's the affordance back to live.",
+      "NEVER assume streaming is complete on any given render — child MessageResponse may still be partial."
+    ],
+    "always": [
+      "ALWAYS pair with ConversationContent (or let Conversation auto-wrap children).",
+      "ALWAYS forward aria-live updates to assistive tech for new assistant messages.",
+      "ALWAYS honor prefers-reduced-motion in the auto-scroll behavior."
+    ]
+  },
+  "examples": [
+    "examples/basic-thread.tsx",
+    "examples/with-virtualization.tsx",
+    "examples/empty-state.tsx"
+  ],
+  "vercelAIElements": {
+    "name": "Conversation",
+    "installCommand": "npx ai-elements@latest add conversation",
+    "registryUrl": "https://elements.ai-sdk.dev/r/conversation.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Conversation",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}

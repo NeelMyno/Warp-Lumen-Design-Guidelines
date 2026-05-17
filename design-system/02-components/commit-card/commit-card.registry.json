@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "commit-card",
+  "type": "registry:ui",
+  "title": "Commit",
+  "description": "Commit / change card showing what the agent modified: title, diff summary, file count, revert affordance.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/commit-card/commit-card.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/commit.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AgentTask",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Commit",
+      "installCommand": "npx ai-elements@latest add commit"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

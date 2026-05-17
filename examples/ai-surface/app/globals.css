@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/*
+ * Lumen v0.13 token set — minimal subset for the AI surface reference.
+ * In production, consume the full token set via @lumen/tokens.
+ * Here we inline so the reference runs without external dep on @lumen registry.
+ *
+ * Brand anchors verbatim.
+ */
+@theme {
+  --color-spring-500: #00FA8A;
+  --color-spring-400: #1AFD9A;
+  --color-surface-canvas: #0D0D0D;
+  --color-surface-raised: #171717;
+  --color-surface-sunken: #080808;
+  --color-surface-tint-accent: rgba(0, 250, 138, 0.06);
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A3A3A3;
+  --color-text-tertiary: #737373;
+  --color-text-accent: #00FA8A;
+  --color-accent-fg: #07120D;
+  --color-border-hairline: rgba(255, 255, 255, 0.06);
+  --color-border-default: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.24);
+  --color-border-frame: rgba(255, 255, 255, 0.18);
+  --color-border-accent: #00FA8A;
+  --color-status-danger-500: #FF4D4F;
+  --color-status-warning-500: #FFB020;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  --font-sans: "Satoshi", "Geist", "InterVariable", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --motion-duration-fast: 140ms;
+  --motion-duration-base: 200ms;
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  --shadow-card: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-popover: 0 10px 30px -8px rgba(0, 0, 0, 0.55), 0 4px 12px -4px rgba(0, 0, 0, 0.4);
+  --shadow-focus: 0 0 0 4px rgba(0, 250, 138, 0.25);
+  --shadow-glow-accent: 0 0 0 1px rgba(0, 250, 138, 0.40), 0 0 12px 0 rgba(0, 250, 138, 0.30), 0 0 28px 4px rgba(0, 250, 138, 0.18);
+}
+
+:root,
+html {
+  background: var(--color-surface-canvas);
+  color: var(--color-text-primary);
+  color-scheme: dark;
+  font-family: var(--font-sans);
+}
+
+body {
+  background: var(--color-surface-canvas);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+}
+
+* {
+  font-feature-settings: "tnum" on, "lnum" on;
+}
+
+/* Global focus ring per hard rule 11 — outline + box-shadow */
+*:focus-visible {
+  outline: 2px solid rgba(0, 250, 138, 0.64);
+  outline-offset: 1px;
+  box-shadow: var(--shadow-focus);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

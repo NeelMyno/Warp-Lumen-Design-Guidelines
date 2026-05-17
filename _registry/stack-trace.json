@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stack-trace",
+  "type": "registry:ui",
+  "title": "StackTrace",
+  "description": "Formatted JS / Node error stack with clickable file paths. Honors source-map URLs when available.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/stack-trace/stack-trace.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/stack-trace.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "StackTrace",
+      "installCommand": "npx ai-elements@latest add stack-trace"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

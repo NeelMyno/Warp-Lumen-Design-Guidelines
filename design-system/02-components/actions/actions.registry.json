@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "actions",
+  "type": "registry:ui",
+  "title": "Actions",
+  "description": "Action button strip below an assistant Message: regenerate / copy / like / dislike / share. Each action is a Lumen IconButton.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/actions/actions.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/actions.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Actions",
+      "installCommand": "npx ai-elements@latest add actions"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

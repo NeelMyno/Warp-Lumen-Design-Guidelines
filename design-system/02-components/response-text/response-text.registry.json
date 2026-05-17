@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "response-text",
+  "type": "registry:ui",
+  "title": "Response",
+  "description": "Plain (non-streaming) markdown rendering wrapper. Use when content is complete and the streaming/shimmer mechanics of MessageResponse are unnecessary.",
+  "dependencies": [
+    "react-markdown",
+    "remark-gfm"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/response-text/response-text.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/response.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Shared",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Response",
+      "installCommand": "npx ai-elements@latest add response"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}

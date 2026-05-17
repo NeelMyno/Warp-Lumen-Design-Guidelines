@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sandbox-block",
+  "type": "registry:ui",
+  "title": "Sandbox",
+  "description": "Collapsible container with status indicator and tabbed navigation between code, output, and terminal. Use for E2B / similar sandbox integrations where the LLM runs code and you want to show both the source and the result.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/sandbox-block/sandbox-block.tsx",
+      "type": "registry:ui",
+      "target": "components/ai-elements/sandbox.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Sandbox",
+      "installCommand": "npx ai-elements@latest add sandbox"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  }
+}
