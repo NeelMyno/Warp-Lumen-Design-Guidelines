@@ -1,6 +1,8 @@
 // Lumen NotificationCenter — Web React example.
 // Popover-anchored inbox. Bell trigger in the Navbar.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { Bell, AlertOctagon, AlertTriangle, Info, Sparkles } from "lucide-react";

@@ -1,3 +1,5 @@
+// lumen-allow-file: off-grid-micro, on-grid-px
+// Audit dashboard demo — sub-grid micro pixels (10-22px) used for demo affordances; inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 import { ReactNode } from "react";
 
 type Size = "xs" | "sm" | "md" | "lg" | "xl" | "hero";

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "inline-citation",
+  "title": "InlineCitation",
+  "description": "Clickable [1]-style superscript inside MessageResponse. Scrolls to the matching Sources entry on click. Consumes Anthropic Citations API document_index.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/inline-citation/inline-citation.tsx",
+      "content": "/**\n * Lumen InlineCitation — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./inline-citation.md + ./inline-citation.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add inline-citation\n *\n * Then import from `@/components/ai-elements/inline-citation` and theme via\n * <LumenAIProvider>. See:\n *   - ./inline-citation.md for the API contract\n *   - ./inline-citation.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/inline-citation` get this file copied to\n * `components/ai-elements/inline-citation.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface InlineCitationProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add inline-citation`\n * Then import from `@/components/ai-elements/inline-citation`.\n */\nexport function InlineCitation(_props: InlineCitationProps): never {\n  throw new Error(\n    \"[Lumen] <InlineCitation> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add inline-citation`. \" +\n    \"Then import { InlineCitation } from `@/components/ai-elements/inline-citation`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/inline-citation.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "InlineCitation",
+      "installCommand": "npx ai-elements@latest add inline-citation"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

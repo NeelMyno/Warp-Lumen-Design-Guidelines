@@ -84,23 +84,32 @@ A failing token-lint blocks merge. Suppression requires an ADR in `_meta/decisio
 
 ## Build outputs
 
-`pnpm build` runs Style Dictionary v5 and writes:
+`pnpm build` (or `pnpm tokens`) runs Style Dictionary v5 and writes:
 
 ```
-_build/
-├── css/tokens.css                   ← :root + [data-theme="dark"] CSS variables
-├── tailwind/theme.css               ← Tailwind v4 @theme block
+dist/
+├── css/lumen.css                    ← :root CSS variables (restrained default)
+├── css/lumen.dark.css               ← dark-theme rebinds
+├── css/lumen.expressive.css         ← [data-mode="expressive"] rebinds (v0.13)
+├── tailwind/lumen.css               ← Tailwind v4 @theme block
+├── tailwind/lumen.dark.css
+├── tailwind/lumen.preset.ts         ← Tailwind preset for non-CSS-import consumers
 ├── ts/tokens.ts                     ← TypeScript constants
 ├── ios/LumenTokens.swift            ← SwiftUI Color + Spacing extensions
+├── ios/LumenTokensDark.swift        ← Dark-theme overrides
+├── swift/Lumen+Colors.swift         ← Color-only extension for granular import
 ├── android/colors.xml               ← Android resources
 ├── android/dimens.xml
-├── compose/LumenTokens.kt           ← Jetpack Compose object
+├── compose/LumenColors.kt           ← Jetpack Compose Color object
 ├── flutter/lumen_tokens.dart        ← Flutter class
 ├── liquid/css-variables.liquid      ← Shopify Liquid CSS snippet
-└── json/tokens.flat.json            ← Universal flat JSON for any consumer
+├── scss/tokens.scss                 ← SCSS variables for legacy SCSS pipelines
+└── json/tokens.json                 ← Universal flat JSON for any consumer
 ```
 
-`_build/` is gitignored. CI publishes outputs to a `lumen-dist` repo (or CDN) so consumers pull built tokens without depending on the build chain.
+`dist/` is gitignored. CI publishes outputs to a `lumen-dist` repo (or CDN) so consumers pull built tokens without depending on the build chain.
+
+_v0.13 note: the output directory was renamed `_build/` → `dist/` per Phase 0 of the v0.13 refactor; consumers updating from v0.12 should swap `_build/` paths for `dist/` paths._
 
 ## Quick reference for LLMs
 

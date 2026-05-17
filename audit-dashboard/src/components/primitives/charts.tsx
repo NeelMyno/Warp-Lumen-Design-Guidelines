@@ -1,3 +1,5 @@
+// lumen-allow-file: brand-demo, off-grid-micro, on-grid-px
+// Audit dashboard demo — Lumen brand-color literals shown verbatim in the surface demo; sub-grid micro pixels (10-22px) used for demo affordances; inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 /**
  * Lumen charts — pure SVG, no runtime libraries. Designed for the same
  * disciplined visual register as the rest of the system. All series colors

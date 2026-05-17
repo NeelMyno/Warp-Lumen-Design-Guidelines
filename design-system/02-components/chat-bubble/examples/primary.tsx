@@ -1,5 +1,7 @@
 // Lumen ChatBubble — Web React example.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { Sparkles } from "lucide-react";

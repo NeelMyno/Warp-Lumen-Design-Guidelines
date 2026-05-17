@@ -29,16 +29,23 @@ These apply on every platform.
 ## Build outputs you'll need
 
 ```
-_build/
-├── css/tokens.css                   # Web — global CSS variables
-├── tailwind/theme.css               # Web — Tailwind v4 @theme
+dist/
+├── css/lumen.css                    # Web — global CSS variables (restrained default)
+├── css/lumen.dark.css               # Web — dark-theme overrides
+├── css/lumen.expressive.css         # Web — [data-mode="expressive"] rebinds (v0.13)
+├── tailwind/lumen.css               # Web — Tailwind v4 @theme
+├── tailwind/lumen.preset.ts         # Web — Tailwind preset (non-CSS-import consumers)
 ├── ts/tokens.ts                     # Web / RN — TypeScript constants
 ├── ios/LumenTokens.swift            # iOS / macOS — Swift class
+├── swift/Lumen+Colors.swift         # iOS — color-only extension for granular import
 ├── android/colors.xml + dimens.xml  # Android — XML resources
-├── compose/LumenTokens.kt           # Android — Compose object
+├── compose/LumenColors.kt           # Android — Compose Color object
 ├── flutter/lumen_tokens.dart        # Flutter (future)
 ├── liquid/css-variables.liquid      # Shopify — CSS-in-Liquid
-└── json/tokens.flat.json            # Universal flat JSON
+├── scss/tokens.scss                 # SCSS pipelines
+└── json/tokens.json                 # Universal flat JSON
 ```
 
-`_build/` is gitignored. CI publishes built outputs to a separate `lumen-dist` repo (or CDN) so platform consumers don't need to run Style Dictionary.
+`dist/` is gitignored. CI publishes built outputs to a separate `lumen-dist` repo (or CDN) so platform consumers don't need to run Style Dictionary.
+
+_v0.13 note: the output directory was renamed `_build/` → `dist/` per Phase 0 of the v0.13 refactor; consumers updating from v0.12 should swap `_build/` paths for `dist/` paths._

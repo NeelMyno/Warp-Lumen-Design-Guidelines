@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "workflow-canvas-stub",
+  "title": "WorkflowCanvas",
+  "description": "STUB. Workflow family entry point (Canvas + Node + Edge + Connection + Controls + Panel + Toolbar). React Flow under the hood. Marked experimental until a Warp surface needs agent-plan or freight-network visualization.",
+  "dependencies": [
+    "@xyflow/react",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.tsx",
+      "content": "/**\n * Lumen WorkflowCanvas — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./workflow-canvas-stub.md + ./workflow-canvas-stub.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add canvas\n *\n * Then import from `@/components/ai-elements/canvas` and theme via\n * <LumenAIProvider>. See:\n *   - ./workflow-canvas-stub.md for the API contract\n *   - ./workflow-canvas-stub.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/workflow-canvas-stub` get this file copied to\n * `components/ai-elements/canvas.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface WorkflowCanvasProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add canvas`\n * Then import from `@/components/ai-elements/canvas`.\n */\nexport function WorkflowCanvas(_props: WorkflowCanvasProps): never {\n  throw new Error(\n    \"[Lumen] <WorkflowCanvas> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add canvas`. \" +\n    \"Then import { WorkflowCanvas } from `@/components/ai-elements/canvas`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/workflow-canvas.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Workflow",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Canvas",
+      "installCommand": "npx ai-elements@latest add canvas"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

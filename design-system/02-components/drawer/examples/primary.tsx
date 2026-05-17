@@ -1,6 +1,8 @@
 // Lumen Drawer — Web React example. Wraps Radix Dialog so we inherit focus trap +
 // aria-modal + Escape-to-close, then re-skins to a side-anchored panel.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";

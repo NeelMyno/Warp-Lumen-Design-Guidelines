@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sources",
+  "title": "Sources",
+  "description": "Citation footer below an assistant Message. Consumes the Anthropic Citations API JSON shape (cited_text, document_title, document_index, char/page/content_block_location). Pairs with InlineCitation superscripts in the body.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/sources/sources.tsx",
+      "content": "/**\n * Lumen Sources — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./sources.md + ./sources.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add sources\n *\n * Then import from `@/components/ai-elements/sources` and theme via\n * <LumenAIProvider>. See:\n *   - ./sources.md for the API contract\n *   - ./sources.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/sources` get this file copied to\n * `components/ai-elements/sources.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface SourcesProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add sources`\n * Then import from `@/components/ai-elements/sources`.\n */\nexport function Sources(_props: SourcesProps): never {\n  throw new Error(\n    \"[Lumen] <Sources> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add sources`. \" +\n    \"Then import { Sources } from `@/components/ai-elements/sources`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/sources.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Sources",
+      "installCommand": "npx ai-elements@latest add sources"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

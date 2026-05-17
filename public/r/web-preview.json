@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "web-preview",
+  "title": "WebPreview",
+  "description": "Iframe with safety wrapper used by Artifact for HTML / web previews. Sandbox attribute defaults to safe; CSP-friendly.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/web-preview/web-preview.tsx",
+      "content": "/**\n * Lumen WebPreview — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./web-preview.md + ./web-preview.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add web-preview\n *\n * Then import from `@/components/ai-elements/web-preview` and theme via\n * <LumenAIProvider>. See:\n *   - ./web-preview.md for the API contract\n *   - ./web-preview.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/web-preview` get this file copied to\n * `components/ai-elements/web-preview.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface WebPreviewProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add web-preview`\n * Then import from `@/components/ai-elements/web-preview`.\n */\nexport function WebPreview(_props: WebPreviewProps): never {\n  throw new Error(\n    \"[Lumen] <WebPreview> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add web-preview`. \" +\n    \"Then import { WebPreview } from `@/components/ai-elements/web-preview`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/web-preview.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Content",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "WebPreview",
+      "installCommand": "npx ai-elements@latest add web-preview"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

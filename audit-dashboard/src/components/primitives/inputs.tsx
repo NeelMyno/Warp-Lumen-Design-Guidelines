@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: brand-demo, layout-width, on-grid-px, vendor-brand
+// Audit dashboard demo — Lumen brand-color literals shown verbatim in the surface demo; component-specific layout widths (modal, drawer, card, etc.); inline layout pixels in a self-contained demo (4-pt grid); vendor brand colors (Google, Microsoft, PayPal, Shopify, Outlook) shown verbatim. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { useState, useRef, useEffect, ReactNode, KeyboardEvent } from "react";
 import { createPortal } from "react-dom";

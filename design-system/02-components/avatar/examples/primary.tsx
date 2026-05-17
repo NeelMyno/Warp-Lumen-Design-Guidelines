@@ -1,6 +1,8 @@
 // Lumen Avatar + AvatarGroup + PresenceIndicator — Web React example.
 // 8-color palette, hash-derived from name. Initials fallback when no src.
 
+// lumen-allow-file: off-grid-micro, on-grid-px
+// Lumen library example — sub-grid micro pixels (10-22px) used for demo affordances; inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 import { ReactNode } from "react";
 
 type Size = "xs" | "sm" | "md" | "lg" | "xl";

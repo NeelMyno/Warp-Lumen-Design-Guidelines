@@ -2,6 +2,8 @@
 // One at a time. Pause timer on hover/focus. role=status polite by default,
 // role=alert assertive for danger tone.
 
+// lumen-allow-file: layout-width, on-grid-px
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.); inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { AlertOctagon, CheckCircle, X } from "lucide-react";

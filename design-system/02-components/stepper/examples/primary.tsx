@@ -2,6 +2,8 @@
 // Linear flow progress. Click backward to revisit completed steps; forward
 // jumps are gated by your validation, not by the Stepper.
 
+// lumen-allow-file: off-grid-micro, on-grid-px
+// Lumen library example — sub-grid micro pixels (10-22px) used for demo affordances; inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { Check, AlertTriangle } from "lucide-react";

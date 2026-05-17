@@ -1,5 +1,7 @@
 // Lumen Navbar — Web React example. Operator variant.
 
+// lumen-allow-file: on-grid-px
+// Lumen library example — inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { ReactNode } from "react";

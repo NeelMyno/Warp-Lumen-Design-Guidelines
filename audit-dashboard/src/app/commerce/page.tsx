@@ -126,7 +126,7 @@ function StoreHeader() {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-8 h-14">
       <div className="flex items-center gap-8">
-        <div className="text-body-lg font-bold tracking-[var(--tracking-tight)]">
+        <div className="text-body-lg font-bold">
           Foundry
         </div>
         <nav className="hidden md:flex items-center gap-6 text-body-sm text-[color:var(--text-secondary)]">

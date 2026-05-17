@@ -1,6 +1,8 @@
 // Lumen Skeleton — Web React example.
 // Layout-preserving placeholder. Shimmer pauses under prefers-reduced-motion.
 
+// lumen-allow-file: on-grid-px
+// Lumen library example — inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 import { ReactNode } from "react";
 
 type Shape = "text" | "circle" | "rect" | "card" | "row";
@@ -66,7 +68,7 @@ export function Skeleton({
             style={{ width: i === lines - 1 ? `${60 + Math.random() * 20}%` : "100%" }}
           />
         ))}
-        <style>{`@keyframes lumen-shimmer { 100% { transform: translateX(100%); } }`}</style>
+        <style>{`@keyframes lumen-shimmer { 100% { transform: translateX(100%); } } @media (prefers-reduced-motion: reduce) { [class*="animate-"] { animation: none !important } }`}</style>
       </span>
     );
   }

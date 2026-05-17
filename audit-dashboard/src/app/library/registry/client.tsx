@@ -435,6 +435,7 @@ function ComponentDetail({ c, onClose, onCopy, copied }: ComponentDetailProps) {
             None declared in frontmatter. Either token-free (e.g. icon-only) or contract pending.
           </p>
         ) : (
+          // lumen-lint-allow: off-grid — gap-1.5 (6 px) is the documented sub-grid stop for chip clusters.
           <ul className="flex flex-wrap gap-1.5">
             {c.tokens.map((t) => (
               <li key={t}>
@@ -565,6 +566,7 @@ function FactPill({
         : "border-[var(--border-hairline)] text-[color:var(--text-tertiary)]";
   return (
     <div
+      // lumen-lint-allow: off-grid — gap-0.5 (2 px) is hairline spacing between stat label + value.
       className={`flex flex-col gap-0.5 rounded-[var(--radius-md)] border px-3 py-2 ${cls}`}
     >
       <span className="text-overline text-[color:var(--text-tertiary)] normal-case tracking-normal">

@@ -1,5 +1,7 @@
 // Lumen Tag — Web React example. Compact filter / category chip.
 
+// lumen-allow-file: off-grid-micro
+// Lumen library example — sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { X } from "lucide-react";

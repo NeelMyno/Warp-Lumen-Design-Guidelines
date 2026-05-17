@@ -95,7 +95,7 @@ export default function LandingPage() {
                 confidence (Hermes / Apple / Stripe convention). */}
             <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[color:var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
-                <div key={c} className="text-body-lg font-bold tracking-[var(--tracking-tight)] select-none">
+                <div key={c} className="text-body-lg font-bold select-none">
                   {c}
                 </div>
               ))}

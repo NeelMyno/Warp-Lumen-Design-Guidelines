@@ -1,5 +1,7 @@
 // Lumen LogoCloud — Web React example. Static grid layout.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 export type LogoCloudLogo = { src: string; alt: string; href?: string };
 
 export function LogoCloud({
@@ -48,7 +50,7 @@ export function LogoCloud({
               </li>
             ))}
           </ul>
-          <style>{`@keyframes lumen-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }`}</style>
+          <style>{`@keyframes lumen-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } } @media (prefers-reduced-motion: reduce) { [style*="lumen-marquee"] { animation: none !important } }`}</style>
         </div>
       )}
     </section>

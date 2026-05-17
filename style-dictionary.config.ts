@@ -308,6 +308,25 @@ const lightConfig = {
           destination: "Lumen+Colors.swift",
           format: "ios-swift/class.swift",
           options: { className: "LumenColors" },
+          filter: (token) => token.$type === "color" || token.attributes?.category === "color",
+        },
+        {
+          // v0.13.2 — per master doc Phase 0 §Group C; previously bundled into
+          // LumenTokens.swift only. Per-category extension lets consumers import
+          // just spacing without pulling colors.
+          destination: "Lumen+Spacing.swift",
+          format: "ios-swift/class.swift",
+          options: { className: "LumenSpacing" },
+          filter: (token) => token.$type === "dimension"
+            || ["space", "size", "radius"].includes(token.attributes?.category as string),
+        },
+        {
+          // v0.13.2 — per master doc Phase 0 §Group C; previously bundled.
+          destination: "Lumen+Typography.swift",
+          format: "ios-swift/class.swift",
+          options: { className: "LumenTypography" },
+          filter: (token) => ["typography", "fontFamily", "fontWeight", "fontSize", "lineHeight", "letterSpacing"].includes(token.$type as string)
+            || ["type", "weight", "tracking", "leading"].includes(token.attributes?.category as string),
         },
       ],
     },
@@ -330,6 +349,29 @@ const lightConfig = {
             className: "LumenColors",
             packageName: "dev.warp.lumen",
           },
+          filter: (token) => token.$type === "color" || token.attributes?.category === "color",
+        },
+        {
+          // v0.13.2 — per master doc Phase 0 §Group C.
+          destination: "LumenSpacing.kt",
+          format: "compose/object",
+          options: {
+            className: "LumenSpacing",
+            packageName: "dev.warp.lumen",
+          },
+          filter: (token) => token.$type === "dimension"
+            || ["space", "size", "radius"].includes(token.attributes?.category as string),
+        },
+        {
+          // v0.13.2 — per master doc Phase 0 §Group C.
+          destination: "LumenTypography.kt",
+          format: "compose/object",
+          options: {
+            className: "LumenTypography",
+            packageName: "dev.warp.lumen",
+          },
+          filter: (token) => ["typography", "fontFamily", "fontWeight", "fontSize", "lineHeight", "letterSpacing"].includes(token.$type as string)
+            || ["type", "weight", "tracking", "leading"].includes(token.attributes?.category as string),
         },
       ],
     },

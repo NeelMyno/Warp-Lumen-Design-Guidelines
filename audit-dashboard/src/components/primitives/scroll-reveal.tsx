@@ -1,3 +1,5 @@
+// lumen-allow-file: on-grid-px
+// Audit dashboard demo — inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 /**
  * v0.11.13.2 — ScrollReveal (CSS-driven stagger)
  * ----------------------------------------------------------------------------

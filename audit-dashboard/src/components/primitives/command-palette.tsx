@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: layout-width
+// Audit dashboard demo — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 /**
  * v0.11.13 — CommandPalette

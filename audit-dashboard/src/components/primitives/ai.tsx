@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: brand-demo, layout-width, off-grid-micro
+// Audit dashboard demo — Lumen brand-color literals shown verbatim in the surface demo; component-specific layout widths (modal, drawer, card, etc.); sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode, useState } from "react";
 import { Sparkles } from "lucide-react";
@@ -32,7 +34,7 @@ export function AIThinking() {
           />
         ))}
       </span>
-      <style>{`@keyframes lumen-bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4 } 40% { transform: translateY(-3px); opacity: 1 } }`}</style>
+      <style>{`@keyframes lumen-bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4 } 40% { transform: translateY(-3px); opacity: 1 } } @media (prefers-reduced-motion: reduce) { [style*="lumen-bounce"] { animation: none !important } }`}</style>
     </div>
   );
 }
@@ -152,7 +154,7 @@ export function AIShimmer() {
           style={{ width: `${w}%`, animation: `lumen-shimmer 1.6s ${i * 0.12}s ease-in-out infinite` }}
         />
       ))}
-      <style>{`@keyframes lumen-shimmer { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } }`}</style>
+      <style>{`@keyframes lumen-shimmer { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } } @media (prefers-reduced-motion: reduce) { [style*="lumen-shimmer"] { animation: none !important } }`}</style>
     </div>
   );
 }

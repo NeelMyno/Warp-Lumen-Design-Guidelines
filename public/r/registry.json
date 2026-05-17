@@ -2157,6 +2157,82 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "actions",
+      "type": "registry:ui",
+      "title": "Actions",
+      "description": "Action button strip below an assistant Message: regenerate / copy / like / dislike / share. Each action is a Lumen IconButton.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/actions/actions.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/actions.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Actions",
+          "installCommand": "npx ai-elements@latest add actions"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "agent-state",
+      "type": "registry:ui",
+      "title": "Agent",
+      "description": "State indicator for an agent: idle / thinking / running tool / awaiting approval / done / error. Six visual states; pairs with LiveDot for the pulse.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/agent-state/agent-state.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/agent.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AgentTask",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Agent",
+          "installCommand": "npx ai-elements@latest add agent"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "ai-badge",
       "type": "registry:ui",
       "title": "AI Badge",
@@ -2281,6 +2357,44 @@
         "docsPath": "design-system/02-components/alert/component.md",
         "status": "stable",
         "warpSignature": false
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "artifact",
+      "type": "registry:ui",
+      "title": "Artifact",
+      "description": "Anthropic-style artifact rendering: code / document / HTML / SVG / Mermaid in a collapsible scoped container. Includes a header (title + type badge), preview pane, and copy / open-in-new-window actions.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/artifact/artifact.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/artifact.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Artifact",
+          "installCommand": "npx ai-elements@latest add artifact"
+        },
+        "platforms": [
+          "web-react"
+        ]
       }
     },
     {
@@ -2729,6 +2843,160 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "commit-card",
+      "type": "registry:ui",
+      "title": "Commit",
+      "description": "Commit / change card showing what the agent modified: title, diff summary, file count, revert affordance.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/commit-card/commit-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/commit.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AgentTask",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Commit",
+          "installCommand": "npx ai-elements@latest add commit"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "confirmation",
+      "type": "registry:ui",
+      "title": "Confirmation",
+      "description": "Approval gate for destructive tool calls. Brutalist hairline frame; slow-down-and-repeat-the-noun copy. Pairs with Tool when the tool is write-side.",
+      "dependencies": [
+        "@radix-ui/react-alert-dialog",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/confirmation/confirmation.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/confirmation.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AIInsight",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Confirmation",
+          "installCommand": "npx ai-elements@latest add confirmation"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "context-window",
+      "type": "registry:ui",
+      "title": "Context",
+      "description": "Token usage / context window display. Composition of Stat (tokens used / limit) + horizontal progress meter. Color shifts to amber at 80%, lumen-red at 95%.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/context-window/context-window.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/context.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Context",
+          "installCommand": "npx ai-elements@latest add context"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "conversation",
+      "type": "registry:ui",
+      "title": "Conversation",
+      "description": "Root container for an AI chat thread. Auto-scroll, virtualization at >100 messages, empty-state slot. Mirrors Vercel AI Elements `Conversation` verbatim; theme via LumenAIProvider.",
+      "dependencies": [
+        "@tanstack/react-virtual",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/conversation/conversation.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/conversation.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Conversation",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Conversation",
+          "installCommand": "npx ai-elements@latest add conversation"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "copy-button",
       "type": "registry:ui",
       "title": "Copy Button",
@@ -3049,6 +3317,44 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "inline-citation",
+      "type": "registry:ui",
+      "title": "InlineCitation",
+      "description": "Clickable [1]-style superscript inside MessageResponse. Scrolls to the matching Sources entry on click. Consumes Anthropic Citations API document_index.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/inline-citation/inline-citation.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/inline-citation.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AIInsight",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "InlineCitation",
+          "installCommand": "npx ai-elements@latest add inline-citation"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "inventory-status",
       "type": "registry:ui",
       "title": "Inventory Status",
@@ -3077,6 +3383,44 @@
         "docsPath": "design-system/02-components/inventory-status/component.md",
         "status": "stable",
         "warpSignature": false
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "jsx-preview",
+      "type": "registry:ui",
+      "title": "JSXPreview",
+      "description": "Live React component preview for assistant-generated JSX. Compiles with @babel/standalone in-browser; surfaces compile errors via StackTrace.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/jsx-preview/jsx-preview.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/jsx-preview.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "JSXPreview",
+          "installCommand": "npx ai-elements@latest add jsx-preview"
+        },
+        "platforms": [
+          "web-react"
+        ]
       }
     },
     {
@@ -3235,6 +3579,44 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "loader-ai",
+      "type": "registry:ui",
+      "title": "Loader",
+      "description": "AI-context loader. Wraps Lumen's v0.12.4 Spinner primitive; adds an 'AI thinking' label slot. Use during pre-stream wait when the model is queued but no tokens have arrived.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/loader-ai/loader-ai.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/loader.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Loader",
+          "installCommand": "npx ai-elements@latest add loader"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "logo-cloud",
       "type": "registry:ui",
       "title": "Logo Cloud",
@@ -3261,6 +3643,122 @@
         "docsPath": "design-system/02-components/logo-cloud/component.md",
         "status": "stable",
         "warpSignature": false
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "message",
+      "type": "registry:ui",
+      "title": "Message",
+      "description": "Single-turn bubble inside a Conversation. Four roles (user / assistant / system / tool) with role-aware alignment + surface + ARIA. Ships Message + MessageContent. Mirrors Vercel AI Elements `Message` verbatim.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base",
+        "@lumen/conversation"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/message/message.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/message.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Message",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Message",
+          "installCommand": "npx ai-elements@latest add message"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "message-branch",
+      "type": "registry:ui",
+      "title": "MessageBranch",
+      "description": "Navigation for regenerated assistant responses. Renders MessageBranch + MessageBranchContent + MessageBranchPrevious / Next / Page / Selector. Mirrors Vercel AI Elements verbatim.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/message-branch/message-branch.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/message-branch.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Message",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "MessageBranch",
+          "installCommand": "npx ai-elements@latest add message"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "message-response",
+      "type": "registry:ui",
+      "title": "MessageResponse",
+      "description": "Streaming-optimized markdown renderer for assistant message bodies. Shimmer + cursor while streaming; safe markdown by default. Mirrors Vercel AI Elements `MessageResponse` (ships in the same `message` module).",
+      "dependencies": [
+        "react-markdown",
+        "remark-gfm"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/message"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/message-response/message-response.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/message-response.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Message",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "MessageResponse",
+          "installCommand": "npx ai-elements@latest add message"
+        },
+        "platforms": [
+          "web-react"
+        ]
       }
     },
     {
@@ -3583,6 +4081,46 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "prompt-input",
+      "type": "registry:ui",
+      "title": "PromptInput",
+      "description": "Composable input bar for AI chat. Ships PromptInput root + PromptInputTextarea + PromptInputTools + PromptInputButton + PromptInputFooter + PromptInputSubmit + PromptInputSelect (model picker). Provider pattern with usePromptInput hook; file-attachment validation built in.",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "@radix-ui/react-popover",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/prompt-input/prompt-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/prompt-input.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "PromptInput",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "PromptInput",
+          "installCommand": "npx ai-elements@latest add prompt-input"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "pull-to-refresh",
       "type": "registry:ui",
       "title": "Pull To Refresh",
@@ -3709,6 +4247,161 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "reasoning",
+      "type": "registry:ui",
+      "title": "Reasoning",
+      "description": "Collapsible chain-of-thought disclosure for assistant turns. Reasoning + ReasoningTrigger + ReasoningContent. Shimmer during streaming, fades to collapsed when complete. Mirrors Vercel AI Elements `Reasoning`.",
+      "dependencies": [
+        "@radix-ui/react-collapsible",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base",
+        "@lumen/message"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/reasoning/reasoning.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/reasoning.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AIInsight",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Reasoning",
+          "installCommand": "npx ai-elements@latest add reasoning"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "response-text",
+      "type": "registry:ui",
+      "title": "Response",
+      "description": "Plain (non-streaming) markdown rendering wrapper. Use when content is complete and the streaming/shimmer mechanics of MessageResponse are unnecessary.",
+      "dependencies": [
+        "react-markdown",
+        "remark-gfm"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/response-text/response-text.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/response.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Response",
+          "installCommand": "npx ai-elements@latest add response"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sandbox-block",
+      "type": "registry:ui",
+      "title": "Sandbox",
+      "description": "Collapsible container with status indicator and tabbed navigation between code, output, and terminal. Use for E2B / similar sandbox integrations where the LLM runs code and you want to show both the source and the result.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/sandbox-block/sandbox-block.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/sandbox.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Sandbox",
+          "installCommand": "npx ai-elements@latest add sandbox"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "schema-display",
+      "type": "registry:ui",
+      "title": "SchemaDisplay",
+      "description": "REST endpoint visualization: HTTP method badge, path, params, request/response schema. Built for API explorer / agent tool-spec rendering.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/schema-display/schema-display.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/schema-display.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "SchemaDisplay",
+          "installCommand": "npx ai-elements@latest add schema-display"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "search-field",
       "type": "registry:ui",
       "title": "Search Field",
@@ -3803,6 +4496,82 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "snippet",
+      "type": "registry:ui",
+      "title": "Snippet",
+      "description": "Lightweight terminal command or short code snippet. Built on shadcn's InputGroup; one-line copy affordance.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/snippet/snippet.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/snippet.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Snippet",
+          "installCommand": "npx ai-elements@latest add snippet"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sources",
+      "type": "registry:ui",
+      "title": "Sources",
+      "description": "Citation footer below an assistant Message. Consumes the Anthropic Citations API JSON shape (cited_text, document_title, document_index, char/page/content_block_location). Pairs with InlineCitation superscripts in the body.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/sources/sources.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/sources.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AIInsight",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Sources",
+          "installCommand": "npx ai-elements@latest add sources"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "sparkline",
       "type": "registry:ui",
       "title": "Sparkline",
@@ -3867,6 +4636,44 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "stack-trace",
+      "type": "registry:ui",
+      "title": "StackTrace",
+      "description": "Formatted JS / Node error stack with clickable file paths. Honors source-map URLs when available.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/stack-trace/stack-trace.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/stack-trace.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "StackTrace",
+          "installCommand": "npx ai-elements@latest add stack-trace"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "status-bar",
       "type": "registry:ui",
       "title": "Status Bar",
@@ -3925,6 +4732,44 @@
         "docsPath": "design-system/02-components/stepper/component.md",
         "status": "stable",
         "warpSignature": false
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "suggestion-strip",
+      "type": "registry:ui",
+      "title": "Suggestion",
+      "description": "Suggestion chip strip rendered above PromptInput (or beside an assistant message). One chip click submits the suggestion to the chat handler.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/suggestion-strip/suggestion-strip.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/suggestion.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Shared",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Suggestion",
+          "installCommand": "npx ai-elements@latest add suggestion"
+        },
+        "platforms": [
+          "web-react"
+        ]
       }
     },
     {
@@ -4020,6 +4865,82 @@
         "docsPath": "design-system/02-components/tags-input/component.md",
         "status": "beta",
         "warpSignature": false
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "task-card",
+      "type": "registry:ui",
+      "title": "Task",
+      "description": "Single-task card for plan visualization: title, status, owner, deadline. Composes inside an agent plan list.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/task-card/task-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/task.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AgentTask",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Task",
+          "installCommand": "npx ai-elements@latest add task"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "terminal",
+      "type": "registry:ui",
+      "title": "Terminal",
+      "description": "Console output with ANSI color support, streaming indicators, auto-scroll. Use for live tool-call output (sandbox stdout, deployment logs).",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/terminal/terminal.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/terminal.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Terminal",
+          "installCommand": "npx ai-elements@latest add terminal"
+        },
+        "platforms": [
+          "web-react"
+        ]
       }
     },
     {
@@ -4149,6 +5070,45 @@
     },
     {
       "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tool",
+      "type": "registry:ui",
+      "title": "Tool",
+      "description": "Tool-call rendering primitive: Tool + ToolHeader + ToolInput + ToolOutput. Consumes AI SDK ToolUIPart / DynamicToolUIPart. Integrates with Confirmation for destructive calls.",
+      "dependencies": [
+        "lucide-react",
+        "@radix-ui/react-collapsible"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/tool/tool.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/tool.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "AIInsight",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Tool",
+          "installCommand": "npx ai-elements@latest add tool"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
       "name": "toolbar",
       "type": "registry:ui",
       "title": "Toolbar",
@@ -4273,6 +5233,121 @@
         "docsPath": "design-system/02-components/validation-message/component.md",
         "status": "stable",
         "warpSignature": false
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "voice-audio-stub",
+      "type": "registry:ui",
+      "title": "VoiceAudio",
+      "description": "STUB. Voice & Audio family entry point (AudioPlayer + Transcription + VoiceSelector + SpeechInput + MicSelector). Marked experimental until a Warp surface needs voice; flesh out at that point.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/voice-audio-stub/voice-audio-stub.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/voice-audio.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "VoiceAudio",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "AudioPlayer",
+          "installCommand": "npx ai-elements@latest add audio-player"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "web-preview",
+      "type": "registry:ui",
+      "title": "WebPreview",
+      "description": "Iframe with safety wrapper used by Artifact for HTML / web previews. Sandbox attribute defaults to safe; CSP-friendly.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/web-preview/web-preview.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/web-preview.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Content",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "WebPreview",
+          "installCommand": "npx ai-elements@latest add web-preview"
+        },
+        "platforms": [
+          "web-react"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "workflow-canvas-stub",
+      "type": "registry:ui",
+      "title": "WorkflowCanvas",
+      "description": "STUB. Workflow family entry point (Canvas + Node + Edge + Connection + Controls + Panel + Toolbar). React Flow under the hood. Marked experimental until a Warp surface needs agent-plan or freight-network visualization.",
+      "dependencies": [
+        "@xyflow/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@lumen/utils",
+        "@lumen/lumen-base"
+      ],
+      "files": [
+        {
+          "path": "design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.tsx",
+          "type": "registry:ui",
+          "target": "components/ai-elements/workflow-canvas.tsx"
+        }
+      ],
+      "cssVars": {
+        "light": {},
+        "dark": {}
+      },
+      "meta": {
+        "lumenVersion": "0.13.0",
+        "tier": "T5",
+        "family": "Workflow",
+        "phase": 5,
+        "vercelAIElements": {
+          "name": "Canvas",
+          "installCommand": "npx ai-elements@latest add canvas"
+        },
+        "platforms": [
+          "web-react"
+        ]
       }
     }
   ]

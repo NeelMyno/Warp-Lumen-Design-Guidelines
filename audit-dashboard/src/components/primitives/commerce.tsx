@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: off-grid-micro, vendor-brand
+// Audit dashboard demo — sub-grid micro pixels (10-22px) used for demo affordances; vendor brand colors (Google, Microsoft, PayPal, Shopify, Outlook) shown verbatim. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode, useState } from "react";
 import { Cart as CartIcon, Plus, X, Check, Search as SearchIcon } from "./icon";
@@ -101,6 +103,7 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
         aria-pressed={value === "yearly"}
       >
         <span
+          // lumen-lint-allow: off-grid — top-0.5 (2 px) is the documented sub-grid switch-thumb offset.
           className="absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] shadow-[var(--shadow-xs)]"
           style={{
             left: value === "yearly" ? 22 : 2,

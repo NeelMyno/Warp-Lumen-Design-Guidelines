@@ -1,5 +1,7 @@
 // Lumen ColorPicker — Web React example. Swatches variant.
 
+// lumen-allow-file: brand-demo
+// Lumen library example — Lumen brand-color literals shown verbatim in the surface demo. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { Check } from "lucide-react";

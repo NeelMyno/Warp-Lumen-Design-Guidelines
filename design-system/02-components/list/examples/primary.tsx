@@ -1,6 +1,8 @@
 // Lumen List + ListItem — Web React example.
 // <ul> / <ol> / <dl> semantic root. Three variants. Three densities.
 
+// lumen-allow-file: on-grid-px
+// Lumen library example — inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { ChevronRight } from "lucide-react";

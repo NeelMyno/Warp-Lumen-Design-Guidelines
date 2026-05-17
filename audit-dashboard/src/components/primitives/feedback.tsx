@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: brand-demo, layout-width
+// Audit dashboard demo — Lumen brand-color literals shown verbatim in the surface demo; component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode, useState } from "react";
 import { Info, AlertTriangle, AlertOctagon, CheckCircle2, X as XIcon } from "lucide-react";

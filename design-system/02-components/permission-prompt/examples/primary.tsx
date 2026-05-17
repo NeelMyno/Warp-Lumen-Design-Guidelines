@@ -1,6 +1,8 @@
 // Lumen PermissionPrompt — Web React example.
 // Centered dialog with the consequence + value. Primary fires the system prompt.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { Bell, Camera, Mic, MapPin, Image, User, Activity, Eye, Bluetooth, Fingerprint } from "lucide-react";

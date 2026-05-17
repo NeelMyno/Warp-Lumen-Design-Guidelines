@@ -221,8 +221,8 @@ const buttonVariants = cva("lumen-btn", {
 **Why CSS classes, not Tailwind arbitrary-value utilities.** v0.8.1 (ADR 0015) found that Tailwind v4's content scanner intermittently drops the shadcn token-bridge utilities (`bg-primary`, `text-primary-foreground`) — leading to white-on-lime renders. The class-composition pattern is independent of Tailwind's content-scanning behavior; the classes are statically declared in CSS and always present in the bundle. v0.9 generalises the v0.8.1 fix to every Button surface.
 
 **For consumers building outside the audit-dashboard.** Either:
-1. Copy the `.lumen-btn-*` block from `globals.css` (ships as `_build/css/buttons.css` once Style Dictionary is wired — v0.9.x deferred).
-2. Use `npx shadcn@latest add <registry>/button` to pull the canonical `examples/primary.tsx`, which ships the same CSS-class pattern.
+1. Copy the `.lumen-btn-*` block from `globals.css` (also emitted to `dist/css/lumen.css` by Style Dictionary v5 — v0.13 output path; was the deferred `_build/css/buttons.css` plan in v0.9.x).
+2. Use `npx shadcn@latest add @lumen/button` to pull the canonical `examples/primary.tsx`, which ships the same CSS-class pattern.
 
 ## Lints that enforce these rules
 

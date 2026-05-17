@@ -1,5 +1,7 @@
 // Lumen AIBadge — Web React example. Four kinds.
 
+// lumen-allow-file: off-grid-micro
+// Lumen library example — sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 import { Sparkles } from "lucide-react";
 
 type Kind = "generated" | "summary" | "confidence" | "thinking";

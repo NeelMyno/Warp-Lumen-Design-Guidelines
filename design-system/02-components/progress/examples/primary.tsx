@@ -126,7 +126,7 @@ export function Progress({
           }
         />
       </div>
-      <style>{`@keyframes lumen-prog-sweep { 0% { transform: translateX(-100%);} 100% { transform: translateX(300%);} }`}</style>
+      <style>{`@keyframes lumen-prog-sweep { 0% { transform: translateX(-100%);} 100% { transform: translateX(300%);} } @media (prefers-reduced-motion: reduce) { [style*="lumen-prog-sweep"] { animation: none !important } *[style*="transition"] { transition: none !important } }`}</style>
     </div>
   );
 }

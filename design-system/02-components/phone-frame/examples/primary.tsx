@@ -1,5 +1,7 @@
 // Lumen PhoneFrame — Web React example. Stylized phone silhouette for marketing mockups.
 
+// lumen-allow-file: off-grid-micro
+// Lumen library example — sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 import { ReactNode } from "react";
 
 type Platform = "ios-notch" | "ios-island" | "android-pin-hole";

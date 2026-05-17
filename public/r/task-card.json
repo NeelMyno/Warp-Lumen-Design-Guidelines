@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "task-card",
+  "title": "Task",
+  "description": "Single-task card for plan visualization: title, status, owner, deadline. Composes inside an agent plan list.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/task-card/task-card.tsx",
+      "content": "/**\n * Lumen Task — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./task-card.md + ./task-card.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add task\n *\n * Then import from `@/components/ai-elements/task` and theme via\n * <LumenAIProvider>. See:\n *   - ./task-card.md for the API contract\n *   - ./task-card.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/task-card` get this file copied to\n * `components/ai-elements/task.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface TaskProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add task`\n * Then import from `@/components/ai-elements/task`.\n */\nexport function Task(_props: TaskProps): never {\n  throw new Error(\n    \"[Lumen] <Task> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add task`. \" +\n    \"Then import { Task } from `@/components/ai-elements/task`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/task.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AgentTask",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Task",
+      "installCommand": "npx ai-elements@latest add task"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

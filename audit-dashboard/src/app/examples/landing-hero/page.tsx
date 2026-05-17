@@ -36,6 +36,7 @@ export default function LandingHeroExample() {
                   type="button"
                   aria-pressed={isActive}
                   onClick={() => setMode(m)}
+                  // lumen-lint-allow: off-grid — py-1.5 (6 px) is the documented sub-grid stop for compact pills.
                   className={`px-4 py-1.5 rounded-[var(--radius-full)] text-sm font-medium transition-colors duration-150 ${
                     isActive
                       ? "bg-[color:var(--color-accent-500)] text-[color:var(--color-accent-fg)]"

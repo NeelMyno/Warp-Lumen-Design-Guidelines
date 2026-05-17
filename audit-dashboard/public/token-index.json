@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-17T10:00:39Z",
+  "generated": "2026-05-17T16:52:45Z",
   "version": "0.13.0",
   "totals": {
     "tokens": 1285,
@@ -18669,7 +18669,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 530
+        "line": 531
       },
       {
         "type": "component-tsx",
@@ -18769,367 +18769,367 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 87
+        "line": 89
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 88
+        "line": 90
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 186
+        "line": 188
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 201
+        "line": 203
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 358
+        "line": 360
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 363
+        "line": 365
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 110
+        "line": 112
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 159
+        "line": 161
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 197
+        "line": 199
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 420
+        "line": 422
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 499
+        "line": 501
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 581
+        "line": 583
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 610
+        "line": 612
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 424
+        "line": 426
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 444
+        "line": 446
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 100
+        "line": 102
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 235
+        "line": 238
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 243
+        "line": 246
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 269
+        "line": 272
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 275
+        "line": 278
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 277
+        "line": 280
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 354
+        "line": 357
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 428
+        "line": 431
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 204
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 286
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 320
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 321
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 325
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 330
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 343
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 386
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 425
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 534
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 558
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 597
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 621
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 636
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 139
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 194
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
         "line": 206
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 258
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 288
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 322
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 323
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 327
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
         "line": 332
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 352
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 345
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
         "line": 388
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 409
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 427
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 499
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 536
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 590
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 560
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 660
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 599
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 671
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 623
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 712
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 638
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 715
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 141
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 739
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 196
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 768
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 787
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
         "line": 208
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 260
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 334
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 354
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 390
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 411
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 501
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 592
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 662
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 673
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 714
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 717
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 741
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 770
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 789
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 221
+        "line": 210
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "line": 223
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 13
+        "line": 15
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 50
+        "line": 52
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 144
+        "line": 146
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 237
+        "line": 240
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 302
+        "line": 305
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 311
+        "line": 314
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 315
+        "line": 318
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 346
+        "line": 349
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 346
+        "line": 349
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 362
+        "line": 365
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 400
+        "line": 403
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 477
+        "line": 480
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 523
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 523
+        "line": 526
       },
       {
         "type": "component-tsx",
@@ -19154,17 +19154,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 57
+        "line": 59
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 67
+        "line": 69
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 43
+        "line": 45
       },
       {
         "type": "component-tsx",
@@ -19432,107 +19432,107 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 110
+        "line": 112
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 110
+        "line": 112
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 110
+        "line": 112
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 484
+        "line": 486
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 484
+        "line": 486
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 484
+        "line": 486
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 21
+        "line": 23
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 21
+        "line": 23
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 21
+        "line": 23
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 189
+        "line": 191
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 189
+        "line": 191
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 189
+        "line": 191
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 89
+        "line": 91
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 89
+        "line": 91
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 89
+        "line": 91
       }
     ],
     "border.default": [
@@ -19920,107 +19920,107 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 200
+        "line": 202
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 277
+        "line": 279
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 295
+        "line": 297
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 110
+        "line": 112
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 306
+        "line": 308
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 100
+        "line": 102
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 190
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 264
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 277
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 357
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 378
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 469
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 499
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 173
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 186
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
         "line": 187
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 261
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 274
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 354
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 375
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 466
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 496
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 322
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 171
+        "line": 481
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 184
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 185
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 320
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 479
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 559
+        "line": 561
       },
       {
         "type": "component-tsx",
@@ -20030,122 +20030,122 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 127
+        "line": 129
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 185
+        "line": 187
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 242
+        "line": 244
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 255
+        "line": 257
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 274
+        "line": 276
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 283
+        "line": 285
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 280
+        "line": 282
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 542
+        "line": 544
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 561
+        "line": 563
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 646
+        "line": 648
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 702
+        "line": 704
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 144
+        "line": 146
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 156
+        "line": 158
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 227
+        "line": 230
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 258
+        "line": 261
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 311
+        "line": 314
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 475
+        "line": 478
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 504
+        "line": 507
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 89
+        "line": 91
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 56
+        "line": 58
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 67
+        "line": 69
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 189
+        "line": 191
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 190
+        "line": 192
       },
       {
         "type": "component-tsx",
@@ -20793,7 +20793,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 62
+        "line": 63
       },
       {
         "type": "component-tsx",
@@ -21198,47 +21198,47 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 484
+        "line": 485
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 490
+        "line": 491
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 495
+        "line": 496
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 500
+        "line": 501
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 506
+        "line": 507
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 529
+        "line": 530
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 538
+        "line": 539
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 565
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 570
+        "line": 572
       },
       {
         "type": "component-tsx",
@@ -21258,22 +21258,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 136
+        "line": 137
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 167
+        "line": 168
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 250
+        "line": 251
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 287
+        "line": 288
       },
       {
         "type": "component-tsx",
@@ -21593,132 +21593,132 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 21
+        "line": 23
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 30
+        "line": 32
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 74
+        "line": 76
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 75
+        "line": 77
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 83
+        "line": 85
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 87
+        "line": 89
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 88
+        "line": 90
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 122
+        "line": 124
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 138
+        "line": 140
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 191
+        "line": 193
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 201
+        "line": 203
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 202
+        "line": 204
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 211
+        "line": 213
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 216
+        "line": 218
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 267
+        "line": 269
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 268
+        "line": 270
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 279
+        "line": 281
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 280
+        "line": 282
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 301
+        "line": 303
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 305
+        "line": 307
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 326
+        "line": 328
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 331
+        "line": 333
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 343
+        "line": 345
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 360
+        "line": 362
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 363
+        "line": 365
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/avatar.tsx",
-        "line": 110
+        "line": 112
       },
       {
         "type": "component-tsx",
@@ -21728,82 +21728,82 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 81
+        "line": 83
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 118
+        "line": 120
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 139
+        "line": 141
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 158
+        "line": 160
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 164
+        "line": 166
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 228
+        "line": 230
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 238
+        "line": 240
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 270
+        "line": 272
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 273
+        "line": 275
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 342
+        "line": 344
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 432
+        "line": 434
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 483
+        "line": 485
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 498
+        "line": 500
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 537
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 563
+        "line": 539
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
         "line": 565
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/charts.tsx",
+        "line": 567
       },
       {
         "type": "component-tsx",
@@ -21818,167 +21818,162 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 324
+        "line": 326
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 332
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 352
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 353
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 358
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 380
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 431
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 434
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 43
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 47
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 97
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 111
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 171
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 187
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 245
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 263
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 264
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 272
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 279
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 291
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 354
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 365
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 400
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 428
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 175
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 215
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 295
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 320
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 321
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 324
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 325
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
         "line": 334
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 354
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 355
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 360
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 382
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 433
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 436
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 45
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 49
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 99
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 114
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 174
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 190
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 248
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 266
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 267
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 275
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 282
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 294
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 357
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 368
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 403
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 431
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 390
+        "line": 177
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 217
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 297
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 322
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 323
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 326
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 327
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 336
       },
       {
         "type": "component-tsx",
@@ -21988,167 +21983,167 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 398
+        "line": 394
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 430
+        "line": 400
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 449
+        "line": 432
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 491
+        "line": 451
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 511
+        "line": 493
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 538
+        "line": 513
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 539
+        "line": 540
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 574
+        "line": 541
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 595
+        "line": 576
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 641
+        "line": 597
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 655
+        "line": 643
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 679
+        "line": 657
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 696
+        "line": 681
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 698
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 134
+        "line": 136
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 191
+        "line": 193
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 194
+        "line": 196
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 244
+        "line": 246
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 258
+        "line": 260
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 285
+        "line": 287
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 308
+        "line": 310
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 116
+        "line": 118
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 413
+        "line": 415
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 612
+        "line": 614
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 666
+        "line": 668
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 673
+        "line": 675
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 711
+        "line": 713
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 722
+        "line": 724
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 761
+        "line": 763
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 770
+        "line": 772
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 797
+        "line": 799
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 128
+        "line": 130
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 143
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 168
+        "line": 145
       },
       {
         "type": "component-tsx",
@@ -22158,92 +22153,92 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 212
+        "line": 172
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 243
+        "line": 214
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "line": 245
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 31
+        "line": 33
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 40
+        "line": 42
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 144
+        "line": 146
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 171
+        "line": 174
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 177
+        "line": 180
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 210
+        "line": 213
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 241
+        "line": 244
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 311
+        "line": 314
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 350
+        "line": 353
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 354
+        "line": 357
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 362
+        "line": 365
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 395
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 400
+        "line": 403
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 430
+        "line": 433
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 436
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 506
+        "line": 439
       },
       {
         "type": "component-tsx",
@@ -22253,22 +22248,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 527
+        "line": 512
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 535
+        "line": 530
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 551
+        "line": 538
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 559
+        "line": 554
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/nav.tsx",
+        "line": 562
       },
       {
         "type": "component-tsx",
@@ -22303,22 +22303,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/stat.tsx",
-        "line": 123
+        "line": 125
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/stat.tsx",
-        "line": 335
+        "line": 337
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 64
+        "line": 66
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
@@ -22328,67 +22328,67 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 70
+        "line": 72
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 88
+        "line": 90
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 24
+        "line": 26
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 28
+        "line": 30
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 46
+        "line": 48
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 53
+        "line": 55
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 59
+        "line": 61
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 96
+        "line": 98
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 122
+        "line": 124
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 140
+        "line": 142
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 174
+        "line": 176
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 178
+        "line": 180
       },
       {
         "type": "component-tsx",
@@ -22408,7 +22408,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 43
+        "line": 45
       },
       {
         "type": "component-tsx",
@@ -22570,7 +22570,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 39
+        "line": 40
       },
       {
         "type": "component-tsx",
@@ -22595,7 +22595,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 443
+        "line": 444
       },
       {
         "type": "component-tsx",
@@ -22655,22 +22655,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 11
+        "line": 13
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 56
+        "line": 58
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 358
+        "line": 360
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 363
+        "line": 365
       },
       {
         "type": "component-tsx",
@@ -22685,42 +22685,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 37
+        "line": 39
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 37
+        "line": 39
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 64
+        "line": 66
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 92
+        "line": 94
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/stat.tsx",
-        "line": 156
+        "line": 158
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 87
+        "line": 89
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 33
+        "line": 35
       },
       {
         "type": "component-tsx",
@@ -22751,22 +22751,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 216
+        "line": 218
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 216
+        "line": 218
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 265
+        "line": 267
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 265
+        "line": 267
       },
       {
         "type": "component-tsx",
@@ -22781,82 +22781,82 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 218
+        "line": 221
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 218
+        "line": 221
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 429
+        "line": 432
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 429
+        "line": 432
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 68
+        "line": 70
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 68
+        "line": 70
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 125
+        "line": 127
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 125
+        "line": 127
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 363
+        "line": 366
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 363
+        "line": 366
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 562
+        "line": 565
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 562
+        "line": 565
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 179
+        "line": 181
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 179
+        "line": 181
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 46
+        "line": 48
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 46
+        "line": 48
       }
     ],
     "text.primary": [
@@ -23409,12 +23409,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 42
+        "line": 43
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 66
+        "line": 67
       },
       {
         "type": "component-tsx",
@@ -23579,7 +23579,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 531
+        "line": 532
       },
       {
         "type": "component-tsx",
@@ -23589,32 +23589,32 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 135
+        "line": 136
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 167
+        "line": 168
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 177
+        "line": 178
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 211
+        "line": 212
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 249
+        "line": 250
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 287
+        "line": 288
       },
       {
         "type": "component-tsx",
@@ -23794,62 +23794,62 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 83
+        "line": 85
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 87
+        "line": 89
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 88
+        "line": 90
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 123
+        "line": 125
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 124
+        "line": 126
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 185
+        "line": 187
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 186
+        "line": 188
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 280
+        "line": 282
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 301
+        "line": 303
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 332
+        "line": 334
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 333
+        "line": 335
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 363
+        "line": 365
       },
       {
         "type": "component-tsx",
@@ -23859,27 +23859,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 221
+        "line": 223
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 502
+        "line": 504
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 533
+        "line": 535
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 582
+        "line": 584
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 610
+        "line": 612
       },
       {
         "type": "component-tsx",
@@ -23889,237 +23889,237 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 332
+        "line": 334
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 429
+        "line": 431
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 443
+        "line": 445
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 97
+        "line": 99
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 111
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 264
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 279
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 325
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 353
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 362
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 456
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 145
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 173
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 215
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 221
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 277
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 291
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 321
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 325
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 347
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 397
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 575
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 133
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 189
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 237
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
         "line": 114
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 292
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 267
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 282
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 328
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 356
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 365
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 459
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 147
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 175
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 217
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 223
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 279
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 293
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 323
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 327
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 349
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 399
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 577
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 135
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 191
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 239
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 663
+        "line": 116
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 769
+        "line": 294
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 796
+        "line": 665
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 797
+        "line": 771
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 798
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 799
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 47
+        "line": 49
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 143
+        "line": 145
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 168
+        "line": 171
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 210
+        "line": 213
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 237
+        "line": 240
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 281
+        "line": 284
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 302
+        "line": 305
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 302
+        "line": 305
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 346
+        "line": 349
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 395
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 395
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 430
+        "line": 433
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 436
+        "line": 439
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 477
+        "line": 480
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 523
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 573
+        "line": 576
       },
       {
         "type": "component-tsx",
@@ -24139,12 +24139,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/stat.tsx",
-        "line": 116
+        "line": 118
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 59
+        "line": 61
       },
       {
         "type": "component-tsx",
@@ -24154,27 +24154,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 70
+        "line": 72
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 89
+        "line": 91
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 27
+        "line": 29
       },
       {
         "type": "component-tsx",
@@ -24189,12 +24189,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 43
+        "line": 45
       },
       {
         "type": "component-tsx",
@@ -24505,22 +24505,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 443
+        "line": 444
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 538
+        "line": 539
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 541
+        "line": 542
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 562
+        "line": 563
       },
       {
         "type": "component-tsx",
@@ -24620,57 +24620,57 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 11
+        "line": 13
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 73
+        "line": 75
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 107
+        "line": 109
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 108
+        "line": 110
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 135
+        "line": 137
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 298
+        "line": 300
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 393
+        "line": 395
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 403
+        "line": 406
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 139
+        "line": 141
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 664
+        "line": 666
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 170
+        "line": 172
       }
     ],
     "color.action.primary.bg.rest": [
@@ -25052,7 +25052,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 538
+        "line": 539
       },
       {
         "type": "component-tsx",
@@ -25117,32 +25117,32 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 187
+        "line": 190
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 320
+        "line": 322
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 242
+        "line": 244
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 44
+        "line": 46
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 56
+        "line": 58
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
@@ -25585,17 +25585,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 130
+        "line": 131
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 209
+        "line": 210
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 271
+        "line": 272
       },
       {
         "type": "component-tsx",
@@ -25715,27 +25715,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 134
+        "line": 136
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 200
+        "line": 202
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 295
+        "line": 297
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 320
+        "line": 322
       },
       {
         "type": "component-tsx",
@@ -25745,217 +25745,217 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 74
+        "line": 76
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 524
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 32
+        "line": 34
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 187
+        "line": 190
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 261
+        "line": 264
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 274
+        "line": 277
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 308
+        "line": 311
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 397
+        "line": 400
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 496
+        "line": 499
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 141
+        "line": 143
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 171
+        "line": 173
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 215
+        "line": 217
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 317
+        "line": 319
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 392
+        "line": 394
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 396
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 465
+        "line": 467
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 507
+        "line": 509
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 615
+        "line": 617
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 651
+        "line": 653
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 659
+        "line": 661
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 682
+        "line": 684
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 242
+        "line": 244
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 255
+        "line": 257
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 769
+        "line": 771
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 796
+        "line": 798
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 165
+        "line": 167
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 194
+        "line": 196
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 292
+        "line": 295
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 335
+        "line": 338
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 419
+        "line": 422
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 547
+        "line": 550
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 44
+        "line": 46
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 48
+        "line": 50
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 70
+        "line": 72
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 23
+        "line": 25
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 43
+        "line": 45
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 56
+        "line": 58
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 67
+        "line": 69
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 81
+        "line": 83
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 120
+        "line": 122
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 132
+        "line": 134
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 169
+        "line": 171
       },
       {
         "type": "component-tsx",
@@ -26153,7 +26153,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 282
+        "line": 283
       },
       {
         "type": "component-tsx",
@@ -26198,77 +26198,77 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 11
+        "line": 13
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 104
+        "line": 106
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 135
+        "line": 137
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 185
+        "line": 187
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 255
+        "line": 257
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 358
+        "line": 360
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 443
+        "line": 445
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 31
+        "line": 33
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 403
+        "line": 406
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 412
+        "line": 415
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 292
+        "line": 294
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 261
+        "line": 264
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 170
+        "line": 172
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
@@ -26876,42 +26876,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 443
+        "line": 444
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 530
+        "line": 531
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 565
+        "line": 566
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 130
+        "line": 131
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 156
+        "line": 157
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 209
+        "line": 210
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 245
+        "line": 246
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 271
+        "line": 272
       },
       {
         "type": "component-tsx",
@@ -27101,62 +27101,62 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 72
+        "line": 74
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 85
+        "line": 87
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 104
+        "line": 106
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 134
+        "line": 136
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 278
+        "line": 280
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 282
+        "line": 284
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 296
+        "line": 298
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 310
+        "line": 312
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 320
+        "line": 322
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 338
+        "line": 340
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 358
+        "line": 360
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 363
+        "line": 365
       },
       {
         "type": "component-tsx",
@@ -27176,82 +27176,77 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 64
+        "line": 66
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 130
+        "line": 132
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 305
+        "line": 307
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 330
+        "line": 332
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 474
+        "line": 476
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 524
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 323
+        "line": 325
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 380
+        "line": 382
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 32
+        "line": 34
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 236
+        "line": 239
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 243
+        "line": 246
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 262
+        "line": 265
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 286
+        "line": 289
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 308
+        "line": 311
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 315
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 397
+        "line": 318
       },
       {
         "type": "component-tsx",
@@ -27261,117 +27256,122 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 409
+        "line": 403
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 428
+        "line": 412
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 431
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 141
+        "line": 143
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 142
+        "line": 144
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 186
+        "line": 188
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 187
+        "line": 189
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 204
+        "line": 206
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 205
+        "line": 207
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 317
+        "line": 319
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 318
+        "line": 320
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 330
+        "line": 332
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 343
+        "line": 345
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 386
+        "line": 388
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 396
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 465
+        "line": 467
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 507
+        "line": 509
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 636
+        "line": 638
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 651
+        "line": 653
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 652
+        "line": 654
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 682
+        "line": 684
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 695
+        "line": 697
       },
       {
         "type": "component-tsx",
@@ -27391,47 +27391,37 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 206
+        "line": 208
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 256
+        "line": 258
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 787
+        "line": 789
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 72
+        "line": 74
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 90
+        "line": 92
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 96
+        "line": 98
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 105
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 130
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 131
+        "line": 107
       },
       {
         "type": "component-tsx",
@@ -27441,67 +27431,77 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 221
+        "line": 133
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "line": 134
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "line": 223
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 13
+        "line": 15
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 229
+        "line": 232
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 292
+        "line": 295
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 293
+        "line": 296
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 335
+        "line": 338
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 382
+        "line": 385
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 419
+        "line": 422
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 505
+        "line": 508
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 515
+        "line": 518
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 535
+        "line": 538
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 547
+        "line": 550
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 559
+        "line": 562
       },
       {
         "type": "component-tsx",
@@ -27511,47 +27511,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/stat.tsx",
-        "line": 261
+        "line": 263
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 44
+        "line": 46
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 57
+        "line": 59
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 111
+        "line": 113
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 57
+        "line": 59
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 58
+        "line": 60
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 23
+        "line": 25
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 43
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 52
+        "line": 45
       },
       {
         "type": "component-tsx",
@@ -27561,37 +27556,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 81
+        "line": 56
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 120
+        "line": 83
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 132
+        "line": 122
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 169
+        "line": 134
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 191
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 192
+        "line": 171
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
         "line": 193
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/templates.tsx",
+        "line": 194
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/templates.tsx",
+        "line": 195
       },
       {
         "type": "component-tsx",
@@ -27907,12 +27907,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 530
+        "line": 531
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 568
+        "line": 570
       },
       {
         "type": "component-tsx",
@@ -28012,157 +28012,157 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 134
+        "line": 136
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 440
+        "line": 442
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 121
+        "line": 124
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 131
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 138
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 145
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 152
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 159
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 190
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 194
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 238
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 496
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 206
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 398
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 467
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 638
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 684
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 93
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
         "line": 128
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 135
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 142
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 149
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 156
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 187
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 191
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 235
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 493
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 204
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 396
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 465
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 636
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 682
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 244
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 91
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 126
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 242
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 280
+        "line": 282
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 787
+        "line": 789
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 235
+        "line": 237
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 13
+        "line": 15
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 227
+        "line": 230
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 261
+        "line": 264
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 475
+        "line": 478
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 70
+        "line": 72
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 56
+        "line": 58
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 67
+        "line": 69
       },
       {
         "type": "component-tsx",
@@ -28434,27 +28434,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 380
+        "line": 382
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 388
+        "line": 390
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 542
+        "line": 544
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 769
+        "line": 771
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 770
+        "line": 772
       },
       {
         "type": "component-tsx",
@@ -28717,7 +28717,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 42
+        "line": 43
       },
       {
         "type": "component-tsx",
@@ -28827,17 +28827,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 443
+        "line": 444
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 487
+        "line": 488
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 229
+        "line": 230
       },
       {
         "type": "component-tsx",
@@ -28947,162 +28947,162 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 115
+        "line": 117
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 328
+        "line": 330
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 345
+        "line": 347
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 116
+        "line": 118
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 237
+        "line": 239
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 417
+        "line": 419
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 504
+        "line": 506
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 572
+        "line": 574
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 610
+        "line": 612
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 424
+        "line": 426
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 51
+        "line": 53
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 288
+        "line": 291
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 324
+        "line": 327
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 364
+        "line": 367
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 410
+        "line": 413
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 455
+        "line": 458
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 496
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 148
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 425
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 594
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 622
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 198
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 236
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 292
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 332
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 352
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 388
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
         "line": 499
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 551
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 150
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 427
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 596
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/display.tsx",
+        "line": 624
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 200
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/feedback.tsx",
+        "line": 238
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 660
+        "line": 294
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 672
+        "line": 334
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 739
+        "line": 354
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 390
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 501
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 553
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 662
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 674
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/inputs.tsx",
+        "line": 741
       },
       {
         "type": "component-tsx",
@@ -29112,72 +29112,72 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 222
+        "line": 224
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 35
+        "line": 37
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 50
+        "line": 52
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 170
+        "line": 173
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 210
+        "line": 213
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 210
+        "line": 213
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 265
+        "line": 268
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 281
+        "line": 284
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 302
+        "line": 305
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 315
+        "line": 318
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 346
+        "line": 349
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 523
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 573
+        "line": 576
       },
       {
         "type": "component-tsx",
@@ -29202,7 +29202,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 87
+        "line": 89
       },
       {
         "type": "component-tsx",
@@ -29302,82 +29302,82 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 200
+        "line": 202
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 277
+        "line": 279
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 295
+        "line": 297
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 29
+        "line": 31
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 261
+        "line": 264
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 185
+        "line": 187
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 255
+        "line": 257
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 283
+        "line": 285
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 504
+        "line": 507
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 23
+        "line": 25
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 43
+        "line": 45
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 81
+        "line": 83
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 132
+        "line": 134
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 150
+        "line": 152
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 169
+        "line": 171
       },
       {
         "type": "component-tsx",
@@ -29436,7 +29436,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 71
+        "line": 73
       },
       {
         "type": "component-tsx",
@@ -29446,32 +29446,32 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 396
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 507
+        "line": 509
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 601
+        "line": 603
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 609
+        "line": 611
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 44
+        "line": 46
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 43
+        "line": 45
       },
       {
         "type": "component-tsx",
@@ -29571,42 +29571,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 236
+        "line": 239
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 496
+        "line": 499
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 485
+        "line": 487
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 601
+        "line": 603
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 609
+        "line": 611
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 646
+        "line": 648
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 738
+        "line": 740
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 73
+        "line": 75
       },
       {
         "type": "component-tsx",
@@ -29733,87 +29733,87 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 277
+        "line": 279
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 126
+        "line": 128
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 185
+        "line": 187
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 274
+        "line": 276
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 283
+        "line": 285
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 280
+        "line": 282
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 702
+        "line": 704
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 72
+        "line": 74
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 90
+        "line": 92
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 105
+        "line": 107
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 125
+        "line": 127
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 207
+        "line": 209
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 227
+        "line": 230
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 258
+        "line": 261
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 475
+        "line": 478
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 504
+        "line": 507
       },
       {
         "type": "component-tsx",
@@ -29945,22 +29945,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 187
+        "line": 190
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 320
+        "line": 322
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 242
+        "line": 244
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 56
+        "line": 58
       },
       {
         "type": "component-tsx",
@@ -30252,7 +30252,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 277
+        "line": 279
       },
       {
         "type": "component-tsx",
@@ -30262,47 +30262,47 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 126
+        "line": 128
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 283
+        "line": 285
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 280
+        "line": 282
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 702
+        "line": 704
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 227
+        "line": 230
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 258
+        "line": 261
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 475
+        "line": 478
       },
       {
         "type": "component-tsx",
@@ -30362,17 +30362,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 411
+        "line": 414
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 412
+        "line": 415
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 413
+        "line": 416
       },
       {
         "type": "component-tsx",
@@ -30539,7 +30539,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 130
+        "line": 131
       },
       {
         "type": "component-tsx",
@@ -30609,122 +30609,122 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 104
+        "line": 106
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 181
+        "line": 183
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 320
+        "line": 322
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 524
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 243
+        "line": 246
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 308
+        "line": 311
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 397
+        "line": 400
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 141
+        "line": 143
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 171
+        "line": 173
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 269
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 317
+        "line": 319
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 386
+        "line": 388
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 507
+        "line": 509
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 651
+        "line": 653
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 642
+        "line": 644
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 702
+        "line": 704
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 258
+        "line": 261
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 292
+        "line": 295
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 335
+        "line": 338
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 547
+        "line": 550
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 44
+        "line": 46
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 111
+        "line": 113
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 57
+        "line": 59
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 120
+        "line": 122
       },
       {
         "type": "component-tsx",
@@ -30782,42 +30782,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 295
+        "line": 297
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
-        "line": 308
+        "line": 310
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 261
+        "line": 264
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 185
+        "line": 187
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 255
+        "line": 257
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 72
+        "line": 74
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 235
+        "line": 237
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 504
+        "line": 507
       },
       {
         "type": "component-tsx",
@@ -30980,7 +30980,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 538
+        "line": 539
       },
       {
         "type": "component-tsx",
@@ -31035,32 +31035,27 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 87
+        "line": 89
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 88
+        "line": 90
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 135
+        "line": 137
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/ai.tsx",
-        "line": 201
+        "line": 203
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 159
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 420
+        "line": 161
       },
       {
         "type": "component-tsx",
@@ -31070,182 +31065,187 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 499
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 610
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
         "line": 424
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 269
+        "file": "audit-dashboard/src/components/primitives/charts.tsx",
+        "line": 501
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/charts.tsx",
+        "line": 612
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/command-palette.tsx",
+        "line": 426
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 274
+        "line": 272
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 428
+        "line": 277
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 431
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 121
+        "line": 123
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 215
+        "line": 217
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 320
+        "line": 322
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 321
+        "line": 323
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 325
+        "line": 327
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 392
+        "line": 394
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 425
+        "line": 427
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 621
+        "line": 623
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 139
+        "line": 141
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 194
+        "line": 196
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 258
+        "line": 260
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 291
+        "line": 293
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 499
+        "line": 501
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 671
+        "line": 673
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 712
+        "line": 714
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 715
+        "line": 717
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 735
+        "line": 737
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 768
+        "line": 770
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 794
+        "line": 796
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 20
+        "line": 22
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 47
+        "line": 49
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 236
+        "line": 239
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 301
+        "line": 304
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 311
+        "line": 314
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 315
+        "line": 318
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 345
+        "line": 348
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 362
+        "line": 365
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 477
+        "line": 480
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 522
+        "line": 525
       },
       {
         "type": "component-tsx",
@@ -31270,12 +31270,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 541
+        "line": 543
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 754
+        "line": 756
       }
     ],
     "space.3": [
@@ -31286,7 +31286,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 26
+        "line": 28
       }
     ],
     "border.error": [
@@ -31485,42 +31485,42 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 191
+        "line": 194
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 495
+        "line": 498
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 495
+        "line": 498
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 49
+        "line": 51
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 400
+        "line": 403
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 52
+        "line": 54
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 150
+        "line": 152
       }
     ],
     "text.inverse": [
@@ -31562,37 +31562,37 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 191
+        "line": 194
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 495
+        "line": 498
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/feedback.tsx",
-        "line": 151
+        "line": 153
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 49
+        "line": 51
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 400
+        "line": 403
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 52
+        "line": 54
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/templates.tsx",
-        "line": 150
+        "line": 152
       }
     ],
     "size.control.cozy": [
@@ -31646,12 +31646,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 193
+        "line": 194
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 21
+        "line": 23
       }
     ],
     "surface.hero": [
@@ -31700,7 +31700,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 221
+        "line": 222
       }
     ],
     "color.accent.500": [
@@ -31717,7 +31717,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 41
+        "line": 42
       }
     ],
     "color.accent.fg": [
@@ -31729,7 +31729,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/page.tsx",
-        "line": 41
+        "line": 42
       }
     ],
     "color.alpha.paper.40": [
@@ -31773,12 +31773,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 443
+        "line": 444
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/library/registry/client.tsx",
-        "line": 562
+        "line": 563
       },
       {
         "type": "component-tsx",
@@ -31833,12 +31833,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 610
+        "line": 612
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 38
+        "line": 40
       }
     ],
     "radius.3xl": [
@@ -31857,17 +31857,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 31
+        "line": 33
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 20
+        "line": 22
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 143
+        "line": 145
       }
     ],
     "shadow.glow.accent": [
@@ -31879,24 +31879,24 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 31
+        "line": 33
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
-        "line": 20
+        "line": 22
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 143
+        "line": 145
       }
     ],
     "surface.overlay": [
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
-        "line": 156
+        "line": 157
       }
     ],
     "border.subtle": [
@@ -31923,71 +31923,61 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/swatch.tsx",
-        "line": 44
+        "line": 46
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/tab-nav.tsx",
-        "line": 43
+        "line": 45
       }
     ],
     "shadow.xs": [
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/charts.tsx",
-        "line": 524
+        "line": 526
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 32
+        "line": 34
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/commerce.tsx",
-        "line": 104
+        "line": 107
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/display.tsx",
-        "line": 396
+        "line": 398
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 769
+        "line": 771
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/inputs.tsx",
-        "line": 796
+        "line": 798
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 70
+        "line": 72
       }
     ],
     "text.link": [
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 97
+        "line": 99
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 105
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 131
-      },
-      {
-        "type": "component-tsx",
-        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 132
+        "line": 107
       },
       {
         "type": "component-tsx",
@@ -31997,19 +31987,29 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/mobile.tsx",
-        "line": 227
+        "line": 134
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "line": 135
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/mobile.tsx",
+        "line": 229
       }
     ],
     "space.1": [
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/nav.tsx",
-        "line": 76
+        "line": 78
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/primitives/tabs-inline.tsx",
-        "line": 86
+        "line": 88
       }
     ]
   }

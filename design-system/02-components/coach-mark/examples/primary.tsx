@@ -1,6 +1,8 @@
 // Lumen CoachMark — Web React example. Skeleton implementation; production code
 // should integrate with a Popper / Floating UI library for collision-aware positioning.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { ReactNode, RefObject, useId, useLayoutEffect, useState } from "react";

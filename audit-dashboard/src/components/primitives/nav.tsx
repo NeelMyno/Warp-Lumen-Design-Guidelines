@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: layout-width, off-grid-micro, on-grid-px
+// Audit dashboard demo — component-specific layout widths (modal, drawer, card, etc.); sub-grid micro pixels (10-22px) used for demo affordances; inline layout pixels in a self-contained demo (4-pt grid). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode, useState } from "react";
 import { Plus, ChevronDown, ChevronLeft, ChevronRight, Search as SearchIcon, Home, Bell, Inbox, Cart, User, Check } from "./icon";
@@ -160,6 +162,7 @@ export function Stepper({
             </div>
             {/* Label + description — sit under the dot, left-aligned to the
                 dot's left edge. pr-3 keeps long labels off the next dot. */}
+            {/* lumen-lint-allow: off-grid — gap-0.5 (2 px) is hairline spacing between stepper label + description. */}
             <div className="mt-3 flex flex-col gap-0.5 pr-3 min-w-0">
               <div
                 className={[

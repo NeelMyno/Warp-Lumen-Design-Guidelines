@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tool",
+  "title": "Tool",
+  "description": "Tool-call rendering primitive: Tool + ToolHeader + ToolInput + ToolOutput. Consumes AI SDK ToolUIPart / DynamicToolUIPart. Integrates with Confirmation for destructive calls.",
+  "dependencies": [
+    "lucide-react",
+    "@radix-ui/react-collapsible"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/tool/tool.tsx",
+      "content": "/**\n * Lumen Tool — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./tool.md + ./tool.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add tool\n *\n * Then import from `@/components/ai-elements/tool` and theme via\n * <LumenAIProvider>. See:\n *   - ./tool.md for the API contract\n *   - ./tool.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/tool` get this file copied to\n * `components/ai-elements/tool.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface ToolProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add tool`\n * Then import from `@/components/ai-elements/tool`.\n */\nexport function Tool(_props: ToolProps): never {\n  throw new Error(\n    \"[Lumen] <Tool> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add tool`. \" +\n    \"Then import { Tool } from `@/components/ai-elements/tool`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/tool.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "AIInsight",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "Tool",
+      "installCommand": "npx ai-elements@latest add tool"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

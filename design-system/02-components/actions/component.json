@@ -1,0 +1,77 @@
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Actions",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Action button strip below an assistant Message: regenerate / copy / like / dislike / share. Mirrors Vercel AI Elements `Actions` verbatim; theme via LumenAIProvider.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Actions` accepts a ReactNode subtree. See ./actions.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add actions` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./actions.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./actions.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Actions",
+    "installCommand": "npx ai-elements@latest add actions",
+    "registryUrl": "https://elements.ai-sdk.dev/r/actions.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Shared",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}

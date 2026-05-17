@@ -1,5 +1,7 @@
 // Lumen ReactionBar — Web React example.
 
+// lumen-allow-file: off-grid-micro
+// Lumen library example — sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { Plus } from "lucide-react";

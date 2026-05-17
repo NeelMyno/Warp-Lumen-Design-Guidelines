@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: layout-width, off-grid-micro, vendor-brand
+// Audit dashboard demo — component-specific layout widths (modal, drawer, card, etc.); sub-grid micro pixels (10-22px) used for demo affordances; vendor brand colors (Google, Microsoft, PayPal, Shopify, Outlook) shown verbatim. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode } from "react";
 import { Key, Wrench } from "lucide-react";

@@ -2,6 +2,8 @@
 // Static skeleton. Production: integrate with react-aria's useDrag/useDrop +
 // dnd-kit for the gesture, AND maintain keyboard Arrow/Space drag-equivalents.
 
+// lumen-allow-file: layout-width
+// Lumen library example — component-specific layout widths (modal, drawer, card, etc.). The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 "use client";
 
 import { ReactNode } from "react";

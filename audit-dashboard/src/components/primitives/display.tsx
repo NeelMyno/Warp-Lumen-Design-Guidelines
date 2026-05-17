@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: layout-width, off-grid-micro
+// Audit dashboard demo — component-specific layout widths (modal, drawer, card, etc.); sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode, useState } from "react";
 import { File as FileIconLucide, Folder as FolderIconLucide, Star as StarIconLucide } from "lucide-react";

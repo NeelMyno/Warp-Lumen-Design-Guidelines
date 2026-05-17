@@ -1,0 +1,40 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message-response",
+  "title": "MessageResponse",
+  "description": "Streaming-optimized markdown renderer for assistant message bodies. Shimmer + cursor while streaming; safe markdown by default. Mirrors Vercel AI Elements `MessageResponse` (ships in the same `message` module).",
+  "dependencies": [
+    "react-markdown",
+    "remark-gfm"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/message"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/message-response/message-response.tsx",
+      "content": "/**\n * Lumen MessageResponse — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./message-response.md + ./message-response.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add message-response\n *\n * Then import from `@/components/ai-elements/message-response` and theme via\n * <LumenAIProvider>. See:\n *   - ./message-response.md for the API contract\n *   - ./message-response.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/message-response` get this file copied to\n * `components/ai-elements/message-response.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface MessageResponseProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add message-response`\n * Then import from `@/components/ai-elements/message-response`.\n */\nexport function MessageResponse(_props: MessageResponseProps): never {\n  throw new Error(\n    \"[Lumen] <MessageResponse> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add message-response`. \" +\n    \"Then import { MessageResponse } from `@/components/ai-elements/message-response`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/message-response.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Message",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "MessageResponse",
+      "installCommand": "npx ai-elements@latest add message"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}

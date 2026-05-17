@@ -7,7 +7,7 @@
 > For the indexed (~5-10K-token) version, see [`llms.txt`](./llms.txt).
 > For the canonical source, see https://github.com/NeelMyno/Warp-Lumen-Design-Guidelines.
 >
-> Generated: 2026-05-17T10:00:39Z
+> Generated: 2026-05-17T16:52:44Z
 > Lumen version: v0.13.0
 > Section order: foundations → tokens → components → patterns → platforms → prompts → briefings
 
@@ -265,7 +265,7 @@ A failing a11y check blocks merge. Suppression requires an ADR.
 
 ### design-system/00-foundations/buttons.md
 
-<!-- bytes: 19705 -->
+<!-- bytes: 19756 -->
 
 ---
 name: Buttons
@@ -490,8 +490,8 @@ const buttonVariants = cva("lumen-btn", {
 **Why CSS classes, not Tailwind arbitrary-value utilities.** v0.8.1 (ADR 0015) found that Tailwind v4's content scanner intermittently drops the shadcn token-bridge utilities (`bg-primary`, `text-primary-foreground`) — leading to white-on-lime renders. The class-composition pattern is independent of Tailwind's content-scanning behavior; the classes are statically declared in CSS and always present in the bundle. v0.9 generalises the v0.8.1 fix to every Button surface.
 
 **For consumers building outside the audit-dashboard.** Either:
-1. Copy the `.lumen-btn-*` block from `globals.css` (ships as `_build/css/buttons.css` once Style Dictionary is wired — v0.9.x deferred).
-2. Use `npx shadcn@latest add <registry>/button` to pull the canonical `examples/primary.tsx`, which ships the same CSS-class pattern.
+1. Copy the `.lumen-btn-*` block from `globals.css` (also emitted to `dist/css/lumen.css` by Style Dictionary v5 — v0.13 output path; was the deferred `_build/css/buttons.css` plan in v0.9.x).
+2. Use `npx shadcn@latest add @lumen/button` to pull the canonical `examples/primary.tsx`, which ships the same CSS-class pattern.
 
 ## Lints that enforce these rules
 
@@ -8228,6 +8228,90 @@ export function Example() {
 - IconButton (Phase 2 primitive)
 - MessageBranch (regenerate triggers a new branch)
 
+### design-system/02-components/actions/component.json
+
+<!-- bytes: 3275 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Actions",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Action button strip below an assistant Message: regenerate / copy / like / dislike / share. Mirrors Vercel AI Elements `Actions` verbatim; theme via LumenAIProvider.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Actions` accepts a ReactNode subtree. See ./actions.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add actions` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./actions.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./actions.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Actions",
+    "installCommand": "npx ai-elements@latest add actions",
+    "registryUrl": "https://elements.ai-sdk.dev/r/actions.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Shared",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/agent-state/agent-state.md
 
 <!-- bytes: 1859 -->
@@ -8373,6 +8457,90 @@ export function Example() {
 - Task (Agent has a Task list)
 - Tool (Agent executes Tools)
 - 03-patterns/agent-approval-flow.md
+
+### design-system/02-components/agent-state/component.json
+
+<!-- bytes: 3374 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "AgentState",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Six-state visual indicator for agent runtime: idle / thinking / running tool / awaiting approval / done / error. Mirrors Vercel AI Elements `Agent` state badge verbatim; the brutalist hairline frame is Lumen-native to the awaiting-approval state.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `AgentState` accepts a ReactNode subtree. See ./agent-state.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add agent` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./agent-state.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./agent-state.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "AgentState",
+    "installCommand": "npx ai-elements@latest add agent",
+    "registryUrl": "https://elements.ai-sdk.dev/r/agent.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AgentTask",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/ai-badge/component.json
 
@@ -9066,6 +9234,90 @@ export function Example() {
 - JSXPreview (used for type='jsx')
 - CodeBlock (used for type='code')
 - Message
+
+### design-system/02-components/artifact/component.json
+
+<!-- bytes: 3291 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Artifact",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Anthropic-style artifact rendering: code, document, HTML, SVG, Mermaid. Tabbed code/preview view with source/output toggle. Mirrors Vercel AI Elements `Artifact` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Artifact` accepts a ReactNode subtree. See ./artifact.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add artifact` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./artifact.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./artifact.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Artifact",
+    "installCommand": "npx ai-elements@latest add artifact",
+    "registryUrl": "https://elements.ai-sdk.dev/r/artifact.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/avatar/avatar.md
 
@@ -14420,6 +14672,174 @@ export function Example() {
 - Card (Phase 2 primitive)
 - Confirmation (Merge often gates through Confirmation)
 
+### design-system/02-components/commit-card/component.json
+
+<!-- bytes: 3300 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "CommitCard",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Card surface for a code commit or change set: SHA, author, message, file diff count, status. For agent-driven coding flows. Mirrors Vercel AI Elements `Commit` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `CommitCard` accepts a ReactNode subtree. See ./commit-card.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add commit` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./commit-card.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./commit-card.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "CommitCard",
+    "installCommand": "npx ai-elements@latest add commit",
+    "registryUrl": "https://elements.ai-sdk.dev/r/commit.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AgentTask",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
+### design-system/02-components/confirmation/component.json
+
+<!-- bytes: 3399 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Confirmation",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Approval gate for destructive tool calls. Wraps in Lumen brutalist hairline frame. Two-button choice \u2014 confirm / cancel \u2014 with keyboard shortcuts. Mirrors Vercel AI Elements `Confirmation` verbatim; the frame voice is Lumen-native.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Confirmation` accepts a ReactNode subtree. See ./confirmation.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add confirmation` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./confirmation.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./confirmation.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Confirmation",
+    "installCommand": "npx ai-elements@latest add confirmation",
+    "registryUrl": "https://elements.ai-sdk.dev/r/confirmation.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AIInsight",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/confirmation/confirmation.md
 
 <!-- bytes: 2116 -->
@@ -14566,6 +14986,90 @@ export function Example() {
 - Dialog (Confirmation is a Dialog with brand-specific chrome)
 - 03-patterns/agent-approval-flow.md (canonical pattern)
 
+### design-system/02-components/context-window/component.json
+
+<!-- bytes: 3332 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ContextWindow",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Token usage / context window display. Stat + progress meter composition. Shows used / total / percentage with semantic color thresholds. Mirrors Vercel AI Elements `Context` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `ContextWindow` accepts a ReactNode subtree. See ./context-window.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add context` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./context-window.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./context-window.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "ContextWindow",
+    "installCommand": "npx ai-elements@latest add context",
+    "registryUrl": "https://elements.ai-sdk.dev/r/context.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Shared",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/context-window/context-window.md
 
 <!-- bytes: 1826 -->
@@ -14711,7 +15215,7 @@ export function Example() {
 
 ### design-system/02-components/conversation/component.json
 
-<!-- bytes: 3482 -->
+<!-- bytes: 3887 -->
 
 ```json
 {
@@ -14762,34 +15266,39 @@ export function Example() {
   },
   "a11y": {
     "role": "log",
-    "ariaLive": "polite",
-    "ariaLabel": "Conversation thread",
-    "keyboardSupport": [
+    "keyboard": [
       "Home — scroll to top of thread",
       "End — scroll to bottom of thread (latest message)",
       "PageUp / PageDown — page through thread"
     ],
-    "screenReader": "Each new assistant message is announced via aria-live=polite. The user's own messages are not re-announced (they typed them).",
-    "reducedMotion": "Auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set (no smooth-scroll animation)."
+    "wcag": [
+      "1.3.1 Info and Relationships — role=log + aria-live=polite expose new messages to screen readers.",
+      "1.4.3 Contrast (Minimum) — text inherits Lumen body tokens which clear 4.5:1 against surface.canvas.",
+      "2.1.1 Keyboard — Home / End / PageUp / PageDown scroll the thread without a pointer.",
+      "2.3.3 Animation from Interactions — auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set."
+    ],
+    "rules": [
+      "Each new assistant message is announced via aria-live=polite. The user's own messages are not re-announced (they typed them).",
+      "Auto-scroll uses scroll-behavior: auto when prefers-reduced-motion is set (no smooth-scroll animation).",
+      "aria-label defaults to 'Conversation thread'; consumers can override per surface."
+    ]
   },
   "rules": {
-    "never": [
+    "do": [
+      "ALWAYS pair with ConversationContent (or let Conversation auto-wrap children).",
+      "ALWAYS forward aria-live updates to assistive tech for new assistant messages.",
+      "ALWAYS honor prefers-reduced-motion in the auto-scroll behavior."
+    ],
+    "dont": [
       "NEVER hardcode a model name inside Conversation. The model is a property of PromptInputSelect or LumenAIProvider context, not the thread renderer.",
       "NEVER apply backdrop-filter to the thread container — it's a dense surface. Hard rule 16.",
       "NEVER drop the ConversationScrollButton when the user scrolls up. It's the affordance back to live.",
       "NEVER assume streaming is complete on any given render — child MessageResponse may still be partial."
-    ],
-    "always": [
-      "ALWAYS pair with ConversationContent (or let Conversation auto-wrap children).",
-      "ALWAYS forward aria-live updates to assistive tech for new assistant messages.",
-      "ALWAYS honor prefers-reduced-motion in the auto-scroll behavior."
     ]
   },
-  "examples": [
-    "examples/basic-thread.tsx",
-    "examples/with-virtualization.tsx",
-    "examples/empty-state.tsx"
-  ],
+  "examples": {
+    "web-react": "examples/basic-thread.tsx"
+  },
   "vercelAIElements": {
     "name": "Conversation",
     "installCommand": "npx ai-elements@latest add conversation",
@@ -18611,6 +19120,90 @@ WCAG: 1.3.1, 2.4.3, 3.3.1, 3.3.4, 4.1.2, 4.1.3.
 }
 ```
 
+### design-system/02-components/inline-citation/component.json
+
+<!-- bytes: 3407 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "InlineCitation",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Clickable [1]-style superscript citation reference in message body. On click scrolls to the matching entry in <Sources>. Consumes Anthropic Citations API JSON shape verbatim (`cited_text`, `document_title`, `document_index`).",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `InlineCitation` accepts a ReactNode subtree. See ./inline-citation.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add inline-citation` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./inline-citation.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./inline-citation.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "InlineCitation",
+    "installCommand": "npx ai-elements@latest add inline-citation",
+    "registryUrl": "https://elements.ai-sdk.dev/r/inline-citation.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AIInsight",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/inline-citation/inline-citation.md
 
 <!-- bytes: 4102 -->
@@ -19294,6 +19887,90 @@ last_updated: 2026-05-16
 ## Changelog
 
 - **0.12.6** — Initial release.
+
+### design-system/02-components/jsx-preview/component.json
+
+<!-- bytes: 3308 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "JsxPreview",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Live React component preview rendered alongside its source. For showing agent-generated UI in safe sandboxed mode. Mirrors Vercel AI Elements `JSXPreview` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `JsxPreview` accepts a ReactNode subtree. See ./jsx-preview.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add jsx-preview` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./jsx-preview.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./jsx-preview.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "JsxPreview",
+    "installCommand": "npx ai-elements@latest add jsx-preview",
+    "registryUrl": "https://elements.ai-sdk.dev/r/jsx-preview.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/jsx-preview/jsx-preview.md
 
@@ -20785,6 +21462,90 @@ export function Example() {
 - Badge
 - PresenceIndicator
 
+### design-system/02-components/loader-ai/component.json
+
+<!-- bytes: 3286 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "LoaderAi",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Lumen-branded spinner for AI surfaces. Reuses the v0.12.4 Spinner primitive at AI surface densities. Mirrors Vercel AI Elements `Loader` verbatim; visual is Lumen-native.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `LoaderAi` accepts a ReactNode subtree. See ./loader-ai.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add loader` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./loader-ai.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./loader-ai.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "LoaderAi",
+    "installCommand": "npx ai-elements@latest add loader",
+    "registryUrl": "https://elements.ai-sdk.dev/r/loader.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Shared",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/loader-ai/loader-ai.md
 
 <!-- bytes: 1577 -->
@@ -21029,6 +21790,90 @@ last_updated: 2026-05-16
 
 - **0.12.6** — Initial release.
 
+### design-system/02-components/message-branch/component.json
+
+<!-- bytes: 3377 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "MessageBranch",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Navigation between regenerated assistant responses. Previous / page count / next controls below a Message bubble. Mirrors Vercel AI Elements `MessageBranch` family verbatim (Previous, Next, Page, Selector).",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `MessageBranch` accepts a ReactNode subtree. See ./message-branch.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add message-branch` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./message-branch.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./message-branch.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "MessageBranch",
+    "installCommand": "npx ai-elements@latest add message-branch",
+    "registryUrl": "https://elements.ai-sdk.dev/r/message-branch.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Message",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/message-branch/message-branch.md
 
 <!-- bytes: 1989 -->
@@ -21179,6 +22024,90 @@ export function Example() {
 - MessageContent
 - MessageResponse
 - Actions (regenerate triggers a new branch)
+
+### design-system/02-components/message-response/component.json
+
+<!-- bytes: 3383 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "MessageResponse",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Streaming-optimized response renderer. Markdown with shimmer on partial tokens. Auto-renders code blocks, citations, and tool calls inline. Mirrors Vercel AI Elements `MessageResponse` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `MessageResponse` accepts a ReactNode subtree. See ./message-response.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add message-response` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./message-response.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./message-response.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "MessageResponse",
+    "installCommand": "npx ai-elements@latest add message-response",
+    "registryUrl": "https://elements.ai-sdk.dev/r/message-response.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Message",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/message-response/message-response.md
 
@@ -21352,7 +22281,7 @@ import { Message, MessageContent } from "@/components/ai-elements/message";
 
 ### design-system/02-components/message/component.json
 
-<!-- bytes: 2885 -->
+<!-- bytes: 3298 -->
 
 ```json
 {
@@ -21400,26 +22329,35 @@ import { Message, MessageContent } from "@/components/ai-elements/message";
   },
   "a11y": {
     "role": "article",
-    "ariaLabel": "Conditional: 'You said: ...' for user, 'Assistant said: ...' for assistant.",
-    "screenReader": "Assistant messages flow through Conversation's aria-live=polite announcer. System messages use aria-live=assertive (rare; reserve for critical state).",
-    "keyboardSupport": ["Tab navigates between Actions strip buttons below message"]
+    "keyboard": [
+      "Tab — navigate between Actions strip buttons below message"
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships — role=article semantically scopes each turn for assistive tech.",
+      "1.4.3 Contrast (Minimum) — text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard — Tab reaches every Actions button in source order; no keyboard trap.",
+      "2.4.6 Headings and Labels — aria-label is conditional ('You said: ...' / 'Assistant said: ...')."
+    ],
+    "rules": [
+      "Assistant messages flow through Conversation's aria-live=polite announcer.",
+      "System messages use aria-live=assertive (rare; reserve for critical state).",
+      "aria-label is conditional: 'You said: ...' for user, 'Assistant said: ...' for assistant."
+    ]
   },
   "rules": {
-    "never": [
+    "do": [
+      "ALWAYS pair user messages with right-alignment + neutral surface; assistant messages with left-alignment + tint-accent surface for active streaming, neutral when complete.",
+      "ALWAYS forward the id for InlineCitation anchor jumps."
+    ],
+    "dont": [
       "NEVER render a user bubble with Spring Green chrome. The accent is for assistant action moments only.",
       "NEVER bake the model name into Message. Models live in PromptInputSelect / LumenAIProvider context.",
       "NEVER drop the from prop. Without it, alignment + ARIA semantics break."
-    ],
-    "always": [
-      "ALWAYS pair user messages with right-alignment + neutral surface; assistant messages with left-alignment + tint-accent surface for active streaming, neutral when complete.",
-      "ALWAYS forward the id for InlineCitation anchor jumps."
     ]
   },
-  "examples": [
-    "examples/user-message.tsx",
-    "examples/assistant-message.tsx",
-    "examples/with-reasoning-and-tool.tsx"
-  ],
+  "examples": {
+    "web-react": "examples/assistant-message.tsx"
+  },
   "vercelAIElements": {
     "name": "Message",
     "installCommand": "npx ai-elements@latest add message",
@@ -21831,7 +22769,7 @@ export function Example() {
 
 ### design-system/02-components/mode-scope/component.json
 
-<!-- bytes: 3728 -->
+<!-- bytes: 3810 -->
 
 ```json
 {
@@ -21842,10 +22780,10 @@ export function Example() {
   "deprecated": false,
   "summary": "Sets data-mode='restrained' | 'expressive' on a container so descendants resolve mode-aware semantic tokens. The single source-of-truth for switching Lumen modes. Components are mode-agnostic; semantic surface / atmosphere / motion tokens rebind under the scope.",
   "props": {
-    "mode": { "type": "'restrained' | 'expressive'", "optional": true, "default": "'restrained'", "description": "The Lumen mode applied to descendants. Restrained for dense operator surfaces (dashboards, tables, settings, terminals, command palette); expressive for landing surfaces, marketing, AI surfaces, onboarding, empty states, hero panels." },
-    "as":   { "type": "'div' | 'section' | 'main' | 'article'", "optional": true, "default": "'div'", "description": "HTML element used as the scope container." },
+    "mode": { "type": "enum", "values": ["restrained", "expressive"], "optional": true, "default": "restrained", "description": "The Lumen mode applied to descendants. Restrained for dense operator surfaces (dashboards, tables, settings, terminals, command palette); expressive for landing surfaces, marketing, AI surfaces, onboarding, empty states, hero panels." },
+    "as":   { "type": "enum", "values": ["div", "section", "main", "article"], "optional": true, "default": "div", "description": "HTML element used as the scope container." },
     "className": { "type": "string", "optional": true, "description": "Forwarded to the container element." },
-    "children": { "type": "ReactNode", "optional": false }
+    "children": { "type": "node", "optional": false, "description": "Descendants that inherit the mode scope." }
   },
   "tokens": {
     "consumed": [
@@ -24996,6 +25934,90 @@ export function Example() {
 - Stat
 - Stepper
 
+### design-system/02-components/prompt-input/component.json
+
+<!-- bytes: 3389 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "PromptInput",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "AI prompt input surface: composer textarea + slash trigger + suggestion strip + model selector + send action. Sub-components: Textarea, Tools, Button, Footer, Submit, Select. Mirrors Vercel AI Elements `PromptInput` family verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `PromptInput` accepts a ReactNode subtree. See ./prompt-input.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add prompt-input` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./prompt-input.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./prompt-input.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "PromptInput",
+    "installCommand": "npx ai-elements@latest add prompt-input",
+    "registryUrl": "https://elements.ai-sdk.dev/r/prompt-input.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "PromptInput",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/prompt-input/prompt-input.md
 
 <!-- bytes: 2288 -->
@@ -26337,6 +27359,90 @@ last_updated: 2026-05-16
 
 - **0.12.6** — Initial release.
 
+### design-system/02-components/reasoning/component.json
+
+<!-- bytes: 3327 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Reasoning",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Collapsible \"Thinking\" block for chain-of-thought visibility. Fades when streaming completes; preserves the expanded/collapsed state per message. Mirrors Vercel AI Elements `Reasoning` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Reasoning` accepts a ReactNode subtree. See ./reasoning.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add reasoning` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./reasoning.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./reasoning.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Reasoning",
+    "installCommand": "npx ai-elements@latest add reasoning",
+    "registryUrl": "https://elements.ai-sdk.dev/r/reasoning.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AIInsight",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/reasoning/reasoning.md
 
 <!-- bytes: 3677 -->
@@ -26515,6 +27621,90 @@ export function AssistantTurnWithReasoning({ msg }: { msg: AssistantMsg }) {
 - Confirmation (often follows reasoning + tool when destructive)
 - 03-patterns/agent-approval-flow.md
 - 03-patterns/chat-thread.md
+
+### design-system/02-components/response-text/component.json
+
+<!-- bytes: 3323 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "ResponseText",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Text rendering wrapper for streaming markdown content. Inline code, links, lists, blockquotes \u2014 all themed via Lumen tokens. Mirrors Vercel AI Elements `Response` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `ResponseText` accepts a ReactNode subtree. See ./response-text.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add response` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./response-text.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./response-text.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "ResponseText",
+    "installCommand": "npx ai-elements@latest add response",
+    "registryUrl": "https://elements.ai-sdk.dev/r/response.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Shared",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/response-text/response-text.md
 
@@ -26838,6 +28028,90 @@ export function Example() {
 - LaneCode
 - LiveDot
 - ShipmentTimeline
+
+### design-system/02-components/sandbox-block/component.json
+
+<!-- bytes: 3318 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SandboxBlock",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Collapsible container for code-execution sandbox output. Status indicator + tabbed nav between input code and execution output. Mirrors Vercel AI Elements `Sandbox` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `SandboxBlock` accepts a ReactNode subtree. See ./sandbox-block.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add sandbox` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./sandbox-block.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./sandbox-block.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "SandboxBlock",
+    "installCommand": "npx ai-elements@latest add sandbox",
+    "registryUrl": "https://elements.ai-sdk.dev/r/sandbox.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/sandbox-block/sandbox-block.md
 
@@ -27169,6 +28443,90 @@ export function Example() {
 - FilterChip
 - DataTable
 - DropdownMenu
+
+### design-system/02-components/schema-display/component.json
+
+<!-- bytes: 3347 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SchemaDisplay",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "REST endpoint visualization: HTTP method, path, params, request/response schemas. For API-call rendering in agent contexts. Mirrors Vercel AI Elements `SchemaDisplay` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `SchemaDisplay` accepts a ReactNode subtree. See ./schema-display.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add schema-display` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./schema-display.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./schema-display.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "SchemaDisplay",
+    "installCommand": "npx ai-elements@latest add schema-display",
+    "registryUrl": "https://elements.ai-sdk.dev/r/schema-display.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/schema-display/schema-display.md
 
@@ -29641,6 +30999,90 @@ last_updated: 2026-05-16
 
 - **0.12.6** — Initial release.
 
+### design-system/02-components/snippet/component.json
+
+<!-- bytes: 3269 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Snippet",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Lightweight terminal command or short code snippet. Built on shadcn `InputGroup`. Copy-to-clipboard affordance. Mirrors Vercel AI Elements `Snippet` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Snippet` accepts a ReactNode subtree. See ./snippet.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add snippet` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./snippet.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./snippet.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Snippet",
+    "installCommand": "npx ai-elements@latest add snippet",
+    "registryUrl": "https://elements.ai-sdk.dev/r/snippet.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/snippet/snippet.md
 
 <!-- bytes: 1605 -->
@@ -29781,6 +31223,90 @@ export function Example() {
 - CodeBlock (multi-line)
 - InputGroup (shadcn primitive)
 - Terminal
+
+### design-system/02-components/sources/component.json
+
+<!-- bytes: 3330 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Sources",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Citation footer below an assistant message. Lists every `Citation` referenced inline via `<InlineCitation>`. Consumes the Anthropic Citations API JSON shape verbatim (`cited_text`, `document_title`, `document_index`).",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Sources` accepts a ReactNode subtree. See ./sources.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add sources` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./sources.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./sources.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Sources",
+    "installCommand": "npx ai-elements@latest add sources",
+    "registryUrl": "https://elements.ai-sdk.dev/r/sources.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AIInsight",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/sources/sources.md
 
@@ -30461,6 +31987,90 @@ export function Example() {
   "changelog": [
     { "version": "0.9.0", "type": "Added", "note": "Formal SplitButton primitive. Joined action + ChevronDown trigger with hairline divider; aria-haspopup='menu' on trigger." }
   ]
+}
+```
+
+### design-system/02-components/stack-trace/component.json
+
+<!-- bytes: 3279 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "StackTrace",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Formatted JS / Node error stack with clickable file paths. For agent error rendering. Mirrors Vercel AI Elements `StackTrace` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `StackTrace` accepts a ReactNode subtree. See ./stack-trace.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add stack-trace` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./stack-trace.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./stack-trace.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "StackTrace",
+    "installCommand": "npx ai-elements@latest add stack-trace",
+    "registryUrl": "https://elements.ai-sdk.dev/r/stack-trace.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
 }
 ```
 
@@ -31315,6 +32925,90 @@ last_updated: 2026-05-15
 ## Changelog
 
 - **0.12.6** — Initial release.
+
+### design-system/02-components/suggestion-strip/component.json
+
+<!-- bytes: 3340 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "SuggestionStrip",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Above-the-composer strip of clickable suggestion chips. 2-6 dismissible chips that pre-fill PromptInput on click. Mirrors Vercel AI Elements `Suggestion` family verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `SuggestionStrip` accepts a ReactNode subtree. See ./suggestion-strip.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add suggestion` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./suggestion-strip.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./suggestion-strip.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "SuggestionStrip",
+    "installCommand": "npx ai-elements@latest add suggestion",
+    "registryUrl": "https://elements.ai-sdk.dev/r/suggestion.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Shared",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/suggestion-strip/suggestion-strip.md
 
@@ -32937,6 +34631,90 @@ WCAG: 1.3.1, 1.4.3, 2.1.1, 2.4.7, 2.5.8, 3.3.1, 4.1.2.
 ## Changelog
 - 0.7.0 — Initial release. Promotes the v0.6 audit-dashboard primitive in `inputs.tsx` to a contract. Wrap-flex shell; Comma + Enter commit; Backspace-removes-last; blur commits.
 
+### design-system/02-components/task-card/component.json
+
+<!-- bytes: 3246 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "TaskCard",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Card for a single agent task: status, owner, deadline. For multi-step plan visualization. Mirrors Vercel AI Elements `Task` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `TaskCard` accepts a ReactNode subtree. See ./task-card.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add task` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./task-card.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./task-card.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "TaskCard",
+    "installCommand": "npx ai-elements@latest add task",
+    "registryUrl": "https://elements.ai-sdk.dev/r/task.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AgentTask",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/task-card/task-card.md
 
 <!-- bytes: 1638 -->
@@ -33079,6 +34857,90 @@ export function Example() {
 - Agent (Task list belongs to an Agent)
 - Commit (Task often produces a Commit)
 - Card (Phase 2 primitive)
+
+### design-system/02-components/terminal/component.json
+
+<!-- bytes: 3295 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Terminal",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Console output renderer with ANSI color support, streaming indicators, auto-scroll. For shell-call rendering in agent contexts. Mirrors Vercel AI Elements `Terminal` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Terminal` accepts a ReactNode subtree. See ./terminal.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add terminal` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./terminal.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./terminal.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Terminal",
+    "installCommand": "npx ai-elements@latest add terminal",
+    "registryUrl": "https://elements.ai-sdk.dev/r/terminal.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/terminal/terminal.md
 
@@ -34472,6 +36334,90 @@ Off, on, off-disabled, on-disabled, focus-visible.
 ## Code
 - [Web React](./examples/primary.tsx)
 
+### design-system/02-components/tool/component.json
+
+<!-- bytes: 3320 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "Tool",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Tool-call rendering: ToolHeader + ToolInput + ToolOutput compound. Consumes the AI SDK `ToolUIPart` / `DynamicToolUIPart`. Integrates with `<Confirmation>` for destructive operations. Mirrors Vercel AI Elements `Tool` family verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `Tool` accepts a ReactNode subtree. See ./tool.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add tool` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./tool.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./tool.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "Tool",
+    "installCommand": "npx ai-elements@latest add tool",
+    "registryUrl": "https://elements.ai-sdk.dev/r/tool.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "AIInsight",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/tool/tool.md
 
 <!-- bytes: 2121 -->
@@ -35687,6 +37633,90 @@ WCAG: 1.3.1, 1.4.1, 3.3.1, 3.3.3, 4.1.2, 4.1.3.
 ## Changelog
 - 0.6.0 — Initial dedicated contract. Was previously buried in `feedback.tsx`; promoted because it's a form-composition primitive, not a feedback affordance.
 
+### design-system/02-components/voice-audio-stub/component.json
+
+<!-- bytes: 3372 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "VoiceAudio",
+  "version": "0.13.0",
+  "status": "experimental",
+  "deprecated": false,
+  "summary": "EXPERIMENTAL \u2014 Lumen contract stub for the Vercel AI Elements voice + audio family (AudioPlayer, Transcription, VoiceSelector, SpeechInput, MicSelector). Flesh out when a Warp voice surface ships.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `VoiceAudio` accepts a ReactNode subtree. See ./voice-audio-stub.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add audio-player` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./voice-audio-stub.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./voice-audio-stub.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "VoiceAudio",
+    "installCommand": "npx ai-elements@latest add audio-player",
+    "registryUrl": "https://elements.ai-sdk.dev/r/audio-player.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "VoiceAudio",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/voice-audio-stub/voice-audio-stub.md
 
 <!-- bytes: 1861 -->
@@ -35832,6 +37862,90 @@ export function Example() {
 - Message (voice messages render as Message)
 - Tool (Speech-to-tool flows)
 
+### design-system/02-components/web-preview/component.json
+
+<!-- bytes: 3285 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "WebPreview",
+  "version": "0.13.0",
+  "status": "stable",
+  "deprecated": false,
+  "summary": "Iframe with safety wrapper for embedded web content. Used by `<Artifact>` for HTML preview. Mirrors Vercel AI Elements `WebPreview` verbatim.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `WebPreview` accepts a ReactNode subtree. See ./web-preview.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add web-preview` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./web-preview.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./web-preview.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "WebPreview",
+    "installCommand": "npx ai-elements@latest add web-preview",
+    "registryUrl": "https://elements.ai-sdk.dev/r/web-preview.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Content",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
+
 ### design-system/02-components/web-preview/web-preview.md
 
 <!-- bytes: 1542 -->
@@ -35970,6 +38084,90 @@ export function Example() {
 - Artifact (uses WebPreview for type='html')
 - JSXPreview
 - Sandbox
+
+### design-system/02-components/workflow-canvas-stub/component.json
+
+<!-- bytes: 3431 -->
+
+```json
+{
+  "$schema": "../_schema/component.schema.json",
+  "name": "WorkflowCanvas",
+  "version": "0.13.0",
+  "status": "experimental",
+  "deprecated": false,
+  "summary": "EXPERIMENTAL \u2014 Lumen contract stub for the Vercel AI Elements workflow family (Canvas, Node, Edge, Connection, Controls, Panel, Toolbar). For agent-plan / route-graph visualization. Built on @xyflow/react. Flesh out when a Warp workflow surface ships.",
+  "props": {
+    "className": {
+      "type": "string",
+      "optional": true,
+      "description": "Pass-through Tailwind / CSS-class hook. The Lumen tokens are bound via <LumenAIProvider>; className is reserved for one-off layout overrides."
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Vercel AI Elements `WorkflowCanvas` accepts a ReactNode subtree. See ./workflow-canvas-stub.md for the full sub-component composition."
+    }
+  },
+  "tokens": {
+    "consumed": [
+      "color.surface.raised",
+      "color.surface.canvas",
+      "color.text.primary",
+      "color.text.secondary",
+      "color.border.hairline",
+      "space.3",
+      "space.4",
+      "radius.md",
+      "motion.duration.base",
+      "motion.easing.standard"
+    ]
+  },
+  "a11y": {
+    "keyboard": [
+      "Tab \u2014 focus moves into interactive children in source order; no keyboard trap.",
+      "Escape \u2014 collapses expandable surfaces (Reasoning, Tool, Confirmation) when applicable."
+    ],
+    "wcag": [
+      "1.3.1 Info and Relationships \u2014 semantic ARIA roles assigned per Vercel AI Elements convention.",
+      "1.4.3 Contrast (Minimum) \u2014 text inherits Lumen body tokens which clear 4.5:1 against surface.raised + tint-accent.",
+      "2.1.1 Keyboard \u2014 every interactive sub-element is keyboard-reachable; no pointer-only affordances.",
+      "2.3.3 Animation from Interactions \u2014 animated states (streaming shimmer, collapse) honor prefers-reduced-motion."
+    ],
+    "rules": [
+      "Token theming flows through <LumenAIProvider> context \u2014 never via per-component prop overrides.",
+      "The Vercel implementation handles ARIA semantics; Lumen tokens drive the visual layer only.",
+      "honor prefers-reduced-motion and prefers-reduced-transparency at the LumenAIProvider boundary."
+    ]
+  },
+  "rules": {
+    "do": [
+      "ALWAYS install the implementation via `npx ai-elements@latest add canvas` before rendering.",
+      "ALWAYS wrap the consuming app in <LumenAIProvider> so tokens flow through context.",
+      "ALWAYS consult ./workflow-canvas-stub.skill.md for the NEVER rules before composing this primitive into a surface."
+    ],
+    "dont": [
+      "NEVER hardcode model names, accent hues, or token values inside this component \u2014 all of those live in <LumenAIProvider>.",
+      "NEVER fork the Vercel AI Elements implementation \u2014 Lumen ships the theme contract, Vercel ships the React TSX; the install-and-theme seam is the entire point.",
+      "NEVER apply backdrop-filter on dense conversation surfaces \u2014 see AGENTS.md hard rule 16."
+    ]
+  },
+  "examples": {
+    "web-react": "./workflow-canvas-stub.stories.tsx"
+  },
+  "vercelAIElements": {
+    "name": "WorkflowCanvas",
+    "installCommand": "npx ai-elements@latest add canvas",
+    "registryUrl": "https://elements.ai-sdk.dev/r/canvas.json"
+  },
+  "meta": {
+    "tier": "T5",
+    "family": "Workflow",
+    "lumenVersion": "0.13.0",
+    "phase": 5
+  }
+}
+```
 
 ### design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.md
 
@@ -43185,6 +45383,271 @@ The remaining work is operator-side ship — see "Operator-side ship checklist" 
 
 🧠 **Product Edge:** the Phase 6 decision to **not build a custom MCP server** is a worked example of [Yagni discipline](https://martinfowler.com/bliki/Yagni.html) under explicit license. The original master doc §7.Phase-6 plan called for `07-mcp/` with six bespoke tools (`list_components`, `get_component`, `get_tokens`, `search`, `install`, `get_prompt_template`). The phase prompt explicitly overrode that and said "skip — shadcn MCP works out of the box." Following the override saved an estimated 1.5–2 days of build + maintenance work that would have shipped an alternative path to the same endpoint shadcn already covers — except shadcn's path scales with the upstream's improvements while a Lumen fork would freeze. The principle generalizes: **when a vertically-integrated tool (shadcn MCP, Vercel AI Elements, Anthropic Citations API) covers your surface, your job is to consume it cleanly, not to re-implement it under your namespace.** The cost of consumption is documentation + a thin theme bridge; the cost of forking is permanent upstream drift. Lumen v0.13 picked the consumption side every time — shadcn registry over manual copy-paste, AI Elements over forked AI primitives, Citations API shape over a Lumen-bespoke citation schema, ChatKit theme variables over a parallel chat surface. The compound effect: every upstream improvement after v0.13.0 ships becomes Lumen's improvement for free.
 
+### design-system/06-claude-code-briefings/phase-7-cleanup-report.md
+
+<!-- bytes: 27229 -->
+
+# Phase 7 — v0.13.1 Deferred-Cleanup Patch — Report
+
+> Per master doc §10.3 — closing the cross-phase "What's still uncertain" / "What broke" items from phase-{0..6}-report.md that weren't operator-side. Stamped 2026-05-17. Executor: Claude (Opus 4.7 1M context). Branch: `v0.13.0`. Operator: Neel.
+
+---
+
+## Scope (what this patch closes)
+
+After the v0.13.0 ship landed (phase-0 through phase-6 reports), eight cross-phase deferred items remained that did NOT require operator credentials / native toolchains / external services. This patch addresses every one of them end-to-end:
+
+| Source | Item | Status before | Status after |
+|---|---|---|---|
+| Phase 0 report — uncertain #1 | 89 `pnpm tokens:validate` errors (67 unique missing tokens) | ✗ FAIL exit 1 | ✓ PASS — 1177 tokens declared across 44 files |
+| Phase 0 report — uncertain #2 | Style Dictionary emitted `[object Object]` for composite tokens | ✗ ~50 broken CSS variables | ✓ Zero `[object Object]` in any CSS target |
+| Phase 0 report — uncertain #3 | WCAG 2.4.13 light-mode `border.focus` advisory (1.34 < 3) | ✗ ADVISORY | ✓ Cleared (border.focus bumped to `{color.accent.800}` — 4.16:1) |
+| Phase 0 report — uncertain #5 | 24 stale `_build/` doc-comments in `02-components/*/examples/*.tsx` | ✗ stale references | ✓ All 23 (we re-counted) replaced with `dist/tailwind/lumen.css` |
+| Phase 1 report — uncertain #4 | `gradient.hero-scrim` not wired into landing-hero example | ✗ contract under-demonstrated | ✓ `.lumen-text-scrim` utility shipped + wired |
+| Phase 2 report — uncertain #1 + Phase 5 report — uncertain #5 | Storybook stories use non-existent `defineMeta` factory | ✗ 76 stories broken | ✓ All 76 migrated to CSF 3 (universal Meta/StoryObj) |
+| Phase 5 report — uncertain #7 | ModeToggle not wired into ai-surface reference UI | ✗ Mode dual-render unproven | ✓ `<ModeToggle>` shipped in `examples/ai-surface/components/` + wired in layout |
+| Phase 6 report — uncertain #6 | `/library/registry` not in dashboard tab nav | ✗ reachable only by direct URL | ✓ Tab entry added (system group, between Library and Tokens) |
+
+### Operator-side gates left explicitly out of scope (require credentials / toolchains not in env)
+
+- Lighthouse perf gate run (needs `chrome-launcher` + a built dashboard page)
+- gpt-image-2 reference PNG materialization (needs `OPENAI_API_KEY`)
+- Vercel AI Elements install verification (needs the operator's Vercel CLI auth)
+- Live Claude streaming verification (needs `ANTHROPIC_API_KEY`)
+- iOS / macOS / Android native build verification (needs Xcode / Android SDK)
+- Chrome MV3 extension load test
+- Vercel deploy + registry endpoint verification (needs operator's Vercel auth + push to `main`)
+
+---
+
+## What changed
+
+### Files created
+
+- **`design-system/01-tokens/components/_aliases.tokens.json`** (235 lines) — the v0.13.1 coverage-fill file. Declares 67 missing tokens as additive aliases to existing primitives. Categories:
+  - `color.surface.canvas` (alias of `color.surface.page` — Phase 5 Conversation/Message reference)
+  - `color.text.on-action` + `color.text.on-avatar`
+  - `color.status.{info,success,warning,danger}.border` (4 status borders)
+  - `color.chart.1-8` (8-stop data-viz palette — Spring + neutrals + status hues, never a second loud color)
+  - `color.avatar.bg.1-8` (8-stop avatar identity bg palette)
+  - `shadow.elevation.{sm,md,lg}` + `shadow.glow.accent` (aliases of `shadow.sm/md/lg` + `shadow.glow-accent`)
+  - `shadow.kbd` (NEW — keyboard cap composite shadow)
+  - `motion.duration.shimmer` + `motion.duration.spin` (aliases of `motion.duration.slower`)
+  - `type.tabular.nums` + `type.code.{sm,md}` (typography preset aliases)
+  - 34 component-bound size tokens: avatar (xs–xl), banner.compact, bottom-nav.{compact,regular}, calendar.day, drawer.{sm,md,lg}, kanban.column, list.row.{compact,regular,comfortable}, navbar.{compact,marketing,mobile}, phone.{sm,md,lg}, popover.{sm,md,lg}, sidebar.{rail,expanded}, slider.{thumb,track}, table.row.{compact,regular,comfortable}, tree.row.{compact,regular}
+- **`examples/ai-surface/components/mode-toggle.tsx`** — sticky `<ModeToggle>` pill for the ai-surface reference. Persists state to `localStorage`; honors `prefers-reduced-transparency`.
+- **`design-system/06-claude-code-briefings/phase-7-cleanup-report.md`** — this file.
+
+### Files modified
+
+- **`style-dictionary.config.ts`** — added four `lumen/*` value transforms:
+  - `lumen/duration/css` — DTCG 2025.10 `$type: duration` with `{value, unit}` object → CSS `${value}${unit}` string. Fills the gap left by SD v5's built-in `time/seconds` (which only filters on `$type: time`).
+  - `lumen/transition/css/shorthand` — composite transition that pre-formats embedded duration/delay objects via `formatDuration` before emitting the shorthand. Replaces SD v5's built-in (which carries a TODO for DTCG duration objects).
+  - `lumen/typography/css/shorthand` — emits the same `font:` shorthand as the built-in but silently (drops the noisy "Unknown CSS Font Shorthand properties" warning for letter-spacing / font-feature-settings / text-transform that DTCG permits but CSS `font:` shorthand cannot express). Also handles aliased typography composites by resolving `original.$value` when the live value is still an unresolved reference string.
+  - `lumen/padding-xy/css` — the Lumen-internal `{x: ..., y: ...}` paired-padding shape used by `button.padding`, `space.inset.squish`, `space.inset.stretch`. Emits `${y} ${x}` (CSS vertical-horizontal convention).
+  Plus two custom transform groups (`lumen/css` + `lumen/scss`) wiring the transforms in the correct dependency order (duration before transition; padding-xy after the standard set). All six `transformGroup: "css"` references switched to `lumen/css`; the single `transformGroup: "scss"` switched to `lumen/scss`.
+
+- **`tools/scaffold-component.mjs`** — story template switched from `defineMeta` factory (non-existent in Storybook 10.4) to CSF 3 (universal Meta + StoryObj pattern). Header comment updated.
+
+- **`tools/audit-contrast.ts`** — three changes: (1) light-mode `border.focus` test fg `#00FA8A` → `#008A4D` (accent.800), now passes 4.16:1; (2) added the scrim-protected text.tertiary pair (passes the 3:1 large-tier floor); (3) closing remediation message updated to reference accent.800 + `.lumen-text-scrim`.
+
+- **`design-system/01-tokens/semantic/color.light.tokens.json`** — `border.focus` light-mode value bumped from `{color.accent.500}` to `{color.accent.800}`. `$description` documents the bump rationale and the contrast math.
+
+- **`design-system/00-foundations/modes.md`** §"Contrast contract on expressive hero" — references the new `.lumen-text-scrim` utility as the canonical scrim-pattern implementation.
+
+- **`audit-dashboard/src/app/lumen-scoping.css`** + **`design-system/01-tokens/lumen-scoping.css`** (canonical source) — added the `.lumen-text-scrim` utility. Pseudo-element `::before` paints `gradient.hero-scrim` only under `[data-mode='expressive']`; no-op in restrained.
+
+- **`audit-dashboard/src/app/examples/landing-hero/landing-hero.tsx`** — brutalist-frame tertiary-text caption now wraps in `.lumen-text-scrim inline-block` so it clears WCAG 2.4.13 on expressive hero peak. Comment block updated to explain the scrim's no-op behavior in restrained.
+
+- **`audit-dashboard/src/lib/tabs.ts`** — added `registry` slug + Tab definition pointing at `/library/registry`. Slug type union extended.
+
+- **`examples/ai-surface/app/layout.tsx`** — imports `<ModeToggle>`, sets `data-mode="restrained"` on `<html>`, renders the toggle above `{children}`.
+
+- **`examples/ai-surface/app/globals.css`** — added mode-rebind block (`[data-mode='expressive']` rebinds `--surface-ambient` to a subtle gradient + atmosphere tint), `.lumen-mode-toggle` pill styling, `prefers-reduced-transparency` fallback.
+
+- **`examples/ai-surface/tsconfig.json`** — `target` and `lib` `ES2022` → `ES2023` so `Array.findLast` typechecks.
+
+- **`examples/ai-surface/app/api/chat/route.ts`** — explicit type annotation on the `findLast` predicate.
+
+- **`examples/ai-surface/next.config.ts`** — removed `experimental.turbopack: false` (no longer a valid `NextConfig` key in v16); replaced with a comment documenting the CLI `--webpack` opt-out path.
+
+- **`CHANGELOG.md`** — `[0.13.1]` entry added with full Fixed / Added / Changed / Notes breakdown.
+
+- **23 component example tsx files** — stale `_build/tailwind/theme.css` doc-comments replaced with `dist/tailwind/lumen.css` (the actual v0.13 path). Files: badge / card / button / combobox / date-picker / dialog / empty-state / file-dropzone / form / input / live-dot / number-input / otp-input / password-input / range-slider / rate-ticker / segmented / stat / table / tags-input / time-picker / toast / toggle.
+
+- **76 component stories** — migrated from `defineMeta` factory to CSF 3 Meta + StoryObj. 48 via scaffolder regeneration (Tier 1-4 — re-ran `node tools/scaffold-component.mjs tools/specs/*.json`); 28 via a one-shot migration script that was deleted after the migration completed (since the scaffolder now emits the correct format, no further migration is needed).
+
+- **Generated artifacts regenerated**: `registry.json` (149 items unchanged), `llms.txt`, `llms-full.txt` (446 files, ~507K tokens), `audit-dashboard/public/{component,token,prompt}-index.json`.
+
+---
+
+## What broke (and how I fixed it)
+
+1. **Storybook 10.4 doesn't export `defineMeta`.** Discovered after `pnpm install`ed Storybook and `grep`ed `node_modules/storybook/dist/csf/index.d.ts` for the factory. The CSF Factory in 10.x lives under `storybook/csf` as `definePreview` / `definePreviewAddon`, not as a `defineMeta` on `@storybook/nextjs`. Fix: migrated all 76 stories to CSF 3 (the universal `Meta<typeof X>` + `StoryObj<typeof X>` pattern that works in Storybook 7-10.x). Idempotent on the scaffolder side; one-shot script handled the Tier 5 stories.
+
+2. **First custom typography transform dropped fontFamily on aliased composites.** My initial `lumen/typography/css/shorthand` filtered on `$type === "typography"` but received the alias string (`"{type.body.tabular}"`) as `$value` because SD v5's `transitive: true` doesn't pre-walk composite-to-composite alias chains. Fix: re-read the resolved object from `token.original?.$value` when the live value is still an unresolved reference string.
+
+3. **`type.code.inline` emitted `[object Object]` for fontSize.** The source token's `fontSize` is `{value: 0.9286, unit: 'em'}` (DTCG dimension shape), not a string. Fix: added `formatDimension` helper inside `lumen/typography/css/shorthand` that handles strings, numbers, and `{value, unit}` objects.
+
+4. **`pnpm tokens:validate` still failed after the first version of `_aliases.tokens.json`** because I had nested `color.status.info.border` under an `info` object that ALSO carried a `$description` — the validator walked into the `border` child correctly, but the file structure visually overlapped with the existing `color.status.info.{50,500,700,900}` ramp from `color.tokens.json`. Style Dictionary's "deep merge" semantics handled the cross-file overlay correctly (verified via `pnpm tokens` output); the validator confirmed `1177 tokens declared across 44 files; all aliases + component references resolve`.
+
+5. **`accent.700` measured 2.72:1 on light paper, not 3.0:1 as the Phase 0 report estimated.** Re-computed via the WCAG 2.x relative-luminance formula — accent.700 (#00B062) sits at L=0.3155, paper (#FAFAFA) at L=0.9354, contrast = 2.696. Bumped target to `accent.800` (#008A4D, L=0.1871, contrast=4.16:1) instead; clears the 3:1 floor with body-tier margin.
+
+6. **Three pre-existing TS errors in `examples/ai-surface/`** surfaced when verifying my ModeToggle addition typechecked. `Array.findLast` needs `lib: ES2023` (was ES2022); the predicate needed an explicit type; `experimental.turbopack: false` is no longer in Next.js 16's NextConfig schema. Fixed all three so `pnpm exec tsc --noEmit` runs clean.
+
+---
+
+## Hard-rule violations I caught in self-critique
+
+Walking master doc §10.1's 15-item checklist:
+
+1. **Recommended without reading /foundations?** No. Every token alias in `_aliases.tokens.json` resolves to an existing v0.12.6 primitive that the foundations page surfaces. Every contrast bump cross-checked against the actual luminance math.
+2. **Constraint from §2 implicitly relaxed?** No. The chart/avatar palettes carefully preserve hard rule 7 ("no second loud color") — every chart slot aliases an existing primitive (Spring + neutrals + status pair-only); no new hue introduced.
+3. **Delegated to operator?** Eight items closed end-to-end. The remaining seven are GENUINELY operator-side (API keys, native toolchains, Vercel deploy) — documented in CHANGELOG §Notes and this report.
+4. **Simplest path not surfaced?** Considered. For the 67 missing tokens I chose ONE additive file over distributing across 19+ existing files. Trade-off: less idiomatic but auditable in one place; v0.14 promotes. For Storybook I chose CSF 3 over the newer CSF 4 factory because CSF 3 works across Storybook 7-10.x and doesn't require chasing the moving factory API.
+5. **Most likely wrong assumption?** That `accent.800` reads visually distinctive enough as a focus ring on light backgrounds without operator review. The contrast math passes (4.16:1) but the perceptual question is whether `#008A4D` reads as "Lumen accent" the way `#00FA8A` does. Mitigated: production CSS layers a soft halo on top via `shadow.focus`; the rendered ring is the alpha-blended composite of the solid color + the halo. Operator can sanity-check on the dashboard's focus states.
+6. **Second loud color anywhere?** No. Chart palette and avatar palette both carefully alias existing primitives (Spring + neutrals + status). Status borders use existing status.500 hues.
+7. **Hex literal outside primitives?** No. `_aliases.tokens.json` lives at `01-tokens/components/` (per existing convention) and contains only aliases — zero hex literals.
+8. **New off-grid spacing value without a named token?** No. Every new size in `_aliases.tokens.json` is named: `size.avatar.xs/sm/md/lg/xl`, `size.sidebar.rail/expanded`, etc.
+9. **backdrop-filter on dense surface?** No. The `.lumen-mode-toggle` pill in `examples/ai-surface/app/globals.css` uses `backdrop-filter: blur(12px) saturate(120%)` — but it's a floating UI element (sticky pill), not a dense surface. Per hard rule 16, backdrop-filter on floating shells is allowed; backdrop-filter on canvas / table / row / cell is forbidden. The pill qualifies. Also includes `prefers-reduced-transparency` fallback.
+10. **Missed `prefers-reduced-motion` / `prefers-reduced-transparency` fallback?** No. `.lumen-text-scrim::before` uses a 320ms transition that the existing `@media (prefers-reduced-motion)` block in `lumen-scoping.css` collapses. `.lumen-mode-toggle` ships a `@media (prefers-reduced-transparency)` fallback that bumps the bg alpha to 0.92 and drops backdrop-filter.
+11. **Broke v0.12.4 public token name without an alias?** No. The light-mode `border.focus` bump is a semantic-color rebinding (the path stays at `color.border.focus`); the value resolves to a different primitive (accent.500 → accent.800) but the consumer-facing token path is unchanged.
+12. **Generated a Lumen icon via gpt-image-2?** No. Phase 4 deferral unchanged.
+13. **Forgot to pin the gpt-image-2 snapshot?** N/A — no prompts in this patch.
+14. **Forgot the CHANGELOG entry?** No — `[0.13.1]` block added under `[Unreleased]`.
+15. **Forgot to regenerate llms.txt / llms-full.txt after a token change?** No — both regenerated. `llms-full.txt` grew from 445 → 446 files (`_aliases.tokens.json` added).
+
+All answers: no (or N/A). Hard rules cleared.
+
+---
+
+## What I assumed
+
+1. **The 76 stories will load correctly under Storybook 10.4 after the CSF 3 migration.** Storybook 7+ CSF 3 is universally supported across 10.x — verified the `Meta` and `StoryObj` types are exported from `@storybook/nextjs` (via re-export from `storybook/csf`). Not actually run in-env because the audit-dashboard CLAUDE.md warns Turbopack OOMs during heavy file edits, and the migration touched 76 story files. Operator-side verification.
+
+2. **The 67 missing tokens don't have semantic conflicts with existing v0.12.6 paths.** Verified via `pnpm tokens` (101 expected collisions are dark/light mode rebinds — by design per Phase 0 report §What I assumed #7) + `pnpm tokens:validate` (1177 tokens resolve). The new tokens sit under unique paths.
+
+3. **`accent.800` (#008A4D) renders visually as "Lumen-family green" on light backgrounds, not as a generic dark green.** The contrast math passes; the perceptual review is operator-side. Production CSS halos the focus ring so the rendered output blends with Spring Green.
+
+4. **Cleaning `_build/` doc-comments in example tsx files doesn't break example rendering.** These ARE doc-comments inside JSX example files; they don't affect runtime. The audit (audit-tokens scans `.tsx` files for hex literals — pre-existing PASS at 174 files / 0 hex) still passes after the swap.
+
+5. **The audit-dashboard's `_aliases.tokens.json` doesn't need a separate registry entry.** Per existing convention, `01-tokens/components/<name>.tokens.json` files don't have individual registry entries — they're tokens that get rolled up into the global token graph. `_aliases.tokens.json` follows the same convention. The token-index regeneration picks them up automatically.
+
+---
+
+## What's still uncertain
+
+Operator decisions or follow-ups needed:
+
+1. **Storybook 10.4 visual regression.** All 76 stories migrated to CSF 3 but not actually rendered in Storybook in-env (Turbopack OOM risk). Operator runs `pnpm storybook` to verify.
+
+2. **The light-mode focus-ring perceptual review.** `accent.800` clears the 3:1 floor but may read as "darker than expected" if a designer was used to the `accent.500` visual. The decision matrix: contrast-safety > visual loudness. Operator confirms.
+
+3. **The `.lumen-text-scrim` ::before pseudo-element CSS specificity.** The scrim is `z-index: -1` and `inset: -4px -8px` so it paints behind the text with a small bleed for readability. If the host container has `overflow: hidden` and the scrim's negative inset escapes the container's bounds, the scrim gets clipped (a non-blocking edge case). The landing-hero example's host has a `rounded-[var(--radius-md)]` parent — fine. Document if the pattern needs adjustment in production.
+
+4. **The ai-surface ModeToggle's expressive-mode ambient gradient values.** Picked 8% Spring + 3% indigo (within master-doc atmospheric range). Visually subtle. Operator's design call whether the atmospheric intensity reads right at full-page scale.
+
+5. **`color.chart.7` = `{color.status.danger.500}` and `color.chart.5` = `{color.status.warning.500}`.** These ARE existing primitives so they don't violate hard rule 7 ("no second loud color") — but using status hues as chart series colors could read as semantic ("danger trend!") when the chart is purely categorical. Operator's design call whether to remap. Documented in the `_aliases.tokens.json` `$description` for chart.5 / chart.7 — both flagged as "pair-only, used only when the data point carries [warning/danger] meaning."
+
+6. **The `_aliases.tokens.json` file naming.** Used `_aliases.tokens.json` (underscore prefix sorts first alphabetically). v0.14 may want to promote these to per-category homes (chart/avatar palettes → primitives/color, component sizes → per-component files). v0.13.1 surfaces them in one auditable place; no v0.13.0 token paths are removed.
+
+---
+
+## Decisions made unilaterally (this patch operates under the same autonomy override as phase-{0..6})
+
+1. **`_aliases.tokens.json` as one auditable file vs distributing across primitives/.** Chose one file under `01-tokens/components/` (with `_` prefix). Trade-off: less idiomatic but auditable in one place; v0.14 promotion path is clear.
+
+2. **CSF 3 migration instead of CSF 4 / `defineMeta` chase.** CSF 3's `Meta<typeof X>` + `StoryObj<typeof X>` works across Storybook 7-10.x. CSF 4's factory API is still evolving; CSF 3 is stable.
+
+3. **Custom Style Dictionary transforms named `lumen/*`** (vs overriding built-in names). SD v5's `registerTransform` may not always override built-ins reliably; namespaced names are deterministic. Plus the `lumen/css` + `lumen/scss` custom groups make the dependency order explicit (duration before transition).
+
+4. **`accent.800` not `accent.700` for light-mode `border.focus`.** Phase 0 report estimated accent.700 at 3.0:1; actual measured is 2.72:1, still under floor. accent.800 measures 4.16:1, clearing the floor with body-tier margin.
+
+5. **`.lumen-text-scrim` as a `::before` pseudo-element with negative inset.** Provides a 4-8px bleed beyond the text bounds for legibility while keeping the scrim behind the text via `z-index: -1`. No-op in restrained via the `[data-mode='expressive']` gate.
+
+6. **Pre-existing TS errors in `examples/ai-surface/` fixed inline.** Out-of-strict-scope but trivial (3 lines total). Fixed so `pnpm exec tsc --noEmit` runs clean — necessary for the ModeToggle addition's TS check to be meaningful.
+
+7. **Did NOT regenerate Tier 5 component stories via the scaffolder.** Tier 5 stories aren't driven by `tools/specs/*.json` (they were authored separately in Phase 5 because they're install-on-demand for `npx ai-elements@latest add`). One-shot migration script handled them; script deleted post-migration to avoid clutter.
+
+8. **The `[0.13.1]` block lives under `[Unreleased]` alongside the `[0.13.0]` block.** Both ship in the same merge to `main`. Operator can flatten if preferred at release time.
+
+---
+
+## Verification gates — final status
+
+| Gate | Pass condition | Status |
+|---|---|---|
+| `pnpm tokens` | Exits 0; no `[object Object]` in any CSS target | ✓ **PASS** — `dist/css/lumen.css`, `lumen.dark.css`, `lumen.expressive.css`, `dist/tailwind/lumen.css`, `dist/tailwind/lumen.dark.css`, `dist/liquid/css-variables.liquid`, `dist/scss/tokens.scss` all clean |
+| `pnpm tokens:validate` | 0 unresolved aliases, 0 missing component-token references | ✓ **PASS** — 1177 tokens declared across 44 files; all aliases + component references resolve |
+| `pnpm audit:tokens` | 0 hex literals outside primitives | ✓ **PASS** — 174 files scanned, 0 hex literals |
+| `pnpm audit:mode` | 0 `data-mode` references in component source | ✓ **PASS** — 172 files scanned, 0 violations |
+| `pnpm audit:contrast` | body ≥4.5:1 + large ≥3.0:1 hard tiers all pass | ✓ **PASS** — body 22/22, large 3/3 (was 2/2 — added the scrim-protected tertiary case), focus advisory 2/3 (was 1/3 — light border.focus now clears) |
+| `pnpm tokens --verbose` "Unknown CSS Font Shorthand" | 0 occurrences | ✓ **PASS** — typography custom transform absorbs the dropped-property warning silently |
+| `pnpm registry` | Exits 0; 149 items emitted | ✓ **PASS** — REG=3 · FOUNDATION=1 · T1=20 · T2=15 · T3-SIG=3 · T4=10 · EXT=69 · T5=28 = 149 |
+| `pnpm llms:all` | `llms.txt` + `llms-full.txt` regenerated | ✓ **PASS** — `llms.txt` 14,455 chars / 149 registry items; `llms-full.txt` 446 files / ~507,211 tokens |
+| `pnpm dashboard-indexes` | 3 dashboard index JSONs regenerated | ✓ **PASS** — component-index, token-index, prompt-index |
+| Dashboard TypeScript | `pnpm exec tsc --noEmit` clean across all routes | ✓ **PASS** |
+| ai-surface TypeScript | `pnpm exec tsc --noEmit` clean | ✓ **PASS** (pre-existing 3 errors also fixed inline) |
+| Stories now compile under Storybook 10.4 | All 76 stories use CSF 3 (`Meta<typeof X>` + `StoryObj<typeof X>`) | ✓ **MIGRATED** — 0 remaining `defineMeta` / `meta.story(` references in `02-components/**/*.stories.tsx`; full Storybook bundler run is operator-side per Turbopack OOM guidance |
+| Stale `_build/` doc-comments in example tsx | 0 remaining | ✓ **PASS** — 23 files updated to `dist/tailwind/lumen.css` |
+| Self-critique (15 questions) | All "no" or N/A | ✓ **PASS** — see above |
+
+**Overall: 13 hard gates ALL PASS. 0 hard-rule violations introduced. 8 deferred items from Phase 0-6 reports closed end-to-end. 7 operator-side gates remain (Lighthouse / OPENAI_API_KEY / ANTHROPIC_API_KEY / native toolchains / Vercel deploy) — none addressable in-env.**
+
+---
+
+## CHANGELOG entry
+
+Shipped in `CHANGELOG.md` under `[Unreleased]` as the `[0.13.1]` block — full Fixed / Added / Changed / Notes breakdown.
+
+---
+
+## Tokens / components touched
+
+### Tokens
+- 1 new file: `01-tokens/components/_aliases.tokens.json` (67 net-new tokens, all aliases to existing primitives)
+- 1 modified file: `01-tokens/semantic/color.light.tokens.json` (`border.focus` light-mode value change)
+
+### Components touched
+- 76 story files migrated to CSF 3
+- 1 landing-hero example wired with `.lumen-text-scrim`
+- 23 example tsx files: stale `_build/` doc-comments → `dist/tailwind/lumen.css`
+
+### Build pipeline
+- `style-dictionary.config.ts` — 4 new transforms + 2 new transform groups + all 7 `transformGroup` references rewired
+- `tools/scaffold-component.mjs` — story template rewrite
+- `tools/audit-contrast.ts` — 3 pair updates + closing message update
+
+### Audit-dashboard
+- `src/lib/tabs.ts` — new `registry` tab entry
+- `src/app/lumen-scoping.css` (+ canonical copy) — new `.lumen-text-scrim` utility
+- `src/app/examples/landing-hero/landing-hero.tsx` — scrim wired into brutalist frame caption
+
+### Reference apps
+- `examples/ai-surface/components/mode-toggle.tsx` (NEW)
+- `examples/ai-surface/app/layout.tsx` — ModeToggle wired
+- `examples/ai-surface/app/globals.css` — mode rebinds + pill style + reduced-transparency fallback
+- `examples/ai-surface/tsconfig.json` + `app/api/chat/route.ts` + `next.config.ts` — 3 pre-existing TS errors fixed
+
+### Generated artifacts
+- `registry.json` (regenerated; 149 items unchanged)
+- `llms.txt` (regenerated; 14,455 chars)
+- `llms-full.txt` (regenerated; 446 files, ~507K tokens)
+- `audit-dashboard/public/{component,token,prompt}-index.json` (regenerated)
+- `tools/audit-baseline/contrast-{restrained,expressive}.json` (regenerated)
+- `dist/**` (all 17 platform outputs regenerated by `pnpm tokens`)
+
+---
+
+## Next phase
+
+**None.** v0.13.1 closes the deferred-cleanup loop for the v0.13 master refactor. The remaining work is operator-side ship per phase-6-report.md §"Operator-side ship checklist" — push `v0.13.0` branch to `origin`, open PR to `main`, push tag, confirm Vercel deploy, verify registry endpoint.
+
+v0.14 candidates (not in scope for this patch):
+- Promote `_aliases.tokens.json` entries to per-category homes (chart/avatar palettes → `01-tokens/primitives/color.tokens.json`; component sizes → per-component `01-tokens/components/<name>.tokens.json` files)
+- Build the optional `@warp/lumen-mcp` package if a Lumen-specific tool surface beyond shadcn MCP becomes needed (e.g., `lumen.get_prompt_template` for the gpt-image-2 library)
+- iOS / Android / macOS SwiftUI + Compose translations for the AI primitives (Phase 5 explicitly scoped them out)
+
 ### doc/LUMEN-v0.13-MASTER-REFACTOR.md
 
 <!-- bytes: 54762 -->
@@ -44142,8 +46605,8 @@ When in doubt, **pause and ask**. Silent guessing is the failure mode this brief
 
 ## Generation stats
 
-- Files: 446
-- Total chars: 2,028,678
-- Approx tokens: 507,170 (rule-of-thumb)
+- Files: 473
+- Total chars: 2,145,749
+- Approx tokens: 536,437 (rule-of-thumb)
 - Lumen version: v0.13.0
-- Generated: 2026-05-17T10:00:39Z
+- Generated: 2026-05-17T16:52:44Z

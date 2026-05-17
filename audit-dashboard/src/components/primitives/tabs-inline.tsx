@@ -1,4 +1,6 @@
 "use client";
+// lumen-allow-file: off-grid-micro
+// Audit dashboard demo — sub-grid micro pixels (10-22px) used for demo affordances. The audit-tokens.ts hard gate (excludes examples/ + audit-dashboard/) enforces the strict rule on shipped library source.
 
 import { ReactNode, useState } from "react";
 

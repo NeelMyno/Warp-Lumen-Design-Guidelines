@@ -127,6 +127,7 @@ function IOSFrame() {
           ].map((s) => (
             <div
               key={s.id}
+              // lumen-lint-allow: off-grid — py-2.5 (10 px) is the documented mobile-row vertical padding tier between 8 and 12.
               className="flex items-center justify-between gap-3 bg-[var(--surface-raised)] rounded-[var(--radius-lg)] px-3 py-2.5 border border-[var(--border-hairline)]"
             >
               <div className="flex items-center gap-3 min-w-0">

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "message-branch",
+  "title": "MessageBranch",
+  "description": "Navigation for regenerated assistant responses. Renders MessageBranch + MessageBranchContent + MessageBranchPrevious / Next / Page / Selector. Mirrors Vercel AI Elements verbatim.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@lumen/utils",
+    "@lumen/lumen-base"
+  ],
+  "files": [
+    {
+      "path": "design-system/02-components/message-branch/message-branch.tsx",
+      "content": "/**\n * Lumen MessageBranch — Tier 5 AI primitive (Vercel AI Elements compatible)\n *\n * Lumen ships the contract (this file + ./message-branch.md + ./message-branch.skill.md).\n * Vercel AI Elements ships the React implementation. Install via:\n *\n *   npx ai-elements@latest add message-branch\n *\n * Then import from `@/components/ai-elements/message-branch` and theme via\n * <LumenAIProvider>. See:\n *   - ./message-branch.md for the API contract\n *   - ./message-branch.skill.md for NEVER rules\n *   - ../mode-scope/mode-scope.md for mode integration\n *   - ../../03-patterns/chat-thread.md for the canonical composition\n *\n * This file is a Lumen-side contract stub. It exists so that\n * `pnpm dlx shadcn@latest build registry.json` finds an existing file at\n * the registry item's `files[].path`. Consumers running\n * `npx shadcn add @lumen/message-branch` get this file copied to\n * `components/ai-elements/message-branch.tsx`. They then run the ai-elements\n * install above to overwrite the stub with the real implementation.\n *\n * Forking the Vercel implementation would lock Lumen to a snapshot; the\n * install-and-theme pattern keeps Lumen on Vercel's release train.\n */\n\nimport type { ReactNode } from \"react\";\n\nexport interface MessageBranchProps {\n  className?: string;\n  children?: ReactNode;\n}\n\n/**\n * @deprecated Lumen contract stub. Install the Vercel AI Elements implementation:\n *   `npx ai-elements@latest add message-branch`\n * Then import from `@/components/ai-elements/message-branch`.\n */\nexport function MessageBranch(_props: MessageBranchProps): never {\n  throw new Error(\n    \"[Lumen] <MessageBranch> is a contract-only stub. \" +\n    \"Install the Vercel AI Elements implementation: `npx ai-elements@latest add message-branch`. \" +\n    \"Then import { MessageBranch } from `@/components/ai-elements/message-branch`.\"\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ai-elements/message-branch.tsx"
+    }
+  ],
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
+  "meta": {
+    "lumenVersion": "0.13.0",
+    "tier": "T5",
+    "family": "Message",
+    "phase": 5,
+    "vercelAIElements": {
+      "name": "MessageBranch",
+      "installCommand": "npx ai-elements@latest add message"
+    },
+    "platforms": [
+      "web-react"
+    ]
+  },
+  "type": "registry:ui"
+}
