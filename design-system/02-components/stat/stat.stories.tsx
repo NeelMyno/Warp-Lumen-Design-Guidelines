@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Stat } from "./stat";
 
-const meta = defineMeta({
+const meta: Meta<typeof Stat> = {
   title: "T3-SIG/Stat",
   component: Stat,
   parameters: {
@@ -11,11 +12,13 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof Stat>;
+
+export const Default: Story = {
   args: {
     "label": "On-time index",
     "value": "98.2",
@@ -25,9 +28,9 @@ export const Default = meta.story({
     "polarity": "good-up"
   },
   render: (args) => <Stat {...args}>Stat</Stat>,
-});
+};
 
-export const WithSpark = meta.story({
+export const WithSpark: Story = {
   args: {
     "label": "Active lanes",
     "value": "1,247",
@@ -45,14 +48,14 @@ export const WithSpark = meta.story({
     ]
   },
   render: (args) => <Stat {...args}>Stat</Stat>,
-});
+};
 
-export const Hero = meta.story({
+export const Hero: Story = {
   args: {
     "label": "Annual savings",
     "value": "$2.4M",
     "size": "hero"
   },
   render: (args) => <Stat {...args}>Stat</Stat>,
-});
+};
 

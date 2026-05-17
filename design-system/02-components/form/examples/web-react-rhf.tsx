@@ -1,7 +1,7 @@
 // Lumen Form — Web React (v0.7 RHF mode) example
 //
 // Copy this into your repo at /components/forms/example.tsx and tweak.
-// Tokens come from /_build/tailwind/theme.css which you import in your
+// Tokens come from dist/tailwind/lumen.css which you import in your
 // global css. The Form + Field primitives live at:
 //   /audit-dashboard/src/components/primitives/form.tsx
 //   /audit-dashboard/src/components/primitives/form-rhf.tsx

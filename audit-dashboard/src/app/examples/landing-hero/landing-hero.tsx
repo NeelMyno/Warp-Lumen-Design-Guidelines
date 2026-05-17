@@ -95,12 +95,16 @@ export function LandingHero() {
 
         {/* The brutalist hairline frame voice element — explicit border.frame
             stroke at alpha 40%, mounted as a sub-panel beneath the CTA to
-            demonstrate the voice element in both modes. */}
+            demonstrate the voice element in both modes. The tertiary-text label
+            wraps in `.lumen-text-scrim` so it clears WCAG 2.4.13 on the
+            expressive mesh peak — per modes.md §"Contrast contract on
+            expressive hero". The scrim is a no-op in restrained mode (the
+            ::before pseudo-element collapses to transparent). */}
         <div
           className="mt-8 border border-dashed p-6 rounded-[var(--radius-md)]"
           style={{ borderColor: "var(--color-alpha-paper-40, rgba(255, 255, 255, 0.40))" }}
         >
-          <p className="lumen-mono-cap text-[color:var(--text-tertiary)] mb-2">
+          <p className="lumen-text-scrim inline-block lumen-mono-cap text-[color:var(--text-tertiary)] mb-2">
             BRUTALIST HAIRLINE FRAME · BORDER.FRAME · ALPHA 40%
           </p>
           <p className="text-sm text-[color:var(--text-secondary)] leading-relaxed">

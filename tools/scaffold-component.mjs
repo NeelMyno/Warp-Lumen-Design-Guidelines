@@ -206,19 +206,20 @@ function storiesTemplate(spec) {
   ];
   const storyExports = stories
     .map(
-      (s) => `export const ${s.name} = meta.story({
+      (s) => `export const ${s.name}: Story = {
   args: ${JSON.stringify(s.args ?? {}, null, 2).replace(/\n/g, "\n  ")},
   render: (args) => <${exportName} {...args}>${s.children || Cap}</${exportName}>,
-});
+};
 `,
     )
     .join("\n");
-  return `// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+  return `// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { ${exportName} } from "${importPath}";
 
-const meta = defineMeta({
+const meta: Meta<typeof ${exportName}> = {
   title: "${spec.tier || "Components"}/${Cap}",
   component: ${exportName},
   parameters: {
@@ -226,9 +227,11 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
+
+type Story = StoryObj<typeof ${exportName}>;
 
 ${storyExports}
 `;

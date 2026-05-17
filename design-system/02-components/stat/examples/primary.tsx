@@ -2,7 +2,7 @@
 // Tailwind v4 + tokens consumed via @theme inline / CSS variables.
 //
 // Copy this into your repo at /components/ui/stat.tsx.
-// Tokens come from /_build/tailwind/theme.css which you import in your global css.
+// Tokens come from dist/tailwind/lumen.css which you import in your global css.
 //
 // Warp signature primitive. Big bold numeric in tabular monospace + small mono
 // unit + optional delta pill with trend arrow. The arrow uses aria-hidden;

@@ -2,7 +2,7 @@
 // Tailwind v4 + tokens consumed via @theme inline / CSS variables.
 //
 // Copy this into your repo at /components/ui/date-picker.tsx.
-// Tokens come from /_build/tailwind/theme.css which you import in your global css.
+// Tokens come from dist/tailwind/lumen.css which you import in your global css.
 //
 // NOTE — v0.7 ships the SHELL + a scaffold calendar. For production selection
 // logic, locale-aware formatting, and range-picker support, compose

@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Toaster } from "./toast";
 
-const meta = defineMeta({
+const meta: Meta<typeof Toaster> = {
   title: "T1/Toaster",
   component: Toaster,
   parameters: {
@@ -11,17 +12,19 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
-  args: {},
-  render: (args) => <Toaster {...args}>Toaster</Toaster>,
-});
+type Story = StoryObj<typeof Toaster>;
 
-export const Success = meta.story({
+export const Default: Story = {
   args: {},
   render: (args) => <Toaster {...args}>Toaster</Toaster>,
-});
+};
+
+export const Success: Story = {
+  args: {},
+  render: (args) => <Toaster {...args}>Toaster</Toaster>,
+};
 

@@ -82,3 +82,106 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================================================
+   ModeToggle — Phase 5 deferral closure (v0.13.1)
+   ----------------------------------------------------------------------------
+   `data-mode="restrained"` is the default for chat / data / dense flows
+   (already correct for every page below). `data-mode="expressive"` opt-in
+   rebinds surface.canvas to a subtle ambient gradient + atmosphere tint so
+   the SAME AI primitive JSX paints a hero-style atmosphere when an operator
+   toggles. Per AGENTS.md hard rule 15: mode is a SCOPE ATTRIBUTE never a
+   per-component prop. Per hard rule 16: backdrop-filter only on floating
+   shells — the rebinds below don't touch glass / popover.
+   ============================================================================ */
+
+/* Restrained — default; explicit for clarity. */
+:root,
+[data-mode="restrained"] {
+  --surface-canvas-effective: var(--color-surface-canvas);
+  --surface-ambient: var(--color-surface-canvas);
+  --tint-atmosphere: transparent;
+}
+
+[data-mode="expressive"] {
+  /* Subtle 8% Spring tint over canvas — within master-doc atmospheric range. */
+  --surface-canvas-effective: var(--color-surface-canvas);
+  --surface-ambient: radial-gradient(
+      ellipse 80% 60% at 80% 0%,
+      rgba(0, 250, 138, 0.04),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 10% 90%,
+      rgba(20, 100, 100, 0.03),
+      transparent 60%
+    ),
+    var(--color-surface-canvas);
+  --tint-atmosphere: rgba(0, 250, 138, 0.04);
+}
+
+[data-mode="expressive"] body {
+  background: var(--surface-ambient);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  [data-mode="expressive"] {
+    --surface-ambient: var(--color-surface-canvas);
+    --tint-atmosphere: transparent;
+  }
+  [data-mode="expressive"] body {
+    background: var(--color-surface-canvas);
+  }
+}
+
+/* The toggle pill itself. */
+.lumen-mode-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px 0 10px;
+  border-radius: var(--radius-full);
+  background: rgba(23, 23, 23, 0.72);
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(12px) saturate(120%);
+  cursor: pointer;
+  transition:
+    color var(--motion-duration-fast) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.lumen-mode-toggle:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
+}
+
+.lumen-mode-toggle__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+  transition: background var(--motion-duration-base) var(--motion-easing-standard);
+}
+
+[data-mode="expressive"] .lumen-mode-toggle__dot {
+  background: var(--color-spring-500);
+  box-shadow: 0 0 8px rgba(0, 250, 138, 0.6);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .lumen-mode-toggle {
+    background: rgba(23, 23, 23, 0.92);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}

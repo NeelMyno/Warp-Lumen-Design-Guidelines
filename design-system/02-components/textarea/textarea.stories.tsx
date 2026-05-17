@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Textarea } from "./textarea";
 
-const meta = defineMeta({
+const meta: Meta<typeof Textarea> = {
   title: "T1/Textarea",
   component: Textarea,
   parameters: {
@@ -11,22 +12,24 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof Textarea>;
+
+export const Default: Story = {
   args: {
     "placeholder": "Notes for the carrier…"
   },
   render: (args) => <Textarea {...args}>Textarea</Textarea>,
-});
+};
 
-export const Error = meta.story({
+export const Error: Story = {
   args: {
     "placeholder": "Required",
     "aria-invalid": true
   },
   render: (args) => <Textarea {...args}>Textarea</Textarea>,
-});
+};
 

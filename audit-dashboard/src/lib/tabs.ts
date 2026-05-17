@@ -1,6 +1,7 @@
 export type TabSlug =
   | "foundations"
   | "library"
+  | "registry"
   | "tokens"
   | "prompts"
   | "saas"
@@ -36,6 +37,15 @@ export const TABS: Tab[] = [
     shortLabel: "Library",
     description:
       "Every component, state, and pattern in one navigable surface. Apple HIG / Material / Polaris-grade coverage, Lumen-tuned.",
+    group: "system",
+  },
+  {
+    slug: "registry",
+    href: "/library/registry",
+    label: "Registry Browser",
+    shortLabel: "Registry",
+    description:
+      "Browse the shadcn `@lumen/*` registry — 149 items across foundation / Tier 1-5 / legacy v0.12.6 sidecars. Each card shows install command, tokens consumed, mode behavior, and NEVER-rule count.",
     group: "system",
   },
   {

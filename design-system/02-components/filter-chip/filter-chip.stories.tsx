@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { FilterChip } from "./filter-chip";
 
-const meta = defineMeta({
+const meta: Meta<typeof FilterChip> = {
   title: "T2/FilterChip",
   component: FilterChip,
   parameters: {
@@ -11,16 +12,18 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof FilterChip>;
+
+export const Default: Story = {
   args: {
     "field": "Lane",
     "operator": "is",
     "value": "LAX→SFO"
   },
   render: (args) => <FilterChip {...args}>FilterChip</FilterChip>,
-});
+};
 

@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { CarrierBadge } from "./carrier-badge";
 
-const meta = defineMeta({
+const meta: Meta<typeof CarrierBadge> = {
   title: "T4/CarrierBadge",
   component: CarrierBadge,
   parameters: {
@@ -11,11 +12,13 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof CarrierBadge>;
+
+export const Default: Story = {
   args: {
     "name": "Sterling LTL",
     "vehicle": "LTL",
@@ -23,14 +26,14 @@ export const Default = meta.story({
     "otdPct": 97.8
   },
   render: (args) => <CarrierBadge {...args}>CarrierBadge</CarrierBadge>,
-});
+};
 
-export const Compact = meta.story({
+export const Compact: Story = {
   args: {
     "name": "Estes Express",
     "otdPct": 96.1,
     "compact": true
   },
   render: (args) => <CarrierBadge {...args}>CarrierBadge</CarrierBadge>,
-});
+};
 

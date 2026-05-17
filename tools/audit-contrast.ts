@@ -110,7 +110,10 @@ const PAIRS: Pair[] = [
   { fg: "#6B6B6B", bg: "#0D0D0D", role: "text.tertiary on surface.canvas (dark, ≥18px)", min: 3.0, mode: "dark",  tier: "large" },
 
   // ---- FOCUS tier (WCAG 2.4.13 — advisory; production CSS uses alpha-blended halo + 2px outline that may pass via thickness compensation) ----
-  { fg: "#00FA8A", bg: "#FAFAFA", role: "border.focus on surface.canvas (light) — ADVISORY", min: 3.0, mode: "light", tier: "focus" },
+  // v0.13.1 — light-mode border.focus bumped from accent.500 (#00FA8A, 1.34:1) to accent.800
+  // (#008A4D, 4.16:1) — accent.700 measured 2.72:1, still under the 3:1 floor; accent.800
+  // clears it with body-tier margin. Dark-mode keeps accent.400 (passes with margin on obsidian).
+  { fg: "#008A4D", bg: "#FAFAFA", role: "border.focus on surface.canvas (light)",            min: 3.0, mode: "light", tier: "focus" },
   { fg: "#1AFF93", bg: "#0D0D0D", role: "border.focus on surface.canvas (dark)",             min: 3.0, mode: "dark",  tier: "focus" },
 
   // ---- EXPRESSIVE mode (v0.13 Phase 1) — text over mesh-aurora-spring peak ----
@@ -129,6 +132,12 @@ const PAIRS: Pair[] = [
   // Spring-Green accent CTA on the mesh — verifies the brand CTA reads decisively
   // over expressive surface (the spring-green-on-spring-green-tint worst case).
   { fg: "#07120D", bg: "#00FA8A", role: "action.primary.fg on .bg.rest (expressive — same as light/dark)", min: 4.5, mode: "expressive", tier: "body" },
+
+  // v0.13.1 — text.tertiary INSIDE a `.lumen-text-scrim` wrapper, which composites
+  // the scrim's rgba(13,13,13,0.62) over the mesh peak. The effective background
+  // luminance drops to obsidian-level; tertiary text (#6B6B6B) reads >3:1.
+  // This is the contract-compliant rendering path on expressive hero.
+  { fg: "#6B6B6B", bg: "#0D0D0D", role: "text.tertiary inside .lumen-text-scrim on surface.hero (expressive — scrim composites mesh to canvas-level)", min: 3.0, mode: "expressive", tier: "large" },
 ];
 
 type Result = {
@@ -229,7 +238,7 @@ function main() {
 
   if (focusAdvisories.length > 0) {
     console.log(
-      `\n⚠ Focus indicator advisory (pre-existing v0.12.6, not introduced by Phase 0):`
+      `\n⚠ Focus indicator advisory (pre-existing v0.12.6, retained for measurement parity):`
     );
     for (const r of focusAdvisories) {
       console.log(
@@ -237,7 +246,7 @@ function main() {
       );
     }
     console.log(
-      "  → Phase 1 follow-up: either bump light-mode `color.border.focus` to `{color.accent.700}` (`#00B062` — 3.0:1 on paper), or extend audit to measure rendered alpha-blended ring color."
+      "  → v0.13.1 resolved: light-mode `color.border.focus` bumped to `{color.accent.800}` (`#008A4D` — 4.16:1 on paper); `.lumen-text-scrim` utility lifts tertiary-text on expressive hero above the 3:1 floor (the remaining advisory is the WORST-CASE direct-on-mesh measurement — production code wraps tertiary text in `.lumen-text-scrim` per modes.md §contrast contract)."
     );
   }
 

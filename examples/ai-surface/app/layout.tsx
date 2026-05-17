@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export const metadata: Metadata = {
   title: "Lumen AI Surface — Phase 5 Reference",
@@ -13,8 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-mode="restrained">
+      <body>
+        <ModeToggle />
+        {children}
+      </body>
     </html>
   );
 }

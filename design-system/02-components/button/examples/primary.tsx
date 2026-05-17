@@ -2,7 +2,7 @@
 // Tailwind v4 + tokens consumed via @theme inline / CSS variables.
 //
 // Copy this into your repo at /components/ui/button.tsx.
-// Tokens come from /_build/tailwind/theme.css which you import in your global css.
+// Tokens come from dist/tailwind/lumen.css which you import in your global css.
 //
 // v0.9 — Implementation pattern moved from inline Tailwind arbitrary-value utilities
 // to CSS-class composition (the `.lumen-btn-*` family declared in globals.css).

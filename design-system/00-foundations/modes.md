@@ -127,7 +127,7 @@ Mesh backgrounds raise the effective lightness of the canvas at the brightest bl
 
 **`text.tertiary` (the eyebrow / hint / micro-label tier) cannot pass 3:1 against any mesh peak.** Its #6B6B6B luminance is too low. Three options:
 
-1. **Render tertiary text in a scrim-protected zone.** Apply `--gradient-hero-scrim` as a layer beneath the text. The scrim's `rgba(13,13,13,0.62)` top stop composites the underlying mesh down to canvas-level luminance; tertiary text reads at >3.3:1.
+1. **Render tertiary text in a scrim-protected zone.** Apply `--gradient-hero-scrim` as a layer beneath the text. The scrim's `rgba(13,13,13,0.62)` top stop composites the underlying mesh down to canvas-level luminance; tertiary text reads at >3.3:1. **v0.13.1 ships `.lumen-text-scrim`** (in `lumen-scoping.css`) — wrap any tertiary-text block with this class; it paints the scrim ::before only under `[data-mode='expressive']` and is a no-op in restrained. The landing-hero example demonstrates the pattern.
 2. **Mount the tertiary text inside an opaque card.** Cards on hero — pricing tiles, testimonial blocks, feature cells — paint their own `surface.raised` background, so the text sees raised, not mesh.
 3. **Move the tertiary text out of expressive scope.** Caption-tier copy that doesn't need atmospheric backdrop renders in restrained — the dashboard / table / settings surfaces where it normally lives.
 

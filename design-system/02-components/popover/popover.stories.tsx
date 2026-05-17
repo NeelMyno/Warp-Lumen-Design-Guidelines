@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Popover } from "./popover";
 
-const meta = defineMeta({
+const meta: Meta<typeof Popover> = {
   title: "T1/Popover",
   component: Popover,
   parameters: {
@@ -11,19 +12,21 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof Popover>;
+
+export const Default: Story = {
   args: {},
   render: (args) => <Popover {...args}>Popover</Popover>,
-});
+};
 
-export const RightAligned = meta.story({
+export const RightAligned: Story = {
   args: {
     "align": "end"
   },
   render: (args) => <Popover {...args}>Popover</Popover>,
-});
+};
 

@@ -1,35 +1,36 @@
 {
-  "generated": "2026-05-17T09:12:26Z",
+  "generated": "2026-05-17T10:00:39Z",
   "version": "0.13.0",
   "totals": {
-    "tokens": 1218,
-    "references": 2598,
+    "tokens": 1285,
+    "references": 2893,
     "byLayer": {
       "primitive": 375,
       "semantic": 406,
       "mode": 19,
-      "component": 418
+      "component": 485
     },
     "byCategory": {
-      "color": 361,
+      "color": 384,
       "dimension": 42,
       "elevation": 11,
       "glass": 24,
       "gradient": 3,
       "mesh": 5,
-      "motion": 27,
+      "motion": 29,
       "noise": 4,
       "radius": 19,
       "spacing": 17,
       "typography": 77,
       "action": 43,
       "border": 11,
-      "shadow": 20,
+      "shadow": 25,
       "space": 55,
       "surface": 19,
       "text": 11,
-      "type": 43,
+      "type": 46,
       "mode": 8,
+      "size": 34,
       "button": 90,
       "card": 13,
       "checkbox": 17,
@@ -7258,10 +7259,10 @@
       "layer": "semantic",
       "category": "color",
       "file": "design-system/01-tokens/semantic/color.light.tokens.json",
-      "value": "{color.accent.500}",
-      "resolvedValue": "#00FA8A",
+      "value": "{color.accent.800}",
+      "resolvedValue": "#008A4D",
       "type": "unknown",
-      "description": "Focus ring color. Always paired with shadow.focus.",
+      "description": "Focus ring color (light mode). v0.13.1 bump from accent.500 → accent.800 (#008A4D) to clear the WCAG 2.4.13 advisory: accent.500 on paper resolves to 1.34:1, accent.700 resolves to 2.72:1 (still below the 3:1 floor), accent.800 resolves to 4.16:1 — clearing the floor with margin. Production CSS layers a 2px outline + alpha-32 halo so the rendered ring exceeds the floor further. Always paired with shadow.focus. Dark mode keeps accent.400 (border.focus is composed in color.dark.tokens.json).",
       "cssVar": "--color-border-focus"
     },
     {
@@ -11112,6 +11113,1076 @@
       "description": "Restrained mode: no animated atmosphere. Aurora, mesh-drift, grain animations all gated off.",
       "cssVar": "--motion-atmosphere",
       "mode": "restrained"
+    },
+    {
+      "path": "color.surface.canvas",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.surface.page}",
+      "resolvedValue": "#0D0D0D",
+      "type": "color",
+      "description": "v0.13 coverage — alias of `color.surface.page`. Phase 5 AI primitives (Conversation, Message) reference `color.surface.canvas` per the Vercel AI Elements naming convention; v0.12.6 ships the same value under `color.surface.page`. Both paths resolve identically.",
+      "cssVar": "--color-surface-canvas"
+    },
+    {
+      "path": "color.text.on-action",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.accent.fg}",
+      "resolvedValue": "#07120D",
+      "type": "color",
+      "description": "v0.13 coverage — alias of `color.accent.fg` (#07120D, ~14.7:1 AAA on Spring Green). Text on accent / action / CTA surfaces. SwipeAction component references this; v0.12 ships the same value under `color.accent.fg`.",
+      "cssVar": "--color-text-on-action"
+    },
+    {
+      "path": "color.text.on-avatar",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.text.primary}",
+      "resolvedValue": "#E6E6E6",
+      "type": "color",
+      "description": "v0.13 coverage — alias of `color.text.primary`. Foreground initials / icons on avatar backgrounds. Avatar component references this; resolves to the primary text role so contrast tracks the active theme.",
+      "cssVar": "--color-text-on-avatar"
+    },
+    {
+      "path": "color.status.info.border",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.info.500}",
+      "resolvedValue": "#757575",
+      "type": "color",
+      "description": "v0.13 coverage — info status border. Aliases the primary info hue (which is cool-neutral per v0.4 — no second loud color).",
+      "cssVar": "--color-status-info-border"
+    },
+    {
+      "path": "color.status.success.border",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.success.500}",
+      "resolvedValue": "#00FA8A",
+      "type": "color",
+      "description": "v0.13 coverage — success status border. Aliases the primary success hue.",
+      "cssVar": "--color-status-success-border"
+    },
+    {
+      "path": "color.status.warning.border",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.warning.500}",
+      "resolvedValue": "#F5B118",
+      "type": "color",
+      "description": "v0.13 coverage — warning status border. Aliases the primary warning hue (lumen-amber).",
+      "cssVar": "--color-status-warning-border"
+    },
+    {
+      "path": "color.status.danger.border",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.danger.500}",
+      "resolvedValue": "#E5484D",
+      "type": "color",
+      "description": "v0.13 coverage — danger status border. Aliases the primary danger hue (lumen-red).",
+      "cssVar": "--color-status-danger-border"
+    },
+    {
+      "path": "color.chart.1",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.spring.500}",
+      "resolvedValue": "#00FA8A",
+      "type": "color",
+      "description": "Primary data series — Spring Green. The hero/focused line.",
+      "cssVar": "--color-chart-1"
+    },
+    {
+      "path": "color.chart.2",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.700}",
+      "resolvedValue": "#383838",
+      "type": "color",
+      "description": "Secondary series — neutral dark. Reads as the calm baseline against the accent.",
+      "cssVar": "--color-chart-2"
+    },
+    {
+      "path": "color.chart.3",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.500}",
+      "resolvedValue": "#757575",
+      "type": "color",
+      "description": "Tertiary series — mid neutral.",
+      "cssVar": "--color-chart-3"
+    },
+    {
+      "path": "color.chart.4",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.spring.300}",
+      "resolvedValue": "#4DFFA8",
+      "type": "color",
+      "description": "Quaternary — softer spring tint for non-focal series.",
+      "cssVar": "--color-chart-4"
+    },
+    {
+      "path": "color.chart.5",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.warning.500}",
+      "resolvedValue": "#F5B118",
+      "type": "color",
+      "description": "Warning band / amber series — pair-only, used only when the data point carries warning meaning.",
+      "cssVar": "--color-chart-5"
+    },
+    {
+      "path": "color.chart.6",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.300}",
+      "resolvedValue": "#D2D2D2",
+      "type": "color",
+      "description": "Supporting series — light neutral.",
+      "cssVar": "--color-chart-6"
+    },
+    {
+      "path": "color.chart.7",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.danger.500}",
+      "resolvedValue": "#E5484D",
+      "type": "color",
+      "description": "Danger band / red series — pair-only, used only when the data point carries danger meaning.",
+      "cssVar": "--color-chart-7"
+    },
+    {
+      "path": "color.chart.8",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.900}",
+      "resolvedValue": "#141414",
+      "type": "color",
+      "description": "Edge series — deepest neutral for the highest-contrast supporting line.",
+      "cssVar": "--color-chart-8"
+    },
+    {
+      "path": "color.avatar.bg.1",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.brand.700}",
+      "resolvedValue": "#151515",
+      "type": "color",
+      "description": "Slot 1 — deep obsidian raised tone.",
+      "cssVar": "--color-avatar-bg-1"
+    },
+    {
+      "path": "color.avatar.bg.2",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.700}",
+      "resolvedValue": "#383838",
+      "type": "color",
+      "description": "Slot 2 — neutral dark.",
+      "cssVar": "--color-avatar-bg-2"
+    },
+    {
+      "path": "color.avatar.bg.3",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.spring.700}",
+      "resolvedValue": "#00B062",
+      "type": "color",
+      "description": "Slot 3 — deep spring. The single Lumen accent moment in the palette.",
+      "cssVar": "--color-avatar-bg-3"
+    },
+    {
+      "path": "color.avatar.bg.4",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.500}",
+      "resolvedValue": "#757575",
+      "type": "color",
+      "description": "Slot 4 — mid neutral.",
+      "cssVar": "--color-avatar-bg-4"
+    },
+    {
+      "path": "color.avatar.bg.5",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.brand.600}",
+      "resolvedValue": "#1F1F1F",
+      "type": "color",
+      "description": "Slot 5 — obsidian step.",
+      "cssVar": "--color-avatar-bg-5"
+    },
+    {
+      "path": "color.avatar.bg.6",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.warning.700}",
+      "resolvedValue": "#7A5408",
+      "type": "color",
+      "description": "Slot 6 — deep amber (paired only with high-contrast initials).",
+      "cssVar": "--color-avatar-bg-6"
+    },
+    {
+      "path": "color.avatar.bg.7",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.status.danger.700}",
+      "resolvedValue": "#B71D2A",
+      "type": "color",
+      "description": "Slot 7 — deep red (paired only with high-contrast initials).",
+      "cssVar": "--color-avatar-bg-7"
+    },
+    {
+      "path": "color.avatar.bg.8",
+      "layer": "component",
+      "category": "color",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{color.neutral.300}",
+      "resolvedValue": "#D2D2D2",
+      "type": "color",
+      "description": "Slot 8 — light neutral (used on dark themes only for inversion).",
+      "cssVar": "--color-avatar-bg-8"
+    },
+    {
+      "path": "shadow.elevation.sm",
+      "layer": "component",
+      "category": "shadow",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{shadow.sm}",
+      "resolvedValue": [
+        {
+          "color": "{color.alpha.shadow.05}",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.shadow.04}",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px"
+        }
+      ],
+      "type": "shadow",
+      "description": "Small elevation — input rest, table-row hover. Aliases `shadow.sm`.",
+      "cssVar": "--shadow-elevation-sm"
+    },
+    {
+      "path": "shadow.elevation.md",
+      "layer": "component",
+      "category": "shadow",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{shadow.md}",
+      "resolvedValue": [
+        {
+          "color": "{color.alpha.shadow.05}",
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "4px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.shadow.05}",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px"
+        }
+      ],
+      "type": "shadow",
+      "description": "Medium elevation — card raised, sidebar, popover. Aliases `shadow.md`.",
+      "cssVar": "--shadow-elevation-md"
+    },
+    {
+      "path": "shadow.elevation.lg",
+      "layer": "component",
+      "category": "shadow",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{shadow.lg}",
+      "resolvedValue": [
+        {
+          "color": "{color.alpha.shadow.05}",
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.shadow.06}",
+          "offsetX": "0px",
+          "offsetY": "12px",
+          "blur": "24px",
+          "spread": "0px"
+        }
+      ],
+      "type": "shadow",
+      "description": "Large elevation — drawer, modal, phone frame. Aliases `shadow.lg`.",
+      "cssVar": "--shadow-elevation-lg"
+    },
+    {
+      "path": "shadow.glow.accent",
+      "layer": "component",
+      "category": "shadow",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{shadow.glow-accent}",
+      "resolvedValue": [
+        {
+          "color": "{color.alpha.accent.24}",
+          "offsetX": "0px",
+          "offsetY": "14px",
+          "blur": "34px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.accent.12}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "60px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.accent.08}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "120px",
+          "spread": "0px"
+        }
+      ],
+      "type": "shadow",
+      "description": "v0.13 coverage — alias of `shadow.glow-accent` (the 3-layer Spring Green ambient signature from Phase 0). Components that name the canonical Lumen glow as `shadow.glow.accent` resolve to the same multi-layer composite.",
+      "cssVar": "--shadow-glow-accent"
+    },
+    {
+      "path": "shadow.kbd",
+      "layer": "component",
+      "category": "shadow",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": [
+        {
+          "color": "{color.alpha.shadow.04}",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.shadow.05}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1px",
+          "inset": true
+        }
+      ],
+      "resolvedValue": [
+        {
+          "color": "{color.alpha.shadow.04}",
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "0px",
+          "spread": "0px"
+        },
+        {
+          "color": "{color.alpha.shadow.05}",
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1px",
+          "inset": true
+        }
+      ],
+      "type": "shadow",
+      "description": "v0.13 coverage — keyboard cap shadow for the Kbd component. Two-layer composite: 1px ambient drop + 1px inset lit edge. Reads as a tactile key cap against any surface.",
+      "cssVar": "--shadow-kbd"
+    },
+    {
+      "path": "motion.duration.shimmer",
+      "layer": "component",
+      "category": "motion",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{motion.duration.slower}",
+      "resolvedValue": {
+        "value": 480,
+        "unit": "ms"
+      },
+      "type": "duration",
+      "description": "v0.13 coverage — Skeleton shimmer duration. Aliases `motion.duration.slower` (480ms) per the master-doc-canonical ladder. Skeleton sweep loops indefinitely; honored via `prefers-reduced-motion: reduce` at the component level.",
+      "cssVar": "--motion-duration-shimmer"
+    },
+    {
+      "path": "motion.duration.spin",
+      "layer": "component",
+      "category": "motion",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{motion.duration.slower}",
+      "resolvedValue": {
+        "value": 480,
+        "unit": "ms"
+      },
+      "type": "duration",
+      "description": "v0.13 coverage — Spinner rotation duration. Aliases `motion.duration.slower` (480ms) — fast enough to indicate progress, slow enough to avoid distraction. Honored via `motion-reduce:[animation-duration:2s]` at the component level when prefers-reduced-motion fires.",
+      "cssVar": "--motion-duration-spin"
+    },
+    {
+      "path": "type.tabular.nums",
+      "layer": "component",
+      "category": "type",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{type.body.tabular}",
+      "resolvedValue": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.16}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.body-comfortable}",
+        "letterSpacing": "{font.tracking.normal}",
+        "fontFeatureSettings": "'tnum' 1, 'lnum' 1"
+      },
+      "type": "typography",
+      "description": "v0.13 coverage — alias of `type.body.tabular`. The tabular numerics preset (Satoshi + tnum + lnum + zero). Used by Calendar, Carousel, Comment-thread, Inventory-status, KPI-card, Pagination, Reaction-bar, Slider, Sparkline, Status-bar, Timeline, Trend, Data-grid, Cart-drawer, Chart. Both paths resolve to the same composite.",
+      "cssVar": "--type-tabular-nums"
+    },
+    {
+      "path": "type.code.sm",
+      "layer": "component",
+      "category": "type",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{type.code.inline}",
+      "resolvedValue": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": {
+          "value": 0.9286,
+          "unit": "em"
+        },
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.normal}",
+        "letterSpacing": "{font.tracking.normal}",
+        "fontFeatureSettings": "'calt' 1, 'liga' 1, 'zero' 1"
+      },
+      "type": "typography",
+      "description": "v0.13 coverage — alias of `type.code.inline`. Small code preset for inline `<code>` runs. CodeBlock component references this.",
+      "cssVar": "--type-code-sm"
+    },
+    {
+      "path": "type.code.md",
+      "layer": "component",
+      "category": "type",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": "{type.code.block}",
+      "resolvedValue": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "{font.size.13}",
+        "fontWeight": "{font.weight.regular}",
+        "lineHeight": "{font.leading.normal}",
+        "letterSpacing": "{font.tracking.normal}",
+        "fontFeatureSettings": "'calt' 1, 'liga' 1, 'zero' 1"
+      },
+      "type": "typography",
+      "description": "v0.13 coverage — alias of `type.code.block`. Medium code preset for fenced code blocks. CodeBlock component references this.",
+      "cssVar": "--type-code-md"
+    },
+    {
+      "path": "size.avatar.xs",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 16,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "Extra-small avatar — comment thread, dense table rows.",
+      "cssVar": "--size-avatar-xs"
+    },
+    {
+      "path": "size.avatar.sm",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 24,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "Small avatar — list row, breadcrumb identity.",
+      "cssVar": "--size-avatar-sm"
+    },
+    {
+      "path": "size.avatar.md",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 32,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "Medium avatar — default; nav, card, comment header.",
+      "cssVar": "--size-avatar-md"
+    },
+    {
+      "path": "size.avatar.lg",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 40,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "Large avatar — profile cards, testimonial.",
+      "cssVar": "--size-avatar-lg"
+    },
+    {
+      "path": "size.avatar.xl",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "Extra-large avatar — profile page hero, settings header.",
+      "cssVar": "--size-avatar-xl"
+    },
+    {
+      "path": "size.banner.compact",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 40,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — compact banner height. Hits the touch-tier floor; reads as a system-strip without dominating the canvas.",
+      "cssVar": "--size-banner-compact"
+    },
+    {
+      "path": "size.bottom-nav.compact",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — compact bottom nav height. Standard mobile bottom-bar with no labels.",
+      "cssVar": "--size-bottom-nav-compact"
+    },
+    {
+      "path": "size.bottom-nav.regular",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 64,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 64,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — regular bottom nav height. Standard mobile bottom-bar with icon + label.",
+      "cssVar": "--size-bottom-nav-regular"
+    },
+    {
+      "path": "size.calendar.day",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 36,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — calendar day cell extent. Tracks `size.control.cozy` (36) so day cells sit at the cozy touch tier.",
+      "cssVar": "--size-calendar-day"
+    },
+    {
+      "path": "size.drawer.sm",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 320,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 320,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — small drawer width. Settings rail, secondary navigation drawer.",
+      "cssVar": "--size-drawer-sm"
+    },
+    {
+      "path": "size.drawer.md",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 420,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 420,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — medium drawer width. Default; filter / detail drawer.",
+      "cssVar": "--size-drawer-md"
+    },
+    {
+      "path": "size.drawer.lg",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 540,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 540,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — large drawer width. Editor / inspection drawer.",
+      "cssVar": "--size-drawer-lg"
+    },
+    {
+      "path": "size.kanban.column",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 280,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 280,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — kanban column width. Fits 2-line title + 4-6 card stack at typical density.",
+      "cssVar": "--size-kanban-column"
+    },
+    {
+      "path": "size.list.row.compact",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 36,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — compact list row height. Dense ledger / log list.",
+      "cssVar": "--size-list-row-compact"
+    },
+    {
+      "path": "size.list.row.regular",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 44,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 44,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — regular list row height. Default; clears WCAG 2.5.5 touch tier.",
+      "cssVar": "--size-list-row-regular"
+    },
+    {
+      "path": "size.list.row.comfortable",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — comfortable list row height. Profile / settings list.",
+      "cssVar": "--size-list-row-comfortable"
+    },
+    {
+      "path": "size.navbar.compact",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — compact navbar (dashboard chrome).",
+      "cssVar": "--size-navbar-compact"
+    },
+    {
+      "path": "size.navbar.marketing",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 80,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 80,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — marketing navbar (landing surfaces, more breathing room).",
+      "cssVar": "--size-navbar-marketing"
+    },
+    {
+      "path": "size.navbar.mobile",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — mobile navbar height. Standard mobile chrome.",
+      "cssVar": "--size-navbar-mobile"
+    },
+    {
+      "path": "size.phone.sm",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 320,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 320,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — small phone frame width (iPhone SE class).",
+      "cssVar": "--size-phone-sm"
+    },
+    {
+      "path": "size.phone.md",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 375,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 375,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — medium phone frame width (iPhone 12-15 standard).",
+      "cssVar": "--size-phone-md"
+    },
+    {
+      "path": "size.phone.lg",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 414,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 414,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — large phone frame width (Pro Max class).",
+      "cssVar": "--size-phone-lg"
+    },
+    {
+      "path": "size.popover.sm",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 240,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 240,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — small popover width.",
+      "cssVar": "--size-popover-sm"
+    },
+    {
+      "path": "size.popover.md",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 320,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 320,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — medium popover width (default).",
+      "cssVar": "--size-popover-md"
+    },
+    {
+      "path": "size.popover.lg",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 400,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 400,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — large popover width.",
+      "cssVar": "--size-popover-lg"
+    },
+    {
+      "path": "size.sidebar.rail",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — sidebar rail width (collapsed).",
+      "cssVar": "--size-sidebar-rail"
+    },
+    {
+      "path": "size.sidebar.expanded",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 240,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 240,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — sidebar expanded width (open).",
+      "cssVar": "--size-sidebar-expanded"
+    },
+    {
+      "path": "size.slider.thumb",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 16,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — slider thumb diameter.",
+      "cssVar": "--size-slider-thumb"
+    },
+    {
+      "path": "size.slider.track",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 4,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — slider track thickness.",
+      "cssVar": "--size-slider-track"
+    },
+    {
+      "path": "size.table.row.compact",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 36,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — compact table row height. Dense data table.",
+      "cssVar": "--size-table-row-compact"
+    },
+    {
+      "path": "size.table.row.regular",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 44,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 44,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — regular table row height. Default; clears WCAG 2.5.5.",
+      "cssVar": "--size-table-row-regular"
+    },
+    {
+      "path": "size.table.row.comfortable",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 56,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 56,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — comfortable table row height.",
+      "cssVar": "--size-table-row-comfortable"
+    },
+    {
+      "path": "size.tree.row.compact",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 28,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 28,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — compact tree row height. File-tree / outline.",
+      "cssVar": "--size-tree-row-compact"
+    },
+    {
+      "path": "size.tree.row.regular",
+      "layer": "component",
+      "category": "size",
+      "file": "design-system/01-tokens/components/_aliases.tokens.json",
+      "value": {
+        "value": 36,
+        "unit": "px"
+      },
+      "resolvedValue": {
+        "value": 36,
+        "unit": "px"
+      },
+      "type": "dimension",
+      "description": "v0.13 coverage — regular tree row height.",
+      "cssVar": "--size-tree-row-regular"
     },
     {
       "path": "button.height.xs",
@@ -16632,564 +17703,564 @@
       {
         "type": "component-tsx",
         "file": "design-system/02-components/actions/actions.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/actions/actions.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/agent-state/agent-state.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/agent-state/agent-state.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/artifact/artifact.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/artifact/artifact.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/commit-card/commit-card.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/commit-card/commit-card.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/confirmation/confirmation.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/confirmation/confirmation.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/context-window/context-window.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/context-window/context-window.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/conversation/conversation.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/conversation/conversation.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/inline-citation/inline-citation.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/inline-citation/inline-citation.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/jsx-preview/jsx-preview.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/jsx-preview/jsx-preview.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/loader-ai/loader-ai.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/loader-ai/loader-ai.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message/message.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message/message.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-branch/message-branch.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-branch/message-branch.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-response/message-response.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-response/message-response.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/prompt-input/prompt-input.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/prompt-input/prompt-input.stories.tsx",
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/reasoning/reasoning.stories.tsx",
         "line": 36
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/reasoning/reasoning.stories.tsx",
-        "line": 34
-      },
-      {
-        "type": "component-tsx",
-        "file": "design-system/02-components/reasoning/reasoning.stories.tsx",
-        "line": 34
-      },
-      {
-        "type": "component-tsx",
-        "file": "design-system/02-components/response-text/response-text.stories.tsx",
         "line": 36
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/response-text/response-text.stories.tsx",
-        "line": 36
+        "line": 38
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/response-text/response-text.stories.tsx",
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sandbox-block/sandbox-block.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sandbox-block/sandbox-block.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/schema-display/schema-display.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/schema-display/schema-display.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/snippet/snippet.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/snippet/snippet.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sources/sources.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sources/sources.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/stack-trace/stack-trace.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/stack-trace/stack-trace.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/suggestion-strip/suggestion-strip.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/suggestion-strip/suggestion-strip.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/task-card/task-card.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/task-card/task-card.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/terminal/terminal.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/terminal/terminal.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/tool/tool.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/tool/tool.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/voice-audio-stub/voice-audio-stub.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/voice-audio-stub/voice-audio-stub.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/web-preview/web-preview.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/web-preview/web-preview.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.stories.tsx",
-        "line": 36
+        "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.stories.tsx",
-        "line": 36
+        "line": 38
       }
     ],
     "color.text.secondary": [
       {
         "type": "component-tsx",
         "file": "design-system/02-components/actions/actions.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/actions/actions.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/agent-state/agent-state.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/agent-state/agent-state.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/artifact/artifact.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/artifact/artifact.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/commit-card/commit-card.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/commit-card/commit-card.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/confirmation/confirmation.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/confirmation/confirmation.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/context-window/context-window.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/context-window/context-window.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/conversation/conversation.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/conversation/conversation.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/inline-citation/inline-citation.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/inline-citation/inline-citation.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/jsx-preview/jsx-preview.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/jsx-preview/jsx-preview.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/loader-ai/loader-ai.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/loader-ai/loader-ai.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message/message.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message/message.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-branch/message-branch.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-branch/message-branch.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-response/message-response.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/message-response/message-response.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/prompt-input/prompt-input.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/prompt-input/prompt-input.stories.tsx",
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/reasoning/reasoning.stories.tsx",
         "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/reasoning/reasoning.stories.tsx",
-        "line": 36
-      },
-      {
-        "type": "component-tsx",
-        "file": "design-system/02-components/reasoning/reasoning.stories.tsx",
-        "line": 36
-      },
-      {
-        "type": "component-tsx",
-        "file": "design-system/02-components/response-text/response-text.stories.tsx",
         "line": 38
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/response-text/response-text.stories.tsx",
-        "line": 38
+        "line": 40
+      },
+      {
+        "type": "component-tsx",
+        "file": "design-system/02-components/response-text/response-text.stories.tsx",
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sandbox-block/sandbox-block.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sandbox-block/sandbox-block.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/schema-display/schema-display.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/schema-display/schema-display.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/snippet/snippet.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/snippet/snippet.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sources/sources.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/sources/sources.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/stack-trace/stack-trace.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/stack-trace/stack-trace.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/suggestion-strip/suggestion-strip.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/suggestion-strip/suggestion-strip.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/task-card/task-card.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/task-card/task-card.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/terminal/terminal.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/terminal/terminal.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/tool/tool.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/tool/tool.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/voice-audio-stub/voice-audio-stub.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/voice-audio-stub/voice-audio-stub.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/web-preview/web-preview.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/web-preview/web-preview.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.stories.tsx",
-        "line": 38
+        "line": 40
       },
       {
         "type": "component-tsx",
         "file": "design-system/02-components/workflow-canvas-stub/workflow-canvas-stub.stories.tsx",
-        "line": 38
+        "line": 40
       }
     ],
     "surface.sunken": [
@@ -17587,8 +18658,53 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 292
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 297
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 530
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 98
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 148
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 215
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 241
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 344
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 359
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 382
       },
       {
         "type": "component-tsx",
@@ -17619,6 +18735,21 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 383
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 314
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 326
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 520
       },
       {
         "type": "component-tsx",
@@ -18286,17 +19417,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 83
+        "line": 85
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 83
+        "line": 85
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 83
+        "line": 85
       },
       {
         "type": "component-tsx",
@@ -18713,8 +19844,63 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 150
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 257
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 98
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 114
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 305
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 160
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 156
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 173
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 271
       },
       {
         "type": "component-tsx",
@@ -18725,6 +19911,11 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/command-palette-trigger.tsx",
         "line": 60
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 92
       },
       {
         "type": "component-tsx",
@@ -19592,7 +20783,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/landing-hero.tsx",
-        "line": 103
+        "line": 107
       },
       {
         "type": "component-tsx",
@@ -19906,6 +21097,151 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 157
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 167
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 188
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 206
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 234
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 250
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 265
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 274
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 297
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 307
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 312
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 317
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 322
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 350
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 385
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 389
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 399
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 430
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 434
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 484
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 490
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 495
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 500
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 506
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 529
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 538
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 565
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 570
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 49
       },
@@ -19938,6 +21274,91 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 287
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 105
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 115
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 152
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 192
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 200
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 209
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 245
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 265
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 294
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 297
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 337
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 355
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 371
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 387
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 389
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 392
       },
       {
         "type": "component-tsx",
@@ -20011,6 +21432,106 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 163
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 174
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 222
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 251
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 264
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 282
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 291
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 326
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 335
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 348
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 359
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 416
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 425
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 471
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 475
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 485
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 495
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 519
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 528
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/tool/page.tsx",
         "line": 72
       },
@@ -20057,7 +21578,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 84
+        "line": 86
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 92
       },
       {
         "type": "component-tsx",
@@ -21053,23 +22579,78 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 183
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 218
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 230
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 443
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 136
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 305
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 319
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 196
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 235
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 247
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/components/command-palette-trigger.tsx",
         "line": 60
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 48
+        "line": 49
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 118
+        "line": 120
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 121
+        "line": 123
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 85
       },
       {
         "type": "component-tsx",
@@ -21957,6 +23538,51 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 151
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 180
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 234
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 257
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 303
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 382
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 399
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 531
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 91
       },
@@ -21992,6 +23618,61 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 99
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 132
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 155
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 186
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 192
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 241
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 291
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 305
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 337
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 352
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 366
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 114
       },
@@ -22022,6 +23703,51 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 157
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 192
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 251
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 271
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 332
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 413
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 425
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 521
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/tool/page.tsx",
         "line": 35
       },
@@ -22048,12 +23774,17 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 19
+        "line": 20
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 42
+        "line": 43
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 92
       },
       {
         "type": "component-tsx",
@@ -22758,13 +24489,133 @@
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 45
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 183
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 188
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 233
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 443
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 538
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 541
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 562
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 129
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 136
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 170
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 183
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 200
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 203
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 240
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 310
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 319
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 324
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 189
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 196
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 250
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 528
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 534
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 48
+        "line": 46
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/dashboard-shell.tsx",
+        "line": 49
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 91
       },
       {
         "type": "component-tsx",
@@ -23035,8 +24886,13 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 319
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 48
+        "line": 49
       }
     ],
     "shadow.button.glow.hover": [
@@ -23180,18 +25036,83 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 257
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 399
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 538
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 200
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 305
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 319
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 271
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 425
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 528
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/components/command-palette-trigger.tsx",
         "line": 60
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 19
+        "line": 20
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 42
+        "line": 43
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 88
       },
       {
         "type": "component-tsx",
@@ -23638,6 +25559,31 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 150
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 257
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 348
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 130
       },
@@ -23653,6 +25599,46 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 98
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 114
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 178
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 224
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 264
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 288
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 351
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 365
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 84
       },
@@ -23665,6 +25651,31 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 320
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 156
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 173
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 271
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 357
       },
       {
         "type": "component-tsx",
@@ -23694,7 +25705,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 19
+        "line": 20
       },
       {
         "type": "component-tsx",
@@ -24131,13 +26142,43 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 233
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 291
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 282
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 240
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 319
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 114
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 250
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 313
       },
       {
         "type": "component-tsx",
@@ -24147,7 +26188,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 48
+        "line": 49
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 91
       },
       {
         "type": "component-tsx",
@@ -24809,6 +26855,41 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 218
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 272
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 278
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 348
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 443
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 530
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 565
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 130
       },
@@ -24831,6 +26912,66 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 271
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 148
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 215
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 224
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 264
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 288
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 305
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 344
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 351
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 359
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 365
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 378
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 382
       },
       {
         "type": "component-tsx",
@@ -24866,6 +27007,41 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 320
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 235
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 289
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 295
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 320
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 357
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 408
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 520
       },
       {
         "type": "component-tsx",
@@ -24905,17 +27081,22 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 38
+        "line": 39
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 73
+        "line": 75
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 83
+        "line": 85
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 92
       },
       {
         "type": "component-tsx",
@@ -25631,7 +27812,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/landing-hero.tsx",
-        "line": 100
+        "line": 104
       },
       {
         "type": "component-tsx",
@@ -25715,6 +27896,56 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 257
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 530
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 568
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 215
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 237
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 344
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 359
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 378
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 382
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 86
       },
@@ -25735,6 +27966,26 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 271
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 408
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 520
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/tool/page.tsx",
         "line": 63
       },
@@ -25746,12 +27997,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 19
+        "line": 20
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 42
+        "line": 43
       },
       {
         "type": "component-tsx",
@@ -26461,7 +28712,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/landing-hero.tsx",
-        "line": 106
+        "line": 110
       },
       {
         "type": "component-tsx",
@@ -26560,8 +28811,68 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 154
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 193
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 406
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 443
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 487
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 102
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 142
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 215
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 241
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 305
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 344
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 359
       },
       {
         "type": "component-tsx",
@@ -26592,6 +28903,31 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 389
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 160
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 202
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 340
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 432
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 483
       },
       {
         "type": "component-tsx",
@@ -27225,12 +29561,12 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 93
+        "line": 95
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 118
+        "line": 120
       },
       {
         "type": "component-tsx",
@@ -28177,6 +30513,26 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 150
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 272
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 348
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 98
       },
@@ -28184,6 +30540,71 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/mobile/page.tsx",
         "line": 130
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 98
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 114
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 148
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 178
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 224
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 264
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 288
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 351
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 365
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 156
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 173
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 289
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 357
       },
       {
         "type": "component-tsx",
@@ -28548,6 +30969,31 @@
       },
       {
         "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 297
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 399
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 538
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 166
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 200
+      },
+      {
+        "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 87
       },
@@ -28555,6 +31001,26 @@
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/saas/page.tsx",
         "line": 383
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 320
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 326
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 425
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 528
       },
       {
         "type": "component-tsx",
@@ -29270,7 +31736,7 @@
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/examples/landing-hero/landing-hero.tsx",
-        "line": 101
+        "line": 105
       }
     ],
     "border.accent": [
@@ -29291,13 +31757,73 @@
       },
       {
         "type": "component-tsx",
-        "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 19
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 183
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 213
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 257
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 443
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/library/registry/client.tsx",
+        "line": 562
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 136
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 178
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/prompts/client.tsx",
+        "line": 319
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 196
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 229
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/tokens/client.tsx",
+        "line": 271
       },
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/components/dashboard-shell.tsx",
-        "line": 48
+        "line": 20
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/dashboard-shell.tsx",
+        "line": 49
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/mode-toggle.tsx",
+        "line": 91
       },
       {
         "type": "component-tsx",
@@ -29323,6 +31849,28 @@
       }
     ],
     "shadow.glow-accent": [
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/app/landing/page.tsx",
+        "line": 328
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/commerce.tsx",
+        "line": 31
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/motion-demo.tsx",
+        "line": 20
+      },
+      {
+        "type": "component-tsx",
+        "file": "audit-dashboard/src/components/primitives/nav.tsx",
+        "line": 143
+      }
+    ],
+    "shadow.glow.accent": [
       {
         "type": "component-tsx",
         "file": "audit-dashboard/src/app/landing/page.tsx",

@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { ProgressBar } from "./progress";
 
-const meta = defineMeta({
+const meta: Meta<typeof ProgressBar> = {
   title: "T1/Progress",
   component: ProgressBar,
   parameters: {
@@ -11,21 +12,23 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Bar = meta.story({
+type Story = StoryObj<typeof ProgressBar>;
+
+export const Bar: Story = {
   args: {
     "value": 60
   },
   render: (args) => <ProgressBar {...args}>Progress</ProgressBar>,
-});
+};
 
-export const Ring = meta.story({
+export const Ring: Story = {
   args: {
     "value": 75
   },
   render: (args) => <ProgressBar {...args}>Progress</ProgressBar>,
-});
+};
 

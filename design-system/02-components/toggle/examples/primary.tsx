@@ -2,7 +2,7 @@
 // Tailwind v4 + tokens consumed via @theme inline / CSS variables.
 //
 // Copy this into your repo at /components/ui/toggle.tsx.
-// Tokens come from /_build/tailwind/theme.css which you import in your global css.
+// Tokens come from dist/tailwind/lumen.css which you import in your global css.
 //
 // Toggle is a switch for binary on/off settings with INSTANT effect — no submit,
 // no apply. Distinct from Switch (which is a stateful Radix wrapper) and

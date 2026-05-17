@@ -2,7 +2,7 @@
 // Tailwind v4 + tokens consumed via @theme inline / CSS variables.
 //
 // Copy this into your repo at /components/ui/table.tsx.
-// Tokens come from /_build/tailwind/theme.css which you import in your global css.
+// Tokens come from dist/tailwind/lumen.css which you import in your global css.
 //
 // Operator-density data table. Hairline row dividers, no column dividers,
 // sticky header, tabular numerics on numeric columns. Uses semantic

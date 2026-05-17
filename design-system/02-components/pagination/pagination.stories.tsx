@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { Pagination } from "./pagination";
 
-const meta = defineMeta({
+const meta: Meta<typeof Pagination> = {
   title: "T2/Pagination",
   component: Pagination,
   parameters: {
@@ -11,15 +12,17 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof Pagination>;
+
+export const Default: Story = {
   args: {
     "currentPage": 3,
     "totalPages": 10
   },
   render: (args) => <Pagination {...args}>Pagination</Pagination>,
-});
+};
 

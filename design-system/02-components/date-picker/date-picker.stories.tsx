@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { DatePicker } from "./date-picker";
 
-const meta = defineMeta({
+const meta: Meta<typeof DatePicker> = {
   title: "T2/DatePicker",
   component: DatePicker,
   parameters: {
@@ -11,19 +12,21 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Single = meta.story({
+type Story = StoryObj<typeof DatePicker>;
+
+export const Single: Story = {
   args: {},
   render: (args) => <DatePicker {...args}>DatePicker</DatePicker>,
-});
+};
 
-export const Range = meta.story({
+export const Range: Story = {
   args: {
     "mode": "range"
   },
   render: (args) => <DatePicker {...args}>DatePicker</DatePicker>,
-});
+};
 

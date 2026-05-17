@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { PalletTile } from "./pallet-tile";
 
-const meta = defineMeta({
+const meta: Meta<typeof PalletTile> = {
   title: "T4/PalletTile",
   component: PalletTile,
   parameters: {
@@ -11,11 +12,13 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof PalletTile>;
+
+export const Default: Story = {
   args: {
     "id": "PAL-1247",
     "weightLbs": 840,
@@ -31,9 +34,9 @@ export const Default = meta.story({
     }
   },
   render: (args) => <PalletTile {...args}>PalletTile</PalletTile>,
-});
+};
 
-export const Hazmat = meta.story({
+export const Hazmat: Story = {
   args: {
     "id": "PAL-9921",
     "weightLbs": 620,
@@ -50,5 +53,5 @@ export const Hazmat = meta.story({
     }
   },
   render: (args) => <PalletTile {...args}>PalletTile</PalletTile>,
-});
+};
 

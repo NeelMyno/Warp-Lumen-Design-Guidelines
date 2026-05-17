@@ -1,16 +1,16 @@
 {
   "$schema": "lumen-v0.13-contrast-baseline",
-  "generatedAt": "2026-05-17T05:45:40.549Z",
+  "generatedAt": "2026-05-17T10:06:27.306Z",
   "mode": "restrained",
   "threshold": {
     "body": 4.5,
     "large": 3
   },
   "summary": {
-    "total": 27,
-    "passed": 25,
-    "failed": 2,
-    "passRate": 0.9259259259259259
+    "total": 28,
+    "passed": 27,
+    "failed": 1,
+    "passRate": 0.9642857142857143
   },
   "results": [
     {
@@ -204,12 +204,12 @@
       "tier": "large"
     },
     {
-      "role": "border.focus on surface.canvas (light) — ADVISORY",
-      "fg": "#00FA8A",
+      "role": "border.focus on surface.canvas (light)",
+      "fg": "#008A4D",
       "bg": "#FAFAFA",
-      "ratio": 1.3376203765620471,
+      "ratio": 4.242325715688711,
       "min": 3,
-      "pass": false,
+      "pass": true,
       "mode": "light",
       "tier": "focus"
     },
@@ -282,6 +282,16 @@
       "pass": true,
       "mode": "expressive",
       "tier": "body"
+    },
+    {
+      "role": "text.tertiary inside .lumen-text-scrim on surface.hero (expressive — scrim composites mesh to canvas-level)",
+      "fg": "#6B6B6B",
+      "bg": "#0D0D0D",
+      "ratio": 3.6469837765210182,
+      "min": 3,
+      "pass": true,
+      "mode": "expressive",
+      "tier": "large"
     }
   ]
 }

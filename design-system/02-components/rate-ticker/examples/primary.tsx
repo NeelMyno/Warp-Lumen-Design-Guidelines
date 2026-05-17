@@ -2,7 +2,7 @@
 // Tailwind v4 + tokens consumed via @theme inline / CSS variables.
 //
 // Copy this into your repo at /components/ui/rate-ticker.tsx.
-// Tokens come from /_build/tailwind/theme.css which you import in your global css.
+// Tokens come from dist/tailwind/lumen.css which you import in your global css.
 //
 // Warp signature primitive. Horizontal marquee of freight lane rates. Pure-CSS
 // animation, edge-fade gradients give the "windowed view onto a stream" feel.

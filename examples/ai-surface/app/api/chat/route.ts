@@ -32,7 +32,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const userMessage = body.messages.findLast((m) => m.role === "user");
+  const userMessage = body.messages.findLast(
+    (m: ChatRequestBody["messages"][number]) => m.role === "user",
+  );
   if (!userMessage) {
     return NextResponse.json(
       { error: "No user message in body.messages" },

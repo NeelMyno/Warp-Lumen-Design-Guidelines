@@ -1,4 +1,4 @@
-// Storybook 10.4 CSF Factory format (typesafe).
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
 // Component Manifests build automatically from this story.
 //
 // NOTE: This story imports from the Vercel AI Elements install path. Run
@@ -8,10 +8,10 @@
 // signal: AI primitives ship as install-on-demand from the upstream registry.
 //
 // Status: stable.
-import { defineMeta } from "@storybook/nextjs";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 // import { Loader } from "@/components/ai-elements/loader";
 
-const meta = defineMeta({
+const meta: Meta = {
   title: "T5/Loader",
   // component: Loader,
   parameters: {
@@ -24,11 +24,13 @@ const meta = defineMeta({
     },
   },
   tags: ["autodocs", "lumen-v0.13", "phase-5", "stable"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj;
+
+export const Default: Story = {
   render: () => (
     <div
       style={{
@@ -45,4 +47,4 @@ export const Default = meta.story({
       Loader — install via <code>npx ai-elements@latest add loader</code> then uncomment the import above.
     </div>
   ),
-});
+};

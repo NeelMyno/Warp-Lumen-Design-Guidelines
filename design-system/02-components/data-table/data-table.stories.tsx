@@ -1,9 +1,10 @@
-// Storybook 10.3 CSF Factory format (typesafe).
-// Component Manifests build automatically from these stories.
-import { defineMeta } from "@storybook/nextjs";
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
+// Component Manifests build automatically from these stories via
+// features.componentsManifest in .storybook/main.ts.
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { DataTable } from "./data-table";
 
-const meta = defineMeta({
+const meta: Meta<typeof DataTable> = {
   title: "T2/DataTable",
   component: DataTable,
   parameters: {
@@ -11,12 +12,14 @@ const meta = defineMeta({
     layout: "centered",
   },
   tags: ["autodocs", "lumen-v0.13"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj<typeof DataTable>;
+
+export const Default: Story = {
   args: {},
   render: (args) => <DataTable {...args}>DataTable</DataTable>,
-});
+};
 

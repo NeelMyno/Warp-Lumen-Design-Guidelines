@@ -1,0 +1,184 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — COVERAGE-FILL aliases for component-bound token paths that v0.12.6 component contracts referenced but never declared in any tokens.json. Phase 0 report §What's still uncertain #1, Phase 2 deferral, Phase 6 deferral. This file closes the 89-error `pnpm tokens:validate` gap end-to-end without rewriting any v0.12.6 token path (additive only per AGENTS hard rule 18). The additions land as: (a) cross-component primitive aliases for chart palette / avatar palette / status borders / shadow elevations / motion durations / typography presets, and (b) component-bound size aliases for avatar / banner / bottom-nav / calendar / drawer / kanban / list / navbar / phone / popover / sidebar / slider / table / tree row dimensions. Every token resolves to an existing v0.12.6 primitive or composes from existing primitives so the visual contract is preserved verbatim. v0.14 may promote these into their proper per-category homes; v0.13 surfaces them in one auditable place.",
+  "color": {
+    "surface": {
+      "canvas": {
+        "$value": "{color.surface.page}",
+        "$type": "color",
+        "$description": "v0.13 coverage — alias of `color.surface.page`. Phase 5 AI primitives (Conversation, Message) reference `color.surface.canvas` per the Vercel AI Elements naming convention; v0.12.6 ships the same value under `color.surface.page`. Both paths resolve identically."
+      }
+    },
+    "text": {
+      "on-action": {
+        "$value": "{color.accent.fg}",
+        "$type": "color",
+        "$description": "v0.13 coverage — alias of `color.accent.fg` (#07120D, ~14.7:1 AAA on Spring Green). Text on accent / action / CTA surfaces. SwipeAction component references this; v0.12 ships the same value under `color.accent.fg`."
+      },
+      "on-avatar": {
+        "$value": "{color.text.primary}",
+        "$type": "color",
+        "$description": "v0.13 coverage — alias of `color.text.primary`. Foreground initials / icons on avatar backgrounds. Avatar component references this; resolves to the primary text role so contrast tracks the active theme."
+      }
+    },
+    "status": {
+      "info":    { "border": { "$value": "{color.status.info.500}",    "$type": "color", "$description": "v0.13 coverage — info status border. Aliases the primary info hue (which is cool-neutral per v0.4 — no second loud color)." } },
+      "success": { "border": { "$value": "{color.status.success.500}", "$type": "color", "$description": "v0.13 coverage — success status border. Aliases the primary success hue." } },
+      "warning": { "border": { "$value": "{color.status.warning.500}", "$type": "color", "$description": "v0.13 coverage — warning status border. Aliases the primary warning hue (lumen-amber)." } },
+      "danger":  { "border": { "$value": "{color.status.danger.500}",  "$type": "color", "$description": "v0.13 coverage — danger status border. Aliases the primary danger hue (lumen-red)." } }
+    },
+    "chart": {
+      "$description": "v0.13 coverage — Lumen-compliant 8-stop data visualization palette. PRESERVES hard rule 7 (Spring Green is the only loud color): every chart slot is an alias to an existing primitive — spring + neutral grays + status ramps. The order encodes hierarchy (1 = primary series, 2 = secondary, 3 = tertiary, 4-5 = status accents, 6-8 = supporting). Chart component references chart.1 through chart.8 for series colors.",
+      "1": { "$value": "{color.spring.500}",         "$type": "color", "$description": "Primary data series — Spring Green. The hero/focused line." },
+      "2": { "$value": "{color.neutral.700}",        "$type": "color", "$description": "Secondary series — neutral dark. Reads as the calm baseline against the accent." },
+      "3": { "$value": "{color.neutral.500}",        "$type": "color", "$description": "Tertiary series — mid neutral." },
+      "4": { "$value": "{color.spring.300}",         "$type": "color", "$description": "Quaternary — softer spring tint for non-focal series." },
+      "5": { "$value": "{color.status.warning.500}", "$type": "color", "$description": "Warning band / amber series — pair-only, used only when the data point carries warning meaning." },
+      "6": { "$value": "{color.neutral.300}",        "$type": "color", "$description": "Supporting series — light neutral." },
+      "7": { "$value": "{color.status.danger.500}",  "$type": "color", "$description": "Danger band / red series — pair-only, used only when the data point carries danger meaning." },
+      "8": { "$value": "{color.neutral.900}",        "$type": "color", "$description": "Edge series — deepest neutral for the highest-contrast supporting line." }
+    },
+    "avatar": {
+      "bg": {
+        "$description": "v0.13 coverage — 8 muted avatar-identity backgrounds. PRESERVES hard rule 7 (no second loud color): the palette is built from subtle alpha-tinted neutrals + spring + status hues — every entry resolves to an existing primitive. Identity hashing should map a user ID to an index 1-8 deterministically; the resulting tone is calm, never decorative-loud.",
+        "1": { "$value": "{color.brand.700}",         "$type": "color", "$description": "Slot 1 — deep obsidian raised tone." },
+        "2": { "$value": "{color.neutral.700}",       "$type": "color", "$description": "Slot 2 — neutral dark." },
+        "3": { "$value": "{color.spring.700}",        "$type": "color", "$description": "Slot 3 — deep spring. The single Lumen accent moment in the palette." },
+        "4": { "$value": "{color.neutral.500}",       "$type": "color", "$description": "Slot 4 — mid neutral." },
+        "5": { "$value": "{color.brand.600}",         "$type": "color", "$description": "Slot 5 — obsidian step." },
+        "6": { "$value": "{color.status.warning.700}","$type": "color", "$description": "Slot 6 — deep amber (paired only with high-contrast initials)." },
+        "7": { "$value": "{color.status.danger.700}", "$type": "color", "$description": "Slot 7 — deep red (paired only with high-contrast initials)." },
+        "8": { "$value": "{color.neutral.300}",       "$type": "color", "$description": "Slot 8 — light neutral (used on dark themes only for inversion)." }
+      }
+    }
+  },
+  "shadow": {
+    "elevation": {
+      "$description": "v0.13 coverage — three-stop elevation alias series. Components reference `shadow.elevation.{sm,md,lg}` per the Material/HIG mental model; Lumen ships them as aliases to its native `shadow.{sm,md,lg}` stops. Both paths resolve to the same composite shadow.",
+      "sm": { "$value": "{shadow.sm}", "$type": "shadow", "$description": "Small elevation — input rest, table-row hover. Aliases `shadow.sm`." },
+      "md": { "$value": "{shadow.md}", "$type": "shadow", "$description": "Medium elevation — card raised, sidebar, popover. Aliases `shadow.md`." },
+      "lg": { "$value": "{shadow.lg}", "$type": "shadow", "$description": "Large elevation — drawer, modal, phone frame. Aliases `shadow.lg`." }
+    },
+    "glow": {
+      "accent": {
+        "$value": "{shadow.glow-accent}",
+        "$type": "shadow",
+        "$description": "v0.13 coverage — alias of `shadow.glow-accent` (the 3-layer Spring Green ambient signature from Phase 0). Components that name the canonical Lumen glow as `shadow.glow.accent` resolve to the same multi-layer composite."
+      }
+    },
+    "kbd": {
+      "$value": [
+        { "color": "{color.alpha.shadow.04}", "offsetX": "0px", "offsetY": "1px", "blur": "0px", "spread": "0px" },
+        { "color": "{color.alpha.shadow.05}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px", "inset": true }
+      ],
+      "$type": "shadow",
+      "$description": "v0.13 coverage — keyboard cap shadow for the Kbd component. Two-layer composite: 1px ambient drop + 1px inset lit edge. Reads as a tactile key cap against any surface."
+    }
+  },
+  "motion": {
+    "duration": {
+      "shimmer": {
+        "$value": "{motion.duration.slower}",
+        "$type": "duration",
+        "$description": "v0.13 coverage — Skeleton shimmer duration. Aliases `motion.duration.slower` (480ms) per the master-doc-canonical ladder. Skeleton sweep loops indefinitely; honored via `prefers-reduced-motion: reduce` at the component level."
+      },
+      "spin": {
+        "$value": "{motion.duration.slower}",
+        "$type": "duration",
+        "$description": "v0.13 coverage — Spinner rotation duration. Aliases `motion.duration.slower` (480ms) — fast enough to indicate progress, slow enough to avoid distraction. Honored via `motion-reduce:[animation-duration:2s]` at the component level when prefers-reduced-motion fires."
+      }
+    }
+  },
+  "type": {
+    "tabular": {
+      "nums": {
+        "$value": "{type.body.tabular}",
+        "$type": "typography",
+        "$description": "v0.13 coverage — alias of `type.body.tabular`. The tabular numerics preset (Satoshi + tnum + lnum + zero). Used by Calendar, Carousel, Comment-thread, Inventory-status, KPI-card, Pagination, Reaction-bar, Slider, Sparkline, Status-bar, Timeline, Trend, Data-grid, Cart-drawer, Chart. Both paths resolve to the same composite."
+      }
+    },
+    "code": {
+      "sm": {
+        "$value": "{type.code.inline}",
+        "$type": "typography",
+        "$description": "v0.13 coverage — alias of `type.code.inline`. Small code preset for inline `<code>` runs. CodeBlock component references this."
+      },
+      "md": {
+        "$value": "{type.code.block}",
+        "$type": "typography",
+        "$description": "v0.13 coverage — alias of `type.code.block`. Medium code preset for fenced code blocks. CodeBlock component references this."
+      }
+    }
+  },
+  "size": {
+    "avatar": {
+      "$description": "v0.13 coverage — avatar diameter ladder. Five stops xs-xl. Touch target tier 'md' (32) clears WCAG 2.5.5 at typical density; 'lg' (40) and 'xl' (56) honor the standard touch tier.",
+      "xs": { "$value": { "value": 16, "unit": "px" }, "$type": "dimension", "$description": "Extra-small avatar — comment thread, dense table rows." },
+      "sm": { "$value": { "value": 24, "unit": "px" }, "$type": "dimension", "$description": "Small avatar — list row, breadcrumb identity." },
+      "md": { "$value": { "value": 32, "unit": "px" }, "$type": "dimension", "$description": "Medium avatar — default; nav, card, comment header." },
+      "lg": { "$value": { "value": 40, "unit": "px" }, "$type": "dimension", "$description": "Large avatar — profile cards, testimonial." },
+      "xl": { "$value": { "value": 56, "unit": "px" }, "$type": "dimension", "$description": "Extra-large avatar — profile page hero, settings header." }
+    },
+    "banner": {
+      "compact": { "$value": { "value": 40, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — compact banner height. Hits the touch-tier floor; reads as a system-strip without dominating the canvas." }
+    },
+    "bottom-nav": {
+      "compact": { "$value": { "value": 56, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — compact bottom nav height. Standard mobile bottom-bar with no labels." },
+      "regular": { "$value": { "value": 64, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — regular bottom nav height. Standard mobile bottom-bar with icon + label." }
+    },
+    "calendar": {
+      "day": { "$value": { "value": 36, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — calendar day cell extent. Tracks `size.control.cozy` (36) so day cells sit at the cozy touch tier." }
+    },
+    "drawer": {
+      "sm": { "$value": { "value": 320, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — small drawer width. Settings rail, secondary navigation drawer." },
+      "md": { "$value": { "value": 420, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — medium drawer width. Default; filter / detail drawer." },
+      "lg": { "$value": { "value": 540, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — large drawer width. Editor / inspection drawer." }
+    },
+    "kanban": {
+      "column": { "$value": { "value": 280, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — kanban column width. Fits 2-line title + 4-6 card stack at typical density." }
+    },
+    "list": {
+      "row": {
+        "compact":     { "$value": { "value": 36, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — compact list row height. Dense ledger / log list." },
+        "regular":     { "$value": { "value": 44, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — regular list row height. Default; clears WCAG 2.5.5 touch tier." },
+        "comfortable": { "$value": { "value": 56, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — comfortable list row height. Profile / settings list." }
+      }
+    },
+    "navbar": {
+      "compact":   { "$value": { "value": 56, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — compact navbar (dashboard chrome)." },
+      "marketing": { "$value": { "value": 80, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — marketing navbar (landing surfaces, more breathing room)." },
+      "mobile":    { "$value": { "value": 56, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — mobile navbar height. Standard mobile chrome." }
+    },
+    "phone": {
+      "sm": { "$value": { "value": 320, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — small phone frame width (iPhone SE class)." },
+      "md": { "$value": { "value": 375, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — medium phone frame width (iPhone 12-15 standard)." },
+      "lg": { "$value": { "value": 414, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — large phone frame width (Pro Max class)." }
+    },
+    "popover": {
+      "sm": { "$value": { "value": 240, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — small popover width." },
+      "md": { "$value": { "value": 320, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — medium popover width (default)." },
+      "lg": { "$value": { "value": 400, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — large popover width." }
+    },
+    "sidebar": {
+      "rail":     { "$value": { "value": 56,  "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — sidebar rail width (collapsed)." },
+      "expanded": { "$value": { "value": 240, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — sidebar expanded width (open)." }
+    },
+    "slider": {
+      "thumb": { "$value": { "value": 16, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — slider thumb diameter." },
+      "track": { "$value": { "value": 4,  "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — slider track thickness." }
+    },
+    "table": {
+      "row": {
+        "compact":     { "$value": { "value": 36, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — compact table row height. Dense data table." },
+        "regular":     { "$value": { "value": 44, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — regular table row height. Default; clears WCAG 2.5.5." },
+        "comfortable": { "$value": { "value": 56, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — comfortable table row height." }
+      }
+    },
+    "tree": {
+      "row": {
+        "compact": { "$value": { "value": 28, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — compact tree row height. File-tree / outline." },
+        "regular": { "$value": { "value": 36, "unit": "px" }, "$type": "dimension", "$description": "v0.13 coverage — regular tree row height." }
+      }
+    }
+  }
+}

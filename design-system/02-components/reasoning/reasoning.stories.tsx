@@ -1,4 +1,4 @@
-// Storybook 10.4 CSF Factory format (typesafe).
+// Storybook 10.x CSF 3 format (typesafe Meta + StoryObj).
 // Component Manifests build automatically from this story.
 //
 // NOTE: This story imports from the Vercel AI Elements install path. Run
@@ -6,10 +6,10 @@
 // in audit-dashboard/ first, then start storybook.
 //
 // Status: stable.
-import { defineMeta } from "@storybook/nextjs";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 // import { Reasoning, ReasoningTrigger, ReasoningContent } from "@/components/ai-elements/reasoning";
 
-const meta = defineMeta({
+const meta: Meta = {
   title: "T5/Reasoning",
   // component: Reasoning,
   parameters: {
@@ -22,11 +22,13 @@ const meta = defineMeta({
     },
   },
   tags: ["autodocs", "lumen-v0.13", "phase-5", "stable"],
-});
+};
 
 export default meta;
 
-export const Default = meta.story({
+type Story = StoryObj;
+
+export const Default: Story = {
   render: () => (
     <div
       style={{
@@ -43,4 +45,4 @@ export const Default = meta.story({
       Reasoning — install via <code>npx ai-elements@latest add reasoning</code> then uncomment the import above.
     </div>
   ),
-});
+};
