@@ -1,0 +1,227 @@
+{
+  "$schema": "lumen-v0.13-contrast-baseline",
+  "generatedAt": "2026-05-17T05:21:22.843Z",
+  "mode": "expressive",
+  "threshold": {
+    "body": 4.5,
+    "large": 3
+  },
+  "summary": {
+    "total": 21,
+    "passed": 20,
+    "failed": 1,
+    "passRate": 0.9523809523809523
+  },
+  "results": [
+    {
+      "role": "text.primary on surface.canvas (light)",
+      "fg": "#141414",
+      "bg": "#FAFAFA",
+      "ratio": 17.650076557814707,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "text.secondary on surface.canvas (light)",
+      "fg": "#525252",
+      "bg": "#FAFAFA",
+      "ratio": 7.486245829447108,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "text.primary on surface.raised (light)",
+      "fg": "#141414",
+      "bg": "#FFFFFF",
+      "ratio": 18.422536070011546,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "action.primary.fg on .bg.rest (accent CTA)",
+      "fg": "#07120D",
+      "bg": "#00FA8A",
+      "ratio": 13.65686431158993,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "status.success.fg on .bg (light)",
+      "fg": "#003820",
+      "bg": "#E2FFF1",
+      "ratio": 12.485091132742662,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "status.warning.fg on .bg (light)",
+      "fg": "#7A5408",
+      "bg": "#FFF8E5",
+      "ratio": 6.3921990551217105,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "status.danger.fg on .bg (light)",
+      "fg": "#931620",
+      "bg": "#FDECEB",
+      "ratio": 7.732562183791769,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "status.info.fg on .bg (light)",
+      "fg": "#383838",
+      "bg": "#FAFAFA",
+      "ratio": 11.234122240208489,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "text.primary on surface.canvas (dark)",
+      "fg": "#E6E6E6",
+      "bg": "#0D0D0D",
+      "ratio": 15.572463619653893,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "text.secondary on surface.canvas (dark)",
+      "fg": "#9A9A9A",
+      "bg": "#0D0D0D",
+      "ratio": 6.90689798495749,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "text.primary on surface.raised (dark)",
+      "fg": "#E6E6E6",
+      "bg": "#151515",
+      "ratio": 14.631514834896103,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "status.success.fg on .bg (dark)",
+      "fg": "#4DFFA8",
+      "bg": "#003820",
+      "ratio": 10.20152465374384,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "status.warning.fg on .bg (dark)",
+      "fg": "#F5DEA3",
+      "bg": "#2A1D04",
+      "ratio": 12.42988304212771,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "status.danger.fg on .bg (dark)",
+      "fg": "#F8A8AA",
+      "bg": "#260C0E",
+      "ratio": 9.789162857907254,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "status.neutral.fg on raised (dark, v0.12+)",
+      "fg": "#E6E6E6",
+      "bg": "#151515",
+      "ratio": 14.631514834896103,
+      "min": 4.5,
+      "pass": true,
+      "mode": "dark",
+      "tier": "body"
+    },
+    {
+      "role": "action.primary.fg on .bg.hover",
+      "fg": "#07120D",
+      "bg": "#00D675",
+      "ratio": 9.874532468954891,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "action.primary.fg on .bg.press",
+      "fg": "#07120D",
+      "bg": "#00B062",
+      "ratio": 6.706658879463096,
+      "min": 4.5,
+      "pass": true,
+      "mode": "light",
+      "tier": "body"
+    },
+    {
+      "role": "text.tertiary on surface.canvas (light, ≥18px)",
+      "fg": "#757575",
+      "bg": "#FAFAFA",
+      "ratio": 4.414324216117912,
+      "min": 3,
+      "pass": true,
+      "mode": "light",
+      "tier": "large"
+    },
+    {
+      "role": "text.tertiary on surface.canvas (dark, ≥18px)",
+      "fg": "#6B6B6B",
+      "bg": "#0D0D0D",
+      "ratio": 3.6469837765210182,
+      "min": 3,
+      "pass": true,
+      "mode": "dark",
+      "tier": "large"
+    },
+    {
+      "role": "border.focus on surface.canvas (light) — ADVISORY",
+      "fg": "#00FA8A",
+      "bg": "#FAFAFA",
+      "ratio": 1.3376203765620471,
+      "min": 3,
+      "pass": false,
+      "mode": "light",
+      "tier": "focus"
+    },
+    {
+      "role": "border.focus on surface.canvas (dark)",
+      "fg": "#1AFF93",
+      "bg": "#0D0D0D",
+      "ratio": 14.594467214385983,
+      "min": 3,
+      "pass": true,
+      "mode": "dark",
+      "tier": "focus"
+    }
+  ]
+}

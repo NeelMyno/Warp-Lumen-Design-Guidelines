@@ -6,7 +6,64 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, Removed, Fixed, Security._
+_v0.13 refactor in progress — see Phase 0 entry below. Phases 1–6 land additional entries here as they ship._
+
+---
+
+## [0.13.0-phase.0] — 2026-05-16 — DTCG 2025.10 foundation reset + dual-mode architecture scaffolding · Phase 0 of the v0.13 master refactor (see `doc/LUMEN-v0.13-MASTER-REFACTOR.md`)
+
+Phase 0 of the seven-phase v0.13 refactor. Lifts the token graph to DTCG 2025.10, introduces the Phase 0 alias namespace (`color.obsidian/spring/lumen-red/lumen-amber`), retunes motion durations to the master-doc 80/140/200/320/480 ladder, extends `status.danger` + `status.warning` to 10 stops each, lifts focus + glass + 3-layer glow-accent into the elevation primitive, splits semantic tokens into Phase 0 files, scaffolds the modes layer, switches the build output `_build/` → `dist/`, refreshes AGENTS / CLAUDE / llms.txt, adds the contrast audit + baseline snapshots, and lands the components.json + registry.json shadcn scaffold. **Every v0.12.6 token path is preserved verbatim.** See `design-system/06-claude-code-briefings/phase-0-report.md` for the full report including the verification gate status and the unilateral decisions log.
+
+### Added
+
+- **Phase 0 alias namespace** in `01-tokens/primitives/color.tokens.json` — `color.obsidian.*` (11 stops, aliases `color.brand.*`), `color.spring.*` (10 + fg, aliases `color.accent.*`), `color.lumen-red.*` (10 stops, aliases `color.status.danger.*`), `color.lumen-amber.*` (10 stops, aliases `color.status.warning.*`). Both namespaces ship — additive.
+- **`status.danger` ramp filled out to 10 stops** — added 100/200/400 (interpolated in HSL between existing anchors).
+- **`status.warning` ramp filled out to 10 stops** — added 100/200/400/600/800.
+- **`01-tokens/primitives/spacing.tokens.json`** — Phase 0 named ladder (`spacing.1`–`spacing.16` aliasing dimension primitives) + `exception.*` catalog covering the 5 named off-grid exceptions per master doc §6.
+- **`01-tokens/primitives/typography.tokens.json font.features`** — OpenType feature flag catalog (tnum / lnum / zero / case / pnum / calt / liga / ss01-04 / italic + off variants).
+- **`01-tokens/primitives/typography.tokens.json font.code-fallback`** — Geist Mono opt-in chain. NEVER the default.
+- **`01-tokens/primitives/elevation.tokens.json shadow.glass`** — floating-shell shadow (16/40 outer + 1px inset lit top edge). Floating shells only.
+- **`01-tokens/primitives/elevation.tokens.json shadow.focus`** — focus halo (3px spread, accent alpha 0.32) lifted from semantic per Phase 0 elevation contract.
+- **`01-tokens/primitives/elevation.tokens.json shadow.glow-accent`** — 3-layer Spring Green ambient (master-doc-named signature shadow). Reserved for hero CTAs + brand-signature moments.
+- **`01-tokens/primitives/motion.tokens.json`** — 2 new easings (`linear`, `bounce`) + 2 spring tokens (`default` / `gentle` in `$extensions.lumen.spring`) + `motion.atmosphere` block (live-dot-pulse, rate-ticker-marquee, aurora-fade).
+- **`01-tokens/primitives/dimension.tokens.json size.dot.touch = 19px`** + **`size.focus-ring = 3px`** — named off-grid exceptions per master doc §6.
+- **`01-tokens/semantic/{surface,text,border,action}.tokens.json`** — Phase 0 split. Aliases `color.{surface,text,border,action}.*` under flatter root paths. Both namespaces ship.
+- **`01-tokens/semantic/surface.tokens.json glass-strong`** — modal-tier glass (28px blur / saturate 160%).
+- **`01-tokens/modes/restrained.tokens.json`** + **`expressive.tokens.json`** — Phase 0 scaffolds. Phase 1 fills the expressive rebind set.
+- **`00-foundations/modes.md`** — restrained × expressive routing table, scope-attribute contract, fallback rules, 5 reserved mesh recipe slots, decision rubric.
+- **`00-foundations/inspirations.md`** — RonDesignLab × 3, Linear, Vercel `skill-remotion-geist`, Nordhealth `llms.txt` + AI Skills. Plus "what Lumen explicitly is NOT".
+- **`00-foundations/glossary.md`** — freight-domain terms + system terminology.
+- **`tools/audit-contrast.ts`** — v0.13 WCAG 2.2 AA contrast audit. Tiered (body ≥4.5:1 hard gate, large UI ≥3:1 hard gate, focus WCAG 2.4.13 advisory).
+- **`tools/audit-baseline/contrast-{restrained,expressive}.json`** — generated baseline snapshots. 17/17 body pairs pass, 2/2 large pairs pass, 1/2 focus advisory (light-mode border.focus 1.34 < 3 — pre-existing v0.12.6, Phase 1 follow-up).
+- **`components.json` at repo root** — shadcn consumer config.
+- **`registry.json` at repo root** — shadcn registry manifest scaffold (`items: []`). Phase 2 populates.
+- **`design-system/06-claude-code-briefings/phase-0-report.md`** — Phase 0 report per master doc §10.3.
+
+### Changed
+
+- **`$schema` URL on every primitive `tokens.json`** — lifted to `https://www.designtokens.org/schemas/2025.10/format.json` (stable DTCG 2025.10).
+- **`01-tokens/primitives/shadow.tokens.json` renamed to `elevation.tokens.json`** via `git mv`. Token paths under `shadow.*` are unchanged.
+- **`01-tokens/primitives/motion.tokens.json` duration values retuned** to `instant 0 / micro 80 / fast 140 / base 200 / slow 320 / slower 480` (was `instant 0 / fast 120 / base 180 / slow 260 / slower 400` in v0.12.6). 20–80 ms deltas.
+- **`style-dictionary.config.ts`** — output path `_build/` → `dist/`. File renames inside dist: `tokens.css` → `lumen.css`, `theme.css` → `tailwind/lumen.css`. Added `swift/Lumen+Colors.swift` + `tailwind/lumen.preset.ts` + `dist/css/lumen.expressive.css` (from a new expressive config). Default selector extended to `:root, [data-mode='restrained'], [data-mood='quiet-industrial']` so v0.12.6 mood attribute keeps working.
+- **`package.json` version `0.12.4` → `0.13.0`**. Description updated for DTCG 2025.10 + modes. Added `tokens`, `tokens:watch`, `tokens:validate`, `audit`, `audit:contrast` scripts.
+- **`VERSION` `0.12.6` → `0.13.0`**.
+- **`audit-dashboard/src/lib/version.ts`** — `LUMEN_VERSION` → `"v0.13.0"`, `_MAJOR_MINOR` → `"v0.13"`, `_MAJOR_MINOR_UPPER` → `"V0.13"` in lockstep per v0.12.5 hard rule 13.
+- **`AGENTS.md`** — refreshed. 14 v0.12.6 hard rules preserved + 5 new v0.13 hard rules (15 modes, 16 glass, 17 DTCG, 18 alias additive, 19 Vercel AI Elements naming). Master doc pointer at top. 174 lines.
+- **`CLAUDE.md`** — refreshed. `@AGENTS.md` lead. New MCP section. v0.13 concerns + "v0.13 phase work" section.
+- **`llms.txt`** — rewrite per master doc §8.2 template. 155 lines.
+- **`01-tokens/semantic/shadow.tokens.json`** — `shadow.accent-glow` (self-referencing alias) renamed to `shadow.accent-glow.semantic`; `shadow.focus` (collides with new primitive) renamed to `shadow.focus.single`. v0.12.6 consumers continue to resolve via the primitive layer.
+
+### Fixed
+
+- **Circular alias `shadow.accent-glow → {shadow.accent-glow}` in `semantic/shadow.tokens.json`** — silent warning in SD v4, fatal error in SD v5. Existed since pre-v0.11.13. Resolved via rename above.
+
+### Notes for next phase
+
+- **Phase 1** — expressive mode primitives (`glass.tokens.json`, `mesh.tokens.json`, `noise.tokens.json`, `gradient.tokens.json`), the `<ModeScope>` React primitive, the landing-hero example, Lighthouse ≥ 90 perf gate.
+- **Phase 2** — `@lumen` shadcn registry with per-component `.md` + `.skill.md` + `.tsx` + `.registry.json` + `.stories.tsx`. Begins to address the 87 pre-existing v0.12.6 `tokens:validate` errors as each component migrates.
+- **24 component example `.tsx` files referencing `_build/` in doc comments** — cosmetic Phase 2 cleanup as each component migrates to the registry.
+- **`llms-full.txt` regeneration** — Phase 6 scope.
+- **Phase 1 follow-up**: light-mode `color.border.focus` either bumps to `{color.accent.700}` (`#00B062` — 3.0:1 on paper) OR the audit-contrast tool extends to measure rendered alpha-blended ring color, to close the WCAG 2.4.13 advisory.
 
 ---
 

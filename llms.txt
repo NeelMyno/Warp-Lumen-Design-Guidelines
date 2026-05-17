@@ -1,144 +1,155 @@
-# Lumen — Warp's Design System
+# Lumen Design System
 
-> Lumen is Warp's vertically-integrated UI design system spanning web (Next.js 16 + Tailwind v4 + shadcn), React Native, native iOS/Android, native desktop (macOS/Windows), and e-commerce themes (Shopify Liquid, BigCommerce Stencil, WooCommerce). Tokens are DTCG JSON; build pipeline is Style Dictionary v5; component contracts follow the shadcn registry spec. Visual mood (v0.12 Premium Psychology — Obsidian, mint retired): **cool-neutral paper white in light, neutral obsidian `#0D0D0D` in dark, one disciplined Spring Green accent `#00FA8A`** used for action / live / success only. Primary text on dark is `#E6E6E6` (the user-fixed brand light), not pure white. Seven design principles encode the 50ms halo effect, aggressive hierarchy, cognitive fluency, and the peak-end rule. **Status: v0.12.6 (2026-05-16)** — primitive coverage drop. 63 new component contracts close the LLM-facing gap between system primitives and the Apple HIG / Material / Polaris / Atlassian feature surface. Navigation, feedback, display, container, mobile, advanced-display, charts, AI + collaboration, form gaps, commerce/marketing all now ship contracts (see [`PRIMITIVE-COVERAGE.md`](/PRIMITIVE-COVERAGE.md) for the gap-to-coverage master map and [`CHANGELOG v0.12.6`](/CHANGELOG.md) for the per-component summary). 98 contracts in `_registry/registry.json` as of v0.12.6 (35 prior + 63 new). v0.12.5 (2026-05-07) — live-audit fix pack: New `audit-dashboard/src/lib/version.ts` hoists the user-facing version label to a single constant (`LUMEN_VERSION`); every consumer (header pill, footer line, palette footer, foundations brand-voice samples, library / tool / foundations badges) reads from it; the v0.11.13 → v0.12.4 audit found the palette footer three minor versions stale because no one had grepped the literal — the constant retires that whole class of drift. Iconography hover lifts icon to `text-accent` + tile border to `border-accent` (teaches "green appears at action" visually). Pricing card peak-end hover lift on landing (Starter / Enterprise: `shadow-md` + `border-default` + `-translate-y-[1px]`; Operator: soft accent glow). Landing FAQ disclosure caret migrates from Unicode `▾` to lucide `ChevronDown`; new `.lumen-summary` + `summary.list-none` CSS rule suppresses the native browser disclosure marker so the lucide icon is the sole disclosure cue on every browser. Privacy scrub: real-person names retired from 9 sites in 5 files, replaced with synthetic operator names. v0.12.5 ships without a new ADR — five surgical fixes consequential to ADRs 0007 + 0009 + 0018. v0.12.4 — three primitive-layer fixes: InlineTabs pill `overflow-hidden`, Combobox dropdown portaled, global `:focus-visible` gains `outline + offset` on top of soft box-shadow halo. v0.12.3 — Tailwind v4 arbitrary-translate fragility retired (cascade-fix to ADR 0015/0016 — inline `style.left` / `style.transform`). v0.12.2 — primary-button hover bloom dialed down ([ADR 0022](_meta/decisions/0022-hover-glow-ladder-retune-v0122.md)). v0.12.1 — Card corner-clip contract for `padding="none"` ([ADR 0021](_meta/decisions/0021-card-corner-clip-contract-v0121.md)). v0.12.0 — Obsidian Mint retired ([ADR 0020](_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md)) — canvas is neutral near-black at `#0D0D0D`, R = G = B at every dark stop.
+> Warp's design system for freight logistics SaaS. Dark-first, operator-density,
+> Spring Green (#00FA8A) on obsidian (#0D0D0D), Satoshi typeface, dual-mode
+> (restrained | expressive), LLM-first MD-driven, DTCG 2025.10 tokens, shadcn
+> registry. v0.13.0 — Phase 0 foundation reset in progress; v0.12.6 token names
+> and component contracts preserved verbatim (additive, not destructive).
 
-If you are an AI coding agent, read these in order:
+This file is the agent-readable index. Fetch one section at a time; each section
+points to specific MD or JSON files that an agent can load to resolve a query.
+Do NOT load the whole repo as context — load the master briefing, the AGENTS
+digest, then the specific foundation / token / component files relevant to the
+task.
 
-## Core (read first)
-- [AGENTS.md](/AGENTS.md): Universal agent rules. Highest-priority hard rules for any work in this repo. Read first.
-- [CLAUDE.md](/CLAUDE.md): Claude-specific addenda on top of AGENTS.md.
-- [USING-LUMEN.md](/USING-LUMEN.md): Comprehensive end-to-end manual — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern in one document. Read this when you need the unified narrative.
-- [README.md](/README.md): Human-facing front door.
-- [Token taxonomy](/design-system/01-tokens/README.md): Three-layer system (primitives → semantic → component). Engineers and LLMs only consume semantic.
-- [Component schema](/design-system/02-components/_schema/component.schema.json): JSON schema every component contract validates against.
-- [Synthesised brief](/research/lumen-brief.md): Why every major decision was made.
-- [ADR 0018 — v0.11 Premium Psychology recolor](/_meta/decisions/0018-premium-psychology-recolor.md): The premium-psychology contract (amended by 0020 for the v0.12 canvas retune; preserved verbatim for principles, hierarchy, micro-interactions).
-- [ADR 0020 — v0.12 Obsidian recolor (mint retired)](/_meta/decisions/0020-obsidian-recolor-mint-retired-v012.md): The current canvas contract — neutral `#0D0D0D`, R = G = B at every dark stop.
-- [ADR 0021 — v0.12.1 Card corner-clip contract](/_meta/decisions/0021-card-corner-clip-contract-v0121.md): `<Card padding="none">` auto-clips edge-touching children to the rounded shape.
-- [ADR 0022 — v0.12.2 Hover-glow ladder retune](/_meta/decisions/0022-hover-glow-ladder-retune-v0122.md): Primary-button hover bloom dialed down at the token + layered-halo level. Rest stays put (brand voice); hover trims.
-- [CHANGELOG v0.12.3 entry](/CHANGELOG.md): No new ADR — cascade-fix to ADR 0015/0016 in toggle/swipe territory. **Pattern for LLMs:** thumb / swipe / handle position math uses inline `style.left` (or `style.transform`), not Tailwind arbitrary `translate-x-[Npx]` classes. The Tailwind v4 content scanner has been observed to drop arbitrary-translate utilities; inline styles are scanner-independent.
-- [CHANGELOG v0.12.4 entry](/CHANGELOG.md): Three primitive-layer fixes, no new ADR — they're consequential follow-ups to ADRs 0007 + 0015/0016 + 0021. **Patterns for LLMs:** (1) any rounded-parent + square-cornered-child container needs `overflow-hidden` (the corner-clip pattern extends from Card to InlineTabs pill — same root cause at the smaller-control scale); (2) any floating popover / dropdown / autocomplete must portal to `document.body` via `createPortal` + `position: fixed` + `getBoundingClientRect()` tracking — inline `<div absolute>` panels get clipped by ancestor overflow contexts (Showcase frames, `<Card padding="none">`, glass surfaces, scroll containers); (3) global `:focus-visible` rides `outline + box-shadow` — outline paints outside the layout box and is structurally immune to ancestor `overflow: hidden`, so focus rings stay visible inside corner-clipped containers; box-shadow continues to paint the soft brand halo when unclipped.
-- [CHANGELOG v0.12.5 entry](/CHANGELOG.md): Five surgical fixes from a two-round live visual audit, no new ADR — consequential follow-ups to ADRs 0007 + 0009 + 0018. **Patterns for LLMs:** (1) every user-facing version label imports from [`audit-dashboard/src/lib/version.ts`](/audit-dashboard/src/lib/version.ts) — never hardcode a literal — three exports cover the three rendering contexts (`LUMEN_VERSION`, `LUMEN_VERSION_MAJOR_MINOR`, `LUMEN_VERSION_MAJOR_MINOR_UPPER`); the release script bumps both the root `VERSION` file and `lib/version.ts` in lockstep; (2) every custom `<details>`/`<summary>` accordion that composes its own end-of-summary chevron icon gets `class="lumen-summary"` (or `list-none`) so the native browser disclosure marker is suppressed on every browser — without it the native triangle competes with the lucide chevron; (3) interactive icon tiles hover to `text-accent` + `border-accent` so the brand rule "green appears precisely at action" is taught visually, not just in prose; (4) interactive cards at peak moments (pricing tier selection, plan picker) gain hover lift via the existing system tokens — non-highlighted: `shadow-md` + `border-default` + `-translate-y-[1px]`; highlighted: layer `var(--shadow-glow-accent)`; (5) fixtures and demos use synthetic operator names — never real people from the user's vault (the v0.12.5 audit retired `Sokolovsky` and `Tengariya` from 9 sites in 5 files, replaced with `Avery Mercer` / `Kai Morgan`).
+## Read first
 
-## Foundations (14 docs)
-- [Principles](/design-system/00-foundations/principles.md): The seven operating principles (v0.11 grew from 5 to 7).
-- [Hierarchy](/design-system/00-foundations/hierarchy.md): v0.11 — aggressive hierarchy / one focal point per section.
-- [First impression](/design-system/00-foundations/first-impression.md): v0.11 — 50ms halo, hero anatomy, cold-load contract.
-- [Micro-interactions](/design-system/00-foundations/micro-interactions.md): v0.11 — peak-end rule, the catalog of moments.
-- [Color](/design-system/00-foundations/color.md): The four-color floor — accent #00FA8A (Spring Green), dark #0D0D0D (neutral obsidian, v0.12 — mint retired), light #E6E6E6, paper #FAFAFA.
-- [Typography](/design-system/00-foundations/typography.md): Satoshi-only single-typeface system.
-- [Spacing](/design-system/00-foundations/spacing.md): 4-pt base / 8-pt soft grid; marketing-vs-operator section split.
-- [Elevation](/design-system/00-foundations/elevation.md): Hairline + two-stop shadows; accent-glow signature.
-- [Voice & tone](/design-system/00-foundations/voice-and-tone.md): How Lumen sounds.
-- [Accessibility](/design-system/00-foundations/accessibility.md): WCAG 2.2 AA floor — non-negotiable.
-- [Motion language](/design-system/00-foundations/motion-language.md): Timing tokens, easing, choreography.
-- [Density](/design-system/00-foundations/density.md): Marketing-vs-operator split.
-- [Buttons](/design-system/00-foundations/buttons.md): The comprehensive button language (5 sizes × 8 intents × 3 shapes). v0.12.2 dialed the primary-hover glow ladder down: rest 16px a25 → hover 20px a28 (was 24px a40) → active 8px a20.
-- [Forms and inputs](/design-system/00-foundations/forms-and-inputs.md): The v0.6 .lumen-field shell architecture.
+- [AGENTS.md](/AGENTS.md) — universal agent rules + the 19 hard rules. Read first.
+- [CLAUDE.md](/CLAUDE.md) — Claude-specific addenda (MCP hints, skill priority, voice).
+- [doc/LUMEN-v0.13-MASTER-REFACTOR.md](/doc/LUMEN-v0.13-MASTER-REFACTOR.md) — canonical v0.13 refactor briefing (modes, DTCG, shadcn registry, MCP, gpt-image-2).
+- [USING-LUMEN.md](/USING-LUMEN.md) — comprehensive end-to-end manual (every tier, every consumption surface, every governance rule).
+- [README.md](/README.md) — human-facing front door.
 
-## Components (98 — machine-readable contracts, v0.12.6 primitive coverage drop)
+## Foundations (17 docs — v0.13 adds modes, inspirations, glossary)
 
-> v0.12.6 added 63 new contracts (Tabs, Breadcrumbs, Pagination, Stepper, DropdownMenu, Tooltip, Popover, Accordion, Divider, Link, Alert, Banner, Spinner, Progress, Skeleton, NotificationCenter, Snackbar, Avatar, Tag, List, CodeBlock, CopyButton, Kbd, Trend, Drawer, Sheet, Panel, Navbar, Sidebar, BottomNav, Toolbar, ActionSheet, PhoneFrame, StatusBar, SwipeAction, PullToRefresh, PermissionPrompt, CoachMark, Carousel, Timeline, Calendar, TreeView, Kanban, DataGrid, Chart, Sparkline, KpiCard, AIPromptInput, AISuggestion, AIBadge, CitationCard, ChatBubble, CommentThread, ReactionBar, PresenceIndicator, Slider, ColorPicker, SearchField, PricingCard, TestimonialCard, LogoCloud, InventoryStatus, CartDrawer). See [`PRIMITIVE-COVERAGE.md`](/PRIMITIVE-COVERAGE.md) for the canonical user-list → Lumen primitive map. The pre-v0.12.6 35 contracts:
+- [Principles](/design-system/00-foundations/principles.md) — the seven operating principles
+- [Hierarchy](/design-system/00-foundations/hierarchy.md) — v0.11 aggressive hierarchy / one focal point per section
+- [First impression](/design-system/00-foundations/first-impression.md) — v0.11 50ms halo, hero anatomy
+- [Micro-interactions](/design-system/00-foundations/micro-interactions.md) — v0.11 peak-end rule, the catalog of moments
+- [Color](/design-system/00-foundations/color.md) — the four-color floor + Spring Green discipline
+- [Typography](/design-system/00-foundations/typography.md) — Satoshi-only single-typeface system
+- [Spacing](/design-system/00-foundations/spacing.md) — 4-pt base / 8-pt soft grid
+- [Elevation](/design-system/00-foundations/elevation.md) — hairline + two-stop shadows, accent-glow signature
+- [Voice & tone](/design-system/00-foundations/voice-and-tone.md) — how Lumen sounds
+- [Accessibility](/design-system/00-foundations/accessibility.md) — WCAG 2.2 AA floor
+- [Motion language](/design-system/00-foundations/motion-language.md) — timing tokens, easing, choreography
+- [Density](/design-system/00-foundations/density.md) — marketing-vs-operator split
+- [Buttons](/design-system/00-foundations/buttons.md) — comprehensive button language
+- [Forms and inputs](/design-system/00-foundations/forms-and-inputs.md) — the v0.6 .lumen-field shell architecture
+- [Modes](/design-system/00-foundations/modes.md) — v0.13 NEW. Restrained × Expressive routing
+- [Inspirations](/design-system/00-foundations/inspirations.md) — v0.13 NEW. Named anchors (RonDesignLab, Linear, Vercel skill, Nordhealth)
+- [Glossary](/design-system/00-foundations/glossary.md) — v0.13 NEW. Freight terms + system terminology
 
-### Foundations
-- [Badge](/design-system/02-components/badge/component.json)
-- [IconButton](/design-system/02-components/icon-button/component.json)
-- [LiveDot](/design-system/02-components/live-dot/component.json) — Warp signature primitive
-- [Stat](/design-system/02-components/stat/component.json) — Warp signature primitive
-- [RateTicker](/design-system/02-components/rate-ticker/component.json) — Warp signature primitive
+## Tokens — DTCG 2025.10 (primitives → semantic → modes → components)
 
-### Buttons + actions
-- [Button](/design-system/02-components/button/component.json) — 5 sizes × 5 intents × 5 surfaces × 3 shapes
-- [ButtonGroup](/design-system/02-components/button-group/component.json)
-- [SplitButton](/design-system/02-components/split-button/component.json)
-- [Fab](/design-system/02-components/fab/component.json)
-- [Toggle](/design-system/02-components/toggle/component.json)
-- [Segmented](/design-system/02-components/segmented/component.json)
-- [CommandPaletteButton](/design-system/02-components/command-palette-button/component.json)
+### Primitives
+- [Color](/design-system/01-tokens/primitives/color.tokens.json) — 11 obsidian + 10 neutral + 10 spring + 10 lumen-red + 10 lumen-amber + alpha ramps + Phase 0 alias namespace
+- [Dimension](/design-system/01-tokens/primitives/dimension.tokens.json) — 4-pt spacing/sizing scale + named off-grid exceptions
+- [Spacing](/design-system/01-tokens/primitives/spacing.tokens.json) — v0.13 NEW. 10-stop structural ladder + named exceptions catalog
+- [Radius](/design-system/01-tokens/primitives/radius.tokens.json) — 9 stops xs through 4xl + full
+- [Typography](/design-system/01-tokens/primitives/typography.tokens.json) — Satoshi family / weight / size / leading / tracking + OpenType features + code.fallback
+- [Elevation](/design-system/01-tokens/primitives/elevation.tokens.json) — 6 standard shadows + accent-glow + glow-accent (3-layer) + glass + focus
+- [Motion](/design-system/01-tokens/primitives/motion.tokens.json) — 5 durations + 6 easings + 2 springs + atmosphere presets
 
-### Inputs (the v0.6 forms layer + v0.7 deferred completion)
-- [Input](/design-system/02-components/input/component.json)
-- [Textarea](/design-system/02-components/textarea/component.json)
-- [NumberInput](/design-system/02-components/number-input/component.json)
-- [PasswordInput](/design-system/02-components/password-input/component.json)
-- [OtpInput](/design-system/02-components/otp-input/component.json)
-- [Select](/design-system/02-components/select/component.json)
-- [Combobox](/design-system/02-components/combobox/component.json)
-- [TagsInput](/design-system/02-components/tags-input/component.json)
-- [DatePicker](/design-system/02-components/date-picker/component.json)
-- [TimePicker](/design-system/02-components/time-picker/component.json)
-- [RangeSlider](/design-system/02-components/range-slider/component.json)
-- [FileDropzone](/design-system/02-components/file-dropzone/component.json)
-- [Checkbox](/design-system/02-components/checkbox/component.json)
-- [RadioGroup](/design-system/02-components/radio-group/component.json)
-- [Switch](/design-system/02-components/switch/component.json)
-- [Field](/design-system/02-components/field/component.json) — wrapper primitive; every input goes inside this
-- [ValidationMessage](/design-system/02-components/validation-message/component.json)
-- [Form](/design-system/02-components/form/component.json) — RHF binding wrapper
+### Semantic
+- [Color (light)](/design-system/01-tokens/semantic/color.light.tokens.json) — surface/text/border/action/status/aurora for light mode
+- [Color (dark)](/design-system/01-tokens/semantic/color.dark.tokens.json) — same paths for dark mode
+- [Surface](/design-system/01-tokens/semantic/surface.tokens.json) — v0.13 Phase 0 split. 8 surface roles + glass-strong
+- [Text](/design-system/01-tokens/semantic/text.tokens.json) — v0.13 Phase 0 split. Primary/secondary/tertiary/accent/inverse + state variants
+- [Border](/design-system/01-tokens/semantic/border.tokens.json) — v0.13 Phase 0 split. Hairline/default/strong/frame/accent/focus + state variants
+- [Action](/design-system/01-tokens/semantic/action.tokens.json) — v0.13 Phase 0 split. 5 canonical intents + variants
+- [Space](/design-system/01-tokens/semantic/space.tokens.json) — semantic spacing aliases
+- [Type](/design-system/01-tokens/semantic/type.tokens.json) — typography role composites
+- [Motion](/design-system/01-tokens/semantic/motion.tokens.json) — semantic motion presets
+- [Radius (semantic)](/design-system/01-tokens/semantic/radius.tokens.json) — radius aliases
+- [Shadow (semantic)](/design-system/01-tokens/semantic/shadow.tokens.json) — focus, card, popover, menu, modal, toast, floating, button-glow, ai-shimmer, input
 
-### Containers + surfaces
-- [Card](/design-system/02-components/card/component.json) — 7 padding tiers (none/xs/sm/md/lg/xl/hero) × 6 elevations (flat/card/lifted/popover/glass/glow). v0.12.1 — `padding="none"` auto-clips edge-touching children to the rounded corner. v0.12.4 — focus rings on interactive descendants stay visible thanks to the global `:focus-visible` outline backstop (closes the v0.12.1 trade-off where `overflow-hidden` clipped descendant box-shadow focus rings).
-- [Dialog](/design-system/02-components/dialog/component.json)
-- [EmptyState](/design-system/02-components/empty-state/component.json)
-- [Table](/design-system/02-components/table/component.json)
-- [Toast](/design-system/02-components/toast/component.json)
+### Modes (v0.13 NEW)
+- [Restrained](/design-system/01-tokens/modes/restrained.tokens.json) — default mode placeholder (no overrides)
+- [Expressive](/design-system/01-tokens/modes/expressive.tokens.json) — opt-in mode scaffold (Phase 1 fills)
 
-## Tokens (DTCG JSON — 887 tokens across 32 source files)
-- [Color (light)](/design-system/01-tokens/semantic/color.light.tokens.json)
-- [Color (dark)](/design-system/01-tokens/semantic/color.dark.tokens.json)
-- [Space](/design-system/01-tokens/semantic/space.tokens.json)
-- [Typography](/design-system/01-tokens/semantic/type.tokens.json)
-- [Motion](/design-system/01-tokens/semantic/motion.tokens.json)
-- [Radius](/design-system/01-tokens/semantic/radius.tokens.json)
-- [Shadow](/design-system/01-tokens/semantic/shadow.tokens.json)
+### Component-bound
+- See `/design-system/01-tokens/components/{name}.tokens.json` — per-component bound tokens for button / card / checkbox / combobox / date-picker / field / file-dropzone / input / number-input / otp-input / password-input / radio / range-slider / segmented / select / switch / tags-input / textarea / time-picker
 
-## Platforms (9 — per-platform consumption guides)
+## Components (98 — machine-readable contracts; Phase 2 lands Vercel-format SKILL.md)
+
+> v0.12.6 added 63 new contracts closing the LLM-facing gap with Apple HIG / Material / Polaris / Atlassian. See [PRIMITIVE-COVERAGE.md](/PRIMITIVE-COVERAGE.md) for the canonical user-list → Lumen primitive map.
+
+Categories (see /design-system/02-components/{name}/ for each):
+- **Foundations** — Badge, IconButton, LiveDot, Stat, RateTicker
+- **Buttons + actions** — Button, ButtonGroup, SplitButton, Fab, Toggle, Segmented, CommandPaletteButton
+- **Inputs (forms layer)** — Input, Textarea, NumberInput, PasswordInput, OtpInput, Select, Combobox, TagsInput, DatePicker, TimePicker, RangeSlider, FileDropzone, Checkbox, RadioGroup, Switch, Field, ValidationMessage, Form, Slider, ColorPicker, SearchField
+- **Navigation** — Tabs, Breadcrumbs, Pagination, Stepper, DropdownMenu, Navbar, Sidebar, BottomNav, Toolbar, ActionSheet
+- **Feedback** — Tooltip, Popover, Snackbar, Toast, NotificationCenter, Spinner, Progress, Skeleton
+- **Display** — Avatar, Tag, List, CodeBlock, CopyButton, Kbd, Trend, Divider, Link, Alert, Banner, EmptyState
+- **Container** — Card, Drawer, Sheet, Panel, Dialog, Accordion, Table
+- **Mobile** — PhoneFrame, StatusBar, SwipeAction, PullToRefresh, PermissionPrompt, CoachMark, Carousel
+- **Advanced display** — Timeline, Calendar, TreeView, Kanban, DataGrid, Chart, Sparkline, KpiCard
+- **AI + collaboration** — AIPromptInput, AISuggestion, AIBadge, CitationCard, ChatBubble, CommentThread, ReactionBar, PresenceIndicator
+- **Commerce/marketing** — PricingCard, TestimonialCard, LogoCloud, InventoryStatus, CartDrawer
+
+(Phase 2 lands the @lumen shadcn registry; one folder per registry item under `02-components/<name>/` with `<name>.md` + `<name>.skill.md` + `<name>.tsx` + `<name>.registry.json` + `<name>.stories.tsx`.)
+
+## Patterns (multi-component flows — see `/design-system/05-patterns/`)
+
+Phase 2 lands the freight-native patterns:
+- `chat-thread.md` — AI conversation surface
+- `citation-card.md` — Anthropic Citations API JSON-shape rendering
+- `agent-approval-flow.md` — destructive action confirmation
+- `command-palette-flow.md` — slash-command + suggestion chips
+- `lane-search.md` — freight-native lane code lookup
+- `shipment-timeline.md` — freight-native shipment lifecycle
+- `quote-builder.md` — freight-native LTL/FTL quote flow
+
+## Platforms (per-platform consumption guides — see `/design-system/03-platforms/`)
+
 - [Web · Next.js + React + Tailwind v4 + shadcn](/design-system/03-platforms/web-react/README.md)
 - [React Native · Expo + NativeWind](/design-system/03-platforms/react-native/README.md)
 - [iOS native · SwiftUI](/design-system/03-platforms/ios-native/README.md)
 - [Android native · Compose](/design-system/03-platforms/android-native/README.md)
 - [macOS desktop · SwiftUI + AppKit](/design-system/03-platforms/desktop-mac/README.md)
-- [Windows desktop · WinUI 3 + XAML](/design-system/03-platforms/desktop-windows/README.md)
-- [Shopify Liquid](/design-system/03-platforms/shopify-liquid/README.md)
-- [BigCommerce Stencil](/design-system/03-platforms/bigcommerce-stencil/README.md)
-- [WooCommerce / WordPress](/design-system/03-platforms/woo-wordpress/README.md)
+- [Windows desktop · WinUI](/design-system/03-platforms/desktop-windows/README.md)
+- [Shopify · Polaris + Liquid](/design-system/03-platforms/shopify-themes/README.md)
+- [Browser extension · shadow DOM scope](/design-system/03-platforms/extension/README.md)
+- [CLI / TUI · Lipgloss / Ink](/design-system/03-platforms/cli/README.md)
 
-## Patterns (composition guides — design-system/05-patterns/)
-- [Patterns README](/design-system/05-patterns/README.md): Composition patterns — how to compose primitives into recognized UI shapes (marketing landing, SaaS dashboard, settings, mobile primary, e-commerce product page, web tool, auth flow).
+## Prompt library (Phase 4 lands — `/design-system/05-prompts/`)
 
-## Content (8 rule docs)
-- [Imagery](/design-system/04-content/imagery.md)
-- [Illustration](/design-system/04-content/illustration.md)
-- [Iconography](/design-system/04-content/iconography.md)
-- [Motion (recipes + mobile gestures)](/design-system/04-content/motion.md)
-- [UI writing style](/design-system/04-content/ui-writing-style.md)
-- [Microcopy library](/design-system/04-content/microcopy.md)
-- [Error messages](/design-system/04-content/error-messages.md)
-- [Empty states](/design-system/04-content/empty-states.md)
+- `style-anchor.md` — the immovable master prompt
+- `hero-background.md`, `abstract-shape.md`, `illustration.md`, `pattern.md`
+- `mesh.md`, `empty-state.md`, `marketing-card.md`
+- Model pin: snapshot `gpt-image-2-2026-04-21`
 
-## Optional (deeper context)
-- [Research reports](/research/) — Warp brand DNA, inspiration brief, Satoshi typography, system architecture
-- [_meta/decisions/](/_meta/decisions/) — 22 Architecture Decision Records (ADRs 0001–0022). v0.12.x ADR floor: ADR 0020 (obsidian recolor, mint retired), ADR 0021 (Card corner-clip contract), ADR 0022 (hover-glow ladder retune). v0.12.3 + v0.12.4 ship without new ADRs by design — they're consequential follow-ups to ADRs 0007 + 0015/0016 + 0021. The CHANGELOG entries carry the architectural notes those would-be ADRs would have held.
-- [_meta/prompts/](/_meta/prompts/) — Reusable prompt fragments for agent workflows (new-component, token-update, accessibility-pass, platform-port, audit-dashboard-tab)
-- [_meta/glossary.json](/_meta/glossary.json) — Term disambiguation
-- [Audit dashboard](/audit-dashboard/) — Working Next.js 16 reference implementation across 8 templates (foundations, landing, saas, tool, ecommerce, mobile, desktop, library)
-- [CHANGELOG](/CHANGELOG.md) — Read v0.12.4 + v0.12.3 entries for the structural fixes that don't have their own ADRs (focus-ring outline backstop, Combobox portal migration, InlineTabs corner-clip extension, Tailwind-arbitrary-translate retirement on toggle/swipe).
+## MCP (Phase 6 lands — `/design-system/07-mcp/`)
 
-## Quick LLM playbook (v0.12.5)
+- Install: `claude mcp add --transport http lumen https://lumen.warp.dev/mcp`
+- Tools: `list_components`, `get_component`, `get_tokens`, `search`, `install`, `get_prompt_template`
+- shadcn consumer config: [`components.json`](/components.json) (root)
+- shadcn registry manifest: [`registry.json`](/registry.json) (root, Phase 2 fills)
 
-When generating UI in this system, default to these defensive patterns. Each one was earned by a specific bug — what every v0.12.x cascade-fix retired the alternative for:
+## Hard rules (must follow — see AGENTS.md for the full prose)
 
-1. **Token references, never hex.** `var(--color-action-primary-bg-rest)` ✓ — `#00FA8A` ✗. Reach for `_build/css/tokens.css` if you need the variable list.
-2. **Semantic tokens, never primitives.** `color.surface.page` ✓ — `color.brand.800` ✗.
-3. **Defensive button classes, never shadcn bridge utilities on accent.** `.lumen-btn-primary` ✓ — `bg-primary text-primary-foreground` ✗ on accent surfaces (Tailwind v4 scanner has been observed to drop the bridge utility, leaving white-on-spring-green at ~1.4:1 — WCAG fail).
-4. **Inline `style.left` for thumb / swipe / handle position math, never Tailwind arbitrary translates.** `style={{ left: open ? 22 : 2 }}` ✓ — `className="translate-x-[22px]"` ✗ (the v0.12.3 cascade-fix retired this on PricingToggle + SwipeAction; the same fragility applies to any new toggle / handle / thumb primitive).
-5. **`createPortal` + `position: fixed` for floating UI, never inline `<div absolute>`.** Combobox / Select / DropdownMenu / Popover / Tooltip / Calendar all portal to `document.body`. Inline absolute panels get clipped by ancestor `overflow: hidden` — Showcase frames, `<Card padding="none">`, glass surfaces, scroll containers.
-6. **`overflow-hidden` on rounded-parent + square-cornered-child containers.** Card primitive does this on `padding="none"`; InlineTabs pill variant does this on its `TabsList`. Any new rounded container hosting children with their own backgrounds + square corners needs the same clip.
-7. **`outline + box-shadow` for focus rings, never box-shadow alone.** The global `:focus-visible` rule paints both. Outline is structurally immune to ancestor `overflow: hidden`; box-shadow paints the soft brand halo when unclipped. Don't write a new `:focus-visible` rule with `box-shadow` only.
-8. **Honor `prefers-reduced-motion` in everything that animates.** No exceptions; lint enforces.
-9. **Version labels read from `lib/version.ts`, never hardcoded literals.** `import { LUMEN_VERSION } from "@/lib/version"` ✓ — `<span>v0.12.5</span>` ✗. Three exports for three contexts: `LUMEN_VERSION` for patch-level chips, `LUMEN_VERSION_MAJOR_MINOR` for inline references, `LUMEN_VERSION_MAJOR_MINOR_UPPER` for explicit uppercased brand-voice tokens. Release script bumps `lib/version.ts` in lockstep with the root `VERSION` file. The v0.12.5 fix retired one stale `v0.11.13` palette footer + 8 hardcoded `v0.12.4` chips + 2 `SYSTEM V0.11` brand-voice samples.
-10. **`<details>` accordions suppress the native marker — always — when composing your own chevron.** `<summary class="lumen-summary"><span>{q}</span><ChevronDown ... /></summary>` ✓ — bare `<summary>` (browser shows native triangle PLUS your chevron) ✗. The `globals.css` `.lumen-summary` rule covers modern browsers via `list-style: none` + the standard `::marker`; pre-2022 webkit via `::-webkit-details-marker { display: none }`. Tailwind utility `list-none` triggers the same rule pair.
-11. **Interactive icon tiles hover to accent.** `hover:bg-[var(--surface-tint-accent)] hover:text-[color:var(--text-accent)] hover:border-[var(--border-accent)]` ✓ — `hover:bg-tint-accent` alone (only background tints) ✗. The hover state is what teaches the brand rule "green appears precisely at action." If your icon stays neutral on hover, the rule is buried in prose; if it lifts to accent, every user feels it on their first hover.
-12. **Interactive peak-moment cards lift on hover.** Pricing tier cards, plan-picker cards, primary action tiles — non-highlighted: `hover:shadow-[var(--shadow-md)] hover:border-[var(--border-default)] hover:-translate-y-[1px]`; highlighted: layer `var(--shadow-glow-accent)`. Static peak-moment cards are an LLM-UI smell — the model knows they exist but doesn't know they're peak moments.
-13. **Synthetic names in fixtures and demos.** No real-person names — Avery Mercer / Kai Morgan / Jordan Kim style synthetic operator names. Carrier names are safe (Sterling LTL, ODFL, Saia, FedEx Freight, ABF — public B2B identities, not customer data).
-14. **Add a CHANGELOG entry for every PR.** Keep-a-Changelog format, under one of Added/Changed/Deprecated/Removed/Fixed/Security.
+1. Never invent tokens. Always reference semantic, never primitives.
+2. Every component ships `component.json` + (Phase 2) `<name>.skill.md`.
+3. WCAG 2.2 AA hard floor. `prefers-reduced-motion` + `prefers-reduced-transparency` honored.
+4. Spring Green (`#00FA8A`) is the only loud color. Action / live / success only. Never decorative.
+5. White on accent surface ≈ 1.4:1 — AA fail. Use `color.accent.fg` (`#07120D`) or `.lumen-btn-*` defensive classes.
+6. Floating UI portals to `document.body`. Never inline `<div absolute>`.
+7. Focus rings ride `outline + box-shadow`, never box-shadow alone.
+8. Position math via inline `style`, not Tailwind arbitrary classes.
+9. Version labels import from `lib/version.ts`, never hardcoded literals.
+10. `<details>`/`<summary>` accordions with custom chevron get `class="lumen-summary"`.
+11. v0.13 — Mode is a scope attribute, never a per-component prop.
+12. v0.13 — `backdrop-filter` only on floating shells (popover, sheet, command palette, nav, hero device frame). NEVER on canvas, data table, row, cell.
+13. v0.13 — DTCG 2025.10. `$value` + `$type` + `$description` on every token. Alias syntax `{token.path}`. No hex literals outside primitives.
+14. v0.13 — Phase 0 alias namespace (`color.obsidian/spring/lumen-red/lumen-amber`) is first-class but additive. v0.12.6 names preserved verbatim.
+15. v0.13 — Vercel AI Elements naming for AI primitives (Conversation, Message, Reasoning, Tool, Sources, InlineCitation, PromptInput, Suggestion, Confirmation, Artifact, WebPreview, Agent). Anthropic Citations API JSON shape for citation UI.
+16. v0.13 — gpt-image-2 generates atmosphere, NEVER icons. Snapshot-pin `gpt-image-2-2026-04-21` in every prompt. Open every prompt with `@import 05-prompts/style-anchor.md`.
+
+## Operating context
+
+- Repo: github.com/NeelMyno/Warp-Lumen-Design-Guidelines
+- Live preview: https://warp-lumen-design-guidelines.vercel.app
+- Build: `pnpm tokens` → `dist/` (v0.13; was `_build/` pre-v0.13)
+- Audit: `pnpm audit:contrast` → `tools/audit-baseline/contrast-{restrained,expressive}.json`
+- Version: see `/VERSION` (currently `0.13.0`) and `/audit-dashboard/src/lib/version.ts`

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — Phase 0 spacing namespace. Mirrors the master doc's 10-stop structural ladder (8, 16, 24, 32, 40, 48, 64, 80, 96, 128) as `spacing.1` through `spacing.16` (the keys are quarter-units so spacing.1 = dimension.2 = 8 px). Aliases the existing `dimension.*` primitives — no new values, no drift. Engineers prefer `semantic/space.tokens.json` for product code; this file is the Phase 0 ALIAS that gives the master doc's named ladder a discoverable home. Off-grid exceptions are re-exposed at the bottom as `exception.*` so a lint pass can fast-find them.",
+  "spacing": {
+    "$type": "dimension",
+    "0":  { "$value": "{dimension.0}",  "$description": "0 — zero gap." },
+    "1":  { "$value": "{dimension.2}",  "$description": "8 px — ladder stop 1. Tight gap (chip padding, segmented inner gap)." },
+    "2":  { "$value": "{dimension.4}",  "$description": "16 px — ladder stop 2. Default control gap, input internal padding y-axis." },
+    "3":  { "$value": "{dimension.6}",  "$description": "24 px — ladder stop 3. Card internal padding, group separator." },
+    "4":  { "$value": "{dimension.8}",  "$description": "32 px — ladder stop 4. Section internal gutter." },
+    "5":  { "$value": "{dimension.10}", "$description": "40 px — ladder stop 5. Tab-bar inner padding, dense form gutter." },
+    "6":  { "$value": "{dimension.12}", "$description": "48 px — ladder stop 6. Card-to-card gap." },
+    "8":  { "$value": "{dimension.16}", "$description": "64 px — ladder stop 8. Section vertical rhythm — operator surfaces." },
+    "10": { "$value": "{dimension.20}", "$description": "80 px — ladder stop 10. Section vertical rhythm — marketing surfaces." },
+    "12": { "$value": "{dimension.24}", "$description": "96 px — ladder stop 12. Hero block vertical rhythm." },
+    "16": { "$value": "{dimension.32}", "$description": "128 px — ladder stop 16. Top-level page rhythm, brutalist hero anchor." }
+  },
+  "exception": {
+    "$description": "v0.13 — named off-grid exceptions, called out in master doc §6. NO new exceptions without a new named token here. CI lint `lint:no-off-grid-spacing` checks against this allowlist.",
+    "space-1_5":         { "$type": "dimension", "$value": "{dimension.1_5}",       "$description": "6 px — sub-grid 6 px gap. Optical inner-padding tier between 4 and 8. Documented exception per spacing.md §1." },
+    "size-control-cozy": { "$type": "dimension", "$value": "{size.control.cozy}",   "$description": "36 px — settings-panel sweet spot control height. Density tier between sm (32) and md (40)." },
+    "radius-xs":         { "$type": "dimension", "$value": "{radius.xs}",           "$description": "3 px — hairline-accent radius. Optical concern, not subject to 4-pt grid." },
+    "size-dot-md":       { "$type": "dimension", "$value": "{size.dot.md}",         "$description": "8 px — LiveDot inner-dot signature size. v0.12.6 anchor; master doc Phase 0 also names a 19 px composite measure exposed as `size.dot.touch` (the dot+pulse-ring extent)." },
+    "size-dot-touch":    { "$type": "dimension", "$value": "{size.dot.touch}",      "$description": "v0.13 NEW — 19 px LiveDot composite touch extent (8 px dot + 5 px pulse ring on each side + 1 px outline). Named off-grid exception per master doc §6." },
+    "shadow-focus-ring": { "$type": "dimension", "$value": "{size.focus-ring}",     "$description": "v0.13 NEW — 3 px focus-ring spread thickness. Consumed by shadow.focus + the `:focus-visible` outline rule per AGENTS hard rule 11." }
+  }
+}

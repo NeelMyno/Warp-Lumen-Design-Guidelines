@@ -1,8 +1,8 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "dimension": {
     "$type": "dimension",
-    "$description": "4-based spacing/sizing scale. Engineers consume via space.* semantic tokens, not these primitives. v0.8 added stops 1_5/7/9/11/14 to close documented gaps surfaced by component contracts.",
+    "$description": "4-based spacing/sizing scale. Engineers consume via space.* semantic tokens, not these primitives. v0.8 added stops 1_5/7/9/11/14 to close documented gaps surfaced by component contracts. v0.13 — $schema lifted to DTCG 2025.10; the named off-grid exceptions (1_5 = 6px, 7 = 28px, 9 = 36px, 11 = 44px, 14 = 56px) are the canonical break-the-grid budget. No new exceptions without a new named token.",
     "0":     { "$value": { "value": 0,   "unit": "px" } },
     "1":     { "$value": { "value": 4,   "unit": "px" } },
     "1_5":   { "$value": { "value": 6,   "unit": "px" }, "$description": "Sub-grid 6 px. Pairs with radius.md (6 px) and provides the optical inner-padding tier between 4 and 8. Documented exception per spacing.md §1." },
@@ -53,7 +53,9 @@
     "scrollbar": { "$value": "{dimension.2}", "$description": "v0.8 — 8 px scrollbar track width. Used in ::-webkit-scrollbar." },
     "dot": {
       "sm":  { "$value": "{dimension.1_5}", "$description": "v0.8 — 6 px decorative dot (status row indicator)." },
-      "md":  { "$value": "{dimension.2}",   "$description": "v0.8 — 8 px LiveDot signature size." }
-    }
+      "md":  { "$value": "{dimension.2}",   "$description": "v0.8 — 8 px LiveDot signature size (inner dot)." },
+      "touch": { "$value": { "value": 19, "unit": "px" }, "$description": "v0.13 NEW — 19 px LiveDot composite touch extent (8 px dot + 5 px pulse ring on each side + 1 px outline). Named off-grid exception, called out in master doc §6 as `--size-dot-md` (19) — Lumen preserves `dot.md` at 8 px for backwards compatibility AND adds `dot.touch` at 19 px for the touch / pulse-ring extent. The pulse-ring extends OUTWARD from the 8 px dot, never replacing it." }
+    },
+    "focus-ring": { "$value": { "value": 3, "unit": "px" }, "$description": "v0.13 NEW — focus-ring spread thickness. Named off-grid exception, called out in master doc §6 as `--shadow-focus-ring` (3). Consumed by shadow.focus + the `:focus-visible` outline rule. 3 px is the documented Lumen spread; outline-offset adds the gap." }
   }
 }

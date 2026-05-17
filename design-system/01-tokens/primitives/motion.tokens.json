@@ -1,20 +1,64 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "motion": {
     "duration": {
       "$type": "duration",
-      "instant": { "$value": { "value": 0,   "unit": "ms" } },
-      "fast":    { "$value": { "value": 120, "unit": "ms" }, "$description": "Hover, micro-feedback" },
-      "base":    { "$value": { "value": 180, "unit": "ms" }, "$description": "Default UI feedback" },
-      "slow":    { "$value": { "value": 260, "unit": "ms" }, "$description": "State changes (panel open, drawer slide)" },
-      "slower":  { "$value": { "value": 400, "unit": "ms" }, "$description": "Page-level transitions" }
+      "$description": "Lumen v0.13 motion durations. Five-stop ladder aligned to the /foundations page: 80ms micro · 140ms fast · 200ms base · 320ms slow · 480ms slower. The v0.13 retune snaps every duration to the 20ms grid (vs the v0.12.6 0/120/180/260/400 set) so the curve from micro→slower is perceptually even and matches the master refactor briefing. `instant: 0ms` is preserved for hard-cut state changes that must NOT animate.",
+      "instant": { "$value": { "value": 0,   "unit": "ms" }, "$description": "Hard cut. No transition. Used when prefers-reduced-motion is granted." },
+      "micro":   { "$value": { "value": 80,  "unit": "ms" }, "$description": "v0.13 NEW — sub-perceptual feedback. Press, focus, ripple cap." },
+      "fast":    { "$value": { "value": 140, "unit": "ms" }, "$description": "v0.13 retune from 120ms — hover, micro-feedback, tap response." },
+      "base":    { "$value": { "value": 200, "unit": "ms" }, "$description": "v0.13 retune from 180ms — default UI feedback, expand/collapse." },
+      "slow":    { "$value": { "value": 320, "unit": "ms" }, "$description": "v0.13 retune from 260ms — panel open, drawer slide, sheet entry." },
+      "slower":  { "$value": { "value": 480, "unit": "ms" }, "$description": "v0.13 retune from 400ms — page-level transitions, hero entry." }
     },
     "easing": {
       "$type": "cubicBezier",
-      "standard":   { "$value": [0.2, 0.0, 0.0, 1.0], "$description": "Default. Use 95% of the time." },
-      "emphasised": { "$value": [0.2, 0.0, 0.0, 1.2], "$description": "Reserved. Slight overshoot for entry of large state changes." },
-      "decelerate": { "$value": [0.0, 0.0, 0.2, 1.0], "$description": "Entry side. Thing arriving." },
-      "accelerate": { "$value": [0.4, 0.0, 1.0, 1.0], "$description": "Exit side. Thing leaving." }
+      "$description": "v0.13 — six easing tokens. The Lumen `decelerate` (0.2, 0, 0, 1) is the system default for 95% of moments — entry, micro-feedback, hover. Material `standard` (0.4, 0, 0.2, 1) is exposed for parity with Material consumers but is NOT the Lumen default. Bounce is reserved for celebration moments (success affirmation, confetti) and gates on prefers-reduced-motion.",
+      "linear":     { "$value": [0.0,  0.0,  1.0, 1.0], "$description": "v0.13 NEW — uniform velocity. Marquee, RateTicker, infinite scroll." },
+      "decelerate": { "$value": [0.2,  0.0,  0.0, 1.0], "$description": "v0.13 — Lumen default. Entry, micro-feedback, hover, focus. Decelerate-not-bounce per ADR 0016. ALSO published as `standard` for v0.12.x backwards compatibility." },
+      "standard":   { "$value": [0.2,  0.0,  0.0, 1.0], "$description": "Backwards-compat alias of `decelerate` — the Lumen v0.12.x default. Preserved verbatim across v0.12 → v0.13." },
+      "accelerate": { "$value": [0.4,  0.0,  1.0, 1.0], "$description": "Exit side. Thing leaving. Modal dismiss, popover close, page exit." },
+      "emphasized": { "$value": [0.2,  0.0,  0.0, 1.2], "$description": "v0.13 — slight overshoot on entry of large state changes. Reserved." },
+      "emphasised": { "$value": [0.2,  0.0,  0.0, 1.2], "$description": "British-spelling alias of `emphasized` — preserved from v0.12.6 for backwards compatibility." },
+      "bounce":     { "$value": [0.34, 1.56, 0.64, 1.0], "$description": "v0.13 NEW — celebration easing. Success affirmation, confetti reveal. NEVER for hover or focus. Honours prefers-reduced-motion → decelerate." },
+      "material-standard": { "$value": [0.4, 0.0, 0.2, 1.0], "$description": "v0.13 — Material 3 `standard` curve. Exposed for parity with Material consumers (Compose, Material Web). NOT the Lumen default — reach for `decelerate` first." }
+    },
+    "spring": {
+      "$description": "v0.13 NEW — physical spring tokens for interactive elements (toggle thumbs, swipe rows, drag releases, sheet rubber-band). SwiftUI / Compose / React-Spring consumers read these; CSS consumers fall back to `decelerate` cubic-bezier. Both springs target 60fps glass-feel — short settle, no over-bounce.",
+      "default": {
+        "$value": "spring(stiffness 280, damping 28, mass 1)",
+        "$type": "string",
+        "$extensions": {
+          "lumen.spring": { "stiffness": 280, "damping": 28, "mass": 1 }
+        },
+        "$description": "Lumen v0.13 default spring. Stiffness 280 / damping 28 / mass 1. Critical-damped feel — arrives, doesn't bounce. Use for thumb / handle / swipe-row release."
+      },
+      "gentle": {
+        "$value": "spring(stiffness 200, damping 32, mass 1)",
+        "$type": "string",
+        "$extensions": {
+          "lumen.spring": { "stiffness": 200, "damping": 32, "mass": 1 }
+        },
+        "$description": "Lumen v0.13 gentle spring. Stiffness 200 / damping 32 / mass 1. Overdamped — slower settle, no overshoot. Use for sheet drag / pull-to-refresh release / drawer snap."
+      }
+    },
+    "atmosphere": {
+      "$description": "v0.13 NEW — atmospheric motion presets for expressive surfaces. LiveDot pulse (3s loop), RateTicker marquee (linear, infinite, pausable on hover), aurora fade-in (expressive-mode-only). Restrained mode opts out via `prefers-reduced-motion` and via the explicit `data-mode='restrained'` scope dropping `mesh`/`aurora`/`grain` recipes.",
+      "live-dot-pulse": {
+        "$type": "duration",
+        "$value": { "value": 3000, "unit": "ms" },
+        "$description": "LiveDot signature pulse — 3 second loop, ease-in-out, infinite. The system's one always-on motion gesture. Gates on prefers-reduced-motion."
+      },
+      "rate-ticker-marquee": {
+        "$type": "duration",
+        "$value": { "value": 40000, "unit": "ms" },
+        "$description": "RateTicker marquee — 40 second per loop, linear easing, infinite, pausable on hover. Used by Stat composites + lane code strips. Gates on prefers-reduced-motion."
+      },
+      "aurora-fade": {
+        "$type": "duration",
+        "$value": { "value": 1200, "unit": "ms" },
+        "$description": "Aurora ambient glow fade-in on expressive surfaces. 1.2s, decelerate. Gates on prefers-reduced-motion AND prefers-reduced-transparency (the aurora composes with backdrop-filter)."
+      }
     }
   }
 }

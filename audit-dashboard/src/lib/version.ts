@@ -23,10 +23,10 @@
  *   - any "last refreshed v0.12.5" footer.
  */
 
-export const LUMEN_VERSION = "v0.12.6" as const;
+export const LUMEN_VERSION = "v0.13.0" as const;
 
-/** "v0.12" — drops the patch. Use in lumen-mono-cap (CSS uppercases the rendered text). */
-export const LUMEN_VERSION_MAJOR_MINOR = "v0.12" as const;
+/** "v0.13" — drops the patch. Use in lumen-mono-cap (CSS uppercases the rendered text). */
+export const LUMEN_VERSION_MAJOR_MINOR = "v0.13" as const;
 
-/** "V0.12" for places that explicitly need the uppercased token in the source. */
-export const LUMEN_VERSION_MAJOR_MINOR_UPPER = "V0.12" as const;
+/** "V0.13" for places that explicitly need the uppercased token in the source. */
+export const LUMEN_VERSION_MAJOR_MINOR_UPPER = "V0.13" as const;

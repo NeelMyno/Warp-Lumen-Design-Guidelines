@@ -1,0 +1,95 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — Phase 0 semantic action namespace. Aliases the existing v0.12.6 `color.action.*` semantic tokens under a flatter `action.*` namespace. Five canonical intents per master doc: primary, secondary, tertiary, ghost, danger. v0.12.6 also ships outline, danger-soft, ai, success, selected, glass — all preserved here. Each intent exposes bg.rest/hover/press + fg + border + (where applicable) glow.",
+  "action": {
+    "$type": "color",
+    "primary": {
+      "$description": "Primary intent — the Spring Green CTA. Used for the single primary action per surface (one per landing hero, one per modal footer, one per form submit). NEVER two primary CTAs side by side. Aliases color.action.primary.",
+      "bg": {
+        "rest":  { "$value": "{color.action.primary.bg.rest}",  "$description": "Spring Green #00FA8A." },
+        "hover": { "$value": "{color.action.primary.bg.hover}", "$description": "#00D675." },
+        "press": { "$value": "{color.action.primary.bg.press}", "$description": "#00B062." }
+      },
+      "fg":     { "$value": "{color.action.primary.fg}",     "$description": "Near-black on accent — 14.7:1 AAA. NEVER white." },
+      "border": { "$value": "{color.action.primary.border}", "$description": "Transparent — primary CTA is filled." },
+      "glow":   { "$value": "{color.action.primary.glow}",   "$description": "Warp signature green glow. v0.13 — also exposed as shadow.glow-accent (3-layer hero variant)." }
+    },
+    "secondary": {
+      "$description": "Secondary intent — paired with primary, the supporting action. Filled neutral.",
+      "bg": {
+        "rest":  { "$value": "{color.action.secondary.bg.rest}" },
+        "hover": { "$value": "{color.action.secondary.bg.hover}" },
+        "press": { "$value": "{color.action.secondary.bg.press}" }
+      },
+      "fg":     { "$value": "{color.action.secondary.fg}" },
+      "border": { "$value": "{color.action.secondary.border}" }
+    },
+    "tertiary": {
+      "$description": "Tertiary intent — text-only or minimal-chrome. Aliases color.action.tertiary (v0.9 alias of ghost; kept for backwards compat).",
+      "bg": {
+        "rest":  { "$value": "{color.action.tertiary.bg.rest}" },
+        "hover": { "$value": "{color.action.tertiary.bg.hover}" },
+        "press": { "$value": "{color.action.tertiary.bg.press}" }
+      },
+      "fg": { "$value": "{color.action.tertiary.fg}" }
+    },
+    "ghost": {
+      "$description": "Ghost intent — no chrome at rest, subtle hover tint. The neutral × ghost surface.",
+      "bg": {
+        "rest":  { "$value": "{color.action.ghost.bg.rest}" },
+        "hover": { "$value": "{color.action.ghost.bg.hover}" },
+        "press": { "$value": "{color.action.ghost.bg.press}" }
+      },
+      "fg": { "$value": "{color.action.ghost.fg}" }
+    },
+    "danger": {
+      "$description": "Danger intent — destructive actions (delete, cancel, refund, drop). Always pairs label or icon — color never alone.",
+      "bg": {
+        "rest":  { "$value": "{color.action.danger.bg.rest}" },
+        "hover": { "$value": "{color.action.danger.bg.hover}" },
+        "press": { "$value": "{color.action.danger.bg.press}" }
+      },
+      "fg":     { "$value": "{color.action.danger.fg}" },
+      "border": { "$value": "{color.action.danger.border}" }
+    },
+    "outline": {
+      "$description": "v0.9 outline intent — hairline pill (transparent fill, 1px border). Neutral × outline surface.",
+      "bg": {
+        "rest":  { "$value": "{color.action.outline.bg.rest}" },
+        "hover": { "$value": "{color.action.outline.bg.hover}" },
+        "press": { "$value": "{color.action.outline.bg.press}" }
+      },
+      "fg":     { "$value": "{color.action.outline.fg}" },
+      "border": {
+        "rest":  { "$value": "{color.action.outline.border.rest}" },
+        "hover": { "$value": "{color.action.outline.border.hover}" }
+      }
+    },
+    "ai": {
+      "$description": "v0.9 AI-action variant — Spring Green tonal + sparkle leading icon. ONLY on AI-driven primary actions (Improve, Summarize, Suggest, Quote-with-AI). Not a general intent. See ADR 0016.",
+      "bg": {
+        "rest":  { "$value": "{color.action.ai.bg.rest}" },
+        "hover": { "$value": "{color.action.ai.bg.hover}" },
+        "press": { "$value": "{color.action.ai.bg.press}" }
+      },
+      "fg":     { "$value": "{color.action.ai.fg}" },
+      "border": { "$value": "{color.action.ai.border}" }
+    },
+    "selected": {
+      "$description": "aria-pressed=true state. Spring-green tint + spring-green hairline. Distinct from primary (filled green).",
+      "bg":     { "$value": "{color.action.selected.bg}" },
+      "fg":     { "$value": "{color.action.selected.fg}" },
+      "border": { "$value": "{color.action.selected.border}" }
+    },
+    "glass": {
+      "$description": "v0.9 translucent surface — floating overlays. Composes with backdrop-filter blur(12px). Not a default primary.",
+      "bg": {
+        "rest":  { "$value": "{color.action.glass.bg.rest}" },
+        "hover": { "$value": "{color.action.glass.bg.hover}" },
+        "press": { "$value": "{color.action.glass.bg.press}" }
+      },
+      "fg":     { "$value": "{color.action.glass.fg}" },
+      "border": { "$value": "{color.action.glass.border}" }
+    }
+  }
+}

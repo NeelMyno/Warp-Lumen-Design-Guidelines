@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — Phase 0 semantic surface namespace. The master doc names 8 surface roles (canvas, raised, sunken, popover, glass, tint-accent, tint-strong, inverse) plus `glass-strong` for modal/sheet. This file aliases the existing v0.12.6 `color.surface.*` semantic tokens (in color.dark.tokens.json / color.light.tokens.json) under a flatter `surface.*` namespace that Phase 0+ code can consume directly. The existing `color.surface.*` paths are PRESERVED — this is additive, not destructive. Restrained mode is default (no overrides); expressive mode rebinds `surface.canvas-ambient` and `surface.hero` via modes/expressive.tokens.json.",
+  "surface": {
+    "$type": "color",
+    "canvas":      { "$value": "{color.surface.page}",      "$description": "Page background. Light: paper #FAFAFA. Dark: obsidian #0D0D0D. Aliases color.surface.page." },
+    "raised":      { "$value": "{color.surface.raised}",    "$description": "Cards, panels — sits subtly above canvas via lightness alone (no chromatic tilt). Aliases color.surface.raised." },
+    "sunken":      { "$value": "{color.surface.sunken}",    "$description": "Inputs at rest, table-row hover, sidebar. Aliases color.surface.sunken." },
+    "popover":     { "$value": "{color.surface.popover}",   "$description": "Floating popover surface (dropdown, menu, tooltip). Aliases color.surface.popover." },
+    "glass":       { "$value": "{color.surface.glass}",     "$description": "Floating glass shell — paired with backdrop-filter blur(20px) saturate(140%). ONLY on floating shells (popover, sheet, command palette, hero device frame, nav). NEVER on canvas, table, row, cell. Aliases color.surface.glass.", "$extensions": { "lumen.blur": "20px", "lumen.saturate": "140%", "lumen.alpha": 0.62, "lumen.fallback": "{color.surface.popover}" } },
+    "glass-strong":{ "$value": "{color.alpha.ink.84}",      "$description": "v0.13 NEW — modal-tier glass with stronger blur. Paired with backdrop-filter blur(28px) saturate(160%). Used by modal scrims, sheet headers, hero device frames on expressive surfaces.", "$extensions": { "lumen.blur": "28px", "lumen.saturate": "160%", "lumen.alpha": 0.84, "lumen.fallback": "{color.surface.popover}" } },
+    "tint-accent": { "$value": "{color.surface.tint-accent}","$description": "Spring-green tinted surface — hover and selection backgrounds. Aliases color.surface.tint-accent." },
+    "tint-strong": { "$value": "{color.alpha.accent.24}",   "$description": "v0.13 NEW — stronger accent tint for active-state surfaces (selected nav item, active filter chip)." },
+    "inverse":     { "$value": "{color.surface.inverse}",   "$description": "Inverse surface — dark on light theme, light on dark theme. Used for CTA bands, footers, contrast moments. Aliases color.surface.inverse." },
+    "overlay":     { "$value": "{color.surface.overlay}",   "$description": "Translucent backdrop for sticky chrome. Aliases color.surface.overlay." },
+    "scrim":       { "$value": "{color.surface.scrim}",     "$description": "Modal scrim — heavy ink overlay behind dialogs. Aliases color.surface.scrim." }
+  }
+}

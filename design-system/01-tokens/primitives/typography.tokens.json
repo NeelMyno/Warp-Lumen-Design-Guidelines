@@ -1,6 +1,6 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "$description": "Lumen typography primitives. v0.10 — single-typeface system. Satoshi does every job (UI, display, numerics, code, editorial) separated by weight, size, and OpenType feature flags rather than by family. Major Third (1.25) modular scale on a 16px base, extended floor-to-ceiling 11→128px. Leading + tracking are size-conditional curves, not single-bucket aliases. v0.10 retired font.family.mono (JetBrains Mono), font.family.serif (Source Serif 4), and font.family.alt-sans (Inter). See 00-foundations/typography.md and ADR 0017.",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen typography primitives. v0.10 — single-typeface system. Satoshi does every job (UI, display, numerics, code, editorial) separated by weight, size, and OpenType feature flags rather than by family. Major Third (1.25) modular scale on a 16px base, extended floor-to-ceiling 11→128px. Leading + tracking are size-conditional curves, not single-bucket aliases. v0.10 retired font.family.mono (JetBrains Mono), font.family.serif (Source Serif 4), and font.family.alt-sans (Inter). v0.13 — $schema lifted to DTCG 2025.10 + the OpenType feature flag catalog under font.features is now first-class so semantic role composites can reference these by name instead of inlining font-feature-settings strings. Geist Mono is exposed as code.fallback only — never the default. See 00-foundations/typography.md and ADR 0017.",
   "font": {
     "family": {
       "$type": "fontFamily",
@@ -89,6 +89,28 @@
       "cap-eyebrow": { "$value": { "value": 0.10, "unit": "em" }, "$description": "Sans uppercase eyebrow at 12px. Butterick band 0.05–0.12em compliant." },
       "cap-overline": { "$value": { "value": 0.05, "unit": "em" }, "$description": "Light all-caps tracking — chart axis labels, secondary uppercase." },
       "cap-mono": { "$value": { "value": 0.16, "unit": "em" }, "$description": "Wide uppercase tracked. The v0.4 system-metadata signature ('SYSTEM V0.10 LIVE'). v0.10 — paired with Satoshi (calt off + tnum on) instead of a separate mono family." }
+    },
+    "features": {
+      "$description": "v0.13 NEW — OpenType feature flag catalog. Bind to semantic role composites via $extensions.lumen.features (array of feature keys). Renders as CSS font-feature-settings. The catalog is exhaustive for Satoshi VF; semantic roles compose subsets. Mono-uppercase signature label = [cap-mono, tnum, calt-off]; numerics = [tnum, lnum, zero]; body = [pnum, calt]; display = [ss01, case]; italic accent word = [italic, ss01].",
+      "tnum":      { "$type": "string", "$value": "'tnum' on",  "$description": "Tabular numerics — column alignment. ALL numeric UI uses this." },
+      "lnum":      { "$type": "string", "$value": "'lnum' on",  "$description": "Lining numerics — uppercase-aligned figures. Pairs with tnum for data dashboards." },
+      "zero":      { "$type": "string", "$value": "'zero' on",  "$description": "Slashed zero — disambiguates 0 vs O in dense ops data + monitoring panels." },
+      "case":      { "$type": "string", "$value": "'case' on",  "$description": "Case-sensitive forms — repositions punctuation around caps (parentheses, hyphens, brackets)." },
+      "pnum":      { "$type": "string", "$value": "'pnum' on",  "$description": "Proportional numerics — natural-width figures for body prose where alignment doesn't matter." },
+      "calt":      { "$type": "string", "$value": "'calt' on",  "$description": "Contextual alternates — Satoshi default; turn OFF for mono-uppercase signature." },
+      "calt-off":  { "$type": "string", "$value": "'calt' off", "$description": "Contextual alternates disabled — mono-uppercase tracked label requires this." },
+      "liga":      { "$type": "string", "$value": "'liga' on",  "$description": "Standard ligatures — Satoshi default." },
+      "ss01":      { "$type": "string", "$value": "'ss01' on",  "$description": "Stylistic Set 1 — Satoshi alternate letterforms (signature numerals)." },
+      "ss02":      { "$type": "string", "$value": "'ss02' on",  "$description": "Stylistic Set 2." },
+      "ss03":      { "$type": "string", "$value": "'ss03' on",  "$description": "Stylistic Set 3." },
+      "ss04":      { "$type": "string", "$value": "'ss04' on",  "$description": "Stylistic Set 4." },
+      "italic":    { "$type": "string", "$value": "'ital' 1",   "$description": "Variable italic axis — Satoshi VF true italic, value 0–1. Used for the one italic accent word per hero." },
+      "italic-off":{ "$type": "string", "$value": "'ital' 0",   "$description": "Italic axis off." }
+    },
+    "code-fallback": {
+      "$type": "fontFamily",
+      "$value": ["Geist Mono", "JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+      "$description": "v0.13 NEW — code.fallback alias. Geist Mono ONLY surfaces when a consumer explicitly opts a code block out of the Satoshi tabular-numeric monospace contract (rare — usually for parity with a hosted SDK's docs). NEVER the default. The Lumen code surface uses Satoshi + tnum + zero + cap-mono tracking per the v0.10 single-typeface contract."
     }
   }
 }

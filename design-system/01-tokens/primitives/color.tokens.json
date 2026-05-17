@@ -1,5 +1,5 @@
 {
-  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
   "color": {
     "$type": "color",
     "$description": "Primitive color ramps. Mode-agnostic. Engineers and LLMs do NOT consume these directly — use semantic aliases (color.surface.*, color.text.*, etc.) instead. Lumen v0.12 retunes the brand ramp to neutral Obsidian (true near-black, no chromatic tilt, anchored at #0D0D0D) and preserves the Spring Green #00FA8A accent. v0.11 had a faint green undertone (G channel +2 over R) that read as 'mint' on the canvas; user feedback called this 'weird green' and the v0.12 recolor strips it for a confident, neutral, true-dark canvas. Premium-psychology release continues: fewer colors, used with confidence, plus the dark surface no longer competes with the spring-green accent for hue presence.",
@@ -73,17 +73,25 @@
         "900": { "$value": "{color.accent.900}" }
       },
       "warning": {
-        "$description": "Refined amber — slightly more golden, slightly less saturated than v0.10 (#f59e0b). Reads premium against the v0.12 neutral obsidian canvas without competing with the spring green.",
+        "$description": "Refined amber — slightly more golden, slightly less saturated than v0.10 (#f59e0b). Reads premium against the v0.12 neutral obsidian canvas without competing with the spring green. v0.13 — ramp filled out to 10 stops (50/100/200/300/400/500/600/700/800/900) per master doc Phase 0; existing stops preserved verbatim, new 100/200/400/600/800 interpolated in HSL between adjacent anchors. Phase 0 alias namespace exposes this as `color.lumen-amber.*` (see color.lumen-amber below).",
         "50":  { "$value": "#FFF8E5" },
+        "100": { "$value": "#FCEDC8", "$description": "v0.13 NEW — gold-cream. Interpolated between 50 and 300. Soft warning surface on light." },
+        "200": { "$value": "#F8E5B8", "$description": "v0.13 NEW — light gold. Interpolated between 100 and 300." },
         "300": { "$value": "#F5DEA3", "$description": "v0.11.13 — soft warm-gold for warning text on the dark canvas. Re-measured ~9.5:1 on the v0.12 neutral obsidian canvas — AAA. The semantic color.text.warning consumes this stop." },
+        "400": { "$value": "#F5C46E", "$description": "v0.13 NEW — mid gold. Interpolated between 300 and 500. Reserved for warning hover surfaces on light." },
         "500": { "$value": "#F5B118", "$description": "Brand amber. Calmer than v0.10 #f59e0b." },
+        "600": { "$value": "#C5810E", "$description": "v0.13 NEW — deep amber. Interpolated between 500 and 700. Warning CTA hover state." },
         "700": { "$value": "#7A5408", "$description": "Warning text on light. AA-safe." },
+        "800": { "$value": "#4F3506", "$description": "v0.13 NEW — very deep brown. Interpolated between 700 and 900. AAA warning text on light." },
         "900": { "$value": "#2A1D04", "$description": "Warning bg on dark." }
       },
       "danger": {
-        "$description": "Refined deep red — desaturated 8% from v0.10 #ef4444 to feel less aggressive. Maintains AA contrast for danger CTAs.",
+        "$description": "Refined deep red — desaturated 8% from v0.10 #ef4444 to feel less aggressive. Maintains AA contrast for danger CTAs. v0.13 — ramp filled out to 10 stops (50/100/200/300/400/500/600/700/800/900) per master doc Phase 0; existing stops preserved verbatim, new 100/200/400 interpolated in HSL between adjacent anchors. Phase 0 alias namespace exposes this as `color.lumen-red.*` (see color.lumen-red below).",
         "50":  { "$value": "#FDECEB" },
+        "100": { "$value": "#FCD5D4", "$description": "v0.13 NEW — soft pink. Interpolated between 50 and 300. Reserved for soft-danger surfaces on light backgrounds." },
+        "200": { "$value": "#FAC0C0", "$description": "v0.13 NEW — pale rose. Interpolated between 100 and 300." },
         "300": { "$value": "#F8A8AA", "$description": "v0.11.13 — softened error text on the dark canvas. Re-measured ~7.0:1 on the v0.12 neutral obsidian canvas — AA Normal. The semantic color.text.error and color.action.danger-soft.fg both consume this stop." },
+        "400": { "$value": "#F07377", "$description": "v0.13 NEW — mid red-pink. Interpolated between 300 and 500. Reserved for soft-danger hover surfaces, focus halos on light." },
         "500": { "$value": "#E5484D", "$description": "Brand red. Refined from v0.10 #ef4444." },
         "600": { "$value": "#D02E37", "$description": "Danger CTA hover." },
         "700": { "$value": "#B71D2A", "$description": "Danger CTA bg.rest. AA Normal (5.4:1 white-on-bg)." },
@@ -170,6 +178,64 @@
         "12": { "$value": "rgba(245,177,24,0.12)" },
         "24": { "$value": "rgba(245,177,24,0.24)" }
       }
+    },
+    "obsidian": {
+      "$type": "color",
+      "$description": "v0.13 alias namespace — Phase 0 obsidian ramp. Mirrors color.brand.* using the master doc Phase 0 vocabulary (master doc §1.1 + §8.5). 11 stops from paper (50) to void (950). The canvas value is `obsidian.800` = #0D0D0D — the user-fixed v0.12 neutral obsidian. NOT a new ramp; engineers may use either namespace. Phase 0 onwards prefers `color.obsidian.*` for new code; existing v0.12.6 code consumes `color.brand.*` and is preserved verbatim. Note: master doc Phase 0 prompt referred to '11 stops obsidian.0-10'; this alias preserves the existing 50–950 indexing convention which matches the Tailwind/Material/Carbon 10-step convention and matches the v0.12.6 anchoring (brand.800 = canvas). The 11 stops are 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950.",
+      "50":  { "$value": "{color.brand.50}",  "$description": "Paper-leaning #F4F4F4. Alias of color.brand.50." },
+      "100": { "$value": "{color.brand.100}", "$description": "Light anchor #E6E6E6 — user-fixed light value, also primary text on dark. Alias of color.brand.100." },
+      "200": { "$value": "{color.brand.200}", "$description": "Mid-tone #C8C8C8. Alias of color.brand.200." },
+      "300": { "$value": "{color.brand.300}", "$description": "Tertiary text on dark #9A9A9A. Alias of color.brand.300." },
+      "400": { "$value": "{color.brand.400}", "$description": "Secondary text on dark #6B6B6B. Alias of color.brand.400." },
+      "500": { "$value": "{color.brand.500}", "$description": "Mid-rail #404040. Alias of color.brand.500." },
+      "600": { "$value": "{color.brand.600}", "$description": "Popover dark #1F1F1F. Alias of color.brand.600." },
+      "700": { "$value": "{color.brand.700}", "$description": "Raised dark #151515. Alias of color.brand.700." },
+      "800": { "$value": "{color.brand.800}", "$description": "Canvas #0D0D0D — the user-fixed brand dark, the master-doc-named obsidian canvas. Alias of color.brand.800.", "$extensions": { "lumen.oklch": "oklch(0.176 0 0)", "lumen.role": "canvas" } },
+      "900": { "$value": "{color.brand.900}", "$description": "Sunken #080808. Alias of color.brand.900." },
+      "950": { "$value": "{color.brand.950}", "$description": "Void #050505. Alias of color.brand.950." }
+    },
+    "spring": {
+      "$type": "color",
+      "$description": "v0.13 alias namespace — Phase 0 spring ramp. Mirrors color.accent.* using the master doc Phase 0 vocabulary. The brand value is `spring.500` = #00FA8A — Spring Green, Lumen's only loud color. 10 stops + fg.",
+      "50":  { "$value": "{color.accent.50}",  "$description": "Tint background (rare). Alias of color.accent.50." },
+      "100": { "$value": "{color.accent.100}", "$description": "Alias of color.accent.100." },
+      "200": { "$value": "{color.accent.200}", "$description": "Alias of color.accent.200." },
+      "300": { "$value": "{color.accent.300}", "$description": "Laser-bright on dark #4DFFA8. Alias of color.accent.300." },
+      "400": { "$value": "{color.accent.400}", "$description": "Dark-mode focus ring #1AFF93. Alias of color.accent.400." },
+      "500": { "$value": "{color.accent.500}", "$description": "BRAND VALUE — Spring Green #00FA8A. Alias of color.accent.500. THE master-doc-named accent.", "$extensions": { "lumen.oklch": "oklch(0.870 0.246 152.7)", "lumen.role": "accent" } },
+      "600": { "$value": "{color.accent.600}", "$description": "CTA hover #00D675. Alias of color.accent.600." },
+      "700": { "$value": "{color.accent.700}", "$description": "CTA press #00B062. Alias of color.accent.700." },
+      "800": { "$value": "{color.accent.800}", "$description": "Accent text on light #008A4D. Alias of color.accent.800." },
+      "900": { "$value": "{color.accent.900}", "$description": "Dense reading copy in accent on light #003820. Alias of color.accent.900." },
+      "fg":  { "$value": "{color.accent.fg}",  "$description": "Near-black text on accent surfaces #07120D. Alias of color.accent.fg.", "$extensions": { "lumen.oklch": "oklch(0.150 0.018 152.7)" } }
+    },
+    "lumen-red": {
+      "$type": "color",
+      "$description": "v0.13 alias namespace — Phase 0 lumen-red ramp. Mirrors color.status.danger.* using the master doc Phase 0 vocabulary. 10 stops. Status-paired only — always paired with label/glyph/shape, never standalone.",
+      "50":  { "$value": "{color.status.danger.50}",  "$description": "Alias of color.status.danger.50." },
+      "100": { "$value": "{color.status.danger.100}", "$description": "Alias of color.status.danger.100." },
+      "200": { "$value": "{color.status.danger.200}", "$description": "Alias of color.status.danger.200." },
+      "300": { "$value": "{color.status.danger.300}", "$description": "Alias of color.status.danger.300." },
+      "400": { "$value": "{color.status.danger.400}", "$description": "Alias of color.status.danger.400." },
+      "500": { "$value": "{color.status.danger.500}", "$description": "Brand red #E5484D. Alias of color.status.danger.500." },
+      "600": { "$value": "{color.status.danger.600}", "$description": "Alias of color.status.danger.600." },
+      "700": { "$value": "{color.status.danger.700}", "$description": "Alias of color.status.danger.700." },
+      "800": { "$value": "{color.status.danger.800}", "$description": "Alias of color.status.danger.800." },
+      "900": { "$value": "{color.status.danger.900}", "$description": "Alias of color.status.danger.900." }
+    },
+    "lumen-amber": {
+      "$type": "color",
+      "$description": "v0.13 alias namespace — Phase 0 lumen-amber ramp. Mirrors color.status.warning.* using the master doc Phase 0 vocabulary. 10 stops. Status-paired only — always paired with label/glyph/shape, never standalone.",
+      "50":  { "$value": "{color.status.warning.50}",  "$description": "Alias of color.status.warning.50." },
+      "100": { "$value": "{color.status.warning.100}", "$description": "Alias of color.status.warning.100." },
+      "200": { "$value": "{color.status.warning.200}", "$description": "Alias of color.status.warning.200." },
+      "300": { "$value": "{color.status.warning.300}", "$description": "Alias of color.status.warning.300." },
+      "400": { "$value": "{color.status.warning.400}", "$description": "Alias of color.status.warning.400." },
+      "500": { "$value": "{color.status.warning.500}", "$description": "Brand amber #F5B118. Alias of color.status.warning.500." },
+      "600": { "$value": "{color.status.warning.600}", "$description": "Alias of color.status.warning.600." },
+      "700": { "$value": "{color.status.warning.700}", "$description": "Alias of color.status.warning.700." },
+      "800": { "$value": "{color.status.warning.800}", "$description": "Alias of color.status.warning.800." },
+      "900": { "$value": "{color.status.warning.900}", "$description": "Alias of color.status.warning.900." }
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — Phase 0 semantic text namespace. Aliases the existing v0.12.6 `color.text.*` semantic tokens (in color.dark.tokens.json / color.light.tokens.json) under a flatter `text.*` namespace that Phase 0+ code can consume directly. The master doc names 5 roles (primary, secondary, tertiary, accent, inverse); Lumen v0.12.6 also ships placeholder/disabled/error/success/warning/link, all of which are preserved here. Both namespaces are kept — additive, not destructive.",
+  "text": {
+    "$type": "color",
+    "primary":     { "$value": "{color.text.primary}",    "$description": "Body and titles. Light: #141414. Dark: #E6E6E6 (the user-fixed brand light). 17.2:1 / 15.5:1 — AAA. Aliases color.text.primary." },
+    "secondary":   { "$value": "{color.text.secondary}",  "$description": "Captions, descriptions. AA-safe. Aliases color.text.secondary." },
+    "tertiary":    { "$value": "{color.text.tertiary}",   "$description": "Hints, eyebrow labels. AA Large only on dark (≥18px). Aliases color.text.tertiary." },
+    "placeholder": { "$value": "{color.text.placeholder}","$description": "Input placeholder. Aliases color.text.placeholder." },
+    "disabled":    { "$value": "{color.text.disabled}",   "$description": "Disabled text. Aliases color.text.disabled." },
+    "accent":      { "$value": "{color.text.accent}",     "$description": "Spring-green inline emphasis. Light: #008A4D (4.6:1 AA). Dark: #4DFFA8 (10.4:1 AAA). Aliases color.text.accent." },
+    "inverse":     { "$value": "{color.text.inverse}",    "$description": "Text on inverse surfaces. Aliases color.text.inverse." },
+    "error":       { "$value": "{color.text.error}",      "$description": "Inline error copy. Aliases color.text.error." },
+    "success":     { "$value": "{color.text.success}",    "$description": "Inline success copy — reuses accent ramp (spring green is action/live/success). Aliases color.text.success." },
+    "warning":     { "$value": "{color.text.warning}",    "$description": "Inline warning copy. Aliases color.text.warning." },
+    "link":        { "$value": "{color.text.link}",       "$description": "Inline link. Aliases color.text.link." }
+  }
+}

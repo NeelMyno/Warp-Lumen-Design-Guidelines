@@ -1,0 +1,17 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — EXPRESSIVE mode rebind set. PHASE 0 SCAFFOLD — Phase 1 builds out the actual rebinds (mesh recipes, animated gradients, atmospheric layers, hero device shells). Expressive is opt-in via `[data-mode='expressive']` scope on a container; it never replaces components, only rebinds semantic surface/atmosphere/motion tokens. Used for: landing surfaces, marketing pages, AI surfaces (chat, agents, generation), onboarding flows, empty states, hero panels. The accent, type, grid, focus rings, and a11y contract are UNCHANGED across modes — only ambient atmosphere differs.",
+  "mode": {
+    "$type": "string",
+    "name": { "$value": "expressive", "$description": "v0.13 — the opt-in mode. NEVER the default; restrained is the default." },
+    "atmosphere": { "$value": "12", "$description": "Expressive surfaces boost atmospheric opacity to 10–14% — aurora ambient glow, named mesh recipe, optional grain at 8%. Honours prefers-reduced-motion (mesh + grain animation freeze) and prefers-reduced-transparency (atmosphere collapses to opaque tint)." },
+    "glass-policy": { "$value": "expanded", "$description": "Expressive allows blur radius up to 28px on hero shells. Still NEVER on data table / row / cell. Hero device frame, hero overlay, navigation glass are all in-scope." },
+    "motion-policy": { "$value": "atmospheric-decelerate", "$description": "Aurora fades, mesh drifts, grain shimmers — all gated on prefers-reduced-motion. Default easing is still decelerate; atmospheric loops use linear." }
+  },
+  "surface": {
+    "$description": "Phase 1 will rebind surface.hero, surface.canvas-ambient, surface.atmosphere here. Phase 0 declares the intent slots so consumers can see them.",
+    "hero":            { "$value": "{color.surface.page}",   "$description": "PHASE 0 STUB — Phase 1 rebinds to a layered composite (canvas + named mesh recipe + grain). For now resolves to canvas." },
+    "canvas-ambient":  { "$value": "{color.surface.page}",   "$description": "PHASE 0 STUB — Phase 1 rebinds to canvas + aurora alpha overlay. For now resolves to canvas." },
+    "atmosphere":      { "$value": "{color.alpha.accent.12}","$description": "PHASE 0 STUB — Phase 1 names the active mesh recipe. For now resolves to a spring-green tint at 12% alpha (matches the master doc atmosphere target)." }
+  }
+}

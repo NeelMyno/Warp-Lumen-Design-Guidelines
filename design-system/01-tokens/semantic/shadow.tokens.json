@@ -12,11 +12,11 @@
     "modal":    { "$value": "{shadow.xl}" },
     "toast":    { "$value": "{shadow.lg}" },
     "floating": { "$value": "{shadow.2xl}" },
-    "focus": {
+    "focus.single": {
       "$value": [
         { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
       ],
-      "$description": "Single-ring focus indicator — fine for surfaces where the button background is NOT the spring-green accent. For accent-bg surfaces (primary intent), use shadow.focus.dual instead (Atlassian 2024 pattern). v0.11.13 — colour references the spring-green alpha primitive."
+      "$description": "v0.13 — renamed from shadow.focus → shadow.focus.single to avoid colliding with the new primitive shadow.focus (which is the same value, lifted to primitive layer per Phase 0 elevation contract). v0.12.6 consumers of `shadow.focus` continue to resolve correctly because the primitive resolves first; this alias preserves the dual-ring/single-ring distinction. Single-ring focus indicator — fine for surfaces where the button background is NOT the spring-green accent. For accent-bg surfaces (primary intent), use shadow.focus.dual instead (Atlassian 2024 pattern)."
     },
     "focus.dual": {
       "$description": "v0.9 — Dual-ring focus indicator for accent surfaces. Inner 2 px neutral ring separates the focus halo from the button so the outer ring maintains 3:1 contrast against the surface (WCAG 2.4.13). Atlassian's 2024 fix — needed because a colored ring on a same-colored surface fails the 3:1 floor.",
@@ -69,9 +69,9 @@
         "$description": "v0.9 — AI-action variant idle border (1 px accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`."
       }
     },
-    "accent-glow": {
+    "accent-glow.semantic": {
       "$value": "{shadow.accent-glow}",
-      "$description": "Optional outer glow under primary CTAs. Warp signature."
+      "$description": "v0.13 — renamed from shadow.accent-glow → shadow.accent-glow.semantic to avoid the self-referencing collision with the primitive `shadow.accent-glow` (the alias resolved to itself in v0.12.6 — silent in SD v4, fatal in SD v5). v0.12.6 consumers of `shadow.accent-glow` continue to resolve correctly because the primitive provides the value directly. This semantic re-export carries the role context: optional outer glow under primary CTAs — the Warp signature."
     },
     "input": {
       "$description": "v0.6 — input field shell shadows. Composed: lit-edge (rest) + focus/error halo (active state). Apply to .lumen-field wrapper, never to the inner <input>. v0.11.13 — focus + success refs to spring-green primitives, error refs to refined v0.11 danger primitive.",

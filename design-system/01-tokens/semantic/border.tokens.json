@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Lumen v0.13 — Phase 0 semantic border namespace. Aliases the existing v0.12.6 `color.border.*` semantic tokens under a flatter `border.*` namespace. The master doc names 6 core roles (hairline, default, strong, frame, accent, focus); Lumen v0.12.6 also ships subtle/error/success/warning/disabled. `border.frame` is the brutalist hairline — explicitly named here as the master doc requires; the v0.12.6 description (`v0.4 — brutalist hairline frame border, hairline-strong`) is preserved verbatim.",
+  "border": {
+    "$type": "color",
+    "hairline": { "$value": "{color.border.hairline}", "$description": "Default hairline — the breathing-room separator (per principles §1, §3). Light: ink-alpha-6%. Dark: paper-alpha-6%. Aliases color.border.hairline." },
+    "subtle":   { "$value": "{color.border.subtle}",   "$description": "Subtle border — one step up from hairline. Aliases color.border.subtle." },
+    "default":  { "$value": "{color.border.default}",  "$description": "Standard control border. Aliases color.border.default." },
+    "strong":   { "$value": "{color.border.strong}",   "$description": "Emphasis dividers. Aliases color.border.strong." },
+    "frame":    { "$value": "{color.border.frame}",    "$description": "THE BRUTALIST HAIRLINE FRAME — the v0.4 voice element. Hairline-strong stroke that frames hero cards, brand surfaces, signature shells. Light: ink-alpha-40%. Dark: paper-alpha-40%. Aliases color.border.frame. (Master doc names this as the canonical voice element.)" },
+    "accent":   { "$value": "{color.border.accent}",   "$description": "Spring-green hairline — accent surfaces. Aliases color.border.accent." },
+    "focus":    { "$value": "{color.border.focus}",    "$description": "Focus ring color — always paired with shadow.focus + the structural outline per hard rule 11. Light: accent.500. Dark: accent.400. Aliases color.border.focus." },
+    "error":    { "$value": "{color.border.error}",    "$description": "Input error border. Aliases color.border.error." },
+    "success":  { "$value": "{color.border.success}",  "$description": "Input success border. Aliases color.border.success." },
+    "warning":  { "$value": "{color.border.warning}",  "$description": "Input warning border. Aliases color.border.warning." },
+    "disabled": { "$value": "{color.border.disabled}", "$description": "Disabled input border. Aliases color.border.disabled." }
+  }
+}

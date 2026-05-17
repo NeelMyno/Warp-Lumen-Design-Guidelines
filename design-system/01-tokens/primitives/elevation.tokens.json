@@ -1,0 +1,74 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "shadow": {
+    "$type": "shadow",
+    "$description": "Hairline borders do most of the surface separation work in Lumen. Shadows are reserved for floating UI (popover, dropdown, modal, toast). Shadow color references color.alpha.shadow.* (anchored at a fixed neutral #0E1219) so the cast stays stable across brand recolours. accent-glow references color.alpha.accent.24 — when the brand accent retunes (lime → spring green in v0.11), the glow inherits automatically. v0.11.13 — every inline `rgba(14,18,25,X)` and `rgba(74,222,128,0.24)` was migrated to the corresponding alpha.* primitive ref so the master→child inheritance chain holds. v0.13 — file renamed primitives/shadow.tokens.json → primitives/elevation.tokens.json per master doc Phase 0; the `shadow.*` namespace is preserved verbatim. Three new tokens land: `shadow.glass` (floating shell with backdrop-filter), `shadow.focus` (the focus halo, moved up from semantic), `shadow.glow-accent` (3-layer Spring Green ambient — the master doc's named signature shadow, composed from the existing accent-glow plus two outer atmospheric layers).",
+    "xs": {
+      "$value": [
+        { "color": "{color.alpha.shadow.04}", "offsetX": "0px", "offsetY": "1px", "blur": "1px",  "spread": "0px" }
+      ]
+    },
+    "sm": {
+      "$value": [
+        { "color": "{color.alpha.shadow.05}", "offsetX": "0px", "offsetY": "1px", "blur": "2px",  "spread": "0px" },
+        { "color": "{color.alpha.shadow.04}", "offsetX": "0px", "offsetY": "1px", "blur": "3px",  "spread": "0px" }
+      ]
+    },
+    "md": {
+      "$value": [
+        { "color": "{color.alpha.shadow.05}", "offsetX": "0px", "offsetY": "2px",  "blur": "4px",  "spread": "0px" },
+        { "color": "{color.alpha.shadow.05}", "offsetX": "0px", "offsetY": "4px",  "blur": "12px", "spread": "0px" }
+      ]
+    },
+    "lg": {
+      "$value": [
+        { "color": "{color.alpha.shadow.05}", "offsetX": "0px", "offsetY": "4px",  "blur": "8px",  "spread": "0px" },
+        { "color": "{color.alpha.shadow.06}", "offsetX": "0px", "offsetY": "12px", "blur": "24px", "spread": "0px" }
+      ]
+    },
+    "xl": {
+      "$value": [
+        { "color": "{color.alpha.shadow.06}", "offsetX": "0px", "offsetY": "8px",  "blur": "16px", "spread": "0px" },
+        { "color": "{color.alpha.shadow.08}", "offsetX": "0px", "offsetY": "24px", "blur": "48px", "spread": "0px" }
+      ]
+    },
+    "2xl": {
+      "$value": [
+        { "color": "{color.alpha.shadow.06}", "offsetX": "0px", "offsetY": "16px", "blur": "32px", "spread": "0px" },
+        { "color": "{color.alpha.shadow.10}", "offsetX": "0px", "offsetY": "40px", "blur": "80px", "spread": "0px" }
+      ]
+    },
+    "inset": {
+      "$value": [
+        { "color": "{color.alpha.shadow.04}", "offsetX": "0px", "offsetY": "1px", "blur": "1px", "spread": "0px", "inset": true }
+      ]
+    },
+    "accent-glow": {
+      "$value": [
+        { "color": "{color.alpha.accent.24}", "offsetX": "0px", "offsetY": "14px", "blur": "34px", "spread": "0px" }
+      ],
+      "$description": "Warp's signature green-glow under primary CTAs. v0.11.13 — color now references {color.alpha.accent.24} (spring green #00FA8A at 0.24) so it inherits the v0.11 brand recolor automatically. Pre-v0.11.13 the colour was inlined as v0.4 lime rgba(74,222,128,0.24), creating a master-child drift that the runtime CSS already corrected but the source token did not."
+    },
+    "glow-accent": {
+      "$value": [
+        { "color": "{color.alpha.accent.24}", "offsetX": "0px", "offsetY": "14px", "blur": "34px", "spread": "0px" },
+        { "color": "{color.alpha.accent.12}", "offsetX": "0px", "offsetY": "0px",  "blur": "60px", "spread": "0px" },
+        { "color": "{color.alpha.accent.08}", "offsetX": "0px", "offsetY": "0px",  "blur": "120px","spread": "0px" }
+      ],
+      "$description": "v0.13 NEW — the master doc's named signature shadow. Three-layer Spring Green ambient: (1) the v0.11 accent-glow inner halo at offset 14 / blur 34 — preserves the v0.11 CTA voice verbatim; (2) middle atmospheric layer at blur 60 (alpha 0.12) — adds the ambient glow extent the master doc references; (3) outer atmospheric layer at blur 120 (alpha 0.08) — the wide soft falloff. Reserved for hero CTAs + brand-signature moments (landing-hero primary action, AI surface state badges). NOT on operator dashboards — restrained mode opts out via mode rebind. The single-layer `shadow.accent-glow` remains the canonical glow for product CTAs."
+    },
+    "glass": {
+      "$value": [
+        { "color": "{color.alpha.shadow.10}", "offsetX": "0px", "offsetY": "16px", "blur": "40px", "spread": "0px" },
+        { "color": "{color.alpha.paper.10}",  "offsetX": "0px", "offsetY": "1px",  "blur": "0px",  "spread": "0px", "inset": true }
+      ],
+      "$description": "v0.13 NEW — floating-shell shadow for glass surfaces (popover, sheet, command palette, hero device frame, nav). Composes the soft outer lift (16/40 at shadow.10) with the 1px lit inset top edge (the glass-pane reflection trick). ONLY paint on floating shells that ALSO carry backdrop-filter; never on canvas, data table, table row, table cell. Pair with `@supports not (backdrop-filter)` fallback to solid surface, and `@media (prefers-reduced-transparency: reduce)` → alpha bumped to ≥ 0.85."
+    },
+    "focus": {
+      "$value": [
+        { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+      ],
+      "$description": "v0.13 NEW (lifted from semantic) — focus halo at spread 3px, accent at alpha 0.32. Pairs with the `outline: 2px solid var(--lumen-accent-a64); outline-offset: 1px;` structural ring per AGENTS hard rule 11 (the `outline + box-shadow` contract closes the v0.12.4 corner-clip regression). The structural outline survives ancestor `overflow: hidden`; the box-shadow halo paints the brand voice when unclipped. semantic/shadow.tokens.json still re-exposes this as `shadow.focus` for backwards compat."
+    }
+  }
+}
