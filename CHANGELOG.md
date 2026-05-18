@@ -10,6 +10,35 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.12.8] — 2026-05-18 — Interactive variant pickers fix pack · color + size buttons on the Commerce PDP now respond to clicks instead of pretending to
+
+Round 2 of the same-day live audit went deeper than round 1 — every clickable, hoverable, expandable primitive across all eight surfaces in both dark and light mode. Round 1 had been a visual / scroll-bleed pass; round 2 was the interaction pass. Most primitives passed: Combobox autocomplete opens and filters, Calendar popover navigates months, FAQ accordion expands with the lucide chevron, command palette ⌘K navigates routes, theme toggle persists to localStorage and re-renders. One interaction defect surfaced — the Commerce product-detail variant pickers.
+
+### Fixed
+
+- **Commerce PDP color + size pickers are no longer inert showcase mockups.** The R2 audit walked the storefront in dark mode + light mode and caught it: clicking any color swatch (Storm Navy / Ranger Tan / Slate) produced no visual feedback. The ring stayed on Olive Drab and the "Color · Olive Drab" label never changed. Same for the size grid — clicking S / L / XL / XXL didn't move the bordered selected state away from M. The page rendered like a working product detail but failed at the first click — the WORST possible failure mode on a peak-decision surface per Premium Psychology principle 3.
+  - **Root cause:** [`audit-dashboard/src/app/commerce/page.tsx`](audit-dashboard/src/app/commerce/page.tsx) `Buy()` function rendered swatch selection via `i === 0 ? selected-shadow : unselected-shadow` and size selection via `s === "M" ? selected-border : unselected-border` — no `useState`, no `onClick`, no controlled variant. Pure static showcase.
+  - **Fix:** extracted `Buy` to a small `"use client"` island at [`audit-dashboard/src/app/commerce/buy.client.tsx`](audit-dashboard/src/app/commerce/buy.client.tsx). Real `useState<string>` for color + size, `onClick` handlers wired to setters, `aria-pressed` reflecting selected state, and a visible `focus-visible:shadow-[var(--shadow-focus)]` ring for keyboard users. The label now reads `Color · {currentColor}` and tracks the selection. The swatch ring moves on every click. The size border tracks the chosen size. Reused the same hex / size constants from the original — visual character unchanged in rest state.
+  - **Architecture preserved:** [`audit-dashboard/src/app/commerce/page.tsx`](audit-dashboard/src/app/commerce/page.tsx) stays a server component so `metadata.title = "Commerce · Lumen"` keeps working. Only the interactive Buy subtree opted into client rendering — minimum-surface-area client island. Unused server-only icon imports (`ArrowRight` / `Check` / `ChevronDown` / `Badge`) pruned in the same change since they all moved into the client island.
+
+### Changed
+
+- **`VERSION` → `0.12.8`.**
+- **[`audit-dashboard/src/lib/version.ts`](audit-dashboard/src/lib/version.ts) `LUMEN_VERSION` → `"v0.12.8"`** — every rendered version label tracks via the SSOT (header pill, footer line, foundations hero chip, library / tool hero chips, command palette footer).
+
+### Notes — round 2 also surfaced these, deliberately not changed
+
+- **Lumen `Select` primitive uses a native HTML `<select>`.** Synthetic `.click()` and computer-tool clicks don't open the OS dropdown — that's expected. The companion `Combobox` is the portaled custom variant for autocomplete; it opens and filters correctly. Documented in audit log.
+- **Toolbar kebab "⋯" Button is a static showcase.** It demonstrates the *shape* of a "more actions" affordance — not a working DropdownMenu trigger. The MenuList showcase renders the menu open inline as a visual demo of the items + shortcut + danger-item layout.
+- **MoodSwitcher hides until `MOODS.length > 1`.** Currently the array has one entry (`"obsidian"`), so the switcher early-returns null. Future-proofed for the next palette without touching the component.
+- **Tooltip clamps to viewport edge** on the `/library` "Hover me" trigger near the left rail — that's Radix's collision-detection working correctly per WCAG 1.4.13 (the tooltip stays fully visible / dismissible / hoverable).
+- **Light-mode accent is darker than `#00FA8A`** — `--lumen-accent-4` tone-shifts to maintain contrast against the white surface. Brand integrity preserved: same canonical Spring Green hex still serves dark mode; light mode runs the contrast-corrected partner.
+- **Responsive (sub-768 px) sweep was BLOCKED** — the Claude in Chrome `resize_window` MCP tool resizes the outer browser window but doesn't propagate to `window.innerWidth` / the rendering viewport, so `sm:` / mobile breakpoints couldn't be exercised live. Source-level `md:` / `sm:` Tailwind utilities are present in `landing/page.tsx` and `dashboard-shell.tsx`. Next audit pass should wire device emulation.
+
+Full audit log preserved at [`.audit-runs/2026-05-18-round-2/ISSUES.md`](.audit-runs/2026-05-18-round-2/ISSUES.md) (per-route light-mode verdict table + every "by-design vs. bug" classification with rationale).
+
+---
+
 ## [0.12.7] — 2026-05-18 — Sticky-nav chrome-bleed fix pack · seal the header so lime-halo CTAs stop tinting the brand stroke when scrolled
 
 A two-round live visual audit walked all eight surfaces (foundations, library, saas, landing, tool, commerce, mobile, desktop), clicking every overlay, hovering every interactive primitive, scrolling the full length of each page in Edge on macOS. The audit caught a single architectural defect compounding across every route plus a console-warning that had been masking a subtle controlled-vs-uncontrolled input regression. v0.12.7 fixes the architectural defect at the chrome layer, eliminates the console warning at the primitive layer, and stamps the system version through the SSOT.

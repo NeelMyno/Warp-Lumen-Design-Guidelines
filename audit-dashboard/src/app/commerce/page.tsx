@@ -1,13 +1,19 @@
 import { PageHeader } from "@/components/section";
 import { Card } from "@/components/primitives/card";
-import { Badge } from "@/components/primitives/badge";
 import { Button, IconButton } from "@/components/primitives/button";
 import { Stat } from "@/components/primitives/stat";
 import { Avatar } from "@/components/primitives/avatar";
 import { Breadcrumb } from "@/components/primitives/breadcrumb";
-import {
-  ArrowRight, Cart, Check, Search, User, ChevronDown, Plus,
-} from "@/components/primitives/icon";
+// v0.12.8 — pruned ArrowRight / Check / ChevronDown / Badge (now imported
+// inside buy.client.tsx) from this server file. Cart, Search, User, Plus
+// stay — they're consumed by the storefront chrome + announcement bar.
+import { Cart, Search, User, Plus } from "@/components/primitives/icon";
+// v0.12.8 — Buy panel extracted to a client island. The R2 audit caught
+// the color + size pickers as hardcoded showcase mockups with no useState;
+// clicks produced no visual feedback. The client island wires real state
+// so the swatch ring + "Color · {name}" label + size border track the
+// user's selection. See buy.client.tsx for rationale.
+import { Buy } from "./buy.client";
 
 export const metadata = { title: "Commerce · Lumen" };
 
@@ -185,105 +191,10 @@ function Gallery() {
   );
 }
 
-function Buy() {
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <div className="lumen-eyebrow mb-2">Workhorse Series</div>
-        <h1 className="text-display-md md:text-display-lg">
-          Field Jacket Mk II
-        </h1>
-        <div className="mt-3 flex items-baseline gap-3">
-          <span className="lumen-mono lumen-tnum text-heading-h2">$248</span>
-          <span className="lumen-mono lumen-tnum text-body-md text-[color:var(--text-tertiary)] line-through">$320</span>
-          <Badge status="accent">22% off</Badge>
-        </div>
-      </div>
-
-      <p className="text-body-md text-[color:var(--text-secondary)] max-w-[52ch]">
-        Waxed organic cotton, branched seams, two-way main zip. Built to take a beating and to age the way good things do.
-      </p>
-
-      <div>
-        <div className="lumen-eyebrow mb-3">Color · Olive Drab</div>
-        <div className="flex gap-2">
-          {[
-            ["#525c44", "Olive Drab"],
-            ["#1a1f29", "Storm Navy"],
-            ["#7a6042", "Ranger Tan"],
-            ["#454545", "Slate"],
-          ].map(([hex, name], i) => (
-            <button
-              key={name}
-              aria-label={name}
-              className="h-control-cozy w-[var(--size-control-cozy)] rounded-full transition-shadow"
-              style={{
-                background: hex,
-                boxShadow: i === 0
-                  ? "0 0 0 2px var(--surface-page), 0 0 0 4px var(--text-primary)"
-                  : "0 0 0 2px var(--surface-page), 0 0 0 3px var(--border-default)",
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <div className="flex items-baseline justify-between mb-3">
-          <div className="lumen-eyebrow">Size</div>
-          <a href="#" className="text-micro text-[color:var(--text-tertiary)] hover:text-[color:var(--text-primary)] underline underline-offset-2">Size guide</a>
-        </div>
-        <div className="grid grid-cols-6 gap-[var(--space-1_5)]">
-          {sizes.map((s) => (
-            <button
-              key={s}
-              className={[
-                "h-10 rounded-[var(--radius-md)] border text-label-sm transition-colors",
-                s === "M"
-                  ? "border-[var(--text-primary)] bg-[var(--surface-raised)] text-[color:var(--text-primary)]"
-                  : "border-[var(--border-hairline)] text-[color:var(--text-secondary)] hover:border-[var(--border-strong)] hover:text-[color:var(--text-primary)]",
-              ].join(" ")}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2 mt-2">
-        <Button intent="primary" size="lg" leadingIcon={<Cart size={16} />}>
-          Add to cart · $248
-        </Button>
-        <Button intent="secondary" size="md" trailingIcon={<ArrowRight size={14} />}>
-          Buy with shop pay
-        </Button>
-        <p className="text-body-xs text-[color:var(--text-secondary)] mt-2 flex items-start gap-2">
-          <Check size={14} /> Ships in 2 days · 30-day returns · Lifetime repair
-        </p>
-      </div>
-
-      <details className="border-t border-[var(--border-hairline)] pt-4 group">
-        <summary className="flex justify-between cursor-pointer text-label-lg">
-          Materials & care
-          <ChevronDown size={14} className="group-open:rotate-180 transition-transform" />
-        </summary>
-        <p className="mt-2 text-body-sm text-[color:var(--text-secondary)]">
-          11oz organic cotton, beeswax-finished. Spot clean. Re-wax annually with our Tin No. 4.
-        </p>
-      </details>
-      <details className="border-t border-[var(--border-hairline)] pt-4 group">
-        <summary className="flex justify-between cursor-pointer text-label-lg">
-          Shipping & returns
-          <ChevronDown size={14} className="group-open:rotate-180 transition-transform" />
-        </summary>
-        <p className="mt-2 text-body-sm text-[color:var(--text-secondary)]">
-          Free freight on orders over $200, fulfilled by Warp. 30-day no-questions returns.
-        </p>
-      </details>
-    </div>
-  );
-}
+// v0.12.8 — Buy moved to ./buy.client.tsx as a client island so color + size
+// pickers can track real useState instead of hardcoding `i === 0` / `s === "M"`.
+// Importing here keeps the page a server component (metadata export intact)
+// while the small interactive island handles the user's variant decisions.
 
 function Stars({ value, size = 16 }: { value: number; size?: number }) {
   const full = Math.floor(value);
