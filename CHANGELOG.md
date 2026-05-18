@@ -10,6 +10,46 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.12.9] — 2026-05-18 — Round 3 fix pack · Calendar goes dynamic, iOS StatusBar stops truncating, Tool preset list becomes interactive
+
+Round 3 of the same-day live audit walked every clickable / hoverable / expandable element with a focus on the gaps round 1 (visual chrome bleed → v0.12.7) and round 2 (Commerce PDP variant pickers → v0.12.8) skipped: pickers, mobile frames, sidebar lists, modal triggers vs. modal showcases, every keyboard-focusable element. Three real interaction / visual bugs surfaced. Every one is fixed.
+
+### Fixed
+
+- **`DatePickerCalendar` day-of-week alignment is now dynamic instead of frozen on whatever month the showcase was authored against.** Prior render hardcoded `cells = Array.from({length:35}, (_,i) => i-2)` plus `isToday = day === 12`. The 2-cell prefix only happened to land May 1 on the right column for the showcase's original authoring month; the live audit caught day "1" sitting in the Thursday column even though May 1, 2026 was a Friday, and the "today" ring fixed to May 12 instead of today. The fix in [inputs.tsx:706-781](audit-dashboard/src/components/primitives/inputs.tsx#L706) computes month / year / Mon-start day-of-week offset / today / selected at render time from `new Date()`, with optional `today` and `selected` props for callers that need pinned screenshots. 42 cells (6 weeks) cover the worst-case 31-day month starting on Sunday without a ragged tail. Pinned-snapshot showcases drift quietly — dynamic is the only correct contract for a primitive that documents "this is what a calendar should look like."
+- **`StatusBar` carrier text stops getting truncated by the iOS dynamic-island blob.** The 112×28 px island at top-center sits in the same visual layer as the right-anchored carrier+icons group; "Verizon" was reading as "...on" in every iOS `PhoneFrame` showcase. Modern iOS 17+ doesn't render the carrier in the status bar at all (it moved to Control Center years ago) — we now follow suit by dropping the `carrier = "Verizon"` default. The prop is preserved for Android frame showcases that explicitly pass `carrier="T-Mobile"`, which render correctly because the Android punch-hole is tiny. See [mobile.tsx:45-65](audit-dashboard/src/components/primitives/mobile.tsx#L45).
+- **Tool surface preset list (LEFT sidebar) now actually moves the active accent on click.** The prior server-rendered shell hardcoded `{name: "Standard LTL", active: true}` with no `useState` and no `onClick`; clicking Refrigerated / Flatbed / Cross-dock / Last-mile / International got a hover-state background change but the accent ring stayed glued to Standard LTL. Same class of bug as v0.12.8's Commerce variant pickers — a peak-moment interactive that lied about being interactive on a peak surface (preset choice is the first interaction on /tool — Premium Psychology principle 3, peak-end rule). The fix extracts the list to a client island [`tool/presets.client.tsx`](audit-dashboard/src/app/tool/presets.client.tsx) with real `useState<string>`, an `onClick` handler, `aria-current="page"` on the active item, and a `:focus-visible` outline + offset ring per the v0.12.4 contract. `page.tsx` stays a server component so metadata is preserved.
+
+### Changed
+
+- `LUMEN_VERSION` → `"v0.12.9"`; `VERSION` → `0.12.9`.
+
+### Why round 3 found bugs round 1 and round 2 missed
+
+Round 1 walked the routes visually (scroll only) and caught chrome-bleed at the sticky header. Round 2 opened overlays / tested light mode / clicked variant pickers and caught the Commerce PDP defect. Round 3 was the **picker / sidebar list / dynamic-render** pass — the places where rest-state rendering looks fine in a screenshot but the underlying contract is wrong. Pinned-date showcases (Calendar) drift silently as the calendar literally never changes month-to-month. Static-array sidebar lists (Tool presets) look interactive — they have hover states, a transition, an "active" pill — but the active flag is a build-time literal. Status-bar overlap with the iOS notch only became visible once we read every status-bar showcase pixel for pixel. None of these are visible at the resolution of "does the route look right when you scroll past it" — they all require either deep render-state inspection or visiting the surface at a specific moment in time.
+
+### Deliberately not changed
+
+- **Pricing card hover lift** — initial JS introspection via `document.styleSheets[].cssRules` returned zero arbitrary `hover:[...]` Tailwind utilities, looking like a project-wide drop. Direct fetch of the compiled CSS confirmed all 113 hover utilities are present; Tailwind v4 wraps them in `@layer` blocks which `document.styleSheets[].cssRules` doesn't enumerate flatly. The pricing-card lift on Operator (highlighted) glows correctly on hover; the Starter/Enterprise cards apply `translate: 0px -1px` via the modern `translate:` property (not the legacy `transform:`). No-op.
+- **Modal layer "showcases" on /library** (Send-quote dialog, Delete-carrier alert, Filters drawer, cookie banner, Materials accordion) — verified to be visual shape references rather than triggerable overlays, by design. The interactive modal layer lives where it belongs (Combobox in Selection — works; FAQ on /landing — works; ⌘K command palette — works).
+- **SaaS segmented "All / Active / Done"** — clicking moves the active pill correctly (`aria-selected` flips, `data-state` updates). The shipments table doesn't actually filter — the rows are hardcoded — but the segmented control itself responds.
+- **Switches on /tool Accessorials** — `defaultChecked` + Radix uncontrolled API → toggle correctly. No fix needed.
+- **Showcase buttons that fire no action** (Get rates / Reset / Add cargo row / Book now / View JSON / Save preset / New shipment) — these are surface visuals, not application logic. /tool isn't a real quoting backend.
+- **`/library` Dropdown menu kebab `⋯`** — a static `Button` showcase, not a Radix DropdownMenu trigger. R2 verified this was by-design.
+
+### Files touched
+
+- New: [`audit-dashboard/src/app/tool/presets.client.tsx`](audit-dashboard/src/app/tool/presets.client.tsx) — client island for the preset list state.
+- Modified: [`audit-dashboard/src/app/tool/page.tsx`](audit-dashboard/src/app/tool/page.tsx) — inline preset list replaced by `<PresetList />` import; `Plus` icon import retained (still used by the Cargo "Add" button).
+- Modified: [`audit-dashboard/src/components/primitives/inputs.tsx`](audit-dashboard/src/components/primitives/inputs.tsx) — `DatePickerCalendar` rewritten to compute month / year / day-of-week / today from `new Date()` at render time.
+- Modified: [`audit-dashboard/src/components/primitives/mobile.tsx`](audit-dashboard/src/components/primitives/mobile.tsx) — `StatusBar` `carrier` default dropped; `<span>` only renders when truthy.
+- Modified: [`audit-dashboard/src/lib/version.ts`](audit-dashboard/src/lib/version.ts) — `LUMEN_VERSION` → `"v0.12.9"`. Header pill, footer line, palette footer, library / tool / foundations brand-voice chips all propagate via this constant per v0.12.5 SSOT contract.
+- Modified: `VERSION` → `0.12.9`.
+- New: [`.audit-runs/2026-05-18-round-3/ISSUES.md`](.audit-runs/2026-05-18-round-3/ISSUES.md) — per-finding root cause + per-surface verification.
+- Banner refresh: `AGENTS.md`, `CLAUDE.md` top notes updated to v0.12.9.
+
+---
+
 ## [0.12.8] — 2026-05-18 — Interactive variant pickers fix pack · color + size buttons on the Commerce PDP now respond to clicks instead of pretending to
 
 Round 2 of the same-day live audit went deeper than round 1 — every clickable, hoverable, expandable primitive across all eight surfaces in both dark and light mode. Round 1 had been a visual / scroll-bleed pass; round 2 was the interaction pass. Most primitives passed: Combobox autocomplete opens and filters, Calendar popover navigates months, FAQ accordion expands with the lucide chevron, command palette ⌘K navigates routes, theme toggle persists to localStorage and re-renders. One interaction defect surfaced — the Commerce product-detail variant pickers.

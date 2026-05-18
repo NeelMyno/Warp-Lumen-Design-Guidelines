@@ -41,13 +41,21 @@ export function PhoneFrame({
   );
 }
 
-/* ─────────────────────────  STATUS BAR  ───────────────────────── */
-export function StatusBar({ time = "9:41", carrier = "Verizon" }: { time?: string; carrier?: string }) {
+/* ─────────────────────────  STATUS BAR  ─────────────────────────
+   v0.12.9 — the `carrier` default of "Verizon" was being truncated to
+   "...on" inside every iOS PhoneFrame in the live audit because the
+   112×28 px dynamic-island blob at the top-center occluded the
+   carrier text's left edge. Modern iOS 17+ doesn't render the carrier
+   name in the status bar at all (it moved to Control Center years
+   ago); we now follow suit by leaving `carrier` undefined by default.
+   Android frame showcases still pass `carrier="T-Mobile"` explicitly
+   and render correctly because the Android punch-hole is tiny. */
+export function StatusBar({ time = "9:41", carrier }: { time?: string; carrier?: string }) {
   return (
     <div className="h-10 px-5 flex items-center justify-between text-[12px] font-semibold lumen-mono text-[color:var(--text-primary)] shrink-0">
       <span>{time}</span>
       <div className="flex items-center gap-[var(--space-1_5)]">
-        <span className="hidden sm:inline">{carrier}</span>
+        {carrier && <span className="hidden sm:inline">{carrier}</span>}
         <SignalHigh size={14} strokeWidth={2} aria-hidden focusable={false} />
         <Wifi size={14} strokeWidth={2} aria-hidden focusable={false} />
         <BatteryFull size={18} strokeWidth={1.5} aria-hidden focusable={false} />

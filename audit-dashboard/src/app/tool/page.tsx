@@ -12,6 +12,9 @@ import {
   ArrowRight, Code, Plus, Box, Filter,
 } from "@/components/primitives/icon";
 import { LUMEN_VERSION } from "@/lib/version";
+// v0.12.9 — preset list moved to a client island so clicks actually
+// move the active highlight. See presets.client.tsx for the rationale.
+import { PresetList } from "./presets.client";
 
 export const metadata = { title: "Web Tool · Lumen" };
 
@@ -48,30 +51,7 @@ export default function ToolPage() {
         <div className="grid grid-cols-[260px_1fr_320px] min-h-[680px]">
           {/* LEFT — presets */}
           <aside className="border-r border-[var(--border-hairline)] bg-[var(--surface-raised)] p-3 flex flex-col gap-1">
-            <div className="lumen-eyebrow px-2 mb-2">Presets</div>
-            {[
-              { name: "Standard LTL", active: true },
-              { name: "Refrigerated" },
-              { name: "Flatbed open-deck" },
-              { name: "Cross-dock express" },
-              { name: "Last-mile residential" },
-              { name: "International ocean" },
-            ].map((p) => (
-              <button
-                key={p.name}
-                className={[
-                  "text-left px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-label-sm transition-colors duration-[var(--motion-fast)]",
-                  p.active
-                    ? "bg-[var(--surface-tint-accent)] text-[color:var(--text-primary)] font-semibold"
-                    : "text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)]",
-                ].join(" ")}
-              >
-                {p.name}
-              </button>
-            ))}
-            <button className="mt-3 flex items-center gap-2 px-3 py-[var(--space-1_5)] rounded-[var(--radius-md)] text-[color:var(--text-tertiary)] text-body-xs hover:bg-[var(--surface-sunken)] hover:text-[color:var(--text-primary)] transition-colors">
-              <Plus size={13} /> New preset
-            </button>
+            <PresetList />
 
             <div className="mt-auto px-2 pt-3 border-t border-[var(--border-hairline)]">
               <div className="lumen-eyebrow mb-2">Templates</div>

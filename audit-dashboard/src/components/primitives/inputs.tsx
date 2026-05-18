@@ -703,13 +703,57 @@ export function DatePicker({ value }: { value?: string }) {
   );
 }
 
-export function DatePickerCalendar() {
+/**
+ * Calendar popover showcase.
+ *
+ * v0.12.9 — went dynamic. Prior versions hardcoded "May 2026" with a
+ * 2-cell prefix offset (`Array.from({length:35}, (_,i) => i-2)`) and
+ * `isToday = 12`. The offset and "today" marker only happened to align
+ * with whatever month the showcase was authored against; the live R3
+ * audit caught day "1" rendering in the Thursday column when May 1,
+ * 2026 was actually a Friday, plus the today ring sitting on May 12
+ * instead of today. Pinned-snapshot showcases drift quietly — dynamic
+ * is the only correct contract for a date primitive that documents
+ * "this is what a calendar should look like."
+ *
+ * The render now computes month/year/today from `new Date()` (default)
+ * or from optional `today` + `selected` props for callers that need a
+ * pinned screenshot. The week is Monday-start (matches the column
+ * labels). 42 cells (6 weeks) covers the worst-case month — a 31-day
+ * month starting on Sunday — without a ragged final row.
+ */
+const MONTH_LABELS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+export function DatePickerCalendar({
+  today: todayProp,
+  selected: selectedProp,
+}: {
+  today?: Date;
+  selected?: Date;
+} = {}) {
+  const today = todayProp ?? new Date();
+  const selected = selectedProp ?? new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
   const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-  const cells = Array.from({ length: 35 }, (_, i) => i - 2);
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  // Mon-start day-of-week index for the 1st of the month (0=Mon..6=Sun)
+  const monStartOffset = (new Date(year, month, 1).getDay() + 6) % 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  // 42 cells = 6 rows × 7 cols so every month fits without a ragged tail
+  const cells = Array.from({ length: 42 }, (_, i) => i - monStartOffset + 1);
+  const isSameMonth = (d: Date) =>
+    d.getFullYear() === year && d.getMonth() === month;
+  const todayDay = isSameMonth(today) ? today.getDate() : -1;
+  const selectedDay = isSameMonth(selected) ? selected.getDate() : -1;
   return (
     <div className="inline-block rounded-[var(--radius-lg)] border border-[var(--border-default)] bg-[var(--surface-popover)] shadow-[var(--shadow-popover)] p-3 w-[260px]">
       <div className="flex items-center justify-between mb-2 px-1">
-        <span className="text-body-sm font-semibold tracking-tight">May 2026</span>
+        <span className="text-body-sm font-semibold tracking-tight">
+          {MONTH_LABELS[month]} {year}
+        </span>
         {/* v0.12.1 — month-nav glyphs swapped from literal `‹` / `›` to the
             ChevronLeft / ChevronRight icon components, matching the v0.11.15
             Pagination cleanup. The literal arrow chars optical-shrink in
@@ -732,9 +776,9 @@ export function DatePickerCalendar() {
       </div>
       <div className="grid grid-cols-7 gap-1">
         {cells.map((d, i) => {
-          const day = d > 0 && d <= 31 ? d : null;
-          const isToday = day === 12;
-          const isSel = day === 19;
+          const day = d > 0 && d <= daysInMonth ? d : null;
+          const isToday = day === todayDay;
+          const isSel = day === selectedDay;
           return (
             <button
               key={i}
