@@ -4,6 +4,25 @@
 /* shadcn/ui animation utilities (compatible with Radix primitives' data-state). */
 @custom-variant dark (&:is([data-theme="dark"] *));
 
+/* v0.13.1 R5-011 — Responsive safety net.
+   Without this, any descendant whose intrinsic min-content exceeds the
+   viewport (a long unbreakable display heading, a wide table row, a
+   fixed-pixel showcase frame) inflates the layout viewport horizontally
+   and pushes <body>.scrollWidth past `device-width`. Mobile Safari +
+   Chrome mobile emulation both report `window.innerWidth = body
+   scrollWidth` once that happens, which silently breaks `sm:` / `md:`
+   breakpoints because they measure against the inflated viewport.
+   `overflow-x: clip` on <html> AND <body> draws the cut INSIDE the
+   layout viewport without establishing a scroll container (unlike
+   `hidden`), so `position: sticky` on the header still anchors to its
+   intended scroll root. Applying to BOTH html and body covers the case
+   where some descendant's scrollWidth bubbles up to body but stops at
+   html — both layers explicitly clip horizontally. `overflow-y` stays
+   visible so the page still scrolls vertically as expected. R4 caught
+   this class of bug at the docs layer (banner version drift); R5 closes
+   it at the layout layer (mobile-viewport inflation). */
+html, body { overflow-x: clip; }
+
 /* ============================================================================
    LUMEN · v0.5 — METRIC-ALIGNED FONT FALLBACK
    ----------------------------------------------------------------------------
@@ -566,6 +585,17 @@
   --surface-tint-accent: var(--lumen-lime-a14);
   --surface-tint-strong: var(--lumen-lime-a24);
 
+  /* v0.13.1 R5-001 — Label overlay for labels-on-arbitrary-color. Used by the
+     SwatchRamp hover-state step-number chip and any future "label on a
+     saturated swatch" UX. Theme-invariant: the overlay rests on top of the
+     swatch's own color, not on the theme canvas, so dark and light themes
+     resolve to the same primitives. The 60% ink ladder rung is dark enough
+     to read on every step of every Lumen color ramp (verified against
+     accent-0..9, red-0..9, amber-0..9, and neutral-0..9 at 0.55–0.60 alpha
+     with white text — minimum contrast lands at 4.7:1 on accent-0 #E2FFF1). */
+  --label-overlay-strong: var(--lumen-ink-a60);
+  --label-overlay-fg:     var(--lumen-paper-pure);
+
   /* v0.6 — Input field surfaces. Aliased so the field shell can theme
      independently of card chrome. On dark: rest = raised; disabled = sunken;
      readOnly stays at rest contrast (only caret + interactivity differ). */
@@ -875,6 +905,12 @@
   --surface-inverse:    var(--lumen-obsidian-8);
   --surface-tint-accent: var(--lumen-lime-a08);
   --surface-tint-strong: var(--lumen-lime-a14);
+
+  /* v0.13.1 R5-001 — Same dark-ink overlay as dark mode. The label sits on
+     the swatch's own color, not on the cream canvas, so the overlay is
+     theme-invariant. */
+  --label-overlay-strong: var(--lumen-ink-a60);
+  --label-overlay-fg:     var(--lumen-paper-pure);
 
   /* v0.6 — Input field surfaces (light mode). Sunken cream gives an inset
      feel against the paper canvas; on focus we pop to paper-white. */

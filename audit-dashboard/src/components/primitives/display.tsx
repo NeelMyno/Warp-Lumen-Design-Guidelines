@@ -389,7 +389,15 @@ export function Kanban() {
               <span className="text-[length:var(--type-12)] font-semibold tracking-[var(--tracking-tight)]">{col.title}</span>
               <span className="text-[length:var(--type-11)] lumen-mono text-[color:var(--text-tertiary)]">{col.count}</span>
             </div>
-            <button className="h-6 w-6 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-raised)]"><Plus size={12} /></button>
+            {/* v0.13.1 R5-010 — was nameless. Kanban column "+" button now
+                carries an aria-label scoped to the column title so screen
+                readers announce "Add card to In progress" instead of "button". */}
+            <button
+              aria-label={`Add card to ${col.title}`}
+              className="h-6 w-6 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-raised)]"
+            >
+              <Plus size={12} />
+            </button>
           </div>
           <div className="flex flex-col gap-2 mt-2">
             {col.items.map((it) => (

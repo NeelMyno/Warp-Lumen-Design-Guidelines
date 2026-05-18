@@ -96,7 +96,17 @@ export function ProgressRing({
   const offset = c - (pct / 100) * c;
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-label={label} role="img">
+      {/* v0.13.1 R5-005 — when no label, the SVG is decorative (the visible
+          digit is the accessible value). When labelled, role="img" + aria-label
+          gives screen readers a single coherent value announcement. */}
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        {...(label
+          ? { role: "img" as const, "aria-label": `${label} ${Math.round(pct)}%` }
+          : { "aria-hidden": true })}
+      >
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--surface-sunken)" strokeWidth={stroke} />
         <circle
           cx={size / 2} cy={size / 2} r={r} fill="none"

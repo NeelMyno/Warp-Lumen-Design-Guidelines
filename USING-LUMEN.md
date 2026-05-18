@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.13.0 · 2026-05-18.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.13.1 · 2026-05-18.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -48,7 +48,7 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.13.0 — Premium Psychology · Obsidian (mint retired) · LLM-docs version lockstep + R4 comprehensive audit on top of the v0.12.x primitive cascade
+Lumen v0.13.1 — Premium Psychology · Obsidian (mint retired) · LLM-docs version lockstep + R4 comprehensive audit on top of the v0.12.x primitive cascade
 ─────────────────────────────────────────────────────────────────────────
 Brand
   Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
@@ -886,7 +886,7 @@ AGENTS.md                  ← universal agent rules (14 hard rules)
 CLAUDE.md                  ← Claude-specific addenda
 CONTRIBUTING.md            ← human contributor guide
 CHANGELOG.md               ← Keep-a-Changelog
-VERSION                    ← 0.12.5
+VERSION                    ← 0.13.1
 llms.txt                   ← LLM discovery index (14-rule playbook at the bottom)
 llms-full.txt              ← inlined version (single fetch for agents)
 package.json               ← build/validate/lint/registry/release scripts
@@ -933,4 +933,4 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-18 (v0.13.0).
+> Last reviewed against actual repo state: 2026-05-18 (v0.13.1).

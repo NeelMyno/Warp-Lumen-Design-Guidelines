@@ -885,10 +885,18 @@ export default function FoundationsPage() {
 function TypeRow({
   role, sample, cls, px, weight,
 }: { role: string; sample: React.ReactNode; cls: string; px: string; weight: string }) {
+  /* v0.13.1 R5-011 — TypeRow sample cell was rendering at full intrinsic
+     content-width which pushed the page past mobile viewport (the display-xxl
+     "Stop re-designing." at 128 px needs ~440 px to fit one line, inflating
+     <main> past 320–375 px viewports and triggering horizontal scroll on
+     /foundations). The display-ceiling crop is by-design at >= md per R4 — but
+     on mobile (< md) the crop should stay INSIDE the row, not bleed past the
+     viewport. min-w-0 lets the sample cell shrink below content size; overflow
+     hidden clips the bleed cleanly without affecting the grid math. */
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[160px_1fr_120px_56px] items-baseline gap-2 md:gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-[160px_minmax(0,1fr)_120px_56px] items-baseline gap-2 md:gap-6 min-w-0">
       <code className="text-eyebrow-mono text-[color:var(--text-tertiary)] font-semibold">{role}</code>
-      <div className={`${cls} text-[color:var(--text-primary)]`}>{sample}</div>
+      <div className={`${cls} text-[color:var(--text-primary)] min-w-0 overflow-hidden`}>{sample}</div>
       {/* lumen-lint-allow: typography — mono tabular at 11 px value; no semantic preset for 11px tabular */}
       <code className="lumen-mono lumen-tnum text-[length:var(--type-11)] text-[color:var(--text-tertiary)]">{px}</code>
       {/* lumen-lint-allow: typography — mono tabular at 11 weight value; no semantic preset for 11px tabular */}

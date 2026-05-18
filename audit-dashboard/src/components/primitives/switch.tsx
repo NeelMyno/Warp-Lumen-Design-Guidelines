@@ -18,6 +18,8 @@ export function Switch({
   label,
   description,
   id,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
 }: {
   checked?: boolean;
   defaultChecked?: boolean;
@@ -27,6 +29,12 @@ export function Switch({
   label?: string;
   description?: string;
   id?: string;
+  /* v0.13.1 R5-006 — accept aria-label / aria-labelledby for callers that
+     compose their own visible label (e.g. SwitchRow in /library showcase).
+     If neither label nor aria-* is supplied, Radix Switch ships nameless
+     and screen readers announce "switch, on" with no context. */
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }) {
   const generatedId = useId();
   const switchId = id ?? generatedId;
@@ -40,6 +48,8 @@ export function Switch({
         onCheckedChange={onCheckedChange}
         disabled={disabled}
         className="mt-1 shrink-0"
+        aria-label={!label && !ariaLabelledBy ? (ariaLabel ?? "Toggle") : ariaLabel}
+        aria-labelledby={ariaLabelledBy}
       />
       {(label || description) && (
         <div className="flex flex-col gap-1 leading-snug">

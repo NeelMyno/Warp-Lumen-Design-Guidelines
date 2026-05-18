@@ -95,10 +95,15 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
   return (
     <div className="inline-flex items-center gap-3">
       <span className={["text-[length:var(--type-13)]", value === "monthly" ? "text-[color:var(--text-primary)] font-medium" : "text-[color:var(--text-tertiary)]"].join(" ")}>Monthly</span>
+      {/* v0.13.1 R5-010 — was nameless. PricingToggle's button uses
+          aria-pressed but had no accessible name; the visible "Monthly /
+          Yearly" labels sit outside the button. Adding aria-label tells
+          screen readers what's being toggled. */}
       <button
         onClick={() => onChange(value === "monthly" ? "yearly" : "monthly")}
         className="relative h-6 w-11 rounded-full bg-[var(--surface-sunken)] border border-[var(--border-default)] transition-colors"
         aria-pressed={value === "yearly"}
+        aria-label={`Toggle billing period (currently ${value})`}
       >
         <span
           className="absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] shadow-[var(--shadow-xs)]"
@@ -226,10 +231,18 @@ export function ProductGallery({ count = 5 }: { count?: number }) {
   const [active, setActive] = useState(0);
   return (
     <div className="grid grid-cols-[64px_1fr] gap-3">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" role="tablist" aria-label="Product image gallery">
         {Array.from({ length: count }).map((_, i) => (
+          /* v0.13.1 R5-009 — thumbnail buttons were nameless. Now follow the
+             tablist + tab a11y pattern: visible thumb is the affordance, the
+             aria-label announces position ("View image 3 of 5"), aria-selected
+             tracks the active state, the main image area inherits the same
+             active index through React state. */
           <button
             key={i}
+            role="tab"
+            aria-label={`View image ${i + 1} of ${count}`}
+            aria-selected={i === active}
             onClick={() => setActive(i)}
             className={[
               "h-16 w-16 rounded-[var(--radius-md)] border bg-[var(--surface-sunken)] overflow-hidden transition-[border-color,box-shadow]",
@@ -438,12 +451,20 @@ export function TrustStrip() {
 export function ColorSwatchSelector({
   value,
   onChange,
+  /* v0.13.1 R5-003 — "Brick" was #e23b3b, the v0.9-retired red-5 that
+     fails AA at 3.94:1 contrast on the dark canvas (see globals.css §
+     `--destructive` history note). Even as a product-color literal, anchoring
+     a showcase to the retired-for-contrast red is a smell — replaced with
+     #a8403a (deeper brick, AA-pass on both canvas anchors, more accurate to
+     "brick" than fire-engine red anyway). These are PRODUCT swatches (literal
+     apparel shades on a Commerce PDP), not Lumen semantic tokens — hex
+     literals are correct here, but the value should be intentional. */
   options = [
     { color: "#1c1b16", label: "Charcoal" },
     { color: "#b3b1a4", label: "Pebble" },
     { color: "#4592e8", label: "Sky" },
     { color: "#22c55e", label: "Pine" },
-    { color: "#e23b3b", label: "Brick" },
+    { color: "#a8403a", label: "Brick" },
   ],
 }: {
   value: string;

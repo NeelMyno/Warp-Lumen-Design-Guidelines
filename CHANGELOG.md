@@ -6,7 +6,72 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.13.2] — 2026-05-18
+
+_See `[Unreleased]` for details; promote entries here on release._
+
+
 _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, Removed, Fixed, Security._
+
+---
+
+## [0.13.1] — 2026-05-18 — R5 responsive safety net + a11y closeout + primitive coverage gap (ADR 0024)
+
+R5 of the same-day live audit cycle. R4 (v0.13.0) explicitly carried forward the sub-768 px responsive sweep as blocked because `claude-in-chrome`'s `resize_window` MCP doesn't propagate to `window.innerWidth`. R5 unblocks by switching to `chrome-devtools-mcp emulate` (CDP-level viewport, propagates correctly to `innerWidth` + media-query matching), walks every route at 320 / 375 px mobile, and closes the systemic mobile-viewport inflation bug at the root layer. Plus R5 closes the R4-deferred primitive-coverage gap (5 `component.md` + 7 `examples/` files) and a wave of a11y findings the desktop walk had missed.
+
+### Added
+
+- **[ADR 0024 — Responsive safety net](_meta/decisions/0024-responsive-safety-net-v0131.md)** — `html, body { overflow-x: clip }` at the root of `audit-dashboard/src/app/globals.css`. Without this, any descendant whose intrinsic min-content exceeds the viewport (display-typography "Stop re-designing." at 128 px needs ~440 px; library showcase Cards need ~484 px) inflates `window.innerWidth` past the device width, silently breaking every `sm:` and `md:` Tailwind utility. `clip` (not `hidden`) is chosen because it doesn't establish a new scroll container — `position: sticky` on the v0.12.6 header chrome continues to anchor correctly. Verified at 320 px: `innerWidth` reports the actual viewport, `sm:` + `md:` breakpoints fire.
+- **5 new component contracts** — `design-system/02-components/{icon-button, button-group, split-button, command-palette-button, fab}/component.md`. R4-flagged as the original v0.1 baseline primitives that pre-dated the two-file contract requirement; R5 closes the gap with full prose covering when-to-use / when-not / a11y / sizes / intents / shape / pair-with.
+- **7 new example files** — `design-system/02-components/{field, textarea, select, checkbox, radio-group, switch, validation-message}/examples/primary.tsx`. Same R4 gap class — `component.md` + `component.json` existed but no `examples/` dir. New examples are `web-react` reference implementations.
+- **Switch + Checkbox now accept `aria-label` / `aria-labelledby`** — R5 caught that the Lumen `SwitchRow` pattern on `/library` wrapped a bare `<Switch>` in a `<label>` with a sibling `<span>`; HTML's implicit-label association does NOT propagate the accessible name to a `<button role="switch">`. New props give the wrapper pattern an a11y-correct path without forcing a visible label.
+- **`--label-overlay-strong` + `--label-overlay-fg` semantic tokens** — new theme-invariant tokens in both dark + light theme blocks for labels-on-arbitrary-color. SwatchRamp hover-state step-number chip is the canonical consumer; both themes resolve to `var(--lumen-ink-a60)` / `var(--lumen-paper-pure)` because the overlay rests on swatch color, not theme canvas.
+
+### Fixed
+
+- **R5-001** — `swatch.tsx` `SwatchRamp` hardcoded inline `rgba(0,0,0,0.55)` retired; now references `var(--label-overlay-strong)`. Closes one AGENTS hard-rule-1 violation.
+- **R5-002** — `inputs.tsx` `ColorPicker` legacy obsidian-mint `#171A18` (retired in v0.12 per ADR 0020) replaced with `#0D0D0D` neutral obsidian.
+- **R5-003** — `commerce.tsx` `ColorSwatchSelector` "Brick" color was `#e23b3b` — the v0.9-deprecated red-5 that fails AA at 3.94:1 contrast (per `globals.css §--destructive` history comment). Replaced with `#a8403a` (deeper brick, AA-pass).
+- **R5-005** — `progress.tsx` `ProgressRing` nameless SVG retired. Labelled instances announce full value ("Capacity 72%"); decorative instances stay out of the a11y tree.
+- **R5-006** — `library/client.tsx` `SwitchRow` accessibility-name retired via `aria-labelledby` on Switch; click-to-toggle UX preserved via onClick on label span. Cascades to all 8 SwitchRow showcase instances on `/library`.
+- **R5-007** — `inputs.tsx` `DatePickerCalendar` 12 empty-cell nameless `<button>` per calendar replaced with passive `<span aria-hidden>`. Day cells gained `aria-label` with full date string.
+- **R5-009** — `commerce.tsx` `ProductGallery` 5 nameless thumbnail buttons now ship `role="tab" + aria-selected + aria-label="View image N of M"`.
+- **R5-010** — Four more nameless icon buttons retired: `PricingToggle` ("Toggle billing period (currently monthly)"), Kanban column "+" ("Add card to {column.title}"), `ChatComposer` "+" ("Add attachment"), mobile-inbox search ("Search inbox").
+- **R5-011** — Mobile-viewport inflation closed at the root via ADR 0024 + per-element defense-in-depth: `TypeRow` grid cell at `minmax(0,1fr) ... min-w-0 overflow-hidden`; `dashboard-shell.tsx` containers swap `max-w-max` → `max-w-screen-2xl` at 3 sites.
+
+### Changed
+
+- **`Switch` + `Checkbox` primitive surface** — added `aria-label` and `aria-labelledby` to prop interface; fallback `aria-label="Toggle"` when no other label source is provided.
+- **`DatePickerCalendar` day cells** — each cell now carries `aria-label` with the full date string for screen-reader clarity.
+- **`ProductGallery` thumbnails** — now ship the tablist + tab a11y pattern.
+- **`dashboard-shell.tsx` containers** — `max-w-max` → `max-w-screen-2xl` at header + main + footer. `max-w-max` was sizing to widest single child; on mobile the typography display inflated the layout viewport.
+
+### Methodology contribution
+
+Each round of the audit-cycle ladder ramps the tooling along with the surface coverage:
+- **R1, R2, R3, R4** — `claude-in-chrome` at desktop 1500 × 812 px.
+- **R5** — `chrome-devtools-mcp emulate` at 320 / 375 px mobile (the R4-deferred axis).
+
+R3 had added "contract-comparison" as the third axis beyond R1's static walk + R2's interaction walk. R4 added "meta-contract integrity" (LLM-docs version drift) as the fourth. R5 adds "small-viewport metrics" as the fifth. Future cycles may add real-mobile-Safari for iOS-specific viewport bugs, offline / slow-network for loading-state correctness, reduced-motion + high-contrast for a11y-mode contracts.
+
+### Files touched
+
+- New: [`_meta/decisions/0024-responsive-safety-net-v0131.md`](_meta/decisions/0024-responsive-safety-net-v0131.md) — ADR.
+- New: [`.audit-runs/2026-05-18-round-5/ISSUES.md`](.audit-runs/2026-05-18-round-5/ISSUES.md) — R5 audit log.
+- New: 5 `component.md` + 7 `examples/primary.tsx` files across `design-system/02-components/`.
+- Modified: [`audit-dashboard/src/app/globals.css`](audit-dashboard/src/app/globals.css) — `html, body { overflow-x: clip }` + `--label-overlay-strong` / `--label-overlay-fg` semantic tokens.
+- Modified: 7 primitive files (`swatch.tsx`, `progress.tsx`, `inputs.tsx`, `commerce.tsx`, `display.tsx`, `ai.tsx`, `switch.tsx`, `checkbox.tsx`) — a11y closeout per R5 findings.
+- Modified: [`audit-dashboard/src/app/library/client.tsx`](audit-dashboard/src/app/library/client.tsx) — SwitchRow a11y + mobile-inbox aria-label + useId import.
+- Modified: [`audit-dashboard/src/app/foundations/page.tsx`](audit-dashboard/src/app/foundations/page.tsx) — TypeRow defensive overflow + minmax(0,1fr).
+- Modified: [`audit-dashboard/src/components/dashboard-shell.tsx`](audit-dashboard/src/components/dashboard-shell.tsx) — `max-w-max` → `max-w-screen-2xl` at 3 sites.
+
+### Carried blockers (now closed)
+
+- ✓ **Sub-768 px responsive sweep** — was blocked by `claude-in-chrome resize_window` not propagating to `innerWidth`. Closed in R5 by switching to `chrome-devtools-mcp emulate`. Sweep performed at 320 / 375 px on all 8 routes; safety-net + per-element fixes hold.
+
+### Why a patch bump (not minor)
+
+ADR 0024 is a consequential cascade-fix to ADR 0021 (Card corner-clip contract) + the v0.12.4 overflow-context cascade — not a new architectural era. The Switch / Checkbox aria-label additions are additive props. The component.md / examples closeout completes work R4-deferred. None of these introduce a new contract that didn't exist before v0.13.0 was shipped — per ADR 0009's "patch fixes existing contracts without introducing new ones," v0.13.1 is correct.
 
 ---
 

@@ -198,8 +198,11 @@ export function ChatBubble({ from, children, time }: { from: "you" | "them" | "a
 export function ChatComposer() {
   return (
     <div className="rounded-[var(--radius-xl)] border border-[var(--border-default)] bg-[var(--surface-raised)] flex items-end gap-2 px-3 py-2">
-      <button className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><Plus size={14} /></button>
-      <textarea rows={1} placeholder="Message…" className="flex-1 bg-transparent text-[length:var(--type-13)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
+      {/* v0.13.1 R5-010 — was nameless "+" icon-only button. Now reads as
+          "Add attachment" to screen readers, matching the conventional
+          Slack / Linear / Notion chat-composer affordance pattern. */}
+      <button aria-label="Add attachment" className="h-8 w-8 inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[color:var(--text-tertiary)] hover:bg-[var(--surface-sunken)]"><Plus size={14} /></button>
+      <textarea rows={1} placeholder="Message…" aria-label="Message" className="flex-1 bg-transparent text-[length:var(--type-13)] placeholder:text-[color:var(--text-tertiary)] focus:outline-none resize-none py-[var(--space-1_5)]" />
       <Button intent="primary" size="sm">Send</Button>
     </div>
   );

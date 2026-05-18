@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import { FileText } from "lucide-react";
 import { PageHeader, Section, SubSection } from "@/components/section";
 import { Button, IconButton } from "@/components/primitives/button";
@@ -997,7 +997,7 @@ export function LibraryClient() {
                 <div className="px-4 py-2 flex items-center justify-between">
                   {/* lumen-lint-allow: typography — type-22 mobile screen title; intermediate between heading-h3 (20) and heading-h2 (25) */}
                   <span className="text-[length:var(--type-22)] font-semibold tracking-[var(--tracking-tight)]">Inbox</span>
-                  <button className="h-control-cozy w-[var(--size-control-cozy)] rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[color:var(--text-secondary)]"><SearchIcon size={16} /></button>
+                  <button aria-label="Search inbox" className="h-control-cozy w-[var(--size-control-cozy)] rounded-full bg-[var(--surface-sunken)] inline-flex items-center justify-center text-[color:var(--text-secondary)]"><SearchIcon size={16} /></button>
                 </div>
                 <PullToRefresh />
                 <div className="flex-1 overflow-auto divide-y divide-[var(--border-hairline)]">
@@ -1522,11 +1522,27 @@ function PasswordSection() {
 
 function SwitchRow({ label, defaultChecked, disabled }: { label: string; defaultChecked?: boolean; disabled?: boolean }) {
   const [c, setC] = useState(!!defaultChecked);
+  /* v0.13.1 R5-006 — was wrapping bare <Switch> in <label> with a sibling
+     <span>. HTML5 `<label>` only auto-associates with FORM CONTROLS (input /
+     select / textarea / output / meter / progress / button), but Radix
+     Switch renders a <button role="switch"> whose accessibility-name
+     calculation does NOT walk up to a containing <label> — implicit
+     association breaks on a role-overridden button. The visible label is
+     now an id'd <span> referenced by Switch's `aria-labelledby` (added to
+     the primitive in v0.13.1). Click-to-toggle UX is preserved via an
+     onClick on the label span that forwards to setC. */
+  const labelId = useId();
   return (
-    <label className="flex items-center gap-2 cursor-pointer">
-      <Switch checked={c} onCheckedChange={setC} disabled={disabled} />
-      <span className="text-body-xs text-[color:var(--text-secondary)]">{label}</span>
-    </label>
+    <span className="flex items-center gap-2">
+      <Switch checked={c} onCheckedChange={setC} disabled={disabled} aria-labelledby={labelId} />
+      <span
+        id={labelId}
+        className={`text-body-xs text-[color:var(--text-secondary)] ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
+        onClick={() => !disabled && setC((v) => !v)}
+      >
+        {label}
+      </span>
+    </span>
   );
 }
 

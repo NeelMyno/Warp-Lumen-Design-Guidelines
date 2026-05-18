@@ -119,11 +119,7 @@ export function SwatchRamp({
           style={{ background: `var(--${family}-${i})` }}
         >
           <span
-            className="text-[10px] font-semibold lumen-tnum opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity px-1 py-px rounded-sm"
-            style={{
-              background: "rgba(0,0,0,0.55)",
-              color: "white",
-            }}
+            className="text-[10px] font-semibold lumen-tnum opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity px-1 py-px rounded-sm bg-[var(--label-overlay-strong)] text-[color:var(--label-overlay-fg)]"
           >
             {showHex ? `${prefix}.${i}` : i}
           </span>

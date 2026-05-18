@@ -538,7 +538,14 @@ export function TagsInput({
 export function ColorPicker({
   value,
   onChange,
-  swatches = ["#00FA8A", "#00D675", "#00B062", "#4592e8", "#F5B118", "#E5484D", "#9333ea", "#171A18"],
+  /* v0.13.1 R5-002 — retired legacy obsidian-mint #171A18 (v0.11 pre-recolor)
+     in favour of the v0.12 neutral obsidian #0D0D0D. The picker's default
+     swatch list otherwise mirrors the brand status palette + accent + neutral
+     anchors so consumers see a realistic seven-color starter set. These are
+     LITERAL display colors for a color-picker UI (the picker IS a way to
+     choose any hex), so semantic tokens don't apply — but the legacy mint
+     anchor was a stale color from the pre-v0.12 era. */
+  swatches = ["#00FA8A", "#00D675", "#00B062", "#4592e8", "#F5B118", "#E5484D", "#9333ea", "#0D0D0D"],
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -777,18 +784,28 @@ export function DatePickerCalendar({
       <div className="grid grid-cols-7 gap-1">
         {cells.map((d, i) => {
           const day = d > 0 && d <= daysInMonth ? d : null;
+          /* v0.13.1 R5-007 — empty cells (gutter before month-start / after
+             month-end) used to render as <button disabled className="opacity-0">,
+             which left 12 nameless disabled buttons in the DOM per calendar
+             instance. Accessibility scanners flagged them as interactive
+             targets with no label; even though `disabled` removes them from
+             the tab order, they pollute the a11y tree. Rendering a passive
+             aria-hidden <span> keeps the grid layout but stays out of the
+             accessibility tree entirely. */
+          if (!day) {
+            return <span key={i} className="h-7" aria-hidden />;
+          }
           const isToday = day === todayDay;
           const isSel = day === selectedDay;
           return (
             <button
               key={i}
-              disabled={!day}
+              aria-label={`${MONTH_LABELS[month]} ${day}, ${year}${isSel ? " (selected)" : ""}${isToday ? " (today)" : ""}`}
               className={cn(
                 "h-7 rounded-[var(--radius-sm)] text-caption lumen-mono transition-colors",
-                !day && "opacity-0",
                 isSel && "bg-[var(--lumen-accent-4)] text-[color:var(--lumen-accent-fg)] font-semibold",
                 isToday && !isSel && "border border-[var(--border-strong)]",
-                !isSel && !isToday && day && "hover:bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]",
+                !isSel && !isToday && "hover:bg-[var(--surface-sunken)] text-[color:var(--text-secondary)]",
               )}
             >
               {day}

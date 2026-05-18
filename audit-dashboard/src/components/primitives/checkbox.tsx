@@ -17,6 +17,8 @@ export function Checkbox({
   description,
   disabled,
   id,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
 }: {
   checked?: boolean;
   defaultChecked?: boolean;
@@ -25,6 +27,12 @@ export function Checkbox({
   description?: string;
   disabled?: boolean;
   id?: string;
+  /* v0.13.1 R5-006 — accept aria-label / aria-labelledby for callers that
+     compose their own visible label outside the primitive (label-elsewhere
+     pattern). Without this prop, Radix Checkbox ships nameless and screen
+     readers announce "checkbox, unchecked" with no context. */
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }) {
   const generatedId = useId();
   const cbId = id ?? generatedId;
@@ -38,6 +46,8 @@ export function Checkbox({
         onCheckedChange={(v) => onCheckedChange?.(v === true)}
         disabled={disabled}
         className="mt-1 shrink-0"
+        aria-label={!label && !ariaLabelledBy ? (ariaLabel ?? "Toggle") : ariaLabel}
+        aria-labelledby={ariaLabelledBy}
       />
       {(label || description) && (
         <div className="flex flex-col gap-1 leading-snug">

@@ -44,7 +44,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           frosted texture while sealing the chrome from content bleed. */}
       <header className="sticky top-0 z-[var(--z-sticky)]">
         <div className="lumen-glass-strong border-b border-[var(--border-hairline)]">
-          <div className="mx-auto flex w-full max-w-max items-center gap-4 px-6 h-16">
+          <div className="mx-auto flex w-full max-w-screen-2xl items-center gap-4 px-6 h-16">
             <Link
               href="/foundations"
               className="lumen-mark-link group flex items-center gap-inline-sm text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
@@ -84,12 +84,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main id="main-content" className="lumen-aurora flex-1 mx-auto w-full max-w-max px-6 py-12 md:py-16">
+      <main id="main-content" className="lumen-aurora flex-1 mx-auto w-full max-w-screen-2xl px-6 py-12 md:py-16">
         {children}
       </main>
 
       <footer className="mt-16 border-t border-[var(--border-hairline)] bg-[var(--surface-canvas)]">
-        <div className="mx-auto flex w-full max-w-max flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-6 py-10 text-micro text-[color:var(--text-tertiary)]">
+        <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-6 py-10 text-micro text-[color:var(--text-tertiary)]">
           <div className="flex items-center gap-3">
             <LumenMark size={14} />
             <span className="lumen-mono-cap">
