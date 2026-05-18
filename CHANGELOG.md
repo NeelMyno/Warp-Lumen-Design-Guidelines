@@ -10,6 +10,33 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.12.7] — 2026-05-18 — Sticky-nav chrome-bleed fix pack · seal the header so lime-halo CTAs stop tinting the brand stroke when scrolled
+
+A two-round live visual audit walked all eight surfaces (foundations, library, saas, landing, tool, commerce, mobile, desktop), clicking every overlay, hovering every interactive primitive, scrolling the full length of each page in Edge on macOS. The audit caught a single architectural defect compounding across every route plus a console-warning that had been masking a subtle controlled-vs-uncontrolled input regression. v0.12.7 fixes the architectural defect at the chrome layer, eliminates the console warning at the primitive layer, and stamps the system version through the SSOT.
+
+### Fixed
+
+- **Sticky-header chrome no longer ingests lime-halo bleed from primary CTAs.** Audit found that `--shadow-glow-accent-strong` (the multi-layer green halo on `Add to cart` / `Get rates` / `+ New shipment` / `Apply` / `Buy with shop pay` / `Choose Operator`) was visibly tinting the upper-left and upper-right of the sticky header on **library / tool / saas / commerce / mobile / desktop** the moment the user scrolled the CTA close to the header bottom edge. The `0 24px 72px -12px var(--lumen-lime-a24)` outer layer of the strong halo reaches 72 px in every direction from the button — so a CTA at y=140 paints a halo from y=68 to y=212, and the lower edge of the sticky header sits at y=119. The `lumen-glass` chrome (62 % opacity + `saturate(140%)`) was letting 38 % of that halo show through and amplifying it. Two surgical fixes ship together:
+  - **[`audit-dashboard/src/components/dashboard-shell.tsx`](audit-dashboard/src/components/dashboard-shell.tsx)** — swap the sticky header from `.lumen-glass` (ink-a62 background, blur 20 px, saturate 140 %) to `.lumen-glass-strong` (ink-a86 background, blur 28 px). 86 % opacity seals the chrome from content-color bleed while keeping the frosted-light character; the wider 28 px blur diffuses any residual residue across a larger surface so it never registers as a discrete spot.
+  - **[`audit-dashboard/src/app/globals.css`](audit-dashboard/src/app/globals.css) `.lumen-glass-strong`** — drop `saturate(160%)` → `saturate(110%)`. The high saturate factor was the second multiplier on the bleed: with 14 % transparency under saturate 160 %, the residual lime came through with `0.14 × 1.6 = 22.4 %` perceived intensity. With `saturate(110%)` the same residual reads at `0.14 × 1.1 = 15.4 %` — chromatically inert against the obsidian canvas, so the chrome stays single-toned across every scroll position.
+  Verified live on all six glow-affected routes plus on **landing** where the "Light mode preview · same tokens, inverted surfaces" inverse footer (white surface) was washing the chrome to a muddy gray; the chrome now stays brand-dark even directly above the inverted band.
+- **`Radio` primitive no longer fires React's "checked without onChange" warning** on `/library`. The Selection Controls showcase uses `<Radio ... checked />` to display the visual `checked` state of the canonical option statically — but `<input type="radio">` can't take `readOnly`, so React was warning on every page mount. **[`audit-dashboard/src/components/primitives/inputs.tsx`](audit-dashboard/src/components/primitives/inputs.tsx)** — when `onChange` is omitted, the Radio falls back to `defaultChecked` instead of forwarding the controlled `checked` prop, switching the underlying native input to uncontrolled mode. A static demo with no state setter has no business behaving like a controlled input. (Showcases that DO pass `onChange` continue to operate in controlled mode unchanged.) `/library` now mounts with a clean console.
+
+### Changed
+
+- **`VERSION` → `0.12.7`.**
+- **[`audit-dashboard/src/lib/version.ts`](audit-dashboard/src/lib/version.ts) `LUMEN_VERSION` → `"v0.12.7"`** — the single source of truth lights up every rendered version label (header pill, footer line, palette footer, foundations brand-voice samples, library/tool hero pills) on the next render. The SSOT was introduced in v0.12.5 ([ADR 0007](_meta/decisions/0007-living-version-pill-as-system-pulse.md) follow-up) precisely so a fix pack like this doesn't need a grep-and-replace tour.
+
+### Notes — what we deliberately did NOT change
+
+The audit also surfaced two visual moments that *look* like bugs in isolation but are intentional by design and survive the chrome fix gracefully:
+- **Landing § "Light mode preview · same tokens, inverted surfaces"** is meant to be a labeled mode-flip on a white surface. With the chrome fix, the sticky header now stays brand-dark even above the inverted band — the mode-flip lands as deliberate gesture, not jarring breakage.
+- **Commerce § promo bar "Free freight on orders over \$200 — handled by @warp"** is a brand-flavored storefront band rendered against `surface-paper` for the Foundry persona. The mock storefront intentionally adopts a fashion-brand aesthetic distinct from the system chrome — the lumen primitives compose underneath it.
+
+These two surfaces are now the canonical test cases for "the chrome must survive any content beneath." If a future fix pack regresses the header opacity / saturate, those two routes will be the first to surface the regression.
+
+---
+
 ## [0.12.6] — 2026-05-16 — Primitive coverage drop · 63 new component contracts close the LLM-facing gap between system primitives and the Apple HIG / Material / Polaris / Atlassian feature surface
 
 The audit found ~63 primitives that LLMs reach for when generating product UI but that Lumen had no contract for. The system shipped foundations (color, type, motion, hierarchy, micro-interactions, voice) and 35 component contracts in v0.7-v0.12.5, but the LLM-facing surface still depended on the assistant inferring what a Toolbar, a Sidebar, an AISuggestion, an InventoryStatus chip should look like under Lumen's discipline. v0.12.6 closes that gap: every primitive now ships `component.md` + `component.json` + a copy-paste-ready `examples/primary.tsx` + a `_registry/{name}.json` sidecar, so the registry, the MCP, the shadcn CLI, and any LLM consuming the contract all see the same thing.

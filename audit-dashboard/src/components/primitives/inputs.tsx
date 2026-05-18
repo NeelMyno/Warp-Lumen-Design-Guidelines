@@ -94,10 +94,18 @@ export function Radio({
       "flex items-start gap-inline-sm cursor-pointer select-none",
       disabled && "opacity-50 cursor-not-allowed",
     )}>
+      {/* v0.12.7 — switch to uncontrolled mode when no onChange handler is
+          supplied. Otherwise React warns ("checked prop without onChange")
+          for showcase / static usages on /library that set `checked` to
+          display a state. Radios can't take `readOnly`, so the only options
+          are (a) a no-op handler — which silently absorbs keyboard clicks
+          — or (b) defaultChecked. (b) is correct: a static demo without a
+          state setter has no business behaving like a controlled input. */}
       <input
         type="radio"
-        checked={checked}
-        onChange={onChange}
+        {...(onChange
+          ? { checked, onChange }
+          : { defaultChecked: checked })}
         disabled={disabled}
         name={name}
         value={value}

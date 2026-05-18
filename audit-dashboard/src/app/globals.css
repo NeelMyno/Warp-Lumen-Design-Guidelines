@@ -2432,8 +2432,16 @@ summary.list-none::-webkit-details-marker {
 }
 .lumen-glass-strong {
   background: var(--surface-glass-strong);
-  -webkit-backdrop-filter: blur(28px) saturate(160%);
-  backdrop-filter: blur(28px) saturate(160%);
+  /* v0.12.7 — dropped saturate(160%) → saturate(110%). The high saturate
+     factor was amplifying lime-halo bleed from --shadow-glow-accent-strong
+     buttons sitting just below the sticky header (Get rates / Add to cart
+     / New shipment). With the chrome at ink-a86 already 86% opaque, the
+     remaining 14% transparency doesn't need a 1.6× saturation boost — it
+     was making the residual bleed *more* visible, not less. saturate(110%)
+     keeps a faint frosted-light character without amplifying chromatic
+     content underneath the chrome. */
+  -webkit-backdrop-filter: blur(28px) saturate(110%);
+  backdrop-filter: blur(28px) saturate(110%);
   border: 1px solid var(--border-hairline);
   box-shadow: var(--shadow-glass);
 }

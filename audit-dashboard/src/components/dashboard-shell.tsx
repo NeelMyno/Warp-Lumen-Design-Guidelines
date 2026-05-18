@@ -33,9 +33,17 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           high-end dark UI has (Linear, Vercel, Stripe, Arc). */}
       <div aria-hidden className="lumen-grain" />
 
-      {/* Sticky glass nav. Pill row floats inside a hairline-bordered band. */}
+      {/* Sticky glass nav. Pill row floats inside a hairline-bordered band.
+          v0.12.7 — bumped to lumen-glass-strong (ink-a86 / blur 28px) so
+          the chrome doesn't ingest the lime-halo bleed from primary CTAs
+          (Add to cart, Get rates, New shipment, etc.) that sit just below
+          the sticky header on Library / Tool / SaaS / Commerce / Mobile /
+          Desktop. Audited 2026-05-18 — lumen-glass (0.62 alpha) was visibly
+          tinting the chrome green when scrolled past any --shadow-glow-
+          accent-strong button. lumen-glass-strong (0.86 alpha) keeps the
+          frosted texture while sealing the chrome from content bleed. */}
       <header className="sticky top-0 z-[var(--z-sticky)]">
-        <div className="lumen-glass border-b border-[var(--border-hairline)]">
+        <div className="lumen-glass-strong border-b border-[var(--border-hairline)]">
           <div className="mx-auto flex w-full max-w-max items-center gap-4 px-6 h-16">
             <Link
               href="/foundations"
