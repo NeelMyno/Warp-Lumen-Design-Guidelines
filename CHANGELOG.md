@@ -10,6 +10,54 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.13.0] — 2026-05-18 — LLM-docs version lockstep + R4 comprehensive audit (ADR 0023)
+
+R4 of the same-day live audit walked every route top-to-bottom in both dark + light mode at 1501×812 px against the Edge browser on Personal Mac via the Claude in Chrome MCP. R1 (v0.12.7 — sticky-header chrome bleed), R2 (v0.12.8 — Commerce PDP variant pickers), R3 (v0.12.9 — Calendar dynamic / iOS StatusBar / Tool preset client island) had already shipped the visual + interaction surface fixes. R4's major finding was architectural: the LLM-facing prose banners had drifted up to four patches stale across `llms.txt`, `llms-full.txt`, `README.md`, `USING-LUMEN.md`, and `PRIMITIVE-COVERAGE.md` — exactly the v0.11.13 palette-footer drift class repeating one architectural layer up from the runtime UI that v0.12.5's SSoT contract closed. v0.13.0 ships the lockstep contract.
+
+### Added
+
+- **[ADR 0023 — LLM docs version lockstep](_meta/decisions/0023-llm-docs-version-lockstep-v013.md)** — `scripts/release.mjs` now rewrites the version chip in five LLM-facing prose files in lockstep with `VERSION` and `audit-dashboard/src/lib/version.ts`. Extends the v0.12.5 SSoT pattern (D-018) from the runtime UI to the discovery layer. `AGENTS.md` and `CLAUDE.md` top callouts are EXEMPT — they carry per-release narrative prose and stay hand-rewritten.
+- **R4 audit log** at [`.audit-runs/2026-05-18-round-4/ISSUES.md`](.audit-runs/2026-05-18-round-4/ISSUES.md) — per-finding root cause + per-surface verification + by-design list + blocked items. R4 walked every route in both themes; the BulkActionBar inverse pattern (`bg-[var(--surface-inverse)]` → bright white in dark mode) was investigated and documented as by-design (intentional "selection rail" pattern, analogous to Gmail / GitHub / Linear bulk-action bars in their respective base themes). No new component-level bugs surfaced — the system is in a clean steady state after R1–R3.
+
+### Changed
+
+- **`scripts/release.mjs` extended** — new lockstep step rewrites banner version chips in `llms.txt`, `llms-full.txt`, `README.md`, `USING-LUMEN.md`, `PRIMITIVE-COVERAGE.md` on every `pnpm release {patch|minor|major}`. Pattern matching is intentionally narrow (each regex includes enough surrounding context to scope to the current-version banner only — historical-version prose is NOT rewritten). See ADR 0023 for the trade-off analysis.
+- **LLM-facing prose banners refreshed to v0.13.0 (2026-05-18)** — `llms.txt`, `llms-full.txt`, `README.md`, `USING-LUMEN.md`, `PRIMITIVE-COVERAGE.md` all updated. Future releases inherit the lockstep from the script.
+- **`AGENTS.md` and `CLAUDE.md` top callouts rewritten to v0.13.0 narrative** — these stay hand-authored per cycle per ADR 0023's exemption rationale. Carry the v0.13.0 architectural story (LLM-docs lockstep) and the R4 audit result.
+- **`LUMEN_VERSION` → `"v0.13.0"`; `LUMEN_VERSION_MAJOR_MINOR` → `"v0.13"`; `LUMEN_VERSION_MAJOR_MINOR_UPPER` → `"V0.13"`; `VERSION` → `0.13.0`.**
+
+### Documented as by-design (R4 found, kept as-is)
+
+- **BulkActionBar inverse pattern in dark mode.** The selection rail at `audit-dashboard/src/app/library/client.tsx` uses `bg-[var(--surface-inverse)] text-[color:var(--text-inverse)]` — in dark mode `--surface-inverse` resolves to `#fafafa` (near-white) and `--text-inverse` to `#0d0d0d` (obsidian). The visual is a bright white bar on the obsidian canvas — visually loud, intentionally so. This mirrors the canonical pattern in Gmail / GitHub / Linear / Notion (bulk-action bars invert to draw attention to the multi-select moment). The token contract is "inverse = always the opposite of canvas" — functioning correctly. Decided against introducing a `--surface-emphasis` tone-shifted variant in v0.13.0 because the existing inverse contract is well-established and the visual loudness is the desired affordance signal at peak selection moments.
+- **Commerce PDP main product image area renders as dark placeholder squares.** By design — Lumen is a design system, not a product asset library; main image area shows neutral placeholders. The related-products "You may also like" cards intentionally show solid color washes (slate, olive, brown, navy) as artistic stand-ins. Both are documented showcase patterns.
+- **Foundations `Typography` section's "Stop re-..." display sample crops at the viewport edge.** Intentional — the display-2xl ceiling at 128 px on a 1100 px max-width container will crop the second word of the display sample at 1440 px viewport. The crop is the visual statement (the typeface is *big enough to crop*).
+- **Edge browser profile-avatar overlap at bottom-left.** Not a Lumen UI element — Microsoft Edge's own profile indicator renders at the bottom-left corner. Overlaps the leading "L" of the page footer's "LUMEN · WARP DESIGN SYSTEM · OBSIDIAN" mono-cap. Browser chrome, not design-system chrome.
+
+### Carried blocker (not new to R4)
+
+- **Sub-768 px responsive sweep.** Claude in Chrome `resize_window` MCP resizes the outer browser window but doesn't propagate to `window.innerWidth` / the rendering viewport, so `sm:` / mobile breakpoints can't be exercised live via the current tooling. Source-level `sm:` / `md:` Tailwind utilities are present in `landing/page.tsx` and `dashboard-shell.tsx`. Future audit cycles should wire device emulation (e.g. Chrome DevTools MCP `emulate` or a real mobile Safari connection) to close this gap. Carried verbatim from R2 + R3.
+
+### Files touched
+
+- New: [`_meta/decisions/0023-llm-docs-version-lockstep-v013.md`](_meta/decisions/0023-llm-docs-version-lockstep-v013.md) — the lockstep contract ADR.
+- New: [`.audit-runs/2026-05-18-round-4/ISSUES.md`](.audit-runs/2026-05-18-round-4/ISSUES.md) — R4 audit log.
+- Modified: [`scripts/release.mjs`](scripts/release.mjs) — added the LLM-facing banner lockstep loop (~50 lines of pattern-matching rewrites + diagnostics output).
+- Modified: [`audit-dashboard/src/lib/version.ts`](audit-dashboard/src/lib/version.ts) — `LUMEN_VERSION` → `"v0.13.0"`; `MAJOR_MINOR` → `"v0.13"`; `MAJOR_MINOR_UPPER` → `"V0.13"`.
+- Modified: `VERSION` → `0.13.0`.
+- Modified: [`llms.txt`](llms.txt) — Status banner + v0.13.0 narrative.
+- Modified: [`llms-full.txt`](llms-full.txt) — Top callout + v0.13.0 narrative.
+- Modified: [`README.md`](README.md) — Status line + VERSION ← + new "What's new — v0.13.0" entry.
+- Modified: [`USING-LUMEN.md`](USING-LUMEN.md) — Header status (line 3) + §1 status block first line + footer last-reviewed line.
+- Modified: [`PRIMITIVE-COVERAGE.md`](PRIMITIVE-COVERAGE.md) — Generated date + version chip.
+- Modified: [`AGENTS.md`](AGENTS.md) — Top callout rewritten to v0.13.0 narrative.
+- Modified: [`CLAUDE.md`](CLAUDE.md) — Top callout rewritten to v0.13.0 narrative.
+
+### Why a minor bump (not patch + ADR)
+
+v0.12.3 / v0.12.4 / v0.12.5 / v0.12.6 / v0.12.7 / v0.12.8 / v0.12.9 all shipped as patches under the v0.12.x cascade — each was a consequential fix to an established pattern (defensive primitives over Tailwind scanner fragility per ADRs 0015/0016, corner-clip per ADR 0021, hover-glow per ADR 0022, the v0.12.5 SSoT pattern itself). v0.13.0 introduces a NEW system contract (LLM-docs lockstep per ADR 0023) that did not previously exist and that future agents will rely on. Marking the cycle boundary with a minor bump is honest about the architectural step forward. Per ADR 0009, minor versions ship "backward-compatible features added or contracts evolve" — ADR 0023 is the latter.
+
+---
+
 ## [0.12.9] — 2026-05-18 — Round 3 fix pack · Calendar goes dynamic, iOS StatusBar stops truncating, Tool preset list becomes interactive
 
 Round 3 of the same-day live audit walked every clickable / hoverable / expandable element with a focus on the gaps round 1 (visual chrome bleed → v0.12.7) and round 2 (Commerce PDP variant pickers → v0.12.8) skipped: pickers, mobile frames, sidebar lists, modal triggers vs. modal showcases, every keyboard-focusable element. Three real interaction / visual bugs surfaced. Every one is fixed.

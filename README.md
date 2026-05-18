@@ -24,7 +24,7 @@ Density:            Marketing breathes (96 px hero rhythm) · Operator stays den
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 14 hard rules
-Status:             v0.12.5 · live-audit fix pack (single-source version constant + iconography accent-on-hover + pricing card peak-end lift + FAQ chevron unified + privacy scrubs) · 7 principles · 22 ADRs
+Status:             v0.13.0 · LLM-docs version lockstep + R4 comprehensive audit (ADR 0023 extends v0.12.5 SSoT from runtime-UI to LLM-facing prose; release.mjs now bumps llms.txt / llms-full.txt / README.md / USING-LUMEN.md / PRIMITIVE-COVERAGE.md in lockstep) · 7 principles · 23 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.12.5
+├── VERSION                         ← 0.13.0
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,19 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.12.x
+## What's new — v0.13.0
+
+### v0.13.0 (2026-05-18) — LLM-docs version lockstep + R4 comprehensive audit (ADR 0023)
+
+v0.13.0 closes the LLM-discovery layer's version-drift class. The v0.12.5 single-source-of-truth contract (D-018 in USING-LUMEN.md) retired *runtime-UI* version-label drift by routing every rendered version through `audit-dashboard/src/lib/version.ts`. But the LLM-facing *prose* banners in `llms.txt`, `llms-full.txt`, `README.md`, `USING-LUMEN.md`, and `PRIMITIVE-COVERAGE.md` kept their own per-file "Status: v0.X.Y" chips — and through v0.12.6 → v0.12.9 those chips drifted up to four patches stale (e.g. `llms.txt` advertising v0.12.6 while VERSION read 0.12.9). This is exactly the v0.11.13 palette-footer drift class repeating one architectural layer up.
+
+[ADR 0023](./_meta/decisions/0023-llm-docs-version-lockstep-v013.md) extends the lockstep mechanism. `scripts/release.mjs` now rewrites the version chip in those five files in lockstep with `VERSION` and `lib/version.ts` on every `pnpm release {patch|minor|major}`. The pattern matching is INTENTIONALLY narrow — each regex includes enough context (`**Status:`, `> **`, `VERSION ←`, `Generated YYYY-MM-DD for Lumen vX`, `Last reviewed against actual repo state`) to disambiguate the current-version banner from historical-version prose. Casual `v0.12.9` mentions inside CHANGELOG narrative, ADR titles, or prose body will NOT match — the script demonstrates this by leaving the 200+ historical-version mentions across the same files untouched while updating only the seven listed banner sites.
+
+`AGENTS.md` and `CLAUDE.md` top callouts are EXEMPT from the script. They carry per-release narrative prose (the "v0.12.9 — Round 3 fix pack — three real bugs fixed" paragraph) that needs human authorship per cycle; contributors hand-rewrite those as part of the release PR.
+
+The other half of v0.13.0 is the **same-day Round 4 comprehensive live audit**. Every route walked top-to-bottom in both dark + light mode at 1501×812 px against the Edge browser on Personal Mac via the Claude in Chrome MCP. R1 (v0.12.7 — chrome bleed), R2 (v0.12.8 — Commerce PDP variant pickers), and R3 (v0.12.9 — Calendar dynamic / iOS StatusBar / Tool preset client island) had already shipped the visual / interaction surface fixes. R4 confirmed the system is now in a clean steady state — no new bugs requiring component-level fixes surfaced; the major architectural finding was the LLM-docs drift R4 itself ships the contract for. Full audit log at [`.audit-runs/2026-05-18-round-4/ISSUES.md`](./.audit-runs/2026-05-18-round-4/ISSUES.md).
+
+Brand canvas, single-accent rule, hover-glow ladder, focus-ring contract, corner-clip contract, version-constant contract, accordion-marker contract — all preserved verbatim from the v0.12.x cascade.
 
 ### v0.12.5 (2026-05-07) — Live-audit fix pack (single-source version constant + iconography accent-on-hover + pricing card peak-end lift + FAQ chevron unified + privacy scrubs)
 A two-round live visual audit against the deployed Vercel site (round 1 walks all 8 routes statically; round 2 triggers every interactive overlay — ⌘K palette, accordions, dropdowns, hover states) caught five issues that the static walk missed. v0.12.5 ships them as five surgical fixes at five different cascade depths, plus a release-script change to keep the new infrastructure in lockstep:
