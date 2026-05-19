@@ -17,16 +17,16 @@
   },
   "tokens": {
     "consumed": [
-      "fileDropzone.shell.radius", "fileDropzone.shell.padding.x", "fileDropzone.shell.padding.y",
-      "fileDropzone.shell.borderWidth", "fileDropzone.shell.borderStyle",
-      "fileDropzone.shell.border.rest", "fileDropzone.shell.border.hover", "fileDropzone.shell.border.dragover", "fileDropzone.shell.border.error",
-      "fileDropzone.shell.background.rest", "fileDropzone.shell.background.hover", "fileDropzone.shell.background.dragover",
-      "fileDropzone.shell.transition",
-      "fileDropzone.icon.size", "fileDropzone.icon.radius", "fileDropzone.icon.background", "fileDropzone.icon.color", "fileDropzone.icon.iconSize",
-      "fileDropzone.title.type", "fileDropzone.title.color",
-      "fileDropzone.browseLink.color", "fileDropzone.browseLink.textDecoration",
-      "fileDropzone.hint.type", "fileDropzone.hint.color",
-      "fileDropzone.fileRow.background", "fileDropzone.fileRow.radius", "fileDropzone.fileRow.padding.x", "fileDropzone.fileRow.padding.y",
+      "file-dropzone.shell.radius", "file-dropzone.shell.padding.x", "file-dropzone.shell.padding.y",
+      "file-dropzone.shell.border-width", "file-dropzone.shell.border-style",
+      "file-dropzone.shell.border.rest", "file-dropzone.shell.border.hover", "file-dropzone.shell.border.dragover", "file-dropzone.shell.border.error",
+      "file-dropzone.shell.background.rest", "file-dropzone.shell.background.hover", "file-dropzone.shell.background.dragover",
+      "file-dropzone.shell.transition",
+      "file-dropzone.icon.size", "file-dropzone.icon.radius", "file-dropzone.icon.background", "file-dropzone.icon.color", "file-dropzone.icon.icon-size",
+      "file-dropzone.title.type", "file-dropzone.title.color",
+      "file-dropzone.browse-link.color", "file-dropzone.browse-link.text-decoration",
+      "file-dropzone.hint.type", "file-dropzone.hint.color",
+      "file-dropzone.file-row.background", "file-dropzone.file-row.radius", "file-dropzone.file-row.padding.x", "file-dropzone.file-row.padding.y",
       "space.stack.sm",
       "space.inline.sm"
     ]

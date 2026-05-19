@@ -4,32 +4,72 @@
     "$description": "v0.6 — RadioGroup item. Round, 16 px (md). Unchecked = hairline ring on input bg. Checked = lime ring + lime dot.",
     "size": {
       "$type": "dimension",
-      "sm": { "$value": "{dimension.3}", "$description": "12 px circle — tables only" },
-      "md": { "$value": "{dimension.4}", "$description": "16 px circle — default" },
-      "lg": { "$value": "{dimension.5}", "$description": "20 px circle — touch / marketing" }
+      "sm": {
+        "$value": "{dimension.3}",
+        "$description": "12 px circle — tables only"
+      },
+      "md": {
+        "$value": "{dimension.4}",
+        "$description": "16 px circle — default"
+      },
+      "lg": {
+        "$value": "{dimension.5}",
+        "$description": "20 px circle — touch / marketing"
+      }
     },
     "border": {
-      "rest":     { "$value": "{color.border.default}" },
-      "hover":    { "$value": "{color.border.strong}" },
-      "checked":  { "$value": "{color.accent.500}" },
-      "error":    { "$value": "{color.border.error}" },
-      "disabled": { "$value": "{color.border.disabled}" }
+      "rest": {
+        "$value": "{color.border.default}"
+      },
+      "hover": {
+        "$value": "{color.border.strong}"
+      },
+      "checked": {
+        "$value": "{color.accent.500}"
+      },
+      "error": {
+        "$value": "{color.border.error}"
+      },
+      "disabled": {
+        "$value": "{color.border.disabled}"
+      }
     },
     "background": {
-      "rest":     { "$value": "{color.surface.input.rest}" },
-      "checked":  { "$value": "{color.surface.input.rest}", "$description": "Background stays the same; only the inner dot fills." },
-      "disabled": { "$value": "{color.surface.input.disabled}" }
+      "rest": {
+        "$value": "{color.surface.input.rest}"
+      },
+      "checked": {
+        "$value": "{color.surface.input.rest}",
+        "$description": "Background stays the same; only the inner dot fills."
+      },
+      "disabled": {
+        "$value": "{color.surface.input.disabled}"
+      }
     },
     "indicator": {
       "$description": "The inner filled dot when checked. 8 px (50% of 16 px). Always lime; reduces to faded lime when disabled.",
-      "color": { "$value": "{color.accent.500}" },
-      "size":  { "$value": "{dimension.2}", "$description": "8 px dot." }
+      "color": {
+        "$value": "{color.accent.500}"
+      },
+      "size": {
+        "$value": "{dimension.2}",
+        "$description": "8 px dot."
+      }
     },
     "label": {
-      "type":  { "$value": "{type.body.sm}" },
-      "color": { "$value": "{color.text.primary}" },
-      "gap":   { "$value": "{space.2}" }
+      "type": {
+        "$value": "{type.body.sm}"
+      },
+      "color": {
+        "$value": "{color.text.primary}"
+      },
+      "gap": {
+        "$value": "{space.2}"
+      }
     },
-    "groupGap": { "$value": "{space.3}", "$description": "Vertical gap between radios in a group." }
+    "group-gap": {
+      "$value": "{space.3}",
+      "$description": "Vertical gap between radios in a group."
+    }
   }
 }

@@ -19,8 +19,8 @@
   },
   "tokens": {
     "consumed": [
-      "textarea.minHeight.sm", "textarea.minHeight.md", "textarea.minHeight.lg",
-      "textarea.maxHeight.default",
+      "textarea.min-height.sm", "textarea.min-height.md", "textarea.min-height.lg",
+      "textarea.max-height.default",
       "textarea.padding.y",
       "textarea.resize",
       "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
@@ -28,7 +28,7 @@
       "input.background.rest", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
       "input.foreground.value", "input.foreground.placeholder",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition",
       "type.body.md"
     ]

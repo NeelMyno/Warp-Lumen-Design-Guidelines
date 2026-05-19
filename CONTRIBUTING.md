@@ -70,12 +70,41 @@ Just open a PR. CI will validate any structured changes (frontmatter, JSON schem
 Every PR runs:
 ```bash
 pnpm validate          # JSON schemas + DTCG + WCAG contrast
-pnpm lint              # No raw hex/px in component code, no primitives in components
+pnpm lint              # No raw hex/px in component code, no primitives in components,
+                       # no arbitrary typography, no off-grid spacing, no white-on-accent,
+                       # button conventions, token-naming kebab-case (v0.13.3 — full umbrella)
 pnpm registry          # Regenerate shadcn registry from component sources
 pnpm build             # Style Dictionary
+pnpm component-index   # Regenerate COMPONENT-INDEX.md SSoT
+pnpm token-index       # Regenerate TOKEN-INDEX.md SSoT
 ```
 
 A failing check blocks merge. To suppress, open an ADR.
+
+### Pre-commit hook
+
+`pnpm install` registers a pre-commit hook via `simple-git-hooks` (v0.13.3 / ADR 0026). The hook is conservative — it ONLY regenerates the two SSoT indices when their sources are staged:
+
+- If any `design-system/02-components/*/component.json` is in the commit, the hook runs `pnpm component-index` and restages `COMPONENT-INDEX.md`.
+- If any `design-system/01-tokens/**/*.tokens.json` is in the commit, the hook runs `pnpm token-index` and restages `TOKEN-INDEX.md`.
+
+If neither source changed, the hook exits 0 immediately. Heavy validators (`pnpm build`, `pnpm registry`, `pnpm validate`, `pnpm lint`) are NOT run pre-commit — they stay on CI to keep the commit loop fast.
+
+To temporarily disable: `SKIP_SIMPLE_GIT_HOOKS=1 git commit ...`. To uninstall: `npx simple-git-hooks --uninstall` (or rerun `pnpm install` to re-register).
+
+### Lint allowlist convention
+
+Three lint scripts (`lint:no-primitives`, `lint:no-arbitrary-typography`, `lint:no-off-grid-spacing`) honor inline directive comments (v0.13.3 / ADR 0026 normalized this across all three):
+
+```tsx
+// lumen-lint-allow: <rule> — <reason>     // exempts the same line + the first non-empty line below
+
+{/* lumen-lint-allow-block: <rule> — <reason> */}
+...
+{/* lumen-lint-allow-end: <rule> */}      // exempts the entire block (or stays open to EOF)
+```
+
+Where `<rule>` is one of `primitives`, `typography`, `off-grid`, or `all`. Use sparingly. Genuine brand fixtures (Shop Pay #5a31f4, Google #4285f4, wordmark tracking overrides, deliberate sub-grid offsets) are legitimate; everything else should reference a semantic token.
 
 ## Style guide
 

@@ -4,39 +4,80 @@
     "$description": "v0.7 — Combobox is the searchable Select. The trigger reuses input.* tokens; the listbox reuses select.listbox.* tokens. This file declares only the deltas: caret rotation transform on open, and the highlight-row indicator.",
     "trigger": {
       "$description": "Search input row. Identical shape to input shell; trailing chevron rotates on open.",
-      "caretColor":     { "$value": "{color.text.tertiary}" },
-      "caretRotation":  { "$value": "180deg", "$description": "Trailing chevron rotates 180° when the popover is open. CSS: transform applied via [data-state='open']." }
+      "caret-color": {
+        "$value": "{color.text.tertiary}"
+      },
+      "caret-rotation": {
+        "$value": "180deg",
+        "$description": "Trailing chevron rotates 180° when the popover is open. CSS: transform applied via [data-state='open']."
+      }
     },
     "listbox": {
       "$description": "Popover that opens beneath the trigger. Same surface + shadow recipe as Select.",
-      "background": { "$value": "{color.surface.popover}" },
-      "border":     { "$value": "{color.border.default}" },
-      "radius":     { "$value": "{radius.popover}" },
-      "shadow":     { "$value": "{shadow.popover}" },
-      "maxHeight":  { "$value": "{dimension.48}", "$description": "192 px — internal scroll past this." },
-      "padding":    { "$value": "{space.1}" }
+      "background": {
+        "$value": "{color.surface.popover}"
+      },
+      "border": {
+        "$value": "{color.border.default}"
+      },
+      "radius": {
+        "$value": "{radius.popover}"
+      },
+      "shadow": {
+        "$value": "{shadow.popover}"
+      },
+      "max-height": {
+        "$value": "{dimension.48}",
+        "$description": "192 px — internal scroll past this."
+      },
+      "padding": {
+        "$value": "{space.1}"
+      }
     },
     "item": {
-      "height":    { "$value": "{size.control.sm}" },
-      "padding": {
-        "x": { "$value": "{space.2}" },
-        "y": { "$value": "{space.1}" }
+      "height": {
+        "$value": "{size.control.sm}"
       },
-      "radius": { "$value": "{radius.xs}" },
-      "type":   { "$value": "{type.body.sm}" },
+      "padding": {
+        "x": {
+          "$value": "{space.2}"
+        },
+        "y": {
+          "$value": "{space.1}"
+        }
+      },
+      "radius": {
+        "$value": "{radius.xs}"
+      },
+      "type": {
+        "$value": "{type.body.sm}"
+      },
       "background": {
-        "rest":      { "$value": "transparent" },
-        "highlight": { "$value": "{color.surface.tint-accent}", "$description": "Hovered or keyboard-active row." }
+        "rest": {
+          "$value": "transparent"
+        },
+        "highlight": {
+          "$value": "{color.surface.tint-accent}",
+          "$description": "Hovered or keyboard-active row."
+        }
       },
       "color": {
-        "rest":      { "$value": "{color.text.secondary}" },
-        "highlight": { "$value": "{color.text.primary}" }
+        "rest": {
+          "$value": "{color.text.secondary}"
+        },
+        "highlight": {
+          "$value": "{color.text.primary}"
+        }
       }
     },
     "empty": {
       "$description": "No-results state inside the listbox.",
-      "type":  { "$value": "{type.body.xs}" },
-      "color": { "$value": "{color.text.tertiary}" }
+      "type": {
+        "$value": "{type.body.xs}"
+      },
+      "color": {
+        "$value": "{color.text.tertiary}"
+      }
     }
   }
 }

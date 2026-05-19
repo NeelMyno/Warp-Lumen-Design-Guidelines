@@ -24,19 +24,19 @@
   "tokens": {
     "consumed": [
       "field.gap.labelToControl", "field.gap.controlToHelp", "field.gap.groupToGroup", "field.gap.fieldsetToFieldset",
-      "field.label.type", "field.label.color", "field.label.colorDisabled",
+      "field.label.type", "field.label.color", "field.label.color-disabled",
       "field.optional.type", "field.optional.color",
       "field.required.color",
-      "field.helper.type", "field.helper.color", "field.helper.colorDisabled",
+      "field.helper.type", "field.helper.color", "field.helper.color-disabled",
       "field.error.type", "field.error.color",
       "field.success.type", "field.success.color",
       "input.height.sm", "input.height.md", "input.height.lg",
       "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
       "input.gap.slot", "input.radius",
-      "input.background.rest", "input.background.disabled", "input.background.readOnly",
+      "input.background.rest", "input.background.disabled", "input.background.read-only",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
-      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconLeading", "input.foreground.iconTrailing", "input.foreground.addon",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.icon-leading", "input.foreground.icon-trailing", "input.foreground.addon",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition"
     ]
   },

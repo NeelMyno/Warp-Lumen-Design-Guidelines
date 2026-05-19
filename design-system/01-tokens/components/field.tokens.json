@@ -4,47 +4,96 @@
     "$description": "v0.6 — Layout tokens for the Field composition (label + control + helper + error). The field shell itself uses input.* tokens; this file owns vertical rhythm + label/helper typography roles. v0.8 reduced groupToGroup 20→16 px (peer convergence: Apple HIG 16, Linear ~16, Stripe Elements 12-16); deprecated camelCase keys per kebab naming sweep.",
     "gap": {
       "$type": "dimension",
-      "label":    { "$value": "{space.1}", "$description": "v0.8 — Label below stacked over the control. (Was field.gap.labelToControl)." },
-      "help":     { "$value": "{space.1}", "$description": "v0.8 — Control above the hint or error message. (Was field.gap.controlToHelp)." },
-      "field":    { "$value": "{space.4}", "$description": "v0.8 — Vertical rhythm between fields in a form. Reduced 20→16 px to converge with Apple HIG / Linear / Stripe. (Was field.gap.groupToGroup = 20 px)." },
-      "fieldset": { "$value": "{space.8}", "$description": "v0.8 — Vertical rhythm between fieldsets / form sections. (Was field.gap.fieldsetToFieldset)." },
-
-      "labelToControl":      { "$value": "{field.gap.label}",    "$deprecated": "Renamed to field.gap.label in v0.8.0. Will be removed in v0.9.0." },
-      "controlToHelp":       { "$value": "{field.gap.help}",     "$deprecated": "Renamed to field.gap.help in v0.8.0. Will be removed in v0.9.0." },
-      "groupToGroup":        { "$value": "{field.gap.field}",    "$deprecated": "Renamed to field.gap.field in v0.8.0 + value reduced 20→16 px. Will be removed in v0.9.0." },
-      "fieldsetToFieldset":  { "$value": "{field.gap.fieldset}", "$deprecated": "Renamed to field.gap.fieldset in v0.8.0. Will be removed in v0.9.0." }
+      "label": {
+        "$value": "{space.1}",
+        "$description": "v0.8 — Label below stacked over the control. (Was field.gap.labelToControl)."
+      },
+      "help": {
+        "$value": "{space.1}",
+        "$description": "v0.8 — Control above the hint or error message. (Was field.gap.controlToHelp)."
+      },
+      "field": {
+        "$value": "{space.4}",
+        "$description": "v0.8 — Vertical rhythm between fields in a form. Reduced 20→16 px to converge with Apple HIG / Linear / Stripe. (Was field.gap.groupToGroup = 20 px)."
+      },
+      "fieldset": {
+        "$value": "{space.8}",
+        "$description": "v0.8 — Vertical rhythm between fieldsets / form sections. (Was field.gap.fieldsetToFieldset)."
+      },
+      "labelToControl": {
+        "$value": "{field.gap.label}",
+        "$deprecated": "Renamed to field.gap.label in v0.8.0. Will be removed in v0.9.0."
+      },
+      "controlToHelp": {
+        "$value": "{field.gap.help}",
+        "$deprecated": "Renamed to field.gap.help in v0.8.0. Will be removed in v0.9.0."
+      },
+      "groupToGroup": {
+        "$value": "{field.gap.field}",
+        "$deprecated": "Renamed to field.gap.field in v0.8.0 + value reduced 20→16 px. Will be removed in v0.9.0."
+      },
+      "fieldsetToFieldset": {
+        "$value": "{field.gap.fieldset}",
+        "$deprecated": "Renamed to field.gap.fieldset in v0.8.0. Will be removed in v0.9.0."
+      }
     },
     "label": {
       "$description": "Field label. Uppercase mono is reserved for system metadata; field labels stay sentence-case sans-medium.",
-      "type":           { "$value": "{type.label.sm}" },
-      "color":          { "$value": "{color.text.secondary}" },
-      "color-disabled": { "$value": "{color.text.disabled}", "$description": "v0.8 — kebab-case rename. (Was colorDisabled)." },
-      "colorDisabled":  { "$value": "{field.label.color-disabled}", "$deprecated": "Renamed to field.label.color-disabled in v0.8.0. Will be removed in v0.9.0." }
+      "type": {
+        "$value": "{type.label.sm}"
+      },
+      "color": {
+        "$value": "{color.text.secondary}"
+      },
+      "color-disabled": {
+        "$value": "{color.text.disabled}",
+        "$description": "v0.8 — kebab-case rename. (Was colorDisabled)."
+      }
     },
     "optional": {
       "$description": "The `(optional)` suffix on a label. NN/g preference over the asterisk pattern.",
-      "type":  { "$value": "{type.body.xs}" },
-      "color": { "$value": "{color.text.tertiary}" }
+      "type": {
+        "$value": "{type.body.xs}"
+      },
+      "color": {
+        "$value": "{color.text.tertiary}"
+      }
     },
     "required": {
       "$description": "The required asterisk marker.",
-      "color": { "$value": "{color.border.error}" }
+      "color": {
+        "$value": "{color.border.error}"
+      }
     },
     "helper": {
       "$description": "Hint or description shown beneath the control.",
-      "type":           { "$value": "{type.body.xs}" },
-      "color":          { "$value": "{color.text.tertiary}" },
-      "color-disabled": { "$value": "{color.text.disabled}", "$description": "v0.8 — kebab-case rename." },
-      "colorDisabled":  { "$value": "{field.helper.color-disabled}", "$deprecated": "Renamed to field.helper.color-disabled in v0.8.0. Will be removed in v0.9.0." }
+      "type": {
+        "$value": "{type.body.xs}"
+      },
+      "color": {
+        "$value": "{color.text.tertiary}"
+      },
+      "color-disabled": {
+        "$value": "{color.text.disabled}",
+        "$description": "v0.8 — kebab-case rename."
+      }
     },
     "error": {
       "$description": "Error message. role=alert; aria-describedby includes its id.",
-      "type":  { "$value": "{type.body.xs}" },
-      "color": { "$value": "{color.text.error}" }
+      "type": {
+        "$value": "{type.body.xs}"
+      },
+      "color": {
+        "$value": "{color.text.error}"
+      }
     },
     "success": {
-      "type":  { "$value": "{type.body.xs}" },
-      "color": { "$value": "{color.text.success}" }
+      "type": {
+        "$value": "{type.body.xs}"
+      },
+      "color": {
+        "$value": "{color.text.success}"
+      }
     }
   }
 }

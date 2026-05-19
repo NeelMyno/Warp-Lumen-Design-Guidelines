@@ -1,5 +1,7 @@
 // Lumen Trend — Web React example. Polarity-aware delta chip.
 
+// lumen-lint-allow-block: primitives — v0.13.3 / ADR 0026: this is a component-contract showcase example. Container widths, font-size literals (e.g. `text-[10px]`), and `var(--token, #fallback)` brand-anchor hex codes are intentional fixtures demonstrating the component at deliberate sizes. Tokenizing the showcase would defeat the demonstration. The lint-allow-block stays open to EOF.
+
 import { ArrowUpRight, ArrowDownRight, Minus } from "lucide-react";
 
 type Polarity = "positive-is-good" | "negative-is-good" | "neutral";

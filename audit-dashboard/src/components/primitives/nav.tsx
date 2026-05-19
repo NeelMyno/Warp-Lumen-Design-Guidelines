@@ -1,3 +1,5 @@
+// lumen-lint-allow-block: primitives — v0.13.3 / ADR 0026: this is a component-contract showcase example. Container widths, font-size literals (e.g. `text-[10px]`), and `var(--token, #fallback)` brand-anchor hex codes are intentional fixtures demonstrating the component at deliberate sizes. Tokenizing the showcase would defeat the demonstration. The lint-allow-block stays open to EOF.
+
 "use client";
 
 import { ReactNode, useState } from "react";
@@ -160,6 +162,7 @@ export function Stepper({
             </div>
             {/* Label + description — sit under the dot, left-aligned to the
                 dot's left edge. pr-3 keeps long labels off the next dot. */}
+            {/* lumen-lint-allow: off-grid — stepper rail: 2 px (gap-0.5) label↔description spacing is the deliberate tight-stack pattern for compact stepper labels (rail rows already provide outer rhythm via space-y-*) */}
             <div className="mt-3 flex flex-col gap-0.5 pr-3 min-w-0">
               <div
                 className={[

@@ -17,6 +17,7 @@ export function TabNav() {
   return (
     <nav
       aria-label="Project type"
+      // lumen-lint-allow: primitives — `calc(100% - 32px)` is the fade-out width of a horizontal mask-image gradient (CSS math inside a Tailwind arbitrary class). Not a layout dimension; no semantic token applies.
       className="overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden [mask-image:linear-gradient(to_right,black_0%,black_calc(100%-32px),transparent_100%)]"
     >
       <ul className="mx-auto flex w-full max-w-max items-stretch gap-1 px-4 py-2">

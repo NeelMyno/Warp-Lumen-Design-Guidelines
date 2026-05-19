@@ -2,20 +2,34 @@
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "textarea": {
     "$description": "v0.6 — Textarea inherits the input shell. This file declares the multiline-only deltas: min/max heights, vertical padding, resize behavior. State + slot tokens come from input.*.",
-    "minHeight": {
+    "min-height": {
       "$type": "dimension",
-      "sm": { "$value": "{dimension.16}", "$description": "64 px — 2 lines roughly" },
-      "md": { "$value": "{dimension.20}", "$description": "80 px — default" },
-      "lg": { "$value": "{dimension.32}", "$description": "128 px — long-form" }
+      "sm": {
+        "$value": "{dimension.16}",
+        "$description": "64 px — 2 lines roughly"
+      },
+      "md": {
+        "$value": "{dimension.20}",
+        "$description": "80 px — default"
+      },
+      "lg": {
+        "$value": "{dimension.32}",
+        "$description": "128 px — long-form"
+      }
     },
-    "maxHeight": {
+    "max-height": {
       "$type": "dimension",
       "$description": "Cap auto-grow so a runaway textarea doesn't push everything off screen. Beyond cap, the textarea scrolls internally.",
-      "default": { "$value": "{dimension.64}" }
+      "default": {
+        "$value": "{dimension.64}"
+      }
     },
     "padding": {
       "$type": "dimension",
-      "y": { "$value": "{space.2}", "$description": "Top/bottom padding. Differs from input.padding.y because multiline anchors at top." }
+      "y": {
+        "$value": "{space.2}",
+        "$description": "Top/bottom padding. Differs from input.padding.y because multiline anchors at top."
+      }
     },
     "resize": {
       "$value": "vertical",

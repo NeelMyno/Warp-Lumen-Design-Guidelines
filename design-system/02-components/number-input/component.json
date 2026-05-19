@@ -23,14 +23,14 @@
       "input.background.rest", "input.background.hover", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
       "input.foreground.value", "input.foreground.placeholder", "input.foreground.addon",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition",
-      "numberInput.stepper.padding.x",
-      "numberInput.stepper.background.rest", "numberInput.stepper.background.hover", "numberInput.stepper.background.press",
-      "numberInput.stepper.color.rest", "numberInput.stepper.color.hover", "numberInput.stepper.color.disabled",
-      "numberInput.stepper.iconSize",
-      "numberInput.value.type", "numberInput.value.color", "numberInput.value.align",
-      "numberInput.suffix.type", "numberInput.suffix.color"
+      "number-input.stepper.padding.x",
+      "number-input.stepper.background.rest", "number-input.stepper.background.hover", "number-input.stepper.background.press",
+      "number-input.stepper.color.rest", "number-input.stepper.color.hover", "number-input.stepper.color.disabled",
+      "number-input.stepper.icon-size",
+      "number-input.value.type", "number-input.value.color", "number-input.value.align",
+      "number-input.suffix.type", "number-input.suffix.color"
     ]
   },
   "a11y": {

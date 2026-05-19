@@ -20,12 +20,12 @@
       "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
       "input.foreground.value", "input.foreground.placeholder",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.radius",
       "input.transition",
-      "otpInput.cell.size.sm", "otpInput.cell.size.md", "otpInput.cell.size.lg",
-      "otpInput.value.type", "otpInput.value.color",
-      "otpInput.gap.row", "otpInput.gap.groupSep"
+      "otp-input.cell.size.sm", "otp-input.cell.size.md", "otp-input.cell.size.lg",
+      "otp-input.value.type", "otp-input.value.color",
+      "otp-input.gap.row", "otp-input.gap.group-sep"
     ]
   },
   "a11y": {

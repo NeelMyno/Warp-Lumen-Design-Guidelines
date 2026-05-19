@@ -21,7 +21,7 @@
       "radio.background.rest", "radio.background.checked", "radio.background.disabled",
       "radio.indicator.color", "radio.indicator.size",
       "radio.label.type", "radio.label.color", "radio.label.gap",
-      "radio.groupGap",
+      "radio.group-gap",
       "input.ring.focus", "input.ring.error",
       "input.transition"
     ]

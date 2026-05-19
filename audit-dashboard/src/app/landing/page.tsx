@@ -93,6 +93,7 @@ export default function LandingPage() {
                 pair (P2-2 in 2026-05-04 audit). These are showcase wordmarks,
                 not interactive elements; rendering them static reads as
                 confidence (Hermes / Apple / Stripe convention). */}
+            {/* lumen-lint-allow-block: typography — wordmark cloud: each row uses tighter tracking than the text-body-lg default; intentional brand convention */}
             <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-[color:var(--text-tertiary)]">
               {["Walmart", "Gopuff", "KITH", "Faherty", "Brilliant Earth", "True Religion"].map((c) => (
                 <div key={c} className="text-body-lg font-bold tracking-[var(--tracking-tight)] select-none">
@@ -100,6 +101,7 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
+            {/* lumen-lint-allow-end: typography */}
           </div>
         </section>
 

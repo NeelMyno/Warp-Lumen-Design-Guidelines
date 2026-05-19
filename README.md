@@ -24,7 +24,7 @@ Density:            Marketing breathes (96 px hero rhythm) · Operator stays den
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 14 hard rules
-Status:             v0.13.2 · R6 senior-UX audit pass — LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025 formalizes the six-round audit-cycle ladder; 6 new SSoT docs — COMPONENT-INDEX, TOKEN-INDEX, audit-dashboard/{README,ROUTES}, foundations/{data-visualization,responsive,state-matrix}; 87 validate:tokens errors → 0 via 6 new/extended token files; 4-fix a11y cascade — Switch/Checkbox label→aria-labelledby, Field children cloneElement, NumberInput/TagsInput aria-forwarding, RangeSlider thumb labels, TypeToConfirm htmlFor; release.mjs widened 4 sites + over-bump guard; nav.tsx FAB/SplitButton/CommandPalette renamed *Demo) · 7 principles · 25 ADRs
+Status:             v0.13.3 · R6 senior-UX audit pass — LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025 formalizes the six-round audit-cycle ladder; 6 new SSoT docs — COMPONENT-INDEX, TOKEN-INDEX, audit-dashboard/{README,ROUTES}, foundations/{data-visualization,responsive,state-matrix}; 87 validate:tokens errors → 0 via 6 new/extended token files; 4-fix a11y cascade — Switch/Checkbox label→aria-labelledby, Field children cloneElement, NumberInput/TagsInput aria-forwarding, RangeSlider thumb labels, TypeToConfirm htmlFor; release.mjs widened 4 sites + over-bump guard; nav.tsx FAB/SplitButton/CommandPalette renamed *Demo) · 7 principles · 25 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.13.1
+├── VERSION                         ← 0.13.3
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,7 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.13.2
+## What's new — v0.13.3
 
 ### v0.13.2 (2026-05-18) — R6 senior-UX audit pass: LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025)
 

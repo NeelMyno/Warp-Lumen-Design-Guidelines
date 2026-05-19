@@ -1,6 +1,8 @@
 // Lumen PermissionPrompt — Web React example.
 // Centered dialog with the consequence + value. Primary fires the system prompt.
 
+// lumen-lint-allow-block: primitives — v0.13.3 / ADR 0026: this is a component-contract showcase example. Container widths, font-size literals (e.g. `text-[10px]`), and `var(--token, #fallback)` brand-anchor hex codes are intentional fixtures demonstrating the component at deliberate sizes. Tokenizing the showcase would defeat the demonstration. The lint-allow-block stays open to EOF.
+
 "use client";
 
 import { Bell, Camera, Mic, MapPin, Image, User, Activity, Eye, Bluetooth, Fingerprint } from "lucide-react";

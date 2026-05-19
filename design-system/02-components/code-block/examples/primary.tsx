@@ -2,6 +2,8 @@
 // Mono-typeface code with language/filename label, optional line numbers + highlight,
 // and copy button.
 
+// lumen-lint-allow-block: primitives — v0.13.3 / ADR 0026: this is a component-contract showcase example. Container widths, font-size literals (e.g. `text-[10px]`), and `var(--token, #fallback)` brand-anchor hex codes are intentional fixtures demonstrating the component at deliberate sizes. Tokenizing the showcase would defeat the demonstration. The lint-allow-block stays open to EOF.
+
 "use client";
 
 import { Check, Copy } from "lucide-react";

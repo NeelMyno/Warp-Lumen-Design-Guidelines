@@ -1,39 +1,75 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "timePicker": {
+  "time-picker": {
     "$description": "v0.7 — Hours / minutes input + am-pm pill toggle, all on one row inside a field-shell. Reuses input.* shell tokens. This file owns the digit-input width, the colon separator color, and the am/pm pill.",
     "digit": {
       "$description": "Two narrow numeric inputs (HH and MM). Each is 2 chars wide.",
-      "width":  { "$value": "{dimension.8}", "$description": "~32 px — fits 2 mono digits." },
-      "type":   { "$value": "{type.data.md}" },
-      "color":  { "$value": "{color.text.primary}" },
-      "align":  { "$value": "center" }
+      "width": {
+        "$value": "{dimension.8}",
+        "$description": "~32 px — fits 2 mono digits."
+      },
+      "type": {
+        "$value": "{type.data.md}"
+      },
+      "color": {
+        "$value": "{color.text.primary}"
+      },
+      "align": {
+        "$value": "center"
+      }
     },
     "separator": {
       "$description": "The colon between HH and MM. Tertiary text; non-interactive.",
-      "color": { "$value": "{color.text.tertiary}" }
+      "color": {
+        "$value": "{color.text.tertiary}"
+      }
     },
     "ampm": {
       "$description": "Two-state pill toggle (am ⇄ pm) inside the trailing area. Same recipe as Segmented but two segments only.",
-      "background":   { "$value": "{color.surface.sunken}", "$description": "Pill bar background." },
-      "padding":      { "$value": "{dimension.0}", "$description": "Bar holds 1px inset segments via inner padding." },
-      "radius":       { "$value": "{radius.sm}" },
+      "background": {
+        "$value": "{color.surface.sunken}",
+        "$description": "Pill bar background."
+      },
+      "padding": {
+        "$value": "{dimension.0}",
+        "$description": "Bar holds 1px inset segments via inner padding."
+      },
+      "radius": {
+        "$value": "{radius.sm}"
+      },
       "segment": {
-        "type":   { "$value": "{type.overline}" },
-        "radius": { "$value": "{radius.xs}" },
+        "type": {
+          "$value": "{type.overline}"
+        },
+        "radius": {
+          "$value": "{radius.xs}"
+        },
         "padding": {
-          "x": { "$value": "{space.2}" }
+          "x": {
+            "$value": "{space.2}"
+          }
         },
         "background": {
-          "active":   { "$value": "{color.surface.raised}", "$description": "Active segment lifts above the bar with a subtle shadow." },
-          "inactive": { "$value": "transparent" }
+          "active": {
+            "$value": "{color.surface.raised}",
+            "$description": "Active segment lifts above the bar with a subtle shadow."
+          },
+          "inactive": {
+            "$value": "transparent"
+          }
         },
         "color": {
-          "active":   { "$value": "{color.text.primary}" },
-          "inactive": { "$value": "{color.text.tertiary}" }
+          "active": {
+            "$value": "{color.text.primary}"
+          },
+          "inactive": {
+            "$value": "{color.text.tertiary}"
+          }
         },
         "shadow": {
-          "active": { "$value": "{shadow.xs}" }
+          "active": {
+            "$value": "{shadow.xs}"
+          }
         }
       }
     }

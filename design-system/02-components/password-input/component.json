@@ -24,14 +24,14 @@
       "input.gap.slot", "input.radius",
       "input.background.rest", "input.background.hover", "input.background.focus", "input.background.disabled",
       "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
-      "input.foreground.value", "input.foreground.placeholder", "input.foreground.iconTrailing",
-      "input.ring.focus", "input.ring.error", "input.ring.litEdge",
+      "input.foreground.value", "input.foreground.placeholder", "input.foreground.icon-trailing",
+      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
       "input.transition",
-      "passwordInput.reveal.type",
-      "passwordInput.reveal.color.rest", "passwordInput.reveal.color.hover",
-      "passwordInput.reveal.background.rest", "passwordInput.reveal.background.hover",
-      "passwordInput.reveal.padding.x", "passwordInput.reveal.padding.y", "passwordInput.reveal.radius",
-      "passwordInput.value.type", "passwordInput.value.color", "passwordInput.value.letterSpacing"
+      "password-input.reveal.type",
+      "password-input.reveal.color.rest", "password-input.reveal.color.hover",
+      "password-input.reveal.background.rest", "password-input.reveal.background.hover",
+      "password-input.reveal.padding.x", "password-input.reveal.padding.y", "password-input.reveal.radius",
+      "password-input.value.type", "password-input.value.color", "password-input.value.letter-spacing"
     ]
   },
   "a11y": {

@@ -21,7 +21,7 @@
       "switch.track.background.off", "switch.track.background.on", "switch.track.background.disabled",
       "switch.track.border.rest", "switch.track.border.error",
       "switch.thumb.size", "switch.thumb.color.off", "switch.thumb.color.on",
-      "switch.thumb.shadow", "switch.thumb.translateOff", "switch.thumb.translateOn",
+      "switch.thumb.shadow", "switch.thumb.translate-off", "switch.thumb.translate-on",
       "switch.label.type", "switch.label.color", "switch.label.gap",
       "input.ring.focus", "input.ring.error",
       "input.transition"

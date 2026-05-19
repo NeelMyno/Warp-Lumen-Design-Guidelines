@@ -132,9 +132,8 @@ function StoreHeader() {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-8 h-14">
       <div className="flex items-center gap-8">
-        <div className="text-body-lg font-bold tracking-[var(--tracking-tight)]">
-          Foundry
-        </div>
+        {/* lumen-lint-allow: typography — wordmark: tighter tracking than text-body-lg default is the intentional commerce-brand convention */}
+        <div className="text-body-lg font-bold tracking-[var(--tracking-tight)]">Foundry</div>
         <nav className="hidden md:flex items-center gap-6 text-body-sm text-[color:var(--text-secondary)]">
           {["Shop", "Collections", "Editorial", "Studio", "About"].map((n) => (
             <a key={n} href="#" className="hover:text-[color:var(--text-primary)] transition-colors">{n}</a>

@@ -1,3 +1,5 @@
+// lumen-lint-allow-block: primitives — v0.13.3 / ADR 0026: this is a component-contract showcase example. Container widths, font-size literals (e.g. `text-[10px]`), and `var(--token, #fallback)` brand-anchor hex codes are intentional fixtures demonstrating the component at deliberate sizes. Tokenizing the showcase would defeat the demonstration. The lint-allow-block stays open to EOF.
+
 "use client";
 
 import { ReactNode, useState } from "react";
@@ -105,8 +107,8 @@ export function PricingToggle({ value, onChange }: { value: "monthly" | "yearly"
         aria-pressed={value === "yearly"}
         aria-label={`Toggle billing period (currently ${value})`}
       >
-        <span
-          className="absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] shadow-[var(--shadow-xs)]"
+        {/* lumen-lint-allow: off-grid — pricing-toggle thumb: 2 px top offset (top-0.5) is the deliberate hairline-aligned position inside the 24 px (h-6) track for an 18 px thumb; aligns with the 1 px border + 1 px breathing-room convention */}
+        <span className="absolute top-0.5 h-[18px] w-[18px] rounded-full bg-[var(--lumen-accent-4)] shadow-[var(--shadow-xs)]"
           style={{
             left: value === "yearly" ? 22 : 2,
             transition: "left 120ms cubic-bezier(0.2, 0, 0, 1)",

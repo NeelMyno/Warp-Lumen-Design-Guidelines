@@ -8,21 +8,30 @@
  */
 
 import StyleDictionary from "style-dictionary";
+import { globSync } from "@bundled-es-modules/glob";
 
 // Style Dictionary v5 has native DTCG (Design Tokens Community Group) support,
 // so the @tokens-studio/sd-transforms preprocessor (which targets SD v4) is not needed.
 // If you later round-trip tokens through Tokens Studio in Figma, add it back and
 // downgrade style-dictionary to v4 OR upgrade sd-transforms to a SD-v5-compatible version.
 
-const sourceGlob = "design-system/01-tokens/**/*.tokens.json";
+// v0.13.3 (ADR 0026) — pre-resolve the source list explicitly.
+// SD v5's lib/utils/combineJSON.js runs `globSync(pattern)` per source-array entry
+// individually, then concatenates. The `!negative` exclusion syntax does NOT survive
+// — globSync treats `!` as a literal character and the main `**/*.tokens.json` glob
+// keeps pulling the excluded files. So we resolve once here, filter by file path,
+// and pass an explicit file list to SD. Same fix for both lightConfig + darkConfig.
+const ALL_TOKEN_FILES = globSync("design-system/01-tokens/**/*.tokens.json").sort();
+const isDarkOrHC = (f: string) =>
+  /\/(color\.dark|color\.hc-(?:light|dark))\.tokens\.json$/.test(f);
+const isLightOrInvariant = (f: string) =>
+  /\/(color\.light|color\.invariant)\.tokens\.json$/.test(f);
+
+const LIGHT_SOURCE = ALL_TOKEN_FILES.filter((f) => !isDarkOrHC(f));
+const DARK_SOURCE = ALL_TOKEN_FILES.filter((f) => !isLightOrInvariant(f) && !/\/color\.hc-(?:light|dark)\.tokens\.json$/.test(f));
 
 const lightConfig = {
-  source: [
-    sourceGlob,
-    "!design-system/01-tokens/semantic/color.dark.tokens.json",
-    "!design-system/01-tokens/semantic/color.hc-light.tokens.json",
-    "!design-system/01-tokens/semantic/color.hc-dark.tokens.json",
-  ],
+  source: LIGHT_SOURCE,
   platforms: {
     css: {
       transformGroup: "css",
@@ -122,16 +131,7 @@ const lightConfig = {
 };
 
 const darkConfig = {
-  source: [
-    "design-system/01-tokens/primitives/**/*.tokens.json",
-    "design-system/01-tokens/semantic/color.dark.tokens.json",
-    "design-system/01-tokens/semantic/space.tokens.json",
-    "design-system/01-tokens/semantic/type.tokens.json",
-    "design-system/01-tokens/semantic/motion.tokens.json",
-    "design-system/01-tokens/semantic/radius.tokens.json",
-    "design-system/01-tokens/semantic/shadow.tokens.json",
-    "design-system/01-tokens/components/**/*.tokens.json",
-  ],
+  source: DARK_SOURCE,
   platforms: {
     css: {
       transformGroup: "css",

@@ -1,25 +1,44 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "otpInput": {
+  "otp-input": {
     "$description": "v0.7 — Cell-row pattern for one-time passcodes. Each cell is its own .lumen-field micro-shell so each cell has independent focus state. Row gap and per-cell width are owned here; surface/border/ring come from input.*.",
     "cell": {
       "$type": "dimension",
       "size": {
-        "sm": { "$value": "{dimension.8}",  "$description": "32 px square — compact." },
-        "md": { "$value": "{dimension.10}", "$description": "40 px square — default." },
-        "lg": { "$value": "{dimension.12}", "$description": "48 px square — touch / marketing." }
+        "sm": {
+          "$value": "{dimension.8}",
+          "$description": "32 px square — compact."
+        },
+        "md": {
+          "$value": "{dimension.10}",
+          "$description": "40 px square — default."
+        },
+        "lg": {
+          "$value": "{dimension.12}",
+          "$description": "48 px square — touch / marketing."
+        }
       }
     },
     "value": {
       "$description": "Each digit renders mono, centered, slightly larger than body for legibility.",
-      "type":  { "$value": "{type.data.lg}" },
-      "color": { "$value": "{color.text.primary}" }
+      "type": {
+        "$value": "{type.data.lg}"
+      },
+      "color": {
+        "$value": "{color.text.primary}"
+      }
     },
     "gap": {
       "$type": "dimension",
       "$description": "Horizontal gap between cells.",
-      "row":      { "$value": "{space.2}", "$description": "Default gap between cells." },
-      "groupSep": { "$value": "{space.3}", "$description": "Optional wider gap between 3-3 grouped cells (e.g. 123 456)." }
+      "row": {
+        "$value": "{space.2}",
+        "$description": "Default gap between cells."
+      },
+      "group-sep": {
+        "$value": "{space.3}",
+        "$description": "Optional wider gap between 3-3 grouped cells (e.g. 123 456)."
+      }
     }
   }
 }

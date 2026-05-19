@@ -125,10 +125,8 @@ function IOSFrame() {
             { id: "WRP-9827", lane: "SEA → DEN", status: "On time", carrier: "ODFL" },
             { id: "WRP-9828", lane: "MIA → JFK", status: "Late",    carrier: "FedEx" },
           ].map((s) => (
-            <div
-              key={s.id}
-              className="flex items-center justify-between gap-3 bg-[var(--surface-raised)] rounded-[var(--radius-lg)] px-3 py-2.5 border border-[var(--border-hairline)]"
-            >
+            // lumen-lint-allow: off-grid — iOS-conventional 10 px (py-2.5) row padding on 44 pt touch targets; py-2 (8) reads tight, py-3 (12) reads loose
+            <div key={s.id} className="flex items-center justify-between gap-3 bg-[var(--surface-raised)] rounded-[var(--radius-lg)] px-3 py-2.5 border border-[var(--border-hairline)]">
               <div className="flex items-center gap-3 min-w-0">
                 <Avatar name={s.carrier} size="sm" />
                 <div className="flex flex-col min-w-0 gap-[2px]">

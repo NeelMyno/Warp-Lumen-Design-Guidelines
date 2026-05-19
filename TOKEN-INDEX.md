@@ -1,6 +1,6 @@
 # TOKEN-INDEX.md
 
-> **Auto-generated for Lumen v0.13.2** (2026-05-19). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.13.3** (2026-05-19). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 > **What this is.** A flat, alphabetical index of every Lumen semantic and component-bound token, with its alias target (or resolved primitive value if terminal) and the description from the source file. **Agents and engineers consume only these** — per AGENTS.md hard rule 2, never reference primitives directly.
 
@@ -105,7 +105,7 @@
 | `color.surface.input.disabled` | `{color.brand.900}` | Sunken bg signals 'not interactive'. Paired with disabled border + text. |
 | `color.surface.input.focus` | `{color.brand.700}` |  |
 | `color.surface.input.hover` | `{color.brand.700}` |  |
-| `color.surface.input.readOnly` | `{color.brand.700}` | Read-only keeps full contrast — same bg as rest. Caret hidden, content selectable. |
+| `color.surface.input.read-only` | `{color.brand.700}` | Read-only keeps full contrast — same bg as rest. Caret hidden, content selectable. |
 | `color.surface.input.rest` | `{color.brand.700}` | Same as surface.raised; named role for input bg. |
 | `color.surface.inverse` | `{color.neutral.50}` |  |
 | `color.surface.overlay` | `{color.alpha.ink.86}` | Translucent backdrop for sticky chrome. v0.11.13 — references {color.alpha.ink.86}. v0.12 — ink anchor moved to neutral #0D0D0D. |
@@ -237,7 +237,7 @@
 | `color.surface.input.disabled` | `{color.neutral.50}` | Even quieter than rest. |
 | `color.surface.input.focus` | `{color.absolute.white}` | Pop to paper-white on focus — cognitive-fluency cue: 'you have my attention'. v0.11.13 — references {color.absolute.white}. |
 | `color.surface.input.hover` | `{color.neutral.200}` |  |
-| `color.surface.input.readOnly` | `{color.neutral.200}` |  |
+| `color.surface.input.read-only` | `{color.neutral.200}` |  |
 | `color.surface.input.rest` | `{color.neutral.200}` | Sunken neutral — inset feel against paper. v0.11 anchored to user-fixed #E6E6E6. |
 | `color.surface.inverse` | `{color.brand.800}` | Dark surface for contrast moments in light mode (CTA bands, footers). |
 | `color.surface.overlay` | `{color.alpha.paper.84}` | Translucent backdrop for sticky chrome. |
@@ -287,11 +287,10 @@
 | `radius.pill` | `{radius.full}` |  |
 | `radius.popover` | `{radius.lg}` | Listbox / dropdown / menu / tooltip radius. Matches card.default for visual continuity. |
 
-### `semantic/shadow.tokens.json` (25 tokens)
+### `semantic/shadow.tokens.json` (24 tokens)
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `shadow.accent-glow` | `{shadow.accent-glow}` | Optional outer glow under primary CTAs. Warp signature. |
 | `shadow.button.ai-shimmer` | `{ 0: {"color":"{color.alpha.accent.32}","offs }` | v0.9 — AI-action variant idle border (1 px accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`. |
 | `shadow.button.glow.active` | `{ 0: {"color":"{color.alpha.accent.20}","offs }` | Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale. Unchanged through v0.12.2. |
 | `shadow.button.glow.hover` | `{ 0: {"color":"{color.alpha.accent.28}","offs }` | Hover halo — wider blur + higher alpha than rest, but trimmed in v0.12.2 (was 24px a40, retuned to 20px a28 — blur −17%, alpha −30%). Cascades into both the base .lumen-btn-primary… |
@@ -625,47 +624,47 @@
 | `combobox.item.type` | `{type.body.sm}` |  |
 | `combobox.listbox.background` | `{color.surface.popover}` |  |
 | `combobox.listbox.border` | `{color.border.default}` |  |
-| `combobox.listbox.maxHeight` | `{dimension.48}` | 192 px — internal scroll past this. |
+| `combobox.listbox.max-height` | `{dimension.48}` | 192 px — internal scroll past this. |
 | `combobox.listbox.padding` | `{space.1}` |  |
 | `combobox.listbox.radius` | `{radius.popover}` |  |
 | `combobox.listbox.shadow` | `{shadow.popover}` |  |
-| `combobox.trigger.caretColor` | `{color.text.tertiary}` |  |
-| `combobox.trigger.caretRotation` | `180deg` | Trailing chevron rotates 180° when the popover is open. CSS: transform applied via [data-state='open']. |
+| `combobox.trigger.caret-color` | `{color.text.tertiary}` |  |
+| `combobox.trigger.caret-rotation` | `180deg` | Trailing chevron rotates 180° when the popover is open. CSS: transform applied via [data-state='open']. |
 
 ### `components/date-picker.tokens.json` (28 tokens)
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `datePicker.calendar.background` | `{color.surface.popover}` |  |
-| `datePicker.calendar.border` | `{color.border.default}` |  |
-| `datePicker.calendar.day.background.hover` | `{color.surface.sunken}` |  |
-| `datePicker.calendar.day.background.rest` | `transparent` |  |
-| `datePicker.calendar.day.background.selected` | `{color.accent.400}` |  |
-| `datePicker.calendar.day.background.today` | `transparent` | Today is marked by border, not fill — so it doesn't compete with selection. |
-| `datePicker.calendar.day.border.today` | `{color.border.strong}` | 1 px border marks today without competing with selection fill. |
-| `datePicker.calendar.day.color.disabled` | `{color.text.disabled}` |  |
-| `datePicker.calendar.day.color.hover` | `{color.text.primary}` |  |
-| `datePicker.calendar.day.color.muted` | `{color.text.disabled}` | Out-of-month days. |
-| `datePicker.calendar.day.color.rest` | `{color.text.secondary}` |  |
-| `datePicker.calendar.day.color.selected` | `{color.accent.fg}` | Near-black-green ink on lime fill — AA contrast. |
-| `datePicker.calendar.day.radius` | `{radius.sm}` |  |
-| `datePicker.calendar.day.size` | `{dimension.8}` | 32 px cell — square tap target. |
-| `datePicker.calendar.day.type` | `{type.caption}` |  |
-| `datePicker.calendar.header.color` | `{color.text.primary}` |  |
-| `datePicker.calendar.header.navColor.hover` | `{color.text.primary}` |  |
-| `datePicker.calendar.header.navColor.rest` | `{color.text.tertiary}` |  |
-| `datePicker.calendar.header.type` | `{type.body.sm}` |  |
-| `datePicker.calendar.padding` | `{space.3}` |  |
-| `datePicker.calendar.radius` | `{radius.popover}` |  |
-| `datePicker.calendar.shadow` | `{shadow.popover}` |  |
-| `datePicker.calendar.weekday.color` | `{color.text.tertiary}` |  |
-| `datePicker.calendar.weekday.type` | `{type.overline}` |  |
-| `datePicker.calendar.width` | `{dimension.64}` | 256 px — fits 7 columns × 32 px cells with breathing room. |
-| `datePicker.transition.close` | `{motion.transition.fast}` |  |
-| `datePicker.transition.open` | `{motion.transition.fast}` |  |
-| `datePicker.trigger.iconColor` | `{color.text.tertiary}` |  |
+| `date-picker.calendar.background` | `{color.surface.popover}` |  |
+| `date-picker.calendar.border` | `{color.border.default}` |  |
+| `date-picker.calendar.day.background.hover` | `{color.surface.sunken}` |  |
+| `date-picker.calendar.day.background.rest` | `transparent` |  |
+| `date-picker.calendar.day.background.selected` | `{color.accent.400}` |  |
+| `date-picker.calendar.day.background.today` | `transparent` | Today is marked by border, not fill — so it doesn't compete with selection. |
+| `date-picker.calendar.day.border.today` | `{color.border.strong}` | 1 px border marks today without competing with selection fill. |
+| `date-picker.calendar.day.color.disabled` | `{color.text.disabled}` |  |
+| `date-picker.calendar.day.color.hover` | `{color.text.primary}` |  |
+| `date-picker.calendar.day.color.muted` | `{color.text.disabled}` | Out-of-month days. |
+| `date-picker.calendar.day.color.rest` | `{color.text.secondary}` |  |
+| `date-picker.calendar.day.color.selected` | `{color.accent.fg}` | Near-black-green ink on lime fill — AA contrast. |
+| `date-picker.calendar.day.radius` | `{radius.sm}` |  |
+| `date-picker.calendar.day.size` | `{dimension.8}` | 32 px cell — square tap target. |
+| `date-picker.calendar.day.type` | `{type.caption}` |  |
+| `date-picker.calendar.header.color` | `{color.text.primary}` |  |
+| `date-picker.calendar.header.nav-color.hover` | `{color.text.primary}` |  |
+| `date-picker.calendar.header.nav-color.rest` | `{color.text.tertiary}` |  |
+| `date-picker.calendar.header.type` | `{type.body.sm}` |  |
+| `date-picker.calendar.padding` | `{space.3}` |  |
+| `date-picker.calendar.radius` | `{radius.popover}` |  |
+| `date-picker.calendar.shadow` | `{shadow.popover}` |  |
+| `date-picker.calendar.weekday.color` | `{color.text.tertiary}` |  |
+| `date-picker.calendar.weekday.type` | `{type.overline}` |  |
+| `date-picker.calendar.width` | `{dimension.64}` | 256 px — fits 7 columns × 32 px cells with breathing room. |
+| `date-picker.transition.close` | `{motion.transition.fast}` |  |
+| `date-picker.transition.open` | `{motion.transition.fast}` |  |
+| `date-picker.trigger.icon-color` | `{color.text.tertiary}` |  |
 
-### `components/field.tokens.json` (23 tokens)
+### `components/field.tokens.json` (21 tokens)
 
 | Token path | Value / alias | Description |
 |---|---|---|
@@ -681,11 +680,9 @@
 | `field.gap.labelToControl` | `{field.gap.label}` |  |
 | `field.helper.color` | `{color.text.tertiary}` |  |
 | `field.helper.color-disabled` | `{color.text.disabled}` | v0.8 — kebab-case rename. |
-| `field.helper.colorDisabled` | `{field.helper.color-disabled}` |  |
 | `field.helper.type` | `{type.body.xs}` |  |
 | `field.label.color` | `{color.text.secondary}` |  |
 | `field.label.color-disabled` | `{color.text.disabled}` | v0.8 — kebab-case rename. (Was colorDisabled). |
-| `field.label.colorDisabled` | `{field.label.color-disabled}` |  |
 | `field.label.type` | `{type.label.sm}` |  |
 | `field.optional.color` | `{color.text.tertiary}` |  |
 | `field.optional.type` | `{type.body.xs}` |  |
@@ -697,38 +694,38 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `fileDropzone.browseLink.color` | `{color.text.accent}` |  |
-| `fileDropzone.browseLink.textDecoration` | `underline` |  |
-| `fileDropzone.fileRow.background` | `{color.surface.sunken}` |  |
-| `fileDropzone.fileRow.meta.color` | `{color.text.tertiary}` |  |
-| `fileDropzone.fileRow.meta.type` | `{type.overline}` |  |
-| `fileDropzone.fileRow.name.color` | `{color.text.secondary}` |  |
-| `fileDropzone.fileRow.name.type` | `{type.caption}` |  |
-| `fileDropzone.fileRow.padding.x` | `{space.2}` |  |
-| `fileDropzone.fileRow.padding.y` | `{space.1}` |  |
-| `fileDropzone.fileRow.radius` | `{radius.sm}` |  |
-| `fileDropzone.hint.color` | `{color.text.tertiary}` |  |
-| `fileDropzone.hint.type` | `{type.caption}` |  |
-| `fileDropzone.icon.background` | `{color.surface.sunken}` |  |
-| `fileDropzone.icon.color` | `{color.text.secondary}` |  |
-| `fileDropzone.icon.iconSize` | `{dimension.5}` | 18–20 px + glyph. |
-| `fileDropzone.icon.radius` | `{radius.full}` |  |
-| `fileDropzone.icon.size` | `{dimension.10}` | 40 px circle. |
-| `fileDropzone.shell.background.dragover` | `{color.alpha.accent.12}` | Subtle lime tint reinforces the dragover border. |
-| `fileDropzone.shell.background.hover` | `transparent` |  |
-| `fileDropzone.shell.background.rest` | `transparent` |  |
-| `fileDropzone.shell.border.dragover` | `{color.accent.500}` | Lime border when files are being dragged over. |
-| `fileDropzone.shell.border.error` | `{color.border.error}` | Border color when the file fails accept/size validation. |
-| `fileDropzone.shell.border.hover` | `{color.border.strong}` |  |
-| `fileDropzone.shell.border.rest` | `{color.border.default}` |  |
-| `fileDropzone.shell.borderStyle` | `dashed` |  |
-| `fileDropzone.shell.borderWidth` | `1px` |  |
-| `fileDropzone.shell.padding.x` | `{space.4}` |  |
-| `fileDropzone.shell.padding.y` | `{space.8}` |  |
-| `fileDropzone.shell.radius` | `{radius.lg}` |  |
-| `fileDropzone.shell.transition` | `{motion.transition.fast}` |  |
-| `fileDropzone.title.color` | `{color.text.primary}` |  |
-| `fileDropzone.title.type` | `{type.body.sm}` |  |
+| `file-dropzone.browse-link.color` | `{color.text.accent}` |  |
+| `file-dropzone.browse-link.text-decoration` | `underline` |  |
+| `file-dropzone.file-row.background` | `{color.surface.sunken}` |  |
+| `file-dropzone.file-row.meta.color` | `{color.text.tertiary}` |  |
+| `file-dropzone.file-row.meta.type` | `{type.overline}` |  |
+| `file-dropzone.file-row.name.color` | `{color.text.secondary}` |  |
+| `file-dropzone.file-row.name.type` | `{type.caption}` |  |
+| `file-dropzone.file-row.padding.x` | `{space.2}` |  |
+| `file-dropzone.file-row.padding.y` | `{space.1}` |  |
+| `file-dropzone.file-row.radius` | `{radius.sm}` |  |
+| `file-dropzone.hint.color` | `{color.text.tertiary}` |  |
+| `file-dropzone.hint.type` | `{type.caption}` |  |
+| `file-dropzone.icon.background` | `{color.surface.sunken}` |  |
+| `file-dropzone.icon.color` | `{color.text.secondary}` |  |
+| `file-dropzone.icon.icon-size` | `{dimension.5}` | 18–20 px + glyph. |
+| `file-dropzone.icon.radius` | `{radius.full}` |  |
+| `file-dropzone.icon.size` | `{dimension.10}` | 40 px circle. |
+| `file-dropzone.shell.background.dragover` | `{color.alpha.accent.12}` | Subtle lime tint reinforces the dragover border. |
+| `file-dropzone.shell.background.hover` | `transparent` |  |
+| `file-dropzone.shell.background.rest` | `transparent` |  |
+| `file-dropzone.shell.border-style` | `dashed` |  |
+| `file-dropzone.shell.border-width` | `1px` |  |
+| `file-dropzone.shell.border.dragover` | `{color.accent.500}` | Lime border when files are being dragged over. |
+| `file-dropzone.shell.border.error` | `{color.border.error}` | Border color when the file fails accept/size validation. |
+| `file-dropzone.shell.border.hover` | `{color.border.strong}` |  |
+| `file-dropzone.shell.border.rest` | `{color.border.default}` |  |
+| `file-dropzone.shell.padding.x` | `{space.4}` |  |
+| `file-dropzone.shell.padding.y` | `{space.8}` |  |
+| `file-dropzone.shell.radius` | `{radius.lg}` |  |
+| `file-dropzone.shell.transition` | `{motion.transition.fast}` |  |
+| `file-dropzone.title.color` | `{color.text.primary}` |  |
+| `file-dropzone.title.type` | `{type.body.sm}` |  |
 
 ### `components/input.tokens.json` (41 tokens)
 
@@ -737,27 +734,27 @@
 | `input.background.disabled` | `{color.surface.input.disabled}` |  |
 | `input.background.focus` | `{color.surface.input.focus}` |  |
 | `input.background.hover` | `{color.surface.input.hover}` |  |
-| `input.background.readOnly` | `{color.surface.input.readOnly}` |  |
+| `input.background.read-only` | `{color.surface.input.read-only}` |  |
 | `input.background.rest` | `{color.surface.input.rest}` |  |
 | `input.border.disabled` | `{color.border.disabled}` |  |
 | `input.border.error` | `{color.border.error}` |  |
 | `input.border.focus` | `{color.border.focus}` |  |
 | `input.border.hover` | `{color.border.strong}` |  |
-| `input.border.readOnly` | `{color.border.default}` |  |
+| `input.border.read-only` | `{color.border.default}` |  |
 | `input.border.rest` | `{color.border.default}` |  |
 | `input.border.success` | `{color.border.success}` |  |
 | `input.border.warning` | `{color.border.warning}` |  |
 | `input.foreground.addon` | `{color.text.tertiary}` | Trailing addon (unit chips: lb / STD / %). |
 | `input.foreground.error` | `{color.text.error}` |  |
 | `input.foreground.helper` | `{color.text.tertiary}` |  |
-| `input.foreground.iconLeading` | `{color.text.tertiary}` |  |
-| `input.foreground.iconTrailing` | `{color.text.tertiary}` |  |
+| `input.foreground.icon-leading` | `{color.text.tertiary}` |  |
+| `input.foreground.icon-trailing` | `{color.text.tertiary}` |  |
 | `input.foreground.label` | `{color.text.secondary}` |  |
 | `input.foreground.placeholder` | `{color.text.placeholder}` |  |
 | `input.foreground.success` | `{color.text.success}` |  |
 | `input.foreground.value` | `{color.text.primary}` |  |
-| `input.foreground.valueDisabled` | `{color.text.disabled}` |  |
-| `input.foreground.valueReadOnly` | `{color.text.primary}` | Read-only keeps full contrast — only the caret + interactivity changes. |
+| `input.foreground.value-disabled` | `{color.text.disabled}` |  |
+| `input.foreground.value-read-only` | `{color.text.primary}` | Read-only keeps full contrast — only the caret + interactivity changes. |
 | `input.foreground.warning` | `{color.text.warning}` |  |
 | `input.gap.slot` | `{space.2}` | Gap between leading/trailing slot and the value. |
 | `input.height.lg` | `{size.control.lg}` | 48 px — touch / marketing forms |
@@ -772,7 +769,7 @@
 | `input.radius` | `{radius.control.md}` |  |
 | `input.ring.error` | `{shadow.input.error}` |  |
 | `input.ring.focus` | `{shadow.input.focus}` |  |
-| `input.ring.litEdge` | `{shadow.input.lit-edge}` | Stacked under focus/error halo to keep the lit-edge effect on dark mode. |
+| `input.ring.lit-edge` | `{shadow.input.lit-edge}` | Stacked under focus/error halo to keep the lit-edge effect on dark mode. |
 | `input.ring.success` | `{shadow.input.success}` |  |
 | `input.transition` | `{motion.transition.fast}` |  |
 
@@ -780,47 +777,47 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `numberInput.stepper.background.hover` | `{color.surface.sunken}` |  |
-| `numberInput.stepper.background.press` | `{color.surface.sunken}` |  |
-| `numberInput.stepper.background.rest` | `transparent` |  |
-| `numberInput.stepper.color.disabled` | `{color.text.disabled}` |  |
-| `numberInput.stepper.color.hover` | `{color.text.primary}` |  |
-| `numberInput.stepper.color.rest` | `{color.text.secondary}` |  |
-| `numberInput.stepper.iconSize` | `{dimension.3}` | 12 px — Lucide minus / plus glyph. |
-| `numberInput.stepper.padding.x` | `{space.3}` | Horizontal padding around the +/− glyph. |
-| `numberInput.suffix.color` | `{color.text.tertiary}` |  |
-| `numberInput.suffix.type` | `{type.eyebrow.mono}` |  |
-| `numberInput.value.align` | `center` |  |
-| `numberInput.value.color` | `{color.text.primary}` |  |
-| `numberInput.value.type` | `{type.data.md}` | Mono with tnum/lnum on for ledger-aligned digits. |
+| `number-input.stepper.background.hover` | `{color.surface.sunken}` |  |
+| `number-input.stepper.background.press` | `{color.surface.sunken}` |  |
+| `number-input.stepper.background.rest` | `transparent` |  |
+| `number-input.stepper.color.disabled` | `{color.text.disabled}` |  |
+| `number-input.stepper.color.hover` | `{color.text.primary}` |  |
+| `number-input.stepper.color.rest` | `{color.text.secondary}` |  |
+| `number-input.stepper.icon-size` | `{dimension.3}` | 12 px — Lucide minus / plus glyph. |
+| `number-input.stepper.padding.x` | `{space.3}` | Horizontal padding around the +/− glyph. |
+| `number-input.suffix.color` | `{color.text.tertiary}` |  |
+| `number-input.suffix.type` | `{type.eyebrow.mono}` |  |
+| `number-input.value.align` | `center` |  |
+| `number-input.value.color` | `{color.text.primary}` |  |
+| `number-input.value.type` | `{type.data.md}` | Mono with tnum/lnum on for ledger-aligned digits. |
 
 ### `components/otp-input.tokens.json` (7 tokens)
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `otpInput.cell.size.lg` | `{dimension.12}` | 48 px square — touch / marketing. |
-| `otpInput.cell.size.md` | `{dimension.10}` | 40 px square — default. |
-| `otpInput.cell.size.sm` | `{dimension.8}` | 32 px square — compact. |
-| `otpInput.gap.groupSep` | `{space.3}` | Optional wider gap between 3-3 grouped cells (e.g. 123 456). |
-| `otpInput.gap.row` | `{space.2}` | Default gap between cells. |
-| `otpInput.value.color` | `{color.text.primary}` |  |
-| `otpInput.value.type` | `{type.data.lg}` |  |
+| `otp-input.cell.size.lg` | `{dimension.12}` | 48 px square — touch / marketing. |
+| `otp-input.cell.size.md` | `{dimension.10}` | 40 px square — default. |
+| `otp-input.cell.size.sm` | `{dimension.8}` | 32 px square — compact. |
+| `otp-input.gap.group-sep` | `{space.3}` | Optional wider gap between 3-3 grouped cells (e.g. 123 456). |
+| `otp-input.gap.row` | `{space.2}` | Default gap between cells. |
+| `otp-input.value.color` | `{color.text.primary}` |  |
+| `otp-input.value.type` | `{type.data.lg}` |  |
 
 ### `components/password-input.tokens.json` (11 tokens)
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `passwordInput.reveal.background.hover` | `{color.surface.sunken}` |  |
-| `passwordInput.reveal.background.rest` | `transparent` |  |
-| `passwordInput.reveal.color.hover` | `{color.text.primary}` |  |
-| `passwordInput.reveal.color.rest` | `{color.text.secondary}` |  |
-| `passwordInput.reveal.padding.x` | `{space.2}` |  |
-| `passwordInput.reveal.padding.y` | `{space.1}` |  |
-| `passwordInput.reveal.radius` | `{radius.xs}` |  |
-| `passwordInput.reveal.type` | `{type.eyebrow.mono}` | Uppercase mono label — matches the system-metadata signature. |
-| `passwordInput.value.color` | `{color.text.primary}` |  |
-| `passwordInput.value.letterSpacing` | `0.1em` | Wider tracking on the masked dots so each character reads as discrete. |
-| `passwordInput.value.type` | `{type.data.sm}` |  |
+| `password-input.reveal.background.hover` | `{color.surface.sunken}` |  |
+| `password-input.reveal.background.rest` | `transparent` |  |
+| `password-input.reveal.color.hover` | `{color.text.primary}` |  |
+| `password-input.reveal.color.rest` | `{color.text.secondary}` |  |
+| `password-input.reveal.padding.x` | `{space.2}` |  |
+| `password-input.reveal.padding.y` | `{space.1}` |  |
+| `password-input.reveal.radius` | `{radius.xs}` |  |
+| `password-input.reveal.type` | `{type.eyebrow.mono}` | Uppercase mono label — matches the system-metadata signature. |
+| `password-input.value.color` | `{color.text.primary}` |  |
+| `password-input.value.letter-spacing` | `0.1em` | Wider tracking on the masked dots so each character reads as discrete. |
+| `password-input.value.type` | `{type.data.sm}` |  |
 
 ### `components/radio.tokens.json` (17 tokens)
 
@@ -834,7 +831,7 @@
 | `radio.border.error` | `{color.border.error}` |  |
 | `radio.border.hover` | `{color.border.strong}` |  |
 | `radio.border.rest` | `{color.border.default}` |  |
-| `radio.groupGap` | `{space.3}` | Vertical gap between radios in a group. |
+| `radio.group-gap` | `{space.3}` | Vertical gap between radios in a group. |
 | `radio.indicator.color` | `{color.accent.500}` |  |
 | `radio.indicator.size` | `{dimension.2}` | 8 px dot. |
 | `radio.label.color` | `{color.text.primary}` |  |
@@ -848,19 +845,19 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `rangeSlider.range.background` | `{color.accent.500}` |  |
-| `rangeSlider.thumb.background` | `{color.absolute.white}` | v0.11.13 — references {color.absolute.white} (was inlined #ffffff). |
-| `rangeSlider.thumb.border` | `{color.border.strong}` |  |
-| `rangeSlider.thumb.radius` | `{radius.full}` |  |
-| `rangeSlider.thumb.ringFocus` | `{shadow.focus}` | Lime focus ring around the thumb when keyboard-focused. |
-| `rangeSlider.thumb.shadow` | `{shadow.sm}` |  |
-| `rangeSlider.thumb.size` | `{dimension.4}` | 16 px — meets minimum touch target with hover-area extension. |
-| `rangeSlider.track.background` | `{color.surface.sunken}` |  |
-| `rangeSlider.track.height` | `{dimension.1}` | 4 px — readable but thin. |
-| `rangeSlider.track.radius` | `{radius.full}` |  |
-| `rangeSlider.trackHeight` | `{dimension.6}` | Vertical slot the track + thumbs share. Needs to be at least the thumb diameter so the thumb doesn't clip. |
-| `rangeSlider.value.color` | `{color.text.tertiary}` |  |
-| `rangeSlider.value.type` | `{type.overline}` |  |
+| `range-slider.range.background` | `{color.accent.500}` |  |
+| `range-slider.slot.height` | `{dimension.6}` | Vertical slot the track + thumbs share. Needs to be at least the thumb diameter so the thumb doesn't clip. |
+| `range-slider.thumb.background` | `{color.absolute.white}` | v0.11.13 — references {color.absolute.white} (was inlined #ffffff). |
+| `range-slider.thumb.border` | `{color.border.strong}` |  |
+| `range-slider.thumb.radius` | `{radius.full}` |  |
+| `range-slider.thumb.ring-focus` | `{shadow.focus}` | Lime focus ring around the thumb when keyboard-focused. |
+| `range-slider.thumb.shadow` | `{shadow.sm}` |  |
+| `range-slider.thumb.size` | `{dimension.4}` | 16 px — meets minimum touch target with hover-area extension. |
+| `range-slider.track.background` | `{color.surface.sunken}` |  |
+| `range-slider.track.height` | `{dimension.1}` | 4 px — readable but thin. |
+| `range-slider.track.radius` | `{radius.full}` |  |
+| `range-slider.value.color` | `{color.text.tertiary}` |  |
+| `range-slider.value.type` | `{type.overline}` |  |
 
 ### `components/segmented.tokens.json` (17 tokens)
 
@@ -876,7 +873,7 @@
 | `segmented.segment.background.inactive` | `transparent` |  |
 | `segmented.segment.color.active` | `{color.text.primary}` |  |
 | `segmented.segment.color.inactive` | `{color.text.tertiary}` |  |
-| `segmented.segment.color.inactiveHover` | `{color.text.primary}` |  |
+| `segmented.segment.color.inactive-hover` | `{color.text.primary}` |  |
 | `segmented.segment.height` | `28px` | Bar 32 minus 2 px padding × 2. |
 | `segmented.segment.padding.x` | `{space.3}` |  |
 | `segmented.segment.radius` | `{radius.sm}` |  |
@@ -903,12 +900,12 @@
 | `select.item.type` | `{type.body.sm}` |  |
 | `select.listbox.background` | `{color.surface.popover}` |  |
 | `select.listbox.border` | `{color.border.default}` |  |
-| `select.listbox.maxHeight` | `{dimension.64}` | 256 px — internal scroll past this. |
-| `select.listbox.minWidth` | `{dimension.32}` | 128 px — never narrower than the trigger. |
+| `select.listbox.max-height` | `{dimension.64}` | 256 px — internal scroll past this. |
+| `select.listbox.min-width` | `{dimension.32}` | 128 px — never narrower than the trigger. |
 | `select.listbox.padding` | `{space.1}` | Inner padding around the item list. |
 | `select.listbox.radius` | `{radius.popover}` |  |
 | `select.listbox.shadow` | `{shadow.popover}` |  |
-| `select.trigger.caretColor` | `{color.text.tertiary}` | Chevron color in trailing slot. |
+| `select.trigger.caret-color` | `{color.text.tertiary}` | Chevron color in trailing slot. |
 
 ### `components/switch.tokens.json` (17 tokens)
 
@@ -921,8 +918,8 @@
 | `switch.thumb.color.on` | `{color.accent.fg}` | Near-black-green so it reads on lime. |
 | `switch.thumb.shadow` | `{shadow.xs}` |  |
 | `switch.thumb.size` | `{dimension.4}` | 16 px thumb. |
-| `switch.thumb.translateOff` | `{dimension.0}` |  |
-| `switch.thumb.translateOn` | `{dimension.4}` | 16 px slide. Track width (36) − thumb width (16) − padding gap (4) = 16. |
+| `switch.thumb.translate-off` | `{dimension.0}` |  |
+| `switch.thumb.translate-on` | `{dimension.4}` | 16 px slide. Track width (36) − thumb width (16) − padding gap (4) = 16. |
 | `switch.track.background.disabled` | `{color.surface.input.disabled}` |  |
 | `switch.track.background.off` | `{color.surface.sunken}` |  |
 | `switch.track.background.on` | `{color.accent.500}` |  |
@@ -936,32 +933,32 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `tagsInput.draft.color` | `{color.text.primary}` |  |
-| `tagsInput.draft.minWidth` | `{dimension.20}` | 80 px — enough to type a short tag. |
-| `tagsInput.draft.placeholder` | `{color.text.placeholder}` |  |
-| `tagsInput.draft.type` | `{type.body.sm}` |  |
-| `tagsInput.shell.gap.wrap` | `{space.1}` | Gap between chips and between chip-row and draft input. |
-| `tagsInput.shell.minHeight` | `{size.control.md}` |  |
-| `tagsInput.shell.padding.y` | `{space.1}` | Vertical breathing room when chips wrap to a new row. |
-| `tagsInput.tag.background` | `{color.surface.sunken}` |  |
-| `tagsInput.tag.border` | `transparent` |  |
-| `tagsInput.tag.color` | `{color.text.secondary}` |  |
-| `tagsInput.tag.height` | `{dimension.6}` | 24 px chip height. |
-| `tagsInput.tag.padding.x` | `{space.2}` |  |
-| `tagsInput.tag.radius` | `{radius.sm}` |  |
-| `tagsInput.tag.remove.color.hover` | `{color.text.primary}` |  |
-| `tagsInput.tag.remove.color.rest` | `{color.text.tertiary}` |  |
-| `tagsInput.tag.remove.iconSize` | `{dimension.3}` | 10–12 px X glyph. |
-| `tagsInput.tag.type` | `{type.caption}` |  |
+| `tags-input.draft.color` | `{color.text.primary}` |  |
+| `tags-input.draft.min-width` | `{dimension.20}` | 80 px — enough to type a short tag. |
+| `tags-input.draft.placeholder` | `{color.text.placeholder}` |  |
+| `tags-input.draft.type` | `{type.body.sm}` |  |
+| `tags-input.shell.gap.wrap` | `{space.1}` | Gap between chips and between chip-row and draft input. |
+| `tags-input.shell.min-height` | `{size.control.md}` |  |
+| `tags-input.shell.padding.y` | `{space.1}` | Vertical breathing room when chips wrap to a new row. |
+| `tags-input.tag.background` | `{color.surface.sunken}` |  |
+| `tags-input.tag.border` | `transparent` |  |
+| `tags-input.tag.color` | `{color.text.secondary}` |  |
+| `tags-input.tag.height` | `{dimension.6}` | 24 px chip height. |
+| `tags-input.tag.padding.x` | `{space.2}` |  |
+| `tags-input.tag.radius` | `{radius.sm}` |  |
+| `tags-input.tag.remove.color.hover` | `{color.text.primary}` |  |
+| `tags-input.tag.remove.color.rest` | `{color.text.tertiary}` |  |
+| `tags-input.tag.remove.icon-size` | `{dimension.3}` | 10–12 px X glyph. |
+| `tags-input.tag.type` | `{type.caption}` |  |
 
 ### `components/textarea.tokens.json` (6 tokens)
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `textarea.maxHeight.default` | `{dimension.64}` |  |
-| `textarea.minHeight.lg` | `{dimension.32}` | 128 px — long-form |
-| `textarea.minHeight.md` | `{dimension.20}` | 80 px — default |
-| `textarea.minHeight.sm` | `{dimension.16}` | 64 px — 2 lines roughly |
+| `textarea.max-height.default` | `{dimension.64}` |  |
+| `textarea.min-height.lg` | `{dimension.32}` | 128 px — long-form |
+| `textarea.min-height.md` | `{dimension.20}` | 80 px — default |
+| `textarea.min-height.sm` | `{dimension.16}` | 64 px — 2 lines roughly |
 | `textarea.padding.y` | `{space.2}` | Top/bottom padding. Differs from input.padding.y because multiline anchors at top. |
 | `textarea.resize` | `vertical` | Default resize handle. Set to 'none' for fixed-size textareas; 'both' is discouraged because it breaks page rhythm. |
 
@@ -969,25 +966,25 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `timePicker.ampm.background` | `{color.surface.sunken}` | Pill bar background. |
-| `timePicker.ampm.padding` | `{dimension.0}` | Bar holds 1px inset segments via inner padding. |
-| `timePicker.ampm.radius` | `{radius.sm}` |  |
-| `timePicker.ampm.segment.background.active` | `{color.surface.raised}` | Active segment lifts above the bar with a subtle shadow. |
-| `timePicker.ampm.segment.background.inactive` | `transparent` |  |
-| `timePicker.ampm.segment.color.active` | `{color.text.primary}` |  |
-| `timePicker.ampm.segment.color.inactive` | `{color.text.tertiary}` |  |
-| `timePicker.ampm.segment.padding.x` | `{space.2}` |  |
-| `timePicker.ampm.segment.radius` | `{radius.xs}` |  |
-| `timePicker.ampm.segment.shadow.active` | `{shadow.xs}` |  |
-| `timePicker.ampm.segment.type` | `{type.overline}` |  |
-| `timePicker.digit.align` | `center` |  |
-| `timePicker.digit.color` | `{color.text.primary}` |  |
-| `timePicker.digit.type` | `{type.data.md}` |  |
-| `timePicker.digit.width` | `{dimension.8}` | ~32 px — fits 2 mono digits. |
-| `timePicker.separator.color` | `{color.text.tertiary}` |  |
+| `time-picker.ampm.background` | `{color.surface.sunken}` | Pill bar background. |
+| `time-picker.ampm.padding` | `{dimension.0}` | Bar holds 1px inset segments via inner padding. |
+| `time-picker.ampm.radius` | `{radius.sm}` |  |
+| `time-picker.ampm.segment.background.active` | `{color.surface.raised}` | Active segment lifts above the bar with a subtle shadow. |
+| `time-picker.ampm.segment.background.inactive` | `transparent` |  |
+| `time-picker.ampm.segment.color.active` | `{color.text.primary}` |  |
+| `time-picker.ampm.segment.color.inactive` | `{color.text.tertiary}` |  |
+| `time-picker.ampm.segment.padding.x` | `{space.2}` |  |
+| `time-picker.ampm.segment.radius` | `{radius.xs}` |  |
+| `time-picker.ampm.segment.shadow.active` | `{shadow.xs}` |  |
+| `time-picker.ampm.segment.type` | `{type.overline}` |  |
+| `time-picker.digit.align` | `center` |  |
+| `time-picker.digit.color` | `{color.text.primary}` |  |
+| `time-picker.digit.type` | `{type.data.md}` |  |
+| `time-picker.digit.width` | `{dimension.8}` | ~32 px — fits 2 mono digits. |
+| `time-picker.separator.color` | `{color.text.tertiary}` |  |
 
 ---
 
-**Totals:** 412 semantic tokens · 418 component-bound tokens.
+**Totals:** 411 semantic tokens · 416 component-bound tokens.
 
-> Generated 2026-05-19 from VERSION = 0.13.2. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.
+> Generated 2026-05-19 from VERSION = 0.13.3. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.

@@ -85,10 +85,6 @@
         "$description": "v0.9 — AI-action variant idle border (1 px accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`."
       }
     },
-    "accent-glow": {
-      "$value": "{shadow.accent-glow}",
-      "$description": "Optional outer glow under primary CTAs. Warp signature."
-    },
     "input": {
       "$description": "v0.6 — input field shell shadows. Composed: lit-edge (rest) + focus/error halo (active state). Apply to .lumen-field wrapper, never to the inner <input>. v0.11.13 — focus + success refs to spring-green primitives, error refs to refined v0.11 danger primitive.",
       "lit-edge": {

@@ -1,60 +1,122 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "datePicker": {
+  "date-picker": {
     "$description": "v0.7 — DatePicker. The trigger is a read-only field-shell with a leading calendar glyph; the calendar lives in a portaled popover. This file declares the calendar grid, day-cell states, and the open/close animation. v0.7 ships the visual contract and a static calendar scaffold; consumers should compose `react-day-picker` (recommended) for real selection logic.",
     "trigger": {
       "$description": "Read-only field-shell with leading calendar icon; click opens the calendar popover.",
-      "iconColor": { "$value": "{color.text.tertiary}" }
+      "icon-color": {
+        "$value": "{color.text.tertiary}"
+      }
     },
     "calendar": {
       "$description": "Calendar popover surface. Same recipe as Select/Combobox listbox: surface.popover + popover shadow.",
-      "background": { "$value": "{color.surface.popover}" },
-      "border":     { "$value": "{color.border.default}" },
-      "radius":     { "$value": "{radius.popover}" },
-      "shadow":     { "$value": "{shadow.popover}" },
-      "padding":    { "$value": "{space.3}" },
-      "width":      { "$value": "{dimension.64}", "$description": "256 px — fits 7 columns × 32 px cells with breathing room." },
+      "background": {
+        "$value": "{color.surface.popover}"
+      },
+      "border": {
+        "$value": "{color.border.default}"
+      },
+      "radius": {
+        "$value": "{radius.popover}"
+      },
+      "shadow": {
+        "$value": "{shadow.popover}"
+      },
+      "padding": {
+        "$value": "{space.3}"
+      },
+      "width": {
+        "$value": "{dimension.64}",
+        "$description": "256 px — fits 7 columns × 32 px cells with breathing room."
+      },
       "header": {
         "$description": "Month/year title row + prev/next nav.",
-        "type":  { "$value": "{type.body.sm}" },
-        "color": { "$value": "{color.text.primary}" },
-        "navColor": {
-          "rest":  { "$value": "{color.text.tertiary}" },
-          "hover": { "$value": "{color.text.primary}" }
+        "type": {
+          "$value": "{type.body.sm}"
+        },
+        "color": {
+          "$value": "{color.text.primary}"
+        },
+        "nav-color": {
+          "rest": {
+            "$value": "{color.text.tertiary}"
+          },
+          "hover": {
+            "$value": "{color.text.primary}"
+          }
         }
       },
       "weekday": {
         "$description": "Mo Tu We Th Fr Sa Su row above the day grid.",
-        "type":  { "$value": "{type.overline}" },
-        "color": { "$value": "{color.text.tertiary}" }
+        "type": {
+          "$value": "{type.overline}"
+        },
+        "color": {
+          "$value": "{color.text.tertiary}"
+        }
       },
       "day": {
         "$description": "Single day cell. Square; mono numeral; selected state is filled lime.",
-        "size":   { "$value": "{dimension.8}", "$description": "32 px cell — square tap target." },
-        "radius": { "$value": "{radius.sm}" },
-        "type":   { "$value": "{type.caption}" },
+        "size": {
+          "$value": "{dimension.8}",
+          "$description": "32 px cell — square tap target."
+        },
+        "radius": {
+          "$value": "{radius.sm}"
+        },
+        "type": {
+          "$value": "{type.caption}"
+        },
         "background": {
-          "rest":     { "$value": "transparent" },
-          "hover":    { "$value": "{color.surface.sunken}" },
-          "selected": { "$value": "{color.accent.400}" },
-          "today":    { "$value": "transparent", "$description": "Today is marked by border, not fill — so it doesn't compete with selection." }
+          "rest": {
+            "$value": "transparent"
+          },
+          "hover": {
+            "$value": "{color.surface.sunken}"
+          },
+          "selected": {
+            "$value": "{color.accent.400}"
+          },
+          "today": {
+            "$value": "transparent",
+            "$description": "Today is marked by border, not fill — so it doesn't compete with selection."
+          }
         },
         "color": {
-          "rest":     { "$value": "{color.text.secondary}" },
-          "hover":    { "$value": "{color.text.primary}" },
-          "selected": { "$value": "{color.accent.fg}", "$description": "Near-black-green ink on lime fill — AA contrast." },
-          "muted":    { "$value": "{color.text.disabled}", "$description": "Out-of-month days." },
-          "disabled": { "$value": "{color.text.disabled}" }
+          "rest": {
+            "$value": "{color.text.secondary}"
+          },
+          "hover": {
+            "$value": "{color.text.primary}"
+          },
+          "selected": {
+            "$value": "{color.accent.fg}",
+            "$description": "Near-black-green ink on lime fill — AA contrast."
+          },
+          "muted": {
+            "$value": "{color.text.disabled}",
+            "$description": "Out-of-month days."
+          },
+          "disabled": {
+            "$value": "{color.text.disabled}"
+          }
         },
         "border": {
-          "today": { "$value": "{color.border.strong}", "$description": "1 px border marks today without competing with selection fill." }
+          "today": {
+            "$value": "{color.border.strong}",
+            "$description": "1 px border marks today without competing with selection fill."
+          }
         }
       }
     },
     "transition": {
       "$description": "Open/close motion for the calendar popover. Honor prefers-reduced-motion: collapse to instant.",
-      "open":  { "$value": "{motion.transition.fast}" },
-      "close": { "$value": "{motion.transition.fast}" }
+      "open": {
+        "$value": "{motion.transition.fast}"
+      },
+      "close": {
+        "$value": "{motion.transition.fast}"
+      }
     }
   }
 }

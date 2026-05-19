@@ -1,43 +1,82 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
-  "tagsInput": {
+  "tags-input": {
     "$description": "v0.7 — Wrapping chip-row tag entry. The shell reuses input.* tokens but flexes height (auto, min input.height.md). This file owns the tag-chip surface and the bare draft <input> sizing.",
     "shell": {
       "$description": "Field-shell delta — wraps to multiple lines, vertical padding adapts.",
-      "minHeight":  { "$value": "{size.control.md}" },
+      "min-height": {
+        "$value": "{size.control.md}"
+      },
       "padding": {
-        "y": { "$value": "{space.1}", "$description": "Vertical breathing room when chips wrap to a new row." }
+        "y": {
+          "$value": "{space.1}",
+          "$description": "Vertical breathing room when chips wrap to a new row."
+        }
       },
       "gap": {
-        "wrap": { "$value": "{space.1}", "$description": "Gap between chips and between chip-row and draft input." }
+        "wrap": {
+          "$value": "{space.1}",
+          "$description": "Gap between chips and between chip-row and draft input."
+        }
       }
     },
     "tag": {
       "$description": "Single tag chip. Pill-radius hairline-bordered surface; close (X) button at the end.",
-      "height":  { "$value": "{dimension.6}", "$description": "24 px chip height." },
-      "padding": {
-        "x": { "$value": "{space.2}" }
+      "height": {
+        "$value": "{dimension.6}",
+        "$description": "24 px chip height."
       },
-      "radius":     { "$value": "{radius.sm}" },
-      "type":       { "$value": "{type.caption}" },
-      "background": { "$value": "{color.surface.sunken}" },
-      "color":      { "$value": "{color.text.secondary}" },
-      "border":     { "$value": "transparent" },
+      "padding": {
+        "x": {
+          "$value": "{space.2}"
+        }
+      },
+      "radius": {
+        "$value": "{radius.sm}"
+      },
+      "type": {
+        "$value": "{type.caption}"
+      },
+      "background": {
+        "$value": "{color.surface.sunken}"
+      },
+      "color": {
+        "$value": "{color.text.secondary}"
+      },
+      "border": {
+        "$value": "transparent"
+      },
       "remove": {
         "$description": "The 'remove tag' close button at the chip's trailing edge.",
         "color": {
-          "rest":  { "$value": "{color.text.tertiary}" },
-          "hover": { "$value": "{color.text.primary}" }
+          "rest": {
+            "$value": "{color.text.tertiary}"
+          },
+          "hover": {
+            "$value": "{color.text.primary}"
+          }
         },
-        "iconSize": { "$value": "{dimension.3}", "$description": "10–12 px X glyph." }
+        "icon-size": {
+          "$value": "{dimension.3}",
+          "$description": "10–12 px X glyph."
+        }
       }
     },
     "draft": {
       "$description": "The bare <input> at the end of the chip row. No border; auto-width.",
-      "minWidth":   { "$value": "{dimension.20}", "$description": "80 px — enough to type a short tag." },
-      "type":       { "$value": "{type.body.sm}" },
-      "color":      { "$value": "{color.text.primary}" },
-      "placeholder":{ "$value": "{color.text.placeholder}" }
+      "min-width": {
+        "$value": "{dimension.20}",
+        "$description": "80 px — enough to type a short tag."
+      },
+      "type": {
+        "$value": "{type.body.sm}"
+      },
+      "color": {
+        "$value": "{color.text.primary}"
+      },
+      "placeholder": {
+        "$value": "{color.text.placeholder}"
+      }
     }
   }
 }
