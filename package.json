@@ -1,6 +1,6 @@
 {
   "name": "@warp/lumen",
-  "version": "0.13.4",
+  "version": "0.13.5",
   "private": true,
   "description": "Lumen — Warp's vertically integrated design system. Tokens (DTCG), components (md + json), platforms (web/RN/iOS/Android/desktop/e-commerce), LLM contract.",
   "homepage": "https://lumen.warp.dev",

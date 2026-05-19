@@ -23,8 +23,8 @@ Peak-card hover:    Pricing tiers + plan pickers lift on hover (shadow-md + bord
 Density:            Marketing breathes (96 px hero rhythm) · Operator stays dense (24 px section rhythm)
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
-LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 14 hard rules
-Status:             v0.13.4 · R6 senior-UX audit pass — LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025 formalizes the six-round audit-cycle ladder; 6 new SSoT docs — COMPONENT-INDEX, TOKEN-INDEX, audit-dashboard/{README,ROUTES}, foundations/{data-visualization,responsive,state-matrix}; 87 validate:tokens errors → 0 via 6 new/extended token files; 4-fix a11y cascade — Switch/Checkbox label→aria-labelledby, Field children cloneElement, NumberInput/TagsInput aria-forwarding, RangeSlider thumb labels, TypeToConfirm htmlFor; release.mjs widened 4 sites + over-bump guard; nav.tsx FAB/SplitButton/CommandPalette renamed *Demo) · 7 principles · 25 ADRs
+LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 16 hard rules
+Status:             v0.13.5 · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028 — Next.js 16 experimental.inlineCss: true replaces <link rel=stylesheet> with <style data-precedence="next"> on every prerender; LCP geo-mean 3001 → 2706 ms = −295 ms / −9.8% across 9 routes at the Moto G4 4G profile, 3-run median; Speed Index −1131 ms on / and −927 ms on /library; CLS 0.000 unchanged — both @font-face metric-aligned fallbacks preserved verbatim in inline CSS; /library LCP +184 ms median documented as bounded — main-thread CSS parse cost on 4684-node DOM, R8c carries the fix; cumulative R8a+R8b: 3030 → 2706 ms = −324 ms / −10.7% from R7 baseline; new scripts/lighthouse-mobile-baseline.mjs re-runnable CLI; release.mjs --banner-only flag closes chat 41 friction) · 7 principles · 27 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.13.4
+├── VERSION                         ← 0.13.5
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,40 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.13.4
+## What's new — v0.13.5
+
+### v0.13.5 (2026-05-19) — R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028)
+
+Ninth round of the same-day live-audit cycle. R8a (v0.13.4) cut 25.6 KB off the font payload on the LCP critical path and dropped LCP geo-mean 169 ms. R8b closes the next-largest lever R8a's audit explicitly named: the 26 KB Tailwind utility chunk that wasted 462–635 ms per route per Lighthouse's `render-blocking-resources` audit. The lever is one config line — Next.js 16's `experimental.inlineCss: true` in [`audit-dashboard/next.config.ts`](./audit-dashboard/next.config.ts). At build time, Next.js replaces every prerendered page's `<link rel="stylesheet">` with a `<style data-precedence="next">` block carrying the same CSS content. The browser receives styles inline with the HTML so the render-blocking waterfall collapses.
+
+**3-run-median results across 9 audit-dashboard routes at the Moto G4 4G profile:**
+- LCP geo-mean: **3001 → 2706 ms (−295 ms, −9.8%)**
+- Perf score geo-mean: 94 → 95
+- CLS: 0.000 on every route, both configs (the metric-aligned `Satoshi-Fallback` contract from ADR 0010 holds)
+- TBT geo-mean: 10 → 13 ms (still 15× under the 200 ms Good threshold)
+- Speed Index: dramatic wins on heavy routes — `/` SI 2614 → 1483 ms (−1131 ms), `/library` SI 2575 → 1648 ms (−927 ms)
+
+**Per-route LCP standouts:** `/landing` 2954 → 1825 ms (−1129 ms), `/commerce` 2948 → 1898 ms (−1050 ms), `/desktop` 2813 → 2572 ms (−241 ms), `/mobile` 2809 → 2575 ms (−234 ms). Marginal moves on `/`, `/saas`, `/tool` (within noise envelope).
+
+**The one regression: `/library` LCP +184 ms median.** LCP element selector is identical to R8a (the article header `<p>`); root cause is main-thread CSS parse cost. Under external CSS, the network thread parses 26 KB of utility rules in parallel with HTML download. Under inline CSS, the same parse cost lands on the main thread before computing styles against `/library`'s 4684-node DOM. R8b's diagnostic on `/library`: main-thread work breakdown 3138 → 6283 ms (2×), bootup time 332 → 1029 ms (3×). The regression is bounded: the R8c carry-forward (lazy-render the 98 primitive showcases via Intersection Observer) is the root-cause fix; once `/library`'s above-the-fold DOM is ~200 nodes instead of 4684, the inlineCss main-thread cost stops dominating.
+
+**The CLS contract holds end-to-end.** Both `@font-face` blocks Lumen depends on — the handcoded `Satoshi-Fallback` from globals.css per ADR 0010 + next/font's auto-generated `satoshi Fallback` with size-adjust 109.35% + ascent-override 92.36% + descent-override 21.95% — are preserved verbatim in the inlined CSS. The metric overrides are font-table-derived (next/font reads hhea + OS/2 at build time), not glyph-derived; inlining moves the bytes but doesn't perturb the CLS-critical values. Verified `grep -c "size-adjust"` on the produced HTML: 4 hits per route, all inline.
+
+**Cumulative across R8a + R8b: LCP geo-mean 3030 → 2706 ms = −324 ms / −10.7% from the R7 baseline.**
+
+**Plus two process improvements bundled with R8b:**
+- New [`scripts/lighthouse-mobile-baseline.mjs`](./scripts/lighthouse-mobile-baseline.mjs) — re-runnable Lighthouse CLI. Factors the chat 41 inline bash recipe into a single script supporting `--tag`, `--port`, `--routes` flags; writes per-route JSON + aggregate markdown table to `.audit-runs/<date>-round-<tag>/`.
+- `scripts/release.mjs --banner-only` flag — closes the chat 41 friction. With the flag, the script uses the CURRENT VERSION as authoritative (skips the bump + the CHANGELOG mutation + the `[next]`-already-exists guard). Use for pre-authored CHANGELOG flows; the default `release.mjs patch` flow is unchanged.
+
+**Methodology contribution:** *byte-level levers also have shape — moving bytes between the network thread and the main thread changes WHERE the cost lands, not just WHETHER it lands. A round can be a clean win in aggregate while regressing on the heaviest route in the surface set; that regression is a signal for the NEXT lever, not a veto on the current one.*
+
+R8c+ candidates rank by expected LCP impact ÷ architectural-risk: (1) **R8c — `/library` DOM weight reduction** (Intersection Observer lazy-render of the 98 primitive showcases — projected 300–500 ms LCP win, compensates R8b's `/library` main-thread regression); (2) **R8d — italic font-display: optional** (brand call); (3) **R8e — real iOS Safari + real Android Chrome verification** (BrowserStack or SauceLabs); (4) **R9 — reduced-motion + high-contrast OS-mode contracts** (separate axis); (5) **R10 — print + export contracts**; (6) **R11 — native pipeline render verification** (Swift / Compose / Flutter); (7) **R12 — Storybook + a11y-tree per-state probes** across all 98 primitives.
+
+Audit baseline at [`.audit-runs/2026-05-19-round-8b/LIGHTHOUSE.md`](./.audit-runs/2026-05-19-round-8b/LIGHTHOUSE.md). Raw 3-run R8a + R8b at [`.audit-runs/2026-05-19-round-r8a-run-{1,2,3}/`](./.audit-runs/) and [`.audit-runs/2026-05-19-round-r8b-fresh-{1,2,3}/`](./.audit-runs/).
+
+### v0.13.4 (2026-05-19) — R8a Satoshi subset for LCP critical-path bytes (ADR 0027)
+
+Eighth round. R7 (v0.13.3) captured the first mobile Lighthouse baseline; LCP emerged as the only Needs-Improvement metric (3030 ms geo-mean). R8a moves it. Both Satoshi VF woff2 files re-subset to drop unused codepoints + glyphs while preserving every Lumen-referenced OpenType feature + the full wght 300–900 variable axis. Total bytes saved on the critical path: 25,628. **LCP geo-mean: 3030 → 2861 ms (−169 ms, −5.6%);** `/foundations` standout: 3300 → 2728 ms (−572 ms — drops out of Needs Improvement). CLS contract holds — next/font's size-adjust + ascent-override + descent-override are font-table-derived, not glyph-derived. Codepoint keep set codified in [`scripts/subset-satoshi.mjs`](./scripts/subset-satoshi.mjs); pre-subset originals preserved in [`.audit-runs/_font-backups/`](./.audit-runs/_font-backups/).
 
 ### v0.13.2 (2026-05-18) — R6 senior-UX audit pass: LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025)
 

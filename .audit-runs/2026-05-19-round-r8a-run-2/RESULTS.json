@@ -1,0 +1,97 @@
+{
+  "tag": "r8a-run-2",
+  "today": "2026-05-19",
+  "results": [
+    {
+      "route": "/",
+      "slug": "root",
+      "score": 90,
+      "lcp": 3572.8311999999996,
+      "fcp": 1531.7484,
+      "tbt": 10,
+      "cls": 0,
+      "si": 2613.516521800042
+    },
+    {
+      "route": "/foundations",
+      "slug": "foundations",
+      "score": 97,
+      "lcp": 2570.784,
+      "fcp": 1370.784,
+      "tbt": 9.999999999999773,
+      "cls": 0,
+      "si": 1370.784
+    },
+    {
+      "route": "/library",
+      "slug": "library",
+      "score": 91,
+      "lcp": 3373.276,
+      "fcp": 1379.638,
+      "tbt": 12,
+      "cls": 0,
+      "si": 2574.8233484915745
+    },
+    {
+      "route": "/saas",
+      "slug": "saas",
+      "score": 94,
+      "lcp": 3103.40415,
+      "fcp": 1222.9361,
+      "tbt": 9.5,
+      "cls": 0,
+      "si": 1222.9361
+    },
+    {
+      "route": "/landing",
+      "slug": "landing",
+      "score": 95,
+      "lcp": 2945.452,
+      "fcp": 1218.968,
+      "tbt": 8.5,
+      "cls": 0,
+      "si": 1218.968
+    },
+    {
+      "route": "/tool",
+      "slug": "tool",
+      "score": 95,
+      "lcp": 2944.68865,
+      "fcp": 1068.4591,
+      "tbt": 8.5,
+      "cls": 0,
+      "si": 1068.4591
+    },
+    {
+      "route": "/commerce",
+      "slug": "commerce",
+      "score": 95,
+      "lcp": 2948.4772,
+      "fcp": 1070.9848,
+      "tbt": 8.5,
+      "cls": 0,
+      "si": 1070.9848
+    },
+    {
+      "route": "/mobile",
+      "slug": "mobile",
+      "score": 96,
+      "lcp": 2809.2946,
+      "fcp": 1078.1964,
+      "tbt": 8.5,
+      "cls": 0,
+      "si": 1078.1964
+    },
+    {
+      "route": "/desktop",
+      "slug": "desktop",
+      "score": 96,
+      "lcp": 2796.0553,
+      "fcp": 1069.3702,
+      "tbt": 8.5,
+      "cls": 0,
+      "si": 1069.3702
+    }
+  ],
+  "failures": []
+}

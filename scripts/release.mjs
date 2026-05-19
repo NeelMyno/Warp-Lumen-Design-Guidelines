@@ -30,6 +30,20 @@
 // plus a safety guard: refuse to run if CHANGELOG already has a [next] section
 // (closes the v0.13.1 release flow's "0.13.1 → 0.13.2 over-bump" trap session 38
 // hit when release.mjs was run on top of an already-bumped VERSION).
+//
+// v0.13.5 — added the --banner-only flag (closes the v0.13.4 friction R8a noted).
+// Chat 40 → chat 41 the release flow can land either way:
+//   - "stub-then-promote" — develop under [Unreleased], run release.mjs, get a
+//      stub [next] block, hand-promote entries from [Unreleased]. The default
+//      flow this script supports.
+//   - "pre-author" — author the [next] CHANGELOG block fully, then bump banners
+//      + version files but NOT CHANGELOG. Use `node scripts/release.mjs patch
+//      --banner-only`. The script reads VERSION as authoritative (does not
+//      re-increment it), skips the CHANGELOG mutation entirely, and skips the
+//      [next]-already-exists guard since it's expected. Use this when the
+//      release PR's CHANGELOG narrative was authored before the version-lockstep
+//      pass — common for performance-round releases where the audit log informs
+//      the prose long before the version-bump moment.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { execSync } from "node:child_process";
@@ -37,29 +51,41 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
-const bump = process.argv[2] ?? "patch"; // major | minor | patch
+
+// v0.13.5 — argv parsing (supports positional bump tier + flags in any order).
+const rawArgs = process.argv.slice(2);
+const flags = new Set(rawArgs.filter((a) => a.startsWith("--")));
+const bump = rawArgs.find((a) => !a.startsWith("--")) ?? "patch"; // major | minor | patch
+const bannerOnly = flags.has("--banner-only");
 
 const versionPath = join(ROOT, "VERSION");
 const current = (await readFile(versionPath, "utf8")).trim();
 const [maj, min, pat] = current.split(".").map(Number);
 
-const next =
-  bump === "major" ? `${maj + 1}.0.0` :
-  bump === "minor" ? `${maj}.${min + 1}.0` :
-                     `${maj}.${min}.${pat + 1}`;
+// --banner-only uses the CURRENT VERSION as the target; default flow increments.
+const next = bannerOnly
+  ? current
+  : bump === "major"
+    ? `${maj + 1}.0.0`
+    : bump === "minor"
+      ? `${maj}.${min + 1}.0`
+      : `${maj}.${min}.${pat + 1}`;
 
-// v0.13.2 — guard against the 0.13.1 → 0.13.2 over-bump trap.
-// If [next] already exists in CHANGELOG as a section heading, the user
-// almost certainly hand-bumped VERSION and is re-running the script. Refuse.
-const changelogForGuard = await readFile(join(ROOT, "CHANGELOG.md"), "utf8");
-if (new RegExp(`^## \\[${next.replace(/\./g, "\\.")}\\]`, "m").test(changelogForGuard)) {
-  console.error(`✗ Refusing to bump ${current} → ${next}: CHANGELOG.md already has a [${next}] section.`);
-  console.error(`  Either (a) VERSION was hand-bumped to ${current} before running this script — in which case the bump is already done, skip release.mjs;`);
-  console.error(`  or (b) you meant to run with a different bump tier.`);
-  process.exit(1);
+if (bannerOnly) {
+  console.log(`--banner-only: VERSION already at ${next}; skipping CHANGELOG mutation + skipping [next] guard.`);
+} else {
+  // v0.13.2 — guard against the 0.13.1 → 0.13.2 over-bump trap.
+  // If [next] already exists in CHANGELOG as a section heading, the user
+  // almost certainly hand-bumped VERSION and is re-running the script. Refuse.
+  const changelogForGuard = await readFile(join(ROOT, "CHANGELOG.md"), "utf8");
+  if (new RegExp(`^## \\[${next.replace(/\./g, "\\.")}\\]`, "m").test(changelogForGuard)) {
+    console.error(`✗ Refusing to bump ${current} → ${next}: CHANGELOG.md already has a [${next}] section.`);
+    console.error(`  Either (a) VERSION was hand-bumped to ${current} before running this script — pass --banner-only to skip the CHANGELOG step;`);
+    console.error(`  or (b) you meant to run with a different bump tier.`);
+    process.exit(1);
+  }
+  console.log(`Bumping ${current} → ${next}`);
 }
-
-console.log(`Bumping ${current} → ${next}`);
 
 await writeFile(versionPath, next + "\n");
 
@@ -182,14 +208,18 @@ for (const file of llmFacingFiles) {
   }
 }
 
-const changelogPath = join(ROOT, "CHANGELOG.md");
-const changelog = await readFile(changelogPath, "utf8");
-const entry = `## [${next}] — ${today}\n\n_See \`[Unreleased]\` for details; promote entries here on release._\n\n`;
-const updated = changelog.replace(
-  /## \[Unreleased\]\n/,
-  `## [Unreleased]\n\n${entry}`,
-);
-await writeFile(changelogPath, updated);
+if (bannerOnly) {
+  console.log("--banner-only: skipping CHANGELOG mutation (pre-authored entry stays as is).");
+} else {
+  const changelogPath = join(ROOT, "CHANGELOG.md");
+  const changelog = await readFile(changelogPath, "utf8");
+  const entry = `## [${next}] — ${today}\n\n_See \`[Unreleased]\` for details; promote entries here on release._\n\n`;
+  const updated = changelog.replace(
+    /## \[Unreleased\]\n/,
+    `## [Unreleased]\n\n${entry}`,
+  );
+  await writeFile(changelogPath, updated);
+}
 
 console.log("Running build + validate + registry...");
 execSync("pnpm build && pnpm validate && pnpm registry", {
@@ -198,10 +228,14 @@ execSync("pnpm build && pnpm validate && pnpm registry", {
 });
 
 console.log(`\n✓ Released ${next}`);
-console.log("  - VERSION bumped");
+if (!bannerOnly) {
+  console.log("  - VERSION bumped");
+}
 console.log("  - audit-dashboard/src/lib/version.ts bumped (LUMEN_VERSION + MAJOR_MINOR variants)");
 console.log(`  - LLM-facing prose banners rewritten in ${totalRewrites}/${llmFacingFiles.length} files (ADR 0023)`);
-console.log("  - CHANGELOG entry prepended");
+if (!bannerOnly) {
+  console.log("  - CHANGELOG entry prepended");
+}
 console.log("Next: review CHANGELOG.md + AGENTS.md/CLAUDE.md top callouts, commit, tag, push.");
 console.log("Reminder (per ADR 0023): AGENTS.md + CLAUDE.md top callouts are EXEMPT from the script;");
 console.log("hand-rewrite them with the cycle's narrative as part of the release PR.");
