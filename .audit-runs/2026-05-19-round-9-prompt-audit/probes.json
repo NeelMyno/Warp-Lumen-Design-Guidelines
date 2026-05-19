@@ -1,0 +1,1395 @@
+[
+  {
+    "route": "/foundations",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 1736,
+    "hasH1": true,
+    "h1Text": "Foundations. Tuned.",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 119,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 85,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 120,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/library",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 683,
+    "hasH1": true,
+    "h1Text": "Library",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 74,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 22,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 89,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/saas",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 678,
+    "hasH1": true,
+    "h1Text": "SaaS Dashboard",
+    "headingOrder": [
+      1,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 33,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 28,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/landing",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 586,
+    "hasH1": true,
+    "h1Text": "Marketing & Landing",
+    "headingOrder": [
+      1,
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 19,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 15,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/tool",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 426,
+    "hasH1": true,
+    "h1Text": "Web Tool",
+    "headingOrder": [
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 34,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 33,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/commerce",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 492,
+    "hasH1": true,
+    "h1Text": "Commerce",
+    "headingOrder": [
+      1,
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 44,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 33,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/mobile",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 372,
+    "hasH1": true,
+    "h1Text": "Mobile",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 23,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 17,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/desktop",
+    "theme": "dark",
+    "viewport": "mobile-320",
+    "innerWidth": 320,
+    "innerHeight": 720,
+    "domNodeCount": 379,
+    "hasH1": true,
+    "h1Text": "Native Desktop",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 31,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 30,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/foundations",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 1737,
+    "hasH1": true,
+    "h1Text": "Foundations. Tuned.",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 119,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 85,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 120,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/library",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 684,
+    "hasH1": true,
+    "h1Text": "Library",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 74,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 22,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 89,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/saas",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 679,
+    "hasH1": true,
+    "h1Text": "SaaS Dashboard",
+    "headingOrder": [
+      1,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 33,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 28,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/landing",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 587,
+    "hasH1": true,
+    "h1Text": "Marketing & Landing",
+    "headingOrder": [
+      1,
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 19,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 15,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/tool",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 426,
+    "hasH1": true,
+    "h1Text": "Web Tool",
+    "headingOrder": [
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 34,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 33,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/commerce",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 493,
+    "hasH1": true,
+    "h1Text": "Commerce",
+    "headingOrder": [
+      1,
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 44,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 33,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/mobile",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 373,
+    "hasH1": true,
+    "h1Text": "Mobile",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 23,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 17,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/desktop",
+    "theme": "dark",
+    "viewport": "mobile-375",
+    "innerWidth": 375,
+    "innerHeight": 812,
+    "domNodeCount": 380,
+    "hasH1": true,
+    "h1Text": "Native Desktop",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 31,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 30,
+    "touchTargetSamples": [
+      {
+        "tag": "a",
+        "w": 1,
+        "h": 1,
+        "label": "Skip to main content"
+      },
+      {
+        "tag": "a",
+        "w": 73,
+        "h": 21,
+        "label": "Lumenv0.14.0"
+      },
+      {
+        "tag": "button",
+        "w": 36,
+        "h": 36,
+        "label": "Switch to light theme"
+      },
+      {
+        "tag": "a",
+        "w": 106,
+        "h": 36,
+        "label": "Foundations"
+      },
+      {
+        "tag": "a",
+        "w": 75,
+        "h": 36,
+        "label": "Library"
+      }
+    ]
+  },
+  {
+    "route": "/foundations",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 1739,
+    "hasH1": true,
+    "h1Text": "Foundations. Tuned.",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 119,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/library",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 686,
+    "hasH1": true,
+    "h1Text": "Library",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 74,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/saas",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 681,
+    "hasH1": true,
+    "h1Text": "SaaS Dashboard",
+    "headingOrder": [
+      1,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 33,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/landing",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 589,
+    "hasH1": true,
+    "h1Text": "Marketing & Landing",
+    "headingOrder": [
+      1,
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 19,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/tool",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 428,
+    "hasH1": true,
+    "h1Text": "Web Tool",
+    "headingOrder": [
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 34,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/commerce",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 494,
+    "hasH1": true,
+    "h1Text": "Commerce",
+    "headingOrder": [
+      1,
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 44,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/mobile",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 374,
+    "hasH1": true,
+    "h1Text": "Mobile",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 23,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/desktop",
+    "theme": "dark",
+    "viewport": "desktop-1280",
+    "innerWidth": 1280,
+    "innerHeight": 800,
+    "domNodeCount": 382,
+    "hasH1": true,
+    "h1Text": "Native Desktop",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 31,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/foundations",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 1739,
+    "hasH1": true,
+    "h1Text": "Foundations. Tuned.",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 119,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/library",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 750,
+    "hasH1": true,
+    "h1Text": "Library",
+    "headingOrder": [
+      1,
+      2,
+      2,
+      2,
+      2,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 74,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/saas",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 681,
+    "hasH1": true,
+    "h1Text": "SaaS Dashboard",
+    "headingOrder": [
+      1,
+      1,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 33,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/landing",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 589,
+    "hasH1": true,
+    "h1Text": "Marketing & Landing",
+    "headingOrder": [
+      1,
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 19,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/tool",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 428,
+    "hasH1": true,
+    "h1Text": "Web Tool",
+    "headingOrder": [
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 34,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/commerce",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 494,
+    "hasH1": true,
+    "h1Text": "Commerce",
+    "headingOrder": [
+      1,
+      1
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 44,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/mobile",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 374,
+    "hasH1": true,
+    "h1Text": "Mobile",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 23,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  },
+  {
+    "route": "/desktop",
+    "theme": "dark",
+    "viewport": "desktop-1920",
+    "innerWidth": 1920,
+    "innerHeight": 1080,
+    "domNodeCount": 382,
+    "hasH1": true,
+    "h1Text": "Native Desktop",
+    "headingOrder": [
+      1,
+      2,
+      2
+    ],
+    "headingOrderJumps": [],
+    "totalInteractive": 31,
+    "namelessInteractive": 0,
+    "namelessSamples": [],
+    "htmlTheme": "dark",
+    "htmlMood": "obsidian",
+    "consoleErrors": [
+      "pageerror: Cannot read properties of null (reading 'setAttribute')"
+    ],
+    "underSizedTouchTargets": 0,
+    "touchTargetSamples": []
+  }
+]

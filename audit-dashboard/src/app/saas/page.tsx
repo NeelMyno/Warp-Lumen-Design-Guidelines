@@ -26,15 +26,23 @@ export default function SaaSPage() {
         meta={<Badge status="accent" leadingDot>Live · 1,284 today</Badge>}
       />
 
+      {/* v0.14 R9 — collapse the fixed-240px sidebar at < md.
+          Pre-R9 the grid was `grid-cols-[240px_1fr]` with no responsive variant,
+          so at 320 px the sidebar consumed the full content area and the
+          dashboard main column was clipped off-screen. Now: 1-col stack at
+          mobile (sidebar hidden — see Sidebar's hidden md:flex), full grid at
+          ≥ md. The operator-portal pattern is desktop-first by design; at < md
+          the dashboard shows the work surface (KPIs, table, activity) and the
+          workspace-nav sidebar reveals at ≥ md. */}
       <div className="rounded-[var(--radius-xl)] overflow-hidden border border-[var(--border-hairline)] shadow-[var(--shadow-md)] bg-[var(--surface-page)]">
-        <div className="grid grid-cols-[240px_1fr]">
+        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr]">
           <Sidebar />
           <div className="flex flex-col min-w-0">
             <TopBar />
-            <main className="flex-1 p-6 flex flex-col gap-6 bg-[var(--surface-page)]">
+            <main className="flex-1 p-4 md:p-6 flex flex-col gap-4 md:gap-6 bg-[var(--surface-page)]">
               <KpiRow />
-              <div className="grid gap-6 lg:grid-cols-[1fr_320px] items-start">
-                <div className="flex flex-col gap-6 min-w-0">
+              <div className="grid gap-4 md:gap-6 lg:grid-cols-[1fr_320px] items-start">
+                <div className="flex flex-col gap-4 md:gap-6 min-w-0">
                   <ShipmentsTable />
                   <LanePerf />
                 </div>
@@ -81,7 +89,7 @@ function Sidebar() {
     },
   ];
   return (
-    <aside className="bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex flex-col gap-5">
+    <aside className="hidden md:flex bg-[var(--surface-raised)] border-r border-[var(--border-hairline)] py-3 flex-col gap-5">
       {/* workspace switcher */}
       <button className="mx-3 flex items-center gap-inline-sm px-2 py-[var(--space-1_5)] rounded-[var(--radius-md)] hover:bg-[var(--surface-sunken)] transition-colors group">
         <div className="h-7 w-7 rounded-[var(--radius-sm)] bg-[var(--color-accent)] grid place-items-center text-[color:var(--text-on-accent)] lumen-mono text-label-sm font-bold">
@@ -145,18 +153,23 @@ function Sidebar() {
 
 function TopBar() {
   return (
-    <header className="flex items-center gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-6 h-14">
-      <div className="flex items-center gap-3 min-w-0">
-        <h1 className="text-heading-h3 text-[color:var(--text-primary)] truncate">
+    /* v0.14 R9 — mobile responsive condensation. At < md the search bar +
+       avatar group + bell collapse, and "New shipment" tightens to its
+       leading icon + a shorter label. The Today + Live badge anchor stays
+       visible. The full row reveals at ≥ md (the operator-portal's native
+       density). */
+    <header className="flex items-center gap-3 md:gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-4 md:px-6 h-14">
+      <div className="flex items-center gap-2 md:gap-3 min-w-0">
+        <h1 className="text-heading-h4 md:text-heading-h3 text-[color:var(--text-primary)] truncate">
           Today
         </h1>
         <Badge status="accent" leadingDot size="md">Live</Badge>
-        <span className="text-micro text-[color:var(--text-tertiary)] hidden md:inline">
+        <span className="text-micro text-[color:var(--text-tertiary)] hidden lg:inline">
           Thursday · May 7 · UTC
         </span>
       </div>
 
-      <div className="flex-1 max-w-md">
+      <div className="hidden md:flex flex-1 max-w-md">
         <button className="w-full flex items-center gap-inline-md h-control-cozy px-3 rounded-[var(--radius-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] text-[color:var(--text-tertiary)] text-body-xs hover:border-[var(--border-default)] transition-colors">
           <Search size={14} />
           <span className="flex-1 text-left">Search shipments, lanes, quotes…</span>
@@ -167,18 +180,35 @@ function TopBar() {
         </button>
       </div>
 
-      <div className="flex items-center gap-2">
-        <Tooltip content="3 unread notifications" side="bottom">
-          <IconButton aria-label="Notifications" intent="tertiary">
-            <span className="relative inline-flex">
-              <Bell size={15} />
-              <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-            </span>
-          </IconButton>
-        </Tooltip>
-        <AvatarGroup names={["A Mercer", "J Park", "A Reyes"]} max={3} size="sm" />
+      <div className="ml-auto md:ml-0 flex items-center gap-1 md:gap-2">
+        {/* Mobile-only Search icon — opens the same ⌘K palette flow. The
+            wrapper carries the visibility class because `.lumen-btn`
+            declares `display: inline-flex` outside Tailwind's @layer
+            utilities, so utility `hidden` loses the cascade if applied
+            directly to the button. */}
+        <span className="md:hidden">
+          <Tooltip content="Search" side="bottom">
+            <IconButton aria-label="Search shipments, lanes, quotes" intent="tertiary">
+              <Search size={15} />
+            </IconButton>
+          </Tooltip>
+        </span>
+        <span className="hidden md:inline-flex">
+          <Tooltip content="3 unread notifications" side="bottom">
+            <IconButton aria-label="Notifications — 3 unread" intent="tertiary">
+              <span className="relative inline-flex">
+                <Bell size={15} />
+                <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+              </span>
+            </IconButton>
+          </Tooltip>
+        </span>
+        <div className="hidden lg:flex">
+          <AvatarGroup names={["A Mercer", "J Park", "A Reyes"]} max={3} size="sm" />
+        </div>
         <Button intent="primary" size="sm" leadingIcon={<Plus size={14} />}>
-          New shipment
+          <span className="hidden sm:inline">New shipment</span>
+          <span className="sm:hidden">New</span>
         </Button>
       </div>
     </header>

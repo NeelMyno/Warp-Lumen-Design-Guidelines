@@ -47,7 +47,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           <div className="mx-auto flex w-full max-w-screen-2xl items-center gap-4 px-6 h-16">
             <Link
               href="/foundations"
-              className="lumen-mark-link group flex items-center gap-inline-sm text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
+              aria-label={`Lumen ${LUMEN_VERSION} — go to Foundations`}
+              className="lumen-mark-link group inline-flex items-center gap-inline-sm h-control-cozy text-[color:var(--text-primary)] focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)] rounded-[var(--radius-md)]"
             >
               <LumenMark />
               <span className="text-heading-h5 transition-colors duration-[var(--motion-fast)] group-hover:text-[color:var(--text-accent)]">

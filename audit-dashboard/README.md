@@ -75,6 +75,30 @@ html, body { overflow-x: clip; }
 
 Without it, any descendant whose intrinsic min-content exceeds the device viewport (display typography at 128 px, library showcase Cards at ~484 px) silently inflates `window.innerWidth`, and every `sm:` + `md:` Tailwind utility breaks because the matchMedia evaluator reads the inflated viewport, not the device viewport. **`clip`, not `hidden`** — `hidden` establishes a new scroll container and breaks the sticky-header anchor contract. See [ADR 0024](../_meta/decisions/0024-responsive-safety-net-v0131.md) for the full investigation.
 
+## Tests
+
+Two suites, both Playwright (`pnpm exec playwright test`):
+
+- **Smoke** (`tests/smoke.spec.ts`) — every route loads, renders the expected hero heading, `/` redirects to `/foundations`, dashboard shell renders on every route. 19 tests.
+- **a11y baseline** (`tests/a11y.spec.ts`) — every route has at least one focusable element, Tab navigation reaches non-body, `lang` attribute set, heading exists. 16 tests + 2 skipped (axe-core gated on `@axe-core/playwright` install).
+
+Total: **36 tests + 2 skipped** at v0.14, both `chromium` + `mobile-chrome` (Pixel 7) projects.
+
+Run flavors:
+
+```bash
+pnpm test                 # all tests, chromium only
+pnpm test:mobile          # all tests, mobile-chrome only
+pnpm test:smoke           # smoke only
+pnpm test:a11y            # a11y only
+pnpm exec playwright test # everything, both projects
+```
+
+> [!note]
+> **v0.14 R9** — the config auto-starts the prod server (`pnpm build && pnpm start`) when none is running. To point tests at a foreign server (e.g. a Vercel preview), set `PLAYWRIGHT_BASE_URL=https://...` and the webServer step is skipped.
+
+To enable the axe-core scan: `pnpm add -D @axe-core/playwright`, then remove the `.skip` block at the bottom of `tests/a11y.spec.ts`. Until then, the wiring sits ready.
+
 ## Debugging
 
 | Symptom | Likely cause | Fix |

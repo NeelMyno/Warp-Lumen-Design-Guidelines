@@ -130,22 +130,36 @@ export default function CommercePage() {
 
 function StoreHeader() {
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-8 h-14">
-      <div className="flex items-center gap-8">
+    /* v0.14 R9 — collapse store chrome at < sm so the Cart pill doesn't
+       overflow at 320 px. Wordmark stays anchored, nav (already hidden
+       md:flex) reveals at ≥ md, Cart shrinks to its icon-only form via
+       IconButton at < sm and reveals the full "Cart · 2" label at ≥ sm. */
+    <header className="flex items-center justify-between gap-3 sm:gap-4 border-b border-[var(--border-hairline)] bg-[var(--surface-raised)] px-4 sm:px-8 h-14">
+      <div className="flex items-center gap-4 sm:gap-8 min-w-0">
         {/* lumen-lint-allow: typography — wordmark: tighter tracking than text-body-lg default is the intentional commerce-brand convention */}
-        <div className="text-body-lg font-bold tracking-[var(--tracking-tight)]">Foundry</div>
+        <div className="text-body-lg font-bold tracking-[var(--tracking-tight)] truncate">Foundry</div>
         <nav className="hidden md:flex items-center gap-6 text-body-sm text-[color:var(--text-secondary)]">
           {["Shop", "Collections", "Editorial", "Studio", "About"].map((n) => (
             <a key={n} href="#" className="hover:text-[color:var(--text-primary)] transition-colors">{n}</a>
           ))}
         </nav>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 shrink-0">
         <IconButton aria-label="Search"><Search size={15} /></IconButton>
         <IconButton aria-label="Account"><User size={15} /></IconButton>
-        <Button intent="secondary" size="sm" leadingIcon={<Cart size={14} />}>
-          Cart · 2
-        </Button>
+        {/* Wrapper carries visibility — see SaaS topbar note: `.lumen-btn`
+            is outside Tailwind's @layer utilities, so `hidden`/`md:inline-flex`
+            applied directly on a button loses the cascade. */}
+        <span className="sm:hidden">
+          <IconButton aria-label="Cart — 2 items">
+            <Cart size={15} />
+          </IconButton>
+        </span>
+        <span className="hidden sm:inline-flex">
+          <Button intent="secondary" size="sm" leadingIcon={<Cart size={14} />}>
+            Cart · 2
+          </Button>
+        </span>
       </div>
     </header>
   );

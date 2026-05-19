@@ -125,7 +125,12 @@ export function LibraryClient() {
           eyebrow="Component library"
           title="Library"
           description="Every component, state, and pattern in the system. Composed against Apple HIG, Material, Polaris, and Atlassian — then tuned to Lumen's restraint."
-          meta={<Badge status="accent" leadingDot>{LUMEN_VERSION} · 25 sections · 250+ components</Badge>}
+          meta={
+            <Badge status="accent" leadingDot>
+              {LUMEN_VERSION}
+              <span className="hidden sm:inline"> · 25 sections · 250+ components</span>
+            </Badge>
+          }
         />
 
         {/* OVERVIEW */}

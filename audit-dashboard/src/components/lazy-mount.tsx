@@ -18,6 +18,40 @@
  * still contains the full DOM (needed for SEO, screen-reader pre-walk, and
  * the audit-dashboard's "everything searchable on a single page" contract).
  * The lazy behavior is a client-side optimization layered on top.
+ *
+ * USAGE — when to wrap (heuristic):
+ *
+ *   - Route DOM > 1500 nodes? Wrap below-the-fold sections.
+ *   - Route shows > 30 primitive showcases or > 60 cards? Wrap.
+ *   - Lighthouse insight `dom-size` flags the route? Wrap.
+ *   - First 2 sections (above-the-fold) STAY EAGER — wrapping them hurts LCP.
+ *   - Sections 3+ go inside LazyMount.
+ *
+ * USAGE — placeholder height:
+ *
+ *   Set `placeholderHeight` to roughly the mounted-section's height so CLS
+ *   stays 0. The default 600 px is roughly one Section's vertical footprint
+ *   at the /library typography ladder. For shorter sections, override:
+ *
+ *     <LazyMount placeholderHeight={400}>
+ *       <Section title="...">...</Section>
+ *     </LazyMount>
+ *
+ * USAGE — eager prop:
+ *
+ *   Use `eager` for cases where you want LazyMount in the markup tree (so
+ *   it composes uniformly with siblings) but mount immediately — typically
+ *   the first 1–2 sections of a long route. Equivalent to NOT wrapping,
+ *   just preserves visual consistency in the JSX.
+ *
+ * ANTI-PATTERN — what NOT to wrap:
+ *
+ *   - Above-the-fold sections (hero, first one or two Section blocks)
+ *   - Sticky / fixed-position chrome (header, footer, sidebar)
+ *   - Anything inside a `<details open>` that must auto-mount on disclosure
+ *   - Charts whose data is part of the initial paint contract
+ *
+ * See AGENTS.md hard rule 17 + ADR 0029 (v0.14 omnibus) for the system contract.
  */
 import { useEffect, useRef, useState, type ReactNode } from "react";
 

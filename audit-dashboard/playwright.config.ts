@@ -11,10 +11,10 @@ import { defineConfig, devices } from "@playwright/test";
  *   - Visual regression: opt-in only — use Playwright's built-in screenshot
  *     diff via `expect(page).toHaveScreenshot()`. Lives in tests/visual.spec.ts
  *
- * Smoke tests run against the production server (pnpm start) — start it in
- * another shell before running, or set PLAYWRIGHT_BASE_URL.
- *
- * Run with: pnpm exec playwright test
+ * v0.14 R9 — the config now auto-starts the prod server when one isn't
+ * already running, so `pnpm exec playwright test` works against a fresh
+ * checkout. Set PLAYWRIGHT_BASE_URL to point tests at a foreign server
+ * (e.g. a remote preview deploy); when set, the webServer step is skipped.
  */
 export default defineConfig({
   testDir: "./tests",
@@ -28,6 +28,20 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
+  /* Auto-start the prod server if none is running locally. Skipped entirely
+     when PLAYWRIGHT_BASE_URL is set (foreign-server mode). reuseExistingServer
+     is honored outside CI so an already-running `pnpm start` is reused
+     instead of being killed and re-spawned. */
+  webServer: process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
+        command: "pnpm build && pnpm start --port 3000",
+        url: "http://localhost:3000",
+        reuseExistingServer: !process.env.CI,
+        timeout: 180_000,
+        stdout: "pipe",
+        stderr: "pipe",
+      },
   projects: [
     {
       name: "chromium",

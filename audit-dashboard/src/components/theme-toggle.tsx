@@ -41,7 +41,11 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-      className="inline-flex h-control-cozy w-[var(--size-control-cozy)] items-center justify-center rounded-[var(--radius-full)] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
+      /* v0.14 R9 — bumped to h-control-comfortable @ < sm so the chrome
+         control hits WCAG 2.5.5 AAA target-size (44×44) at mobile. At ≥ sm
+         it returns to h-control-cozy (36×36) — AA-pass and visually
+         matches the rest of the header chrome. */
+      className="inline-flex h-control-comfortable w-[var(--size-control-comfortable)] sm:h-control-cozy sm:w-[var(--size-control-cozy)] items-center justify-center rounded-[var(--radius-full)] text-[color:var(--text-secondary)] hover:text-[color:var(--text-primary)] hover:bg-[var(--surface-tint-accent)] transition-colors focus-visible:outline-none focus-visible:shadow-[var(--shadow-focus)]"
     >
       {mounted ? (
         theme === "dark" ? (

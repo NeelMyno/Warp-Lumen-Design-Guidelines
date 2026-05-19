@@ -44,7 +44,7 @@ function DeviceColumn({
 }) {
   return (
     <div className="flex flex-col gap-stack-md items-center">
-      <div className="self-start">
+      <div className="self-start pr-2 sm:pr-0 max-w-full">
         <div className="lumen-eyebrow mb-2">{name}</div>
         <p className="text-body-xs text-[color:var(--text-tertiary)] max-w-[42ch]">{notes}</p>
       </div>

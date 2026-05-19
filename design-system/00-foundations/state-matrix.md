@@ -1,8 +1,8 @@
 # State matrix
 
-> **Every state every Lumen primitive can be in, plus what to render.** Authored v0.13.2 to close the audit-cycle gap where `micro-interactions.md` covered hover / focus / validation / success but no doc enumerated the full state set across primitives.
+> **Every state every Lumen primitive can be in, plus what to render.** Authored v0.13.2 to close the audit-cycle gap where `micro-interactions.md` covered hover / focus / validation / success but no doc enumerated the full state set across primitives. v0.14 R9 added **`stale`** as an explicit data-freshness state for operator-portal data containers.
 
-## The 13 states (what they mean, when they trigger)
+## The Lumen states (what they mean, when they trigger)
 
 The state names are Lumen-canonical. When you build a new primitive or compose an existing one, map your behavior to these — don't invent new names.
 
@@ -24,6 +24,7 @@ The state names are Lumen-canonical. When you build a new primitive or compose a
 | **dragging** | Drag in progress | Lifted shadow, follow-cursor positioning, dim source position. |
 | **read-only** | Display-only (often paired with submitted forms) | Same content style as enabled, no cursor on hover, no `:focus-visible`. Note: NOT disabled — value is still tab-reachable for screen readers. |
 | **skeleton** | Loading placeholder before first render | Shimmering rectangle matching the eventual content's dimensions. Honors `prefers-reduced-motion`. |
+| **stale** *(v0.14)* | Data older than its freshness budget but not erroring | Operator pattern. Show a small grey clock icon at the top-right of the affected card; tooltip surfaces the actual freshness timestamp ("as of 12 min ago"); the data values themselves do NOT dim (the data is still trustworthy, just aging). Distinct from `error` (the fetch failed) and `loading` (a refresh is in flight). Lumen primitives that carry the `stale` contract: `Stat`, `KpiCard`, `Sparkline`, `LineChart`, `BarChart`, any container in Tier C. |
 
 ## The state ladder (which states a component must support)
 

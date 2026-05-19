@@ -1,0 +1,16 @@
+{
+  "theme": "light",
+  "rootVars": {
+    "surfacePage": "#fafafa",
+    "surfaceRaised": "#fff",
+    "surfaceInverse": "#0d0d0d",
+    "textPrimary": "#141414",
+    "textInverse": "#e6e6e6"
+  },
+  "kpiCardClass": "bg-[var(--surface-raised)] text-[color:var(--text-primary)] flex flex-col rounded-[var(--radius-xl)] border gap-0 p-6 [&_[data-slot=card-header]]:px-0 [&_[data-slot=card-content]]:px-0 [&_[data-slot=c",
+  "kpiCardBg": "rgb(255, 255, 255)",
+  "kpiCardColor": "rgb(20, 20, 20)",
+  "firstValueText": "1,284",
+  "firstValueColor": "rgb(20, 20, 20)",
+  "firstValueClass": "text-[length:var(--type-39)] font-bold tracking-[var(--tracking-tighter)] leading-[var(--leading-flat)] lumen-tnum text-[color:var(--text-primary)]"
+}
