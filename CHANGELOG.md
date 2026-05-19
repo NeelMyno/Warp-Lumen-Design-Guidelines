@@ -10,6 +10,39 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.13.4] — 2026-05-19 — R8a Satoshi subset for LCP critical-path bytes (ADR 0027)
+
+R8a of the same-day live-audit cycle. Where R7 (v0.13.3) **captured** the first mobile Lighthouse baseline, R8a **moves the LCP-soft metric** — the only Needs-Improvement metric from R7. The R7 hypothesis (font payload on the critical path) was diagnosed and surgically addressed: both Satoshi VF woff2 files were re-subset to drop unused codepoints + glyphs while preserving every Lumen-referenced OpenType feature and the full wght 300–900 variable axis. Bytes saved: 25,628 across both fonts (30% reduction). LCP improvement: **−169 ms geo-mean** (3030 ms → 2861 ms), with `/foundations` showing the standout **−572 ms drop** (3300 → 2728 ms) — moves out of "Needs Improvement" and is now 228 ms from the Good threshold. The methodology contribution: *consumer-side metric soft-spots have measurable byte-level levers. Subsetting, inlining, splitting, lazy-loading — each is a discrete byte-saving move. A round can pull multiple levers; ship the diff that's largest per unit-of-architectural-risk.* CLS contract (ADR 0010 metric-aligned fallback) holds — zero layout shift on every route post-subset.
+
+### Added
+
+- **[ADR 0027 — Satoshi web-font subsetting for LCP critical-path bytes (v0.13.4)](_meta/decisions/0027-satoshi-subset-mobile-perf-v0134.md)** — codifies R8a of the audit-cycle ladder: font byte budget on the LCP critical path. Declarative codepoint keep set (ASCII + Latin-1 + General Punctuation + Currency + Letterlike + arrows + used Math + Geometric shapes + ✓ +  PUA) preserves Western European text + every design glyph the audit-dashboard uses; drops Latin Ext-A (Eastern European), IPA, combining diacritics, Greek, box-drawing chars. 230 codepoints in subset (was 431), 303 glyphs (was 504), all OpenType features (kern, liga, calt, ss01–ss04, tnum, lnum, sinf, sups, frac, case, locl, salt, dnom, numr) preserved.
+- **`scripts/subset-satoshi.mjs`** — declarative subsetting runner. Calls `python3 -m fontTools.subset` with `--layout-features=*` + `--flavor=woff2`. Backs up the originals to `.audit-runs/_font-backups/` before in-place overwrite. Re-runnable: the codepoint set is in the script source so producing identical bytes is deterministic given identical inputs. Audits the keep set against the actually-used codepoints in `audit-dashboard/src/**` + `audit-dashboard/.next/server/app/*.html` + `design-system/**` to verify no in-use char is dropped.
+- **[.audit-runs/2026-05-18-round-8/LIGHTHOUSE.md](.audit-runs/2026-05-18-round-8/LIGHTHOUSE.md)** — R8a mobile-perf baseline. Per-route LCP deltas R7→R8, geo-mean improvements, per-route bands. Documents the carry-forward R8b candidates: critical-CSS inlining (the next-largest LCP lever, ~635 ms wasted on /foundations), `/library` DOM weight reduction via Intersection Observer lazy-render, italic font-display: optional as a brand call, real iOS Safari + real Android Chrome verification. Includes the inline reproduction recipe (Lighthouse 12.8.2 CLI invocation with the Moto G4 4G profile) because the programmatic Lighthouse Node API breaks under Node 25 + puppeteer-core 24's default-protocol switch.
+- **`.audit-runs/_font-backups/Satoshi-Variable.woff2.<ts>.bak` + `Satoshi-VariableItalic.woff2.<ts>.bak`** — pre-subset originals preserved for recovery. The subsetter writes a fresh backup on every run, so the dir accumulates historical versions; cleanup is manual.
+
+### Changed
+
+- **`audit-dashboard/src/fonts/Satoshi-Variable.woff2`** — 42,588 → 29,964 bytes (−12,624 bytes, **−30%**). 431 → 230 codepoints (−201 cps), 504 → 303 glyphs (−201 glyphs).
+- **`audit-dashboard/src/fonts/Satoshi-VariableItalic.woff2`** — 43,844 → 30,840 bytes (−13,004 bytes, **−30%**). Same codepoint + glyph reductions as regular.
+- **LCP geo-mean across 9 audit-dashboard routes: 3030 → 2861 ms (−169 ms, −5.6%).** Standout move on `/foundations`: 3300 → 2728 ms (−572 ms, drops out of Needs Improvement band). 7 of 9 routes improved 100–200 ms; 1 nearly flat (`/tool`), 1 flat (`/commerce`). Perf geo-mean: 94 → 95.
+
+### Fixed
+
+_(none — R8a is a pure perf delivery; no behavioral or contract changes.)_
+
+### Security
+
+_(none)_
+
+### Notes
+
+- **The handcoded `Satoshi-Fallback` @font-face block in globals.css is unchanged.** It's shadowed by next/font's auto-generated `satoshi Fallback` in the audit-dashboard (which has font-table-derived metric overrides), but it remains part of the design-system primitive contract — `design-system/01-tokens/primitives/typography.tokens.json` line 8 references it explicitly. Lumen consumers self-hosting Satoshi without next/font use the handcoded one as the active metric-aligned fallback. ADR 0010's typography contract is preserved.
+- **The next/font config in `audit-dashboard/src/app/layout.tsx` is unchanged.** Already optimal: `display: "swap"`, `preload: true`, both regular + italic. Splitting into two `localFont()` calls to drop italic preload was considered but rejected — italic is small post-subset (30 KB), splitting introduces a separate font-family + extra @font-face block, and the marginal LCP win wouldn't justify the architectural complexity. R8b can revisit.
+- **The CLS contract holds: zero layout shift on every route post-subset.** The metric-aligned fallback's size-adjust / ascent-override / descent-override values are derived from the font's hhea/OS/2 tables — subsetting drops glyph data but doesn't change those font-level metrics. Verified across all 9 routes.
+
+---
+
 ## [0.13.3] — 2026-05-19 — R7 pipeline-state + lint-hygiene + pre-commit SSoT regen + mobile-perf baseline (ADR 0026)
 
 R7 of the same-day live-audit cycle. Where R6 (v0.13.2) added the LLM-docs SSoT axis, R7 closes the producer-side of *code*: `pnpm build` returns to clean exit (the 93-collision-plus-reference-error state shipped with v0.13.2 is gone), `pnpm lint` umbrella expands to 7 rules (was 6 — `lint:token-naming` was a silent-fail standalone since v0.8), and a `simple-git-hooks` pre-commit hook keeps R6's two SSoT indices in lockstep with their sources without depending on contributor discipline. Plus the consumer-side mobile-perf baseline — Lighthouse 12 against all 9 audit-dashboard routes — captures the v0.13.x floor: Perf 94 geo-mean, **CLS 0.000 on every route**, TBT 12 ms (16× under the 200 ms threshold), with LCP the only Needs-Improvement metric (3030 ms geo-mean; carried to R8). Methodology contribution: *passing validators is a producer-side green; passing consumer-side metrics is a separate axis. Both ship together.*

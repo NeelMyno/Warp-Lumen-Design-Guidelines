@@ -1,13 +1,13 @@
 # COMPONENT-INDEX.md
 
-> **Auto-generated for Lumen v0.13.3** (2026-05-19). Run `node scripts/build-component-index.mjs` to regenerate. Source of truth: the `design-system/02-components/*/component.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.13.4** (2026-05-19). Run `node scripts/build-component-index.mjs` to regenerate. Source of truth: the `design-system/02-components/*/component.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 Lumen ships **98 components** in the [`_registry/registry.json`](_registry/registry.json) shadcn catalog. Each component has `component.md` (human contract), `component.json` (machine contract validating against [`_schema/component.schema.json`](design-system/02-components/_schema/component.schema.json)), and per-platform `examples/{platform}.{ext}` where authored.
 
 ## Quick install
 
 ```bash
-pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.3/registry/{name}.json
+pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.4/registry/{name}.json
 ```
 
 ## How to read this index
@@ -170,4 +170,4 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.3/registry/{name}.json
 
 > **Update this file by re-running `node scripts/build-component-index.mjs`** — do not hand-edit. Drift will be caught by the next regeneration.
 
-Generated 2026-05-19 from VERSION = 0.13.3.
+Generated 2026-05-19 from VERSION = 0.13.4.
