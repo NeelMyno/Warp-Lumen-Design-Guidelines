@@ -3,6 +3,7 @@
 import { useState, useId } from "react";
 import { FileText } from "lucide-react";
 import { PageHeader, Section, SubSection } from "@/components/section";
+import { LazyMount } from "@/components/lazy-mount";
 import { Button, IconButton } from "@/components/primitives/button";
 import { Badge } from "@/components/primitives/badge";
 import { Card, CardHeader } from "@/components/primitives/card";
@@ -215,6 +216,7 @@ export function LibraryClient() {
         </Section>
 
         {/* NAVIGATION */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="navigation"
           eyebrow="03 · Wayfinding"
@@ -301,8 +303,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* BUTTONS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="buttons"
           eyebrow="04 · Action"
@@ -374,8 +378,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* INPUTS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="inputs"
           eyebrow="05 · Inputs"
@@ -452,8 +458,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* SELECTION */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="selection"
           eyebrow="06 · Selection"
@@ -504,8 +512,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* PICKERS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="pickers"
           eyebrow="07 · Pickers"
@@ -520,8 +530,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* UPLOADS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="uploads"
           eyebrow="08 · Uploads"
@@ -540,8 +552,10 @@ export function LibraryClient() {
             </div>
           </div>
         </Section>
+        </LazyMount>
 
         {/* DATA DISPLAY */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="data"
           eyebrow="09 · Display"
@@ -711,8 +725,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* TABLES */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="tables"
           eyebrow="10 · Tables"
@@ -741,8 +757,10 @@ export function LibraryClient() {
             <Kanban />
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* CHARTS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="charts"
           eyebrow="11 · Viz"
@@ -859,8 +877,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* KPI */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="kpi"
           eyebrow="12 · Metric"
@@ -903,8 +923,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* FEEDBACK */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="feedback"
           eyebrow="13 · Feedback"
@@ -938,8 +960,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* OVERLAYS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="overlays"
           eyebrow="14 · Overlay"
@@ -982,8 +1006,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* MOBILE */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="navigation-mobile"
           eyebrow="15 · Mobile"
@@ -1066,8 +1092,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* COMMERCE */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="commerce"
           eyebrow="16 · Commerce"
@@ -1144,8 +1172,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* AUTH */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="auth"
           eyebrow="17 · Auth"
@@ -1199,8 +1229,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* AI */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="ai"
           eyebrow="18 · AI"
@@ -1250,8 +1282,10 @@ export function LibraryClient() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* NOTIFICATIONS */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="notifications"
           eyebrow="19 · Notify"
@@ -1272,8 +1306,10 @@ export function LibraryClient() {
             </div>
           </div>
         </Section>
+        </LazyMount>
 
         {/* EDITOR */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="editor"
           eyebrow="20 · Editor"
@@ -1303,8 +1339,10 @@ export function Hero() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* STATES */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="states"
           eyebrow="21 · State"
@@ -1347,8 +1385,10 @@ export function Hero() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* TEMPLATES */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="templates"
           eyebrow="22 · Templates"
@@ -1362,8 +1402,10 @@ export function Hero() {
             <MaintenanceCard />
           </div>
         </Section>
+        </LazyMount>
 
         {/* TRUST */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="trust"
           eyebrow="23 · Trust"
@@ -1392,8 +1434,10 @@ export function Hero() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* MARKETING */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="marketing"
           eyebrow="24 · Marketing"
@@ -1407,8 +1451,10 @@ export function Hero() {
             <TestimonialCard />
           </div>
         </Section>
+        </LazyMount>
 
         {/* SPEC */}
+        <LazyMount placeholderHeight={500}>
         <Section
           id="spec"
           eyebrow="25 · Spec"
@@ -1442,6 +1488,7 @@ export function Hero() {
             </div>
           </SubSection>
         </Section>
+        </LazyMount>
 
         {/* lumen-lint-allow: typography — type-12 plain footer note; no semantic preset for 12 regular */}
         <div className="mt-20 text-center text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">

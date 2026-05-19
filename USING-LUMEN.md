@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.13.5 · 2026-05-19.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.14.0 · 2026-05-19.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -48,7 +48,7 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.13.5 — Premium Psychology · Obsidian (mint retired) · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028) on top of v0.13.4 R8a Satoshi-subset (ADR 0027), v0.13.3 R7 pipeline-state + mobile-perf baseline (ADR 0026), v0.13.2 R6 LLM-docs SSoT (ADR 0025), v0.13.1 responsive safety net (ADR 0024), v0.13.0 LLM-docs lockstep (ADR 0023), v0.12.x primitive cascade
+Lumen v0.14.0 — Premium Psychology · Obsidian (mint retired) · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028) on top of v0.13.4 R8a Satoshi-subset (ADR 0027), v0.13.3 R7 pipeline-state + mobile-perf baseline (ADR 0026), v0.13.2 R6 LLM-docs SSoT (ADR 0025), v0.13.1 responsive safety net (ADR 0024), v0.13.0 LLM-docs lockstep (ADR 0023), v0.12.x primitive cascade
 ─────────────────────────────────────────────────────────────────────────
 Brand
   Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
@@ -458,7 +458,7 @@ Lumen ships to 9 platforms. Each platform has a substantive consumption guide in
 
 | Platform | Stack | Quick install | Guide |
 |---|---|---|---|
-| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.5/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
+| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.0/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
 | **React Native** | Expo SDK 53+ + NativeWind | npm package + `<LumenProvider>` | [react-native/](design-system/03-platforms/react-native/README.md) |
 | **iOS native** | SwiftUI + Swift Package | `from: "0.11.13"` | [ios-native/](design-system/03-platforms/ios-native/README.md) |
 | **Android native** | Jetpack Compose + Material 3 base | `dev.warp:lumen-compose:0.11.13` | [android-native/](design-system/03-platforms/android-native/README.md) |
@@ -984,7 +984,7 @@ AGENTS.md                  ← universal agent rules (14 hard rules)
 CLAUDE.md                  ← Claude-specific addenda
 CONTRIBUTING.md            ← human contributor guide
 CHANGELOG.md               ← Keep-a-Changelog
-VERSION                    ← 0.13.5
+VERSION                    ← 0.14.0
 llms.txt                   ← LLM discovery index (14-rule playbook at the bottom)
 llms-full.txt              ← inlined version (single fetch for agents)
 package.json               ← build/validate/lint/registry/release scripts
@@ -1031,4 +1031,4 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-19 (v0.13.5).
+> Last reviewed against actual repo state: 2026-05-19 (v0.14.0).

@@ -1,6 +1,6 @@
 # TOKEN-INDEX.md
 
-> **Auto-generated for Lumen v0.13.4** (2026-05-19). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.13.5** (2026-05-19). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 > **What this is.** A flat, alphabetical index of every Lumen semantic and component-bound token, with its alias target (or resolved primitive value if terminal) and the description from the source file. **Agents and engineers consume only these** — per AGENTS.md hard rule 2, never reference primitives directly.
 
@@ -987,4 +987,4 @@
 
 **Totals:** 411 semantic tokens · 416 component-bound tokens.
 
-> Generated 2026-05-19 from VERSION = 0.13.4. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.
+> Generated 2026-05-19 from VERSION = 0.13.5. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.

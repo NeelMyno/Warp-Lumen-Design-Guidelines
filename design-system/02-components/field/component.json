@@ -6,37 +6,125 @@
   "deprecated": false,
   "summary": "Composition wrapper for a single form control. Stacks label + description + control shell + hint/error in one vertical group. The control shell owns the focus surface; slots (leading icon, trailing icon, addon) bond under that single ring.",
   "props": {
-    "label":         { "type": "string", "optional": true, "description": "Visible label. Always render unless aria-label is set on the input." },
-    "description":   { "type": "string", "optional": true, "description": "Description shown beneath the label, above the control." },
-    "error":         { "type": "string", "optional": true, "description": "Error message. Sets aria-invalid + role=alert. Mutually exclusive with hint." },
-    "hint":          { "type": "string", "optional": true, "description": "Hint message shown beneath the control." },
-    "optional":      { "type": "boolean", "default": false, "optional": true, "description": "Render `(optional)` next to the label. NN/g preferred over the asterisk pattern." },
-    "required":      { "type": "boolean", "default": false, "optional": true, "description": "Render the required asterisk + sets aria-required on the input." },
-    "leadingIcon":   { "type": "icon", "optional": true },
-    "trailingIcon":  { "type": "icon", "optional": true },
-    "trailingAddon": { "type": "node", "optional": true, "description": "Trailing unit chip (lb / STD / %). Renders mono uppercase tracked." },
-    "size":          { "type": "enum", "values": ["sm", "md", "lg"], "default": "md", "optional": true },
-    "mono":          { "type": "boolean", "default": false, "optional": true },
-    "disabled":      { "type": "boolean", "default": false, "optional": true },
-    "readOnly":      { "type": "boolean", "default": false, "optional": true },
-    "children":      { "type": "node", "optional": true, "description": "Custom control. When present, replaces the built-in <input>. Consumer is responsible for the focus shell." }
+    "label": {
+      "type": "string",
+      "optional": true,
+      "description": "Visible label. Always render unless aria-label is set on the input."
+    },
+    "description": {
+      "type": "string",
+      "optional": true,
+      "description": "Description shown beneath the label, above the control."
+    },
+    "error": {
+      "type": "string",
+      "optional": true,
+      "description": "Error message. Sets aria-invalid + role=alert. Mutually exclusive with hint."
+    },
+    "hint": {
+      "type": "string",
+      "optional": true,
+      "description": "Hint message shown beneath the control."
+    },
+    "optional": {
+      "type": "boolean",
+      "default": false,
+      "optional": true,
+      "description": "Render `(optional)` next to the label. NN/g preferred over the asterisk pattern."
+    },
+    "required": {
+      "type": "boolean",
+      "default": false,
+      "optional": true,
+      "description": "Render the required asterisk + sets aria-required on the input."
+    },
+    "leadingIcon": {
+      "type": "icon",
+      "optional": true
+    },
+    "trailingIcon": {
+      "type": "icon",
+      "optional": true
+    },
+    "trailingAddon": {
+      "type": "node",
+      "optional": true,
+      "description": "Trailing unit chip (lb / STD / %). Renders mono uppercase tracked."
+    },
+    "size": {
+      "type": "enum",
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md",
+      "optional": true
+    },
+    "mono": {
+      "type": "boolean",
+      "default": false,
+      "optional": true
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "optional": true
+    },
+    "readOnly": {
+      "type": "boolean",
+      "default": false,
+      "optional": true
+    },
+    "children": {
+      "type": "node",
+      "optional": true,
+      "description": "Custom control. When present, replaces the built-in <input>. Consumer is responsible for the focus shell."
+    }
   },
   "tokens": {
     "consumed": [
-      "field.gap.labelToControl", "field.gap.controlToHelp", "field.gap.groupToGroup", "field.gap.fieldsetToFieldset",
-      "field.label.type", "field.label.color", "field.label.color-disabled",
-      "field.optional.type", "field.optional.color",
+      "field.gap.labelToControl",
+      "field.gap.controlToHelp",
+      "field.gap.groupToGroup",
+      "field.gap.fieldsetToFieldset",
+      "field.label.type",
+      "field.label.color",
+      "field.label.color-disabled",
+      "field.optional.type",
+      "field.optional.color",
       "field.required.color",
-      "field.helper.type", "field.helper.color", "field.helper.color-disabled",
-      "field.error.type", "field.error.color",
-      "field.success.type", "field.success.color",
-      "input.height.sm", "input.height.md", "input.height.lg",
-      "input.padding.x.sm", "input.padding.x.md", "input.padding.x.lg",
-      "input.gap.slot", "input.radius",
-      "input.background.rest", "input.background.disabled", "input.background.read-only",
-      "input.border.rest", "input.border.hover", "input.border.focus", "input.border.error", "input.border.disabled",
-      "input.foreground.value", "input.foreground.placeholder", "input.foreground.icon-leading", "input.foreground.icon-trailing", "input.foreground.addon",
-      "input.ring.focus", "input.ring.error", "input.ring.lit-edge",
+      "field.helper.type",
+      "field.helper.color",
+      "field.helper.color-disabled",
+      "field.error.type",
+      "field.error.color",
+      "field.success.type",
+      "field.success.color",
+      "input.height.sm",
+      "input.height.md",
+      "input.height.lg",
+      "input.padding.x.sm",
+      "input.padding.x.md",
+      "input.padding.x.lg",
+      "input.gap.slot",
+      "input.radius",
+      "input.background.rest",
+      "input.background.disabled",
+      "input.background.read-only",
+      "input.border.rest",
+      "input.border.hover",
+      "input.border.focus",
+      "input.border.error",
+      "input.border.disabled",
+      "input.foreground.value",
+      "input.foreground.placeholder",
+      "input.foreground.icon-leading",
+      "input.foreground.icon-trailing",
+      "input.foreground.addon",
+      "input.ring.focus",
+      "input.ring.error",
+      "input.ring.lit-edge",
       "input.transition"
     ]
   },
@@ -80,9 +168,24 @@
       "Don't use placeholder as the only label; placeholder vanishes on input."
     ]
   },
-  "examples": { "web-react": "../../../audit-dashboard/src/components/primitives/field.tsx" },
-  "related": ["Input", "Textarea", "Select", "Form", "ValidationMessage"],
+  "examples": {
+    "web-react": "./examples/primary.tsx",
+    "ios-native": "./examples/swiftui.swift",
+    "android-native": "./examples/compose.kt",
+    "react-native": "./examples/react-native.tsx"
+  },
+  "related": [
+    "Input",
+    "Textarea",
+    "Select",
+    "Form",
+    "ValidationMessage"
+  ],
   "changelog": [
-    { "version": "0.6.0", "type": "Added", "note": "Initial release. Single-shell focus pattern with slot bonding via :has(:focus-visible). Replaces the v0.5 split-ring composition that painted two halos." }
+    {
+      "version": "0.6.0",
+      "type": "Added",
+      "note": "Initial release. Single-shell focus pattern with slot bonding via :has(:focus-visible). Replaces the v0.5 split-ring composition that painted two halos."
+    }
   ]
 }

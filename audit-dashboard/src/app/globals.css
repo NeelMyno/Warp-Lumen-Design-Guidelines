@@ -320,10 +320,21 @@ html, body { overflow-x: clip; }
   --lumen-accent-a40: var(--lumen-lime-a40);
   --lumen-accent-a64: var(--lumen-lime-a64);
 
-  /* ───────────────────────  TYPOGRAPHY · v0.10  ────────────────────────────
+  /* ───────────────────────  TYPOGRAPHY · v0.10 + v0.14 (R8d)  ────────────
      SATOSHI-ONLY. next/font/local writes --font-satoshi (UPM 1000, weights
-     300-900 with italic VF). The system composes it into --font-sans with a
-     metric-aligned Arial fallback for zero-CLS swap, then system fonts.
+     300-900, normal style). v0.14 R8d split italic into its OWN
+     localFont() call (--font-satoshi-italic) with display: "optional" +
+     preload: false, dropping italic from the LCP critical-path preload list.
+     Italic-style text falls through the family chain to satoshiItalic
+     (its own family) where the italic face matches; with display: "optional"
+     the browser uses the metric-aligned Arial fallback if italic doesn't
+     arrive within the optional window and never swaps mid-paint (zero CLS).
+
+     The --font-sans chain order matters: regular satoshi first (LCP-critical
+     normal text), then the metric-aligned Satoshi-Fallback (zero-CLS swap
+     for regular), then satoshiItalic (italic-style match), then satoshiItalic
+     Fallback, then system fonts. CSS font-matching walks the chain looking
+     for a style-matching face per family.
 
      v0.10 retired: JetBrains Mono (--font-mono), Source Serif 4 (--font-serif),
      Inter (--font-alt-sans, [data-font="inter"] override). Numeric, code, and
@@ -334,7 +345,7 @@ html, body { overflow-x: clip; }
      CRITICAL: never write --font-sans referring to itself; CSS resolves a
      self-ref var as invalid and silently drops to UA serif.
   */
-  --font-sans: var(--font-satoshi), "Satoshi-Fallback", ui-sans-serif, system-ui, -apple-system,
+  --font-sans: var(--font-satoshi), "Satoshi-Fallback", var(--font-satoshi-italic), ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 
@@ -3163,3 +3174,327 @@ summary.list-none::-webkit-details-marker {
    primary CTAs. Style is .lumen-btn-primary.lumen-glow-cta and was already
    defined; this is just the consumption fix. P1-1, P1-2 in audit. */
 
+
+/* ============================================================================
+   LUMEN · v0.14 — R9 OS MODES (ADR 0029)
+   ----------------------------------------------------------------------------
+   High-contrast (`prefers-contrast: more`) and forced-colors (Windows High
+   Contrast Mode) contracts. The reduced-motion contract is already covered
+   above (8 @media blocks). R9 adds the two missing OS-mode axes.
+
+   For the full prose contract see:
+     design-system/00-foundations/os-modes.md
+   For the methodology see ADR 0029.
+   ============================================================================ */
+
+/* ── HIGH CONTRAST (prefers-contrast: more) ────────────────────────────────
+   - Border weight: hairline → solid; +0.5px on default borders for visual
+     separation against canvas
+   - Tertiary text upgrades to secondary contrast levels
+   - Focus ring outline thickens (2px → 3px) + offset doubles (1px → 2px)
+   - Decorative box-shadow halos retire in favor of solid borders (the brand
+     visual still reads but via crisp border, not soft alpha-blended glow)
+   - Surface tints drop alpha — solid tinted color instead of alpha-blend
+*/
+@media (prefers-contrast: more) {
+  :root {
+    /* Border-weight upgrades — hairline matches default; default thickens */
+    --border-hairline: var(--border-default);
+    --shadow-focus: 0 0 0 3px var(--border-focus);
+    /* Tertiary text → secondary contrast level. The variable is theme-bound
+       so the dark/light blocks below override the actual hex; we re-bind to
+       the secondary variable here so consumers reading var(--text-tertiary)
+       transparently get secondary-level contrast under high-contrast. */
+    --text-tertiary: var(--text-secondary);
+    /* Decorative halos retire — the brand reads via border-accent instead */
+    --shadow-glow-accent: none;
+    --shadow-glow-accent-strong: none;
+    --shadow-glow-accent-subtle: none;
+  }
+  /* Focus ring thickens. Pair with R-rule 11's outline + box-shadow contract. */
+  :focus-visible {
+    outline-width: 3px !important;
+    outline-offset: 2px !important;
+  }
+  /* Borders are 1.5px instead of 1px for better separation */
+  .lumen-field,
+  [data-lumen-card],
+  [role="dialog"],
+  [role="menu"],
+  [role="listbox"] {
+    border-width: 1.5px;
+  }
+}
+
+/* ── FORCED COLORS (Windows High Contrast Mode, Linux a11y modes) ──────────
+   The browser remaps ALL colors to OS-controlled system values:
+     CanvasText (foreground), Canvas (background), Highlight, HighlightText,
+     ButtonText, ButtonFace, LinkText, ActiveText, GrayText, Mark, MarkText.
+   Lumen does NOT use forced-color-adjust: none — the user has chosen
+   high-contrast OS mode and we honor it. We add structural borders so the
+   OS-painted ButtonFace doesn't make controls invisible against Canvas.
+*/
+@media (forced-colors: active) {
+  /* Structural border on every interactive surface so the OS-painted
+     ButtonFace is visually delimited against Canvas. The 1px border uses
+     CanvasText, which the OS maps to the user's chosen foreground color. */
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select,
+  .lumen-field,
+  [data-lumen-card],
+  [role="dialog"],
+  [role="menu"],
+  [role="listbox"],
+  [role="tab"] {
+    border: 1px solid CanvasText;
+  }
+  /* Strip decorative shadows — browsers do this anyway but we make it
+     explicit for SSR-rendered first paint + any inline-style shadows. */
+  * {
+    box-shadow: none !important;
+  }
+  /* Focus ring uses OS-controlled Highlight color. The outline contract
+     (R-rule 11) survives forced-colors because outline is structural. */
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 2px !important;
+  }
+  /* Disabled controls get GrayText so users see they're inactive */
+  [aria-disabled="true"],
+  [disabled],
+  button:disabled,
+  input:disabled {
+    color: GrayText !important;
+    border-color: GrayText !important;
+  }
+  /* Links use LinkText — the OS-controlled link color */
+  a {
+    color: LinkText;
+  }
+  a:visited {
+    color: VisitedText;
+  }
+  a:active {
+    color: ActiveText;
+  }
+  /* Lumen accent surfaces — the spring-green CTA — let the OS paint via
+     Highlight + HighlightText so the user's chosen "selected" appearance
+     wins. The brand surrenders; the structure survives. */
+  .lumen-btn-primary,
+  .lumen-btn-ai,
+  [data-intent="primary"] {
+    background: Highlight;
+    color: HighlightText;
+    border: 1px solid HighlightText;
+  }
+  /* Body explicitly opts in to OS adjust (the default but signaling intent) */
+  body {
+    forced-color-adjust: auto;
+  }
+}
+
+/* ============================================================================
+   LUMEN · v0.14 — R10 PRINT + EXPORT (ADR 0030)
+   ----------------------------------------------------------------------------
+   Print stylesheet contract — the forgotten OS mode. R10 of the audit-cycle
+   ladder formalizes how Lumen surfaces render to PDF / paper / share targets
+   without the dashboard chrome that's meaningless off-screen.
+
+   For the full prose contract see:
+     design-system/00-foundations/print.md
+   For the methodology see ADR 0030.
+   ============================================================================ */
+
+@media print {
+  /* ── Force light theme regardless of data-theme attribute ─────────────── */
+  :root,
+  [data-theme="dark"] {
+    --surface-canvas: #FFFFFF;
+    --surface-page: #FFFFFF;
+    --surface-raised: #FFFFFF;
+    --surface-sunken: #F4F4F4;
+    --text-primary: #0D0D0D;
+    --text-secondary: #404040;
+    --text-tertiary: #6B6B6B;
+    --border-default: #C8C8C8;
+    --border-hairline: #E6E6E6;
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
+    --shadow-focus: none;
+    --shadow-glow-accent: none;
+    --shadow-glow-accent-strong: none;
+    --shadow-glow-accent-subtle: none;
+    color-scheme: light;
+  }
+
+  /* ── Hide dashboard chrome ────────────────────────────────────────────── */
+  header[role="banner"],
+  nav[role="navigation"],
+  aside[role="complementary"],
+  [data-lumen-fab],
+  [data-lumen-command-palette],
+  [data-lumen-tab-bar],
+  [data-lumen-bottom-nav] {
+    display: none !important;
+  }
+
+  /* ── Cards expand to full width; grids collapse to single column ──────── */
+  [class*="grid-cols-"],
+  [class*="md:grid-cols-"],
+  [class*="lg:grid-cols-"] {
+    display: block !important;
+  }
+  [data-lumen-card],
+  [class*="lumen-card"] {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* ── Shadows retire — everything gets crisp borders for toner clarity ── */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* ── URLs render after external links ─────────────────────────────────── */
+  a[href^="http"]:after,
+  a[href^="https"]:after {
+    content: " (" attr(href) ")";
+    font-size: 90%;
+    color: #404040;
+    font-weight: normal;
+  }
+  /* Internal anchors — no URL print (meaningless on paper) */
+  a[href^="#"]:after { content: none; }
+  /* javascript: links — no URL print */
+  a[href^="javascript:"]:after { content: none; }
+
+  /* ── Page-break honors ────────────────────────────────────────────────── */
+  section { page-break-inside: avoid; break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+  h1 { page-break-before: auto; }
+  /* Avoid widows / orphans in body copy */
+  p { orphans: 3; widows: 3; }
+
+  /* ── Position-sticky / position-fixed retire to static ────────────────── */
+  [class*="sticky"],
+  [class*="fixed"] {
+    position: static !important;
+  }
+
+  /* ── Background images retire (decoration); foreground imgs stay ──────── */
+  [style*="background-image"] {
+    background-image: none !important;
+  }
+
+  /* ── Body settings ────────────────────────────────────────────────────── */
+  body {
+    background: #FFFFFF !important;
+    color: #0D0D0D !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  /* ── Reveals / lazy mount placeholders force to mounted state ─────────── */
+  [data-lazy-mount-placeholder] {
+    min-height: 0 !important;
+    display: none !important;
+  }
+  .lumen-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* ── EXPORT-TO-IMAGE — data-export="image" attribute ───────────────────── */
+/* Used by puppeteer / screenshot tools to render the surface at its actual
+   viewport with dashboard chrome retired but shadows / theme preserved. */
+[data-export="image"] header[role="banner"],
+[data-export="image"] nav[role="navigation"],
+[data-export="image"] aside[role="complementary"],
+[data-export="image"] [data-lumen-fab],
+[data-export="image"] [data-lumen-command-palette] {
+  display: none !important;
+}
+[data-export="image"] [data-lazy-mount-placeholder] {
+  min-height: 0 !important;
+  display: none !important;
+}
+
+/* ============================================================================
+   LUMEN · v0.14 — R11 i18n + RTL SCAFFOLD (ADR 0031)
+   ----------------------------------------------------------------------------
+   Direction (LTR / RTL) contract. Most layout primitives already use logical
+   properties (margin-inline-*, padding-block-*) which Tailwind v4 outputs by
+   default. This block adds the targeted overrides for primitives where
+   logical-property mapping isn't enough — specifically directional icons,
+   chevrons, and the sidebar/content edge transitions.
+
+   For the full prose contract see:
+     design-system/00-foundations/internationalization.md
+   For the methodology see ADR 0031.
+
+   Note: Lumen has NOT been visually audited at dir="rtl". Consumer apps
+   targeting RTL locales should run their own audit. This block is the
+   scaffold; per-component RTL contracts live in each primitive's
+   component.md § RTL section.
+   ============================================================================ */
+
+/* ── Directional icons mirror under RTL ──────────────────────────────────
+   Icons that mean "forward" / "next" / "back" / "advance" are visual
+   metaphors that flip under RTL reading direction. Lumen uses lucide-react
+   icons; chevrons + arrows need to mirror when their semantic role is
+   directional (not when they're decorative).
+
+   The `data-rtl-flip` attribute opts a specific icon into mirroring. Apply
+   to chevrons in breadcrumbs, navigation, "next" buttons, etc.
+*/
+[dir="rtl"] [data-rtl-flip] {
+  transform: scaleX(-1);
+}
+
+/* ── Numbers stay LTR inside RTL paragraphs ─────────────────────────────
+   Numeric content (prices, counts, percentages, dates with numbers) reads
+   left-to-right even inside an RTL paragraph. The `data-numeric` attribute
+   pins direction to LTR; combine with `lumen-mono` for tabular numerals.
+*/
+[data-numeric] {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ── Sidebar opens from the inline-start edge ───────────────────────────
+   Under LTR: sidebar slides in from the left.
+   Under RTL: sidebar slides in from the right.
+   The `data-lumen-sidebar` attribute on the canonical sidebar primitive
+   uses inset-inline-start for positioning; this rule is the fallback for
+   custom sidebar implementations.
+*/
+[data-lumen-sidebar] {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+}
+
+/* ── Drawer / sheet opens from the inline-end edge ──────────────────────
+   The off-canvas drawer (filter panel, side-panel) opens from the side
+   the user reads "from" (right under LTR, left under RTL).
+*/
+[data-lumen-drawer="end"] {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+/* ── Bidi isolation for primitive content with mixed-direction strings ──
+   Used by Combobox / Tag / Badge / TextInput when content includes both
+   LTR and RTL text. Browsers handle this automatically when unicode-bidi
+   is set; we make it explicit on Lumen's text-bearing primitives.
+*/
+.lumen-bidi-isolate {
+  unicode-bidi: isolate;
+}

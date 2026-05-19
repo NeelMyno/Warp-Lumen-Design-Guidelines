@@ -10,7 +10,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "playwright test --project=chromium",
+    "test:mobile": "playwright test --project=mobile-chrome",
+    "test:smoke": "playwright test tests/smoke.spec.ts --project=chromium",
+    "test:a11y": "playwright test tests/a11y.spec.ts --project=chromium"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",

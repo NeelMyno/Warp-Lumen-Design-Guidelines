@@ -1,0 +1,36 @@
+{
+  "name": "@warp/lumen-tokens",
+  "version": "0.14.0",
+  "description": "Lumen design tokens — TypeScript constants + CSS variables. The npm package that USING-LUMEN.md hard rule 4 referenced. Tokens are sourced from design-system/01-tokens/ and built via Style Dictionary into ../../_build/{ts,css,json}/ at the repo root; this package re-exports the TypeScript build artifact so consumers can `import { tokens } from '@warp/lumen-tokens'`.",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./css": "./src/css.ts",
+    "./flat": "./src/flat.ts"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "echo 'Tokens are built at repo root via pnpm build. This package re-exports the artifacts.'",
+    "verify": "node -e \"console.log(require('./src/index.ts'))\""
+  },
+  "keywords": ["design-tokens", "lumen", "warp", "dtcg", "tokens"],
+  "author": "Warp <design@wearewarp.com>",
+  "license": "UNLICENSED",
+  "homepage": "https://lumen.warp.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wearewarp/lumen-design-guidelines",
+    "directory": "packages/lumen-tokens"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

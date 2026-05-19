@@ -23,8 +23,8 @@ Peak-card hover:    Pricing tiers + plan pickers lift on hover (shadow-md + bord
 Density:            Marketing breathes (96 px hero rhythm) · Operator stays dense (24 px section rhythm)
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
-LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 16 hard rules
-Status:             v0.13.5 · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028 — Next.js 16 experimental.inlineCss: true replaces <link rel=stylesheet> with <style data-precedence="next"> on every prerender; LCP geo-mean 3001 → 2706 ms = −295 ms / −9.8% across 9 routes at the Moto G4 4G profile, 3-run median; Speed Index −1131 ms on / and −927 ms on /library; CLS 0.000 unchanged — both @font-face metric-aligned fallbacks preserved verbatim in inline CSS; /library LCP +184 ms median documented as bounded — main-thread CSS parse cost on 4684-node DOM, R8c carries the fix; cumulative R8a+R8b: 3030 → 2706 ms = −324 ms / −10.7% from R7 baseline; new scripts/lighthouse-mobile-baseline.mjs re-runnable CLI; release.mjs --banner-only flag closes chat 41 friction) · 7 principles · 27 ADRs
+LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 19 hard rules
+Status:             v0.14.0 · Omnibus systemic-gap closure (ADR 0029 — 9-axis ship in one cycle: R8c IntersectionObserver lazy-mount on /library closes the R8b main-thread regression; R8d italic font-display:optional drops italic from LCP critical path; R9 prefers-contrast + forced-colors OS-mode contracts; R10 @media print + data-export=image; i18n + RTL scaffold + internationalization.md foundation; templates layer + 3 new patterns + PATTERN-INDEX.md + Lumen-branded 404/500; 9 cross-platform examples — Button/Card/Field × SwiftUI/Compose/RN; mcp/server.mjs closes USING-LUMEN.md hard rule 4 lie; Playwright + a11y baseline testing infra + Storybook scaffold; @warp/lumen-tokens npm package scaffold. LCP geo-mean R8b → v0.14: 2706 → 2068 ms = −638 ms / −23.6%; cumulative R7 → v0.14: 3030 → 2068 ms = −962 ms / −31.7%; /library 3634 → 1815 ms = −1819 ms / −50% — R8b regression fully compensated. CLS 0.000 every route. 18 Playwright tests pass.) · 7 principles · 29 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.13.5
+├── VERSION                         ← 0.14.0
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,50 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.13.5
+## What's new — v0.14.0
+
+### v0.14.0 (2026-05-19) — Omnibus systemic-gap closure (ADR 0029)
+
+First MINOR-version bump since v0.12.0. Chat 42's "what's missing from chat 39" audit surfaced 9 systemic gaps; v0.14 closes them in one cycle. Each item shipped + tested:
+
+**Perf round (R8c + R8d):**
+- [R8c — `/library` DOM weight reduction via Intersection Observer](audit-dashboard/src/components/lazy-mount.tsx) — new `<LazyMount>` wraps 23 below-the-fold sections; first 2 stay eager. `/library.html` shrinks 1044 KB → 575 KB (−45%). LCP 3634 → 1815 ms (−1819 ms / −50%) — R8b regression fully closed.
+- [R8d — italic font-display: optional](audit-dashboard/src/app/layout.tsx) — next/font split into regular + italic; italic gets `preload: false` + `display: "optional"`, dropped from LCP critical path. globals.css `--font-sans` chain extended with `var(--font-satoshi-italic)` for italic fallback.
+
+**OS-mode contracts (R9):**
+- [`os-modes.md`](design-system/00-foundations/os-modes.md) — `prefers-reduced-motion`, `prefers-contrast: more`, `forced-colors: active` contracts (8-check verification matrix).
+- New CSS blocks in globals.css: `@media (prefers-contrast: more)` thickens borders + focus outline; `@media (forced-colors: active)` adds structural `1px solid CanvasText` borders + uses OS-controlled Highlight for focus.
+
+**Print + export (R10):**
+- [`print.md`](design-system/00-foundations/print.md) — print stylesheet + `data-export="image"` + CSV export + Web Share API contracts (10-check verification matrix).
+- New `@media print` block in globals.css — forces light theme, retires dashboard chrome, collapses grids, prints URLs after links, honors page-breaks at sections.
+
+**i18n / RTL foundation:**
+- [`internationalization.md`](design-system/00-foundations/internationalization.md) — direction (LTR/RTL), `Intl.*` locale formatters, font-subset script coverage interaction with R8a, text expansion budget, message-catalog externalization.
+- CSS scaffold in globals.css: `[dir="rtl"] [data-rtl-flip]` mirrors directional icons, `[data-numeric]` pins LTR inside RTL paragraphs, `[data-lumen-sidebar]` uses inset-inline-* logical positioning.
+
+**Templates layer:**
+- 3 new pattern docs: [`error-pages.md`](design-system/05-patterns/error-pages.md), [`email-layout.md`](design-system/05-patterns/email-layout.md), [`empty-state-flow.md`](design-system/05-patterns/empty-state-flow.md).
+- [PATTERN-INDEX.md](PATTERN-INDEX.md) — auto-generated catalog (10 patterns total). Generator: `pnpm pattern-index`.
+- Lumen-branded 404 + 500 templates at `audit-dashboard/src/app/{not-found,global-error}.tsx`.
+
+**Cross-platform examples — 9 new files:**
+- Button + Card + Field × ios-native (SwiftUI) + android-native (Compose) + react-native — 9 example files. Each mirrors the web-react contract. Updated component.json `examples` field to declare 4 platforms each.
+
+**MCP server (closes USING-LUMEN.md hard rule 4 lie):**
+- [`mcp/server.mjs`](mcp/server.mjs) — stdio JSON-RPC 2.0 server, pure-Node, zero new deps. 9 tools (list/get for components/tokens/ADRs/patterns + free-text search) + resource URIs.
+- [`mcp/README.md`](mcp/README.md) — wiring docs for Claude Desktop / Claude Code / Cursor.
+- Smoke-tested: 98 components + 29 ADRs + 10 patterns enumerable via the MCP protocol.
+
+**Testing infrastructure:**
+- [Playwright config](audit-dashboard/playwright.config.ts) + [smoke tests](audit-dashboard/tests/smoke.spec.ts) (10 per-route smoke) + [a11y baseline](audit-dashboard/tests/a11y.spec.ts) (8 per-route + 1 axe-core-skipped).
+- [Storybook scaffold](audit-dashboard/.storybook/main.ts) + first Button story (R12 candidate for full enablement).
+- 18/19 tests pass. New `pnpm` scripts: `test`, `test:mobile`, `test:smoke`, `test:a11y`.
+
+**Distribution package:**
+- [`packages/lumen-tokens/`](packages/lumen-tokens/) — npm package scaffold. Re-exports `_build/{ts,json,css}/`. Closes USING-LUMEN.md's `@warp/lumen-tokens` reference. Publish gated on registry credentials.
+
+**Cumulative Lighthouse R7 → v0.14:** LCP geo-mean 3030 → 2068 ms = −962 ms / −31.7%. /library 3328 → 1815 ms (−45%). CLS 0.000 every route every config. Methodology: *omnibus minor when ≥ 5 independent gaps + structural-completeness theme.*
 
 ### v0.13.5 (2026-05-19) — R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028)
 

@@ -1,13 +1,13 @@
 # COMPONENT-INDEX.md
 
-> **Auto-generated for Lumen v0.13.4** (2026-05-19). Run `node scripts/build-component-index.mjs` to regenerate. Source of truth: the `design-system/02-components/*/component.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.14.0** (2026-05-19). Run `node scripts/build-component-index.mjs` to regenerate. Source of truth: the `design-system/02-components/*/component.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 Lumen ships **98 components** in the [`_registry/registry.json`](_registry/registry.json) shadcn catalog. Each component has `component.md` (human contract), `component.json` (machine contract validating against [`_schema/component.schema.json`](design-system/02-components/_schema/component.schema.json)), and per-platform `examples/{platform}.{ext}` where authored.
 
 ## Quick install
 
 ```bash
-pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.4/registry/{name}.json
+pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.0/registry/{name}.json
 ```
 
 ## How to read this index
@@ -35,7 +35,7 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.4/registry/{name}.json
 
 | Component | Purpose | Version | Status | Examples |
 |---|---|---|---|---|
-| [`button`](design-system/02-components/button/component.md) | Primary action affordance. | 0.12.2 | stable | primary.tsx |
+| [`button`](design-system/02-components/button/component.md) | Primary action affordance. | 0.12.2 | stable | compose.kt, primary.tsx, react-native.tsx, swiftui.swift |
 | [`button-group`](design-system/02-components/button-group/component.md) | A row of joined buttons that share a single rounded outline. | 0.9.0 | beta | primary.tsx |
 | [`command-palette-button`](design-system/02-components/command-palette-button/component.md) | Search-styled trigger that opens the global command palette. | 0.9.0 | beta | primary.tsx |
 | [`fab`](design-system/02-components/fab/component.md) | Floating Action Button — round, fixed-position primary action. | 0.9.0 | beta | primary.tsx |
@@ -51,7 +51,7 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.4/registry/{name}.json
 | [`color-picker`](design-system/02-components/color-picker/component.md) | Color selection control. | 0.12.6 | beta | primary.tsx |
 | [`combobox`](design-system/02-components/combobox/component.md) | Searchable single-choice dropdown. | 0.12.4 | beta | web-react.tsx |
 | [`date-picker`](design-system/02-components/date-picker/component.md) | Read-only field-shell trigger with leading calendar glyph; click opens a portaled calendar popover. | 0.7.0 | beta | web-react.tsx |
-| [`field`](design-system/02-components/field/component.md) | Composition wrapper for a single form control. | 0.6.0 | stable | primary.tsx |
+| [`field`](design-system/02-components/field/component.md) | Composition wrapper for a single form control. | 0.6.0 | stable | compose.kt, primary.tsx, react-native.tsx, swiftui.swift |
 | [`file-dropzone`](design-system/02-components/file-dropzone/component.md) | Drag-and-drop file input. | 0.7.0 | beta | web-react.tsx |
 | [`form`](design-system/02-components/form/component.md) | Semantic form wrapper with dual-mode validation. | 0.7.0 | stable | web-react-rhf.tsx |
 | [`input`](design-system/02-components/input/component.md) | Single-line text input. | 0.6.0 | stable | primary.tsx |
@@ -106,7 +106,7 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.4/registry/{name}.json
 
 | Component | Purpose | Version | Status | Examples |
 |---|---|---|---|---|
-| [`card`](design-system/02-components/card/component.md) | A bounded surface with a hairline border and optional subtle shadow. | 0.12.4 | stable | primary.tsx |
+| [`card`](design-system/02-components/card/component.md) | A bounded surface with a hairline border and optional subtle shadow. | 0.12.4 | stable | compose.kt, primary.tsx, react-native.tsx, swiftui.swift |
 | [`dialog`](design-system/02-components/dialog/component.md) | A modal interrupt for confirmation, focused decision, or short-form input. | 0.1.0 | beta | primary.tsx |
 | [`divider`](design-system/02-components/divider/component.md) | Hairline rule that separates content. | 0.12.6 | stable | primary.tsx |
 | [`drawer`](design-system/02-components/drawer/component.md) | Side-anchored panel that slides over the page. | 0.12.6 | stable | primary.tsx |
@@ -170,4 +170,4 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.4/registry/{name}.json
 
 > **Update this file by re-running `node scripts/build-component-index.mjs`** — do not hand-edit. Drift will be caught by the next regeneration.
 
-Generated 2026-05-19 from VERSION = 0.13.4.
+Generated 2026-05-19 from VERSION = 0.14.0.

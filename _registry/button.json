@@ -11,6 +11,21 @@
       "path": "design-system/02-components/button/examples/primary.tsx",
       "type": "registry:ui",
       "target": "components/ui/button.tsx"
+    },
+    {
+      "path": "design-system/02-components/button/examples/swiftui.swift",
+      "type": "registry:ui",
+      "target": "Sources/Lumen/Button.swift"
+    },
+    {
+      "path": "design-system/02-components/button/examples/compose.kt",
+      "type": "registry:ui",
+      "target": "src/main/java/dev/warp/lumen/Button.kt"
+    },
+    {
+      "path": "design-system/02-components/button/examples/react-native.tsx",
+      "type": "registry:ui",
+      "target": "components/ui/button.tsx"
     }
   ],
   "cssVars": {
@@ -18,9 +33,12 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.13.5",
+    "lumenVersion": "0.14.0",
     "platforms": [
-      "web-react"
+      "web-react",
+      "ios-native",
+      "android-native",
+      "react-native"
     ],
     "specPath": "design-system/02-components/button/component.json",
     "docsPath": "design-system/02-components/button/component.md",
