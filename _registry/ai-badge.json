@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "ai-badge",
   "type": "registry:ui",
-  "title": "AI Badge",
-  "description": "Inline AI-generated / summary / confidence / thinking label.",
-  "dependencies": ["lucide-react"],
+  "title": "AIBadge",
+  "description": "Inline 'AI generated' / 'AI summary' / 'AI confidence' label. Three flavors — badge (small chip), confidence (with 0-100 score), thinking (with the AI-shimmer + a typing indicator). Mandatory next to any text or value derived from AI inference, so users can tell what's machine-authored.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/ai-badge.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/ai-badge/component.json",
     "docsPath": "design-system/02-components/ai-badge/component.md",
     "status": "stable",

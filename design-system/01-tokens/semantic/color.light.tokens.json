@@ -166,6 +166,30 @@
       "$description": "Radial spring-green ambient glow — softer in light mode (paper canvas carries less contrast headroom).",
       "color":  { "$value": "{color.alpha.accent.24}" },
       "core":   { "$value": "{color.alpha.accent.40}" }
+    },
+    "chart": {
+      "$description": "v0.13.2 — Lumen chart series palette in light mode. Mirrors color.dark.tokens.json — theme-invariant by contract; a chart series color shouldn't change between dark and light themes (the data identity is the contract, not the canvas).",
+      "1": { "$value": "{color.accent.500}",          "$description": "Spring Green — current / active series. ONE per chart." },
+      "2": { "$value": "{color.neutral.500}",           "$description": "Cream — secondary series." },
+      "3": { "$value": "{color.status.warning.500}",  "$description": "Amber — tertiary series." },
+      "4": { "$value": "{color.status.danger.500}",   "$description": "Red — quaternary series." },
+      "5": { "$value": "{color.brand.500}",           "$description": "Obsidian mid-grey — quinary." },
+      "6": { "$value": "{color.accent.700}",          "$description": "Deep Accent — senary." },
+      "7": { "$value": "{color.brand.300}",           "$description": "Placeholder (light variant of position 7)." },
+      "8": { "$value": "{color.status.warning.700}",  "$description": "Placeholder (light variant of position 8)." }
+    },
+    "avatar": {
+      "$description": "v0.13.2 — Avatar fallback-background palette in light mode. Mirrors color.dark.tokens.json — deterministic name-hashed selection.",
+      "bg": {
+        "1": { "$value": "{color.accent.700}",         "$description": "Deep spring green." },
+        "2": { "$value": "{color.neutral.700}",          "$description": "Deep cream." },
+        "3": { "$value": "{color.status.warning.700}", "$description": "Deep amber." },
+        "4": { "$value": "{color.status.danger.700}",  "$description": "Deep red." },
+        "5": { "$value": "{color.brand.500}",          "$description": "Mid obsidian." },
+        "6": { "$value": "{color.accent.500}",         "$description": "Bright spring green." },
+        "7": { "$value": "{color.neutral.500}",          "$description": "Mid cream." },
+        "8": { "$value": "{color.status.danger.300}",  "$description": "Soft red." }
+      }
     }
   }
 }

@@ -166,6 +166,30 @@
       "$description": "Radial spring-green ambient glow — the brand's signature lighting gesture. Render as a fixed/absolute pseudo-element behind the page hero with backdrop-filter: blur and the values below. v0.11 kept the v0.4 recipe verbatim — same opacity, new hue. v0.12 leaves the recipe untouched: the aurora's spring-green halo reads even more confidently against the neutral obsidian canvas (no green tilt in the canvas to compete with the halo's hue).",
       "color":  { "$value": "{color.alpha.accent.32}" },
       "core":   { "$value": "{color.alpha.accent.64}" }
+    },
+    "chart": {
+      "$description": "v0.13.2 — Lumen chart series palette. Six-position rotation aligned with charts.tsx CHART_PALETTE — Spring Green (current/active series, ONLY position 1), Cream (secondary), Amber (tertiary, warning-tier hue), Red (quaternary, 'negative/loss' series), Obsidian (quinary, rare), and the deeper Accent stop (senary, return to green family). See foundations/data-visualization.md §'Color rules' — exactly one series per chart paints in green per the brand contract. Color-blind-safe across deuteranopia / protanopia / tritanopia. Positions 7-8 reserved for future expansion; for now alias positions 7-8 to brand.300 and warning.700 respectively so consumers don't break when probing them.",
+      "1": { "$value": "{color.accent.500}",          "$description": "Spring Green — the current / active / primary series. Reserve for ONE series per chart only." },
+      "2": { "$value": "{color.neutral.500}",           "$description": "Cream — secondary series. Warm-neutral, low-contrast against accent." },
+      "3": { "$value": "{color.status.warning.500}",  "$description": "Amber — tertiary series. Warning-tier hue, distinguishable from green." },
+      "4": { "$value": "{color.status.danger.500}",   "$description": "Red — quaternary series. Use for 'negative' / 'loss' series with semantic intent." },
+      "5": { "$value": "{color.brand.500}",           "$description": "Obsidian mid-grey — quinary series. Rarely needed." },
+      "6": { "$value": "{color.accent.700}",          "$description": "Deep Accent — senary series. Return to green family at darker stop." },
+      "7": { "$value": "{color.brand.300}",           "$description": "v0.13.2 — placeholder. Light obsidian. Probe-safe; reconfigure when a 7th series surfaces." },
+      "8": { "$value": "{color.status.warning.700}",  "$description": "v0.13.2 — placeholder. Dark amber. Probe-safe; reconfigure when an 8th series surfaces." }
+    },
+    "avatar": {
+      "$description": "v0.13.2 — Avatar fallback-background palette. Deterministic name-hashed selection; each user gets a stable color based on their name hash mod 8. All eight have ≥ 4.5:1 contrast against `color.text.on-avatar` (the on-avatar text token below) so initials always read.",
+      "bg": {
+        "1": { "$value": "{color.accent.700}",         "$description": "Deep spring green — accent family." },
+        "2": { "$value": "{color.neutral.700}",          "$description": "Deep cream." },
+        "3": { "$value": "{color.status.warning.700}", "$description": "Deep amber." },
+        "4": { "$value": "{color.status.danger.700}",  "$description": "Deep red." },
+        "5": { "$value": "{color.brand.500}",          "$description": "Mid obsidian." },
+        "6": { "$value": "{color.accent.500}",         "$description": "Bright spring green — sparingly." },
+        "7": { "$value": "{color.neutral.500}",          "$description": "Mid cream." },
+        "8": { "$value": "{color.status.danger.300}",  "$description": "Soft red." }
+      }
     }
   }
 }

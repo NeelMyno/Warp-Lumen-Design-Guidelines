@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "reaction-bar",
   "type": "registry:ui",
-  "title": "Reaction Bar",
-  "description": "Emoji reaction row. Toggle chips + Add-reaction picker trigger.",
-  "dependencies": ["lucide-react"],
+  "title": "ReactionBar",
+  "description": "Emoji reaction row attached to a Comment / ChatBubble / annotation marker. Each reaction is a small chip showing the emoji + tabular count + toggle state. An 'Add reaction' button opens a Popover picker. The user's reaction toggles via tap / Enter.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/reaction-bar.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/reaction-bar/component.json",
     "docsPath": "design-system/02-components/reaction-bar/component.md",
     "status": "stable",

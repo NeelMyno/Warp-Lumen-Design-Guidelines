@@ -2,9 +2,12 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dropdown-menu",
   "type": "registry:ui",
-  "title": "Dropdown Menu",
-  "description": "Portaled menu of actions/routes. Click, hover, and context triggers. Submenus, checkboxes, radio groups, shortcuts.",
-  "dependencies": ["@radix-ui/react-dropdown-menu", "lucide-react"],
+  "title": "DropdownMenu",
+  "description": "Reveal a portaled menu of actions or routes from a trigger. Single-select per item — items invoke actions immediately on activation. Supports nested sub-menus, dividers, label rows, danger items, keyboard shortcuts, checkboxes, and radio groups. Three triggers it covers: a button menu (kebab/overflow), a route menu (account, workspace switcher), and a right-click ContextMenu (variant via `trigger='context'`).",
+  "dependencies": [
+    "@radix-ui/react-dropdown-menu",
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +16,15 @@
       "target": "components/ui/dropdown-menu.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/dropdown-menu/component.json",
     "docsPath": "design-system/02-components/dropdown-menu/component.md",
     "status": "stable",

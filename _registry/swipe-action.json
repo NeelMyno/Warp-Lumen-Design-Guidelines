@@ -2,8 +2,8 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "swipe-action",
   "type": "registry:ui",
-  "title": "Swipe Action",
-  "description": "Mobile row wrapper revealing trailing/leading actions on swipe. WCAG 2.5.7 non-drag fallback required.",
+  "title": "SwipeAction",
+  "description": "Mobile-only row wrapper that exposes trailing (and optionally leading) actions on horizontal swipe. iOS-flavor — swipe left reveals Delete (red), Archive (neutral), or custom actions; rubberband resistance past the action width. Distinct from desktop right-click context menus (use DropdownMenu trigger='context').",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -13,10 +13,15 @@
       "target": "components/ui/swipe-action.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/swipe-action/component.json",
     "docsPath": "design-system/02-components/swipe-action/component.md",
     "status": "stable",

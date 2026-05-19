@@ -3,7 +3,7 @@
   "name": "tabs",
   "type": "registry:ui",
   "title": "Tabs",
-  "description": "Switch between sibling views inside one destination. Pill, underline, and enclosed variants — one moving thumb at a time.",
+  "description": "Switch between sibling views inside the same destination. Three chrome variants — pill (sunken track + raised thumb, Apple-flavor), underline (linear sub-nav, Linear-flavor), enclosed (bordered panel, admin-flavor). Distinct from Segmented (single-choice control inside a form row) and from Navbar tabs (top-level nav). One thumb visible at a time. Tab content lives in `<TabsPanel>` siblings with matching `value`.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -18,8 +18,10 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/tabs/component.json",
     "docsPath": "design-system/02-components/tabs/component.md",
     "status": "stable",

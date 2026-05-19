@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "search-field",
   "type": "registry:ui",
-  "title": "Search Field",
-  "description": "Search input. Inline / prominent / command variants. Clear-on-Escape.",
-  "dependencies": ["lucide-react"],
+  "title": "SearchField",
+  "description": "Specialized Input variant for search. Leading Search icon, trailing Clear button (visible when value is non-empty), submit-on-Enter, optional suggestions popover. Two flavors — inline (small chrome, sits in a toolbar) and prominent (large chrome, sits at the top of a search page).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/search-field.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/search-field/component.json",
     "docsPath": "design-system/02-components/search-field/component.md",
     "status": "stable",

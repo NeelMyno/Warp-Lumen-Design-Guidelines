@@ -3,8 +3,10 @@
   "name": "calendar",
   "type": "registry:ui",
   "title": "Calendar",
-  "description": "Standalone calendar. Month / week / agenda views. Single + range + multi selection.",
-  "dependencies": ["lucide-react"],
+  "description": "Standalone calendar surface. Three view modes — month (the canonical grid), week (7-column day-rows), agenda (event-grouped list). Distinct from DatePicker (single-value input + popover calendar) — this is the full-screen / detail-card calendar primitive used for scheduling, availability, and resource views. Localized via date-fns / Intl. Honors the system week start.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/calendar.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/calendar/component.json",
     "docsPath": "design-system/02-components/calendar/component.md",
     "status": "beta",

@@ -3,8 +3,10 @@
   "name": "pagination",
   "type": "registry:ui",
   "title": "Pagination",
-  "description": "Move between fixed-size pages. Numeric and cursor layouts. Siblings/boundaries collapse logic.",
-  "dependencies": ["lucide-react"],
+  "description": "Move between fixed-size pages of a list, table, or feed. Two layouts — numeric (Prev / 1 / 2 / 3 / Next, with ellipsis-collapse past 7 pages) and cursor (Prev / Page N of M / Next). The numeric layout maps to keyboard / desktop-density operator tables; the cursor layout maps to mobile and infinite-feed-but-with-page-anchors.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/pagination.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/pagination/component.json",
     "docsPath": "design-system/02-components/pagination/component.md",
     "status": "stable",

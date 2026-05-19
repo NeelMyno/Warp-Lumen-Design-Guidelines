@@ -187,6 +187,21 @@
       }
     },
 
+    "tabular": {
+      "$description": "v0.13.2 — composable tabular-numerics preset. Lumen-canonical OpenType feature flag bundle for monospaced digits. Apply on top of any other type.* preset (e.g. `composes type.data.md with type.tabular.nums for the digits`).",
+      "nums": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.14}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.normal}",
+          "letterSpacing": "{font.tracking.normal}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1"
+        },
+        "$description": "Tabular monospaced digits + lining figures + slashed zero. Apply to ledgers, sparkline labels, table-cell numerics, KPI sub-labels, status-bar clock, code line numbers. Composes with body and label tiers — the fontFeatureSettings line is the contract; size + weight scale to the consumer."
+      }
+    },
+
     "lead": {
       "$value": {
         "fontFamily": "{font.family.sans}",
@@ -391,7 +406,29 @@
     },
 
     "code": {
-      "$description": "Code tier. v0.10 — Satoshi-only. Inline uses 0.9286em (= 13/14) relative ratio so inline code runs visually match the surrounding body x-height (a holdover from the JetBrains-pair era; kept because it lands the same in Satoshi). Block has ligatures ON for prose narration; terminal/diff variant disables ligatures so operators read as discrete tokens. Tabular figures (tnum) preserve column alignment in line-numbered blocks.",
+      "$description": "Code tier. v0.10 — Satoshi-only. Inline uses 0.9286em (= 13/14) relative ratio so inline code runs visually match the surrounding body x-height (a holdover from the JetBrains-pair era; kept because it lands the same in Satoshi). Block has ligatures ON for prose narration; terminal/diff variant disables ligatures so operators read as discrete tokens. Tabular figures (tnum) preserve column alignment in line-numbered blocks. v0.13.2 — added `sm` + `md` general code-display preset aliases on top of the existing inline/block/terminal-block scheme. `sm` mirrors `block` at 12 px (dense logs, file paths, inline-with-text code spans); `md` mirrors `block` at 14 px (default CodeBlock body).",
+      "sm": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.12}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.wide}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1, 'calt' 0, 'ss01' 1"
+        },
+        "$description": "v0.13.2 — Small code (dense logs, file paths). Lower-density of `block`."
+      },
+      "md": {
+        "$value": {
+          "fontFamily": "{font.family.sans}",
+          "fontSize": "{font.size.14}",
+          "fontWeight": "{font.weight.regular}",
+          "lineHeight": "{font.leading.body-comfortable}",
+          "letterSpacing": "{font.tracking.wide}",
+          "fontFeatureSettings": "'tnum' 1, 'lnum' 1, 'zero' 1, 'calt' 0, 'ss01' 1"
+        },
+        "$description": "v0.13.2 — Default CodeBlock body. Pair with `Kbd` for inline keyboard cues."
+      },
       "inline": {
         "$value": {
           "fontFamily": "{font.family.sans}",

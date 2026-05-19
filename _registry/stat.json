@@ -3,7 +3,7 @@
   "name": "stat",
   "type": "registry:ui",
   "title": "Stat",
-  "description": "A big bold number with a small mono unit and optional delta. Warp signature primitive.",
+  "description": "A big bold number with a small uppercase tracked unit and optional delta + sparkline. Warp signature primitive. v0.10 — Satoshi-only; tabular alignment via OpenType tnum, not a separate mono face. v0.11.17 — sparkline is fluid (preferred max width, scales to fit tight columns) and right-anchored via ml-auto; StatGrid `divided` divider is a gap-centred pseudo-element so all columns share equal content area.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -18,7 +18,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.7.0",
+    "lumenVersion": "0.13.2",
     "platforms": [
       "web-react"
     ],

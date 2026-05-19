@@ -3,8 +3,10 @@
   "name": "trend",
   "type": "registry:ui",
   "title": "Trend",
-  "description": "Numeric delta chip. Polarity-aware tone. Tabular-nums alignment.",
-  "dependencies": ["lucide-react"],
+  "description": "Numeric delta indicator. A small chip showing change vs a baseline: '+12.4%', '−3 units', '+$420'. Auto-derives tone from the sign (positive=accent, negative=danger, zero=neutral) unless the consumer flips polarity (some KPIs are 'lower is better' — e.g. churn, page load time). Used inside KPI cards, Stat blocks, table rows, and AI summaries.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/trend.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/trend/component.json",
     "docsPath": "design-system/02-components/trend/component.md",
     "status": "stable",

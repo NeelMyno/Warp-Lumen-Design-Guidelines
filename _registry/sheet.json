@@ -3,8 +3,10 @@
   "name": "sheet",
   "type": "registry:ui",
   "title": "Sheet",
-  "description": "Mobile-flavor bottom-anchored modal with detents. iOS-flavor drag handle.",
-  "dependencies": ["@radix-ui/react-dialog"],
+  "description": "Mobile-flavor bottom-anchored modal with optional detents (half / large / full). The Apple HIG / iOS 'sheet'. Distinct from Drawer (side, desktop-flavor), Dialog (centered, decision), Popover (anchored, small). On desktop, prefer Drawer side='right'; Sheet is reserved for mobile and tablet portrait.",
+  "dependencies": [
+    "@radix-ui/react-dialog"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/sheet.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/sheet/component.json",
     "docsPath": "design-system/02-components/sheet/component.md",
     "status": "stable",

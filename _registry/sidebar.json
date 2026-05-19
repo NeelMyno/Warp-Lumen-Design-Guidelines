@@ -3,8 +3,10 @@
   "name": "sidebar",
   "type": "registry:ui",
   "title": "Sidebar",
-  "description": "Vertical primary nav rail. Expanded + rail + auto modes. Tooltip-required in rail mode.",
-  "dependencies": ["lucide-react"],
+  "description": "Vertical primary navigation rail. Used on operator dashboards and admin consoles where destinations exceed what fits in a Navbar. Two density modes — expanded (label + icon, 240 px) and rail (icon-only, 56 px with Tooltips). Collapsible with a chevron. Includes brand mark, item groups, label sections, footer (account + version).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/sidebar.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/sidebar/component.json",
     "docsPath": "design-system/02-components/sidebar/component.md",
     "status": "stable",

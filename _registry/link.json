@@ -3,8 +3,10 @@
   "name": "link",
   "type": "registry:ui",
   "title": "Link",
-  "description": "Inline text link. Always <a>. Three appearances. External-link safety. Three underline modes.",
-  "dependencies": ["lucide-react"],
+  "description": "Inline text link. Always rendered as an <a>, never a Button — links navigate, buttons act. Three appearances — default (text.primary with underline-on-hover, the prose default), subtle (text.secondary, navigation flavor), and accent (text.accent, sparingly — emphasis on a single CTA inside prose). External links signal with a trailing arrow / ExternalLink glyph and rel='noreferrer noopener'.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/link.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/link/component.json",
     "docsPath": "design-system/02-components/link/component.md",
     "status": "stable",

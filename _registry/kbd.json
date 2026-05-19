@@ -3,7 +3,7 @@
   "name": "kbd",
   "type": "registry:ui",
   "title": "Kbd",
-  "description": "Inline keyboard-key cue. Platform-aware glyphs (⌘ vs Ctrl). SR-friendly aria-label.",
+  "description": "Inline keyboard-key cue. A small monospace pill rendered for shortcuts inside Tooltips, DropdownMenu items, help overlays, and onboarding text. Renders mac-or-platform-aware glyphs (⌘ vs Ctrl) when platform='auto'. Use Kbd, not Tag, for keyboard hints — the visual chrome is distinct.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -13,10 +13,15 @@
       "target": "components/ui/kbd.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/kbd/component.json",
     "docsPath": "design-system/02-components/kbd/component.md",
     "status": "stable",

@@ -3,8 +3,10 @@
   "name": "carousel",
   "type": "registry:ui",
   "title": "Carousel",
-  "description": "Snap-scrolling content carousel. Autoplay OFF by default per WCAG 2.2.2.",
-  "dependencies": ["lucide-react"],
+  "description": "Horizontally paginated content scroller. Renders a slide track with snap-points; auto-advance is OFF by default (auto-advance is a WCAG 2.2.2 hazard unless explicitly opt-in with controls). Includes prev/next IconButtons, dot indicators, and optional progress. Distinct from Tabs (sibling views) and ProductGallery (image-zoom flavor).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/carousel.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/carousel/component.json",
     "docsPath": "design-system/02-components/carousel/component.md",
     "status": "stable",

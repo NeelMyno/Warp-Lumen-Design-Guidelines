@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "testimonial-card",
   "type": "registry:ui",
-  "title": "Testimonial Card",
-  "description": "Customer quote card. Operator + marketing variants.",
-  "dependencies": ["lucide-react"],
+  "title": "TestimonialCard",
+  "description": "Customer quote card. Composes a quotation, an author (avatar + name + role + company), and optional rating / metric. Used on landing pages, sales decks, case study previews. Operator-flavor (compact, neutral) and marketing-flavor (large, optional accent left-edge stroke).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/testimonial-card.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/testimonial-card/component.json",
     "docsPath": "design-system/02-components/testimonial-card/component.md",
     "status": "stable",

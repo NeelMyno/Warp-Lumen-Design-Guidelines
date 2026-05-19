@@ -3,7 +3,7 @@
   "name": "button",
   "type": "registry:ui",
   "title": "Button",
-  "description": "A button triggers an action. The primary way users commit to a decision in a flow.",
+  "description": "Primary action affordance. Renders a labeled, focusable, intent-bearing control. Five sizes × eight intents × three shapes. The single most important interaction component in Lumen. v0.12.2 dialed the primary-hover glow ladder down: rest unchanged at the brand-defining 0 0 16px lime-a25, hover trims to 0 0 20px lime-a28 plus quieter mid/outer halo layers (see ADR 0022).",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -18,7 +18,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.7.0",
+    "lumenVersion": "0.13.2",
     "platforms": [
       "web-react"
     ],

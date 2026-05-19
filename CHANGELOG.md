@@ -6,12 +6,106 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-## [0.13.2] — 2026-05-18
-
-_See `[Unreleased]` for details; promote entries here on release._
-
-
 _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, Removed, Fixed, Security._
+
+---
+
+## [0.13.2] — 2026-05-18 — R6 senior-UX audit pass: LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025)
+
+R6 of the same-day live-audit cycle. Where R5 (v0.13.1) introduced the small-viewport-metrics axis to the audit ladder, R6 adds a sixth axis: **LLM-docs SSoT integrity + tooling-script hygiene**. The cycle pivots from "rendered UI bugs" to "the contracts authoring agents read against." R6 catches that R4's `release.mjs` lockstep (ADR 0023) was narrower than intended — five drift sites slipped through (root `package.json`, README `Status:` line, USING-LUMEN.md install URL + `35 components` catalog drift, narrative taglines stale) — and that R5's Switch/Checkbox a11y fix was incomplete (the in-primitive `label` prop had the same root cause as the SwitchRow wrapper). Plus a wave of new SSoT documents an LLM agent or new contributor would have asked for: COMPONENT-INDEX, TOKEN-INDEX, ROUTES, data-visualization, responsive, state-matrix.
+
+### Added
+
+- **[ADR 0025 — Audit-cycle ladder formalization + R6 SSoT additions](_meta/decisions/0025-audit-cycle-ladder-r6-llm-docs-ssot-v0132.md)** — codifies the now-six-round audit-cycle ladder (R1 static @ desktop → R2 interaction @ desktop → R3 contract-comparison @ desktop → R4 meta-contract integrity @ desktop → R5 small-viewport metrics @ mobile → R6 LLM-docs SSoT + tooling-script hygiene). The methodology rule remains: *a carried blocker is a tooling hypothesis, not a fact*. ADR 0025 also documents the SSoT additions made in v0.13.2.
+- **[COMPONENT-INDEX.md](COMPONENT-INDEX.md)** — auto-generated index of all 98 components, grouped by category, with one-line purpose / version / status / examples. Generator: `node scripts/build-component-index.mjs` (or `pnpm component-index`). Closes the audit gap where USING-LUMEN.md §5 advertised "all 35 components" (stale by 63 contracts since v0.12.6).
+- **[TOKEN-INDEX.md](TOKEN-INDEX.md)** — auto-generated flat index of ~750 semantic + component-bound tokens, with alias targets + descriptions. Generator: `node scripts/build-token-index.mjs` (or `pnpm token-index`). Primitives intentionally omitted (per AGENTS.md hard rule 2 — consume semantic only).
+- **[audit-dashboard/README.md](audit-dashboard/README.md)** — replaces the stock create-next-app stub with a proper onboarding doc (stack, run, route map, version-label SSoT, theme toggle, responsive safety net, debugging table, what's-not-included).
+- **[audit-dashboard/ROUTES.md](audit-dashboard/ROUTES.md)** — per-route breakdown of the 9 dashboard routes (purpose, audience, primitives demonstrated, audit-cycle cross-reference).
+- **[design-system/00-foundations/data-visualization.md](design-system/00-foundations/data-visualization.md)** — chart-type selection table, axis / legend rules, color-palette contract (Spring Green for ONE series only), empty / loading / error / stale / partial states, accessibility, tooltip portal pattern, KPI composition rule, common mistakes. Closes the audit gap where `charts.tsx` shipped 18 chart types but no foundation doc said *how to pick one*.
+- **[design-system/00-foundations/responsive.md](design-system/00-foundations/responsive.md)** — breakpoint table, the four density tiers, the layout-viewport contract (codifies ADR 0024 for consumers), the `clip` vs `hidden` decision, sub-768 px authoring rules per-area (layout, touch targets, typography, navigation, tables, charts), the audit-cycle viewport ladder, common mistakes.
+- **[design-system/00-foundations/state-matrix.md](design-system/00-foundations/state-matrix.md)** — the 13 canonical state names (default, hover, focus, active, selected, pressed, disabled, loading, error, success, warning, empty, expanded/collapsed, dragging, read-only, skeleton), which primitives must support which subset (Tier A/B/C/D), per-primitive state expectations (buttons, inputs, displays, disclosures, selection controls, dragging, permission/destructive), the new a11y contract for Switch + Checkbox.
+- **New semantic tokens** — closes the 87 `validate:tokens` errors carried across many sessions:
+  - `design-system/01-tokens/semantic/size.tokens.json` (new file) — 30 component-bound size aliases for avatar / banner / bottom-nav / calendar / drawer / kanban / list / navbar / phone / popover / sidebar / slider / table / tree.
+  - `design-system/01-tokens/semantic/color.invariant.tokens.json` (new file) — theme-invariant `color.text.on-action`, `color.text.on-avatar`, `color.status.{danger,info,success,warning}.border`.
+  - Extends `semantic/motion.tokens.json` — adds `motion.duration.shimmer`, `motion.duration.spin`.
+  - Extends `semantic/shadow.tokens.json` — adds `shadow.elevation.{sm,md,lg}`, `shadow.glow.accent`, `shadow.kbd`.
+  - Extends `semantic/type.tokens.json` — adds `type.tabular.nums`, `type.code.{sm,md}`.
+  - Extends `semantic/color.dark.tokens.json` + `color.light.tokens.json` — adds `color.chart.1–8` (Lumen chart series palette) + `color.avatar.bg.1–8` (avatar fallback palette).
+- **`build-component-index.mjs` + `build-token-index.mjs`** — generator scripts. Wired into `pnpm component-index` + `pnpm token-index` for re-runnable maintenance.
+
+### Changed
+
+- **`scripts/release.mjs`** extends the LLM-docs version lockstep (ADR 0023) to catch four drift sites the v0.13.0 script missed:
+  - (a) root `package.json` `"version"` field — was at `0.12.4` while `VERSION` climbed to `0.13.1`.
+  - (b) README `Status:` line (plain multi-space format, not the bold-chip format the v0.13.0 regex caught).
+  - (c) USING-LUMEN.md install URL `<cdn>/lumen/vX.Y.Z/registry/{name}.json`.
+  - (d) README `## What's new — vX.Y.Z` section heading.
+  - Plus a **safety guard**: refuse to run if `[next]` is already in `CHANGELOG.md` (closes the 0.13.1 → 0.13.2 over-bump trap session 38 hit when `release.mjs` was run on an already-hand-bumped VERSION).
+- **`Switch` + `Checkbox` primitives** — when `label` prop is provided, the primitive now wires `aria-labelledby` to the Label's id (id generated as `{controlId}-label`). The R5 fix only covered the `SwitchRow` wrapper-with-sibling-label pattern via explicit `aria-labelledby`; R6 catches that the in-primitive `label` prop had the same root cause (HTML's implicit `<label htmlFor>` does NOT propagate the accessible name to a `<button role="switch">` because Radix overrides the host element role). The `foundations/page.tsx` Switch+Checkbox showcase exhibited this — visible label rendered but the buttons stayed nameless. **Post-fix probe across all 8 routes at 320 px: 0 nameless interactive elements.**
+- **`Field` primitive (children pattern)** — `<Field label="X"><TextInput /></Field>` was dropping the htmlFor→id linkage because the inner TextInput rendered its own `<input>` with its own id (not the inputId on the Field's `<label>`). Fix: when children are provided AND label exists, clone the first child element and inject `id` + `aria-labelledby` + `aria-describedby` + `aria-invalid` pointing at the Field's labelId / inputId / helpId.
+- **`NumberInput` + `TagsInput` primitives** — now accept `id` + `aria-label` + `aria-labelledby` props so the Field cloneElement can wire the accessible name through to the inner `<input>`. Previously these wrapper primitives swallowed the aria-* props the Field passed in.
+- **`RangeSlider` primitive** — the two `<input type="range">` thumb inputs now ship `aria-label` per thumb ("Range: minimum (val)" / "Range: maximum (val)"). New `label` prop on RangeSlider so consumers can customize the prefix.
+- **`TypeToConfirm` primitive** — input now ships `<label htmlFor>` wired via useId, plus `aria-describedby` pointing at the help-text + `aria-invalid` toggle when the phrase doesn't match.
+- **`audit-dashboard/src/components/primitives/nav.tsx`** — three showcase-only exports renamed to retire export-name collisions with the canonical primitives: `FAB → FABDemo`, `SplitButton → SplitButtonDemo`, `CommandPalette → CommandPaletteDemo`. The Demo suffix matches the established nav.tsx convention (NavbarDemo, SidebarDemo, FooterDemo). Only consumer was `audit-dashboard/src/app/library/client.tsx` (the gallery surface) — updated.
+- **`audit-dashboard/src/app/library/client.tsx` "Input states" demo** — 5 bare `TextInput` instances now ship `aria-label` (the VariantRow's "Default"/"Filled"/"Focus"/"Error"/"Disabled" labels are sibling div text, not wired `<label htmlFor>`).
+- **CHANGELOG.md** — removes the spurious `## [0.13.2]` empty stub that session 38's release.mjs invocation created (now a real `[0.13.2]` entry replaces it via this release).
+- **README.md** — Status line updated to v0.13.1 + ADR 0024 + 24 ADRs (was stuck at v0.13.0); `## What's new — v0.13.1` section added; "What this repo is" no longer claims `35 components` (now `98`); `## Open questions (post-v0.13.1)` section updated.
+- **USING-LUMEN.md** — `§5. Component catalog` rewritten as the 98-component category table (was "all 35"); TOC entry, ASCII tier-3 art, §12 totals table, three-sentence summary, install URL all updated; §1 status block tagline now reflects R5 + ADR 0024 content.
+- **`llms.txt` + `llms-full.txt`** — narrative taglines rewritten to lead with R5 / ADR 0024 / responsive safety net (was stuck at "LLM-docs version lockstep + R4 comprehensive audit"); ADR-index updated to 24 ADRs (was 23, missing 0024); new SSoT docs (COMPONENT-INDEX, TOKEN-INDEX, ROUTES, data-visualization, responsive, state-matrix) added to the Foundations / Core reading lists.
+
+### Methodology contribution
+
+R6 adds the sixth axis to the audit-cycle ladder. The methodology rule extends:
+
+| Round | Surface | Tool |
+|---|---|---|
+| R1 (v0.12.7) | Visual chrome | `claude-in-chrome` @ desktop |
+| R2 (v0.12.8) | Interaction state | `claude-in-chrome` @ desktop |
+| R3 (v0.12.9) | Contract-comparison (pinned demos vs runtime) | `claude-in-chrome` @ desktop |
+| R4 (v0.13.0) | Meta-contract integrity (LLM-docs version drift) | grep + release-script audit |
+| R5 (v0.13.1) | Small-viewport metrics | `chrome-devtools-mcp emulate` @ mobile |
+| **R6 (v0.13.2)** | **LLM-docs SSoT + tooling-script hygiene** | `validate:tokens` + `pnpm lint` + `pnpm exec tsc` + `chrome-devtools-mcp` a11y probe at 320 px on all 8 routes |
+
+Each round ramps the tooling along with the surface coverage. **Product Edge:** *the audit cycle is itself a contract — each round teaches what the next round's tooling axis should be.* R6 surfaces the "what we tell agents" layer; future R7 might add Lighthouse performance metrics at mobile, R8 might add real iOS Safari (chrome-devtools-mcp uses headless Chromium, not iOS WebKit).
+
+### Validation status (pre/post)
+
+| Gate | Pre-v0.13.2 | Post-v0.13.2 |
+|---|---|---|
+| `pnpm exec tsc --noEmit` (audit-dashboard) | ❌ 4 stale `.next/types/validator.ts` errors | ✅ PASS |
+| `pnpm validate:tokens` | ❌ 87 errors | ✅ PASS (958 tokens / 34 files) |
+| `pnpm validate:components` | ✅ PASS | ✅ PASS |
+| `pnpm validate:contrast` | ✅ PASS | ✅ PASS |
+| `pnpm registry` | ✅ PASS (98) | ✅ PASS (98) |
+| `pnpm lint` | ❌ 57 hardcoded px/hex violations | ❌ 57 (UNCHANGED — see "Carried forward") |
+| `pnpm build` (Style Dictionary) | ❌ 88 collisions + 1 ref error (pre-existing) | ❌ 93 collisions + 1 ref error (5 new from `semantic/size.tokens.json` declaring `size.*` namespace overlap with `primitives/dimension.tokens.json`) |
+| `chrome-devtools-mcp` mobile @ 320 px — nameless interactive | foundations: 11 · library: 14 · others: 0 | **all 8 routes: 0** |
+
+### Carried forward
+
+- **Style Dictionary `pnpm build` token-collision errors** — pre-existing since prior to v0.13.0; my new `semantic/size.tokens.json` adds 5 to the count (88 → 93). The validator path passes (the deeper LLM-facing contract check); SD is sensitive to top-level namespace coexistence even when leaf paths don't collide. Fix would be a SD-config refactor or rename the size primitive namespace — defer to v0.13.3 or a focused build-pipeline session.
+- **`pnpm lint` 57 hardcoded-px/hex violations** — all pre-existing; my work did not introduce any. Mix of (a) real bugs to fix at the primitive layer (display.tsx 22px, swatch.tsx 18px, etc.) and (b) intentional brand fixtures (templates.tsx `#4285f4 #34a853 #fbbc05 #ea4335` — Google brand colors in the Gmail mockup; `inputs.tsx` ColorPicker default swatch palette literal hex). Fix path: extract brand fixtures into a `brand-fixtures.ts` allowlist + token-ify the real px sites. Defer to v0.13.3.
+- **Lighthouse perf gate at mobile** — would close R7 of the audit-cycle ladder (the carried R6-deferred slot).
+
+### Files touched
+
+- New: `_meta/decisions/0025-audit-cycle-ladder-r6-llm-docs-ssot-v0132.md` (ADR).
+- New: `.audit-runs/2026-05-18-round-6/ISSUES.md` (R6 audit log).
+- New: 6 docs — `COMPONENT-INDEX.md`, `TOKEN-INDEX.md`, `audit-dashboard/README.md` (rewrite), `audit-dashboard/ROUTES.md`, `design-system/00-foundations/data-visualization.md`, `design-system/00-foundations/responsive.md`, `design-system/00-foundations/state-matrix.md`.
+- New: 2 generator scripts — `scripts/build-component-index.mjs`, `scripts/build-token-index.mjs`.
+- New: 2 token files — `design-system/01-tokens/semantic/size.tokens.json`, `design-system/01-tokens/semantic/color.invariant.tokens.json`.
+- Modified: `VERSION` → 0.13.2.
+- Modified: `audit-dashboard/src/lib/version.ts` → `LUMEN_VERSION = "v0.13.2"`.
+- Modified: `package.json` → root `"version": "0.13.2"`, new `component-index` + `token-index` scripts.
+- Modified: `scripts/release.mjs` — extended (root pkg, README Status, USING-LUMEN install URL, README v0.X.Y section) + over-bump guard.
+- Modified: 5 LLM-facing docs — `README.md`, `USING-LUMEN.md`, `llms.txt`, `llms-full.txt`, `CHANGELOG.md` (deduped spurious [0.13.2] stub).
+- Modified: 3 semantic-token files — `semantic/motion.tokens.json`, `semantic/shadow.tokens.json`, `semantic/type.tokens.json`, `semantic/color.dark.tokens.json`, `semantic/color.light.tokens.json`.
+- Modified: 6 primitives — `switch.tsx`, `checkbox.tsx`, `field.tsx`, `inputs.tsx` (NumberInput + TagsInput + RangeSlider), `feedback.tsx` (TypeToConfirm), `nav.tsx` (3 exports renamed).
+- Modified: `audit-dashboard/src/app/library/client.tsx` (nav.tsx import names + 5 Input-states aria-labels + NumberInputWrapper props forwarding).
+
+### Why a patch bump (not minor)
+
+ADR 0025 codifies the audit-cycle ladder as methodology (not a new architectural contract), and the SSoT documents close audit gaps surfaced by R6 (none of the additions break existing contracts). The Switch / Checkbox / Field / NumberInput / TagsInput / RangeSlider / TypeToConfirm primitive changes are additive props (existing consumers continue to work). nav.tsx renames are non-breaking because the only consumer (library/client.tsx) was updated in the same commit. `release.mjs` widening is additive. Per ADR 0009's "patch fixes existing contracts without introducing new ones," v0.13.2 is correct.
 
 ---
 

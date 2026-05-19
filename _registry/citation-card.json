@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "citation-card",
   "type": "registry:ui",
-  "title": "Citation Card",
-  "description": "Source reference card for AI-generated values. Index + source + excerpt + confidence.",
-  "dependencies": ["lucide-react"],
+  "title": "CitationCard",
+  "description": "Source reference rendered next to an AI-generated value. Composes a small index ('Source 1'), source name, optional excerpt, optional confidence ring. Pairs with AISuggestion / AISummary outputs and with inline citations in prose. Distinct from a plain Link — CitationCard carries the AI provenance visual.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/citation-card.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/citation-card/component.json",
     "docsPath": "design-system/02-components/citation-card/component.md",
     "status": "stable",

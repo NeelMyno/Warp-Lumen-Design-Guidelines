@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tree-view",
   "type": "registry:ui",
-  "title": "Tree View",
-  "description": "Hierarchical node list. File tree, nav tree, org chart.",
-  "dependencies": ["lucide-react"],
+  "title": "TreeView",
+  "description": "Hierarchical node list. File tree, navigation tree, org chart. Each node has a chevron-disclosure, an icon, a label, and an optional badge. Selection is single-row; multi-selection lives in DataGrid. Lazy-loaded subtrees announce 'Loading children…' via aria-live.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/tree-view.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/tree-view/component.json",
     "docsPath": "design-system/02-components/tree-view/component.md",
     "status": "beta",

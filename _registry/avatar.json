@@ -3,7 +3,7 @@
   "name": "avatar",
   "type": "registry:ui",
   "title": "Avatar",
-  "description": "User/actor identity image. 8-color name-hashed fallback. Five sizes, three shapes. AvatarGroup overlap + overflow.",
+  "description": "User / actor identity image with deterministic name-hashed fallback colors and initials when no image is present. Five sizes (xs / sm / md / lg / xl). Square, rounded, or circle. AvatarGroup composes up to N visible avatars with a '+N more' overflow chip — pair with PresenceIndicator (a colored dot at the corner) for live state.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -13,10 +13,15 @@
       "target": "components/ui/avatar.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/avatar/component.json",
     "docsPath": "design-system/02-components/avatar/component.md",
     "status": "stable",

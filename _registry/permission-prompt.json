@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "permission-prompt",
   "type": "registry:ui",
-  "title": "Permission Prompt",
-  "description": "Pre-prompt explaining WHY a system permission is needed. Reduces deny-rate.",
-  "dependencies": ["lucide-react"],
+  "title": "PermissionPrompt",
+  "description": "Pre-prompt that explains WHY the app needs a system permission BEFORE triggering the OS-native dialog. Renders a centered card with an icon, title (the consequence), description (the value), and two buttons — 'Not now' (secondary) + 'Continue' (primary, which then fires the native prompt). Reduces the deny-rate of platform permission requests by 2-3x. Covers camera, microphone, location, notifications, contacts, photos, motion, tracking transparency, biometric.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/permission-prompt.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/permission-prompt/component.json",
     "docsPath": "design-system/02-components/permission-prompt/component.md",
     "status": "stable",

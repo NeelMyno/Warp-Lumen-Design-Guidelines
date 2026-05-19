@@ -22,7 +22,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.7.0",
+    "lumenVersion": "0.13.2",
     "platforms": [
       "web-react"
     ],

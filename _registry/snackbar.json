@@ -3,8 +3,10 @@
   "name": "snackbar",
   "type": "registry:ui",
   "title": "Snackbar",
-  "description": "Transient bottom-anchored message with a single trailing action. Pause-on-hover.",
-  "dependencies": ["lucide-react"],
+  "description": "Transient, viewport-anchored message with a single trailing action. Mobile-flavor of Toast — wider, bottom-anchored, action-trailing. Use specifically when the user just performed an action and may need to undo or continue. Auto-dismisses after 5 s by default. One Snackbar at a time per viewport. Distinct from Toast (top-right stack, multiple), Alert (region, persistent), and Banner (page-level state).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/snackbar.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/snackbar/component.json",
     "docsPath": "design-system/02-components/snackbar/component.md",
     "status": "stable",

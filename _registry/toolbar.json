@@ -3,8 +3,10 @@
   "name": "toolbar",
   "type": "registry:ui",
   "title": "Toolbar",
-  "description": "Grouped row of interactive controls. Single tab stop with roving tabindex. Radix Toolbar wrapper.",
-  "dependencies": ["@radix-ui/react-toolbar"],
+  "description": "A grouped row of interactive controls — buttons, toggle buttons, dropdowns, dividers — sharing a single tab stop. Used as page-level command bars (above a Table), as floating contextual editor toolbars (rich text), and as dialog footers (the primary/secondary pair). Roving tabindex inside; ArrowLeft/ArrowRight cycles within the group.",
+  "dependencies": [
+    "@radix-ui/react-toolbar"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/toolbar.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/toolbar/component.json",
     "docsPath": "design-system/02-components/toolbar/component.md",
     "status": "stable",

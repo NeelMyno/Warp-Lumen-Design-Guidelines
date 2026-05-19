@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useId, useState } from "react";
 import { Info, AlertTriangle, AlertOctagon, CheckCircle2, X as XIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -223,6 +223,8 @@ export function ModalCard({
 /* ─────────────────────────  CONFIRMATION DIALOG (type-to-confirm)  ───────────────────────── */
 export function TypeToConfirm({ phrase = "DELETE" }: { phrase?: string }) {
   const [val, setVal] = useState("");
+  const inputId = useId();
+  const helpId = `${inputId}-help`;
   const ok = val === phrase;
   return (
     <ModalCard
@@ -233,15 +235,18 @@ export function TypeToConfirm({ phrase = "DELETE" }: { phrase?: string }) {
       destructive
     >
       <div className="flex flex-col gap-2 mt-1">
-        <label className="text-[length:var(--type-12)] text-[color:var(--text-secondary)]">
+        <label htmlFor={inputId} className="text-[length:var(--type-12)] text-[color:var(--text-secondary)]">
           Type <span className="lumen-mono font-semibold text-[color:var(--text-primary)]">{phrase}</span> to confirm
         </label>
         <input
+          id={inputId}
           value={val}
           onChange={(e) => setVal(e.target.value)}
+          aria-describedby={helpId}
+          aria-invalid={!ok && val.length > 0}
           className="h-10 px-3 rounded-[var(--radius-md)] border border-[var(--border-default)] bg-[var(--surface-raised)] text-[length:var(--type-14)] lumen-mono focus:outline-none focus:border-[var(--border-focus)] focus:shadow-[var(--shadow-focus)]"
         />
-        <div className={["text-[length:var(--type-11)] mt-1", ok ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--text-tertiary)]"].join(" ")}>
+        <div id={helpId} className={["text-[length:var(--type-11)] mt-1", ok ? "text-[color:var(--lumen-accent-7)]" : "text-[color:var(--text-tertiary)]"].join(" ")}>
           {ok ? "Confirmation phrase matched." : "Phrase must match exactly."}
         </div>
       </div>

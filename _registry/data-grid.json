@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "data-grid",
   "type": "registry:ui",
-  "title": "Data Grid",
-  "description": "Power-user table. Column reorder/resize/freeze, sort, multi-select, group, expand, inline edit.",
-  "dependencies": ["lucide-react"],
+  "title": "DataGrid",
+  "description": "Power-user tabular surface built on Table. Adds column visibility toggle, column reorder, column resize, frozen / sticky columns, row selection (single / multi), row expansion, inline cell edit, density control, sort indicators on headers, filter chip row, grouped / aggregated / subtotal rows, and pivot. Sparingly use — most operator tables stay on the simpler Table primitive.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/data-grid.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/data-grid/component.json",
     "docsPath": "design-system/02-components/data-grid/component.md",
     "status": "beta",

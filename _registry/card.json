@@ -3,7 +3,7 @@
   "name": "card",
   "type": "registry:ui",
   "title": "Card",
-  "description": "A bounded surface with a hairline border and optional subtle shadow.",
+  "description": "A bounded surface with a hairline border and optional subtle shadow. v0.12.1 introduced the corner-clip contract — padding='none' auto-clips edge-touching children to the rounded shape. v0.12.4 closed the trade-off the corner-clip introduced for descendant focus rings: the global :focus-visible rule now pairs outline 2px solid lime-a64 + offset 1px (structurally immune to ancestor overflow:hidden) with the existing soft box-shadow halo, so focus rings on Pagination buttons and other interactive descendants inside <Card padding='none'> stay visible. The v0.12.4 Combobox portal migration also means a hand-rolled Combobox dropdown inside <Card padding='none'> now escapes the clip exactly like Radix-portaled chrome already did.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -18,7 +18,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.7.0",
+    "lumenVersion": "0.13.2",
     "platforms": [
       "web-react"
     ],

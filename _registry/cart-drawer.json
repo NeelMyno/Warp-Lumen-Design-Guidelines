@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "cart-drawer",
   "type": "registry:ui",
-  "title": "Cart Drawer",
-  "description": "Commerce-flavor side Drawer. Line items + totals + sticky Checkout.",
-  "dependencies": ["lucide-react"],
+  "title": "CartDrawer",
+  "description": "Commerce-flavor Drawer pre-composed as the side cart. Renders a CartLineItem list (image + title + variant + qty stepper + price + remove), a totals subgroup (subtotal / discount / shipping / total), and a sticky-footer Checkout CTA. Distinct from MiniCart (small popover preview) — CartDrawer is a full side panel.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/cart-drawer.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/cart-drawer/component.json",
     "docsPath": "design-system/02-components/cart-drawer/component.md",
     "status": "stable",

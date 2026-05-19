@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "notification-center",
   "type": "registry:ui",
-  "title": "Notification Center",
-  "description": "Popover-anchored inbox. Grouped by recency. Filter chips, mark-all-read, per-item archive.",
-  "dependencies": ["lucide-react"],
+  "title": "NotificationCenter",
+  "description": "Inbox of system + user notifications. Popover-anchored from a Bell icon in the Navbar (default) or a route at /inbox. Items group by recency (Today / Earlier / Last week). Unread items carry a leading dot in text.accent. Hosts read/unread toggle, mark-all-read, archive, and category filter chips. Distinct from Toast (transient) and Alert (in-flow).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/notification-center.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/notification-center/component.json",
     "docsPath": "design-system/02-components/notification-center/component.md",
     "status": "beta",

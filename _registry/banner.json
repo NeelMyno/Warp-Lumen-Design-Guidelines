@@ -3,8 +3,10 @@
   "name": "banner",
   "type": "registry:ui",
   "title": "Banner",
-  "description": "Page-level system state strip. Six tones (info/success/warning/danger/promo/sandbox). Sticky by default.",
-  "dependencies": ["lucide-react"],
+  "description": "Page-level system state strip. Stretches edge-to-edge, sticks above the page header, communicates state that affects the entire app — maintenance windows, outages, trial countdowns, account suspension, environment indicators (sandbox / test mode). Distinct from Alert (region-scoped) and Toast (transient).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/banner.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/banner/component.json",
     "docsPath": "design-system/02-components/banner/component.md",
     "status": "stable",

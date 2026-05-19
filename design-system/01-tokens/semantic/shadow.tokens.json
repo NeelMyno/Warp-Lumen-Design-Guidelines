@@ -1,7 +1,23 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "shadow": {
-    "$description": "Semantic shadow aliases. v0.11.13 — every accent-coloured shadow now references the spring-green {color.alpha.accent.*} primitives. Pre-v0.11.13 the focus rings, button glows, ai-shimmer, input focus + success halos all hardcoded v0.4 lime rgba(74,222,128,X) and so silently bypassed the v0.11 brand recolor. With this rewiring, any future accent retune cascades through every shadow alias automatically. Input.error references {color.alpha.danger.32} (refined v0.11 #E5484D) so the error halo inherits the danger primitive — pre-v0.11.13 it was inlined at the v0.10 #ef4444 RGB.",
+    "$description": "Semantic shadow aliases. v0.11.13 — every accent-coloured shadow now references the spring-green {color.alpha.accent.*} primitives. Pre-v0.11.13 the focus rings, button glows, ai-shimmer, input focus + success halos all hardcoded v0.4 lime rgba(74,222,128,X) and so silently bypassed the v0.11 brand recolor. With this rewiring, any future accent retune cascades through every shadow alias automatically. Input.error references {color.alpha.danger.32} (refined v0.11 #E5484D) so the error halo inherits the danger primitive — pre-v0.11.13 it was inlined at the v0.10 #ef4444 RGB. v0.13.2 — added shadow.elevation.{sm,md,lg} as semantic aliases on top of the primitive shadow.{sm,md,lg} scale (so contracts can read 'elevation.sm' meaningfully without consuming a primitive), shadow.glow.accent as a semantic alias for shadow.accent-glow, and shadow.kbd for the keyboard-chrome subtle inset.",
+    "elevation": {
+      "$description": "v0.13.2 — semantic shadow elevation ladder. Wraps the primitive shadow scale with a name that consumers can reason about ('elevation.sm' = subtle lift). Consume these in component contracts rather than the primitive shadow.{sm,md,lg} directly.",
+      "sm": { "$value": "{shadow.sm}", "$description": "Subtle lift. Card resting, input focus halo, slider thumb shadow." },
+      "md": { "$value": "{shadow.md}", "$description": "Standard lift. Lifted Card, BottomNav inset, sticky chrome." },
+      "lg": { "$value": "{shadow.lg}", "$description": "Strong lift. Popover, dropdown menu, floating action." }
+    },
+    "glow": {
+      "$description": "v0.13.2 — semantic glow aliases. Wraps the primitive accent-glow with a name a component contract can reason about.",
+      "accent": { "$value": "{shadow.accent-glow}", "$description": "Spring-green glow. Reserved for primary CTA / active toggle / live state. Use sparingly — the brand-defining always-on signal." }
+    },
+    "kbd": {
+      "$value": [
+        { "color": "{color.alpha.shadow.04}", "offsetX": "0px", "offsetY": "1px", "blur": "0px", "spread": "0px" }
+      ],
+      "$description": "v0.13.2 — keyboard-chrome subtle inset shadow. Used by Kbd primitive to suggest a 1-pixel raised key edge without the heaviness of a full shadow.md."
+    },
     "card": {
       "$value": "{shadow.sm}",
       "$description": "Cards default to a hairline border with this very subtle shadow. Reach for shadow.lifted only when card is genuinely lifting."

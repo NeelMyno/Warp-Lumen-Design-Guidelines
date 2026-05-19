@@ -1,0 +1,103 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$description": "v0.13.2 — Component-bound semantic size aliases. Closes the validate:tokens gap where component contracts referenced size.{avatar,banner,bottom-nav,calendar,drawer,kanban,list,navbar,phone,popover,sidebar,slider,table,tree}.* without those paths existing anywhere in tokens.json. The aliases point to existing `dimension.*` primitives via the standard alias syntax. Component contracts and CSS consumers reach these via the semantic name; the underlying value cascades from the primitive scale. (Note: `size.container.*`, `size.reading.*`, `size.control.*`, `size.scrollbar`, `size.dot.*` live in `primitives/dimension.tokens.json` — those are the foundation. This file adds the component-shape size aliases on top.)",
+  "size": {
+    "$type": "dimension",
+
+    "avatar": {
+      "$description": "Per-tier avatar diameter. Square; rounded-full applies via CSS. Aligned to the control-height ladder so an Avatar in a button row matches the button.",
+      "xs": { "$value": "{dimension.5}",  "$description": "20 px — inline-text avatar (chat by-line, comment lead-glyph)." },
+      "sm": { "$value": "{dimension.6}",  "$description": "24 px — dense list row, table cell." },
+      "md": { "$value": "{dimension.8}",  "$description": "32 px — default; sidebar profile chip, comment thread." },
+      "lg": { "$value": "{dimension.10}", "$description": "40 px — header bar / settings-panel profile." },
+      "xl": { "$value": "{dimension.14}", "$description": "56 px — profile-page hero." }
+    },
+
+    "banner": {
+      "$description": "PageBanner height.",
+      "compact": { "$value": "{dimension.10}", "$description": "40 px — single-line system status (operator default)." }
+    },
+
+    "bottom-nav": {
+      "$description": "Mobile BottomNav rail height.",
+      "regular": { "$value": "{dimension.14}", "$description": "56 px — iOS / Android standard tab bar." },
+      "compact": { "$value": "{dimension.12}", "$description": "48 px — operator-density." }
+    },
+
+    "calendar": {
+      "$description": "DatePickerCalendar cell sizing.",
+      "day": { "$value": "{dimension.8}", "$description": "32 px — square day cell. Touch floor honored by tap-area padding around the visible cell on mobile." }
+    },
+
+    "drawer": {
+      "$description": "Side Drawer widths. Apply max-width on the Drawer surface; the body width is the drawer width minus body padding.",
+      "sm": { "$value": "{dimension.64}", "$description": "256 px — narrow nav drawer / filter panel." },
+      "md": { "$value": { "value": 360, "unit": "px" }, "$description": "360 px — default Drawer; settings panel, inspector." },
+      "lg": { "$value": { "value": 480, "unit": "px" }, "$description": "480 px — wide Drawer; detail view, form panel." }
+    },
+
+    "kanban": {
+      "$description": "Kanban column width.",
+      "column": { "$value": { "value": 280, "unit": "px" }, "$description": "280 px — standard Kanban column. Wide enough for a 2-3 line title + tags + meta row; narrow enough that 3+ columns fit on a 1024-wide viewport." }
+    },
+
+    "list": {
+      "$description": "List + MobileListItem row heights.",
+      "row": {
+        "compact":     { "$value": "{dimension.10}", "$description": "40 px — dense settings list, operator inbox." },
+        "regular":     { "$value": "{dimension.12}", "$description": "48 px — default list row. Touch-target floor (44) honored by inner tap-area padding." },
+        "comfortable": { "$value": "{dimension.14}", "$description": "56 px — marketing / showcase list, mobile leading-image row." }
+      }
+    },
+
+    "navbar": {
+      "$description": "Top Navbar height across surface densities.",
+      "compact":   { "$value": "{dimension.12}", "$description": "48 px — operator-density tool surface." },
+      "marketing": { "$value": "{dimension.16}", "$description": "64 px — landing / marketing." },
+      "mobile":    { "$value": "{dimension.11}", "$description": "44 px — iOS / Android default; touch-target floor." }
+    },
+
+    "phone": {
+      "$description": "PhoneFrame outer width (decorative mockup).",
+      "sm": { "$value": { "value": 320, "unit": "px" }, "$description": "320 px — iPhone SE (1st-gen) outer width." },
+      "md": { "$value": { "value": 360, "unit": "px" }, "$description": "360 px — iPhone 14/15 default; Android baseline." },
+      "lg": { "$value": { "value": 414, "unit": "px" }, "$description": "414 px — iPhone Pro Max." }
+    },
+
+    "popover": {
+      "$description": "Popover / DropdownMenu minimum widths. Floating panels can grow beyond; these are the floor.",
+      "sm": { "$value": { "value": 200, "unit": "px" }, "$description": "200 px — compact menu (3-5 short options)." },
+      "md": { "$value": { "value": 280, "unit": "px" }, "$description": "280 px — default; mixed menu with icons + labels + shortcuts." },
+      "lg": { "$value": { "value": 360, "unit": "px" }, "$description": "360 px — wide Popover; rich content (Combobox results, color picker)." }
+    },
+
+    "sidebar": {
+      "$description": "Vertical Sidebar widths.",
+      "rail":     { "$value": "{dimension.16}", "$description": "64 px — icon-only collapsed rail. Touch floor honored by item padding." },
+      "expanded": { "$value": { "value": 240, "unit": "px" }, "$description": "240 px — labeled expanded sidebar." }
+    },
+
+    "slider": {
+      "$description": "RangeSlider thumb + track dimensions.",
+      "thumb": { "$value": { "value": 18, "unit": "px" }, "$description": "18 px — round draggable handle; tactile under-cursor feel without obscuring track marks." },
+      "track": { "$value": "{dimension.1}",  "$description": "4 px — track height. Hairline-rounded; filled region uses accent." }
+    },
+
+    "table": {
+      "$description": "Table row heights across density tiers. Cell horizontal gap lives in `space.table.cell.{gap,compact}` (per ADR 0014 — Apple Sport pattern, column gap constant when type scales).",
+      "row": {
+        "compact":     { "$value": "{dimension.9}",  "$description": "36 px — dense data-grid (power-user)." },
+        "regular":     { "$value": "{dimension.11}", "$description": "44 px — default operator-table row (matches touch floor)." },
+        "comfortable": { "$value": "{dimension.12}", "$description": "48 px — settings table / marketing comparison." }
+      }
+    },
+
+    "tree": {
+      "$description": "TreeView row heights. Indentation per depth-level applied via padding-left (16 px per level by convention).",
+      "row": {
+        "compact": { "$value": "{dimension.8}",  "$description": "32 px — dense (file-explorer feel)." },
+        "regular": { "$value": "{dimension.10}", "$description": "40 px — default." }
+      }
+    }
+  }
+}

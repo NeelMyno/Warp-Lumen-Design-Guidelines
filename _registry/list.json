@@ -3,8 +3,10 @@
   "name": "list",
   "type": "registry:ui",
   "title": "List",
-  "description": "Vertical sequence primitive. Three variants (plain/structured/interactive), three densities, four divider modes.",
-  "dependencies": ["lucide-react"],
+  "description": "Vertical sequence primitive — semantic <ul>/<ol> with Lumen chrome. Three flavors: plain (text bullets / numbered), structured (each row is a ListItem with leading/trailing slots, the Apple Settings / iOS-style listview), and interactive (each row navigates or actions, with hover + focus chrome). Pairs with Divider for inset separators; with Skeleton[shape='row'] for loading state.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/list.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/list/component.json",
     "docsPath": "design-system/02-components/list/component.md",
     "status": "stable",

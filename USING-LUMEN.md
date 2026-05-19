@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.13.1 · 2026-05-18.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.13.2 · 2026-05-18.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -34,7 +34,7 @@
 - [§2. Architectural model — five tiers](#2-architectural-model--five-tiers)
 - [§3. Foundations — the 14 unchangeables](#3-foundations--the-14-unchangeables)
 - [§4. The token system — primitives → semantic → component](#4-the-token-system--primitives--semantic--component)
-- [§5. Component catalog — all 35](#5-component-catalog--all-35)
+- [§5. Component catalog — all 98](#5-component-catalog--all-98)
 - [§6. Platform consumption — all 9](#6-platform-consumption--all-9)
 - [§7. Composition patterns — how to build with what's here](#7-composition-patterns--how-to-build-with-whats-here)
 - [§8. Content rules — words, images, motion, icons](#8-content-rules--words-images-motion-icons)
@@ -48,7 +48,7 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.13.1 — Premium Psychology · Obsidian (mint retired) · LLM-docs version lockstep + R4 comprehensive audit on top of the v0.12.x primitive cascade
+Lumen v0.13.2 — Premium Psychology · Obsidian (mint retired) · R6 senior-UX audit pass — LLM-docs SSoT additions + drift cleanup + a11y closeout cascade (ADR 0025) on top of the v0.13.1 responsive safety net + v0.13.0 LLM-docs lockstep + v0.12.x primitive cascade
 ─────────────────────────────────────────────────────────────────────────
 Brand
   Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
@@ -144,7 +144,7 @@ Lumen is built as five concentric tiers. Each tier consumes only from the tier i
 │   ↑ consumes components + tokens                            │
 ├─────────────────────────────────────────────────────────────┤
 │ Tier 3 — COMPONENTS  (design-system/02-components/)         │
-│   35 components, each with .md + .json + per-platform        │
+│   98 components, each with .md + .json + per-platform        │
 │   examples. Components consume only SEMANTIC tokens.         │
 │   ↑ consumes semantic tokens (and component-bound tokens)    │
 ├─────────────────────────────────────────────────────────────┤
@@ -293,70 +293,162 @@ When `color.accent.500` retunes (lime → spring green in v0.11), every link in 
 
 ---
 
-## 5. Component catalog — all 35
+## 5. Component catalog — all 98
 
-35 components, each with `component.md` (human contract), `component.json` (machine contract validating against `_schema/component.schema.json`), and per-platform `examples/{platform}.{ext}`. The shadcn registry sidecars in `_registry/` make every web component installable via `npx shadcn add <registry>/<name>`.
+98 components in [`_registry/registry.json`](_registry/registry.json), each with `component.md` (human contract), `component.json` (machine contract validating against `_schema/component.schema.json`), and per-platform `examples/{platform}.{ext}` where authored. The shadcn registry sidecars in `_registry/` make every web component installable via `npx shadcn add <registry>/<name>`.
+
+**Lineage:** 35 v0.1–v0.11 baseline (button-family + form-system + foundational primitives), 63 added in v0.12.6 primitive-coverage drop (closes the gap to Apple HIG / Material 3 / Polaris / Atlassian feature surface — Tabs, Breadcrumbs, Pagination, Stepper, DropdownMenu, Tooltip, Popover, Accordion, Divider, Link, Alert, Banner, Spinner, Progress, Skeleton, NotificationCenter, Snackbar, Avatar, Tag, List, CodeBlock, CopyButton, Kbd, Trend, Drawer, Sheet, Panel, Navbar, Sidebar, BottomNav, Toolbar, ActionSheet, PhoneFrame, StatusBar, SwipeAction, PullToRefresh, PermissionPrompt, CoachMark, Carousel, Timeline, Calendar, TreeView, Kanban, DataGrid, Chart, Sparkline, KpiCard, AIPromptInput, AISuggestion, AIBadge, CitationCard, ChatBubble, CommentThread, ReactionBar, PresenceIndicator, Slider, ColorPicker, SearchField, PricingCard, TestimonialCard, LogoCloud, InventoryStatus, CartDrawer). Note: v0.13.1 closed the *content-doc parity gap* for the original v0.1 baseline button-family (5 new `component.md` files + 7 new `examples/primary.tsx` files); no new contracts.
+
+See [`COMPONENT-INDEX.md`](COMPONENT-INDEX.md) for the auto-generated full enumeration with one-line purpose per component. The catalog below organizes by category and includes the short summary from each `component.json`.
 
 **Organized by category:**
 
-### Foundations
-| Component | Purpose | When to use |
-|---|---|---|
-| [badge](design-system/02-components/badge/component.md) | Tonal pill (status / count / category) | Status labels, counts, category tags |
-| [icon-button](design-system/02-components/icon-button/component.md) | Square button, icon-only | Toolbars, table-row actions, dense controls |
-| [live-dot](design-system/02-components/live-dot/component.md) | Pulsing 8px spring-green dot | Live state indicator (real-time data, presence) |
-| [stat](design-system/02-components/stat/component.md) | Big tabular number + delta + sparkline | KPI cards, dashboard hero numbers |
-| [rate-ticker](design-system/02-components/rate-ticker/component.md) | Scrolling lane/rate row | Live data ticker (logistics rates, prices) |
+### Signature primitives (Warp-specific) (8)
+| Component | Purpose |
+|---|---|
+| [badge](design-system/02-components/badge/component.md) | A small pill that labels status, category, or count. |
+| [copy-button](design-system/02-components/copy-button/component.md) | Compact icon-button that writes a value to the clipboard and flashes a confirmation. |
+| [icon-button](design-system/02-components/icon-button/component.md) | A square Button containing only an icon. |
+| [kbd](design-system/02-components/kbd/component.md) | Inline keyboard-key cue. |
+| [live-dot](design-system/02-components/live-dot/component.md) | An 8px green dot with a 2px pulsing ring. |
+| [rate-ticker](design-system/02-components/rate-ticker/component.md) | Horizontal marquee of freight lane rates. |
+| [stat](design-system/02-components/stat/component.md) | A big bold number with a small uppercase tracked unit and optional delta + sparkline. |
+| [trend](design-system/02-components/trend/component.md) | Numeric delta indicator. |
 
-### Buttons + actions
-| Component | Purpose | When to use |
-|---|---|---|
-| [button](design-system/02-components/button/component.md) | The primary action surface — 5 sizes × 5 intents × 5 surfaces × 3 shapes | Any pressable text + icon affordance |
-| [button-group](design-system/02-components/button-group/component.md) | Connected button set (segmented control's parent) | Toolbar groups, mutually exclusive choices when >2 |
-| [split-button](design-system/02-components/split-button/component.md) | Primary + chevron menu | "Save" + "Save as draft / Save and exit" |
-| [fab](design-system/02-components/fab/component.md) | Floating action button | Mobile primary action, opt-in for desktop |
-| [command-palette-button](design-system/02-components/command-palette-button/component.md) | Header trigger for ⌘K palette | Top-bar surfaces |
-| [toggle](design-system/02-components/toggle/component.md) | Pressed/unpressed binary state | Sticky toolbar states (bold, italic, sidebar visibility) |
-| [segmented](design-system/02-components/segmented/component.md) | 2–4 mutually exclusive options | View switchers (day/week/month, list/grid) |
+### Buttons + actions (7)
+| Component | Purpose |
+|---|---|
+| [button](design-system/02-components/button/component.md) | Primary action affordance. |
+| [button-group](design-system/02-components/button-group/component.md) | A row of joined buttons that share a single rounded outline. |
+| [command-palette-button](design-system/02-components/command-palette-button/component.md) | Search-styled trigger that opens the global command palette. |
+| [fab](design-system/02-components/fab/component.md) | Floating Action Button — round, fixed-position primary action. |
+| [segmented](design-system/02-components/segmented/component.md) | 2–4 mutually exclusive options on one row. |
+| [split-button](design-system/02-components/split-button/component.md) | Primary action + dropdown caret in a single joined affordance. |
+| [toggle](design-system/02-components/toggle/component.md) | A switch for binary on/off settings. |
 
-### Inputs (the v0.6 forms layer + v0.7 deferred completion)
-| Component | Purpose | When to use |
-|---|---|---|
-| [input](design-system/02-components/input/component.md) | Text input wrapped in `.lumen-field` shell | Single-line text |
-| [textarea](design-system/02-components/textarea/component.md) | Multi-line `.lumen-field` | Notes, descriptions, message body |
-| [number-input](design-system/02-components/number-input/component.md) | Numeric input with stepper | Quantity, price |
-| [password-input](design-system/02-components/password-input/component.md) | Input with show/hide eye | Auth forms |
-| [otp-input](design-system/02-components/otp-input/component.md) | 4–8 segmented digit cells | Verification codes |
-| [select](design-system/02-components/select/component.md) | Native-feeling popover select | Single choice from short list |
-| [combobox](design-system/02-components/combobox/component.md) | Searchable / async select | Long lists, async-loaded options |
-| [tags-input](design-system/02-components/tags-input/component.md) | Chip input for multi-value | Tags, recipients, multi-select |
-| [date-picker](design-system/02-components/date-picker/component.md) | Calendar + input | Single date |
-| [time-picker](design-system/02-components/time-picker/component.md) | Hour/minute spinner or inline | Time of day |
-| [range-slider](design-system/02-components/range-slider/component.md) | Single + dual-handle range | Price/distance/timestamp range |
-| [file-dropzone](design-system/02-components/file-dropzone/component.md) | Drag-and-drop file upload | File uploads, attachment surfaces |
-| [checkbox](design-system/02-components/checkbox/component.md) | Boolean + indeterminate | Multi-select lists, opt-in toggles |
-| [radio-group](design-system/02-components/radio-group/component.md) | Mutually exclusive choice set | 2–6 visible options, mutually exclusive |
-| [switch](design-system/02-components/switch/component.md) | iOS-style on/off | Settings, system-state toggles |
-| [field](design-system/02-components/field/component.md) | The label + control + help/error wrapper | Wrap every form input. The compositional unit. |
-| [validation-message](design-system/02-components/validation-message/component.md) | Error / warning / success line | Below the field control on invalid state |
-| [form](design-system/02-components/form/component.md) | RHF binding wrapper | Multi-field forms with React Hook Form |
+### Inputs + forms (v0.6 forms layer + v0.7 deferred completion) (21)
+| Component | Purpose |
+|---|---|
+| [checkbox](design-system/02-components/checkbox/component.md) | Independent boolean. |
+| [color-picker](design-system/02-components/color-picker/component.md) | Color selection control. |
+| [combobox](design-system/02-components/combobox/component.md) | Searchable single-choice dropdown. |
+| [date-picker](design-system/02-components/date-picker/component.md) | Read-only field-shell trigger with leading calendar glyph; click opens a portaled calendar popover. |
+| [field](design-system/02-components/field/component.md) | Composition wrapper for a single form control. |
+| [file-dropzone](design-system/02-components/file-dropzone/component.md) | Drag-and-drop file input. |
+| [form](design-system/02-components/form/component.md) | Semantic form wrapper with dual-mode validation. |
+| [input](design-system/02-components/input/component.md) | Single-line text input. |
+| [number-input](design-system/02-components/number-input/component.md) | Stepper-flanked numeric input. |
+| [otp-input](design-system/02-components/otp-input/component.md) | One-time passcode entry. |
+| [password-input](design-system/02-components/password-input/component.md) | Password entry with Show / Hide toggle in the trailing slot. |
+| [radio-group](design-system/02-components/radio-group/component.md) | Mutually exclusive single choice from 2+ options. |
+| [range-slider](design-system/02-components/range-slider/component.md) | Single-handle or dual-handle bar slider. |
+| [search-field](design-system/02-components/search-field/component.md) | Specialized Input variant for search. |
+| [select](design-system/02-components/select/component.md) | Single-choice dropdown from a known list of options. |
+| [slider](design-system/02-components/slider/component.md) | Single-value range control. |
+| [switch](design-system/02-components/switch/component.md) | Binary toggle for an immediate-effect setting. |
+| [tags-input](design-system/02-components/tags-input/component.md) | Wrapping chip-row tag entry. |
+| [textarea](design-system/02-components/textarea/component.md) | Multi-line text input. |
+| [time-picker](design-system/02-components/time-picker/component.md) | Hours/minutes input + am/pm pill toggle on one row inside a field shell. |
+| [validation-message](design-system/02-components/validation-message/component.md) | Inline or summary validation message. |
 
-### Containers + surfaces
-| Component | Purpose | When to use |
-|---|---|---|
-| [card](design-system/02-components/card/component.md) | Hairline-bordered surface + 5 elevations | Group of related content (KPI, article, item) |
-| [dialog](design-system/02-components/dialog/component.md) | Modal sheet, scrim, focus trap | Confirmations, focused tasks |
-| [empty-state](design-system/02-components/empty-state/component.md) | Icon + heading + description + primary action | Zero-state of a list/table/dashboard |
-| [table](design-system/02-components/table/component.md) | Dense data table | Rows of records, dashboards |
-| [toast](design-system/02-components/toast/component.md) | Corner notification | Async success / failure / info |
+### Feedback + messaging (9)
+| Component | Purpose |
+|---|---|
+| [alert](design-system/02-components/alert/component.md) | Inline, in-flow status block. |
+| [banner](design-system/02-components/banner/component.md) | Page-level system state strip. |
+| [empty-state](design-system/02-components/empty-state/component.md) | Type-led message for empty collections. |
+| [progress](design-system/02-components/progress/component.md) | Two shapes — linear (default; 4 px tall stroke with optional label / value cluster) and circular (a ring; i... |
+| [skeleton](design-system/02-components/skeleton/component.md) | Layout-preserving placeholder painted while content loads. |
+| [snackbar](design-system/02-components/snackbar/component.md) | Transient, viewport-anchored message with a single trailing action. |
+| [spinner](design-system/02-components/spinner/component.md) | Pure CSS rotating-arc loading indicator. |
+| [tag](design-system/02-components/tag/component.md) | Compact, often-closable chip for categorizing or filtering. |
+| [toast](design-system/02-components/toast/component.md) | A short non-blocking message anchored to a viewport corner. |
+
+### Display + data (14)
+| Component | Purpose |
+|---|---|
+| [avatar](design-system/02-components/avatar/component.md) | User / actor identity image with deterministic name-hashed fallback colors and initials when no image is pr... |
+| [calendar](design-system/02-components/calendar/component.md) | Standalone calendar surface. |
+| [carousel](design-system/02-components/carousel/component.md) | Horizontally paginated content scroller. |
+| [chart](design-system/02-components/chart/component.md) | Generic chart wrapper that consumes Lumen's CHART_PALETTE and chart-token surface (axes, grid, legend, tool... |
+| [citation-card](design-system/02-components/citation-card/component.md) | Source reference rendered next to an AI-generated value. |
+| [code-block](design-system/02-components/code-block/component.md) | Mono-typeface code display with optional language label, line numbers, copy button, and token highlight. |
+| [data-grid](design-system/02-components/data-grid/component.md) | Power-user tabular surface built on Table. |
+| [kanban](design-system/02-components/kanban/component.md) | Horizontal board of vertically-stacked KanbanColumns containing KanbanCards. |
+| [kpi-card](design-system/02-components/kpi-card/component.md) | A single-metric card. |
+| [list](design-system/02-components/list/component.md) | Vertical sequence primitive — semantic <ul>/<ol> with Lumen chrome. |
+| [presence-indicator](design-system/02-components/presence-indicator/component.md) | Live state for one or more users on a surface. |
+| [sparkline](design-system/02-components/sparkline/component.md) | Inline micro-chart for a single time series. |
+| [timeline](design-system/02-components/timeline/component.md) | Chronological sequence of events. |
+| [tree-view](design-system/02-components/tree-view/component.md) | Hierarchical node list. |
+
+### Containers + surfaces (10)
+| Component | Purpose |
+|---|---|
+| [card](design-system/02-components/card/component.md) | A bounded surface with a hairline border and optional subtle shadow. |
+| [dialog](design-system/02-components/dialog/component.md) | A modal interrupt for confirmation, focused decision, or short-form input. |
+| [divider](design-system/02-components/divider/component.md) | Hairline rule that separates content. |
+| [drawer](design-system/02-components/drawer/component.md) | Side-anchored panel that slides over the page. |
+| [link](design-system/02-components/link/component.md) | Inline text link. |
+| [panel](design-system/02-components/panel/component.md) | In-flow collapsible content container. |
+| [popover](design-system/02-components/popover/component.md) | Floating panel anchored to a trigger. |
+| [sheet](design-system/02-components/sheet/component.md) | Mobile-flavor bottom-anchored modal with optional detents (half / large / full). |
+| [table](design-system/02-components/table/component.md) | Operator-density data table. |
+| [tooltip](design-system/02-components/tooltip/component.md) | A small, dismissible-on-hover, portaled bubble that names a control or clarifies a value. |
+
+### Navigation (12)
+| Component | Purpose |
+|---|---|
+| [accordion](design-system/02-components/accordion/component.md) | Disclosure list. |
+| [action-sheet](design-system/02-components/action-sheet/component.md) | Mobile-only choice sheet. |
+| [bottom-nav](design-system/02-components/bottom-nav/component.md) | Mobile-only primary navigation rail anchored to the bottom of the viewport. |
+| [breadcrumbs](design-system/02-components/breadcrumbs/component.md) | Where am I, how did I get here, and how do I step back. |
+| [dropdown-menu](design-system/02-components/dropdown-menu/component.md) | Reveal a portaled menu of actions or routes from a trigger. |
+| [navbar](design-system/02-components/navbar/component.md) | Top app bar — the single highest-level navigation chrome. |
+| [notification-center](design-system/02-components/notification-center/component.md) | Inbox of system + user notifications. |
+| [pagination](design-system/02-components/pagination/component.md) | Move between fixed-size pages of a list, table, or feed. |
+| [sidebar](design-system/02-components/sidebar/component.md) | Vertical primary navigation rail. |
+| [stepper](design-system/02-components/stepper/component.md) | Linear multi-step progress affordance for an ordered flow. |
+| [tabs](design-system/02-components/tabs/component.md) | Switch between sibling views inside the same destination. |
+| [toolbar](design-system/02-components/toolbar/component.md) | A grouped row of interactive controls — buttons, toggle buttons, dropdowns, dividers — sharing a single tab... |
+
+### Mobile-specific (6)
+| Component | Purpose |
+|---|---|
+| [coach-mark](design-system/02-components/coach-mark/component.md) | Onboarding tooltip with a backdrop spotlight (dark scrim with a cut-out around the anchor element). |
+| [permission-prompt](design-system/02-components/permission-prompt/component.md) | Pre-prompt that explains WHY the app needs a system permission BEFORE triggering the OS-native dialog. |
+| [phone-frame](design-system/02-components/phone-frame/component.md) | Decorative chrome that mocks a phone shell for marketing / showcase / docs. |
+| [pull-to-refresh](design-system/02-components/pull-to-refresh/component.md) | Mobile-only refresh-on-pull gesture wrapper. |
+| [status-bar](design-system/02-components/status-bar/component.md) | Decorative mobile-platform status-bar row. |
+| [swipe-action](design-system/02-components/swipe-action/component.md) | Mobile-only row wrapper that exposes trailing (and optionally leading) actions on horizontal swipe. |
+
+### AI + collaboration (6)
+| Component | Purpose |
+|---|---|
+| [ai-badge](design-system/02-components/ai-badge/component.md) | Inline 'AI generated' / 'AI summary' / 'AI confidence' label. |
+| [ai-prompt-input](design-system/02-components/ai-prompt-input/component.md) | AI prompt composer. |
+| [ai-suggestion](design-system/02-components/ai-suggestion/component.md) | Inline AI proposal card. |
+| [chat-bubble](design-system/02-components/chat-bubble/component.md) | Chat message row. |
+| [comment-thread](design-system/02-components/comment-thread/component.md) | Threaded discussion attached to an entity (a row, an annotation marker, a document range). |
+| [reaction-bar](design-system/02-components/reaction-bar/component.md) | Emoji reaction row attached to a Comment / ChatBubble / annotation marker. |
+
+### Commerce + marketing (5)
+| Component | Purpose |
+|---|---|
+| [cart-drawer](design-system/02-components/cart-drawer/component.md) | Commerce-flavor Drawer pre-composed as the side cart. |
+| [inventory-status](design-system/02-components/inventory-status/component.md) | Stock state chip for ecommerce / fulfillment surfaces. |
+| [logo-cloud](design-system/02-components/logo-cloud/component.md) | Social-proof strip of partner / customer logos. |
+| [pricing-card](design-system/02-components/pricing-card/component.md) | Single tier on a pricing page. |
+| [testimonial-card](design-system/02-components/testimonial-card/component.md) | Customer quote card. |
 
 ### Component-composition rules (the constants every consumer must respect)
 
 1. **Every form input goes inside a `<Field>`.** Never render `<Input>` bare. Field paints the label, the help text, the error/success state, and the focus halo on the wrapper, not on the inner control.
-2. **Every focusable element ships visible focus.** The `:focus-visible` rule in `globals.css` paints a 3px spring-green ring at 32% alpha on every interactive surface by default. Don't override it.
+2. **Every focusable element ships visible focus.** The `:focus-visible` rule in `globals.css` paints a 2 px spring-green outline + soft box-shadow halo on every interactive surface by default. Don't override it. (Outline + box-shadow per v0.12.4 — outline is structurally immune to ancestor `overflow: hidden`.)
 3. **Spring-green-bg surfaces use `.lumen-btn-primary` (or the dual-ring focus shadow), not `bg-primary`.** Tailwind v4's content scanner has been observed to drop the shadcn bridge utilities, leaving white-on-spring-green text (~1.4:1 — WCAG fail). Use the v0.9 `.lumen-btn-*` family or direct `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]` instead.
 4. **`Stat`, `LiveDot`, and `RateTicker` are Warp-signature primitives.** They carry the operator-console mood. Don't hide them inside generic Card layouts — let them be the visual anchor.
 5. **`prefers-reduced-motion: reduce` is honored on every animated component.** If you add a new animation, you add the reduced-motion fallback in the same PR.
+6. **Radix-rooted primitives need explicit `aria-label` / `aria-labelledby` if the visible label is a sibling rather than a `<label htmlFor>`.** (v0.13.1) HTML's implicit-label association does NOT propagate the accessible name to a `<button role="switch">` or `<button role="checkbox">` because Radix overrides the host element role. The Lumen `Switch` + `Checkbox` primitives now accept `aria-label` / `aria-labelledby` props for sibling-label patterns (e.g. the `SwitchRow` on `/library`).
 
 ---
 
@@ -366,7 +458,7 @@ Lumen ships to 9 platforms. Each platform has a substantive consumption guide in
 
 | Platform | Stack | Quick install | Guide |
 |---|---|---|---|
-| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.12.4/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
+| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.13.2/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
 | **React Native** | Expo SDK 53+ + NativeWind | npm package + `<LumenProvider>` | [react-native/](design-system/03-platforms/react-native/README.md) |
 | **iOS native** | SwiftUI + Swift Package | `from: "0.11.13"` | [ios-native/](design-system/03-platforms/ios-native/README.md) |
 | **Android native** | Jetpack Compose + Material 3 base | `dev.warp:lumen-compose:0.11.13` | [android-native/](design-system/03-platforms/android-native/README.md) |
@@ -867,15 +959,21 @@ This is the "avoid these or break the system" list. Everything here is enforceab
 | `size.container.max` | 1440 | Audit dashboard maximum |
 | `size.container.ultra` | 1920 | 32" ops monitor (operator-only) |
 
-### Component count by category
+### Component count by category (v0.13.1)
 
 | Category | Count |
 |---|---|
-| Foundations (badge, icon-button, live-dot, stat, rate-ticker) | 5 |
-| Buttons + actions (button, button-group, split-button, fab, toggle, segmented, command-palette-button) | 7 |
-| Inputs (input, textarea, number-input, password-input, otp-input, select, combobox, tags-input, date-picker, time-picker, range-slider, file-dropzone, checkbox, radio-group, switch, field, validation-message, form) | 18 |
-| Containers + surfaces (card, dialog, empty-state, table, toast) | 5 |
-| **Total** | **35** |
+| Signature primitives (badge, copy-button, icon-button, kbd, live-dot, rate-ticker, stat, trend) | 8 |
+| Buttons + actions (button, button-group, command-palette-button, fab, segmented, split-button, toggle) | 7 |
+| Inputs + forms (checkbox, color-picker, combobox, date-picker, field, file-dropzone, form, input, number-input, otp-input, password-input, radio-group, range-slider, search-field, select, slider, switch, tags-input, textarea, time-picker, validation-message) | 21 |
+| Feedback + messaging (alert, banner, empty-state, progress, skeleton, snackbar, spinner, tag, toast) | 9 |
+| Display + data (avatar, calendar, carousel, chart, citation-card, code-block, data-grid, kanban, kpi-card, list, presence-indicator, sparkline, timeline, tree-view) | 14 |
+| Containers + surfaces (card, dialog, divider, drawer, link, panel, popover, sheet, table, tooltip) | 10 |
+| Navigation (accordion, action-sheet, bottom-nav, breadcrumbs, dropdown-menu, navbar, notification-center, pagination, sidebar, stepper, tabs, toolbar) | 12 |
+| Mobile-specific (coach-mark, permission-prompt, phone-frame, pull-to-refresh, status-bar, swipe-action) | 6 |
+| AI + collaboration (ai-badge, ai-prompt-input, ai-suggestion, chat-bubble, comment-thread, reaction-bar) | 6 |
+| Commerce + marketing (cart-drawer, inventory-status, logo-cloud, pricing-card, testimonial-card) | 5 |
+| **Total** | **98** |
 
 ### Files at the repo root (for orientation)
 
@@ -911,7 +1009,7 @@ TYPE            type.display.{sm,md,lg,xl,2xl,hero} / type.heading.{h1,h2,h3,h4,
 
 ### The mental model in three sentences
 
-Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canvas**, with **aggressive hierarchy** and **engineered first impressions**, built as a **vertically integrated three-layer token chain** that holds 887 tokens across 32 source files and feeds 35 components across 9 platform consumption guides. Reference semantic tokens, never primitives. When you change the master, the children must inherit. The v0.12.x patch series proved the cascade pattern six times in a row — at the token band (v0.12.0), the primitive band (v0.12.1, v0.12.4), the token + layered-halo band (v0.12.2), the consumer-component band (v0.12.3), the globals band (v0.12.4 focus-ring outline backstop), and the infrastructure + micro-interaction + globals + fixtures bands together (v0.12.5 live-audit fix pack) — every cascade-fix retired the per-consumer workaround, every cycle pushed defensive contracts deeper into the system.
+Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canvas**, with **aggressive hierarchy** and **engineered first impressions**, built as a **vertically integrated three-layer token chain** that holds 887 tokens across 32 source files and feeds 98 components across 9 platform consumption guides. Reference semantic tokens, never primitives. When you change the master, the children must inherit. The v0.12.x → v0.13.1 patch series proved the cascade pattern at eight bands in a row — token (v0.12.0), primitive (v0.12.1, v0.12.4), token + layered-halo (v0.12.2), consumer-component (v0.12.3, v0.12.8, v0.12.9), globals (v0.12.4 focus-ring outline backstop, v0.13.1 responsive safety net), infrastructure + fixtures (v0.12.5 SSoT version constant + iconography hover + privacy scrubs), primitive-coverage expansion (v0.12.6 — 63 new contracts), build-script meta-contract (v0.13.0 LLM-docs version lockstep, ADR 0023), and root-layer overflow safety (v0.13.1 — ADR 0024) — every cascade-fix retired the per-consumer workaround, every cycle pushed defensive contracts deeper into the system. v0.13.1 also codifies the meta-rule the audit-cycle ladder taught: *a carried blocker is a tooling hypothesis, not a fact* — re-test the tooling before each round.
 
 ### The ten v0.12.x defensive primitive contracts (encode these when generating new code)
 
@@ -933,4 +1031,4 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-18 (v0.13.1).
+> Last reviewed against actual repo state: 2026-05-18 (v0.13.2).

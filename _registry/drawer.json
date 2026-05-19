@@ -3,8 +3,11 @@
   "name": "drawer",
   "type": "registry:ui",
   "title": "Drawer",
-  "description": "Side-anchored panel that slides over the page. Four sides, four sizes. Modal + non-modal.",
-  "dependencies": ["@radix-ui/react-dialog", "lucide-react"],
+  "description": "Side-anchored panel that slides over the page. Use for long-form detail views, multi-step forms, and side editors — the affordance is 'I'm peeking at something tied to this page'. Distinct from Dialog (modal interrupt) and Sheet (bottom-anchored mobile primitive).",
+  "dependencies": [
+    "@radix-ui/react-dialog",
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +16,15 @@
       "target": "components/ui/drawer.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/drawer/component.json",
     "docsPath": "design-system/02-components/drawer/component.md",
     "status": "stable",

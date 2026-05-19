@@ -1,6 +1,12 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
   "motion": {
+    "duration": {
+      "$type": "duration",
+      "$description": "v0.13.2 — added shimmer + spin semantic aliases on top of the existing primitive duration scale. Skeleton consumes shimmer; Spinner consumes spin. The primitive scale (instant/fast/base/slow/slower) is in `primitives/motion.tokens.json`.",
+      "shimmer": { "$value": "{motion.duration.slower}", "$description": "1.5 s — Skeleton loading shimmer cycle. Slow enough that the reader's eye doesn't grab; reduced-motion replaces with a static muted background." },
+      "spin":    { "$value": { "value": 1000, "unit": "ms" }, "$description": "1 s — Spinner full-rotation period. Standard easing; reduced-motion replaces with a static dot-pulse." }
+    },
     "transition": {
       "$type": "transition",
       "fast": {

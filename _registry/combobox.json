@@ -3,7 +3,7 @@
   "name": "combobox",
   "type": "registry:ui",
   "title": "Combobox",
-  "description": "Searchable single-choice dropdown. Field-shell trigger + portaled listbox filtered by the typed query. Use when Select's static list would exceed ~12 options.",
+  "description": "Searchable single-choice dropdown. Field-shell trigger + portaled listbox filtered by the typed query. Use when Select's static list would exceed ~12 options. v0.12.4 — listbox renders via createPortal(<div fixed>, document.body) with getBoundingClientRect tracking on scroll (capture phase) + resize, escaping every ancestor's overflow context (Showcase frames, <Card padding='none'>, glass surfaces, scroll containers).",
   "dependencies": [
     "lucide-react"
   ],
@@ -23,7 +23,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.7.0",
+    "lumenVersion": "0.13.2",
     "platforms": [
       "web-react"
     ],

@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "action-sheet",
   "type": "registry:ui",
-  "title": "Action Sheet",
-  "description": "Mobile-only bottom-anchored choice sheet. 2-6 actions + mandatory Cancel.",
-  "dependencies": ["@radix-ui/react-dialog"],
+  "title": "ActionSheet",
+  "description": "Mobile-only choice sheet. Bottom-anchored list of 2-6 large-tap actions with one optional destructive action and a mandatory Cancel button. Apple HIG / iOS-flavor. Distinct from DropdownMenu (desktop, item granularity), Sheet (free-form content), and Dialog (centered decision).",
+  "dependencies": [
+    "@radix-ui/react-dialog"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/action-sheet.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/action-sheet/component.json",
     "docsPath": "design-system/02-components/action-sheet/component.md",
     "status": "stable",

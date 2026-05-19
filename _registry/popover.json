@@ -3,8 +3,10 @@
   "name": "popover",
   "type": "registry:ui",
   "title": "Popover",
-  "description": "Floating panel anchored to a trigger. Hosts forms, filters, date pads. Portaled. Optional modal mode.",
-  "dependencies": ["@radix-ui/react-popover"],
+  "description": "Floating panel anchored to a trigger. Hosts richer content than Tooltip — a form, a mini-detail card, a filter group, a date pad. Three open behaviors — click (default), hover-with-intent (rare; mostly preview cards), and manual (controlled). Portaled per AGENTS.md hard rule 10. Distinct from Dialog (modal interrupt) and Tooltip (text-only hover hint).",
+  "dependencies": [
+    "@radix-ui/react-popover"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/popover.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/popover/component.json",
     "docsPath": "design-system/02-components/popover/component.md",
     "status": "stable",

@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pull-to-refresh",
   "type": "registry:ui",
-  "title": "Pull To Refresh",
-  "description": "Mobile gesture wrapper. Arrow / spinner indicator. WCAG 2.5.7 non-drag fallback required.",
-  "dependencies": ["lucide-react"],
+  "title": "PullToRefresh",
+  "description": "Mobile-only refresh-on-pull gesture wrapper. Detects a downward drag at the top of a scroll container, expands a Spinner-bearing reveal area, and fires onRefresh when the user pulls past the threshold. Auto-collapses when the consumer resolves the refresh. Distinct from button-driven refresh (use a Refresh IconButton in the Toolbar).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/pull-to-refresh.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/pull-to-refresh/component.json",
     "docsPath": "design-system/02-components/pull-to-refresh/component.md",
     "status": "stable",

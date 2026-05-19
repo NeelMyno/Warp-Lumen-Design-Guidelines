@@ -3,7 +3,7 @@
   "name": "spinner",
   "type": "registry:ui",
   "title": "Spinner",
-  "description": "Indeterminate loading indicator. Pure CSS arc. Four sizes, four tones. ≤ 5 s only — past that, use Progress.",
+  "description": "Pure CSS rotating-arc loading indicator. Determinate state lives in Progress. Use Spinner ONLY for indeterminate, ≤ 5 s loads — past 5 s upgrade to Progress with a label that names what you're waiting on. Three tones (default, accent, on-action) and four sizes. Inline (icon-button leading) and standalone.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -13,10 +13,15 @@
       "target": "components/ui/spinner.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/spinner/component.json",
     "docsPath": "design-system/02-components/spinner/component.md",
     "status": "stable",

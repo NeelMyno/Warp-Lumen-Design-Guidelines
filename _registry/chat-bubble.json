@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "chat-bubble",
   "type": "registry:ui",
-  "title": "Chat Bubble",
-  "description": "Chat message row. Four speakers. Streaming AI variant.",
-  "dependencies": ["lucide-react"],
+  "title": "ChatBubble",
+  "description": "Chat message row. Renders an avatar (optional), an author name + timestamp meta, the message body, and a reaction bar slot. Three speaker variants — you (right-aligned, accent-tinted), them (left-aligned, raised), ai (left-aligned, AI-shimmer leading). Streaming AI messages render with a typing indicator until complete.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/chat-bubble.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/chat-bubble/component.json",
     "docsPath": "design-system/02-components/chat-bubble/component.md",
     "status": "stable",

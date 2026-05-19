@@ -35,7 +35,7 @@ import {
 
 import {
   Pagination, Stepper, AnchorList, MenuList, MegaMenu, NavbarDemo, SidebarDemo,
-  TabBar, BottomNav, FAB, SplitButton, CommandPalette, FooterDemo,
+  TabBar, BottomNav, FABDemo, SplitButtonDemo, CommandPaletteDemo, FooterDemo,
 } from "@/components/primitives/nav";
 
 import {
@@ -279,7 +279,7 @@ export function LibraryClient() {
           </SubSection>
 
           <SubSection title="Command palette · Search nav · ⌘K">
-            <Showcase variant="wide"><CommandPalette /></Showcase>
+            <Showcase variant="wide"><CommandPaletteDemo /></Showcase>
           </SubSection>
 
           <SubSection title="Anchor links · Table of contents">
@@ -297,7 +297,7 @@ export function LibraryClient() {
           <SubSection title="Bottom navigation · Floating action button">
             <div className="grid gap-3 md:grid-cols-2 items-end">
               <Showcase label="Bottom navigation (mobile)"><div className="w-full"><BottomNav /></div></Showcase>
-              <Showcase label="Floating action button"><div className="flex items-end h-24"><FAB /></div></Showcase>
+              <Showcase label="Floating action button"><div className="flex items-end h-24"><FABDemo /></div></Showcase>
             </div>
           </SubSection>
         </Section>
@@ -339,7 +339,7 @@ export function LibraryClient() {
 
           <SubSection title="Split button & link button">
             <div className="flex items-center gap-3">
-              <SplitButton />
+              <SplitButtonDemo />
               <a className="lumen-link text-body-xs">View documentation</a>
             </div>
           </SubSection>
@@ -1321,11 +1321,15 @@ export function Hero() {
           </SubSection>
 
           <SubSection title="Input states">
-            <VariantRow label="Default"><div className="w-[240px]"><TextInput placeholder="Default" /></div></VariantRow>
-            <VariantRow label="Filled"><div className="w-[240px]"><TextInput defaultValue="Sterling LTL" /></div></VariantRow>
-            <VariantRow label="Focus"><div className="w-[240px]"><TextInput defaultValue="Sterling LTL" className="border-[var(--border-focus)]! shadow-[var(--shadow-input-focus)]" /></div></VariantRow>
-            <VariantRow label="Error"><div className="w-[240px]"><TextInput defaultValue="invalid email" aria-invalid="true" /></div></VariantRow>
-            <VariantRow label="Disabled"><div className="w-[240px]"><TextInput defaultValue="Read-only" disabled /></div></VariantRow>
+            {/* v0.13.2 — aria-label on each demo TextInput; without it the Input
+                State demos shipped nameless to screen readers (the VariantRow's
+                "Default"/"Filled"/etc. label is a sibling div, not a wired
+                <label htmlFor>). */}
+            <VariantRow label="Default"><div className="w-[240px]"><TextInput aria-label="Input state demo — Default" placeholder="Default" /></div></VariantRow>
+            <VariantRow label="Filled"><div className="w-[240px]"><TextInput aria-label="Input state demo — Filled" defaultValue="Sterling LTL" /></div></VariantRow>
+            <VariantRow label="Focus"><div className="w-[240px]"><TextInput aria-label="Input state demo — Focus" defaultValue="Sterling LTL" className="border-[var(--border-focus)]! shadow-[var(--shadow-input-focus)]" /></div></VariantRow>
+            <VariantRow label="Error"><div className="w-[240px]"><TextInput aria-label="Input state demo — Error (invalid email)" defaultValue="invalid email" aria-invalid="true" /></div></VariantRow>
+            <VariantRow label="Disabled"><div className="w-[240px]"><TextInput aria-label="Input state demo — Disabled" defaultValue="Read-only" disabled /></div></VariantRow>
           </SubSection>
 
           <SubSection title="Status indicators (every tone)">
@@ -1490,9 +1494,13 @@ function RowSwatch() { return <span className="block h-2 rounded-[var(--radius-x
 function DotSwatch() { return <span className="h-2 w-2 rounded-full bg-[var(--lumen-accent-5)]" />; }
 function Sq() { return <span className="block aspect-square rounded-[var(--radius-xs)] bg-[var(--surface-sunken)]" />; }
 
-function NumberInputWrapper() {
+function NumberInputWrapper(
+  props: { id?: string; "aria-label"?: string; "aria-labelledby"?: string } = {},
+) {
   const [v, setV] = useState(8);
-  return <NumberInput value={v} onChange={setV} suffix="pallets" />;
+  /* v0.13.2 — forward id + aria-* from the parent Field's cloneElement so the
+     inner <input type="number"> ships with the wired accessible name. */
+  return <NumberInput value={v} onChange={setV} suffix="pallets" {...props} />;
 }
 
 function TagsInputWrapper() {

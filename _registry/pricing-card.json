@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pricing-card",
   "type": "registry:ui",
-  "title": "Pricing Card",
-  "description": "Single tier on a pricing page. Highlight variant with v0.12.5 peak-end lift.",
-  "dependencies": ["lucide-react"],
+  "title": "PricingCard",
+  "description": "Single tier on a pricing page. Composes a plan name, price (with billing cadence + sub-line), feature list with check / cross glyphs, and a CTA. Includes 'highlight' variant for the recommended tier with the v0.12.5 peak-end lift (accent glow + lifted shadow). One highlighted tier per pricing surface (per Premium Psychology principle 3).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/pricing-card.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/pricing-card/component.json",
     "docsPath": "design-system/02-components/pricing-card/component.md",
     "status": "stable",

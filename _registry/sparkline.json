@@ -3,7 +3,7 @@
   "name": "sparkline",
   "type": "registry:ui",
   "title": "Sparkline",
-  "description": "Inline micro-chart, 24-48 px tall. Pair with Stat/KPI.",
+  "description": "Inline micro-chart for a single time series. 24-48 px tall, no axes, no grid, optional last-point dot. Designed to sit next to a Stat or KpiCard ('this is the trend'). Always paired with a numeric value AND a label — sparklines without context are noise.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -13,10 +13,15 @@
       "target": "components/ui/sparkline.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/sparkline/component.json",
     "docsPath": "design-system/02-components/sparkline/component.md",
     "status": "stable",

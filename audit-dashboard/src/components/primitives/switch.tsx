@@ -38,6 +38,23 @@ export function Switch({
 }) {
   const generatedId = useId();
   const switchId = id ?? generatedId;
+  const labelId = `${switchId}-label`;
+
+  /* v0.13.2 — when `label` is provided, wire aria-labelledby to the Label's id.
+     The Radix-backed shadcn Switch renders a <button role="switch">; HTML's
+     implicit-label-via-htmlFor association does NOT propagate the accessible
+     name to a button-role element (only to native form inputs), so the visible
+     <Label htmlFor={switchId}> was rendering but the button stayed nameless.
+     R5 fixed this for the SwitchRow pattern in library/client.tsx by passing
+     aria-labelledby explicitly; R6 caught that the in-primitive `label` prop
+     had the same bug — foundations/page.tsx renders <Switch label="…" /> and
+     the resulting button was nameless. Resolution: when label is provided AND
+     no explicit aria-* override is given, default aria-labelledby to the
+     generated labelId. */
+  const resolvedAriaLabelledBy =
+    ariaLabelledBy ?? (label ? labelId : undefined);
+  const resolvedAriaLabel =
+    !label && !resolvedAriaLabelledBy ? (ariaLabel ?? "Toggle") : ariaLabel;
 
   return (
     <div className="inline-flex items-start gap-3">
@@ -48,13 +65,13 @@ export function Switch({
         onCheckedChange={onCheckedChange}
         disabled={disabled}
         className="mt-1 shrink-0"
-        aria-label={!label && !ariaLabelledBy ? (ariaLabel ?? "Toggle") : ariaLabel}
-        aria-labelledby={ariaLabelledBy}
+        aria-label={resolvedAriaLabel}
+        aria-labelledby={resolvedAriaLabelledBy}
       />
       {(label || description) && (
         <div className="flex flex-col gap-1 leading-snug">
           {label && (
-            <Label htmlFor={switchId} className="text-label-md text-[color:var(--text-primary)] cursor-pointer">
+            <Label id={labelId} htmlFor={switchId} className="text-label-md text-[color:var(--text-primary)] cursor-pointer">
               {label}
             </Label>
           )}

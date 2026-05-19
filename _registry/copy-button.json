@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "copy-button",
   "type": "registry:ui",
-  "title": "Copy Button",
-  "description": "Clipboard write affordance. Three variants (ghost / pill / inline). Reduced-motion-safe flash.",
-  "dependencies": ["lucide-react"],
+  "title": "CopyButton",
+  "description": "Compact icon-button that writes a value to the clipboard and flashes a confirmation. Three forms: ghost (the default — minimal, paired with CodeBlock / token / API key surfaces), pill (label + icon, the standalone form), and inline (a leading-icon row that the consumer wraps around a value chip). Announces success via aria-live='polite'.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/copy-button.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/copy-button/component.json",
     "docsPath": "design-system/02-components/copy-button/component.md",
     "status": "stable",

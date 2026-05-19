@@ -3,8 +3,10 @@
   "name": "tooltip",
   "type": "registry:ui",
   "title": "Tooltip",
-  "description": "Informational portaled bubble. Hover-intent show, focus-shown, Escape-dismissed.",
-  "dependencies": ["@radix-ui/react-tooltip"],
+  "description": "A small, dismissible-on-hover, portaled bubble that names a control or clarifies a value. Strictly informational — no actions inside. Triggers on hover-with-intent (700 ms enter / 100 ms leave) and on keyboard focus. Suppressed on touch (a long-press is not a tooltip — use Popover instead). Portaled per AGENTS.md hard rule 10.",
+  "dependencies": [
+    "@radix-ui/react-tooltip"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/tooltip.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/tooltip/component.json",
     "docsPath": "design-system/02-components/tooltip/component.md",
     "status": "stable",

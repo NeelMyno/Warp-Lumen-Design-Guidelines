@@ -1,6 +1,6 @@
 {
   "name": "@warp/lumen",
-  "version": "0.12.4",
+  "version": "0.13.2",
   "private": true,
   "description": "Lumen — Warp's vertically integrated design system. Tokens (DTCG), components (md + json), platforms (web/RN/iOS/Android/desktop/e-commerce), LLM contract.",
   "homepage": "https://lumen.warp.dev",
@@ -12,6 +12,8 @@
     "validate:components":"ajv validate -s design-system/02-components/_schema/component.schema.json -d 'design-system/02-components/*/component.json'",
     "validate:contrast":  "node scripts/check-contrast.mjs",
     "registry":           "node scripts/build-registry.mjs",
+    "component-index":    "node scripts/build-component-index.mjs",
+    "token-index":        "node scripts/build-token-index.mjs",
     "docs:dev":           "cd audit-dashboard && pnpm dev",
     "docs:build":         "cd audit-dashboard && pnpm build",
     "lint":               "pnpm lint:no-primitives && pnpm lint:no-arbitrary-typography && pnpm lint:no-arbitrary-form-values && pnpm lint:no-off-grid-spacing && pnpm lint:no-white-on-accent && pnpm lint:button-conventions",

@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "comment-thread",
   "type": "registry:ui",
-  "title": "Comment Thread",
-  "description": "Threaded discussion attached to an entity. One reply level.",
-  "dependencies": ["lucide-react"],
+  "title": "CommentThread",
+  "description": "Threaded discussion attached to an entity (a row, an annotation marker, a document range). Renders a list of Comments (avatar + author + time + body + reactions + inline editor on hover-actions), nested Replies one-level-deep, an inline ChatComposer at the bottom, and an optional 'Resolve' affordance.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/comment-thread.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/comment-thread/component.json",
     "docsPath": "design-system/02-components/comment-thread/component.md",
     "status": "stable",

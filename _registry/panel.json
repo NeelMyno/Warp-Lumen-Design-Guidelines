@@ -3,8 +3,10 @@
   "name": "panel",
   "type": "registry:ui",
   "title": "Panel",
-  "description": "In-flow labeled section. Plain / bordered / inspector. Collapsible + resizable.",
-  "dependencies": ["lucide-react"],
+  "description": "In-flow collapsible content container. A semantic <section> with a labeled header (h2/h3) and a body, optionally collapsible via a chevron in the header. Three variants — plain (in-page section), bordered (Card-flavored section), and inspector (a docked right-rail panel that can resize). The de-facto 'settings group' / 'inspector panel' primitive.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/panel.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/panel/component.json",
     "docsPath": "design-system/02-components/panel/component.md",
     "status": "stable",

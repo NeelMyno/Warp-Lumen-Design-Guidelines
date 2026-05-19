@@ -1,0 +1,23 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/tokens.schema.json",
+  "$description": "v0.13.2 — Theme-invariant color semantic additions. Mirrors the corresponding entries in `color.dark.tokens.json` + `color.light.tokens.json` for the keys that DON'T change between themes: `text.on-action`, `text.on-avatar`, `status.{tone}.border`. The chart palette + avatar palette are declared per-theme (in dark + light files) by convention so future per-theme tuning is possible without rearranging the namespace. The four status-border aliases close the validate:tokens gap where Alert, Banner, ValidationMessage component contracts referenced `color.status.{danger,info,success,warning}.border` without those paths existing anywhere.",
+  "color": {
+    "text": {
+      "on-action": {
+        "$value": "{color.accent.fg}",
+        "$description": "v0.13.2 — Text color when painted ON an action surface (primary button bg, action accent bg). Near-black `#07120D`, 14.7:1 AAA on Spring Green. Theme-invariant — the accent surface looks the same in both themes, so the foreground does too. Consume on primary `<button>` / accent-bg elements."
+      },
+      "on-avatar": {
+        "$value": "{color.absolute.white}",
+        "$description": "v0.13.2 — Text color when painted ON an avatar fallback bg (initials, monogram). White at high contrast against any of the 8 avatar palette positions in `color.avatar.bg.*`."
+      }
+    },
+    "status": {
+      "$description": "v0.13.2 — `border` alias for each of the four status tones. Routes through the existing primitive `color.status.{tone}.500` stops. Theme-invariant in v0.13.2 — future theme-specific tuning (lighter borders in light mode, etc.) can split these into the per-theme files without renaming the path.",
+      "danger":  { "border": { "$value": "{color.status.danger.500}",  "$description": "Danger border tone. Refined red #E5484D. Used by Alert / Banner / ValidationMessage / Field (error state)." } },
+      "warning": { "border": { "$value": "{color.status.warning.500}", "$description": "Warning border tone. Refined amber #F5B118. Used by Alert / Banner / ValidationMessage / Field (warning state)." } },
+      "success": { "border": { "$value": "{color.accent.500}",         "$description": "Success border tone. Spring Green per the single-accent rule (success rides the accent ramp). Used by Alert / Banner / ValidationMessage / Field (success state)." } },
+      "info":    { "border": { "$value": "{color.accent.500}",         "$description": "Info border tone. Cool-neutral / accent — info never gets a second loud color. Per ADR 0018 Premium Psychology contract." } }
+    }
+  }
+}

@@ -1,6 +1,15 @@
 "use client";
 
-import { ReactNode, InputHTMLAttributes, useId, forwardRef } from "react";
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  ReactElement,
+  ReactNode,
+  InputHTMLAttributes,
+  useId,
+  forwardRef,
+} from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -54,12 +63,36 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
 ) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
+  const labelId = label ? `${inputId}-label` : undefined;
   const helpId = error ? `${inputId}-err` : hint ? `${inputId}-hint` : undefined;
+
+  /* v0.13.2 — children pattern (`<Field label="X"><TextInput /></Field>`) was
+     dropping the htmlFor→id linkage because the inner TextInput renders its
+     own <input> with its own id (not the inputId on the Field's <label>).
+     Result: the visible label rendered correctly but the input was nameless
+     to screen readers. Fix: when children are provided AND label exists, clone
+     the first child and inject aria-labelledby + id pointing at the Field's
+     labelId / inputId. For composite children (fragments, multiple children),
+     the clone applies to the first valid React element only — the consumer
+     remains responsible for nested controls. */
+  let renderedChildren: ReactNode = children;
+  if (children && label) {
+    const arr = Children.toArray(children);
+    if (arr.length === 1 && isValidElement(arr[0])) {
+      const child = arr[0] as ReactElement<Record<string, unknown>>;
+      renderedChildren = cloneElement(child, {
+        id: (child.props.id as string) ?? inputId,
+        "aria-labelledby": (child.props["aria-labelledby"] as string) ?? labelId,
+        "aria-describedby": (child.props["aria-describedby"] as string) ?? helpId,
+        "aria-invalid": child.props["aria-invalid"] ?? (error ? true : undefined),
+      });
+    }
+  }
 
   return (
     <div className={cn("lumen-form-field", className)}>
       {label && (
-        <label htmlFor={inputId} className="lumen-form-field__label">
+        <label id={labelId} htmlFor={inputId} className="lumen-form-field__label">
           {label}
           {optional && <span className="lumen-form-field__optional">(optional)</span>}
           {required && <span aria-hidden className="lumen-form-field__required">*</span>}
@@ -71,7 +104,11 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
       {children ? (
         // Custom control replaces the entire shell. Consumer is responsible for
         // wrapping in .lumen-field if they want the focus shell behavior.
-        <div className="min-w-0">{children}</div>
+        // v0.13.2 — when there's a single child element and a label exists, we
+        // cloned it above to inject aria-labelledby / id so the inner control
+        // gets the accessible name from the Field's <label>. See comment block
+        // above the renderedChildren = ... block.
+        <div className="min-w-0">{renderedChildren}</div>
       ) : (
         <div
           className="lumen-field"

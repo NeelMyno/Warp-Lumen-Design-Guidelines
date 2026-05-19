@@ -3,8 +3,10 @@
   "name": "accordion",
   "type": "registry:ui",
   "title": "Accordion",
-  "description": "Disclosure list built on <details>/<summary>. .lumen-summary suppresses native marker per hard rule 14.",
-  "dependencies": ["lucide-react"],
+  "description": "Disclosure list. Each row is a <details>/<summary> with a Lumen-chrome chevron at the END (per AGENTS.md hard rule 14 — native disclosure marker is suppressed via .lumen-summary). Two modes — single (only one row open at a time, accordion-style) and multiple (rows open independently, disclosure-list-style).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/accordion.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/accordion/component.json",
     "docsPath": "design-system/02-components/accordion/component.md",
     "status": "stable",

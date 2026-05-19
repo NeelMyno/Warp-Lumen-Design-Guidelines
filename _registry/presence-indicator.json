@@ -2,8 +2,8 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "presence-indicator",
   "type": "registry:ui",
-  "title": "Presence Indicator",
-  "description": "Live state for users. Dot / inline / avatar-group.",
+  "title": "PresenceIndicator",
+  "description": "Live state for one or more users on a surface. Three forms — dot (small ring-bordered colored circle at the corner of an Avatar), inline (chip with text label + dot), avatar-group (live AvatarGroup with presence dots on each + 'editing N seconds ago'). Distinct from Avatar's presence prop — PresenceIndicator can stand alone in a Toolbar or above a Drawer.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -13,10 +13,15 @@
       "target": "components/ui/presence-indicator.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/presence-indicator/component.json",
     "docsPath": "design-system/02-components/presence-indicator/component.md",
     "status": "stable",

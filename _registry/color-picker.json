@@ -2,9 +2,11 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "color-picker",
   "type": "registry:ui",
-  "title": "Color Picker",
-  "description": "Color selection. Swatches (restricted) + full (saturation/hue + hex).",
-  "dependencies": ["lucide-react"],
+  "title": "ColorPicker",
+  "description": "Color selection control. Two variants — swatches (a fixed palette of brand-safe color stops, the operator default) and full (saturation/lightness pad + hue slider + hex input + eyedropper). Always paired with a hex / rgba text input so users with vision differences can type the value.",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/color-picker.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/color-picker/component.json",
     "docsPath": "design-system/02-components/color-picker/component.md",
     "status": "beta",

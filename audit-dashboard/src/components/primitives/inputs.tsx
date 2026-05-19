@@ -320,6 +320,9 @@ export function NumberInput({
   max = 999,
   step = 1,
   suffix,
+  id,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
 }: {
   value: number;
   onChange: (v: number) => void;
@@ -327,6 +330,12 @@ export function NumberInput({
   max?: number;
   step?: number;
   suffix?: string;
+  /* v0.13.2 — accept id + aria-* so the parent Field's cloneElement can wire
+     the accessible name to the inner <input>. Without this NumberInput's
+     internal <input type="number"> stayed nameless even inside a labeled Field. */
+  id?: string;
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }) {
   const dec = () => onChange(Math.max(min, value - step));
   const inc = () => onChange(Math.min(max, value + step));
@@ -336,7 +345,7 @@ export function NumberInput({
         type="button"
         data-interactive
         onClick={dec}
-        aria-label="Decrement"
+        aria-label={ariaLabel ? `Decrement ${ariaLabel}` : "Decrement"}
         className="px-3 h-full text-[color:var(--text-secondary)] hover:bg-[var(--surface-sunken)] transition-colors flex items-center"
         style={{ pointerEvents: "auto" }}
       >
@@ -344,8 +353,11 @@ export function NumberInput({
       </button>
       <input
         type="number"
+        id={id}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
+        aria-label={!ariaLabelledBy ? ariaLabel : undefined}
+        aria-labelledby={ariaLabelledBy}
         className="text-center"
         min={min}
         max={max}
@@ -484,10 +496,19 @@ export function TagsInput({
   value,
   onChange,
   placeholder = "Add tag…",
+  id,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
 }: {
   value: string[];
   onChange: (v: string[]) => void;
   placeholder?: string;
+  /* v0.13.2 — accept id + aria-* so parent Field's cloneElement can wire the
+     accessible name down to the inner <input>. Without this, TagsInput inside
+     a labeled Field shipped a nameless input. */
+  id?: string;
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
 }) {
   const [draft, setDraft] = useState("");
   function add() {
@@ -519,6 +540,7 @@ export function TagsInput({
         </span>
       ))}
       <input
+        id={id}
         value={draft}
         onChange={(e) => setDraft(e.target.value)}
         onKeyDown={(e) => {
@@ -527,6 +549,8 @@ export function TagsInput({
         }}
         onBlur={add}
         placeholder={value.length ? "" : placeholder}
+        aria-label={!ariaLabelledBy ? (ariaLabel ?? "Add tag") : undefined}
+        aria-labelledby={ariaLabelledBy}
         className="min-w-[80px]"
         style={{ width: "auto" }}
       />
@@ -591,12 +615,16 @@ export function RangeSlider({
   value,
   onChange,
   format = (v: number) => `${v}`,
+  label = "Range",
 }: {
   min?: number;
   max?: number;
   value: [number, number];
   onChange: (v: [number, number]) => void;
   format?: (v: number) => string;
+  /* v0.13.2 — accept a label prop so the two thumb inputs ship aria-label.
+     Without this, screen readers announced both range-inputs as nameless. */
+  label?: string;
 }) {
   const pct = (v: number) => ((v - min) / (max - min)) * 100;
   return (
@@ -613,6 +641,7 @@ export function RangeSlider({
           max={max}
           value={value[0]}
           onChange={(e) => onChange([Math.min(Number(e.target.value), value[1]), value[1]])}
+          aria-label={`${label}: minimum (${format(value[0])})`}
           className="absolute inset-0 w-full bg-transparent appearance-none pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-[var(--border-strong)] [&::-webkit-slider-thumb]:shadow-[var(--shadow-sm)] [&::-webkit-slider-thumb]:cursor-grab"
         />
         <input
@@ -621,6 +650,7 @@ export function RangeSlider({
           max={max}
           value={value[1]}
           onChange={(e) => onChange([value[0], Math.max(Number(e.target.value), value[0])])}
+          aria-label={`${label}: maximum (${format(value[1])})`}
           className="absolute inset-0 w-full bg-transparent appearance-none pointer-events-auto [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border [&::-webkit-slider-thumb]:border-[var(--border-strong)] [&::-webkit-slider-thumb]:shadow-[var(--shadow-sm)] [&::-webkit-slider-thumb]:cursor-grab"
         />
       </div>

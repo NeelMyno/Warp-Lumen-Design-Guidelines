@@ -3,8 +3,10 @@
   "name": "alert",
   "type": "registry:ui",
   "title": "Alert",
-  "description": "Inline persistent status block. Four tones with paired glyphs. Optional dismiss + inline action.",
-  "dependencies": ["lucide-react"],
+  "description": "Inline, in-flow status block. Persistent (not dismissed automatically), tied to a region of the page (not the whole app), and never floating. Four tones — info, success, warning, danger. Optional dismiss control + optional inline action. Distinct from Toast (transient, page-level, floating), Banner (page-level non-dismissible system state), and ValidationMessage (single-field form error).",
+  "dependencies": [
+    "lucide-react"
+  ],
   "registryDependencies": [],
   "files": [
     {
@@ -13,10 +15,15 @@
       "target": "components/ui/alert.tsx"
     }
   ],
-  "cssVars": { "light": {}, "dark": {} },
+  "cssVars": {
+    "light": {},
+    "dark": {}
+  },
   "meta": {
-    "lumenVersion": "0.12.6",
-    "platforms": ["web-react"],
+    "lumenVersion": "0.13.2",
+    "platforms": [
+      "web-react"
+    ],
     "specPath": "design-system/02-components/alert/component.json",
     "docsPath": "design-system/02-components/alert/component.md",
     "status": "stable",

@@ -443,11 +443,15 @@ export function BottomNav({ active = "home" }: { active?: string }) {
   );
 }
 
-/* ─────────────────────────  FAB  ─────────────────────────
-   v0.9 — Inline FAB now wraps the formal FAB primitive so the library demo
+/* ─────────────────────────  FAB DEMO  ─────────────────────────
+   v0.9 — Inline FAB-demo wraps the formal FAB primitive so the library showcase
    and the canonical contract render identically. The label prop is forwarded
-   as aria-label per v0.9 IconButton convention. */
-export function FAB({ icon = <Plus size={18} />, label = "Compose" }: { icon?: ReactNode; label?: string }) {
+   as aria-label per v0.9 IconButton convention.
+   v0.13.2 — renamed FAB → FABDemo to retire the export-name collision with the
+   canonical primitive in fab.tsx. The Demo suffix matches the established
+   nav.tsx convention (NavbarDemo, SidebarDemo, FooterDemo). Only consumer is
+   library/client.tsx (the gallery surface). */
+export function FABDemo({ icon = <Plus size={18} />, label = "Compose" }: { icon?: ReactNode; label?: string }) {
   return (
     <LumenFab aria-label={label} intent="primary" size="xl">
       {icon}
@@ -455,11 +459,14 @@ export function FAB({ icon = <Plus size={18} />, label = "Compose" }: { icon?: R
   );
 }
 
-/* ─────────────────────────  SPLIT BUTTON  ─────────────────────────
-   v0.9 — Inline SplitButton now wraps the formal SplitButton primitive plus a
+/* ─────────────────────────  SPLIT BUTTON DEMO  ─────────────────────────
+   v0.9 — Inline SplitButton-demo wraps the formal SplitButton primitive plus a
    local popover for the menu options (the formal primitive doesn't ship a menu
-   — that's the consumer's job). */
-export function SplitButton({ primary = "Save", options = ["Save and continue", "Save as draft", "Discard"] }: { primary?: string; options?: string[] }) {
+   — that's the consumer's job).
+   v0.13.2 — renamed SplitButton → SplitButtonDemo to retire the export-name
+   collision with the canonical primitive in split-button.tsx. Only consumer is
+   library/client.tsx. */
+export function SplitButtonDemo({ primary = "Save", options = ["Save and continue", "Save as draft", "Discard"] }: { primary?: string; options?: string[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative inline-flex">
@@ -482,13 +489,18 @@ export function SplitButton({ primary = "Save", options = ["Save and continue", 
   );
 }
 
-/* ─────────────────────────  COMMAND PALETTE (visual)  ───────────────────────── */
+/* ─────────────────────────  COMMAND PALETTE DEMO (visual)  ─────────────────────────
+   v0.13.2 — renamed CommandPalette → CommandPaletteDemo to retire the export-name
+   collision with the canonical primitive in command-palette.tsx. The canonical
+   primitive is the Radix-backed cmdk one used by command-palette-trigger.tsx in
+   the dashboard shell; this is the visual-only showcase used in library/client.tsx
+   that demonstrates the chrome without wiring the ⌘K hotkey. */
 type PaletteItem =
   | { kind: "label"; label: string }
   | { kind: "divider" }
   | { kind: "item"; label: string; shortcut?: string; icon?: ReactNode };
 
-export function CommandPalette() {
+export function CommandPaletteDemo() {
   const items: PaletteItem[] = [
     { kind: "label", label: "Quick actions" },
     { kind: "item", label: "New shipment", shortcut: "⌘N", icon: <Plus size={14} /> },
