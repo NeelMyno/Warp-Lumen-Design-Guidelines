@@ -24,7 +24,7 @@ Density:            Marketing breathes (96 px hero rhythm) · Operator stays den
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 19 hard rules
-Status:             v0.14.0 · Omnibus systemic-gap closure (ADR 0029 — 9-axis ship in one cycle: R8c IntersectionObserver lazy-mount on /library closes the R8b main-thread regression; R8d italic font-display:optional drops italic from LCP critical path; R9 prefers-contrast + forced-colors OS-mode contracts; R10 @media print + data-export=image; i18n + RTL scaffold + internationalization.md foundation; templates layer + 3 new patterns + PATTERN-INDEX.md + Lumen-branded 404/500; 9 cross-platform examples — Button/Card/Field × SwiftUI/Compose/RN; mcp/server.mjs closes USING-LUMEN.md hard rule 4 lie; Playwright + a11y baseline testing infra + Storybook scaffold; @warp/lumen-tokens npm package scaffold. LCP geo-mean R8b → v0.14: 2706 → 2068 ms = −638 ms / −23.6%; cumulative R7 → v0.14: 3030 → 2068 ms = −962 ms / −31.7%; /library 3634 → 1815 ms = −1819 ms / −50% — R8b regression fully compensated. CLS 0.000 every route. 18 Playwright tests pass.) · 7 principles · 29 ADRs
+Status:             v0.14.1 · Omnibus systemic-gap closure (ADR 0029 — 9-axis ship in one cycle: R8c IntersectionObserver lazy-mount on /library closes the R8b main-thread regression; R8d italic font-display:optional drops italic from LCP critical path; R9 prefers-contrast + forced-colors OS-mode contracts; R10 @media print + data-export=image; i18n + RTL scaffold + internationalization.md foundation; templates layer + 3 new patterns + PATTERN-INDEX.md + Lumen-branded 404/500; 9 cross-platform examples — Button/Card/Field × SwiftUI/Compose/RN; mcp/server.mjs closes USING-LUMEN.md hard rule 4 lie; Playwright + a11y baseline testing infra + Storybook scaffold; @warp/lumen-tokens npm package scaffold. LCP geo-mean R8b → v0.14: 2706 → 2068 ms = −638 ms / −23.6%; cumulative R7 → v0.14: 3030 → 2068 ms = −962 ms / −31.7%; /library 3634 → 1815 ms = −1819 ms / −50% — R8b regression fully compensated. CLS 0.000 every route. 18 Playwright tests pass.) · 7 principles · 29 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.14.0
+├── VERSION                         ← 0.14.1
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,7 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.14.0
+## What's new — v0.14.1
 
 ### v0.14.0 (2026-05-19) — Omnibus systemic-gap closure (ADR 0029)
 

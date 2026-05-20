@@ -1,6 +1,6 @@
 # TOKEN-INDEX.md
 
-> **Auto-generated for Lumen v0.14.0** (2026-05-20). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.14.1** (2026-05-20). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 > **What this is.** A flat, alphabetical index of every Lumen semantic and component-bound token, with its alias target (or resolved primitive value if terminal) and the description from the source file. **Agents and engineers consume only these** — per AGENTS.md hard rule 2, never reference primitives directly.
 
@@ -116,7 +116,7 @@
 | `color.surface.sunken` | `{color.brand.900}` | Sunken / scrim base #080808 — v0.12 (was #0E110F). |
 | `color.surface.tint-accent` | `{color.alpha.accent.12}` | Spring-green tint for hover / selection backgrounds. |
 | `color.text.accent` | `{color.accent.300}` | Laser spring-green for inline emphasis on dark. ~10.4:1 — AAA. |
-| `color.text.disabled` | `{color.brand.500}` |  |
+| `color.text.disabled` | `{color.brand.400}` | Text inside disabled controls. v0.14.1 R12 — aligned with tertiary at brand.400 (#6B6B6B, 3.65:1). The disabled STATE is distinguished from tertiary through surface (input.disabled… |
 | `color.text.error` | `{color.status.danger.300}` | v0.11 — softened error text on canvas. ~7.0:1 on the v0.12 neutral canvas — AA Normal (was ~6.5:1 on v0.11 obsidian-mint). Distinct from status.danger.fg which is the badge text on… |
 | `color.text.inverse` | `{color.brand.800}` | Text on inverse light surfaces. |
 | `color.text.link` | `{color.brand.100}` |  |
@@ -987,4 +987,4 @@
 
 **Totals:** 411 semantic tokens · 416 component-bound tokens.
 
-> Generated 2026-05-20 from VERSION = 0.14.0. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.
+> Generated 2026-05-20 from VERSION = 0.14.1. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.

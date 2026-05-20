@@ -95,8 +95,8 @@ html, body { overflow-x: clip; }
   --lumen-obsidian-0:  #F4F4F4;   /* cream-leaning paper for light theme — neutralized v0.12 (was #F4F5F4) */
   --lumen-obsidian-1:  #E6E6E6;   /* user-fixed light anchor — primary text on dark */
   --lumen-obsidian-2:  #C8C8C8;   /* neutralized v0.12 (was #C8C9C8) */
-  --lumen-obsidian-3:  #9A9A9A;   /* tertiary text on dark — AA Large at ≥18px on #0D0D0D — v0.12 (was #9DA09F) */
-  --lumen-obsidian-4:  #6B6B6B;   /* secondary text on dark — AA Normal on #0D0D0D — v0.12 (was #6E7270) */
+  --lumen-obsidian-3:  #9A9A9A;   /* secondary text on dark — 6.9:1 AA Normal on #0D0D0D — v0.12 (was #9DA09F). v0.14.1 R12 — comment corrected; was mislabeled "tertiary" pre-R12. */
+  --lumen-obsidian-4:  #6B6B6B;   /* tertiary text + placeholder + disabled on dark — 3.65:1 AA Large on #0D0D0D — v0.12 (was #6E7270). v0.14.1 R12 — comment corrected; was mislabeled "secondary" pre-R12. */
   --lumen-obsidian-5:  #404040;   /* mid-rail, borders on dark — v0.12 (was #4A4D4B; deeper to maintain visible delta against the deeper canvas) */
   --lumen-obsidian-6:  #1F1F1F;   /* popover surface, dark — v0.12 (was #232624 with G+3 mint tilt) */
   --lumen-obsidian-7:  #151515;   /* raised surface, dark — v0.12 (was #1B1E1C with G+3 mint tilt) */
@@ -626,10 +626,10 @@ html, body { overflow-x: clip; }
   --surface-input-disabled: var(--surface-sunken);
 
   --text-primary:    var(--lumen-obsidian-1);  /* v0.11 — #E6E6E6 user-fixed light. 13.7:1 AAA on canvas. */
-  --text-secondary:  var(--lumen-obsidian-3);
-  --text-tertiary:   var(--lumen-obsidian-3);  /* a11y: AA at ≥18px on canvas */
-  --text-placeholder: var(--lumen-obsidian-3); /* v0.6 — alias of tertiary; carries its own role for theming */
-  --text-disabled:   var(--lumen-obsidian-4);  /* a11y: AA Large only — perceptible but quiet */
+  --text-secondary:  var(--lumen-obsidian-3);  /* #9A9A9A — 6.9:1 AA Normal on canvas. Captions, descriptions. */
+  --text-tertiary:   var(--lumen-obsidian-4);  /* v0.14.1 R12 fix — #6B6B6B — 3.65:1 AA Large on canvas. Hints, eyebrow labels. Was obsidian-3 pre-R12 (collapsed to secondary, breaking the 3-tier ladder). Now matches DTCG semantic spec text.tertiary = brand.400. */
+  --text-placeholder: var(--lumen-obsidian-4); /* v0.14.1 R12 fix — alias of tertiary per DTCG semantic. */
+  --text-disabled:   var(--lumen-obsidian-4);  /* v0.14.1 R12 — aligned to tertiary value at the text-color level; disabled state distinguished via surface bg + cursor + opacity per primitive contract. DTCG semantic updated to brand.400 in lockstep. */
   --text-inverse:    var(--lumen-obsidian-8);  /* v0.12 — #0D0D0D neutral obsidian (was #171A18 obsidian-mint pre-v0.12) */
   --text-accent:     var(--lumen-accent-3);
   --text-link:       var(--lumen-obsidian-1);  /* v0.11 — match text-primary */

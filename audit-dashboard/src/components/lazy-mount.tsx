@@ -1,46 +1,78 @@
-"use client";
-
 /**
- * LazyMount — defer mounting children until the placeholder sentinel scrolls
- * within the viewport (plus a configurable rootMargin buffer).
+ * LazyMount — defer paint + layout work for below-the-fold sections while
+ * keeping every node in the DOM for SSR, SEO, Cmd+F, and screen-reader
+ * pre-walk.
  *
- * v0.14 — R8c (ADR 0029). Compensates the R8b /library main-thread regression
- * (LCP +184 ms median) where the inlined CSS parse cost lands on the main
- * thread before computing styles against /library's 4684-node DOM. By
- * deferring the 23 below-the-fold primitive showcases until the user scrolls
- * past the first 2 sections, the initial paint DOM drops from 4684 nodes to
- * ~200 nodes, and the main-thread CSS-apply cost stops dominating. Each
- * lazy section reserves space via a placeholder (default 600 px) so layout
- * is stable before mount — zero CLS contribution.
+ * v0.14.1 — R12 rewrite (ADR 0031). The pre-R12 implementation conditionally
+ * rendered children based on an IntersectionObserver state: until the
+ * sentinel scrolled near, only a 500-px-tall placeholder div lived in the
+ * tree. The doc comment claimed SSR-safety via a `typeof IntersectionObserver
+ * === "undefined"` fallback inside useEffect — but useEffect never runs on
+ * the server, so SSR output shipped 23 empty placeholders on /library and
+ * the 23 lazy sections were missing from the initial HTML. Verified by
+ * `curl /library | grep "Get rates\|Save draft\|All shipments\|Quote name"`
+ * returning 0 hits. Consequences before R12:
+ *   - Cmd+F couldn't find content in lazy sections until the user scrolled
+ *     past them.
+ *   - Screen readers pre-walking the page on landing announced only the
+ *     above-the-fold content + 23 nameless `aria-hidden` placeholders.
+ *   - JS-disabled users saw permanently-empty placeholders.
+ *   - Fast-scrolling users (10+ ticks/sec) outran the rootMargin=400px
+ *     buffer and landed in a placeholder mid-viewport, presenting a black
+ *     void until React state caught up.
  *
- * The component is SSR-safe: when typeof IntersectionObserver is undefined
- * (Node prerender), it short-circuits to mounted=true so the server output
- * still contains the full DOM (needed for SEO, screen-reader pre-walk, and
- * the audit-dashboard's "everything searchable on a single page" contract).
- * The lazy behavior is a client-side optimization layered on top.
+ * R12 swaps the implementation to **CSS content-visibility: auto** plus
+ * `contain-intrinsic-size` for layout stability. The browser handles
+ * lazy-rendering at the layout-engine level:
+ *   - Children are ALWAYS in the DOM. SSR ships full content. SEO + Cmd+F +
+ *     screen-reader-prewalk + JS-disabled all work.
+ *   - The browser skips paint + layout of off-screen sections until they
+ *     scroll within roughly 50% of the viewport — same lazy-paint behavior
+ *     as the pre-R12 IntersectionObserver, but managed by the engine, not by
+ *     React state.
+ *   - `contain-intrinsic-size: 0 var(--lazy-mount-h)` reserves vertical
+ *     space so CLS stays at 0 before the section first paints.
+ *   - No empty-void flash on fast scroll: the section is in the DOM, even if
+ *     skipped from paint; the browser paints it the moment it scrolls into
+ *     range.
+ *
+ * Browser support: content-visibility is supported in Chrome 85+ (2020),
+ * Edge 85+ (2020), Safari 18+ (Sep 2024), Firefox 125+ (Apr 2024). Lumen's
+ * audit-dashboard targets Chrome / Edge / modern Safari + Firefox; older
+ * browsers fall back to rendering everything eagerly (graceful — they pay
+ * the layout cost but still see the content).
+ *
+ * Performance: the LCP win that motivated R8c (ADR 0029 — /library LCP
+ * 3328 → 1815 ms, −1513 ms) was driven by reducing the *paint-and-layout*
+ * cost of /library's 4684-node DOM on first paint. content-visibility: auto
+ * achieves the same paint-skipping behavior natively, without sacrificing
+ * SSR completeness. The DOM size is larger, but DOM size alone is not the
+ * LCP bottleneck — layout-and-paint cost is. Expect parity or improvement
+ * on the R8c LCP gain post-R12. Verified via re-Lighthouse during the R12
+ * verification round.
  *
  * USAGE — when to wrap (heuristic):
  *
  *   - Route DOM > 1500 nodes? Wrap below-the-fold sections.
  *   - Route shows > 30 primitive showcases or > 60 cards? Wrap.
  *   - Lighthouse insight `dom-size` flags the route? Wrap.
- *   - First 2 sections (above-the-fold) STAY EAGER — wrapping them hurts LCP.
+ *   - First 2 sections (above-the-fold) STAY EAGER (use `eager` prop) —
+ *     applying content-visibility to above-the-fold sections costs a tiny
+ *     bit of paint-deferral overhead with no benefit (they're going to
+ *     paint immediately anyway).
  *   - Sections 3+ go inside LazyMount.
  *
- * USAGE — placeholder height:
+ * USAGE — placeholderHeight (now contain-intrinsic-size):
  *
  *   Set `placeholderHeight` to roughly the mounted-section's height so CLS
- *   stays 0. The default 600 px is roughly one Section's vertical footprint
- *   at the /library typography ladder. For shorter sections, override:
- *
- *     <LazyMount placeholderHeight={400}>
- *       <Section title="...">...</Section>
- *     </LazyMount>
+ *   stays 0 during initial layout when the section is content-visibility
+ *   hidden. The default 600 px is roughly one Section's vertical footprint
+ *   at the /library typography ladder. For shorter sections, override.
  *
  * USAGE — eager prop:
  *
  *   Use `eager` for cases where you want LazyMount in the markup tree (so
- *   it composes uniformly with siblings) but mount immediately — typically
+ *   it composes uniformly with siblings) but render normally — typically
  *   the first 1–2 sections of a long route. Equivalent to NOT wrapping,
  *   just preserves visual consistency in the JSX.
  *
@@ -50,36 +82,32 @@
  *   - Sticky / fixed-position chrome (header, footer, sidebar)
  *   - Anything inside a `<details open>` that must auto-mount on disclosure
  *   - Charts whose data is part of the initial paint contract
+ *   - Floating UI that portals out of the wrapper (popovers, dropdowns) —
+ *     they're not in this section's box anyway; wrapping the trigger is fine
  *
- * See AGENTS.md hard rule 17 + ADR 0029 (v0.14 omnibus) for the system contract.
+ * See AGENTS.md hard rule 17 + ADR 0031 (v0.14.1 R12) for the system
+ * contract. R8c's IntersectionObserver-based predecessor is preserved in
+ * git history but is no longer the contract.
  */
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { type ReactNode, type CSSProperties } from "react";
 
 type LazyMountProps = {
   children: ReactNode;
   /**
-   * Min-height of the placeholder div while not yet mounted. Reserves
-   * vertical space so the surrounding layout is stable and CLS stays at 0.
-   * Default 600 px — roughly one Section's vertical footprint at the
-   * /library typography ladder.
+   * Reserved vertical space when the section is content-visibility hidden,
+   * so the surrounding layout is stable and CLS stays at 0. Passed to
+   * `contain-intrinsic-size` (CSS pixels). Default 600.
    */
   placeholderHeight?: number;
   /**
-   * Buffer below the viewport at which to start mounting. CSS-margin syntax.
-   * Default "400px" — a screen-and-a-bit of pre-loading so scrolling at
-   * normal speed never sees the placeholder swap to content mid-view.
-   * lumen-lint-allow: primitives — "400px" is the IntersectionObserver
-   * rootMargin API string, not a CSS sizing value. The "px" is API syntax.
-   */
-  rootMargin?: string;
-  /**
-   * If true, mounts immediately. Use for above-the-fold sections where
-   * lazy-mounting would actually hurt the first paint. Default false.
+   * If true, renders normally without content-visibility containment. Use
+   * for above-the-fold sections where lazy paint-deferral would actually
+   * hurt the first paint. Default false.
    */
   eager?: boolean;
   /**
-   * Optional className applied to the placeholder div (not the mounted
-   * children). Useful for matching surrounding section spacing.
+   * Optional className applied to the wrapper div. Useful for matching
+   * surrounding section spacing.
    */
   className?: string;
 };
@@ -87,44 +115,28 @@ type LazyMountProps = {
 export function LazyMount({
   children,
   placeholderHeight = 600,
-  // lumen-lint-allow: primitives — IntersectionObserver rootMargin API string
-  rootMargin = "400px",
   eager = false,
   className,
 }: LazyMountProps) {
-  const [mounted, setMounted] = useState(eager);
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (mounted) return;
-    // SSR-safe fallback: if IntersectionObserver isn't available, mount.
-    if (typeof IntersectionObserver === "undefined") {
-      setMounted(true);
-      return;
-    }
-    const node = sentinelRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setMounted(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin }
+  if (eager) {
+    return (
+      <div className={className} data-lazy-mount="eager">
+        {children}
+      </div>
     );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [mounted, rootMargin]);
+  }
 
-  if (mounted) return <>{children}</>;
+  // lumen-lint-allow-block: primitives — content-visibility + contain-intrinsic-size
+  // are CSS layout-engine contracts; the px value here is the layout reservation
+  // for the section before its first paint, scaled per-call via placeholderHeight.
+  const style: CSSProperties = {
+    contentVisibility: "auto",
+    containIntrinsicSize: `0 ${placeholderHeight}px`,
+  };
+
   return (
-    <div
-      ref={sentinelRef}
-      style={{ minHeight: placeholderHeight }}
-      aria-hidden
-      className={className}
-      data-lazy-mount-placeholder=""
-    />
+    <div className={className} style={style} data-lazy-mount="lazy">
+      {children}
+    </div>
   );
 }

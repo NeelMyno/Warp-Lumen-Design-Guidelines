@@ -79,7 +79,8 @@
         "$description": "Input placeholder. Alias of tertiary; carries its own role for theming."
       },
       "disabled": {
-        "$value": "{color.brand.500}"
+        "$value": "{color.brand.400}",
+        "$description": "Text inside disabled controls. v0.14.1 R12 — aligned with tertiary at brand.400 (#6B6B6B, 3.65:1). The disabled STATE is distinguished from tertiary through surface (input.disabled = brand.900 sunken), border (border.disabled alpha-06), and cursor (not-allowed) per the primitive contract — never through text-color alone. WCAG 2.4.3 Note 3 exempts inactive UI components from contrast minimums; the bg + cursor + border carry the affordance. Pre-R12 this was brand.500 (#404040, 1.89:1) which fails AA Normal and AA Large both — too low even with WCAG exemption."
       },
       "inverse": {
         "$value": "{color.brand.800}",
