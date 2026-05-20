@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.14.2 · 2026-05-20.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.14.3 · 2026-05-20.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -48,7 +48,7 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.14.2 — Premium Psychology · Obsidian (mint retired) · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028) on top of v0.13.4 R8a Satoshi-subset (ADR 0027), v0.13.3 R7 pipeline-state + mobile-perf baseline (ADR 0026), v0.13.2 R6 LLM-docs SSoT (ADR 0025), v0.13.1 responsive safety net (ADR 0024), v0.13.0 LLM-docs lockstep (ADR 0023), v0.12.x primitive cascade
+Lumen v0.14.3 — Premium Psychology · Obsidian (mint retired) · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028) on top of v0.13.4 R8a Satoshi-subset (ADR 0027), v0.13.3 R7 pipeline-state + mobile-perf baseline (ADR 0026), v0.13.2 R6 LLM-docs SSoT (ADR 0025), v0.13.1 responsive safety net (ADR 0024), v0.13.0 LLM-docs lockstep (ADR 0023), v0.12.x primitive cascade
 ─────────────────────────────────────────────────────────────────────────
 Brand
   Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
@@ -95,12 +95,12 @@ Components
   Contract         component.md (humans) + component.json (machines) + per-platform examples
   Validates        against design-system/02-components/_schema/component.schema.json
 
-Defensive primitive contracts (v0.12.x — encode these when generating new code)
-  Glow ladder      Primary CTA rest 16px a25 → hover 20px a28 → active 8px a20 (v0.12.2 hover dialed down)
+Defensive primitive contracts (v0.12.x → v0.14 — encode these when generating new code)
+  Shadow color     NEVER green — every box-shadow neutral (v0.14 R11 — ADR 0030 supersedes ADRs 0016/0018/0022). Primary CTA halo retired: rest=none, hover=shadow.md (neutral), active=none. Focus ring is theme-aware neutral border-frame outline + paper/ink alpha halo, dual-ring outer is border-frame (was lumen-accent-4).
   Card corner-clip <Card padding="none"> auto-clips edge-touching children to the rounded corner (v0.12.1 — ADR 0021)
   TabsList pill    overflow-hidden so active pill clips to parent rounded shape (v0.12.4 — sibling pattern at smaller scale)
   Floating UI      Combobox / Popover / Dropdown / Tooltip / Calendar portal to document.body via createPortal + position:fixed (v0.12.4)
-  Focus rings      outline 2px lime-a64 + offset 1px PLUS soft box-shadow halo, never box-shadow alone (v0.12.4)
+  Focus rings      outline 2px border-frame + offset 1px PLUS soft box-shadow halo (also neutral), never box-shadow alone (v0.12.4 pattern + v0.14 R11 colors)
   Position math    Inline style.left / style.transform with native transition; never Tailwind translate-x-[Npx] (v0.12.3 — ADRs 0015/0016 cascade)
   Version SSoT     Every user-facing version label imports from @/lib/version; never hardcoded literals (v0.12.5 — closes v0.11.13 palette-footer drift)
   Accordion marker <summary class="lumen-summary"> suppresses the native browser disclosure triangle when composing your own end-of-summary chevron (v0.12.5)
@@ -110,7 +110,7 @@ Defensive primitive contracts (v0.12.x — encode these when generating new code
 Status
   v0.12.0          Obsidian recolor — mint retired. Canvas neutral at #0D0D0D, R = G = B at every dark stop. Single-accent rule unchanged. (ADR 0020)
   v0.12.1          Card corner-clip contract — <Card padding="none"> auto-clips edge-touching children to the rounded shape. (ADR 0021)
-  v0.12.2          Primary-button hover bloom dialed down. Rest unchanged at 0 0 16px lime-a25 (brand voice). Hover trims to 0 0 20px lime-a28. (ADR 0022)
+  v0.12.2          Primary-button hover bloom dialed down. (ADR 0022 — historical, superseded by ADR 0030 in v0.14 R11 which retired the green halo entirely.)
   v0.12.3          PricingToggle thumb-escape fix. Tailwind v4 arbitrary-translate fragility retired on the last two callers (PricingToggle + SwipeAction) — position math now uses inline style.left + native transition, not translate-x-[Npx] arbitrary class. Cascade-fix to ADRs 0015/0016 (no new ADR — same pattern those ADRs already established).
   v0.12.4          Three primitive-layer fixes. (1) InlineTabs pill TabsList gains overflow-hidden — corner-clip pattern from ADR 0021 extended to smaller-control scale. (2) Combobox dropdown migrates from inline <div absolute> to createPortal(<div fixed>, document.body) with getBoundingClientRect tracking — escapes ancestor overflow contexts. (3) Global :focus-visible gains outline 2px lime-a64 + offset 1px on top of existing soft box-shadow halo — outline immune to ancestor overflow:hidden, closes the v0.12.1 ADR-0021 pagination-focus regression. The .lumen-btn-primary:focus-visible dual-ring is unaffected (declares outline:none and wins via specificity per ADR 0016). No new ADR by design — consequential follow-ups to ADRs 0007 + 0015/0016 + 0021.
   v0.12.5          Live-audit fix pack — five surgical fixes from a two-round visual audit against the deployed Vercel site. (1) New audit-dashboard/src/lib/version.ts hoists the user-facing version label to a single constant (LUMEN_VERSION + MAJOR_MINOR variants); every consumer (header pill, footer line, palette footer, foundations brand-voice samples, library / tool / foundations badges) reads from it; release script bumps lib/version.ts in lockstep with the root VERSION file; closes the v0.11.13 palette-footer drift the audit caught on round 2. (2) Iconography hover lifts icon glyph to text-accent + tile border to border-accent (teaches "green at action" visually). (3) Pricing card peak-end hover lift on landing — non-highlighted: shadow-md + border-default + -translate-y-[1px]; highlighted Operator: layered soft accent glow. (4) Landing FAQ disclosure caret migrates from Unicode ▾ to lucide ChevronDown; new globals.css .lumen-summary + summary.list-none rule suppresses native browser disclosure marker on every browser. (5) Privacy scrub — real-person names retired from 9 sites in 5 files (ai.tsx CommentThread, foundations Avatar demos, saas TopBar, commerce review fixture, library Avatar / AvatarGroup / Reaction-bar) — replaced with synthetic operator names (Avery Mercer / Kai Morgan). No new ADR — consequential follow-ups to ADRs 0007 + 0009 + 0018.
@@ -458,7 +458,7 @@ Lumen ships to 9 platforms. Each platform has a substantive consumption guide in
 
 | Platform | Stack | Quick install | Guide |
 |---|---|---|---|
-| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.2/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
+| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.3/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
 | **React Native** | Expo SDK 53+ + NativeWind | npm package + `<LumenProvider>` | [react-native/](design-system/03-platforms/react-native/README.md) |
 | **iOS native** | SwiftUI + Swift Package | `from: "0.11.13"` | [ios-native/](design-system/03-platforms/ios-native/README.md) |
 | **Android native** | Jetpack Compose + Material 3 base | `dev.warp:lumen-compose:0.11.13` | [android-native/](design-system/03-platforms/android-native/README.md) |
@@ -761,7 +761,7 @@ This section is what an AI coding agent should treat as a normative contract whe
 8. **Honor `prefers-reduced-motion`** in everything that animates.
 9. **Never render white or near-white text on the spring-green accent surface.** Use `.lumen-btn-primary` (or direct `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]`), not the shadcn `bg-primary` bridge utilities (the Tailwind v4 content scanner has been observed to drop those classes, leaving white-on-accent at ~1.4:1).
 10. **Floating UI portals to `document.body`** (v0.12.4). Combobox / Select / DropdownMenu / Popover / Tooltip / Calendar dropdowns must escape ancestor overflow contexts via `createPortal` (or Radix Portal). Inline `<div absolute>` panels look correct in isolation but get clipped by Showcase frames, by `<Card padding="none">`, by glass surfaces, by scroll containers. The portal pattern: `createPortal(<div style={{ position: 'fixed', top, left, width, zIndex }} />, document.body)` with `getBoundingClientRect()` re-tracked on scroll (capture phase) + resize. Outside-click dismiss must exempt the portaled list. **Why this rule:** the system contract is "any new floating panel works correctly inside any consumer surface — including ones with `overflow: hidden`." Don't bet on the consumer never embedding it inside an overflow-clipped ancestor.
-11. **Focus rings ride `outline + box-shadow`, never box-shadow alone** (v0.12.4 — closes the v0.12.1 ADR-0021 pagination-focus regression). Box-shadow paints into the element's own painting context which respects ancestor `overflow: hidden`; a box-shadow-only focus ring on a button inside `<Card padding="none">` is partially clipped. The global rule paints both — `outline: 2px solid var(--lumen-lime-a64); outline-offset: 1px;` PLUS the existing soft `box-shadow: var(--shadow-focus)` glow halo. Outline is painted outside the layout box and is structurally immune to ancestor overflow. The `.lumen-btn-primary:focus-visible` dual-ring is unaffected — it declares `outline: none` and overrides via specificity. **When authoring any new `:focus-visible` rule, include `outline` for structural visibility, then layer `box-shadow` for the brand halo.**
+11. **Focus rings ride `outline + box-shadow`, never box-shadow alone** (v0.12.4 — pattern; **v0.14 R11 — colors retuned to neutral** per [ADR 0030](_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)). Box-shadow paints into the element's own painting context which respects ancestor `overflow: hidden`; a box-shadow-only focus ring on a button inside `<Card padding="none">` is partially clipped. The global rule paints both — `outline: 2px solid var(--border-frame); outline-offset: 1px;` PLUS the soft `box-shadow: var(--shadow-focus)` halo (both neutral; pre-R11 these were `var(--lumen-lime-a64)` + `lime-a32`). Outline is painted outside the layout box and is structurally immune to ancestor overflow. The `.lumen-btn-primary:focus-visible` dual-ring is unaffected — it declares `outline: none` and overrides via specificity; both inner separator (`surface-canvas`) and outer ring (`border-frame`) are neutral in R11. **When authoring any new `:focus-visible` rule, include `outline` for structural visibility, then layer `box-shadow` for the soft halo — both halves theme-aware neutral, never lime.**
 12. **Position math via inline `style`, not Tailwind arbitrary classes** (v0.12.3 cascade-fix to ADRs 0015/0016). Tailwind v4's content scanner has been observed to drop arbitrary `translate-x-[Npx]` / `top-[Npx]` / `left-[Npx]` utilities (intermittent — `getComputedStyle` reports `none` despite the className carrying the utility). For thumb / swipe / handle / popover anchor position math, use inline `style={{ left: N }}` (or `style={{ transform: 'translateX(...)' }}`) with a native `transition` declaration. Inline style is scanner-independent. The defensive `.lumen-btn-*` and `.lumen-field` class families per ADRs 0015/0016 remain canonical for component STYLING; rule 12 is specifically about position MATH on toggles, switches, swipe rows, calendar nav, etc.
 
 ### When generating code
@@ -984,7 +984,7 @@ AGENTS.md                  ← universal agent rules (14 hard rules)
 CLAUDE.md                  ← Claude-specific addenda
 CONTRIBUTING.md            ← human contributor guide
 CHANGELOG.md               ← Keep-a-Changelog
-VERSION                    ← 0.14.2
+VERSION                    ← 0.14.3
 llms.txt                   ← LLM discovery index (14-rule playbook at the bottom)
 llms-full.txt              ← inlined version (single fetch for agents)
 package.json               ← build/validate/lint/registry/release scripts
@@ -1017,10 +1017,10 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 |---|---|---|---|---|
 | 1 | **Spring-green accent surface** | ADR 0016 / 0018 | `.lumen-btn-primary` (or `bg-[var(--lumen-accent-4)] text-[var(--lumen-accent-fg)]`) | `bg-primary text-primary-foreground` (Tailwind v4 scanner drops it) |
 | 2 | **Card padding=none + edge-touching child** | ADR 0021 (v0.12.1) | `<Card padding="none">` (auto-clips) | `<Card padding="none" className="overflow-hidden">` (redundant; primitive owns it) |
-| 3 | **Primary-button hover** | ADR 0022 (v0.12.2) | The system token `--shadow-button-glow-hover` | Custom `box-shadow` overrides "to make it brighter" |
+| 3 | **Primary-button shadow ladder** | **ADR 0030 (v0.14 R11)** supersedes ADR 0022 (v0.12.2) | `--shadow-button-glow-rest = none`, `hover = var(--shadow-md)` (neutral), `active = none`. Primary CTA brand identity is the green BG fill alone; hover lifts via neutral elevation. | Any `box-shadow` with `lumen-lime-*` / `lumen-accent-*` / `spring-green` / `#00FA8A` (lint-shadow-no-accent.mjs fails CI); custom green `box-shadow` overrides "to make it brighter" or "to bring the brand voice back" |
 | 4 | **Toggle / swipe / handle position math** | v0.12.3 (cascade-fix to ADRs 0015/0016) | `style={{ left: open ? 22 : 2 }}` + `transition: left 120ms cubic-bezier(0.2, 0, 0, 1)` | `className="translate-x-[22px]"` arbitrary class (Tailwind v4 scanner drops it intermittently) |
 | 5 | **Floating UI (popover / dropdown / autocomplete)** | v0.12.4 | `createPortal(<div style={{ position: 'fixed', top, left, width, zIndex }} />, document.body)` + `getBoundingClientRect()` tracking | Inline `<div absolute>` (clipped by ancestor `overflow: hidden`) |
-| 6 | **`:focus-visible` rule** | v0.12.4 | `outline: 2px solid var(--lumen-lime-a64); outline-offset: 1px; box-shadow: var(--shadow-focus);` | `box-shadow: var(--shadow-focus);` alone (clipped by ancestor `overflow: hidden`) |
+| 6 | **`:focus-visible` rule** | v0.12.4 pattern + **v0.14 R11 colors** | `outline: 2px solid var(--border-frame); outline-offset: 1px; box-shadow: var(--shadow-focus);` (both neutral) | `box-shadow: var(--shadow-focus);` alone (clipped by ancestor `overflow: hidden`); OR any lime / accent reference as outline or halo color (R11 ADR 0030 banned green from every shadow) |
 | 7 | **Version label** | v0.12.5 (cascade-fix to ADR 0009) | `import { LUMEN_VERSION } from "@/lib/version"; <span>Lumen {LUMEN_VERSION}</span>` | `<span>Lumen v0.12.5</span>` hardcoded (drifts cross-file — the v0.11.13 → v0.12.4 audit caught it three minor versions stale) |
 | 8 | **Custom-chevron accordion `<summary>`** | v0.12.5 | `<summary class="lumen-summary">{q}<ChevronDown size={14} className="group-open:rotate-180" /></summary>` | Bare `<summary>` (browser shows native triangle PLUS your chevron — two arrows compete) |
 | 9 | **Interactive icon tile hover** | v0.12.5 (foundations §Color "Accent in context") | `hover:bg-[var(--surface-tint-accent)] hover:text-[color:var(--text-accent)] hover:border-[var(--border-accent)]` (3-property hover) | `hover:bg-tint-accent` alone (only background tints — the brand rule "green at action" is buried in prose, not felt) |
@@ -1031,4 +1031,4 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-20 (v0.14.2).
+> Last reviewed against actual repo state: 2026-05-20 (v0.14.3).

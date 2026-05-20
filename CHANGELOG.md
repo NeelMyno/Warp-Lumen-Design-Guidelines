@@ -10,6 +10,52 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.14.3] — 2026-05-20 — v0.14.3 R14: docs↔tokens drift lint + foundation docs↔code closure (ADR 0033)
+
+R14 closes the gap [ADR 0030](./_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md) (v0.14 R11) left in its docs↔code sync sweep. R11 retired green from every box-shadow color value system-wide and named three foundation docs it updated: `elevation.md` §3/§6/§7, `accessibility.md` Focus-ring section, `micro-interactions.md` button + input rows. The R14 audit walked the rest of the doc tree and found **four more doc surfaces** ADR 0030 missed — each still teaching the retired green-glow ladder as the canonical button contract:
+
+1. **`design-system/00-foundations/buttons.md`** — the foundation doc for the button language. Preamble still said "signature spring-green glow ladder on the primary action." Lines 121–137 published the entire retired three-state ladder (`16px lime-a25` rest, `20px lime-a28` hover, `8px lime-a20` active) plus the layered halo as canonical brand contract. Focus-indicator section prescribed `var(--lumen-accent-4)` as the dual-ring outer color.
+2. **`USING-LUMEN.md`** — defensive-primitive-contracts table listed the v0.12.2 glow ladder as a contract to encode. Focus-ring quick-reference prescribed `outline: 2px solid var(--lumen-lime-a64)`. Anti-pattern table told consumers to use `--shadow-button-glow-hover` without noting the token's resolved value had been retuned to neutral.
+3. **`llms.txt`** — Listed ADR 0022 in the "Core (read first)" list as if it were the current button-shadow contract. No mention of ADR 0030. Buttons foundation summary line published the retired ladder. ADR count read "24 ADRs" — there are now 33.
+4. **`llms-full.txt`** — D-002 Action section published the full lime ladder. D-012 hover-glow ladder retune section described the retune as if current. D-016 focus-ring section prescribed `var(--lumen-lime-a64)` as the outline color.
+
+An LLM agent reading `buttons.md` → writing `box-shadow: 0 0 16px var(--lumen-lime-a25)` literally would have passed `lint:shadow-no-accent` because the offending value was *inlined as text*, not *token-referenced*. The token-source layer was R11-compliant; the doc-prose layer wasn't.
+
+### Added
+
+- **`scripts/lint-docs-no-retired-tokens.mjs`** — a 9th rule in the `pnpm lint` umbrella. Walks every `.md` / `.txt` in the repo (excluding the retirement ADR, CHANGELOG, audit logs, lint scripts themselves) and fails CI when a retired token (or retired recipe like a focus-ring outline color) appears in a *prescriptive* context — i.e., a paragraph that does NOT contain a retirement marker (`retired`, `superseded`, `historical`, `pre-R11`, `was X`, etc.). Data-driven via a `RETIRED` list; future retirements add an entry instead of grep-replacing across the doc tree. See [ADR 0033](./_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md).
+- **AGENTS.md hard rule 21** — new — codifies the "docs↔tokens lint pairs" contract. Pairs with hard rule 20 (R11 — no green in shadows, token-source layer) to give R11's mandate full coverage: tokens + docs.
+- **[ADR 0033](./_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md)** — codifies the R14 round + the lint architecture + the methodology rule "*Every contract that has a TOKEN layer + a DOCS layer must have a LINT on each layer.*"
+- Frontmatter on three v0.13.2-authored foundation docs that shipped without it: `data-visualization.md`, `responsive.md`, `state-matrix.md`. Closes a structural inconsistency where `scripts/release.mjs`'s version-lockstep walker silently skipped these three.
+
+### Changed
+
+- **`buttons.md`** — preamble rewritten to reflect R11 (primary CTA brand identity is the green BG fill alone, no atmospheric halo). Intent table primary row "Glow" column rewritten. Former "Glow ladder — primary intent only (v0.12.2 retune)" section retitled "Primary halo — retired in R11 (v0.14)" and rewritten to document the retirement contract; the v0.12.2 retune is preserved as historical record. Focus indicator section now documents the dual-ring as neutral both rings (inner `surface-canvas` separator + outer `border-frame`; was `lumen-accent-4`). Front-matter version 0.12.2 → 0.14.2, `last_updated` → 2026-05-20, `related` extended with ADR 0030. Warning callout pinned at the top references hard rule 20.
+- **`USING-LUMEN.md`** — six edits to bring the doc to R11 contract: defensive-primitive-contracts table (Glow ladder row → Shadow color row), v0.12.2 version-history entry marked superseded, focus-ring paragraph at ~line 764, primary-button hover anti-pattern table row, focus-visible quick-reference table row.
+- **`llms.txt`** — ADR 0022 in Core list marked "historical — superseded by ADR 0030." ADR 0030 added as the current button-shadow contract. Buttons foundation summary line rewritten. ADR count "24" → "33"; ADR-list paragraph extended with v0.14.x ADRs 0029 / 0030 / 0031 / 0032 / 0033.
+- **`llms-full.txt`** — D-002 Action section's lime ladder bullet list rewritten. D-012 hover-glow retune section retitled "Hover-glow ladder retune (v0.12.2) → retired wholesale in R11 (v0.14)" and rewritten to document the retirement. D-016 focus-ring section rewritten with neutral colors. Pre-R11 lime references explicitly named in the historical context.
+- **`AGENTS.md`** — hard rule 11 colors retuned to neutral (`var(--border-frame)` outline + `var(--shadow-focus)` halo, both neutral). New hard rule 21 added (see Added).
+- **`CLAUDE.md`** — v0.12.4 focus-ring contract callout retuned to neutral colors + R11 reference + AGENTS.md hard rule 20 cross-ref.
+- **`README.md`** — five hover-glow citations marked superseded; ADR 0030, 0031, 0032, 0033 added to the "See also" reference list at the bottom; the `--shadow-button-glow-hover` retune line at v0.12.2 annotated with R11 supersession note.
+- **`design-system/02-components/card/component.md`** — three focus-ring references retuned to neutral; `elevation="glow"` description retuned to "no longer casts spring-green halo"; changelog gains a `0.14 R11` entry.
+- **`design-system/02-components/field/component.md`** — focus state "lime halo" → "neutral halo (R11)"; error row clarified that red validation tone is R11-exempt.
+- **`design-system/02-components/button/component.md`** — ADR 0022 reference annotated with R11 supersession callout; "Don't override `--shadow-button-glow-hover`" guidance rewritten.
+- **`design-system/00-foundations/state-matrix.md`** — Buttons primary-CTA rows retuned per R11 (rest=BG fill alone, hover=neutral elevation lift, focus=neutral dual-ring, active=no shadow); frontmatter added.
+- **`design-system/00-foundations/forms-and-inputs.md`** — focus row's "lime halo" → "neutral halo (R11)"; error row clarified for R11 validation-tone exemption.
+- **`design-system/01-tokens/README.md`** — `shadow.glow-accent` + `shadow.glow-accent-strong` descriptions retuned to reflect R11 aliases (`shadow.lg` / `shadow.xl` neutral).
+- **Platform READMEs** (android-native, react-native, desktop-mac, desktop-windows) — code-comment + token-wishlist sections updated to note R11 retirement of the spring-green halo. Pre-R11 historical context preserved with explicit "v0.4 → v0.13 was X; v0.14 R11 is Y" annotations.
+- **`package.json`** — `lint:docs-no-retired-tokens` added to scripts + wired into the `lint` umbrella as the 9th rule.
+
+### Deprecated
+
+- ADR 0022 (v0.12.2 hover-glow ladder retune) — marked historical / superseded by ADR 0030 in every doc that cites it. ADR file itself preserved as historical record.
+
+### Fixed
+
+- The drift-class ADR 0030's social rule didn't catch: prose contracts that prescribed the retired token + recipe combinations as canonical. Four doc surfaces (buttons.md, USING-LUMEN.md, llms.txt, llms-full.txt) plus secondary citations across READMEs, component .md files, platform guides, AGENTS.md, CLAUDE.md — all closed in this round. R14 lint enforces the rule going forward.
+
+---
+
 ## [0.14.2] — 2026-05-20 — v0.14.2 R13: LazyMount paint-flash fix + Elevation perceptual lift + synthetic-names cleanup (ADR 0032)
 
 R13 closes three real-world bugs surfaced by a second comprehensive audit through the Claude in Chrome MCP, driven against Edge on macOS. R12 was the FIRST multi-route MCP-driven audit; R13 is the second, validating the methodology rule R12 codified — *walk every route with eyes on the rendered pixels AND probe live tokens via `getComputedStyle`*. The audit log is at [`.audit-runs/2026-05-20-round-13/ISSUES.md`](.audit-runs/2026-05-20-round-13/ISSUES.md).

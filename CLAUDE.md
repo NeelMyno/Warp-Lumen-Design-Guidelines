@@ -3,9 +3,11 @@
 > Read [AGENTS.md](./AGENTS.md) first. Everything in AGENTS.md applies. This file adds Claude-specific instructions on top.
 
 > [!warning]
-> ## Docs ↔ Dashboard sync is non-negotiable (v0.14 R11)
+> ## Docs ↔ Dashboard sync is non-negotiable (v0.14 R11 — automated in R14 via `lint:docs-no-retired-tokens`)
 >
 > **Whenever a foundation document changes, the audit-dashboard must be updated in the same change. Whenever the audit-dashboard changes a primitive's visual or contract, the corresponding foundation document must be updated in the same change. Token JSON files, CSS variables in `globals.css`, foundation prose, and the live foundations render must all stay in sync at all times.**
+>
+> R14 (v0.14.3, [ADR 0033](_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md)) made the rule **structural** by shipping `scripts/lint-docs-no-retired-tokens.mjs` — the doc-prose companion to R11's `lint:shadow-no-accent` (token-source). When a token retires (e.g. lime → none for shadows in R11), the lint walks every `.md` / `.txt` for prescriptive uses of the retired token + recipe and fails CI. Extending the rule for a future retirement: add an entry to the script's `RETIRED` list — don't grep-replace across the doc tree.
 >
 > This is the meta-rule the user codified in R11. Pre-R11 the system had drift: `elevation.md` §7 documented the focus ring as a "lime alpha-32" recipe while the runtime had been (correctly) retuned to outline + box-shadow per ADR 0021 — the doc lagged the code by ~8 weeks. R11 closed that drift AND raised the bar: future changes must move together.
 >
@@ -17,14 +19,38 @@
 > | `audit-dashboard/src/components/primitives/{name}.tsx` visual or API | The `design-system/02-components/{name}/component.md` prose + `component.json` schema, plus any cross-reference in `design-system/00-foundations/*.md`, plus the showcase in `audit-dashboard/src/app/library/client.tsx` and (if relevant) `audit-dashboard/src/app/foundations/page.tsx`. |
 > | `design-system/01-tokens/**/*.tokens.json` | The CSS variables in `audit-dashboard/src/app/globals.css` (the runtime mirror), plus the foundation doc that prose-describes the token, plus the foundations showcase that demos it, plus `TOKEN-INDEX.md` (auto-regenerated via `pnpm token-index`). |
 > | `audit-dashboard/src/app/globals.css` shadow / border / surface tokens | The DTCG source-of-truth in `design-system/01-tokens/`, AND the matching prose in `design-system/00-foundations/elevation.md` / `color.md` / `accessibility.md`, AND the foundations showcase that demos the token. |
-> | `AGENTS.md` hard rule | The audit-dashboard's `AGENTS.md` (`20 hard rules` link), the audit-dashboard's `README.md`, any foundation doc that cross-references the rule, and an ADR documenting the rationale. |
+> | `AGENTS.md` hard rule | The audit-dashboard's `AGENTS.md` (`21 hard rules` link), the audit-dashboard's `README.md`, any foundation doc that cross-references the rule, and an ADR documenting the rationale. |
 >
 > **Why this matters**: every drift between docs and runtime makes the system harder for future agents to reason about. An LLM reading `elevation.md` sees one rule; reading `globals.css` sees a different rule; the system internally contradicts itself; trust in the documentation collapses. The R11 mandate is that we never ship a change to one layer without updating the other layers in lockstep. This is enforced socially (in code review + via this CLAUDE.md note) and structurally (via the `lint:shadow-no-accent` + `validate:tokens` scripts that cross-check token JSON against the prose claims).
 >
 > **The R11 ship itself is the first proof-point**: 15+ files (CSS, DTCG tokens, foundation docs, ADR 0030, AGENTS.md hard rules, the lint script, the foundations Elevation showcase, the LumenMark hover, the slider primitive) all moved in one commit to retire green from every shadow. Future mandates land the same way.
 
 > [!note]
-> ## v0.14.2 — R13: LazyMount paint-flash fix + Elevation perceptual lift + synthetic-names cleanup (current state)
+> ## v0.14.3 — R14: docs↔tokens drift lint + foundation docs↔code closure (current state)
+>
+> [ADR 0033](_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md) closes the gap [ADR 0030](_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md) (v0.14 R11) left in its docs↔code sync sweep. R11 retired green from every box-shadow color value system-wide and named three foundation docs it updated. The R14 audit walked the rest of the doc tree and found **four more doc surfaces** ADR 0030 missed:
+>
+> 1. **`design-system/00-foundations/buttons.md`** — preamble still said *"signature spring-green glow ladder on the primary action"*; the entire "Glow ladder" section (lines 121–137) published the retired three-state ladder verbatim. Focus indicator section prescribed `var(--lumen-accent-4)` as the dual-ring outer color.
+> 2. **`USING-LUMEN.md`** — defensive-primitive-contracts table prescribed the v0.12.2 glow ladder as a contract to encode; focus-visible quick-reference table prescribed `outline: 2px solid var(--lumen-lime-a64)`.
+> 3. **`llms.txt`** — ADR 0022 was the cited current button-shadow contract; no mention of ADR 0030; ADR count stuck at "24" (now 33).
+> 4. **`llms-full.txt`** — D-002 Action section published the full lime ladder; D-016 focus-ring section prescribed lime outline.
+>
+> An LLM agent reading `buttons.md` after R11 shipped would have written `box-shadow: 0 0 16px var(--lumen-lime-a25)` literally and passed `lint:shadow-no-accent` because the offending value was *inlined as text*, not *token-referenced*.
+>
+> **R14 ships two parallel closures:**
+>
+> 1. **Content closure** — 16 doc surfaces retuned to R11 contract: buttons.md, USING-LUMEN.md, llms.txt, llms-full.txt, AGENTS.md (hard rule 11), CLAUDE.md, README.md, state-matrix.md, forms-and-inputs.md, data-visualization.md + responsive.md + state-matrix.md (frontmatter added — closes the v0.13.2-authored docs frontmatter gap), card/component.md, field/component.md, button/component.md, 01-tokens/README.md, four platform READMEs.
+>
+> 2. **Structural automation** — new [`scripts/lint-docs-no-retired-tokens.mjs`](scripts/lint-docs-no-retired-tokens.mjs) walks every `.md` / `.txt` and fails CI on prescriptive uses of retired tokens. Data-driven via a `RETIRED` list; paragraph-level retirement markers (`retired`, `superseded`, `historical`, `was X`, `pre-R11`) allow historical citation. Wired into `pnpm lint` umbrella as the 9th rule.
+>
+> **R14 methodology contribution.** *Every contract that has a TOKEN layer + a DOCS layer must have a LINT on each layer. The token lint catches tokens; the doc lint catches docs; neither is sufficient alone. The R11 → R14 gap was that R11 had the token lint but not the doc lint — and an LLM agent reading the docs would faithfully reconstruct the retired contract, bypassing the token lint entirely. The two-lint pattern is the right architecture for any future contract retirement.*
+>
+> **AGENTS.md hard rule 21** new — codifies the docs↔tokens lint pair contract. Pairs with hard rule 20 (R11) to give R11's mandate full coverage.
+>
+> **Validation:** `pnpm lint` → all 9 rules pass (8 + new `lint:docs-no-retired-tokens` against 214 doc files); `pnpm validate:tokens` → 956 tokens valid (unchanged from R13); `pnpm exec tsc --noEmit` (audit-dashboard) → PASS; `pnpm build` → 12 routes prerender; `pnpm exec playwright test` → 56 / 58 pass (2 skipped on axe-core). 33 ADRs total.
+
+> [!note]
+> ## v0.14.2 — R13: LazyMount paint-flash fix + Elevation perceptual lift + synthetic-names cleanup (predecessor)
 >
 > [ADR 0032](_meta/decisions/0032-r13-lazy-mount-paint-flash-elevation-lift-v0142.md) ships the second multi-route Claude-in-Chrome MCP audit's closures — three real-world bugs that R12 either introduced or left in place. R13 validates the R12 methodology rule: a fix that ships in round N may surface a new bug class in round N+1; the audit-via-MCP loop turns that pattern from regression to refinement.
 >
@@ -109,7 +135,7 @@ When asked to create a new component:
 - **v0.11 hero first.** Any landing or hero surface flows through [`first-impression.md`](design-system/00-foundations/first-impression.md) — three questions answered (what/who/why), three checks passed (branded chrome, single focal point, no layout shift), in 50ms.
 - **v0.11 micro-interaction catalog.** Hover, focus, validation, success — read [`micro-interactions.md`](design-system/00-foundations/micro-interactions.md) before designing any state change. Spend motion budget on functional moments; save it from decoration.
 - **v0.12.4 floating-UI portal default.** When generating a Combobox / Select / Popover / Dropdown / Tooltip / Calendar primitive — or any new floating panel — portal to `document.body` from day one via `createPortal(<div style={{ position: 'fixed', top, left, width, zIndex }} />, document.body)` with `getBoundingClientRect()` re-tracked on scroll (capture phase) + resize. Never render the panel as an inline `<div absolute>` — Showcase frames, `<Card padding="none">`, glass surfaces, and scroll containers all clip it. See AGENTS.md hard rule 10. Outside-click dismiss must exempt the portaled list.
-- **v0.12.4 focus-ring contract.** When generating any new `:focus-visible` rule, include `outline` for structural visibility (`outline: 2px solid var(--lumen-lime-a64); outline-offset: 1px;`) AND `box-shadow` for the soft brand halo. Box-shadow alone fails inside corner-clipped containers (the regression v0.12.4 closed). Outline alone loses the soft alpha-blended brand character. The `.lumen-btn-primary:focus-visible` dual-ring is exempt — it declares `outline: none` and wins via CSS specificity by design (preserves ADR 0016's brand visual). See AGENTS.md hard rule 11.
+- **v0.12.4 focus-ring pattern + v0.14 R11 neutral colors.** When generating any new `:focus-visible` rule, include `outline` for structural visibility (`outline: 2px solid var(--border-frame); outline-offset: 1px;`) AND `box-shadow: var(--shadow-focus)` for the soft halo — **both halves theme-aware neutral**. Box-shadow alone fails inside corner-clipped containers (the regression v0.12.4 closed). Outline alone loses the soft halo. The `.lumen-btn-primary:focus-visible` dual-ring is exempt — declares `outline: none` and wins via CSS specificity by design; its inner separator is `var(--surface-canvas)` and outer ring is `var(--border-frame)` (was `var(--lumen-accent-4)` pre-R11). **Never reach for `lumen-lime-*` / `lumen-accent-*` / spring-green / `#00FA8A` as the outline or halo color** — R11 ([ADR 0030](_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)) retired green from every shadow color value system-wide. See AGENTS.md hard rule 11 + hard rule 20.
 - **v0.12.3 inline-style for position math.** When generating a toggle / switch / swipe-row / handle / thumb / calendar-nav primitive, write position math as inline `style.left` (or `style.transform`) with a native `transition` declaration. Do NOT use Tailwind arbitrary `translate-x-[Npx]` classes — Tailwind v4's content scanner has been observed to drop them. See AGENTS.md hard rule 12. Use the system's `cubic-bezier(0.2, 0, 0, 1)` decelerate easing.
 - **v0.12.4 corner-clip pattern.** When generating a rounded container (Card, TabsList, Pill track, Capsule frame, Sheet) that hosts children with their own backgrounds and smaller-radius corners, compose `overflow-hidden` on the parent. The Card primitive does this on `padding="none"`; the InlineTabs `pill` variant does this on its `TabsList`. The contract is "child clips to parent's rounded shape," not "child matches parent's radius."
 - **v0.12.5 version constant — single source of truth.** When rendering a version label in any new TSX (header pill, footer, palette footer, brand-voice mono-cap, badge), import from [`@/lib/version`](audit-dashboard/src/lib/version.ts) — never hardcode the literal. `LUMEN_VERSION` (`"v0.12.5"`) for patch-level chips; `LUMEN_VERSION_MAJOR_MINOR` (`"v0.12"`) for inline references that don't need the patch; `LUMEN_VERSION_MAJOR_MINOR_UPPER` (`"V0.12"`) for explicitly-uppercased brand-voice tokens (`SYSTEM V0.12 · LIVE`). Comments in CSS / TSX about historical versions stay literal; renderable strings don't. See AGENTS.md hard rule 13.

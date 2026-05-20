@@ -122,6 +122,6 @@ To enable the axe-core scan: `pnpm add -D @axe-core/playwright`, then remove the
 
 1. Read the foundations: walk [`/foundations`](http://localhost:3000/foundations) in dark + light at desktop, then walk it at 320 px (use Chrome DevTools device emulation).
 2. Read the gallery: walk [`/library`](http://localhost:3000/library) in dark + light. Every Lumen primitive is exercised in at least one state.
-3. Read [`../AGENTS.md`](../AGENTS.md) (20 hard rules) + [`../CLAUDE.md`](../CLAUDE.md) (Claude-specific addenda).
+3. Read [`../AGENTS.md`](../AGENTS.md) (21 hard rules) + [`../CLAUDE.md`](../CLAUDE.md) (Claude-specific addenda).
 4. Read [`../USING-LUMEN.md`](../USING-LUMEN.md) for the unified narrative.
 5. Read recent [`.audit-runs/`](../.audit-runs/) reports — they're the live log of "what broke last cycle."

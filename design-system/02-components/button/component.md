@@ -83,7 +83,10 @@ The primary intent ships a three-state ambient glow that signals "this is the pr
 | active | `0 0 8px lime-a20` | `0 0 8px lime-a20` (unchanged) | Press feedback — already tight, no change needed. |
 | `.lumen-glow-cta:hover` (hero CTA only) | mid `0 0 32px lime-a28`, outer `0 0 64px lime-a14` | mid `0 0 28px lime-a18`, outer `0 0 48px lime-a10` | Trimmed in lockstep so hero still reads ~1.5× standard primary. The hierarchy stays intact. |
 
-See [ADR 0022](../../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md) for the full rationale, the user screenshot that motivated the retune, and the Weber-Fechner reasoning behind the non-uniform per-layer cuts.
+See [ADR 0022](../../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md) for the v0.12.2 rationale and the Weber-Fechner reasoning behind the non-uniform per-layer cuts.
+
+> [!warning]
+> **R11 supersedes the v0.12.2 retune.** ADR 0022 dialed the green halo down at the token level; [ADR 0030 (v0.14 R11)](../../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md) retired it entirely. Current resolved values: `--shadow-button-glow-rest = none`, `--shadow-button-glow-hover = var(--shadow-md)` (neutral elevation), `--shadow-button-glow-active = none`. The layered `@media (hover: hover)` 3-stop atmospheric halo is gone — primary hover ships `shadow.md` alone. Above table is preserved as historical record.
 
 ## Motion
 
@@ -140,7 +143,7 @@ WCAG validated:
 - Don't render white or near-white text on the Spring Green accent surface. The accent foreground is bound to `color.action.primary.fg` (`#07120D`, 14.7:1 AAA on `#00FA8A`). White on spring green is ~1.4:1 — a WCAG AA fail. Lint rule `lint:no-white-on-accent` enforces this. (See [AGENTS.md](../../../AGENTS.md) hard rule #9.)
 - Don't use the shadcn token-bridge utilities (`bg-primary text-primary-foreground` etc.) in product code. They're unreliable in Tailwind v4 ([ADR 0015](../../../_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md)). Use the `.lumen-btn-*` defensive classes or direct semantic refs.
 - Don't translate or scale the button on press. Press feedback is `filter: brightness(0.92)` + glow ladder shrink. Decelerate, don't bounce.
-- Don't override `--shadow-button-glow-hover` in product code expecting to "make it brighter" — the v0.12.2 retune is the system-tuned value. If you genuinely need more presence, use `glow={true}` to layer `.lumen-glow-cta` on top (hero CTAs only).
+- Don't override `--shadow-button-glow-hover` in product code expecting to "bring the green back" — R11 ([ADR 0030](../../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)) retired the lime halo system-wide and the current hover value (`var(--shadow-md)` neutral elevation) is the system-tuned value. If you genuinely need more presence, use `glow={true}` to layer `.lumen-glow-cta` on top — but note that `--shadow-glow-accent` / `--shadow-glow-accent-strong` are R11-aliased to `var(--shadow-lg)` / `var(--shadow-xl)` (neutral elevation tiers), not lime halos. Hero CTAs feel more important because they sit higher on the neutral elevation ladder, not because they emit more light.
 - Don't use `intent="ai"` for non-AI actions. The sparkle + tonal lime is reserved for AI affordances; over-using it dilutes the signal.
 
 ## Code

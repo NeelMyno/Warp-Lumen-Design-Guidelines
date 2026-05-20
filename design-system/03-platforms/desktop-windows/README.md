@@ -151,7 +151,9 @@ WinUI 3's `TextBox` ships with its own border + focus visual. The v0.6 pattern a
               <VisualState x:Name="Focused">
                 <VisualState.Setters>
                   <Setter Target="ShellBorder.BorderBrush" Value="{ThemeResource LumenBorderFocus}"/>
-                  <!-- v0.11 spring-green halo (#00FA8A) via DropShadow effect -->
+                  <!-- Focus halo via DropShadow effect.
+                       v0.4 → v0.13 this was a spring-green ring (#00FA8A);
+                       v0.14 R11 retired it to neutral border-frame per ADR 0030. -->
                 </VisualState.Setters>
               </VisualState>
               <VisualState x:Name="Disabled">

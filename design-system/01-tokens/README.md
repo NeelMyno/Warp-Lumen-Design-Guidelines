@@ -198,8 +198,8 @@ If you are an AI coding agent and you need a token, here is the cheat sheet. Do 
 | `shadow.inset` | Inset feel for a pressed control |
 | `shadow.focus` | The standard focus ring (not a real shadow, just the API surface) |
 | `shadow.glass` | **v0.4** · inset highlight + soft drop for floating glass surfaces |
-| `shadow.glow-accent` | **v0.4** · single-layer lime ambient under hero CTAs |
-| `shadow.glow-accent-strong` | **v0.4** · 3-layer lime halo for the most prominent CTAs |
+| `shadow.glow-accent` | **v0.4** (historical); **v0.14 R11** — aliases `{shadow.lg}` (neutral elevation). Token name preserved for backwards-compat; no longer casts lime. See [ADR 0030](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md). |
+| `shadow.glow-accent-strong` | **v0.4** (historical); **v0.14 R11** — aliases `{shadow.xl}` (neutral elevation). Was a 3-layer lime halo through v0.13. |
 
 ### v0.4 — aurora + voice
 | Token | Use |

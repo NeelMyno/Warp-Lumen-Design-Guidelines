@@ -1,3 +1,19 @@
+---
+name: Responsive behavior
+type: foundation
+version: 0.14.2
+last_updated: 2026-05-20
+audience: [designer, engineer, llm-agent]
+target: WCAG-2.2-AA
+related:
+  - ./principles.md
+  - ./spacing.md
+  - ./density.md
+  - ./os-modes.md
+  - ./state-matrix.md
+  - ../../_meta/decisions/0024-responsive-safety-net-v0131.md
+---
+
 # Responsive behavior
 
 > **Lumen's breakpoints, layout-viewport contract, sub-768 px authoring rules, and what to do when something looks wrong at mobile.** Authored v0.13.2 — codifies ADR 0024 (responsive safety net) for consumer / agent reference. The ADR explains *the fix*; this doc explains *the contract you must follow when authoring against Lumen*.

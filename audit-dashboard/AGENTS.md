@@ -7,7 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # Agent onboarding — audit-dashboard
 
 > [!note]
-> This file is the agent contract for the audit-dashboard subdirectory. Read [the root `AGENTS.md`](../AGENTS.md) first — its **20 hard rules** are the system-wide contract. This file adds dashboard-specific operating notes on top.
+> This file is the agent contract for the audit-dashboard subdirectory. Read [the root `AGENTS.md`](../AGENTS.md) first — its **21 hard rules** are the system-wide contract. This file adds dashboard-specific operating notes on top.
 
 ## What this directory is
 
@@ -128,4 +128,4 @@ This scaffold is a v0.14 starting point — expanding it to cover every primitiv
 
 ## When in doubt
 
-Read in this order: root [`AGENTS.md`](../AGENTS.md) (system contract, 20 hard rules) → this file → [`README.md`](README.md) (human-flavored stack notes) → [`ROUTES.md`](ROUTES.md) (per-route map) → component-level `component.md` files at the repo root.
+Read in this order: root [`AGENTS.md`](../AGENTS.md) (system contract, 21 hard rules) → this file → [`README.md`](README.md) (human-flavored stack notes) → [`ROUTES.md`](ROUTES.md) (per-route map) → component-level `component.md` files at the repo root.

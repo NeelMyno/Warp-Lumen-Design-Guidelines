@@ -97,9 +97,9 @@ This is what Linear, Plaid Dashboard, Notion, Airtable, and Asana ship. Operator
 |---|---|---|
 | **Rest** | hairline border, lit-edge inset | — |
 | **Hover** | border swaps to `--border-strong` | `:hover` (only when interactive) |
-| **Focus-visible** | border `--border-focus`, lime halo | `:has(:focus-visible)` on shell |
+| **Focus-visible** | border `--border-focus`, **neutral halo** (R11 — `border-frame`, was lime) | `:has(:focus-visible)` on shell |
 | **Filled** | (visual identical to rest) | `:not(:placeholder-shown)` if needed |
-| **Error** | border `--border-error`, halo flips to red on focus | `data-invalid="true"` |
+| **Error** | border `--border-error`, halo flips to **red** on focus (validation tones exempt from R11 — only green retired) | `data-invalid="true"` |
 | **Success** | border `--border-success` | `data-valid="true"` |
 | **Warning** | border `--border-warning` | `data-warning="true"` |
 | **Disabled** | muted bg, dim border, dim text, cursor not-allowed | `data-disabled="true"` |

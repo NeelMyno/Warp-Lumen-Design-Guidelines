@@ -137,7 +137,9 @@ class LumenTextField: NSView {
 
   override func becomeFirstResponder() -> Bool {
     layer?.borderColor = LumenTokens.color.border.focus.cgColor
-    // paint the spring-green halo (#00FA8A in v0.11) as a stacked CALayer
+    // paint the focus halo as a stacked CALayer.
+    // v0.4 → v0.13 this was a spring-green ring (#00FA8A); v0.14 R11 retired it
+    // to a neutral border-frame (40%-alpha theme-aware paper/ink) — see ADR 0030.
     return super.becomeFirstResponder()
   }
 }

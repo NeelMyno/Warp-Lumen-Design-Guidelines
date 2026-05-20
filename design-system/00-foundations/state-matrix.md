@@ -1,6 +1,23 @@
+---
+name: State matrix
+type: foundation
+version: 0.14.2
+last_updated: 2026-05-20
+audience: [designer, engineer, llm-agent]
+target: WCAG-2.2-AA
+related:
+  - ./principles.md
+  - ./micro-interactions.md
+  - ./buttons.md
+  - ./forms-and-inputs.md
+  - ./accessibility.md
+  - ./elevation.md
+  - ../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md
+---
+
 # State matrix
 
-> **Every state every Lumen primitive can be in, plus what to render.** Authored v0.13.2 to close the audit-cycle gap where `micro-interactions.md` covered hover / focus / validation / success but no doc enumerated the full state set across primitives. v0.14 R9 added **`stale`** as an explicit data-freshness state for operator-portal data containers.
+> **Every state every Lumen primitive can be in, plus what to render.** Authored v0.13.2 to close the audit-cycle gap where `micro-interactions.md` covered hover / focus / validation / success but no doc enumerated the full state set across primitives. v0.14 R9 added **`stale`** as an explicit data-freshness state for operator-portal data containers. **v0.14 R11** retired the spring-green halo from every shadow ([ADR 0030](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)) — primary CTA states no longer carry a lime halo at rest, hover, or active; they carry the green BACKGROUND fill alone, plus a neutral elevation lift on hover.
 
 ## The Lumen states (what they mean, when they trigger)
 
@@ -58,11 +75,11 @@ Cards, tables, lists, charts additionally must support:
 
 | State | Visual | Token |
 |---|---|---|
-| default | Brand-resting; primary CTA carries the rest-state lime halo | `--color-action-primary-bg-rest`, `--shadow-button-glow-rest` |
-| hover | Slightly brighter bg + dialed-up halo (v0.12.2 retune) | `--color-action-primary-bg-hover`, `--shadow-button-glow-hover` |
-| focus | Outline + box-shadow dual-ring (v0.12.4 — outline 2px lime-a64 + 1px offset + soft box-shadow halo) | `outline + var(--shadow-focus)` |
-| active | Darker bg, tighter halo | `--color-action-primary-bg-press` |
-| disabled | 60% opacity, `cursor: not-allowed`, no halo, no hover response | `opacity-60` |
+| default | Brand-resting; primary CTA carries its green BG fill **alone** (R11 — `shadow-button-glow-rest = none`) | `--color-action-primary-bg-rest`, `--shadow-button-glow-rest` |
+| hover | Slightly brighter bg + neutral elevation lift (R11 — `shadow-button-glow-hover = shadow.md`, was lime-a28) | `--color-action-primary-bg-hover`, `--shadow-button-glow-hover` |
+| focus | Outline + box-shadow dual-ring — **neutral both rings** (R11 — outer ring `border-frame`, was `lumen-accent-4`; halo `border-frame`, was `lime-a32`) | `outline: 2px solid var(--border-frame) + var(--shadow-focus)` |
+| active | Darker bg, `filter: brightness(0.92)`, **no shadow** (R11 — `shadow-button-glow-active = none`) | `--color-action-primary-bg-press` |
+| disabled | 60% opacity, `cursor: not-allowed`, no shadow, no hover response | `opacity-60` |
 | loading | Replace label with `Spinner`, disable click but keep `:focus-visible` reachable | `aria-busy="true"` |
 | pressed (Toggle only) | `aria-pressed="true"` lights the button as if selected | `--color-action-selected-bg` |
 

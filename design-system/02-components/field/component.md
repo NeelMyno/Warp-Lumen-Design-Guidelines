@@ -46,8 +46,8 @@ Rest, hover, focus-visible, filled, error, success, disabled, read-only.
 |---|---|---|
 | Rest | Default border, lit-edge inset | — |
 | Hover | Border swaps to `--border-strong` | — |
-| Focus | Border swaps to `--border-focus`, lime halo | `:has(:focus-visible)` on shell |
-| Error | Border red, lime halo flips to red on focus | `data-invalid="true"` |
+| Focus | Border swaps to `--border-focus`, **neutral halo** (R11 — `border-frame`, was lime) | `:has(:focus-visible)` on shell |
+| Error | Border red, halo flips to **red** on focus (validation tones exempt — only green retired in R11) | `data-invalid="true"` |
 | Success | Border lime, no halo until focus | `data-valid="true"` |
 | Disabled | Muted bg, dim text, cursor not-allowed | `data-disabled="true"` |
 | Read-only | Same bg as rest, no caret, copyable | `aria-readonly="true"` |

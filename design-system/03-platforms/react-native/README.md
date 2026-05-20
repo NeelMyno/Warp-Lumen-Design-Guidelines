@@ -168,7 +168,7 @@ Tokens are consumed via NativeWind utility classes when using Tailwind, or via t
 | `input.ring.error` | same shape, error-tinted | |
 | `input.transition` | `Animated.timing` with `duration: 150`, `easing: Easing.bezier(0.2, 0, 0, 1)` | RN has no CSS transitions; animate explicitly |
 
-**Token I wish existed but doesn't:** an `input.shadow.android.elevation` variant. The `--shadow-input-focus` spring-green halo composes via CSS box-shadow on web; on Android it requires `elevation` (which casts a black drop shadow only) plus a tinted border. The current single-token mapping leaves a fidelity gap on Android — document it, don't paper over it.
+**Token I wish existed but doesn't:** an `input.shadow.android.elevation` variant. The `--shadow-input-focus` halo composes via CSS box-shadow on web (**v0.14 R11** — now neutral `var(--border-frame)`, was spring-green pre-R11 per [ADR 0030](../../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)); on Android it requires `elevation` (which casts a black drop shadow only) plus a tinted border. Post-R11 the fidelity gap is smaller — Android's neutral drop shadow now lands closer to the web's neutral halo than it ever did to the old lime ring — but the gap isn't zero; document it, don't paper over it.
 
 ### Density modes
 

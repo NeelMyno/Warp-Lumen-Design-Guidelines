@@ -1,16 +1,19 @@
 ---
 name: Buttons
 type: foundation
-version: 0.12.2
-last_updated: 2026-05-06
+version: 0.14.2
+last_updated: 2026-05-20
 audience: [designer, engineer, llm-agent]
 target: WCAG-2.2-AA
-related: [./principles.md, ./color.md, ./typography.md, ./spacing.md, ./density.md, ./motion-language.md, ./accessibility.md, ./voice-and-tone.md, ../02-components/button/, ../02-components/icon-button/, ../02-components/button-group/, ../02-components/split-button/, ../02-components/command-palette-button/, ../02-components/fab/, ../../_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md, ../../_meta/decisions/0016-button-rebuild-v09.md, ../../_meta/decisions/0018-premium-psychology-recolor.md, ../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md]
+related: [./principles.md, ./color.md, ./typography.md, ./spacing.md, ./density.md, ./motion-language.md, ./accessibility.md, ./elevation.md, ./voice-and-tone.md, ../02-components/button/, ../02-components/icon-button/, ../02-components/button-group/, ../02-components/split-button/, ../02-components/command-palette-button/, ../02-components/fab/, ../../_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md, ../../_meta/decisions/0016-button-rebuild-v09.md, ../../_meta/decisions/0018-premium-psychology-recolor.md, ../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md, ../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md]
 ---
 
 # Buttons
 
-> Buttons are the most-touched component in any operator UI. Lumen's button language is **operator-readable, decelerate-not-bounce, and brutally consistent**: five sizes × eight intents × three shapes, single source of truth in CSS classes, dual-ring focus on accent surfaces, no transform on press, signature spring-green glow ladder on the primary action — and absolutely never white text on accent. v0.12.2 dialed the primary-hover bloom down (rest unchanged at the brand-defining `0 0 16px lime-a25`, hover trims to `0 0 20px lime-a28` per [ADR 0022](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md)).
+> Buttons are the most-touched component in any operator UI. Lumen's button language is **operator-readable, decelerate-not-bounce, and brutally consistent**: five sizes × eight intents × three shapes, single source of truth in CSS classes, neutral focus ring (R11 — was lime), no transform on press, spring-green **background fill** on the primary action — and absolutely never white text on accent. **v0.14 R11 retired the green glow ladder system-wide** ([ADR 0030](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)). The primary CTA's brand identity now lives entirely in its green `background-color` fill plus the neutral dual-ring focus + optional neutral elevation lift on hover. The v0.12.2 hover-bloom retune ([ADR 0022](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md)) is preserved as historical context only — it was superseded by ADR 0030's full retirement.
+
+> [!warning]
+> **R11 retirement (v0.14):** `--shadow-button-glow-rest = none`, `--shadow-button-glow-hover = var(--shadow-md)` (neutral elevation), `--shadow-button-glow-active = none`. **Every** `box-shadow` in Lumen is neutral. Accent green appears in backgrounds, borders, text, leading dots, and atmospheric gradients only — never in shadow color values. See [AGENTS.md hard rule 20](../../AGENTS.md) and [ADR 0030](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md).
 
 This is the canonical reference for the entire button family. Read it before you touch any button surface.
 
@@ -64,7 +67,7 @@ The five tiers map onto v0.8's `size.control.{xs,sm,md,lg,xl}` semantic tokens. 
 
 | Intent | When | Surface | Border | Glow |
 |---|---|---|---|---|
-| `primary` | The single most important action in a view (Save, Get rates, Book load). | Spring-green solid (`color.accent.500` = `#00FA8A`) | none | Three-state ladder (v0.12.2 retune): rest **16 px / a25** (brand voice — unchanged) → hover **20 px / a28** (was 24/a40 pre-v0.12.2) → active **8 px / a20** (unchanged). Layered hover halo on `@media (hover: hover)`: middle 20 px / a14 (was 24/a20), outer 32 px / a08 (was 48/a10). See [ADR 0022](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md). |
+| `primary` | The single most important action in a view (Save, Get rates, Book load). | Spring-green solid (`color.accent.500` = `#00FA8A`) | none | **none at rest, none at active** (R11 — green halo retired). Hover lifts via `var(--shadow-md)` neutral elevation (paper-alpha 06/12) — feels like a CTA pulling forward, not a CTA emitting light. See [ADR 0030](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md); [ADR 0022](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md) is historical. |
 | `secondary` | The second-most-important action; cancel-ish actions; toolbar buttons. | Raised surface | hairline | none |
 | `outline` | Visually equal-height to primary but transparent. The "no-fill" alternative. The Glassmorphism ref's secondary. | transparent | hairline ink | none |
 | `tertiary` | Alias of `ghost` — kept for backwards compat; will be removed v1.0. | transparent | none | none |
@@ -75,7 +78,7 @@ The five tiers map onto v0.8's `size.control.{xs,sm,md,lg,xl}` semantic tokens. 
 | `glass` | Floating overlay actions: toolbar pinned over a map, modal scrim toolbar. `backdrop-filter: blur(12px)`. NOT a default primary. | Translucent | hairline | none |
 | `link` | Inline text-link styled as button (rare). | transparent | none | none |
 
-**Brand constraint.** The spring-green accent plays exactly ONE role: action / live / success. AI uses the same accent in tonal form (lighter, lower alpha) so it reads as "AI-doing-an-action," not as a second accent. Adding any other loud color is a hard-rule #7 violation. (v0.11 retuned the accent from Warp lime `#4ade80` to spring green `#00FA8A`; the single-accent discipline is unchanged. The `--lumen-lime-aXX` alpha primitive names are preserved for backwards compatibility through v1.0; new code may reach for `--lumen-accent-aXX` aliases.)
+**Brand constraint.** The spring-green accent plays exactly ONE role: action / live / success. AI uses the same accent in tonal form (lighter, lower alpha) so it reads as "AI-doing-an-action," not as a second accent. Adding any other loud color is a hard-rule #7 violation. (v0.11 retuned the accent from Warp lime `#4ade80` to spring green `#00FA8A`; the single-accent discipline is unchanged. The `--lumen-lime-aXX` alpha primitive names are preserved for backgrounds, borders, text, and aurora gradients; **R11 banned them from every `box-shadow` color** — see hard rule 20. New code may reach for `--lumen-accent-aXX` aliases for non-shadow uses.)
 
 ## Shapes
 
@@ -118,43 +121,50 @@ ai-shimmer:  border     1600 ms   ease-in-out infinite, paused on hover/focus
 
 **No transforms on press.** No `translate-y(1px)`, no `scale(0.98)`, no Material-3 spring. Operator UI on a trackpad doesn't jump.
 
-## Glow ladder — primary intent only (v0.12.2 retune)
+## Primary halo — retired in R11 (v0.14)
 
-The primary intent ships a three-state ambient glow that signals "this is the primary CTA" even at rest. Reserved exclusively for `intent="primary"` (and `intent="ai"` when configured). Other intents and surfaces ship zero glow at all states.
+Through v0.4 → v0.13, the primary intent shipped a three-state ambient **spring-green glow** that signalled "this is the primary CTA" even at rest. R11 ([ADR 0030](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md)) retired that ladder entirely. The primary CTA's brand identity now lives in its **green `background-color` fill** — not in the atmospheric halo around it. Two green moments doing the same job became one; the fill is the load-bearing visual.
 
-**The rest-state halo is the brand voice.** [ADR 0018](../../_meta/decisions/0018-premium-psychology-recolor.md) commits to it — the canvas always slightly lit by the spring-green accent, not just when you're about to click. Removing rest glow would be a brand-voice change, not a UX dial-down. v0.12.2 specifically dialed *hover* down (where the system over-spent per user feedback); rest and active stayed put.
-
-| State | Token | Resolved value | Layered halo (on `@media (hover: hover) and (prefers-reduced-motion: no-preference)`) |
+| State | Token | Resolved value (v0.14 R11) | What changed |
 |---|---|---|---|
-| rest | `--shadow-button-glow-rest` | `0 0 16px var(--lumen-lime-a25)` | — (single layer) |
-| hover | `--shadow-button-glow-hover` | `0 0 20px var(--lumen-lime-a28)` (v0.12.2 — was `0 0 24px lime-a40`) | + middle layer `0 0 20px var(--lumen-lime-a14)` (was `0 0 24px lime-a20`) + outer layer `0 0 32px var(--lumen-lime-a08)` (was `0 0 48px lime-a10`) |
-| active | `--shadow-button-glow-active` | `0 0 8px var(--lumen-lime-a20)` | — (single layer) |
+| rest | `--shadow-button-glow-rest` | `none` | Was `0 0 16px lime-a25` through v0.13 — the "always-lit" brand halo. Now nothing. |
+| hover | `--shadow-button-glow-hover` | `var(--shadow-md)` (neutral paper-alpha elevation) | Was `0 0 20px lime-a28` through v0.13 (per ADR 0022 retune). Now a neutral lift. |
+| active | `--shadow-button-glow-active` | `none` | Was `0 0 8px lime-a20`. Press feedback is `filter: brightness(0.92)` + bg-color shift, never shadow. |
+| **Layered `@media (hover: hover)` halo** | — | **retired** | The 3-layer atmospheric `lime-a14 + lime-a08` outer bloom is gone. Primary hover ships `var(--shadow-md)` alone. |
 
-For hero CTAs only (landing-page primaries), `.lumen-glow-cta` layers `--shadow-glow-accent-strong` on top of the standard ladder. v0.12.2 trimmed `.lumen-glow-cta:hover` in lockstep with the standard primary so the hierarchy stays intact: hero CTA still reads ~1.5× the standard primary in both spread and density, just both quieter than v0.12.1. Hero CTA layered hover halo: `0 0 28px lime-a18` (was `0 0 32px lime-a28`) + `0 0 48px lime-a10` (was `0 0 64px lime-a14`).
+**`.lumen-glow-cta` (hero / landing primaries)** — the token name persists for backwards-compat. `--shadow-glow-accent` now aliases `var(--shadow-lg)` and `--shadow-glow-accent-strong` aliases `var(--shadow-xl)` — neutral elevation tiers, not lime halos. Hero CTAs still feel more important than standard primaries because they sit on the neutral elevation ladder one step higher; the difference is **lift**, not **light**.
 
-**Why the dial-down isn't a uniform percentage cut.** The middle layer dropped 30% in alpha (a20 → a14); the outer layer dropped 20% in alpha *and* 33% in blur (a10 → a08, 48 px → 32 px). At 48 px blur the alpha integral is wider, so cutting blur there is a bigger perceptual win than cutting alpha alone. The middle layer at 20-24 px blur reads as "edge lighting"; alpha cut is the right knob there. Per-layer reasoning beats uniform percentages. (Weber-Fechner: perceptual intensity scales with the *logarithm* of physical intensity.)
+**Why the dial-down went all the way.** ADR 0022 (v0.12.2) dialed hover down by ~30% in alpha and ~33% in blur because the bloom was "a little too much." R11 is the next step in the same direction: the user's mandate is that green never appears in a shadow color value anywhere in the system, regardless of how dialed-down. Two green moments (fill + halo) doing the same job — pick the load-bearing one. The fill is the brand mark; the halo was atmospheric decoration. See [ADR 0030 §Decision Part A](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md#decision).
 
-`prefers-reduced-motion: reduce` keeps the rest-state halo steady — it's a halo, not motion — but drops the rest → hover → active transition. Hover and active still apply their box-shadow values; only the easing is removed.
+`prefers-reduced-motion: reduce` continues to zero every transition and pause the AI shimmer. There is no rest-state halo to keep steady anymore — `rest` is `none`.
 
-## Focus indicator — dual ring on lime
+**Historical archive.** The `--lumen-lime-aXX` alpha primitives (a08 / a14 / a20 / a25 / a28 / a32 / a40 / a64) remain defined as colour tokens, because they're still consumed by backgrounds, borders, text, leading dots, and the aurora atmospheric gradient. Their use **in shadow color values is banned** by [`scripts/lint-shadow-no-accent.mjs`](../../scripts/lint-shadow-no-accent.mjs) — CI fails if any shadow token references `lumen-lime` / `lumen-accent` / `spring-green` / `00FA8A`.
 
-WCAG 2.4.13 requires a focus indicator that maintains 3:1 contrast against the surrounding surface. A single colored ring **fails** that floor when the button's background is the same color as the ring — exactly what happens when a lime focus ring lands on a lime primary button.
+## Focus indicator — neutral dual ring (R11)
 
-Lumen v0.9 ships an Atlassian-style **dual ring**:
-- Inner 2 px ring matches the page canvas (`var(--surface-canvas)` — obsidian in dark, cream in light) — separates the button from the halo.
-- Outer 2 px ring (4 px - 2 px inner = 2 px visible) is the lime accent at full saturation.
+WCAG 2.4.13 requires a focus indicator that maintains 3:1 contrast against the surrounding surface. A single colored ring **fails** that floor when the button's background is the same color as the ring — exactly what happens when a lime focus ring lands on a lime primary button. Pre-R11 Lumen solved this with an Atlassian-style dual ring where the **outer ring was the lime accent at full saturation**; R11 retired green from the outer ring along with every other shadow color value.
 
-Result: the focus ring always maintains 3:1 contrast against the canvas, regardless of what the button's surface is.
+The dual-ring pattern is preserved — only the **colors** changed:
+
+- **Inner 2 px ring** still matches the page canvas (`var(--surface-canvas)` — obsidian in dark, cream in light). It separates the button from the outer ring; without it, the outer ring would blend into the green button background.
+- **Outer 2 px ring** is now `var(--border-frame)` — a theme-aware paper/ink alpha at 40 %. In dark mode that's `rgba(230, 230, 230, 0.4)`; in light mode `rgba(13, 13, 13, 0.4)`. Both pass 3:1 against the canvas comfortably.
+
+The composition:
 
 ```css
 .lumen-btn-primary:focus-visible {
+  outline: none; /* dual-ring wins via specificity */
   box-shadow:
-    0 0 0 2px var(--surface-canvas),
-    0 0 0 4px var(--lumen-accent-4);
+    var(--shadow-button-glow-rest),       /* = none in R11 — kept for layer order */
+    var(--shadow-focus-dual);             /* the dual-ring (neutral both rings) */
 }
+
+/* --shadow-focus-dual (R11):
+   0 0 0 2px var(--surface-canvas),       inner separator
+   0 0 0 4px var(--border-frame);         outer neutral ring (was lumen-accent-4) */
 ```
 
-Other intents (secondary, ghost, danger, etc.) use the standard single 3 px lime ring at 32% alpha — fine on neutral surfaces.
+Other intents (secondary, ghost, danger, etc.) use the standard single 3 px **neutral** ring at theme-aware paper/ink alpha — `var(--border-frame)` outline + `var(--shadow-focus)` halo. Pre-R11 this was `var(--lumen-lime-a64)` outline + `var(--lumen-lime-a32)` halo; R11 retired both lime references in lockstep with the dual ring. See [accessibility.md](./accessibility.md) §Focus indicators for the full per-intent breakdown.
 
 ## Composite components
 
@@ -189,7 +199,7 @@ See [voice-and-tone.md](./voice-and-tone.md) § "Buttons" for the full banned-ph
 |---|---|---|
 | Contrast (label vs surface) | 4.5:1 (≥18 px = 3:1) | Primary 12.6:1 / Secondary inherits text-primary / Danger 5.2:1 / AI 4.7+:1 |
 | Touch target | 44 × 44 pt mobile | sizes lg+xl on mobile primaries; xs/sm desktop-only |
-| Focus visible | Always | dual-ring on primary; single-ring elsewhere |
+| Focus visible | Always | neutral dual-ring on primary (R11 — `border-frame` outer, was lime); neutral single-ring elsewhere |
 | Keyboard | Enter + Space | Both activate; Tab/Shift+Tab navigate |
 | Screen-reader name | Always | label text or aria-label (IconButton, FAB enforce) |
 | State annotation | aria-* | aria-busy (loading), aria-disabled (disabled-in-forms), aria-pressed (selected), aria-haspopup (split-button menu trigger) |
@@ -247,6 +257,8 @@ const buttonVariants = cva("lumen-btn", {
 - [`02-components/icon-button/`](../02-components/icon-button/) · [`button-group/`](../02-components/button-group/) · [`split-button/`](../02-components/split-button/) · [`command-palette-button/`](../02-components/command-palette-button/) · [`fab/`](../02-components/fab/)
 - [`_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md`](../../_meta/decisions/0015-shadcn-token-bridge-direct-refs-v081.md) — the bridge fragility that motivated the CSS-class pattern
 - [`_meta/decisions/0016-button-rebuild-v09.md`](../../_meta/decisions/0016-button-rebuild-v09.md) — full v0.9 audit + rationale
+- [`_meta/decisions/0022-hover-glow-ladder-retune-v0122.md`](../../_meta/decisions/0022-hover-glow-ladder-retune-v0122.md) — v0.12.2 hover-bloom dial-down (historical; superseded by ADR 0030)
+- [`_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md`](../../_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md) — **v0.14 R11 retirement of the green glow ladder + docs↔code sync mandate**
 - [`accessibility.md`](./accessibility.md) § "Primary action contrast" — the no-white-on-lime rule
 - [`color.md`](./color.md) — the obsidian / cream / accent ramp
 - [`spacing.md`](./spacing.md) — `size.control.*` ladder

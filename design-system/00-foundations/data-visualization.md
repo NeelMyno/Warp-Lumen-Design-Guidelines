@@ -1,3 +1,23 @@
+---
+name: Data visualization
+type: foundation
+version: 0.14.2
+last_updated: 2026-05-20
+audience: [designer, engineer, llm-agent]
+target: WCAG-2.2-AA
+related:
+  - ./principles.md
+  - ./color.md
+  - ./typography.md
+  - ./accessibility.md
+  - ./state-matrix.md
+  - ../02-components/chart/
+  - ../02-components/sparkline/
+  - ../02-components/kpi-card/
+  - ../02-components/stat/
+  - ../02-components/trend/
+---
+
 # Data visualization
 
 > **The Lumen rules for charts, sparklines, gauges, KPI cards, and any visual representation of numbers.** Authored v0.13.2 — closes the audit-cycle gap where `charts.tsx` shipped 18 chart types but no foundation doc said how to pick one, label one, color one, or fall back when data is missing.
