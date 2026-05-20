@@ -13,8 +13,10 @@
  *     (`.lumen-btn-primary` etc.) so the button is independent of Tailwind's
  *     content-scanning behavior and doesn't depend on `@theme inline` working.
  *   - Side benefit: hover, focus-visible, active, disabled, aria-busy, and the
- *     glow ladder are all encoded once in CSS state selectors. The cva is
+ *     shadow ladder are all encoded once in CSS state selectors. The cva is
  *     short and the runtime stays predictable across dev / prod / SSR.
+ *     v0.14 R11 (ADR 0030): the primary shadow ladder is now neutral; the
+ *     green identity lives in the BG fill, not the shadow.
  *
  * Five sizes: xs (24) / sm (32) / md (40, default) / lg (48) / xl (56).
  * Eight intents: primary / secondary / outline / tertiary / ghost / danger /

@@ -24,7 +24,7 @@ Density:            Marketing breathes (96 px hero rhythm) · Operator stays den
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 21 hard rules
-Status:             v0.14.3 · R14 docs↔tokens drift lint + foundation docs↔code closure (ADR 0033 — closes the four doc surfaces ADR 0030 left out of its R11 sync sweep: buttons.md, USING-LUMEN.md, llms.txt, llms-full.txt — each was still teaching the retired green-glow ladder as the canonical button contract. Plus secondary citations across READMEs, component .md files, platform guides, AGENTS.md, CLAUDE.md, state-matrix.md, forms-and-inputs.md, field/component.md, card/component.md, button/component.md, 01-tokens/README.md. Plus frontmatter added to three v0.13.2-authored foundation docs (data-visualization.md, responsive.md, state-matrix.md) that shipped without it. R14 ships **automation**: scripts/lint-docs-no-retired-tokens.mjs walks every .md/.txt in the repo and fails CI on prescriptive use of retired tokens (data-driven via a RETIRED list; future retirements add an entry instead of grep-replacing across the doc tree); wired into the pnpm lint umbrella as the 9th rule. Pairs with R11's lint:shadow-no-accent (token-source layer) to give the no-green-shadows mandate full coverage: tokens + docs. New AGENTS.md hard rule 21 codifies the contract. R14 methodology contribution: every contract that has a TOKEN layer + a DOCS layer must have a LINT on each layer — the token lint catches tokens, the doc lint catches docs, neither is sufficient alone.) · 7 principles · 33 ADRs
+Status:             v0.14.4 · R14 docs↔tokens drift lint + foundation docs↔code closure (ADR 0033 — closes the four doc surfaces ADR 0030 left out of its R11 sync sweep: buttons.md, USING-LUMEN.md, llms.txt, llms-full.txt — each was still teaching the retired green-glow ladder as the canonical button contract. Plus secondary citations across READMEs, component .md files, platform guides, AGENTS.md, CLAUDE.md, state-matrix.md, forms-and-inputs.md, field/component.md, card/component.md, button/component.md, 01-tokens/README.md. Plus frontmatter added to three v0.13.2-authored foundation docs (data-visualization.md, responsive.md, state-matrix.md) that shipped without it. R14 ships **automation**: scripts/lint-docs-no-retired-tokens.mjs walks every .md/.txt in the repo and fails CI on prescriptive use of retired tokens (data-driven via a RETIRED list; future retirements add an entry instead of grep-replacing across the doc tree); wired into the pnpm lint umbrella as the 9th rule. Pairs with R11's lint:shadow-no-accent (token-source layer) to give the no-green-shadows mandate full coverage: tokens + docs. New AGENTS.md hard rule 21 codifies the contract. R14 methodology contribution: every contract that has a TOKEN layer + a DOCS layer must have a LINT on each layer — the token lint catches tokens, the doc lint catches docs, neither is sufficient alone.) · 7 principles · 33 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.14.3
+├── VERSION                         ← 0.14.4
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,7 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.14.3
+## What's new — v0.14.4
 
 ### v0.14.3 (2026-05-20) — R14: docs↔tokens drift lint + foundation docs↔code closure (ADR 0033)
 

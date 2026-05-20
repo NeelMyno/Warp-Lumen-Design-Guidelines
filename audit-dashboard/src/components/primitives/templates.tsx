@@ -30,7 +30,9 @@ export function ErrorPage({
       <p className="text-body-xs text-[color:var(--text-tertiary)] mt-2 leading-[var(--leading-snug)] max-w-[36ch] mx-auto">{description}</p>
       {/* v0.11.13.3 — migrated to Button primitives. Master/child principle:
           the lumen-btn-primary CSS class (not Tailwind arbitrary-value) is the
-          single source of truth for the primary surface fg + bg + glow ladder. */}
+          single source of truth for the primary surface fg + bg + shadow
+          ladder. v0.14 R11 (ADR 0030): the ladder is neutral; primary CTAs
+          carry their brand identity in the green BG fill, not a halo. */}
       <div className="flex items-center justify-center gap-2 mt-6">
         <Button intent="primary">{primary}</Button>
         <Button intent="secondary">{secondary}</Button>
@@ -91,7 +93,8 @@ export function HeroBlock() {
       </p>
       <div className="flex flex-wrap items-center gap-2 mt-6">
         {/* v0.11.13.3 — Button primitive. `glow` adds the hero halo on top of
-            the standard primary glow ladder. */}
+            the default primary surface. v0.14 R11 (ADR 0030): the halo and
+            primary shadow ladder are neutral; the green is the BG fill. */}
         <Button intent="primary" size="lg" glow>Quote a lane</Button>
         <Button intent="secondary" size="lg">Watch the demo</Button>
       </div>

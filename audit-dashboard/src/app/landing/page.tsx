@@ -60,10 +60,13 @@ export default function LandingPage() {
 
             <ScrollReveal delay={240}>
               <div className="flex flex-wrap gap-3 pt-3">
-                {/* v0.11.13 — `glow` adds the .lumen-glow-cta hero halo on top of
-                    the standard primary glow ladder. Per first-impression.md §2:
-                    hero primary CTAs ship glow. Without it the 96–128 px brutalist
-                    headline outweighs the CTA halo and the focal point flattens. */}
+                {/* v0.11.13 — `glow` adds the .lumen-glow-cta hero halo on top
+                    of the default primary surface. Per first-impression.md §2:
+                    hero primary CTAs ship glow. Without it the 96–128 px
+                    brutalist headline outweighs the CTA atmosphere and the
+                    focal point flattens. v0.14 R11 (ADR 0030): the halo and
+                    underlying primary shadow ladder are now neutral; the
+                    green lives in the BG fill, not the shadow. */}
                 <Button intent="primary" size="xl" pill glow trailingIcon={<ArrowRight size={16} />}>
                   Get started
                 </Button>

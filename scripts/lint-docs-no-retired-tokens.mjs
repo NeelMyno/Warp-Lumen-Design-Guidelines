@@ -152,8 +152,10 @@ const EXEMPT_FILES = new Set([
   "_meta/decisions/0022-hover-glow-ladder-retune-v0122.md",
   "_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md",
   "_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md",
+  "_meta/decisions/0034-r15-tsx-prose-lint-third-tier-v0144.md",
   "scripts/lint-shadow-no-accent.mjs",
   "scripts/lint-docs-no-retired-tokens.mjs",
+  "scripts/lint-tsx-no-retired-prose.mjs",
 ]);
 
 const EXEMPT_DIRS = [

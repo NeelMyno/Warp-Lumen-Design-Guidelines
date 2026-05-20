@@ -26,7 +26,36 @@
 > **The R11 ship itself is the first proof-point**: 15+ files (CSS, DTCG tokens, foundation docs, ADR 0030, AGENTS.md hard rules, the lint script, the foundations Elevation showcase, the LumenMark hover, the slider primitive) all moved in one commit to retire green from every shadow. Future mandates land the same way.
 
 > [!note]
-> ## v0.14.3 — R14: docs↔tokens drift lint + foundation docs↔code closure (current state)
+> ## v0.14.4 — R15: TSX-prose drift lint + foundations showcase prose closure (current state)
+>
+> [ADR 0034](_meta/decisions/0034-r15-tsx-prose-lint-third-tier-v0144.md) closes the gap [ADR 0033](_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md) (v0.14.3 R14) left in its `.md`/`.txt`-only lint scope. R14 closed the doc-prose layer; R15 closes the **TSX-prose layer** — the third tier in the docs↔tokens↔TSX-prose lint architecture. The R15 audit walked every audit-dashboard route top-to-bottom in both dark and light mode via the Claude in Chrome MCP at Edge browser (Personal Mac) and caught three rendered-prose / focus-color defects R14's docs lint couldn't see because the offending content sits in `.tsx`, not `.md`/`.txt`:
+>
+> 1. **`audit-dashboard/src/app/foundations/page.tsx:387`** — Elevation `<Section>` `description` prop still read *"Glow shadows (lime-tinted) carry hero CTAs and live-status."* Rendered on `/foundations` under the "Elevation" h2 — visible to every consumer reading the system Foundations page. Teaches the retired R11 lime-glow contract as if it were the current rule. The per-card descriptions later in the same section (which R11 *did* rewrite — *"v0.14 R11 — neutral elevation (aliases shadow.xl). Primary CTAs ride their green BG fill; no green shadow."*) sat beneath this stale preamble; the section was half-fixed.
+> 2. **`audit-dashboard/src/app/foundations/page.tsx:821`** — Live-data signatures `<Section>` `description` still read *"the 8 pt grid + spring-green-glow ambient amplifies them."* R11 retired the spring-green-glow ambient; LiveDot is the only green-emitting primitive in this trio.
+> 3. **`audit-dashboard/src/app/tool/presets.client.tsx:48 + :60`** — focus-visible outline color on both buttons used `var(--lumen-lime-a64)`. The global `:focus-visible` rule was retuned in R11 to `var(--border-frame)` (neutral, theme-aware). The Tool surface's preset client island (a v0.12.9 R3 extraction) was authored *before* R11 and missed the focus-color sweep.
+>
+> Plus 7 code-comment / JSDoc surfaces (across `foundations/page.tsx`, `landing/page.tsx`, `dashboard-shell.tsx`, `primitives/templates.tsx`, `primitives/button.tsx`, `ui/button.tsx`) carrying stale "primary glow ladder" / "lime halo" / "spring-green glow" prose. Internal — they don't ship to users — but an LLM agent reading those comments would reconstruct the pre-R11 contract.
+>
+> **R15 ships two parallel closures:**
+>
+> 1. **Content closure** — all 3 rendered defects + 7 code-comment annotations updated with R11 supersession context.
+>
+> 2. **Structural automation** — new [`scripts/lint-tsx-no-retired-prose.mjs`](scripts/lint-tsx-no-retired-prose.mjs) — the third sibling lint. Walks `audit-dashboard/src/**/*.{tsx,ts}` + `design-system/02-components/<name>/examples/*.tsx`. Bans retired *PHRASES* (not token names — TSX legitimately uses `--lumen-lime-aN` 100+ times for BG fills, surface tints, status pills, AI action surfaces, selection BGs, which are R11-EXEMPT per ADR 0030). Same paragraph-level retirement marker as R14's lint. File-level `lumen-lint-allow: retired-prose` directive for whole-file historical / fixture files. Wired into `pnpm lint` umbrella as the **10th** rule. Initial scan: 191 files, 0 violations post-fix; pre-fix it caught the 3 defects above (proof-of-concept).
+>
+> **The three-tier lint architecture is now complete:**
+>
+> | Layer | Surface | Lint script | Rule |
+> |---|---|---|---|
+> | Token source | `01-tokens/**/*.tokens.json` | `lint:shadow-no-accent` | AGENTS.md hard rule 20 |
+> | Doc prose | `*.md` / `*.txt` | `lint:docs-no-retired-tokens` | AGENTS.md hard rule 21 |
+> | **TSX prose** | `audit-dashboard/src/**/*.{tsx,ts}` + examples | `lint:tsx-no-retired-prose` | **AGENTS.md hard rule 22 (new)** |
+>
+> **R15 methodology contribution.** *R14's rule was "Every contract that has a TOKEN layer + a DOCS layer must have a LINT on each layer." R15 extends: "And the docs layer is not just `.md` / `.txt` — it includes any rendered or LLM-readable prose in any source-tree file. The audit-via-MCP loop catches what neither lint catches alone, and each gap surfaced becomes a new lint. Going forward, every contract retirement adds entries to all three lint scripts' retire-lists in the same commit when applicable."*
+>
+> **Validation:** `pnpm lint` → all 10 rules pass (191 TSX/TS files scanned); `pnpm validate:tokens` → 956 tokens valid (unchanged); `pnpm exec tsc --noEmit` → PASS; `pnpm build` → 12 routes prerender; `pnpm exec playwright test` → 56 / 58 pass (2 skipped on axe-core; unchanged from R14). 34 ADRs total.
+
+> [!note]
+> ## v0.14.3 — R14: docs↔tokens drift lint + foundation docs↔code closure (predecessor)
 >
 > [ADR 0033](_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md) closes the gap [ADR 0030](_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md) (v0.14 R11) left in its docs↔code sync sweep. R11 retired green from every box-shadow color value system-wide and named three foundation docs it updated. The R14 audit walked the rest of the doc tree and found **four more doc surfaces** ADR 0030 missed:
 >

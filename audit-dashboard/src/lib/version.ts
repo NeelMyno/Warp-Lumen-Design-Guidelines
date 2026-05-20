@@ -23,7 +23,7 @@
  *   - any "last refreshed v0.12.5" footer.
  */
 
-export const LUMEN_VERSION = "v0.14.3" as const;
+export const LUMEN_VERSION = "v0.14.4" as const;
 
 /** "v0.13" — drops the patch. Use in lumen-mono-cap (CSS uppercases the rendered text). */
 export const LUMEN_VERSION_MAJOR_MINOR = "v0.14" as const;

@@ -35,13 +35,18 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
       {/* Sticky glass nav. Pill row floats inside a hairline-bordered band.
           v0.12.7 — bumped to lumen-glass-strong (ink-a86 / blur 28px) so
-          the chrome doesn't ingest the lime-halo bleed from primary CTAs
+          the chrome doesn't ingest the green bleed from primary CTAs
           (Add to cart, Get rates, New shipment, etc.) that sit just below
           the sticky header on Library / Tool / SaaS / Commerce / Mobile /
           Desktop. Audited 2026-05-18 — lumen-glass (0.62 alpha) was visibly
-          tinting the chrome green when scrolled past any --shadow-glow-
-          accent-strong button. lumen-glass-strong (0.86 alpha) keeps the
-          frosted texture while sealing the chrome from content bleed. */}
+          tinting the chrome green when scrolled past any primary CTA whose
+          shadow was the (pre-R11, retired) spring-green halo ladder.
+          v0.14 R11 / ADR 0030 retired chromatic shadows wholesale; the
+          original lime-halo bleed concern is moot, but lumen-glass-strong
+          (0.86 alpha) is still the right pick — the green BG fills on
+          primary CTAs still emit slight specular reflection at the glass
+          edge under heavy scroll, and the firmer alpha keeps the chrome
+          frosted without ingesting them. */}
       <header className="sticky top-0 z-[var(--z-sticky)]">
         <div className="lumen-glass-strong border-b border-[var(--border-hairline)]">
           <div className="mx-auto flex w-full max-w-screen-2xl items-center gap-4 px-6 h-16">

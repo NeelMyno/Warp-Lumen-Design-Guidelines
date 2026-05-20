@@ -10,6 +10,52 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.14.4] — 2026-05-20 — v0.14.4 R15: TSX-prose drift lint + foundations showcase prose closure (ADR 0034)
+
+R15 closes the gap [ADR 0033](./_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md) (v0.14.3 R14) left in its `.md`/`.txt`-only lint scope. The R15 audit ran top-to-bottom across every audit-dashboard route in both dark and light mode via the Claude in Chrome MCP at Edge browser (Personal Mac), and caught **three rendered-prose / focus-color defects** that R14's docs lint could not see because the offending content sits in `.tsx`, not `.md`/`.txt`:
+
+1. **`audit-dashboard/src/app/foundations/page.tsx:387`** — Elevation `<Section>` `description` prop still read *"Glow shadows (lime-tinted) carry hero CTAs and live-status."* Renders directly on `/foundations` under the "Elevation" h2. Teaches the **retired** R11 lime-glow contract as if it were the current Lumen elevation rule. The per-card descriptions later in the same section (which R11 *did* rewrite — *"v0.14 R11 — neutral elevation (aliases shadow.xl). Primary CTAs ride their green BG fill; no green shadow."*) sit beneath this stale preamble; the section was half-fixed.
+
+2. **`audit-dashboard/src/app/foundations/page.tsx:821`** — Live-data signatures `<Section>` `description` prop still read *"the 8 pt grid + spring-green-glow ambient amplifies them."* R11 retired the spring-green-glow ambient from every surface; the Stat / RateTicker primitives no longer ride a green halo (LiveDot is the only green-emitting primitive in this trio).
+
+3. **`audit-dashboard/src/app/tool/presets.client.tsx:48` and `:60`** — focus-visible outline color on both buttons (preset list items + "New preset" row) used `var(--lumen-lime-a64)`. The global `:focus-visible` rule in `globals.css:1417` was retuned in R11 from `var(--lumen-lime-a64)` → `var(--border-frame)` (neutral, theme-aware). CLAUDE.md hard rule 11 and `globals.css`'s own preceding comment block both name `var(--border-frame)`. The Tool surface's preset client island (a v0.12.9 R3 extraction) was authored *before* R11 and missed the focus-color sweep.
+
+Plus 7 code-comment / JSDoc surfaces (across `foundations/page.tsx`, `landing/page.tsx`, `dashboard-shell.tsx`, `primitives/templates.tsx`, `primitives/button.tsx`, `ui/button.tsx`) carrying stale "primary glow ladder" / "lime halo" / "spring-green glow" prose. Internal — they don't ship to users — but an LLM agent reading those comments would reconstruct the pre-R11 contract and write code that ships green shadows.
+
+### Added
+
+- **`scripts/lint-tsx-no-retired-prose.mjs`** — the third tier in the docs↔tokens↔TSX-prose lint architecture. Walks `audit-dashboard/src/**/*.{tsx,ts}` + `design-system/02-components/<name>/examples/*.tsx` and fails CI on retired *phrases* (not token names — TSX legitimately uses `--lumen-lime-aN` tokens for backgrounds, surface tints, status pills, AI action surfaces, selection BGs etc. which are R11-EXEMPT per ADR 0030). Retired-phrase list is data-driven: `lime-tinted`, `spring-green glow`, `lime halo`, `lime ambient`, `lime alpha-NN`, `primary glow ladder`, etc. Honors paragraph-level retirement markers (any of `retired`, `superseded`, `R11 retired`, `was X`, `pre-R11`, `ADR 0030`, `neutralized`, `no longer`, etc. in the same paragraph allows the cite as historical context). Supports file-level `lumen-lint-allow: retired-prose` directive in the first 20 lines for whole-file historical / fixture files. Wired into the `pnpm lint` umbrella as the 10th rule. Initial scan: 191 files, 0 violations post-fix; pre-fix it caught 3 violations (the proof-of-concept). See [ADR 0034](./_meta/decisions/0034-r15-tsx-prose-lint-third-tier-v0144.md).
+- **AGENTS.md hard rule 22** — new — codifies the three-tier docs↔tokens↔TSX-prose lint contract. Pairs with hard rules 20 (R11 — no green in shadows, token-source layer) and 21 (R14 — docs lint for retired token names) to give R11's mandate full coverage across all three prose / value surfaces.
+- **[ADR 0034](./_meta/decisions/0034-r15-tsx-prose-lint-third-tier-v0144.md)** — codifies the R15 round + the third-tier lint architecture + the methodology rule *"every contract retirement adds an entry to all three lint scripts' retire-lists in the same commit when applicable."*
+- `.audit-runs/2026-05-20-round-15/` — full R15 audit log including the ISSUES.md defect inventory and screenshot folder.
+
+### Changed
+
+- **`audit-dashboard/src/app/foundations/page.tsx`** — Elevation `<Section>` `description` rewritten from the retired lime-glow contract to *"…v0.14 R11 retired chromatic-tinted shadows wholesale: every shadow token now resolves to a neutral cream/ink alpha, and primary CTAs ride their green BG fill — not a halo. See ADR 0030."* — names R11 + ADR 0030 explicitly so future LLM agents follow the cite to the retirement rationale. Live-data signatures `<Section>` `description` rewritten to make the *"green appears only on the LiveDot itself"* rule explicit. The R13-002 per-card inset highlights are unchanged.
+- **`audit-dashboard/src/app/tool/presets.client.tsx`** — focus-visible outline color on both buttons retuned from `var(--lumen-lime-a64)` → `var(--border-frame)` to align with R11's `:focus-visible` neutral contract. Verified live: `getComputedStyle(button).outlineColor` returns `rgb(154, 154, 154)` on dark theme.
+- **`audit-dashboard/src/components/dashboard-shell.tsx`** — sticky-nav `lumen-glass-strong` rationale comment rewritten with R11 context: the original "lime-halo bleed" concern is moot post-R11 (no halo to bleed); the stronger alpha is still the right pick because primary CTAs' green BG fills still produce slight specular at the glass edge under heavy scroll.
+- **`audit-dashboard/src/app/foundations/page.tsx`** + **`landing/page.tsx`** — two JSX-adjacent comments teaching "the standard primary glow ladder" annotated with R11 supersession context. The pre-R11 design rationale is preserved (valuable for future agents) but each comment now ends with the R11 ADR 0030 reference noting the current contract.
+- **`audit-dashboard/src/components/primitives/templates.tsx`** — two comments rewritten to add R11 context. The phrase "primary surface fg + bg + glow ladder" becomes "primary surface fg + bg + shadow ladder" with an R11 footnote.
+- **`audit-dashboard/src/components/primitives/button.tsx`** + **`ui/button.tsx`** — three JSDoc surfaces on the `glow` / `pressed` props + the cva variant doc annotated with R11 supersession. The `glow` prop still works (it layers `.lumen-glow-cta` on top of the primary surface) but the JSDoc now says the halo is neutral, not lime.
+- **`package.json`** — `lint:tsx-no-retired-prose` added to scripts + wired into the `lint` umbrella as the 10th rule. Root `version` bumped 0.14.3 → 0.14.4.
+- **`AGENTS.md`** — new hard rule 22 added (see Added). The 21 rules list becomes 22.
+- **`CLAUDE.md`** (root + audit-dashboard) — top callout rewritten for v0.14.4 with R15 narrative + the third-tier lint methodology rule.
+- **`README.md`** — Status line bumped to v0.14.4 (33 → 34 ADRs); new `## What's new — v0.14.4` section added.
+- **`USING-LUMEN.md`** — version chip + install URL bumped to v0.14.4.
+- **`llms.txt`** / **`llms-full.txt`** — version chips bumped + ADR count 33 → 34 + R15 / ADR 0034 added to the cited-ADRs paragraph.
+
+### Validation
+
+- `pnpm validate:tokens` → 956 tokens valid (unchanged from R14)
+- `pnpm lint` → all **10** lint rules pass (9 from R14 + new `lint:tsx-no-retired-prose`)
+- `pnpm exec tsc --noEmit` (audit-dashboard) → PASS
+- `pnpm build` → 12 routes prerender clean
+- `pnpm exec playwright test` → 56 / 58 pass (2 skipped on axe-core gate; unchanged from R14)
+
+Live verification of all 3 rendered-prose / focus-color fixes via Claude in Chrome MCP at Edge browser (Personal Mac) — screenshots preserved at [`.audit-runs/2026-05-20-round-15/`](./.audit-runs/2026-05-20-round-15/).
+
+---
+
 ## [0.14.3] — 2026-05-20 — v0.14.3 R14: docs↔tokens drift lint + foundation docs↔code closure (ADR 0033)
 
 R14 closes the gap [ADR 0030](./_meta/decisions/0030-no-green-shadows-and-docs-code-sync-v014-r11.md) (v0.14 R11) left in its docs↔code sync sweep. R11 retired green from every box-shadow color value system-wide and named three foundation docs it updated: `elevation.md` §3/§6/§7, `accessibility.md` Focus-ring section, `micro-interactions.md` button + input rows. The R14 audit walked the rest of the doc tree and found **four more doc surfaces** ADR 0030 missed — each still teaching the retired green-glow ladder as the canonical button contract:

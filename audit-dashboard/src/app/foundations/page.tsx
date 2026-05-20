@@ -91,8 +91,11 @@ export default function FoundationsPage() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             {/* v0.11.13 — hero CTA promoted to lg + glow per first-impression.md
                 §2 Pattern A. The brutalist frame above weights heavily; the
-                standard md primary glow ladder lost the halo war. lg + glow
-                lays the lime halo cleanly across the page-axis. */}
+                default md primary surface lost the focal-point war. lg + glow
+                lays the brand atmosphere cleanly across the page-axis.
+                v0.14 R11 (ADR 0030): the .lumen-glow-cta halo is now a
+                neutral elevation lift, not a lime ambient — the green is in
+                the BG fill, not the shadow. */}
             <Button intent="primary" size="lg" pill glow trailingIcon={<ArrowRight size={14} />}>
               Browse foundations
             </Button>
@@ -384,7 +387,7 @@ export default function FoundationsPage() {
           id="elevation"
           eyebrow="05 · Foundations"
           title="Elevation"
-          description="Hairline borders do most of the surface separation work. Shadows are multi-layer, reserved for genuine lift — popovers, drawers, modals, toasts. Glow shadows (lime-tinted) carry hero CTAs and live-status."
+          description="Hairline borders do most of the surface separation work. Shadows are multi-layer, reserved for genuine lift — popovers, drawers, modals, toasts. v0.14 R11 retired chromatic-tinted shadows wholesale: every shadow token now resolves to a neutral cream/ink alpha, and primary CTAs ride their green BG fill — not a halo. See ADR 0030."
         >
           {/* v0.14.2 R13 — Elevation card row carries a per-level inset top highlight
               that scales with the shadow ladder (R13-002 fix; R12 deferred). On the
@@ -818,7 +821,7 @@ export default function FoundationsPage() {
           id="live-data"
           eyebrow="13 · Warp signatures"
           title="Live-data signatures"
-          description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. v0.11 keeps these intact; the 8 pt grid + spring-green-glow ambient amplifies them."
+          description="The three primitives that carry Warp's instrument-panel mood across every surface — Stat, LiveDot, RateTicker. v0.14 R11 retired the spring-green-glow ambient that earlier rounds layered behind these primitives; the 8 pt grid + neutral elevation now do the amplifying, and the green appears only on the LiveDot itself."
         >
           <SubSection title="Stat — big bold number, mono unit, optional delta + sparkline">
             <Card padding="lg" className="lumen-stat-card">

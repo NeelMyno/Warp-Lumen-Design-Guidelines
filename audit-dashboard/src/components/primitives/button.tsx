@@ -16,7 +16,7 @@
  *   pressed      boolean (aria-pressed=true; renders selected surface)
  *   disabled     boolean (aria-disabled, opacity 0.4, no pointer events)
  *   pill         boolean (legacy — alias of shape="pill")
- *   glow         boolean (legacy — primary already has the glow ladder; this layers .lumen-glow-cta on top for hero CTAs)
+ *   glow         boolean (legacy — primary already has the neutral shadow ladder (v0.14 R11, ADR 0030); this layers .lumen-glow-cta on top for hero CTAs)
  *   fullWidth    boolean (w-full)
  *
  * Press feedback: filter brightness(0.92) (no transform / no scale).
@@ -67,12 +67,15 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /** v0.9 — Brief success state. Pass `true` after a successful async action;
    *  the button shows a checkmark for 1.6 s then auto-clears. */
   success?: boolean;
-  /** v0.9 — aria-pressed=true. Renders the lime-tinted selected surface. */
+  /** v0.9 — aria-pressed=true. Renders the accent-tinted selected surface
+   *  (per R11 the tint is a BG fill, not a shadow halo — ADR 0030). */
   pressed?: boolean;
   /** v0.4 legacy — alias of shape="pill". */
   pill?: boolean;
   /** v0.4 legacy — layers the .lumen-glow-cta hero halo on top of the
-   *  standard primary glow ladder. For hero/landing CTAs only. */
+   *  default primary surface. For hero/landing CTAs only. v0.14 R11
+   *  (ADR 0030): both the halo and the primary shadow ladder are now
+   *  neutral; the green identity lives in the BG fill, not the shadow. */
   glow?: boolean;
 };
 
