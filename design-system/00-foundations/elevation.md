@@ -55,6 +55,14 @@ The brutalist frame (`color.border.frame`) is the v0.4 hairline-strong gesture. 
 
 Defined in [`01-tokens/primitives/elevation.tokens.json`](../01-tokens/primitives/elevation.tokens.json). Six tiers plus inset, accent-glow, and v0.6 input shadows.
 
+> [!warning]
+> **Two categorical kinds of shadow — never confuse them.**
+>
+> 1. **Elevation shadows** (`shadow.xs/sm/md/lg/xl/2xl/inset/popover/menu/modal/toast/floating/lifted/card/kbd`) — paint **lift**. Their color is **neutral ink** (`{color.alpha.shadow.04..10}` — anchored at `#0E1219`, R = G = B + 7 ≈ neutral). **They MUST NEVER be green.** A green drop-shadow would look like a lighting bug, not depth.
+> 2. **Halo / glow shadows** (`shadow.focus`, `shadow.glow.accent`, `shadow.accent-glow`, `shadow.button.glow.*`, `shadow.input.focus`, `shadow.input.success`) — paint **action / liveness**. Their color **IS** spring-green-alpha by brand contract. They appear precisely at the moment of interaction (focus, hover-on-CTA, press) and nowhere else.
+>
+> The kinds compose: a Card uses `shadow.card` (neutral elevation) AND on focus picks up `shadow.focus` (green halo). These are two box-shadow values painted simultaneously, not one shadow doing both jobs. v0.14 R10 added [`scripts/lint-elevation-no-accent.mjs`](../../scripts/lint-elevation-no-accent.mjs) to enforce this categorical separation at the token-source layer.
+
 ### Primitive tiers
 
 | Token | Recipe (light mode) | Use |
