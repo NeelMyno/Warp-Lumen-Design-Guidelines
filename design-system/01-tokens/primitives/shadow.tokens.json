@@ -44,10 +44,8 @@
       ]
     },
     "accent-glow": {
-      "$value": [
-        { "color": "{color.alpha.accent.24}", "offsetX": "0px", "offsetY": "14px", "blur": "34px", "spread": "0px" }
-      ],
-      "$description": "Warp's signature green-glow under primary CTAs. v0.11.13 — color now references {color.alpha.accent.24} (spring green #00FA8A at 0.24) so it inherits the v0.11 brand recolor automatically. Pre-v0.11.13 the colour was inlined as v0.4 lime rgba(74,222,128,0.24), creating a master-child drift that the runtime CSS already corrected but the source token did not."
+      "$value": "{shadow.lg}",
+      "$description": "v0.14 R11 — was a spring-green glow under primary CTAs (the Warp v0.4 signature visual). Now aliases the neutral shadow.lg elevation tier. The token name is preserved for backwards-compat with v0.4 consumers and component contracts that reference shadow.accent-glow, but its color value no longer references the accent at all. Primary CTAs carry their identity through the green BACKGROUND fill; the surrounding atmospheric green halo retired per the user's no-green-in-shadows mandate (AGENTS.md hard rule 20)."
     }
   }
 }

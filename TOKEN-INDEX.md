@@ -1,6 +1,6 @@
 # TOKEN-INDEX.md
 
-> **Auto-generated for Lumen v0.13.5** (2026-05-19). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.14.0** (2026-05-20). Run `node scripts/build-token-index.mjs` to regenerate. Source of truth: the `design-system/01-tokens/{semantic,components}/*.tokens.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 > **What this is.** A flat, alphabetical index of every Lumen semantic and component-bound token, with its alias target (or resolved primitive value if terminal) and the description from the source file. **Agents and engineers consume only these** — per AGENTS.md hard rule 2, never reference primitives directly.
 
@@ -291,24 +291,24 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `shadow.button.ai-shimmer` | `{ 0: {"color":"{color.alpha.accent.32}","offs }` | v0.9 — AI-action variant idle border (1 px accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`. |
-| `shadow.button.glow.active` | `{ 0: {"color":"{color.alpha.accent.20}","offs }` | Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale. Unchanged through v0.12.2. |
-| `shadow.button.glow.hover` | `{ 0: {"color":"{color.alpha.accent.28}","offs }` | Hover halo — wider blur + higher alpha than rest, but trimmed in v0.12.2 (was 24px a40, retuned to 20px a28 — blur −17%, alpha −30%). Cascades into both the base .lumen-btn-primary… |
-| `shadow.button.glow.rest` | `{ 0: {"color":"{color.alpha.accent.25}","offs }` | Default ambient halo on a primary CTA. Soft and steady; signals 'live' without competing with hover. Unchanged across v0.9 → v0.12.2 — the brand-voice commitment per ADR 0018. |
+| `shadow.button.ai-shimmer` | `{ 0: {"color":"var(--border-frame)","offsetX" }` | v0.14 R11 — AI-action shimmer border is now neutral (was accent-32). Animation cycles between border-frame (rest), border-strong (peak), with a neutral paper-alpha halo at the peak… |
+| `shadow.button.glow.active` | `none` | v0.14 R11 — was 8px @ accent-20; now `none`. Active state carries via filter: brightness(0.92), not via shadow. |
+| `shadow.button.glow.hover` | `{shadow.md}` | v0.14 R11 — was 20px @ accent-28; now aliases the neutral shadow.md lift. The hover affordance is a neutral elevation, not a green glow. |
+| `shadow.button.glow.rest` | `none` | v0.14 R11 — was 16px @ accent-25; now `none`. The green button background is the brand affordance at rest; the surrounding halo retired. |
 | `shadow.card` | `{shadow.sm}` | Cards default to a hairline border with this very subtle shadow. Reach for shadow.lifted only when card is genuinely lifting. |
 | `shadow.elevation.lg` | `{shadow.lg}` | Strong lift. Popover, dropdown menu, floating action. |
 | `shadow.elevation.md` | `{shadow.md}` | Standard lift. Lifted Card, BottomNav inset, sticky chrome. |
 | `shadow.elevation.sm` | `{shadow.sm}` | Subtle lift. Card resting, input focus halo, slider thumb shadow. |
 | `shadow.floating` | `{shadow.2xl}` |  |
-| `shadow.focus` | `{ 0: {"color":"{color.alpha.accent.32}","offs }` | Single-ring focus indicator — fine for surfaces where the button background is NOT the spring-green accent. For accent-bg surfaces (primary intent), use shadow.focus.dual instead (… |
-| `shadow.focus.dual.inner` | `{ 0: {"color":"var(--surface-canvas)","offset }` | Inner separator ring — paints the page canvas color, creating a 2 px gap between the button and the outer accent ring. |
-| `shadow.focus.dual.outer` | `{ 0: {"color":"var(--lumen-accent-4)","offset }` | Outer 2 px accent ring (4 px - 2 px inner = 2 px visible). Maintains 3:1 against canvas regardless of button surface. Compose: shadow-focus-dual = inset inner + outer. |
-| `shadow.focus.dual.stack` | `{ 0: {"color":"var(--surface-canvas)","offset, 1: {"color":"var(--lumen-accent-4)","offset…` | v0.9 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible. Note: the var() refs above are the published runtime CSS-var names so both designers and e… |
-| `shadow.glow.accent` | `{shadow.accent-glow}` | Spring-green glow. Reserved for primary CTA / active toggle / live state. Use sparingly — the brand-defining always-on signal. |
-| `shadow.input.error` | `{ 0: {"color":"{color.alpha.danger.32}","offs }` | v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus. v0.11.13 — colour now references {color.alpha.danger.32} (refined #E548… |
-| `shadow.input.focus` | `{ 0: {"color":"{color.alpha.accent.32}","offs }` | v0.6 — focus halo on .lumen-field wrapper. Same recipe as shadow.focus, namespaced for inputs so future theming can diverge. |
+| `shadow.focus` | `{ 0: {"color":"var(--border-frame)","offsetX" }` | v0.14 R11 — focus indicator goes neutral. Was a 3 px spring-green halo at accent-32; now a 3 px theme-aware paper/ink ring at 40 % alpha (--border-frame). Per AGENTS.md hard rule 2… |
+| `shadow.focus.dual.inner` | `{ 0: {"color":"var(--surface-canvas)","offset }` | Inner separator ring — paints the page canvas color, creating a 2 px gap between the button and the outer neutral ring. |
+| `shadow.focus.dual.outer` | `{ 0: {"color":"var(--border-frame)","offsetX" }` | v0.14 R11 — outer 2 px neutral ring (was lime). 40 %-alpha theme-aware paper/ink — passes 3:1 against canvas regardless of button surface. |
+| `shadow.focus.dual.stack` | `{ 0: {"color":"var(--surface-canvas)","offset, 1: {"color":"var(--border-frame)","offsetX"…` | v0.14 R11 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible. The underlying source-of-truth is color.surface.page (inner) and color.border.frame (… |
+| `shadow.glow.accent` | `{shadow.accent-glow}` | v0.14 R11 — was a spring-green glow; now resolves through shadow.accent-glow which itself aliases to a neutral elevation. The semantic name is preserved so component contracts don'… |
+| `shadow.input.error` | `{ 0: {"color":"{color.alpha.danger.32}","offs }` | v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus. Error keeps red because red is a validation tone, distinct from action/… |
+| `shadow.input.focus` | `{ 0: {"color":"var(--border-frame)","offsetX" }` | v0.14 R11 — focus halo on .lumen-field wrapper is neutral (was accent-32). border-frame is 40 %-alpha theme-aware; passes WCAG 2.4.13 on every surface. Inputs no longer signal focu… |
 | `shadow.input.lit-edge` | `{ 0: {"color":"{color.alpha.paper.06}","offse }` | 1px lit top edge — steals the glass-pane reflection trick from glassmorphism without committing to full glass. Dark mode only; no-op on light. v0.11.13 — references color.alpha.pap… |
-| `shadow.input.success` | `{ 0: {"color":"{color.alpha.accent.32}","offs }` | v0.6 — success halo. Reuses the focus recipe; reserved for explicit post-validation success affordances. |
+| `shadow.input.success` | `{ 0: {"color":"var(--border-frame)","offsetX" }` | v0.14 R11 — success halo is neutral (was accent-32). The post-validation success affordance is now communicated via a brief check icon + the field returning to default border — not… |
 | `shadow.kbd` | `{ 0: {"color":"{color.alpha.shadow.04}","offs }` | v0.13.2 — keyboard-chrome subtle inset shadow. Used by Kbd primitive to suggest a 1-pixel raised key edge without the heaviness of a full shadow.md. |
 | `shadow.lifted` | `{shadow.md}` |  |
 | `shadow.menu` | `{shadow.lg}` |  |
@@ -476,8 +476,8 @@
 
 | Token path | Value / alias | Description |
 |---|---|---|
-| `button.focus.neutral` | `{shadow.focus}` | Other intents — single ring (3 px lime alpha at 32% on neutral bg passes 3:1). |
-| `button.focus.primary` | `{shadow.focus.dual.stack}` | Primary intent (lime bg) — dual ring. |
+| `button.focus.neutral` | `{shadow.focus}` | Other intents — single 3 px neutral ring (border-frame at 40 % theme-aware alpha). Was lime at 32 % pre-R11. |
+| `button.focus.primary` | `{shadow.focus.dual.stack}` | Primary intent (green bg) — dual ring; outer ring neutral border-frame, inner ring canvas-cream. |
 | `button.gap.lg` | `{dimension.2}` | 8 px — icon-to-label gap on lg. |
 | `button.gap.md` | `{dimension.2}` | 8 px — icon-to-label gap on md (default). |
 | `button.gap.sm` | `{dimension.1_5}` | 6 px — icon-to-label gap on sm. |
@@ -987,4 +987,4 @@
 
 **Totals:** 411 semantic tokens · 416 component-bound tokens.
 
-> Generated 2026-05-19 from VERSION = 0.13.5. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.
+> Generated 2026-05-20 from VERSION = 0.14.0. Re-run `pnpm token-index` (or `node scripts/build-token-index.mjs`) to regenerate.

@@ -289,12 +289,21 @@ html, body { overflow-x: clip; }
      purpose: the user pointed at hover specifically, and rest's a25 carries
      the brand "lit" identity that ADR 0018 commits to (the canvas earns the
      accent's halo presence, you don't get to remove it). */
-  --shadow-button-glow-rest:   0 0 16px var(--lumen-lime-a25);  /* v0.11.13 — was rgba(0,250,138,0.25). */
-  --shadow-button-glow-hover:  0 0 20px var(--lumen-lime-a28);  /* v0.12.2 — was 0 0 24px a40. */
-  --shadow-button-glow-active: 0 0 8px  var(--lumen-lime-a20);  /* v0.11.13 — was rgba(0,250,138,0.20). */
+  /* v0.14 R11 — green removed from every shadow color value per user mandate.
+     The primary-CTA glow ladder previously cast a spring-green halo at rest,
+     hover, and active; R11 strips the green entirely. Primary CTAs now ride
+     their green BACKGROUND fill as the brand affordance (background-color
+     still uses --color-action-primary-bg-rest, which is spring green — that
+     is correct per AGENTS.md hard rule 7's "accent appears at action" — the
+     prohibition is on shadow colors specifically). Hover gains a neutral
+     elevation lift (--shadow-md) for the lift sensation that the green halo
+     previously provided. Rest + active are flat. */
+  --shadow-button-glow-rest:   none;
+  --shadow-button-glow-hover:  var(--shadow-md);
+  --shadow-button-glow-active: none;
 
-  /* ── v0.9 — AI-action shimmer border (idle, paused on hover) ─────────────── */
-  --shadow-button-ai-shimmer:  0 0 0 1px var(--lumen-lime-a32); /* v0.11.13 — was rgba(0,250,138,0.32). */
+  /* ── v0.9 — AI-action shimmer border (idle, paused on hover). v0.14 R11 — green→neutral. */
+  --shadow-button-ai-shimmer:  0 0 0 1px var(--border-frame);
 
   /* spring-green alphas — the signature ambient glow stack
      v0.11 — RGB re-anchored to (0, 250, 138). The var name `--lumen-lime-a*`
@@ -758,31 +767,41 @@ html, body { overflow-x: clip; }
     inset 0 -1px 0 0 rgba(0,0,0,0.32),
     0 16px 48px -12px rgba(0,0,0,0.56);
   --shadow-inset: inset 0 1px 0 0 var(--lumen-paper-a08);
-  /* v0.6 — Reconciled with shadow.focus token (was 3.5px / a40; now 3px / a32 to match JSON SoT). */
-  --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
-  /* v0.9 — Dual-ring focus indicator. Atlassian's 2024 fix: a single colored ring
-     fails the 3:1 contrast floor (WCAG 2.4.13) when the button's background is the
-     same color as the ring. The dual ring places a 2 px page-canvas-colored
-     separator BETWEEN the button and a 4 px accent halo, guaranteeing 3:1 on
-     any surface. Apply on focus-visible for primary lime buttons + any surface
-     where the focus ring could approach the button's bg color.
-     Composition: 0 0 0 2px canvas (inner separator), 0 0 0 4px lime (outer halo). */
+  /* v0.14 R11 — focus ring is neutral. The 40 %-alpha frame border is
+     theme-aware (paper in dark, ink in light) and passes WCAG 2.4.13's
+     3:1 against both surface.canvas and surface.raised. The outline carries
+     the visual primary; the box-shadow halo is a soft secondary that adapts
+     theme via paper-alpha. */
+  --shadow-focus: 0 0 0 3px var(--lumen-paper-a08);
+  /* v0.14 R11 — dual-ring goes neutral. Primary buttons (green background)
+     previously got a lime outer ring; now they get a neutral 4-px ring
+     anchored on --text-secondary at theme-aware alpha. The 2-px inner
+     surface-canvas separator stays — it ensures 3:1 contrast against the
+     button's own bg by interposing the page color. */
   --shadow-focus-dual:
     0 0 0 2px var(--surface-canvas),
-    0 0 0 4px var(--lumen-accent-4);
+    0 0 0 4px var(--border-frame);
   /* v0.6 — Field-shell-scoped shadows. .lumen-field consumes these; the inner
      <input> never paints a ring. lit-edge composes under focus/error halos
-     via comma-separation to preserve the glass-pane top-reflection effect. */
+     via comma-separation to preserve the glass-pane top-reflection effect.
+     v0.14 R11 — focus + success halos go neutral. Error keeps red because
+     red is a validation-tone, distinct from action/brand. */
   --shadow-input-lit-edge: inset 0 1px 0 0 var(--lumen-paper-a06);
-  --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
+  --shadow-input-focus:    0 0 0 3px var(--border-frame);
   --shadow-input-error:    0 0 0 3px var(--lumen-red-a32);   /* v0.11.13 — was rgba(229,72,77,0.32). */
-  --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
-  --shadow-glow-accent: 0 14px 40px -8px var(--lumen-lime-a40);
-  --shadow-glow-accent-strong:
-    0 0 0 1px var(--lumen-lime-a32),
-    0 8px 28px -4px var(--lumen-lime-a40),
-    0 24px 72px -12px var(--lumen-lime-a24);
+  --shadow-input-success:  0 0 0 3px var(--border-frame);
+  /* v0.14 R11 — accent-glow tokens no longer cast green light. The token
+     names are preserved for backwards-compat with v0.4 consumers, but the
+     value is now an alias to the neutral elevation ladder. Hero CTAs ride
+     their green BG fill as the brand mark; the lift sensation comes from
+     the neutral shadow ladder. */
+  --shadow-glow-accent: var(--shadow-lg);
+  --shadow-glow-accent-strong: var(--shadow-xl);
 
+  /* v0.14 R11 — aurora glow is a separate background-layer atmospheric
+     wash (NOT a box-shadow), so it MAY retain a tint for the brand voice
+     on hero / landing surfaces. See AGENTS.md hard rule 20 carve-out for
+     non-shadow aurora gradients. */
   --aurora-glow-color: var(--lumen-lime-a32);
 
   /* ─────────────────────  SHADCN BRIDGE (DARK)  ─────────────────────────
@@ -1036,27 +1055,29 @@ html, body { overflow-x: clip; }
     inset 0 -1px 0 0 var(--lumen-ink-a04),
     0 16px 40px -12px var(--lumen-ink-a16);
   --shadow-inset: inset 0 1px 0 0 var(--lumen-paper-a60);  /* v0.11.13 — references --paper-a60 (was inline rgba(255,255,255,0.6)). */
-  /* v0.6 — Reconciled with shadow.focus token. Light mode keeps the same
-     3px / a32 recipe; the lime stroke + halo read clearly on cream. */
-  --shadow-focus: 0 0 0 3px var(--lumen-lime-a32);
-  /* v0.9 — Dual-ring focus indicator for lime-accent surfaces (Atlassian 2024 pattern).
-     Inner ring matches the canvas (cream paper in light mode), outer ring is the lime accent.
-     Identical recipe to dark mode — only --surface-canvas resolves differently. */
+  /* v0.14 R11 — focus indicator is neutral in light mode too. Theme-aware
+     border-frame resolves to 40% ink alpha here, passing WCAG 2.4.13 against
+     paper. */
+  --shadow-focus: 0 0 0 3px var(--lumen-ink-a08);
+  /* v0.14 R11 — dual ring goes neutral. Inner separator stays canvas-cream
+     so it interposes between the button and the outer neutral ring,
+     guaranteeing 3:1 contrast on primary (green) buttons. */
   --shadow-focus-dual:
     0 0 0 2px var(--surface-canvas),
-    0 0 0 4px var(--lumen-accent-4);
+    0 0 0 4px var(--border-frame);
   /* v0.6 — Field-shell-scoped shadows. lit-edge is no-op on light mode
      (cream paper doesn't have a glass top reflection); declared transparent
      so the comma-stack composes cleanly. */
   --shadow-input-lit-edge: 0 0 0 0 transparent;
-  --shadow-input-focus:    0 0 0 3px var(--lumen-lime-a32);
+  /* v0.14 R11 — light-mode focus + success halos go neutral; error keeps red. */
+  --shadow-input-focus:    0 0 0 3px var(--border-frame);
   --shadow-input-error:    0 0 0 3px var(--lumen-red-a32);   /* v0.11.13 — was rgba(229,72,77,0.32). */
-  --shadow-input-success:  0 0 0 3px var(--lumen-lime-a32);
-  --shadow-glow-accent: 0 14px 34px -8px var(--lumen-lime-a24);
-  --shadow-glow-accent-strong:
-    0 0 0 1px var(--lumen-lime-a24),
-    0 8px 28px -4px var(--lumen-lime-a32),
-    0 24px 72px -12px var(--lumen-lime-a14);
+  --shadow-input-success:  0 0 0 3px var(--border-frame);
+  /* v0.14 R11 — light-mode accent-glow tokens aliased to the neutral
+     elevation ladder. Token names preserved for backwards-compat. */
+  --shadow-glow-accent: var(--shadow-lg);
+  --shadow-glow-accent-strong: var(--shadow-xl);
+  /* v0.14 R11 — light-mode dark shadow halo for focus reuses --shadow-focus. */
 
   --aurora-glow-color: var(--lumen-lime-a24);
 
@@ -1383,8 +1404,18 @@ html, body {
    .lumen-btn-primary:focus-visible rule (~line 2580) suppresses the
    outline for the dual-ring brand visual; otherwise the combination
    reads as outline + soft halo, which is the intended layered effect. */
+/* v0.14 R11 — focus indicator goes neutral.
+   Outline color was `var(--lumen-lime-a64)` (64% spring green); now uses
+   `var(--border-frame)` which is 40% theme-aware paper/ink alpha. The
+   outline is the visual primary (passes WCAG 2.4.13's 3:1 floor on every
+   surface); the soft box-shadow halo composes underneath as a secondary
+   atmospheric cue. The full focus contract was previously documented as
+   "green appears at action" but R11 narrows that: GREEN APPEARS in the
+   button BACKGROUND FILL (primary CTAs), badge BACKGROUNDS, badge LEADING
+   DOTS, status pill BACKGROUNDS — never in SHADOWS. The focus ring is a
+   structural a11y indicator, not a brand statement. */
 :focus-visible {
-  outline: 2px solid var(--lumen-lime-a64);
+  outline: 2px solid var(--border-frame);
   outline-offset: 1px;
   box-shadow: var(--shadow-focus);
   border-radius: var(--radius-sm);
@@ -2742,9 +2773,12 @@ summary.list-none::-webkit-details-marker {
 .lumen-btn-ai:active:not(:disabled):not([aria-disabled="true"]) { background-color: var(--color-action-ai-bg-press); animation-play-state: paused; }
 
 @keyframes lumen-btn-ai-shimmer {
-  /* v0.11 — RGB re-anchored to spring green (0, 250, 138). v0.11.13 — references --lumen-lime-aXX primitives so a future accent retune cascades. */
-  0%, 100% { box-shadow: 0 0 0 1px var(--lumen-lime-a32); }
-  50%      { box-shadow: 0 0 0 1px var(--lumen-lime-a64), 0 0 12px var(--lumen-lime-a18); }
+  /* v0.14 R11 — green removed from the AI shimmer halo. The animation now
+     pulses neutral border-frame alpha so the AI button still signals
+     "thinking" via the 1.6 s heartbeat without leaking green into the
+     shadow color. */
+  0%, 100% { box-shadow: 0 0 0 1px var(--border-frame); }
+  50%      { box-shadow: 0 0 0 1px var(--border-strong), 0 0 12px var(--lumen-paper-a08); }
 }
 
 /* SUCCESS — brief 1.6 s post-action affirmation state (Saved, Booked, Quoted). */
@@ -2869,8 +2903,8 @@ summary.list-none::-webkit-details-marker {
     transition: none !important;
     animation: none !important;
   }
-  .lumen-btn-primary { box-shadow: var(--shadow-button-glow-rest); } /* steady glow, no pulse */
-  .lumen-btn-ai      { box-shadow: 0 0 0 1px var(--lumen-lime-a32); } /* v0.11.13 — references primitive (was rgba(0,250,138,0.32)). */
+  .lumen-btn-primary { box-shadow: var(--shadow-button-glow-rest); } /* v0.14 R11 — rest=none; no animation needed */
+  .lumen-btn-ai      { box-shadow: 0 0 0 1px var(--border-frame); }   /* v0.14 R11 — green→neutral shimmer border */
 }
 
 /* v0.4 — lime-glow CTA halo. Legacy class for hero CTAs that opt into a stronger halo
@@ -3007,18 +3041,17 @@ summary.list-none::-webkit-details-marker {
    trimmed in lockstep so the hierarchy between standard primary and hero
    CTA stays intact: hero CTA still ~1.5× the standard primary in both
    spread and density, just both quieter than v0.12.1. */
+/* v0.14 R11 — layered green halos on hover retired. Primary CTA hover now
+   uses the standard neutral shadow.md lift; hero CTA hover uses shadow.xl.
+   The brand affordance still happens at the moment of action — but through
+   the button's GREEN BACKGROUND staying brand-anchored, not through a green
+   halo bleeding into the surrounding canvas. */
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .lumen-btn-primary:hover {
-    box-shadow:
-      var(--shadow-button-glow-hover),
-      0 0 20px var(--lumen-lime-a14),  /* v0.12.2 — was 0 0 24px a20. */
-      0 0 32px var(--lumen-lime-a08);  /* v0.12.2 — was 0 0 48px a10. */
+    box-shadow: var(--shadow-button-glow-hover);
   }
   .lumen-btn-primary.lumen-glow-cta:hover {
-    box-shadow:
-      var(--shadow-glow-accent-strong),
-      0 0 28px var(--lumen-lime-a18),  /* v0.12.2 — was 0 0 32px a28. */
-      0 0 48px var(--lumen-lime-a10);  /* v0.12.2 — was 0 0 64px a14. */
+    box-shadow: var(--shadow-glow-accent-strong);
   }
 }
 
@@ -3095,10 +3128,13 @@ summary.list-none::-webkit-details-marker {
    recipe; no override needed. The active row uses an accent-tinted tile so
    selection is unmistakable even when a sibling is hover-active. */
 .lumen-cmd-row[data-active] {
+  /* v0.14 R11 — background TINT may remain green (accent appears at
+     selection-as-action per hard rule 7), but the box-shadow inset goes
+     neutral. The visual distinction between keyboard-active row and
+     pointer-hover row now comes from background-tint + the activated-row
+     arrow chevron, not from a green hairline shadow. */
   background: var(--surface-tint-accent);
-  /* A 1 px lime hairline distinguishes the keyboard-focused row from a row
-     under the mouse pointer. The row is also aria-selected=true. */
-  box-shadow: inset 0 0 0 1px var(--lumen-lime-a32);
+  box-shadow: inset 0 0 0 1px var(--border-frame);
 }
 .lumen-cmd-row[data-active] .lumen-cmd-row-arrow {
   opacity: 1;
@@ -3111,18 +3147,23 @@ summary.list-none::-webkit-details-marker {
 }
 
 /* 2. ─────────────  LOGO MARK HOVER (the brand answers the pointer)  ────── */
-/* The wrapping <Link class="lumen-mark-link group"> on the header logo. Per
-   audit P1-3: a logo without a hover state reads as a graphic, not nav.
-   On hover: the hairline ring brightens to lime, the lime nucleus picks up
-   a stronger halo, and the wordmark shifts to the accent text color. */
+/* v0.14 R11 — green removed from the brand-mark hover shadow. The mark's
+   hairline ring (border-color) still brightens to --border-accent (a green
+   border is allowed; only shadow values are banished from green). The
+   surrounding halo previously cast a soft lime glow on hover; R11 swaps
+   that to a neutral paper-alpha glow so the brand mark answers the pointer
+   without leaking green light into the canvas. The lime NUCLEUS stays
+   green at rest (it's a background, not a shadow) and gets a slight
+   brightness lift on hover via filter, not via colored box-shadow. */
 .lumen-mark-link:hover .lumen-mark-ring {
   border-color: var(--border-accent);
-  box-shadow: 0 0 0 2px var(--lumen-lime-a18);  /* v0.11.13 — was rgba(0,250,138,0.18). */
+  box-shadow: 0 0 0 2px var(--lumen-paper-a08);
 }
 .lumen-mark-link:hover .lumen-mark-core {
   box-shadow:
-    0 0 12px var(--lumen-lime-a64),
-    0 0 24px var(--lumen-lime-a32);  /* v0.11.13 — was rgba(0,250,138,0.32). */
+    0 0 12px var(--lumen-paper-a16),
+    0 0 24px var(--lumen-paper-a08);
+  filter: brightness(1.05);
 }
 @media (prefers-reduced-motion: reduce) {
   .lumen-mark-ring,

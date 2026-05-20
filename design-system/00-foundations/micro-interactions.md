@@ -62,14 +62,14 @@ Every interactive element ships with a standard response set. No exceptions.
 | State | Visual change | Duration | Easing |
 |---|---|---|---|
 | **Rest** | Surface paint at rest | — | — |
-| **Hover** | Background `-6→-12%` lightness, accent-glow `+33%` opacity (primary only) | `120ms` | `easing.standard` |
-| **Press** | Background `-12→-18%` lightness, glow shrinks to `-50%` opacity | `0ms` (instant) | — |
+| **Hover** | Background `-6→-12%` lightness; primary CTAs add neutral `shadow.md` lift (v0.14 R11 — was accent-glow opacity bump) | `120ms` | `easing.standard` |
+| **Press** | Background `-12→-18%` lightness, neutral lift removed, `filter: brightness(0.92)` for press feedback | `0ms` (instant) | — |
 | **Release** | Restore to hover state | `120ms` | `easing.standard` |
-| **Focus** | 2 px focus ring at `border.focus` + 4 px halo at `accent.alpha.32` | `180ms` | `easing.standard` |
+| **Focus** | 2 px outline at `border.frame` (theme-aware neutral) + 3 px soft halo via `shadow.focus` (v0.14 R11 — both neutral; was lime alpha-64 / alpha-32) | `180ms` | `easing.standard` |
 | **Loading** | Spinner replaces leading icon, label fades to 70% | `180ms` (fade), spin is `motion.slow` linear infinite | `easing.standard` |
 | **Success** | Tonal `action.success` paint + check leading icon for 1.6 s | `260ms` (in/out) | `easing.decelerate` |
 
-See [`buttons.md`](./buttons.md) for the full state machine + the `glow` boolean that gates the accent-glow halo.
+See [`buttons.md`](./buttons.md) for the full state machine. The v0.4–v0.13 `glow` boolean still exists but its visual is now a neutral elevation (`shadow.accent-glow` aliases `{shadow.lg}` after R11). The brand affordance lives in the GREEN BACKGROUND FILL, not in the surrounding atmospheric halo.
 
 ### Input / textarea / select
 

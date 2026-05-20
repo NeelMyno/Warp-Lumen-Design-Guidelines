@@ -56,12 +56,17 @@ The brutalist frame (`color.border.frame`) is the v0.4 hairline-strong gesture. 
 Defined in [`01-tokens/primitives/elevation.tokens.json`](../01-tokens/primitives/elevation.tokens.json). Six tiers plus inset, accent-glow, and v0.6 input shadows.
 
 > [!warning]
-> **Two categorical kinds of shadow — never confuse them.**
+> **No green in shadows — ever.** (v0.14 R11)
 >
-> 1. **Elevation shadows** (`shadow.xs/sm/md/lg/xl/2xl/inset/popover/menu/modal/toast/floating/lifted/card/kbd`) — paint **lift**. Their color is **neutral ink** (`{color.alpha.shadow.04..10}` — anchored at `#0E1219`, R = G = B + 7 ≈ neutral). **They MUST NEVER be green.** A green drop-shadow would look like a lighting bug, not depth.
-> 2. **Halo / glow shadows** (`shadow.focus`, `shadow.glow.accent`, `shadow.accent-glow`, `shadow.button.glow.*`, `shadow.input.focus`, `shadow.input.success`) — paint **action / liveness**. Their color **IS** spring-green-alpha by brand contract. They appear precisely at the moment of interaction (focus, hover-on-CTA, press) and nowhere else.
+> Every shadow token in Lumen — elevation, focus, glow, halo, button glow, input focus, AI shimmer, brand-mark hover — uses a **neutral color value** (`{color.alpha.shadow.04..10}`, `{color.border.frame}`, `{color.alpha.paper.06..16}`, or `{color.alpha.ink.04..16}`). The single-accent discipline (per AGENTS.md hard rule 7 — Spring Green plays exactly ONE role) is now narrowed in scope: green appears in **BACKGROUNDS, BORDERS, FILLS, TEXT, and LEADING DOTS** of action / live / success surfaces — **never in shadow color values**. A primary CTA's identity comes from its green `background-color` fill; the surrounding atmospheric green halo that earlier Lumen versions cast (the "Warp glow" signature) was retired in R11.
 >
-> The kinds compose: a Card uses `shadow.card` (neutral elevation) AND on focus picks up `shadow.focus` (green halo). These are two box-shadow values painted simultaneously, not one shadow doing both jobs. v0.14 R10 added [`scripts/lint-elevation-no-accent.mjs`](../../scripts/lint-elevation-no-accent.mjs) to enforce this categorical separation at the token-source layer.
+> Three carve-outs that look like exceptions but aren't:
+>
+> 1. **Validation shadows are allowed to carry their tone color.** `shadow.input.error` paints red; `shadow.input.warning` paints amber. These are validation tones, distinct from action/brand — the no-green-shadows mandate is specifically about *green*, not about all colored shadows. Red and amber halos remain encoded so error and warning still carry their semantic weight at a glance.
+> 2. **The `--aurora-glow-color` radial-gradient background** on hero surfaces is NOT a `box-shadow`; it's a `background-image: radial-gradient(...)` painted under the page hero. Hard rule 20 applies to *shadows*, not to atmospheric background gradients. The aurora may retain its lime tint.
+> 3. **Backgrounds and borders may still be green.** `--surface-tint-accent` (hover backgrounds), `--border-accent` (lime hairline), `--status-success-bg` (pill backgrounds), `--pill-accent-border` — these are all backgrounds/borders, not shadows, and remain green by brand contract.
+>
+> The R10 lint `lint:elevation-no-accent` was R11-broadened to `lint:shadow-no-accent` — it now walks EVERY shadow token (not just elevation) and fails if any references `color.alpha.accent.*` / `lumen-accent` / `lumen-lime` / `00FA8A`. See [`scripts/lint-shadow-no-accent.mjs`](../../scripts/lint-shadow-no-accent.mjs).
 
 ### Primitive tiers
 
@@ -151,48 +156,60 @@ box-shadow: inset 0 1px 0 var(--lumen-paper-a06);
 
 ## 6. The accent glow — Warp's signature
 
-The primary-CTA green-glow is Lumen's most recognizable lighting gesture. v0.11 — re-anchored to spring green:
+**v0.14 R11 — the primary-CTA green-glow retired.** Through v0.13.5 the most recognizable Lumen lighting gesture was the `0 14px 34px rgba(0,250,138,0.24)` halo cast under primary CTAs. R11 banishes green from EVERY shadow value in the system; the `shadow.accent-glow` token name is preserved for backwards-compat with v0.4–v0.13 consumers, but its color is now neutral (aliases `{shadow.lg}` — the standard popover/menu elevation tier). Primary CTAs continue to carry the brand through their **green background fill** — that's the affordance — and ride a neutral elevation lift on hover (`shadow.md`) instead of an accent halo.
 
 ```
-shadow.accent-glow = 0 14px 34px rgba(0,250,138,0.24)
+shadow.accent-glow = {shadow.lg}             // v0.14 R11 — neutral alias
+shadow.accent-glow ≠ rgba(0,250,138,0.24)    // pre-R11
 ```
 
-Token path: `shadow.accent-glow` (primitive) and `shadow.accent-glow` (semantic alias). v0.11.13 — both now reference `{color.alpha.accent.24}` directly so the colour cascades from the accent ramp; pre-v0.11.13 the colour was inlined as the v0.4 lime literal `rgba(74,222,128,0.24)`, creating a master-child drift between the brand recolor and the shadow source. Opacity `0.24` is preserved verbatim from the v0.4 lime era — it reads with the same atmospheric weight on the new hue. Y-offset `14px` and blur `34px` are the Warp values, **unchanged across versions**.
+Why the retire: the green halo was atmospheric decoration on top of the green CTA fill — two green moments doing the same job, where one was sufficient. The fill is the load-bearing visual; the halo was redundant, and the user mandate is unambiguous: no green in any shadow. The token name persists so consumer apps that referenced `shadow.accent-glow` don't break — they just paint a neutral lift instead of a lime atmosphere.
 
 ### When to apply
 
-- Primary CTA on hero sections.
+- Primary CTA on hero sections — still gets `shadow.accent-glow`, which now paints a neutral lift.
 - Primary CTA above-the-fold on landing pages.
-- The `Button` `glow` boolean (added v0.4) opts in.
+- The `Button` `glow` boolean (added v0.4) still opts in to the elevation, just neutral now.
 
 ### When NOT to apply
 
-- Secondary or tertiary buttons. The glow signals "primary action." Diluting it dilutes the brand.
-- Operator-dashboard surfaces below the fold. The glow is for marketing impact.
-- Cards, modals, popovers. The glow is CTA-only.
+- Secondary or tertiary buttons. Reach for `shadow.md` / `shadow.lifted` instead.
+- Operator-dashboard surfaces below the fold. The lift is for marketing impact.
+- Cards, modals, popovers — they have their own elevation tokens (`shadow.card`, `shadow.modal`, `shadow.popover`).
 
-The `Card` primitive's `glow` elevation (added v0.4) is a related-but-distinct treatment — a softer ambient lime glow on hero cards. It uses the aurora token (`color.aurora.color`), not `shadow.accent-glow`.
+The `Card` primitive's `glow` elevation (added v0.4) is a related-but-distinct treatment — a softer ambient lime glow on hero cards. It uses the aurora token (`color.aurora.color`) via `background-image: radial-gradient(...)` — NOT a `box-shadow` — so it's exempt from the no-green-in-shadows mandate (it's an atmospheric background, not a shadow).
 
 ---
 
-## 7. The focus shadow — lime ring
+## 7. The focus shadow — neutral ring (v0.14 R11)
 
 The focus ring is a single recipe across the system. Per [`accessibility.md`](./accessibility.md) §Hard floor:
 
 ```
-shadow.focus = 0 0 0 3px rgba(0,250,138,0.32)
+shadow.focus = 0 0 0 3px var(--border-frame)    // v0.14 R11 — was lime alpha-32
 ```
 
 The recipe is:
 - **3 px spread** — visible-focus minimum per WCAG 2.4.13.
 - **0 px blur** — sharp ring, not a halo. Reads as a deliberate state, not ambient glow.
 - **0 px offset** — sits flush against the control border.
-- **`color.alpha.accent.32`** — 32% spring green (v0.11; was 32% lime pre-v0.11). Distinct enough on paper canvas and obsidian-mint alike.
+- **`var(--border-frame)`** — 40 %-alpha theme-aware paper/ink (was 32 % spring-green pre-R11). Passes WCAG 2.4.13's 3:1 floor on every Lumen surface (canvas, raised, sunken, popover, tint-accent).
+
+The full focus indicator paints **outline + box-shadow** (per AGENTS.md hard rule 11):
+
+```css
+:focus-visible {
+  outline: 2px solid var(--border-frame);
+  outline-offset: 1px;
+  box-shadow: var(--shadow-focus);
+}
+```
+
+Outline is the visual primary (structural, survives ancestor `overflow: hidden`); the soft box-shadow halo composes underneath as a secondary atmospheric cue. Both are now neutral.
+
+For primary (green-bg) buttons, compose **`shadow.focus.dual`** — a 2 px canvas-colored inner separator + a 4 px neutral outer ring. The Atlassian-2024 pattern guarantees 3:1 contrast against the button's own green bg by interposing the page-color separator. Pre-R11 the outer ring was lime; R11 swaps it to `--border-frame`.
 
 Per the `:focus-visible` rule in `audit-dashboard/src/app/globals.css`, this shadow is painted on every focusable control by default. The `.lumen-field` wrapper (v0.6) overrides this — the wrapper paints the ring, and the inner `<input>` suppresses its own. See [`forms-and-inputs.md`](./forms-and-inputs.md) §Focus model.
-
-> [!warning]
-> Per [CHANGELOG v0.6](../../CHANGELOG.md): "`--shadow-focus` reconciled. Was `0 0 0 3.5px var(--lumen-lime-a40)` in CSS while `shadow.focus` token JSON declared `0 0 0 3px lime-a32`. Both now agree on `0 0 0 3px var(--lumen-lime-a32)`." The values are now consistent across web / iOS / Android / Liquid via Style Dictionary.
 
 ---
 

@@ -54,8 +54,12 @@ function Slider({
         <SliderPrimitive.Thumb
           data-slot="slider-thumb"
           key={index}
-          /* v0.8.1 — border-primary → border-[var(--lumen-accent-4)]; see ui/button.tsx. */
-          className="border-[var(--lumen-accent-4)] bg-[var(--surface-raised)] focus-visible:shadow-[var(--shadow-focus)] block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 hover:ring-[var(--lumen-lime-a14)] focus-visible:ring-4 focus-visible:ring-[var(--lumen-lime-a32)] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+          /* v0.8.1 — border-primary → border-[var(--lumen-accent-4)]; see ui/button.tsx.
+             v0.14 R11 — hover/focus ring shadows go neutral. The thumb's
+             border-color remains accent (borders are allowed to be green),
+             but the Tailwind `ring-*` utility compiles to a box-shadow,
+             so its color must follow the no-green-in-shadows mandate. */
+          className="border-[var(--lumen-accent-4)] bg-[var(--surface-raised)] focus-visible:shadow-[var(--shadow-focus)] block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 hover:ring-[var(--border-frame)] focus-visible:ring-4 focus-visible:ring-[var(--border-frame)] focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
         />
       ))}
     </SliderPrimitive.Root>

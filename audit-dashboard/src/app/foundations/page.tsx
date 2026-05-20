@@ -401,6 +401,12 @@ export default function FoundationsPage() {
               </div>
             ))}
           </div>
+          {/* v0.14 R11 — Elevation showcase rebuilt after the no-green-in-shadows
+              mandate. The earlier "Hero CTA halo · 3-layer lime ambient" and
+              "Focus ring · 3.5px lime alpha-40" demo cards rendered live lime
+              halos and demonstrated tokens whose color values have since been
+              neutralized. The cards now demo the NEUTRAL elevation each token
+              resolves to + a brief contract note explaining the shift. */}
           <div className="grid gap-3 grid-cols-1 md:grid-cols-3 mt-4">
             <div className="lumen-glass rounded-[var(--radius-2xl)] p-6 flex flex-col items-start gap-2">
               <span className="lumen-mono-cap text-[color:var(--text-tertiary)]">shadow.glass</span>
@@ -408,20 +414,20 @@ export default function FoundationsPage() {
               <span className="text-body-xs text-[color:var(--text-tertiary)]">backdrop-blur 20 · saturate 140 · hairline</span>
             </div>
             <div
-              className="rounded-[var(--radius-2xl)] border border-[var(--border-accent)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
+              className="rounded-[var(--radius-2xl)] border border-[var(--border-default)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
               style={{ boxShadow: "var(--shadow-glow-accent-strong)" }}
             >
-              <span className="lumen-mono-cap text-[color:var(--text-accent)]">shadow.glow-accent</span>
-              <span className="text-heading-h5">Hero CTA halo</span>
-              <span className="text-body-xs text-[color:var(--text-tertiary)]">3-layer lime ambient · primary actions only</span>
+              <span className="lumen-mono-cap text-[color:var(--text-tertiary)]">shadow.accent-glow</span>
+              <span className="text-heading-h5">Hero CTA lift</span>
+              <span className="text-body-xs text-[color:var(--text-tertiary)]">v0.14 R11 — neutral elevation (aliases shadow.xl). Primary CTAs ride their green BG fill; no green shadow.</span>
             </div>
             <div
-              className="rounded-[var(--radius-2xl)] border border-[var(--border-default)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
+              className="rounded-[var(--radius-2xl)] border border-[var(--border-frame)] p-6 flex flex-col items-start gap-2 bg-[var(--surface-raised)]"
               style={{ boxShadow: "var(--shadow-focus)" }}
             >
               <span className="lumen-mono-cap text-[color:var(--text-tertiary)]">shadow.focus</span>
               <span className="text-heading-h5">Focus ring</span>
-              <span className="text-body-xs text-[color:var(--text-tertiary)]">3.5px lime alpha-40 · WCAG-visible on every surface</span>
+              <span className="text-body-xs text-[color:var(--text-tertiary)]">v0.14 R11 — 3 px neutral halo (was lime alpha-32). Outline + halo compose per :focus-visible.</span>
             </div>
           </div>
         </Section>

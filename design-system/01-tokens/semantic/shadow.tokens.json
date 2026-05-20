@@ -9,8 +9,8 @@
       "lg": { "$value": "{shadow.lg}", "$description": "Strong lift. Popover, dropdown menu, floating action." }
     },
     "glow": {
-      "$description": "v0.13.2 — semantic glow aliases. Wraps the primitive accent-glow with a name a component contract can reason about.",
-      "accent": { "$value": "{shadow.accent-glow}", "$description": "Spring-green glow. Reserved for primary CTA / active toggle / live state. Use sparingly — the brand-defining always-on signal." }
+      "$description": "v0.14 R11 — the glow.accent semantic alias is preserved for backwards-compat with v0.13 consumers, but its value now aliases the neutral elevation ladder (no more green shadow). Hero CTAs ride their green BACKGROUND fill as the brand mark; surrounding atmospheric green halos retired per AGENTS.md hard rule 20.",
+      "accent": { "$value": "{shadow.accent-glow}", "$description": "v0.14 R11 — was a spring-green glow; now resolves through shadow.accent-glow which itself aliases to a neutral elevation. The semantic name is preserved so component contracts don't break, but the visual is now neutral elevation." }
     },
     "kbd": {
       "$value": [
@@ -30,59 +30,53 @@
     "floating": { "$value": "{shadow.2xl}" },
     "focus": {
       "$value": [
-        { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+        { "color": "var(--border-frame)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
       ],
-      "$description": "Single-ring focus indicator — fine for surfaces where the button background is NOT the spring-green accent. For accent-bg surfaces (primary intent), use shadow.focus.dual instead (Atlassian 2024 pattern). v0.11.13 — colour references the spring-green alpha primitive."
+      "$description": "v0.14 R11 — focus indicator goes neutral. Was a 3 px spring-green halo at accent-32; now a 3 px theme-aware paper/ink ring at 40 % alpha (--border-frame). Per AGENTS.md hard rule 20, no shadow value carries green; the focus ring is a structural a11y indicator (WCAG 2.4.7 + 2.4.13), not a brand statement. For primary CTAs whose green BG would approach the ring color, compose shadow.focus.dual which interposes a 2 px canvas-colored separator before the 4 px neutral outer ring."
     },
     "focus.dual": {
-      "$description": "v0.9 — Dual-ring focus indicator for accent surfaces. Inner 2 px neutral ring separates the focus halo from the button so the outer ring maintains 3:1 contrast against the surface (WCAG 2.4.13). Atlassian's 2024 fix — needed because a colored ring on a same-colored surface fails the 3:1 floor.",
+      "$description": "v0.9 — Dual-ring focus indicator. Inner 2 px page-canvas-colored separator + outer 4 px neutral ring. v0.14 R11 — outer ring re-anchored from var(--lumen-accent-4) (spring green) to var(--border-frame) (40 %-alpha theme-aware neutral). Green is banished from all shadow color values; the inner separator + outer neutral ring still passes WCAG 2.4.13's 3:1 floor on every button surface.",
       "inner": {
         "$value": [
           { "color": "var(--surface-canvas)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" }
         ],
-        "$description": "Inner separator ring — paints the page canvas color, creating a 2 px gap between the button and the outer accent ring."
+        "$description": "Inner separator ring — paints the page canvas color, creating a 2 px gap between the button and the outer neutral ring."
       },
       "outer": {
         "$value": [
-          { "color": "var(--lumen-accent-4)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
+          { "color": "var(--border-frame)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
         ],
-        "$description": "Outer 2 px accent ring (4 px - 2 px inner = 2 px visible). Maintains 3:1 against canvas regardless of button surface. Compose: shadow-focus-dual = inset inner + outer."
+        "$description": "v0.14 R11 — outer 2 px neutral ring (was lime). 40 %-alpha theme-aware paper/ink — passes 3:1 against canvas regardless of button surface."
       },
       "stack": {
         "$value": [
           { "color": "var(--surface-canvas)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "2px" },
-          { "color": "var(--lumen-accent-4)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
+          { "color": "var(--border-frame)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "4px" }
         ],
-        "$description": "v0.9 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible. Note: the var() refs above are the published runtime CSS-var names so both designers and engineers can render this composed value identically; the underlying source-of-truth is color.surface.page (inner) and color.accent.500 (outer)."
+        "$description": "v0.14 R11 — composed dual-ring (inner + outer). Apply as a single box-shadow on focus-visible. The underlying source-of-truth is color.surface.page (inner) and color.border.frame (outer)."
       }
     },
     "button": {
-      "$description": "v0.9 — primary-button glow ladder. Three-state ambient halo: rest → hover → active. Reserved exclusively for primary intent (the spring-green CTA). Other intents and surfaces ship zero glow. v0.11.13 — colours migrated from inline lime rgba(74,222,128,X) to the spring-green {color.alpha.accent.*} primitives so the brand recolor cascades. v0.12.2 — hover retuned (24px a40 → 20px a28) per ADR 0022 in response to the user-reported '/library LoginCard Send-magic-link' bloom (~40 px past the button on every side). Rest and active unchanged on purpose: rest is the brand-defining always-on signal per ADR 0018; active was already tight.",
+      "$description": "v0.9 — primary-button glow ladder. v0.14 R11 — the green halo retired. The token names are preserved for backwards-compat but the rest-state cast is `none`, hover gets a neutral elevation lift via shadow.md, active is `none`. Primary CTAs still carry the brand via their green BACKGROUND fill; the surrounding atmospheric green halo previously reinforced the action affordance but is banished per the user's no-green-shadows mandate (AGENTS.md hard rule 20).",
       "glow": {
         "rest": {
-          "$value": [
-            { "color": "{color.alpha.accent.25}", "offsetX": "0px", "offsetY": "0px", "blur": "16px", "spread": "0px" }
-          ],
-          "$description": "Default ambient halo on a primary CTA. Soft and steady; signals 'live' without competing with hover. Unchanged across v0.9 → v0.12.2 — the brand-voice commitment per ADR 0018."
+          "$value": "none",
+          "$description": "v0.14 R11 — was 16px @ accent-25; now `none`. The green button background is the brand affordance at rest; the surrounding halo retired."
         },
         "hover": {
-          "$value": [
-            { "color": "{color.alpha.accent.28}", "offsetX": "0px", "offsetY": "0px", "blur": "20px", "spread": "0px" }
-          ],
-          "$description": "Hover halo — wider blur + higher alpha than rest, but trimmed in v0.12.2 (was 24px a40, retuned to 20px a28 — blur −17%, alpha −30%). Cascades into both the base .lumen-btn-primary:hover rule AND the first layer of the @media (hover: hover) layered halo. The middle and outer layers of that layered halo (20px a14 + 32px a08 in v0.12.2) live in globals.css as a CSS-level composition; they are not a single DTCG token because they're contextual to the @media-hover query. See ADR 0022."
+          "$value": "{shadow.md}",
+          "$description": "v0.14 R11 — was 20px @ accent-28; now aliases the neutral shadow.md lift. The hover affordance is a neutral elevation, not a green glow."
         },
         "active": {
-          "$value": [
-            { "color": "{color.alpha.accent.20}", "offsetX": "0px", "offsetY": "0px", "blur": "8px", "spread": "0px" }
-          ],
-          "$description": "Press halo — collapsed blur, dimmer alpha. Visual weight ducks momentarily on press, paired with filter: brightness(0.92) — no transform, no scale. Unchanged through v0.12.2."
+          "$value": "none",
+          "$description": "v0.14 R11 — was 8px @ accent-20; now `none`. Active state carries via filter: brightness(0.92), not via shadow."
         }
       },
       "ai-shimmer": {
         "$value": [
-          { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
+          { "color": "var(--border-frame)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "1px" }
         ],
-        "$description": "v0.9 — AI-action variant idle border (1 px accent at 32% alpha). Animated via CSS keyframe (1.6 s ease-in-out infinite, paused on hover). See globals.css `.lumen-btn-ai`."
+        "$description": "v0.14 R11 — AI-action shimmer border is now neutral (was accent-32). Animation cycles between border-frame (rest), border-strong (peak), with a neutral paper-alpha halo at the peak. See globals.css `@keyframes lumen-btn-ai-shimmer`."
       }
     },
     "input": {
@@ -95,21 +89,21 @@
       },
       "focus": {
         "$value": [
-          { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+          { "color": "var(--border-frame)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
         ],
-        "$description": "v0.6 — focus halo on .lumen-field wrapper. Same recipe as shadow.focus, namespaced for inputs so future theming can diverge."
+        "$description": "v0.14 R11 — focus halo on .lumen-field wrapper is neutral (was accent-32). border-frame is 40 %-alpha theme-aware; passes WCAG 2.4.13 on every surface. Inputs no longer signal focus via the accent — they signal it via the same neutral halo every other interactive element uses."
       },
       "error": {
         "$value": [
           { "color": "{color.alpha.danger.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
         ],
-        "$description": "v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus. v0.11.13 — colour now references {color.alpha.danger.32} (refined #E5484D) instead of the inlined v0.10 #ef4444."
+        "$description": "v0.6 — error halo. Painted on focus when [data-invalid=true]; replaces (not stacks with) shadow.input.focus. Error keeps red because red is a validation tone, distinct from action/brand — and per AGENTS.md hard rule 20 the no-green-in-shadows mandate is specifically about GREEN, not all colored shadows. Red/amber validation halos remain encoded."
       },
       "success": {
         "$value": [
-          { "color": "{color.alpha.accent.32}", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
+          { "color": "var(--border-frame)", "offsetX": "0px", "offsetY": "0px", "blur": "0px", "spread": "3px" }
         ],
-        "$description": "v0.6 — success halo. Reuses the focus recipe; reserved for explicit post-validation success affordances."
+        "$description": "v0.14 R11 — success halo is neutral (was accent-32). The post-validation success affordance is now communicated via a brief check icon + the field returning to default border — not via a green halo. See micro-interactions.md §Success."
       }
     }
   }

@@ -10,7 +10,7 @@ related: [./principles.md, ../02-components/]
 
 # Accessibility
 
-> Lumen targets **WCAG 2.2 Level AA** as a hard floor for every shipped surface. AAA where it doesn't add cost. Assistive-tech parity is not optional and not a "future iteration." v0.12.4 hardened the focus-ring contract: the global `:focus-visible` rule now pairs `outline 2px solid lime-a64; outline-offset: 1px;` with the existing soft `box-shadow` halo so focus rings stay visible inside corner-clipped containers (closes the v0.12.1 ADR-0021 pagination-focus regression).
+> Lumen targets **WCAG 2.2 Level AA** as a hard floor for every shipped surface. AAA where it doesn't add cost. Assistive-tech parity is not optional and not a "future iteration." v0.12.4 hardened the focus-ring contract; **v0.14 R11 retired green from every shadow value system-wide** — the global `:focus-visible` rule now pairs `outline 2px solid var(--border-frame); outline-offset: 1px;` with a neutral `box-shadow` halo (was lime alpha-32; now 40 %-alpha theme-aware paper/ink). The focus indicator passes WCAG 2.4.13's 3:1 floor on every Lumen surface without depending on the brand color.
 
 ## Hard floor — must, never compromise
 
@@ -20,7 +20,7 @@ These are not goals. They are required for any component, page, or template to s
 |---|---|---|
 | Text contrast | 4.5:1 for body, 3:1 for ≥18px / ≥14px bold | Token pairs are pre-validated; any new token pair runs `wcag-contrast` in CI |
 | Non-text contrast | 3:1 for UI controls and graphical objects | Hairline borders use `border-default`, focus uses `border-focus` (token-validated) |
-| Visible focus | Always present, never `outline: none` without replacement | `:focus-visible` is set globally and pairs `outline 2px solid lime-a64; outline-offset: 1px;` with `--shadow-focus` (v0.12.4 — outline added on top of soft box-shadow halo so focus rings stay visible inside `<Card padding="none">` and other `overflow: hidden` ancestors) |
+| Visible focus | Always present, never `outline: none` without replacement | `:focus-visible` is set globally and pairs `outline 2px solid var(--border-frame); outline-offset: 1px;` with neutral `--shadow-focus` halo (v0.14 R11 — both layers now neutral after green was banished from shadow values; v0.12.4 added the outline on top of the box-shadow halo so focus rings stay visible inside `<Card padding="none">` and other `overflow: hidden` ancestors) |
 | Keyboard reachable | Every interactive element via Tab; logical order | Component schema requires keyboard map; `aria-disabled` (not `disabled`) used inside forms |
 | Touch target | 44 × 44 px minimum on mobile (HIG) / 48 × 48 dp on Android (Material) | `Button` minimum height 36 web / 44 mobile; clickable area extends beyond visual when needed |
 | Reduced motion | Honor `prefers-reduced-motion: reduce` | Global CSS rule disables animation; per-component opt-out documented |
@@ -56,23 +56,25 @@ Why this needs its own rule: in Tailwind v4, the shadcn token bridge (`bg-primar
 
 A `.lumen-btn-primary` class in `globals.css` ships as a single-class shorthand for any consumer that needs the same guarantee outside the Button primitive (e.g. raw `<a>` elements or templated CTAs).
 
-## Focus-ring contract (v0.12.4 — `outline + box-shadow`, never box-shadow alone)
+## Focus-ring contract (v0.14 R11 — neutral `outline + box-shadow`)
 
-Every focusable element must show a visible focus indicator that survives every layout context — including ancestors that compose `overflow: hidden` (`<Card padding="none">` per ADR 0021, glass surfaces, scroll containers, the InlineTabs `pill` variant `TabsList`, Showcase demo frames). The global `:focus-visible` rule paints two layers:
+Every focusable element must show a visible focus indicator that survives every layout context — including ancestors that compose `overflow: hidden` (`<Card padding="none">` per ADR 0021, glass surfaces, scroll containers, the InlineTabs `pill` variant `TabsList`, Showcase demo frames). The global `:focus-visible` rule paints two NEUTRAL layers:
 
 ```css
 :focus-visible {
-  outline: 2px solid var(--lumen-lime-a64);
+  outline: 2px solid var(--border-frame);   /* v0.14 R11 — was lime-a64 */
   outline-offset: 1px;
-  box-shadow: var(--shadow-focus); /* the existing soft brand halo */
+  box-shadow: var(--shadow-focus);          /* v0.14 R11 — neutral paper/ink halo */
 }
 ```
 
-**Why both layers, why this order.** Box-shadow paints into the element's own painting context and is clipped by ancestor `overflow: hidden` — pre-v0.12.4 the global rule used box-shadow only, and focus rings on Pagination buttons inside `<Card padding="none">` (which gained `overflow-hidden` in v0.12.1 per ADR 0021) were partially clipped, producing visible "underline + vertical bar" fragments at the bottom of the card. Outline is painted *outside* the layout box and is structurally immune to ancestor overflow. Modern browsers (Chrome 94+, Firefox 88+, Safari 16.4+) follow `border-radius` for outline when `outline-style` is not `auto`. Stacked, the outline guarantees the focus indicator is ALWAYS visible as a structural ring, while the box-shadow paints the soft alpha-blended halo for the brand voice. When both render unclipped, you get "outline + glow" — a slightly thicker focus indicator with depth. When the box-shadow gets clipped, the outline still shows the focus state cleanly. Belt + braces — without the visual cost of doubling the ring's thickness, because the outline (2 px solid) and the box-shadow (3 px soft) span overlapping radii from the element's edge.
+**Why both layers, why this order.** Box-shadow paints into the element's own painting context and is clipped by ancestor `overflow: hidden` — pre-v0.12.4 the global rule used box-shadow only, and focus rings on Pagination buttons inside `<Card padding="none">` (which gained `overflow-hidden` in v0.12.1 per ADR 0021) were partially clipped, producing visible "underline + vertical bar" fragments at the bottom of the card. Outline is painted *outside* the layout box and is structurally immune to ancestor overflow. Modern browsers (Chrome 94+, Firefox 88+, Safari 16.4+) follow `border-radius` for outline when `outline-style` is not `auto`. Stacked, the outline guarantees the focus indicator is ALWAYS visible as a structural ring, while the box-shadow paints the soft alpha-blended halo as atmospheric depth.
 
-**The `.lumen-btn-primary:focus-visible` dual-ring is unaffected.** Per ADR 0016, primary buttons on the spring-green accent surface need a 2 px canvas-colored separator between button and halo (Atlassian 2024 fix; WCAG 2.4.13's 3:1 contrast floor would otherwise fail because button bg = halo color). The dual-ring is composed via `box-shadow: 0 0 0 2px var(--surface-page), 0 0 0 4px var(--lumen-accent-4)` AND `outline: none`. The explicit `outline: none` overrides the global outline rule via CSS specificity — the dual-ring brand visual stays exactly as ADR 0016 designed it. Every other focusable element (links, icon buttons, table rows, form fields, tabs, segmented controls) inherits the global outline + box-shadow.
+**Why the color went from lime to neutral (v0.14 R11).** Through v0.13.5 the focus ring carried the brand accent (spring green at 64 % alpha for the outline + 32 % alpha for the halo). The user mandate that closed R11 is explicit: **no green in any shadow value, anywhere**. The focus indicator is a structural a11y signal (WCAG 2.4.7 + 2.4.13), not a brand statement; it deserves a neutral, theme-aware color (`--border-frame` = 40 % paper alpha in dark, 40 % ink alpha in light) that passes 3:1 on every Lumen surface without depending on the accent. The brand still announces itself through the BACKGROUND fill of primary CTAs / leading dots / badge bgs / surface tints — those are not shadows and remain green by contract.
 
-**LLM rule for new components.** When authoring any new `:focus-visible` rule (custom card, inline link, novel control), include `outline` for structural visibility, then layer `box-shadow` for the brand halo. Box-shadow alone fails inside corner-clipped ancestors. Outline alone loses the soft brand character. The two-layer pattern is the system contract — don't write a new rule that breaks it.
+**The `.lumen-btn-primary:focus-visible` dual-ring is also neutral now.** Per ADR 0016, primary buttons on the green accent surface need a 2 px canvas-colored separator between button and halo (Atlassian 2024 fix; WCAG 2.4.13's 3:1 contrast floor would otherwise fail because button bg = halo color when both are the same color). R11 swaps the OUTER ring from `var(--lumen-accent-4)` to `var(--border-frame)`. Composed via `box-shadow: 0 0 0 2px var(--surface-canvas), 0 0 0 4px var(--border-frame)` AND `outline: none`. The explicit `outline: none` overrides the global outline rule via CSS specificity — the dual-ring shape is preserved (Atlassian pattern stays); only the color changed.
+
+**LLM rule for new components.** When authoring any new `:focus-visible` rule (custom card, inline link, novel control), include `outline` for structural visibility, then layer `box-shadow` for atmospheric depth. **Both must be neutral.** Never write `outline: 2px solid var(--lumen-accent-*)` or `box-shadow: 0 0 0 Npx var(--lumen-lime-*)` — those are banned per AGENTS.md hard rule 20 and the `lint:shadow-no-accent` script will catch the violation in CI.
 
 ## Floating UI portal contract (v0.12.4 — escape ancestor overflow)
 

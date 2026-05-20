@@ -182,9 +182,9 @@
     },
 
     "focus": {
-      "$description": "v0.9 — Focus indicator — dual-ring on lime accent surfaces, single-ring on neutral surfaces. Atlassian 2024 pattern (single-color ring fails 3:1 on same-colored surface).",
-      "primary":  { "$value": "{shadow.focus.dual.stack}", "$description": "Primary intent (lime bg) — dual ring." },
-      "neutral":  { "$value": "{shadow.focus}",            "$description": "Other intents — single ring (3 px lime alpha at 32% on neutral bg passes 3:1)." }
+      "$description": "v0.14 R11 — focus indicator ladder. Dual-ring on primary (green-bg) buttons + single-ring on neutral. Both indicators are now neutral (was lime). The dual ring interposes a 2 px canvas-colored inner separator before a 4 px neutral outer ring so 3:1 contrast holds against the green button bg; the single ring is a 3 px theme-aware neutral halo on every other intent.",
+      "primary":  { "$value": "{shadow.focus.dual.stack}", "$description": "Primary intent (green bg) — dual ring; outer ring neutral border-frame, inner ring canvas-cream." },
+      "neutral":  { "$value": "{shadow.focus}",            "$description": "Other intents — single 3 px neutral ring (border-frame at 40 % theme-aware alpha). Was lime at 32 % pre-R11." }
     },
 
     "motion": {

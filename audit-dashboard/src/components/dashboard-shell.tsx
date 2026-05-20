@@ -126,9 +126,14 @@ function LumenMark({ size = 18 }: { size?: number }) {
       <span
         className="lumen-mark-ring absolute inset-0 rounded-[var(--radius-full)] border border-[var(--border-strong)] transition-[border-color,box-shadow] duration-[var(--motion-fast)] ease-[var(--easing-standard)]"
       />
+      {/* v0.14 R11 — mark-core's rest-state halo retired. The lime BG fill
+          (bg-[var(--lumen-accent-4)]) is the brand identity by itself; the
+          surrounding lime box-shadow halo previously bled green light into
+          the surrounding chrome and is banished per AGENTS.md hard rule 20.
+          Hover halo is now neutral (paper-alpha glow + brightness lift) —
+          see globals.css .lumen-mark-link:hover. */}
       <span
-        className="lumen-mark-core absolute inset-[28%] rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] transition-[box-shadow,transform] duration-[var(--motion-base)] ease-[var(--easing-standard)]"
-        style={{ boxShadow: "0 0 8px var(--lumen-lime-a64)" }}
+        className="lumen-mark-core absolute inset-[28%] rounded-[var(--radius-full)] bg-[var(--lumen-accent-4)] transition-[box-shadow,transform,filter] duration-[var(--motion-base)] ease-[var(--easing-standard)]"
       />
     </span>
   );
