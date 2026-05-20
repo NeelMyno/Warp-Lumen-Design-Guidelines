@@ -10,6 +10,47 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.14.2] — 2026-05-20 — v0.14.2 R13: LazyMount paint-flash fix + Elevation perceptual lift + synthetic-names cleanup (ADR 0032)
+
+R13 closes three real-world bugs surfaced by a second comprehensive audit through the Claude in Chrome MCP, driven against Edge on macOS. R12 was the FIRST multi-route MCP-driven audit; R13 is the second, validating the methodology rule R12 codified — *walk every route with eyes on the rendered pixels AND probe live tokens via `getComputedStyle`*. The audit log is at [`.audit-runs/2026-05-20-round-13/ISSUES.md`](.audit-runs/2026-05-20-round-13/ISSUES.md).
+
+1. **LazyMount paint-defer flash on fast scroll** (R13-001) — R12 (ADR 0031) migrated LazyMount to pure CSS `content-visibility: auto`. The R12 fix correctly closed the SSR contract gap AND preserved the R8c first-paint LCP win. But `content-visibility: auto` skips paint for off-screen elements **every frame, indefinitely** — not just at first paint. During fast scroll (10+ scroll-ticks/sec via Magic Mouse / touchpad), the browser's paint-prediction lags behind viewport movement. The user lands in a scroll position where multiple lazy sections fill the viewport, none painted yet → black void. R13 verified this across **7+ distinct scroll positions** on /library in a single top-to-bottom audit walk. Root cause: `content-visibility: auto` is a **paint-perpetual** contract — there's no notion of "the user has already seen this section, keep it painted." R13 swaps the implementation to a first-paint-only deferral pattern: SSR + initial render apply content-visibility: auto (preserving R8c LCP win + R12 SSR contract); after hydration, a `useEffect` + `requestAnimationFrame` flips the style to `{}`, removing content-visibility from every LazyMount. Subsequent scrolls have **no paint-defer, no black voids, no viewport latency**. JS-disabled users still get the SSR-shipped paint-deferred contract (functional but with potential void). `placeholderHeight` default reduced from 600 → 240 px to better match median first-viewport section height; all 23 `/library` wraps updated from `placeholderHeight={500}` → `placeholderHeight={240}`. Verified via live MCP probe post-fix: `document.querySelectorAll('[data-lazy-mount]')` returns 23 elements, all with `data-lazy-mount="ready"` after hydration (was `"lazy"` pre-fix indicating content-visibility was still applied). Walked /library top-to-bottom at the audit-tool's default scroll speed; no sustained black voids.
+
+2. **Foundations Elevation showcase visually undifferentiated on dark canvas** (R13-002, closes R12-002 deferred) — The `/foundations` Elevation section renders 6 cards (xs / sm / md / lg / xl / 2xl) demonstrating the shadow ladder. After R11 retired green from every shadow token (ADR 0030), shadows became neutral black. On the obsidian canvas (#0d0d0d), `rgba(0,0,0,0.32)` shadows blend almost perfectly into the background — every card reads identical. The token-space ladder is correct; the pixel-space ladder is invisible. R12 deferred this as P2 ("perceptual on near-black canvas; future round can add per-card visual hints"). R13 closes it: each card now layers an inset top highlight that scales with the shadow ladder, alongside the unchanged ladder shadow — `boxShadow: inset 0 1px 0 0 rgba(255, 255, 255, ${insetAlpha}), var(--shadow-${level})`. insetAlpha per level: xs=0.04, sm=0.09, md=0.14, lg=0.20, xl=0.26, 2xl=0.32. Demo-only treatment — the underlying shadow tokens are unchanged and consumer apps don't inherit this inset highlight. Communicates lift at the cream-channel where neutral shadows alone fall silent on dark canvas. In light mode, dark shadows do the work; the inset white highlight at 4-32% alpha is barely noticeable — graceful no-op.
+
+3. **Real-person names re-leaked into fixtures** (R13-003) — The v0.12.5 contract retired real-person names ("Daniel Sokolovsky" / "Neel Tengariya" + initials) from 9 sites in 5 files in favor of synthetic operator names (Avery Mercer / Kai Morgan style). R13 caught two remaining sites where "Daniel" had re-leaked: `audit-dashboard/src/components/primitives/display.tsx:485` Timeline event `actor: "Daniel S."`, and `audit-dashboard/src/components/primitives/ai.tsx:214` TypingIndicator default prop `name = "Daniel"`. R13 replaces with synthetic `"Avery M."` and `"Avery"` respectively. Continues the v0.12.5 cleanup contract. Avatar palette is name-hashed so deterministic colors follow whatever name ships.
+
+**R13 methodology contribution to the audit-cycle ladder:** R12's rule was *a doc that describes the intent and a runtime CSS that implements the intent can drift silently; the live multi-route MCP audit is the enforcement mechanism*. R13 extends: ***a fix that ships in round N may surface a new bug class in round N+1 — that's the audit-via-MCP ladder working as designed. The R12 LazyMount migration correctly closed an SSR contract gap AND correctly preserved an LCP perf win, but introduced a paint-defer UX flash. R13 closes the flash without giving up either prior fix, by combining the SSR-complete DOM + first-paint-only deferral into a hybrid that's strictly better than either prior implementation. The audit-via-MCP loop turns the "fix introduces new bug" pattern from a regression to a refinement.***
+
+### Added
+- **[ADR 0032 — v0.14.2 R13](_meta/decisions/0032-r13-lazy-mount-paint-flash-elevation-lift-v0142.md)** — the three-axis R13 ship.
+- **`.audit-runs/2026-05-20-round-13/ISSUES.md`** — R13 audit catalog: 3 bugs catalogued (R13-001 P0 fixed, R13-002 P1 fixed, R13-003 P1 fixed), 1 gap deferred (R13-004 P2 foundation showcases for OS-modes/Print/i18n/Responsive/State-matrix), 1 informational finding (R13-005 React hydration warning from user's Vercel browser extension, not Lumen).
+
+### Changed
+- **`audit-dashboard/src/components/lazy-mount.tsx`** — full rewrite to first-paint-only deferral via `useEffect` + `requestAnimationFrame` flip. Component is now `"use client"`. Default `placeholderHeight` 600 → 240. `data-lazy-mount` attribute tracks state (`"eager"` / `"lazy"` / `"ready"`).
+- **`audit-dashboard/src/app/library/client.tsx`** — all 23 `<LazyMount placeholderHeight={500}>` updated to `placeholderHeight={240}` for tighter first-paint reservation.
+- **`audit-dashboard/src/app/foundations/page.tsx`** Elevation section (lines 389-403) — per-card inset top highlight added, scales 4% → 32% with elevation level. R12-002 closed.
+- **`audit-dashboard/src/components/primitives/display.tsx:485`** — Timeline event `actor: "Daniel S."` → `"Avery M."`.
+- **`audit-dashboard/src/components/primitives/ai.tsx:214`** — TypingIndicator default `name = "Daniel"` → `"Avery"`.
+
+### Fixed
+- **R13-001 (P0)** — `/library` fast-scroll no longer shows sustained black voids. LazyMount post-hydration is fully rendered; paint-defer is retired after the first paint.
+- **R13-002 (P1)** — Foundations Elevation showcase now communicates lift on dark canvas via per-card inset top highlight. The shadow ladder is now perceptually a ladder. Closes R12-002 (deferred in v0.14.1).
+- **R13-003 (P1)** — Two real-person-name regressions caught and replaced with synthetic operator names. The v0.12.5 cleanup contract is restored.
+
+### Deferred
+- **R13-004 (P2)** — foundation showcases for OS-modes / Print / i18n / Responsive / State-matrix. Prose docs exist; live showcases on `/foundations` do not. Significant new authoring work; future round closes.
+
+### Notes
+- AGENTS.md hard rule 17 (LazyMount on DOM-heavy routes) is amended in-place to reflect the post-hydration flip pattern. Rule count unchanged at 19.
+- The R12 SSR-completeness contract holds. Children are always in the DOM. SEO, Cmd+F, screen-reader pre-walk, JS-disabled all work.
+- The R8c first-paint LCP win holds. content-visibility: auto applies during the LCP-critical frame.
+- The R11 no-green-shadows mandate holds. Every shadow token stays neutral.
+- The R12 dark text-ladder fix holds. 3-tier text contrast intact in dark + light.
+- The CLS=0.000 contract holds. `contain-intrinsic-size` reserves vertical space before the RAF flip; after the flip, the section uses its real intrinsic height.
+
+---
+
 ## [0.14.1] — 2026-05-20 — v0.14.1 R12: dark text-ladder + LazyMount SSR-completeness (ADR 0031)
 
 R12 closes two real-world bugs surfaced by a comprehensive audit of every route in dark + light mode across desktop viewports, driven via the Claude in Chrome MCP against Edge on macOS. Both bugs were docs↔code sync violations of the R11 mandate that surfaced as visible UX regressions:

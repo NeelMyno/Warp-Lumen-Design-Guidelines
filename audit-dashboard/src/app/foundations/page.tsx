@@ -386,12 +386,37 @@ export default function FoundationsPage() {
           title="Elevation"
           description="Hairline borders do most of the surface separation work. Shadows are multi-layer, reserved for genuine lift — popovers, drawers, modals, toasts. Glow shadows (lime-tinted) carry hero CTAs and live-status."
         >
+          {/* v0.14.2 R13 — Elevation card row carries a per-level inset top highlight
+              that scales with the shadow ladder (R13-002 fix; R12 deferred). On the
+              dark canvas, neutral box-shadows alone are perceptually flat — every
+              card reads identical. The inset highlight communicates lift at the
+              cream-channel instead, scaling 4% → 9% → 14% → 20% → 26% → 32% alpha
+              for xs/sm/md/lg/xl/2xl. The boxShadow tokens themselves are
+              unchanged; the inset highlight is rendered as a second box-shadow
+              layer alongside the ladder shadow. */}
           <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-            {(["xs", "sm", "md", "lg", "xl", "2xl"] as const).map((level) => (
+            {(
+              [
+                { level: "xs",  insetAlpha: 0.04 },
+                { level: "sm",  insetAlpha: 0.09 },
+                { level: "md",  insetAlpha: 0.14 },
+                { level: "lg",  insetAlpha: 0.20 },
+                { level: "xl",  insetAlpha: 0.26 },
+                { level: "2xl", insetAlpha: 0.32 },
+              ] as const
+            ).map(({ level, insetAlpha }) => (
               <div
                 key={level}
                 className="bg-[var(--surface-raised)] rounded-[var(--radius-xl)] border border-[var(--border-hairline)] p-5 flex flex-col items-center gap-2"
-                style={{ boxShadow: `var(--shadow-${level})` }}
+                /* lumen-lint-allow: primitives — the inset top highlight is a
+                   per-card visual cue that scales with the shadow ladder. The
+                   alpha values are demo-only (this is the elevation showcase) and
+                   communicate lift on near-black canvas where neutral shadows
+                   alone are perceptually flat. The ladder shadow token is
+                   unchanged. */
+                style={{
+                  boxShadow: `inset 0 1px 0 0 rgba(255, 255, 255, ${insetAlpha}), var(--shadow-${level})`,
+                }}
               >
                 <div className="text-label-sm text-[color:var(--text-primary)]">{level}</div>
                 {/* lumen-lint-allow: typography — mono regular at 11 token name; no semantic preset for 11px mono */}

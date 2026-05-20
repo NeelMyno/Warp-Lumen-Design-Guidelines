@@ -24,7 +24,7 @@ Density:            Marketing breathes (96 px hero rhythm) · Operator stays den
 Distribution:       shadcn registry · npx shadcn add <registry>/<name>
 Tokens:             DTCG JSON · Style Dictionary v5 · 9 platform outputs
 LLM contract:       llms.txt + AGENTS.md + CLAUDE.md + tool-specific mirrors · 19 hard rules
-Status:             v0.14.1 · Omnibus systemic-gap closure (ADR 0029 — 9-axis ship in one cycle: R8c IntersectionObserver lazy-mount on /library closes the R8b main-thread regression; R8d italic font-display:optional drops italic from LCP critical path; R9 prefers-contrast + forced-colors OS-mode contracts; R10 @media print + data-export=image; i18n + RTL scaffold + internationalization.md foundation; templates layer + 3 new patterns + PATTERN-INDEX.md + Lumen-branded 404/500; 9 cross-platform examples — Button/Card/Field × SwiftUI/Compose/RN; mcp/server.mjs closes USING-LUMEN.md hard rule 4 lie; Playwright + a11y baseline testing infra + Storybook scaffold; @warp/lumen-tokens npm package scaffold. LCP geo-mean R8b → v0.14: 2706 → 2068 ms = −638 ms / −23.6%; cumulative R7 → v0.14: 3030 → 2068 ms = −962 ms / −31.7%; /library 3634 → 1815 ms = −1819 ms / −50% — R8b regression fully compensated. CLS 0.000 every route. 18 Playwright tests pass.) · 7 principles · 29 ADRs
+Status:             v0.14.2 · R13 LazyMount paint-flash fix + Elevation perceptual lift + synthetic-names cleanup (ADR 0032 — three-axis ship closing R12's residuals: LazyMount migrates to first-paint-only deferral via useEffect + requestAnimationFrame flip, retiring the content-visibility: auto paint-defer flash on fast scroll without giving up the R8c LCP win or the R12 SSR-completeness contract; Foundations Elevation showcase gains per-card inset top highlight scaling 4% → 32% to communicate lift on dark canvas where neutral shadows alone fall silent — closes R12-002 deferred; synthetic-name cleanup catches two remaining "Daniel" re-leaks in display.tsx Timeline + ai.tsx TypingIndicator and replaces with "Avery". R13 is the second multi-route audit through Claude in Chrome MCP — validates the R12 methodology rule that the live MCP audit is the enforcement mechanism for the R11 docs↔code sync mandate. 56/58 Playwright tests pass (2 skipped on axe-core); pnpm lint 8 rules pass; pnpm validate:tokens 956 tokens valid; pnpm exec tsc --noEmit PASS; pnpm build 12 routes prerender. R13 methodology contribution: a fix that ships in round N may surface a new bug class in round N+1 — the audit-via-MCP loop turns that pattern from regression to refinement.) · 7 principles · 30 ADRs
 ```
 
 ## What this repo is
@@ -53,7 +53,7 @@ Warp-Lumen-Design-Guidelines/
 ├── CLAUDE.md                       ← Claude-specific addenda
 ├── CONTRIBUTING.md                 ← human contributor guide
 ├── CHANGELOG.md                    ← Keep-a-Changelog format
-├── VERSION                         ← 0.14.1
+├── VERSION                         ← 0.14.2
 ├── package.json                    ← build / validate / registry scripts
 ├── style-dictionary.config.ts      ← token build pipeline
 ├── scripts/                        ← build-registry, check-contrast, lint, release
@@ -156,7 +156,23 @@ Eight tabs:
 
 Use the mood switcher (top right) to compare the four moods (Quiet Industrial recommended; Soft Luminous, Mono Editorial, Premium Glass as alternatives).
 
-## What's new — v0.14.1
+## What's new — v0.14.2
+
+### v0.14.2 (2026-05-20) — R13: LazyMount paint-flash fix + Elevation perceptual lift + synthetic-names cleanup (ADR 0032)
+
+Second multi-route audit through Claude in Chrome MCP (R12 was the first). R13 closes three real-world bugs that R12 either introduced or left in place:
+
+- **R13-001 (P0) — LazyMount paint-flash on fast scroll.** R12's pure-CSS `content-visibility: auto` migration correctly closed the SSR contract gap AND preserved the R8c LCP win, but `content-visibility: auto` skips paint **every frame, indefinitely**. During fast scroll the browser's paint-prediction lagged behind viewport movement; the user landed on positions where multiple lazy sections filled the viewport, none painted yet → black void. Reproduced 7+ times across `/library`. R13 swaps to first-paint-only deferral via `useEffect` + `requestAnimationFrame`: SSR + initial render apply content-visibility (preserves R8c LCP win + R12 SSR contract); after hydration, a single RAF flips the style to `{}`, removing content-visibility from every LazyMount. **Subsequent scrolls have no paint-defer, no black voids.** Default `placeholderHeight` reduced from 600 → 240; 23 `/library` wraps updated from `{500}` → `{240}`. Live MCP probe: all 23 LazyMounts show `data-lazy-mount="ready"` post-hydration.
+- **R13-002 (P1, closes R12-002 deferred) — Elevation showcase perceptual lift on dark canvas.** After R11 retired green from shadow tokens, neutral black shadows blend into the obsidian canvas; xs / sm / md / lg / xl / 2xl cards looked identical. R13 layers a per-card inset top highlight that scales 4% → 9% → 14% → 20% → 26% → 32% white alpha alongside the unchanged ladder shadow. Demo-only treatment — shadow tokens unchanged, consumer apps don't inherit.
+- **R13-003 (P1) — Real-person name re-leaks.** `display.tsx:485` Timeline `actor: "Daniel S."` → `"Avery M."`; `ai.tsx:214` TypingIndicator default `name = "Daniel"` → `"Avery"`. Continues v0.12.5 synthetic-only cleanup.
+
+**Methodology contribution:** *A fix that ships in round N may surface a new bug class in round N+1 — that's the audit-via-MCP ladder working as designed. R12 correctly closed an SSR contract gap AND correctly preserved an LCP perf win, but introduced a paint-defer UX flash. R13 closes the flash without giving up either prior fix, by combining the SSR-complete DOM + first-paint-only deferral into a hybrid that's strictly better than either prior implementation.*
+
+**Validation:** `pnpm validate:tokens` → 956 tokens valid · `pnpm lint` → all 8 rules pass · `pnpm exec tsc --noEmit` (audit-dashboard) → PASS · `pnpm build` → 12 routes prerender · `pnpm exec playwright test` → 56 / 58 pass (2 skipped on axe-core).
+
+### v0.14.1 (2026-05-20) — R12: dark text-ladder + LazyMount SSR-completeness (ADR 0031)
+
+First multi-route audit through Claude in Chrome MCP. Fixed the dark-mode 3-tier text ladder (`--text-tertiary` was collapsing to `--text-secondary` at the runtime layer despite the DTCG spec separating them); migrated LazyMount from React-state IntersectionObserver to pure CSS `content-visibility: auto` to close the SSR-completeness gap (R8c had shipped 23 empty placeholder divs in SSR). R13 closes the residual paint-flash this introduced.
 
 ### v0.14.0 (2026-05-19) — Omnibus systemic-gap closure (ADR 0029)
 

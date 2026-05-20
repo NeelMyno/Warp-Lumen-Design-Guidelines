@@ -482,7 +482,7 @@ export function Timeline() {
   const events = [
     { time: "10:42 AM", title: "Quote sent", actor: "Lumen AI", tone: "accent" as const },
     { time: "10:38 AM", title: "Customer requested rate", actor: "Sterling LTL" },
-    { time: "10:31 AM", title: "Lane created", actor: "Daniel S." },
+    { time: "10:31 AM", title: "Lane created", actor: "Avery M." },
     { time: "Yesterday", title: "Carrier scorecard updated", actor: "System" },
   ];
   return (

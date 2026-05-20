@@ -211,7 +211,7 @@ export function ChatComposer() {
 }
 
 /* ─────────────────────────  TYPING INDICATOR  ───────────────────────── */
-export function TypingIndicator({ name = "Daniel" }: { name?: string }) {
+export function TypingIndicator({ name = "Avery" }: { name?: string }) {
   return (
     <div className="inline-flex items-center gap-2 text-[length:var(--type-12)] text-[color:var(--text-tertiary)]">
       <span className="inline-flex items-end gap-1">

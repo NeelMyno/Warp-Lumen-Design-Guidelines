@@ -33,7 +33,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.14.1",
+    "lumenVersion": "0.14.2",
     "platforms": [
       "web-react",
       "ios-native",

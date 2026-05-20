@@ -221,7 +221,7 @@ export function LibraryClient() {
         </Section>
 
         {/* NAVIGATION */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="navigation"
           eyebrow="03 · Wayfinding"
@@ -311,7 +311,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* BUTTONS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="buttons"
           eyebrow="04 · Action"
@@ -386,7 +386,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* INPUTS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="inputs"
           eyebrow="05 · Inputs"
@@ -466,7 +466,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* SELECTION */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="selection"
           eyebrow="06 · Selection"
@@ -520,7 +520,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* PICKERS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="pickers"
           eyebrow="07 · Pickers"
@@ -538,7 +538,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* UPLOADS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="uploads"
           eyebrow="08 · Uploads"
@@ -560,7 +560,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* DATA DISPLAY */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="data"
           eyebrow="09 · Display"
@@ -733,7 +733,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* TABLES */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="tables"
           eyebrow="10 · Tables"
@@ -765,7 +765,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* CHARTS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="charts"
           eyebrow="11 · Viz"
@@ -885,7 +885,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* KPI */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="kpi"
           eyebrow="12 · Metric"
@@ -931,7 +931,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* FEEDBACK */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="feedback"
           eyebrow="13 · Feedback"
@@ -968,7 +968,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* OVERLAYS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="overlays"
           eyebrow="14 · Overlay"
@@ -1014,7 +1014,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* MOBILE */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="navigation-mobile"
           eyebrow="15 · Mobile"
@@ -1100,7 +1100,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* COMMERCE */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="commerce"
           eyebrow="16 · Commerce"
@@ -1180,7 +1180,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* AUTH */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="auth"
           eyebrow="17 · Auth"
@@ -1237,7 +1237,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* AI */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="ai"
           eyebrow="18 · AI"
@@ -1290,7 +1290,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* NOTIFICATIONS */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="notifications"
           eyebrow="19 · Notify"
@@ -1314,7 +1314,7 @@ export function LibraryClient() {
         </LazyMount>
 
         {/* EDITOR */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="editor"
           eyebrow="20 · Editor"
@@ -1347,7 +1347,7 @@ export function Hero() {
         </LazyMount>
 
         {/* STATES */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="states"
           eyebrow="21 · State"
@@ -1393,7 +1393,7 @@ export function Hero() {
         </LazyMount>
 
         {/* TEMPLATES */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="templates"
           eyebrow="22 · Templates"
@@ -1410,7 +1410,7 @@ export function Hero() {
         </LazyMount>
 
         {/* TRUST */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="trust"
           eyebrow="23 · Trust"
@@ -1442,7 +1442,7 @@ export function Hero() {
         </LazyMount>
 
         {/* MARKETING */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="marketing"
           eyebrow="24 · Marketing"
@@ -1459,7 +1459,7 @@ export function Hero() {
         </LazyMount>
 
         {/* SPEC */}
-        <LazyMount placeholderHeight={500}>
+        <LazyMount placeholderHeight={240}>
         <Section
           id="spec"
           eyebrow="25 · Spec"

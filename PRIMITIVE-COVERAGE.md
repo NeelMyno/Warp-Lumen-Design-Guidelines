@@ -1,6 +1,6 @@
 # PRIMITIVE-COVERAGE.md — what Lumen ships, where it lives
 
-> **Generated 2026-05-20 for Lumen v0.14.1.** Maps the canonical ~700-item UI-primitive design audit list against where each item lives in Lumen — component contract, foundation, pattern, content guide, or out-of-scope.
+> **Generated 2026-05-20 for Lumen v0.14.2.** Maps the canonical ~700-item UI-primitive design audit list against where each item lives in Lumen — component contract, foundation, pattern, content guide, or out-of-scope.
 >
 > **Audience:** LLMs and developers generating UI under Lumen. Read this BEFORE you reach for a component you think you need to build — most of them already exist with a contract.
 
