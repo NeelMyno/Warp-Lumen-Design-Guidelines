@@ -147,6 +147,23 @@ The value `#00FA8A` is the **user-fixed brand value**. Do not soften it without 
 - Charts (use shape + line style + label, never color alone — see §7).
 - Illustrations, except when showing a "live" state.
 - Two CTAs side-by-side in primary green. One primary; the rest are secondary or tertiary.
+- **Inline color in body copy as a legend** (v0.15 R16 — closes the TMS consumer "covered / uncovered" anti-pattern). Sentences like _"Filter by **covered** (green) or **uncovered** (red) shipments below"_ conflate two roles of color — `accent = action` AND `accent = data key`. The filter chips below already serve as the legend; the inline color in prose duplicates the signal AND breaks the brand contract (accent plays ONE role: action). Replace with neutral text + a structural reference: _"Filter shipments by coverage status using the chips below."_
+
+> [!note]
+> **The covered / uncovered anti-example.**
+>
+> ```html
+> <!-- DO NOT WRITE — inline green "covered" duplicates the chip-row legend below and breaks the single-accent contract -->
+> <p>
+>   Filter by <span class="text-[var(--text-accent)]">covered</span> or
+>   <span class="text-[var(--text-error)]">uncovered</span> shipments below.
+> </p>
+>
+> <!-- WRITE — neutral prose, the chip strip IS the legend -->
+> <p>Filter shipments by coverage status using the chips below.</p>
+> ```
+>
+> The rule generalizes: **color is not a legend in prose.** When the UI element below already encodes the color-to-meaning mapping (chip strip, status badge column, KPI tile, legend square), restating it inline in the surrounding paragraph is redundant signal at best and a brand violation at worst. Use the structural element, not the prose.
 
 ### The accent ramp
 

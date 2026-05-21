@@ -59,9 +59,16 @@ export function BottomNav({
                 <span className="relative">
                   <span className="inline-block w-5 h-5">{item.icon}</span>
                   {item.badge !== undefined && (
+                    /* v0.15 R16 — uses defensive .lumen-pill-active for the
+                       contrast-audited Spring Green + accent-fg pair. The
+                       earlier inline arbitrary-class pattern (bg-[var(--color-accent-500)]
+                       + text-[var(--color-text-on-accent,var(--color-accent-fg))])
+                       was the exact bug class the TMS consumer hit — Tailwind v4
+                       dropped the comma-fallback and the cascade painted #E6E6E6
+                       at 1.66:1. See defensive-classes.md. */
                     <span
                       aria-hidden
-                      className="absolute -top-1 -right-2 lumen-tnum rounded-full bg-[var(--color-accent-500)] text-[var(--color-text-on-accent,var(--color-accent-fg))] text-[10px] px-1 leading-4 min-w-4 text-center"
+                      className="lumen-pill-active lumen-tnum absolute -top-1 -right-2 text-[10px] px-1 leading-4 min-w-4 text-center rounded-full"
                     >
                       {item.badge}
                     </span>

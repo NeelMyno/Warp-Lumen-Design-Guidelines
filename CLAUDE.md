@@ -26,7 +26,29 @@
 > **The R11 ship itself is the first proof-point**: 15+ files (CSS, DTCG tokens, foundation docs, ADR 0030, AGENTS.md hard rules, the lint script, the foundations Elevation showcase, the LumenMark hover, the slider primitive) all moved in one commit to retire green from every shadow. Future mandates land the same way.
 
 > [!note]
-> ## v0.14.4 — R15: TSX-prose drift lint + foundations showcase prose closure (current state)
+> ## v0.15.0 — R16: TMS-consumer friction closure (current state)
+>
+> [ADR 0035](_meta/decisions/0035-r16-tms-consumer-friction-closure-v015.md) closes FIVE overlapping bug classes that produced a 1.66:1 contrast failure across 11+ sites in a CONSUMER project (chat 36-A, May 20 2026 — a TMS-builder app that wholesale-copied Lumen's `globals.css` and built a 7-page operator console on top). The chat trace identified that ALL FIVE failure modes were within Lumen itself, not in consumer code:
+>
+> 1. **Token-name sprawl with confusing lookalikes.** v0.14 had 6 names for "text on accent"; one (`--color-accent-foreground`) meant GREEN TEXT, not text-on-green-fill.
+> 2. **The consumer-intuitive name didn't exist.** Author wrote `--color-text-on-accent` (matching Tailwind v4's longer `--color-*` @theme convention) but only `--color-fg-on-accent` was defined; `var()` silently fell through to the cascade.
+> 3. **Tailwind v4 dropped the comma-fallback.** `text-[var(--color-text-on-accent,white)]` compiled with the `,white` stripped (known v4 bug class). Cascade painted `--text-primary` (`#E6E6E6`) text on Spring Green.
+> 4. **No canonical defensive class for chips / KPI tiles / empty states / page headers.** Every consumer reinvented; each reinvention had different failure modes.
+> 5. **The R11/R14/R15 lint trio didn't cover this bug class** — all three caught RETIREMENT drift; none caught ACTIVE-token misuse expressed as inline arbitrary classes.
+>
+> **v0.15.0 closes all five along four parallel axes:**
+>
+> - **(A) Token canonicalization** — `--color-text-on-accent` added as THE canonical alias (+ `--color-on-accent` terse alt). ~70 additional `--color-*` aliases close the broader namespace gap (text / surface / border / status / accent ladder / avatar palette / chart extension / alpha namespace / action-tertiary). One :root definition cascades through both themes. Nothing retired.
+> - **(B) Defensive-class expansion** — 4 new families in `globals.css` (~250 lines): `.lumen-pill-{strip,active,inactive,count}`, `.lumen-kpi-{tile,label,value,delta,context}` (tone-gates at zero), `.lumen-empty-state-{icon,headline,supporting,actions}`, `.lumen-page-header-{content,title,tagline,actions}` (CTA-suppression coordination via `data-cta-suppressed`).
+> - **(C) 4th + 5th-tier lints** — `lint:no-inline-accent-text` flags inline accent BG + text-arbitrary-class WITH comma-fallback OR white literal (catches the TMS bug class). `lint:no-undefined-token-vars` asserts every `var(--color-*)` / `var(--lumen-*)` reference resolves. The lint architecture grows from three tiers to **FIVE**.
+> - **(D) Foundation prose + discoverability** — new [`defensive-classes.md`](design-system/00-foundations/defensive-classes.md) foundation enumerates every `.lumen-*` class; new [`page-header.md`](design-system/05-patterns/page-header.md) pattern; new [`MIGRATION.md`](MIGRATION.md); EmptyState contract beefed up (0.1.0 → 0.15.0 maturity jump); foundation prose updates to `color.md` (color-not-a-legend-in-prose), `hierarchy.md` §8 (one-primary-action-per-view + tagline cap), `data-visualization.md` (tone-gates-at-zero with polarity table), `microcopy.md` (`displayName()` fallback chain ending at "there" not the company name); 6 new USING-LUMEN.md §11 anti-pattern entries; AGENTS.md hard rules 23 / 24 / 25.
+>
+> **R16 methodology contribution.** R15's rule was *every contract retirement adds entries to all three lint scripts' retire-lists in the same commit.* R16 extends: ***every CONSUMER bug class becomes a LINT, a DEFENSIVE CLASS, and a FOUNDATION-DOC enumeration in the same commit. The consumer's failure is the system's signal — closure must be structural (lint + defensive class) and discoverable (foundation doc + hard rule + MIGRATION.md).*** The signal that this is the right shape: chat 36-A surfaced 16 distinct items, and 9 of them collapsed into a single 4-axis closure shape.
+>
+> **Validation:** `pnpm validate:tokens` → 956 tokens valid; `pnpm lint` → all 12 lint rules pass; `pnpm exec tsc --noEmit` (audit-dashboard) → PASS; `pnpm build` → 12 routes prerender; `pnpm exec playwright test` → 56 / 58 pass (2 skipped on axe-core gate). **35 ADRs total. AGENTS.md hard rules: 22 → 25.**
+
+> [!note]
+> ## v0.14.4 — R15: TSX-prose drift lint + foundations showcase prose closure (predecessor)
 >
 > [ADR 0034](_meta/decisions/0034-r15-tsx-prose-lint-third-tier-v0144.md) closes the gap [ADR 0033](_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md) (v0.14.3 R14) left in its `.md`/`.txt`-only lint scope. R14 closed the doc-prose layer; R15 closes the **TSX-prose layer** — the third tier in the docs↔tokens↔TSX-prose lint architecture. The R15 audit walked every audit-dashboard route top-to-bottom in both dark and light mode via the Claude in Chrome MCP at Edge browser (Personal Mac) and caught three rendered-prose / focus-color defects R14's docs lint couldn't see because the offending content sits in `.tsx`, not `.md`/`.txt`:
 >

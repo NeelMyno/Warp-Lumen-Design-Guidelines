@@ -897,6 +897,173 @@ html, body { overflow-x: clip; }
   --color-action-glass-fg:           var(--text-primary);
   --color-action-glass-border:       var(--lumen-paper-a10);
 
+  /* ─────────────────────  v0.15 R16 — CONSUMER-CANONICAL ALIASES  ──────────
+     The TMS consumer (chat 36-A, May 20 2026) repeatedly wrote
+     `text-[var(--color-text-on-accent,white)]` — a name that DID NOT EXIST
+     in the v0.14 token bridge. The browser resolved `var()` to its fallback
+     `white`, but Tailwind v4's content scanner dropped the comma-fallback
+     under arbitrary-class compile (a known Tailwind v4 bug class), so the
+     class painted nothing and the text inherited the cascade
+     `--text-primary` (#E6E6E6) — producing 1.66:1 contrast on Spring Green
+     (WCAG AA fail) across 11+ sites in the consumer console.
+
+     v0.15.0 ships THE intuitive name as a canonical alias so consumer
+     authors do not have to guess. The other 5 lookalike names stay for
+     backwards-compat (they each resolve identically) but are marked
+     DEPRECATED for consumer use in defensive-classes.md. ADR 0035 carries
+     the full rationale.
+
+     CRITICAL DISTINCTION — do not conflate:
+       --color-text-on-accent      → text ON spring-green BG (foreground for primary CTA)
+       --color-accent-foreground   → text IN accent color (the green text itself, used on soft tinted surface)
+                                     This is the shadcn naming convention; the chat's confusion
+                                     was reading "accent-foreground" as "text on accent fill"
+                                     when it actually means "text in accent color".
+  */
+  --color-text-on-accent: var(--text-on-accent);   /* canonical — preferred for consumer authoring */
+  --color-on-accent:      var(--text-on-accent);   /* terse alias */
+  /* DEPRECATED (kept for v0.12–v0.14 backwards-compat; remove in v1.0):
+       --color-fg-on-accent          → alias of --color-text-on-accent (use --color-text-on-accent instead)
+       --color-primary-foreground    → alias of --color-text-on-accent (use --color-text-on-accent instead)
+     PRESERVED but NOT for text-on-fill use:
+       --color-accent-foreground     → text in ACCENT COLOR (shadcn semantics), NOT text on accent FILL
+  */
+
+  /* ===== v0.15 R16 - universal --color- aliases =====
+     The TMS consumer audit revealed that the design system's own component
+     EXAMPLE files reference a --color-text-, --color-surface-,
+     --color-status- namespace ~600 times - but only a fraction of those
+     variables were defined in the v0.14 :root token bridge. The rest
+     silently fell back to the cascade, producing visual bugs that only
+     surfaced when consumer authors copied the example files into their
+     own apps.
+
+     The aliases below close the gap by defining every consumer-facing
+     --color- name as an alias of the theme-aware semantic token. One
+     definition in :root cascades through both themes (the aliased
+     target is theme-overridden, so the alias follows). */
+
+  /* Color · text family */
+  --color-text-primary:     var(--text-primary);
+  --color-text-secondary:   var(--text-secondary);
+  --color-text-tertiary:    var(--text-tertiary);
+  --color-text-placeholder: var(--text-placeholder);
+  --color-text-disabled:    var(--text-disabled);
+  --color-text-inverse:     var(--text-inverse);
+  --color-text-accent:      var(--text-accent);
+  --color-text-link:        var(--text-link);
+  --color-text-error:       var(--text-error);
+  --color-text-success:     var(--text-success);
+  --color-text-warning:     var(--text-warning);
+  --color-text-on-avatar:   var(--lumen-obsidian-8); /* avatar fg — dark ink for AAA contrast on any palette tile */
+
+  /* Color · surface family */
+  --color-surface-canvas:         var(--surface-canvas);
+  --color-surface-page:           var(--surface-page);
+  --color-surface-raised:         var(--surface-raised);
+  --color-surface-sunken:         var(--surface-sunken);
+  --color-surface-popover:        var(--surface-popover);
+  --color-surface-overlay:        var(--surface-overlay);
+  --color-surface-glass:          var(--surface-glass);
+  --color-surface-glass-strong:   var(--surface-glass-strong);
+  --color-surface-scrim:          var(--surface-scrim);
+  --color-surface-inverse:        var(--surface-inverse);
+  --color-surface-tint-accent:    var(--surface-tint-accent);
+  --color-surface-tint-strong:    var(--surface-tint-strong);
+  --color-surface-input-rest:     var(--surface-input-rest);
+  --color-surface-input-hover:    var(--surface-input-hover);
+  --color-surface-input-focus:    var(--surface-input-focus);
+  --color-surface-input-readonly: var(--surface-input-readonly);
+  --color-surface-input-disabled: var(--surface-input-disabled);
+
+  /* Color · border family */
+  --color-border-hairline:        var(--border-hairline);
+  --color-border-subtle:          var(--border-subtle);
+  --color-border-default:         var(--border-default);
+  --color-border-strong:          var(--border-strong);
+  --color-border-frame:           var(--border-frame);
+  --color-border-focus:           var(--border-focus);
+  --color-border-accent:          var(--border-accent);
+  --color-border-error:           var(--border-error);
+  --color-border-success:         var(--border-success);
+  --color-border-warning:         var(--border-warning);
+  --color-border-input-disabled:  var(--border-input-disabled);
+
+  /* Color · status family (bg / fg / border per tone) */
+  --color-status-success-bg:     var(--status-success-bg);
+  --color-status-success-fg:     var(--status-success-fg);
+  --color-status-success-border: var(--lumen-lime-a32);
+  --color-status-warning-bg:     var(--status-warning-bg);
+  --color-status-warning-fg:     var(--status-warning-fg);
+  --color-status-warning-border: var(--lumen-amber-a32);
+  --color-status-danger-bg:      var(--status-danger-bg);
+  --color-status-danger-fg:      var(--status-danger-fg);
+  --color-status-danger-border:  var(--lumen-red-a32);
+  --color-status-info-bg:        var(--status-info-bg);
+  --color-status-info-fg:        var(--status-info-fg);
+  --color-status-info-border:    var(--lumen-paper-a16);
+  --color-status-neutral-bg:     var(--status-neutral-bg);
+  --color-status-neutral-fg:     var(--status-neutral-fg);
+  --color-status-neutral-border: var(--lumen-paper-a16);
+  /* "-500" tier aliases — Tailwind-style numeric naming for the "main"
+     hue of each status tone. Used by Progress / Slider / Presence /
+     Testimonial / Stat where the value is the saturated marker color,
+     not a soft bg-on-canvas pill. */
+  --color-status-success-500:    var(--lumen-accent-5);
+  --color-status-warning-500:    var(--lumen-amber-5);
+  --color-status-danger-500:     var(--lumen-red-5);
+  --color-status-info-500:       var(--lumen-accent-3);
+
+  /* Color · accent ladder consumer-friendly tier names (matches DTCG accent.N).
+     v0.15 carve-out: --color-accent-400 = the "rest" tier (same as --color-action-primary-bg-rest);
+     --color-accent-500 = "hover" tier. Authors who reach for the numeric-tier
+     name (e.g. coming from a shadcn-bridge background) get the right value. */
+  --color-accent-400: var(--lumen-accent-4);
+  --color-accent-500: var(--lumen-accent-5);
+  --color-accent-600: var(--lumen-accent-6);
+  --color-accent-fg:  var(--lumen-accent-fg);
+
+  /* Color · avatar palette (1-8) — deterministic name-hash colors used by
+     the Avatar primitive. Each tile gets an opaque base + the --color-text-on-avatar
+     fg (dark ink) for AAA contrast. */
+  --color-avatar-bg-1: var(--lumen-accent-2);
+  --color-avatar-bg-2: var(--lumen-cream-3);
+  --color-avatar-bg-3: var(--lumen-amber-3);
+  --color-avatar-bg-4: var(--lumen-red-3);
+  --color-avatar-bg-5: var(--lumen-obsidian-3);
+  --color-avatar-bg-6: var(--lumen-accent-6);
+  --color-avatar-bg-7: var(--lumen-cream-6);
+  --color-avatar-bg-8: var(--lumen-amber-6);
+
+  /* Color · chart palette extension (6-8) — extends the existing 1-5 ladder
+     for higher-cardinality multi-series charts. Authors should still cap
+     visible series at 5 per the data-visualization.md "single-green-series
+     brand contract" rule. 6-8 exist for occasional outliers. */
+  --color-chart-6: var(--lumen-cream-3);
+  --color-chart-7: var(--lumen-amber-3);
+  --color-chart-8: var(--lumen-obsidian-3);
+
+  /* Color · action-tertiary — alias of ghost (action-tertiary is the
+     legacy name used by some component examples). */
+  --color-action-tertiary-bg-hover: var(--color-action-ghost-bg-hover);
+  --color-action-tertiary-fg:       var(--color-action-ghost-fg);
+
+  /* Color · alpha-namespace consumer-friendly aliases. The lumen primitive
+     alpha names (`--lumen-{lime,paper,ink,red,amber}-a{N}`) are the SSoT;
+     these aliases give consumers a `--color-alpha-{tone}-{N}` form parallel
+     to the rest of the --color-* namespace. */
+  --color-alpha-accent-12: var(--lumen-lime-a14); /* nearest defined tier — Lumen primitives don't ship a 12 step; alias kept for consumer ergonomics */
+  --color-alpha-accent-14: var(--lumen-lime-a14);
+  --color-alpha-accent-24: var(--lumen-lime-a24);
+  --color-alpha-accent-40: var(--lumen-lime-a40);
+  --color-alpha-ink-08:    var(--lumen-ink-a08);
+  --color-alpha-ink-24:    var(--lumen-ink-a24);
+  --color-alpha-ink-40:    var(--lumen-ink-a40);
+  --color-alpha-ink-86:    var(--lumen-ink-a86);
+  --color-alpha-paper-08:  var(--lumen-paper-a08);
+  --color-alpha-paper-24:  var(--lumen-paper-a24);
+  --color-alpha-paper-40:  var(--lumen-paper-a40);
+
   /* Chart palette — used by recharts when wrapped in shadcn's <ChartContainer>. */
   --chart-1: var(--lumen-accent-5);
   --chart-2: var(--lumen-cream-5);
@@ -1163,6 +1330,10 @@ html, body { overflow-x: clip; }
   --color-action-glass-bg-press:     var(--lumen-paper-a94);   /* v0.11.13 — was rgba(255,255,255,0.94). */
   --color-action-glass-fg:           var(--text-primary);
   --color-action-glass-border:       var(--lumen-ink-a12);
+
+  /* v0.15 R16 — consumer-canonical aliases (mirrors the dark block — see :root for full context). */
+  --color-text-on-accent: var(--text-on-accent);   /* canonical — preferred for consumer authoring */
+  --color-on-accent:      var(--text-on-accent);   /* terse alias */
 
   --chart-1: var(--lumen-accent-6);
   --chart-2: var(--lumen-cream-7);
@@ -3538,4 +3709,298 @@ summary.list-none::-webkit-details-marker {
 */
 .lumen-bidi-isolate {
   unicode-bidi: isolate;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   LUMEN · v0.15 R16 — DEFENSIVE-CLASS EXPANSION
+   ----------------------------------------------------------------------------
+   Closes the gap the TMS consumer (chat 36-A, May 20 2026) surfaced:
+   `.lumen-btn-primary` exists as the canonical defensive class for primary
+   actions, but pills / chips / segmented controls / KPI tiles / empty states
+   / page headers had no canonical equivalent. Every author hand-rolled
+   inline Tailwind arbitrary classes — `text-[var(--color-text-on-accent,white)]`
+   on Spring Green BG — and Tailwind v4's content scanner dropped the
+   comma-fallback at compile, painting `--text-primary` (#E6E6E6) text on
+   Spring Green at 1.66:1 contrast (AA fail).
+
+   The architectural fix is to ship the canonical primitive so the wrong
+   pattern is never written. Each class below consumes the SAME
+   --color-action-* tokens `.lumen-btn-primary` already validates against,
+   guaranteed 14.7:1 AAA contrast across both themes.
+
+   See `design-system/00-foundations/defensive-classes.md` for the full
+   discoverability page + the failure mode each class prevents.
+   ADR 0035 carries the architectural rationale.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────  PILL / CHIP / SEGMENT  ────────────────────── */
+
+.lumen-pill-strip {
+  display: inline-flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.lumen-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-inline: var(--space-3);
+  padding-block: var(--space-1);
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--type-13);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--text-secondary);
+  transition:
+    background-color 120ms cubic-bezier(0.2, 0, 0, 1),
+    border-color     120ms cubic-bezier(0.2, 0, 0, 1),
+    color            120ms cubic-bezier(0.2, 0, 0, 1);
+}
+.lumen-pill:focus-visible {
+  outline: 2px solid var(--border-frame);
+  outline-offset: 1px;
+  box-shadow: var(--shadow-focus);
+}
+.lumen-pill:disabled,
+.lumen-pill[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* ACTIVE — Spring Green fill, --color-action-primary-fg text.
+   Same contrast guarantees as .lumen-btn-primary (14.7:1 AAA). */
+.lumen-pill-active {
+  background-color: var(--color-action-primary-bg-rest);
+  color:            var(--color-action-primary-fg);
+  border-color:     transparent;
+}
+.lumen-pill-active:hover {
+  background-color: var(--color-action-primary-bg-hover);
+  color:            var(--color-action-primary-fg);
+}
+.lumen-pill-active:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--color-action-primary-bg-press);
+  color:            var(--color-action-primary-fg);
+}
+
+/* INACTIVE — raised surface, secondary text. Hover lifts to primary text + strong border. */
+.lumen-pill-inactive {
+  background-color: var(--surface-raised);
+  color:            var(--text-secondary);
+  border-color:     var(--border-default);
+}
+.lumen-pill-inactive:hover {
+  background-color: var(--surface-sunken);
+  color:            var(--text-primary);
+  border-color:     var(--border-strong);
+}
+.lumen-pill-inactive:active:not(:disabled):not([aria-disabled="true"]) {
+  background-color: var(--surface-sunken);
+}
+
+/* Optional trailing count badge inside a pill — tabular mono numeric. */
+.lumen-pill-count {
+  margin-inline-start: var(--space-2);
+  padding-inline: var(--space-2);
+  padding-block: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--lumen-paper-a08);
+  color: inherit;
+  font-family: var(--font-mono, var(--font-sans));
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-size: var(--type-11);
+  font-weight: 500;
+  line-height: 1.6;
+}
+.lumen-pill-active .lumen-pill-count {
+  background-color: var(--lumen-ink-a24);
+}
+
+/* ──────────────────────────────  KPI TILE  ────────────────────────────── */
+/* Tone-gates at zero: when the underlying value is 0, the warning/danger
+   tone retires to neutral. Color-as-signal credibility erodes when warning
+   colors shout at calm states (chat 36-A item #4 — Accounting page
+   `OVERDUE $0` in warning amber). The author sets `data-value-zero="true"`
+   on the value span to opt the tile out of the tone color.
+   See data-visualization.md "tone gates at zero" rule. */
+
+.lumen-kpi-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+}
+
+.lumen-kpi-label {
+  font-family: var(--font-sans);
+  font-size: var(--type-11);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.lumen-kpi-value {
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-size: var(--type-28, 1.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+.lumen-kpi-delta {
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-size: var(--type-12);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.lumen-kpi-context {
+  font-family: var(--font-sans);
+  font-size: var(--type-12);
+  font-weight: 400;
+  color: var(--text-tertiary);
+  margin-block-start: var(--space-1);
+}
+
+/* Tone modifiers — applied via data-tone. The :not([data-value-zero])
+   selector enforces tone-gating: warning at zero retires to neutral. */
+.lumen-kpi-value[data-tone="warning"]:not([data-value-zero="true"]) { color: var(--status-warning-fg); }
+.lumen-kpi-value[data-tone="danger"]:not([data-value-zero="true"])  { color: var(--status-danger-fg); }
+.lumen-kpi-value[data-tone="success"] { color: var(--status-success-fg); }
+.lumen-kpi-value[data-tone="accent"]  { color: var(--text-accent); }
+.lumen-kpi-delta[data-tone="positive"] { color: var(--status-success-fg); }
+.lumen-kpi-delta[data-tone="negative"] { color: var(--status-danger-fg); }
+
+/* ──────────────────────────────  EMPTY STATE  ────────────────────────── */
+/* Type-led, NOT illustration-led. One headline, one supporting line, ONE
+   optional primary action. When this owns the page's primary CTA, the
+   PageHeader CTA hides (see hierarchy.md "one primary action per view").
+   Closes chat 36-A item #3 (every consumer reinvented an empty state). */
+
+.lumen-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  background-color: transparent;
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  min-height: 240px;
+}
+.lumen-empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-sunken);
+  color: var(--text-tertiary);
+  margin-block-end: var(--space-1);
+}
+.lumen-empty-state-headline {
+  font-family: var(--font-sans);
+  font-size: var(--type-18, 1.125rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin: 0;
+  max-width: 40ch;
+}
+.lumen-empty-state-supporting {
+  font-family: var(--font-sans);
+  font-size: var(--type-14);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 60ch;
+}
+.lumen-empty-state-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-start: var(--space-2);
+}
+.lumen-empty-state[data-tone="subtle"] {
+  border: 1px solid var(--border-hairline);
+}
+.lumen-empty-state[data-align="start"] {
+  align-items: flex-start;
+  text-align: start;
+}
+
+/* ──────────────────────────────  PAGE HEADER  ────────────────────────── */
+/* Title + optional ≤80-char tagline + one optional primary CTA. The tagline
+   drops after onboarding for repeat-visit apps (set data-onboarding="false").
+   When an EmptyState owns the page's primary CTA, the header CTA hides via
+   data-cta-suppressed="true". See design-system/05-patterns/page-header.md. */
+
+.lumen-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-block-end: var(--space-6);
+  border-block-end: 1px solid var(--border-hairline);
+  margin-block-end: var(--space-6);
+}
+.lumen-page-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  flex: 1;
+}
+.lumen-page-header-title {
+  font-family: var(--font-sans);
+  font-size: var(--type-24, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin: 0;
+}
+.lumen-page-header-tagline {
+  font-family: var(--font-sans);
+  font-size: var(--type-14);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 80ch;
+}
+.lumen-page-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+/* CTA-suppression — set when an EmptyState owns the primary action. */
+.lumen-page-header[data-cta-suppressed="true"] .lumen-page-header-actions {
+  display: none;
+}
+/* Repeat-visit users retire the tagline after onboarding. */
+.lumen-page-header[data-onboarding="false"] .lumen-page-header-tagline {
+  display: none;
 }

@@ -3,7 +3,7 @@
   "name": "empty-state",
   "type": "registry:ui",
   "title": "EmptyState",
-  "description": "Type-led message for empty collections. Headline + supporting line + optional primary action.",
+  "description": "Type-led message for empty collections. Headline + supporting line + optional primary action. When this owns the page's primary CTA, the PageHeader CTA hides via data-cta-suppressed='true'. Closes chat 36-A item #3.",
   "dependencies": [],
   "registryDependencies": [],
   "files": [
@@ -18,7 +18,7 @@
     "dark": {}
   },
   "meta": {
-    "lumenVersion": "0.14.4",
+    "lumenVersion": "0.15.0",
     "platforms": [
       "web-react"
     ],

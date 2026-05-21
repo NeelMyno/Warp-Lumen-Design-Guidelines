@@ -1,6 +1,6 @@
 # USING-LUMEN.md — the comprehensive end-to-end guide
 
-> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.14.4 · 2026-05-20.
+> **Single-source-of-truth document for everything Lumen.** If you read only one file in this repo, read this one. Built for AI coding agents (Claude Code, Cursor, Codex, Copilot, Devin, Warp Terminal AI) and the humans working alongside them. Comprehensive, vertically integrated, LLM-first. Status: v0.15.0 · 2026-05-21.
 
 > [!note]
 > **Repo orientation.** AGENTS.md is the universal hard-rules file (read first if you're an agent). CLAUDE.md is the Claude-specific addendum. README.md is the human-facing front door. **This file is the comprehensive end-to-end manual** — every system tier, every consumption surface, every governance rule, every compositional pattern, every anti-pattern, in one document. When this file conflicts with another, this file is wrong (raise an issue). When AGENTS.md or CLAUDE.md conflict with this file, those files win — they are normative; this file is the unified narrative.
@@ -48,7 +48,7 @@
 ## 1. The system at a glance
 
 ```
-Lumen v0.14.4 — Premium Psychology · Obsidian (mint retired) · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028) on top of v0.13.4 R8a Satoshi-subset (ADR 0027), v0.13.3 R7 pipeline-state + mobile-perf baseline (ADR 0026), v0.13.2 R6 LLM-docs SSoT (ADR 0025), v0.13.1 responsive safety net (ADR 0024), v0.13.0 LLM-docs lockstep (ADR 0023), v0.12.x primitive cascade
+Lumen v0.15.0 — Premium Psychology · Obsidian (mint retired) · R8b critical-CSS inlining for LCP round-trip elimination (ADR 0028) on top of v0.13.4 R8a Satoshi-subset (ADR 0027), v0.13.3 R7 pipeline-state + mobile-perf baseline (ADR 0026), v0.13.2 R6 LLM-docs SSoT (ADR 0025), v0.13.1 responsive safety net (ADR 0024), v0.13.0 LLM-docs lockstep (ADR 0023), v0.12.x primitive cascade
 ─────────────────────────────────────────────────────────────────────────
 Brand
   Accent           #00FA8A  — Spring Green. Action / live / success only. Unchanged from v0.11.
@@ -458,7 +458,7 @@ Lumen ships to 9 platforms. Each platform has a substantive consumption guide in
 
 | Platform | Stack | Quick install | Guide |
 |---|---|---|---|
-| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.4/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
+| **Web** | Next.js 16 + Tailwind v4 + shadcn/ui (Radix primitives) | `pnpm dlx shadcn@latest add <cdn>/lumen/v0.15.0/registry/{name}.json` | [web-react/](design-system/03-platforms/web-react/README.md) |
 | **React Native** | Expo SDK 53+ + NativeWind | npm package + `<LumenProvider>` | [react-native/](design-system/03-platforms/react-native/README.md) |
 | **iOS native** | SwiftUI + Swift Package | `from: "0.11.13"` | [ios-native/](design-system/03-platforms/ios-native/README.md) |
 | **Android native** | Jetpack Compose + Material 3 base | `dev.warp:lumen-compose:0.11.13` | [android-native/](design-system/03-platforms/android-native/README.md) |
@@ -849,6 +849,35 @@ This is the "avoid these or break the system" list. Everything here is enforceab
 - ❌ **Hardcoded version literal in a runtime-rendered string** instead of importing from `@/lib/version`. (See AGENTS.md hard rule #13.) The v0.11.13 → v0.12.4 audit caught the command-palette footer three minor versions stale because it had been hardcoded as `<span>Lumen v0.11.13</span>` from the day it shipped. v0.12.5 routed every consumer (header pill, footer line, palette footer, foundations brand-voice samples, library / tool / foundations badges) through the new `lib/version.ts` constants. Import; don't hardcode. Exemptions are limited to prose descriptions of historical versions, ADR titles / filenames, and CSS / TSX comments — those are immutable history annotations, not renderable strings.
 - ❌ **`<details>`/`<summary>` accordion that composes a custom chevron icon without `lumen-summary` (or `list-none`) on the summary.** (See AGENTS.md hard rule #14.) The native browser-default disclosure triangle (▶/▼ in webkit, ▾/▸ in firefox) STILL renders before the summary's text content. With a custom lucide chevron at the END of the summary, you get two arrows competing for affordance — one of them off the brand stroke ladder. v0.12.5 added the `globals.css` rule that suppresses both via `list-style: none` (modern browsers) + `::-webkit-details-marker { display: none }` (pre-2022 webkit fallback). Apply the class on every accordion summary that composes a custom icon.
 - ❌ **Real-person names in fixtures, demos, or examples.** Use synthetic operator names (`Avery Mercer`, `Kai Morgan`, `Jordan Kim`-style); carrier names are safe (Sterling LTL, ODFL, Saia, FedEx Freight, ABF — public B2B identities, not customer data). The v0.12.5 audit retired `Daniel Sokolovsky` / `Neel Tengariya` from 9 sites in 5 files because they map to real contacts in the user's vault. Never reintroduce.
+- ❌ **`text-[var(--color-text-on-accent,white)]` (or any inline accent BG + text-arbitrary-class WITH a comma-fallback) on Spring Green BG.** (See AGENTS.md hard rule #23, v0.15.0 R16.) The TMS consumer (chat 36-A, May 20 2026) hit this 11+ times across an operator console. **Three independent failure modes ride on this one pattern**: (a) Tailwind v4's content scanner drops comma-fallbacks in arbitrary-class compile; (b) the v0.14 token bridge had 5 lookalike names for "text on accent" (`--text-on-accent` / `--primary-foreground` / `--color-fg-on-accent` / `--color-primary-foreground` / `--color-accent-foreground` — and `--color-accent-foreground` is GREEN TEXT, not text on green BG); (c) the right token might not exist in :root, causing the var() to silently resolve to nothing and inherit `--text-primary` (#E6E6E6) from the cascade. Net result: 1.66:1 contrast on Spring Green — WCAG AA fail across a full operator surface.
+
+  **The fix**: reach for `.lumen-btn-primary` (button) or `.lumen-pill-active` (chip / segmented control / mode picker). Both defensive classes consume `--color-action-primary-*` internally and are contrast-audited at the system level (14.7:1 AAA on Spring Green).
+
+  ```tsx
+  // ❌ DO NOT WRITE — the comma-fallback drops, the cascade paints #E6E6E6 on Spring Green
+  <button className="bg-[var(--color-accent-500)] text-[var(--color-text-on-accent,white)] h-10 px-4 rounded">
+    Get rates
+  </button>
+
+  // ✅ WRITE — defensive class consumes audited tokens
+  <button className="lumen-btn lumen-btn-primary lumen-btn-md">
+    Get rates
+  </button>
+  ```
+
+  `lint:no-inline-accent-text` (v0.15.0 R16) catches the bug class. The "use defined token + no comma-fallback" inline pattern (`bg-[var(--color-action-primary-bg-rest)] text-[var(--color-action-primary-fg)]`) is the documented vendor-button form per `globals.css` and is NOT flagged — but the defensive class is still strictly safer. See [`design-system/00-foundations/defensive-classes.md`](design-system/00-foundations/defensive-classes.md) for the full family.
+
+- ❌ **`var(--color-anything)` reference to a token that isn't defined in :root.** (See AGENTS.md hard rule #24, v0.15.0 R16.) The v0.14 token bridge had ~70 missing `--color-*` aliases that consumer authors instinctively reached for. `var(--color-text-on-accent)` didn't exist; `var(--color-surface-raised)` didn't exist; `var(--color-text-tertiary)` didn't exist. Authors reached for these intuitive names matching Tailwind v4's @theme convention, found them undefined at runtime, and the cascade silently swallowed the failure. `lint:no-undefined-token-vars` (v0.15.0 R16) asserts every CSS variable reference resolves. v0.15.0 closed the alias gap by adding ~70 new `--color-*` aliases — every future token addition must include the consumer-facing alias alongside the semantic name.
+
+- ❌ **Inline color in body copy as a legend.** Sentences like _"Filter by **covered** (green) or **uncovered** (red) shipments below"_ conflate two roles of color (`accent = action` AND `accent = data key`). When the chip strip / status badge column / legend below already encodes the mapping, restating it inline is duplicate signal AND breaks the single-accent contract. See [color.md §4](design-system/00-foundations/color.md).
+
+- ❌ **Warning / danger tone on a KPI value of zero.** `OVERDUE $0` in warning amber styles a calm state as a warning. Color-as-signal credibility erodes when warning colors shout at calm states. Use `.lumen-kpi-tile` + `data-value-zero="true"` on the value span to tone-gate at zero. See [data-visualization.md "Tone gates at zero"](design-system/00-foundations/data-visualization.md#tone-gates-at-zero-v015-r16).
+
+- ❌ **Two competing CTAs on the same page (page-header + empty-state).** When an `EmptyState` owns the page's primary CTA, the `PageHeader` CTA must hide. Use `data-cta-suppressed="true"` on `.lumen-page-header`. See [hierarchy.md §8](design-system/00-foundations/hierarchy.md#8-one-primary-action-per-view-v015-r16) + [page-header.md](design-system/05-patterns/page-header.md).
+
+- ❌ **Section header tagline longer than 80 characters or appearing on every visit forever.** The tagline is a first-visit scan-line, not a paragraph. Cap at 80ch; retire via `data-onboarding="false"` after the first session for repeat-visit apps. See [hierarchy.md §8](design-system/00-foundations/hierarchy.md#8-one-primary-action-per-view-v015-r16).
+
+- ❌ **`Good afternoon, Warp` — greeting users by their company name** when no first name resolves. The user-display fallback chain ends at `"there"`, never at the company name. See [microcopy.md "User greeting fallback chain"](design-system/04-content/microcopy.md#user-greeting-fallback-chain-v015-r16).
 
 ### Documentation anti-patterns
 
@@ -984,7 +1013,7 @@ AGENTS.md                  ← universal agent rules (14 hard rules)
 CLAUDE.md                  ← Claude-specific addenda
 CONTRIBUTING.md            ← human contributor guide
 CHANGELOG.md               ← Keep-a-Changelog
-VERSION                    ← 0.14.4
+VERSION                    ← 0.15.0
 llms.txt                   ← LLM discovery index (14-rule playbook at the bottom)
 llms-full.txt              ← inlined version (single fetch for agents)
 package.json               ← build/validate/lint/registry/release scripts
@@ -1031,4 +1060,4 @@ Lumen is **one disciplined accent (Spring Green) on a calm neutral-obsidian canv
 **End of USING-LUMEN.md.**
 
 > If something in this document is wrong, this document is wrong — file a PR. If something in this document conflicts with `AGENTS.md` or `CLAUDE.md`, those files win.
-> Last reviewed against actual repo state: 2026-05-20 (v0.14.4).
+> Last reviewed against actual repo state: 2026-05-21 (v0.15.0).

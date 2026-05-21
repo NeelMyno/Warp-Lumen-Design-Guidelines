@@ -138,6 +138,52 @@ The card communicates three things at three scales: the headline number (big), t
 - **Inline tooltip in an overflow-clipped ancestor.** Per AGENTS.md hard rule 10, portal it.
 - **Sparkline without a paired numeric value.** Useless. Always show the value (rule 2 above).
 - **Pie chart with > 4 segments.** Use Treemap or Donut. Pie's angular comparison degrades fast past 3-4 wedges per Cleveland-McGill.
+- **Warning / danger tone on a value of zero.** See "Tone gates at zero" below — color-as-signal credibility erodes when warning colors shout at calm states.
+
+## Tone gates at zero (v0.15 R16)
+
+**A warning at zero is no warning. A danger at zero is no danger.**
+
+When a KPI tile's underlying value is `0` / `null` / `[]` / empty, the warning / danger tone retires to neutral. The tone color signals "there's something to act on" — when there isn't, the color is wrong.
+
+The TMS consumer (chat 36-A) hit this on the Accounting page: `OVERDUE $0` rendered in warning amber — a calm state styled as a warning. The dashboard's `InvoiceKpiStrip` rendered the same data correctly (neutral on zero) because it gated amber on `overdue_cents > 0`. The "amber means there's something to act on" contract lived in author folklore, not in a primitive. v0.15 R16 bakes the contract into `.lumen-kpi-tile`.
+
+### The defensive class
+
+```tsx
+<span
+  className="lumen-kpi-value"
+  data-tone="warning"
+  data-value-zero={overdueCents === 0 ? "true" : undefined}
+>
+  {formatCurrency(overdueCents)}
+</span>
+```
+
+The CSS rule `.lumen-kpi-value[data-tone="warning"]:not([data-value-zero="true"]) { color: var(--status-warning-fg); }` enforces the tone-gate. When `data-value-zero="true"` is set, the warning tone retires and the value renders in `--text-primary` (neutral).
+
+### The polarity rule
+
+For delta values (% change vs last period), tone follows polarity AND the "what's good" direction:
+
+| Value | Polarity | Tone |
+|---|---|---|
+| `+12%` on revenue (positive-is-good) | up-good | `--status-success-fg` |
+| `+12%` on churn (negative-is-good) | up-bad | `--status-danger-fg` |
+| `-12%` on revenue | down-bad | `--status-danger-fg` |
+| `-12%` on churn | down-good | `--status-success-fg` |
+| `0%` on anything | neutral | `--text-secondary` |
+
+Apply via `data-tone="positive|negative"` on the `.lumen-kpi-delta` span. Zero (or near-zero — within ±0.5%) reads as neutral, NOT as success or danger.
+
+### Status-as-supplement extends to KPI values
+
+The rule from [color.md §6](color.md#6-status-palette--color-is-supplement-not-signal) ("color is supplement, not signal — pair every status color with a label or icon") applies to KPI values too. The amber `OVERDUE $X` value is _supplemented_ by:
+- The numeric value itself (the operator reads "$0" as zero, regardless of color).
+- The label "OVERDUE" (the operator knows what the field means).
+- The status icon (when one exists).
+
+Tone-gating at zero means the color disappears when the supplement says "nothing to act on" — the operator's attention stays available for the values that DO need it.
 
 ## Related
 

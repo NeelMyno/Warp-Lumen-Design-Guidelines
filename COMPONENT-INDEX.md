@@ -1,13 +1,13 @@
 # COMPONENT-INDEX.md
 
-> **Auto-generated for Lumen v0.14.0** (2026-05-19). Run `node scripts/build-component-index.mjs` to regenerate. Source of truth: the `design-system/02-components/*/component.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
+> **Auto-generated for Lumen v0.15.0** (2026-05-21). Run `node scripts/build-component-index.mjs` to regenerate. Source of truth: the `design-system/02-components/*/component.json` files. **Never hand-edit this file** — drift is caught by the next regeneration.
 
 Lumen ships **98 components** in the [`_registry/registry.json`](_registry/registry.json) shadcn catalog. Each component has `component.md` (human contract), `component.json` (machine contract validating against [`_schema/component.schema.json`](design-system/02-components/_schema/component.schema.json)), and per-platform `examples/{platform}.{ext}` where authored.
 
 ## Quick install
 
 ```bash
-pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.0/registry/{name}.json
+pnpm dlx shadcn@latest add <cdn>/lumen/v0.15.0/registry/{name}.json
 ```
 
 ## How to read this index
@@ -75,7 +75,7 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.0/registry/{name}.json
 |---|---|---|---|---|
 | [`alert`](design-system/02-components/alert/component.md) | Inline, in-flow status block. | 0.12.6 | stable | primary.tsx |
 | [`banner`](design-system/02-components/banner/component.md) | Page-level system state strip. | 0.12.6 | stable | primary.tsx |
-| [`empty-state`](design-system/02-components/empty-state/component.md) | Type-led message for empty collections. | 0.1.0 | stable | primary.tsx |
+| [`empty-state`](design-system/02-components/empty-state/component.md) | Type-led message for empty collections. | 0.15.0 | stable | primary.tsx |
 | [`progress`](design-system/02-components/progress/component.md) | Two shapes — linear (default; 4 px tall stroke with optional label / value cluster) and circular (a ring; ideal for upload completion or small inline indicators). | 0.12.6 | stable | primary.tsx |
 | [`skeleton`](design-system/02-components/skeleton/component.md) | Layout-preserving placeholder painted while content loads. | 0.12.6 | stable | primary.tsx |
 | [`snackbar`](design-system/02-components/snackbar/component.md) | Transient, viewport-anchored message with a single trailing action. | 0.12.6 | stable | primary.tsx |
@@ -170,4 +170,4 @@ pnpm dlx shadcn@latest add <cdn>/lumen/v0.14.0/registry/{name}.json
 
 > **Update this file by re-running `node scripts/build-component-index.mjs`** — do not hand-edit. Drift will be caught by the next regeneration.
 
-Generated 2026-05-19 from VERSION = 0.14.0.
+Generated 2026-05-21 from VERSION = 0.15.0.

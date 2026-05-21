@@ -159,3 +159,64 @@ Do not use these. Replace with the recommended phrasing.
 | "Cutting-edge" | (delete) |
 | "World-class" | (delete) |
 | "Robust" | (delete) |
+
+## User greeting fallback chain (v0.15 R16)
+
+When you render a personalized greeting ("Good afternoon, {name}"), the name resolution follows a strict graceful-degradation chain. The TMS consumer (chat 36-A item #10) shipped `Good afternoon, Warp` for the account `design@wearewarp.com` — the chain reached the company name as a last resort because the user-display utility had no email-local-part fallback.
+
+### The chain
+
+```ts
+function displayName(user: User): string {
+  // 1. Preferred display name (a nickname / customized greeting name).
+  if (user.preferredName?.trim()) return user.preferredName.trim();
+
+  // 2. First name from the canonical name field.
+  if (user.firstName?.trim()) return user.firstName.trim();
+
+  // 3. First word of the full name (if firstName isn't separately captured).
+  if (user.fullName?.trim()) {
+    const first = user.fullName.trim().split(/\s+/)[0];
+    if (first) return first;
+  }
+
+  // 4. Email local-part (left-of-@), filtered against a generic-account denylist.
+  if (user.email) {
+    const local = user.email.split("@")[0]?.trim().toLowerCase();
+    if (local && !GENERIC_LOCAL_PARTS.has(local)) {
+      // Title-case the local-part. "neel.tengariya" → "Neel"
+      const first = local.split(/[.\-_]/)[0];
+      return first.charAt(0).toUpperCase() + first.slice(1);
+    }
+  }
+
+  // 5. Final fallback — generic, never the company name.
+  return "there";
+}
+
+const GENERIC_LOCAL_PARTS = new Set([
+  "admin", "administrator", "root", "noreply", "no-reply",
+  "support", "help", "info", "contact", "hello", "team",
+  "design", "engineering", "ops", "accounting", "finance",
+  "sales", "marketing", "press", "hr", "people",
+  "owner", "founder", "ceo", "cto", "cfo", "coo",
+]);
+```
+
+### Why "there" — not the company name
+
+"Good afternoon, Warp" reads off — the company isn't a person, and addressing a person by their company name feels mechanical. "Good afternoon, there" is a recognized graceful greeting in human conversation and reads natural under all degradation paths.
+
+The denylist catches generic-account local-parts that AREN'T people. `design@wearewarp.com` → local part "design" → denied → falls through to "there". `neel@wearewarp.com` → local part "neel" → allowed → "Good afternoon, Neel".
+
+### When to use this chain
+
+- Any personalized greeting in app chrome (dashboard header, side nav, command palette).
+- Email subject-line personalization ("Daniel, your weekly digest is ready").
+- Onboarding moments where addressing the user by name builds trust.
+
+### When NOT to greet by name
+
+- Repeat-visit operator chrome — the greeting adds noise after the first session. Drop it via `data-onboarding="false"` on the page header, OR retire the greeting entirely and put it in the user-menu hover-state instead.
+- Notifications / toasts — name the action, not the actor.
+- Error messages — name what went wrong, not who. ("Couldn't save changes" beats "Daniel, we couldn't save your changes".)

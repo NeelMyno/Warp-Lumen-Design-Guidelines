@@ -10,6 +10,51 @@ _Nothing yet. Open a PR with an entry under one of: Added, Changed, Deprecated, 
 
 ---
 
+## [0.15.0] — 2026-05-20 — v0.15.0 R16: TMS-consumer friction closure (ADR 0035)
+
+The first audit round driven by a CONSUMER-SIDE bug report rather than a producer-side audit. A Claude Code session (chat 36-A) ran the Lumen v0.14.4 system from the perspective of a TMS consumer project that had wholesale-copied `audit-dashboard/src/app/globals.css` and built a 7-page operator console on top. The audit surfaced a contrast failure across 11+ sites — every active Spring-Green filter chip / mode pill / segmented-control button painted `#E6E6E6` text on `#00FA8A` Spring Green at 1.66:1 (WCAG AA fail) — and 15 additional consumer-friction items.
+
+The trace led to FIVE overlapping bug classes, all within Lumen itself: (1) token-name sprawl with 6 confusing lookalikes for "text on accent" — one of them (`--color-accent-foreground`) bound to GREEN TEXT not text-on-green-fill; (2) the consumer-intuitive name (`--color-text-on-accent`) didn't exist in :root; (3) Tailwind v4's content scanner dropped comma-fallbacks in arbitrary classes; (4) no canonical defensive class for chips / segments / KPI tiles / empty states / page headers — every consumer reinvented; (5) the R11/R14/R15 lint trio caught retired-token drift but didn't catch active-token misuse expressed as inline arbitrary classes.
+
+v0.15.0 closes ALL FIVE bug classes along four parallel axes: **token canonicalization** (~70 new `--color-*` aliases) + **defensive-class expansion** (4 new families: `.lumen-pill-*`, `.lumen-kpi-*`, `.lumen-empty-state`, `.lumen-page-header`) + **4th/5th-tier lints** (`lint:no-inline-accent-text` + `lint:no-undefined-token-vars`) + **foundation prose + discoverability** (new `defensive-classes.md` foundation, new `page-header.md` pattern, `MIGRATION.md`, beefed-up EmptyState contract, foundation prose updates in color.md / hierarchy.md / data-visualization.md / microcopy.md, USING-LUMEN.md 6 new anti-patterns, AGENTS.md 3 new hard rules).
+
+### Added
+
+- **`scripts/lint-no-inline-accent-text.mjs`** — the 4th tier in the docs↔tokens↔TSX-prose lint architecture. Flags inline Spring-Green BG + text-arbitrary-class WITH a comma-fallback OR a white literal. Catches the exact TMS-consumer bug class. The "use defined token + no comma-fallback" inline pattern (documented vendor-button form) is NOT flagged. Allowlist directives: inline `lumen-lint-allow: inline-accent-text` (same line or previous line); block-level `lumen-lint-allow-block: inline-accent-text` ... `lumen-lint-allow-end: inline-accent-text`; file-level directive in first 20 lines. Wired into `pnpm lint` umbrella as the 11th rule.
+- **`scripts/lint-no-undefined-token-vars.mjs`** — the 5th tier in the lint architecture. Walks every `.tsx` / `.ts` / `.css` / `.md` / `.txt` and asserts every `var(--color-*)` / `var(--lumen-*)` reference resolves to a token defined in `globals.css` :root. The 5-in-6 token-name guess problem becomes a hard CI failure with a hint pointing to the canonical name. Wired into `pnpm lint` umbrella as the 12th rule.
+- **`design-system/00-foundations/defensive-classes.md`** — new foundation doc enumerating every `.lumen-*` defensive class, the failure mode each prevents, the canonical example, the inline anti-pattern it replaces. The discoverability fix.
+- **`design-system/05-patterns/page-header.md`** — new pattern doc for title + ≤80ch tagline + one CTA + CTA-suppression coordination with EmptyState.
+- **`MIGRATION.md`** — per-minor consumer-action notes (v0.12 → v0.13 → v0.14 → v0.15). What tokens added, what defensive classes shipped, what lints to enable, what to re-sync from globals.css.
+- **AGENTS.md hard rules 23, 24, 25** — codify the new lint contracts. Rule 23: no inline accent-text conjunction (use defensive class). Rule 24: every `var(--color-*)` resolves (no typos). Rule 25: one primary action per view (PageHeader CTA hides when EmptyState owns the action).
+- **USING-LUMEN.md §11 — 6 new anti-pattern entries** with worked code: the inline accent-text conjunction, undefined-token references, color-as-key-in-prose, warning-tone-at-zero, two-CTAs-per-view, tagline-too-long, greeting-by-company-name.
+- **Foundation prose additions**:
+  - `color.md` §"Where Spring Green never appears" — color-is-not-a-legend-in-prose rule + worked anti-example.
+  - `hierarchy.md` §8 — "One primary action per view" + section-header tagline cap (80ch + `data-onboarding="false"` for repeat-visit retirement).
+  - `data-visualization.md` "Tone gates at zero" — warning at zero retires to neutral; polarity table for KPI deltas.
+  - `microcopy.md` "User greeting fallback chain" — `displayName()` chain (preferred → firstName → fullName → email-local-part with denylist → "there", never the company name).
+- **EmptyState component contract beefed up** (`design-system/02-components/empty-state/component.md` + `component.json`) — from 56-line prose-only spec to full contract with `tone` / `align` / `compact` / `tertiaryLink` props, defensive-class shorthand, "one primary action per view" coordination, anti-pattern catalog. Marks the 0.1.0 → 0.15.0 maturity jump.
+- **[ADR 0035](./_meta/decisions/0035-r16-tms-consumer-friction-closure-v015.md)** — codifies the v0.15 R16 round + the 4-axis closure shape + the methodology rule *"every consumer bug class becomes a LINT, a DEFENSIVE CLASS, and a FOUNDATION-DOC enumeration in the same commit."* 35 ADRs total.
+
+### Changed
+
+- **`audit-dashboard/src/app/globals.css`** — ~250 new lines: (a) `--color-text-on-accent` + `--color-on-accent` canonical aliases in both themes; (b) ~70 universal `--color-*` aliases (text / surface / border / status / accent ladder / avatar palette / chart palette extension / alpha namespace / action-tertiary) in :root, defined as aliases of the existing theme-aware semantic tokens; (c) 4 new defensive-class families at the file tail (`.lumen-pill-strip` / `.lumen-pill` / `.lumen-pill-active` / `.lumen-pill-inactive` / `.lumen-pill-count`; `.lumen-kpi-tile` / `.lumen-kpi-label` / `.lumen-kpi-value` / `.lumen-kpi-delta` / `.lumen-kpi-context` with tone-gating via `data-value-zero`; `.lumen-empty-state` / `.lumen-empty-state-icon` / `.lumen-empty-state-headline` / `.lumen-empty-state-supporting` / `.lumen-empty-state-actions`; `.lumen-page-header` / `.lumen-page-header-content` / `.lumen-page-header-title` / `.lumen-page-header-tagline` / `.lumen-page-header-actions` with CTA-suppression via `data-cta-suppressed`).
+- **`design-system/02-components/bottom-nav/examples/primary.tsx`** — notification count badge migrated from the inline `bg-[var(--color-accent-500)] text-[var(--color-text-on-accent,var(--color-accent-fg))]` arbitrary-class form (the exact TMS bug class) to `.lumen-pill-active`. Closes a real bug in Lumen's own example tree that consumer apps would have copied.
+- **`package.json`** — `lint:no-inline-accent-text` + `lint:no-undefined-token-vars` added to scripts + wired into `lint` umbrella as the 11th + 12th rules. Root `version` bumped 0.14.4 → 0.15.0.
+- **`audit-dashboard/src/lib/version.ts`** — bumped via `release.mjs`.
+
+### Fixed
+
+- **Consumer-side contrast failure (1.66:1 on Spring Green) across the entire inline-accent-text-arbitrary-class pattern** — the TMS bug class. The token canonicalization + defensive class + 2 lints + USING-LUMEN.md anti-pattern + AGENTS.md hard rule 23 + ADR 0035 make this bug structurally impossible going forward.
+- **~600 undefined-token references** in existing component example files (`--color-text-primary`, `--color-surface-raised`, `--color-text-tertiary`, etc. — names the audit-dashboard's own examples consumed but that weren't defined in :root). The new `--color-*` alias namespace closes the silent-fallback class system-wide. The new `lint:no-undefined-token-vars` enforces that this stays true.
+- **`--lumen-ink-a18` typo** in the new `.lumen-pill-active .lumen-pill-count` rule — caught by `lint:no-undefined-token-vars` during R16 itself; fixed to `--lumen-ink-a24`.
+
+### Deprecated
+
+- `--color-fg-on-accent` (canonical alias is now `--color-text-on-accent`). Continues to resolve (alias of `--text-on-accent`); v1.0 will remove.
+- `--color-primary-foreground` (canonical alias is now `--color-text-on-accent`). Same fate as `--color-fg-on-accent`.
+
+---
+
 ## [0.14.4] — 2026-05-20 — v0.14.4 R15: TSX-prose drift lint + foundations showcase prose closure (ADR 0034)
 
 R15 closes the gap [ADR 0033](./_meta/decisions/0033-r14-docs-tokens-drift-lint-v0143.md) (v0.14.3 R14) left in its `.md`/`.txt`-only lint scope. The R15 audit ran top-to-bottom across every audit-dashboard route in both dark and light mode via the Claude in Chrome MCP at Edge browser (Personal Mac), and caught **three rendered-prose / focus-color defects** that R14's docs lint could not see because the offending content sits in `.tsx`, not `.md`/`.txt`:

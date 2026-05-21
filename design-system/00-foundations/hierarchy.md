@@ -171,6 +171,41 @@ If any of these fail, the hierarchy needs work before the section ships.
 
 ---
 
+## 8. One primary action per view (v0.15 R16)
+
+The single-focal-point rule from §1 extends to interactive primary actions: **a view can show at most one primary CTA at a time.** Two greens for the same task makes the user's eye stall on "which one?"
+
+### The contract
+
+| Situation | Behavior |
+|---|---|
+| Page has data + a header CTA + no empty state | Header CTA is the primary action. |
+| Page is empty + an `EmptyState` owns the CTA | Header CTA HIDES (`data-cta-suppressed="true"` on `.lumen-page-header`). EmptyState owns the action. |
+| Page has data + needs a secondary action | Header CTA stays primary. Secondary moves to a `…` overflow menu, a Drawer "Open settings" link, or an inline action on the data row. |
+
+The mechanism is the `.lumen-page-header[data-cta-suppressed="true"] .lumen-page-header-actions { display: none }` rule in `globals.css`. Wire `ctaSuppressed={items.length === 0}` at the consumer-app level. See [`page-header.md`](../05-patterns/page-header.md) for the canonical implementation + [`defensive-classes.md`](./defensive-classes.md) for the contrast contract on the CTA itself.
+
+### Section headers — tagline cap
+
+The page-header tagline carries at most **one line, max 80 characters**. The tagline is a scan-line, not a paragraph. If detail is needed, the choices are:
+
+1. Move it to an info-tooltip on the title.
+2. Move it to a contextual doc-link below the table / above the empty state.
+3. Drop it entirely (most operator-console rows don't need a tagline at all).
+
+For repeat-visit apps (operator consoles, daily-use tools, internal dashboards), set `data-onboarding="false"` on `.lumen-page-header` after the first session — the tagline drops entirely. First-visit users get the orienting copy; returning users get their information density back. See [ui-writing-style.md](../04-content/ui-writing-style.md).
+
+### Why this matters
+
+The TMS consumer audit (chat 36-A) caught this failure mode three times in one cycle:
+- Autopilot + Recurring both shipped a top-right "New rule" CTA AND a dashed empty-state card with its own CTA. Two competing greens, no obvious primary.
+- Section-header descriptions stretched to 2–3 lines of marketing copy on every page. Repeat-visit operators read it as noise on every load.
+- The empty-state "primary" CTA appeared alongside an orphan top-right CTA — the user couldn't tell which was authoritative.
+
+The `PageHeader` + `EmptyState` defensive classes coordinate via `data-cta-suppressed` to make the contract structural, not author-vigilant. AGENTS.md hard rule 25 codifies this; the lint enforces it indirectly (via the defensive-class shape).
+
+---
+
 ## 8. Cross-references
 
 - [`principles.md`](./principles.md) §2 — *Lead the eye — one focal point per section*
